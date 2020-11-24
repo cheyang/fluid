@@ -68,8 +68,13 @@ spec:
               mountPath: /var/lib/kubelet/
               mountPropagation: "Bidirectional"
             - name: fluid-src-dir
-              mountPath: {{ .Values.runtime.mountRoot | quote }}
+              mountPath: {{ .Values.runtime.alluxio.mountRoot | quote }}
               mountPropagation: "Bidirectional"
+              {{- if .Values.runtime.jindo.mountRoot }}
+            - name: jindo-src-dir
+              mountPath: { { .Values.runtime.jindo.mountRoot | quote } }
+              mountPropagation: "Bidirectional"
+              {{- end }}
       volumes:
         - name: kubelet-dir
           hostPath:
@@ -84,6 +89,12 @@ spec:
             type: DirectoryOrCreate
           name: registration-dir
         - hostPath:
-            path: {{ .Values.runtime.mountRoot | quote }}
+            path: {{ .Values.runtime.alluxio.mountRoot | quote }}
             type: DirectoryOrCreate
           name: fluid-src-dir
+          {{- if .Values.runtime.jindo.mountRoot }}
+        - hostPath:
+            path: {{ .Values.runtime.jindo.mountRoot | quote }}
+            type: DirectoryOrCreate
+          name: jindo-src-dir
+          {{- end }}
