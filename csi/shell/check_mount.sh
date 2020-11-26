@@ -8,7 +8,7 @@ ConditionPathIsMountPoint="$1"
 
 count=0
 # while ! mount | grep alluxio | grep  $ConditionPathIsMountPoint | grep -v grep
-while ! mount | grep $ConditionPathIsMountPoint | grep fuse.alluxio-fuse
+while ! mount | grep $ConditionPathIsMountPoint | grep fuse.*-fuse
 do
     sleep 3
     count=`expr $count + 1`

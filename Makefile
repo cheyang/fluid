@@ -7,6 +7,7 @@ CRD_OPTIONS ?= "crd:trivialVersions=true"
 # The Image URL to use in docker build and push
 DATASET_CONTROLLER_IMG ?= registry.cn-hangzhou.aliyuncs.com/fluid/dataset-controller
 ALLUXIORUNTIME_CONTROLLER_IMG ?= registry.cn-hangzhou.aliyuncs.com/fluid/alluxioruntime-controller
+JINDORUNTIME_CONTROLLER_IMG ?= registry.cn-hangzhou.aliyuncs.com/fluid/jindoruntime-controller
 CSI_IMG ?= registry.cn-hangzhou.aliyuncs.com/fluid/fluid-csi
 LOADER_IMG ?= registry.cn-hangzhou.aliyuncs.com/fluid/fluid-dataloader
 INIT_USERS_IMG ?= registry.cn-hangzhou.aliyuncs.com/fluid/init-users
@@ -59,6 +60,9 @@ dataset-controller-build: generate fmt vet
 alluxioruntime-controller-build: generate fmt vet
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GO111MODULE=off  go build -gcflags="-N -l" -a -o bin/alluxioruntime-controller -ldflags '${LDFLAGS}' cmd/alluxio/main.go
 
+jindoruntime-controller-build: generate fmt vet
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GO111MODULE=off  go build -gcflags="-N -l" -a -o bin/jindoruntime-controller -ldflags '${LDFLAGS}' cmd/jindo/main.go
+
 # Debug against the configured Kubernetes cluster in ~/.kube/config, add debug
 debug: generate fmt vet manifests
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GO111MODULE=off  dlv debug --headless --listen ":12345" --log --api-version=2 cmd/controller/main.go
@@ -102,6 +106,9 @@ docker-build-dataset-controller: generate fmt vet
 
 docker-build-alluxioruntime-controller: generate fmt vet
 	docker build --no-cache . -f Dockerfile.alluxioruntime -t ${ALLUXIORUNTIME_CONTROLLER_IMG}:${GIT_VERSION}
+
+docker-build-jindoruntime-controller: generate fmt vet
+	docker build --no-cache . -f Dockerfile.jindoruntime -t ${JINDORUNTIME_CONTROLLER_IMG}:${GIT_VERSION}
 
 docker-build-csi: generate fmt vet
 	docker build --no-cache . -f Dockerfile.csi -t ${CSI_IMG}:${GIT_VERSION}
