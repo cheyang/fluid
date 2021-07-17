@@ -199,6 +199,97 @@ func TestGetPvcMountPods(t *testing.T) {
 		},
 	}}
 
+	testObjects := []runtime.Object{}
+
+	for _, pod := range testPodInputs {
+		testObjects = append(testPods, pod.DeepCopy())
+	}
+
+	testPVInputs := []*v1.PersistentVolume{{
+		ObjectMeta: metav1.ObjectMeta{Name: "found"},
+		Spec:       v1.PersistentVolumeSpec{},
+	}, {
+		ObjectMeta: metav1.ObjectMeta{Name: "bbb", Annotations: common.ExpectedFluidAnnotations},
+		Spec:       v1.PersistentVolumeSpec{},
+	}}
+
+	for _, pv := range testPVInputs {
+		testObjects = append(testObjects, pv.DeepCopy())
+	}
+
+	client := fake.NewFakeClientWithScheme(testScheme, testObjects...)
+	type args struct {
+		name      string
+		namespace string
+	}
+	tests := []struct {
+		name      string
+		args      args
+		errReturn bool
+	}{
+		{
+			name: "pvc doesn't exist",
+			args: args{
+				name:      "notfound",
+				namespace: namespace,
+			},
+			errReturn: false,
+		},
+		{
+			name: "pvc exists and no pod on it",
+			args: args{
+				name:      "found",
+				namespace: namespace,
+			},
+			errReturn: false,
+		}, {
+			name: "pvc exists and complete pod on it",
+			args: args{
+				name:      "completeDataset",
+				namespace: namespace,
+			},
+			errReturn: false,
+		}, {
+			name: "pvc exists and no pod on it",
+			args: args{
+				name:      "runningDataset",
+				namespace: namespace,
+			},
+			errReturn: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if pods, _ := GetPvcMountPods(client, tt.args.name, tt.args.namespace); len(pods) != tt.length {
+				t.Errorf("testcase %v GetPvcMountPods() = %v, want %v", tt.name, pods, tt.length)
+			}
+		})
+	}
+}
+
+func TestShouldDeleteDataset(t *testing.T) {
+	namespace := "test"
+	volumeName := "found"
+	testPodInputs := []*v1.Pod{{
+		ObjectMeta: metav1.ObjectMeta{Name: "found"},
+		Spec:       v1.PodSpec{},
+	}, {
+		ObjectMeta: metav1.ObjectMeta{Name: "bbb", Namespace: namespace},
+		Spec: v1.PodSpec{
+			Volumes: []v1.Volume{
+				{
+					Name: volumeName,
+					VolumeSource: v1.VolumeSource{
+						PersistentVolumeClaim: &v1.PersistentVolumeClaimVolumeSource{
+							ClaimName: volumeName,
+							ReadOnly:  true,
+						}},
+				},
+			},
+		},
+	}}
+
 	testPods := []runtime.Object{}
 
 	for _, pod := range testPodInputs {
@@ -231,13 +322,5 @@ func TestGetPvcMountPods(t *testing.T) {
 			},
 			length: 1,
 		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if pods, _ := GetPvcMountPods(client, tt.args.name, tt.args.namespace); len(pods) != tt.length {
-				t.Errorf("testcase %v GetPvcMountPods() = %v, want %v", tt.name, pods, tt.length)
-			}
-		})
 	}
 }
