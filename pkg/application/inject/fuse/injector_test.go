@@ -214,9 +214,12 @@ func TestInjectPod(t *testing.T) {
 								PostStart: &corev1.Handler{
 									Exec: &corev1.ExecAction{
 										Command: []string{
-											"/check-mount.sh",
-											"/jfs",
-											"jindo",
+											// "/check-mount.sh",
+											// "/jfs",
+											// "jindo",
+											"bash",
+											"-c",
+											"time /check-mount.sh /jfs jindo >> /proc/1/fd/1",
 										},
 									},
 								},
@@ -477,9 +480,12 @@ func TestInjectPod(t *testing.T) {
 								PostStart: &corev1.Handler{
 									Exec: &corev1.ExecAction{
 										Command: []string{
-											"/check-mount.sh",
-											"/jfs",
-											"jindo",
+											// "/check-mount.sh",
+											// "/jfs",
+											// "jindo",
+											"bash",
+											"-c",
+											"time /check-mount.sh /jfs jindo >> /proc/1/fd/1",
 										},
 									},
 								},
