@@ -31,7 +31,6 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	"sigs.k8s.io/controller-runtime/pkg/log"
 )
 
 func mockExecCommandInContainerForTotalStorageBytes() (stdout string, stderr string, err error) {
@@ -268,7 +267,7 @@ func TestPrepareUFS(t *testing.T) {
 				},
 				name:      "spark",
 				namespace: "default",
-				Log:       log.NullLogger{},
+				Log:       fake.NullLogger(),
 			},
 			wantErr: false,
 		},
@@ -355,7 +354,7 @@ func TestShouldUpdateUFS(t *testing.T) {
 				},
 				name:      "spark",
 				namespace: "default",
-				Log:       log.NullLogger{},
+				Log:       fake.NullLogger(),
 			},
 			wantAdd:    []string{"/"},
 			wantRemove: []string{},
@@ -430,7 +429,7 @@ func TestUpdateOnUFSChange(t *testing.T) {
 				},
 				name:      "spark",
 				namespace: "default",
-				Log:       log.NullLogger{},
+				Log:       fake.NullLogger(),
 			},
 			wantErr:         false,
 			wantUpdateReady: true,
@@ -461,7 +460,7 @@ func TestUpdateOnUFSChange(t *testing.T) {
 				},
 				name:      "hadoop",
 				namespace: "default",
-				Log:       log.NullLogger{},
+				Log:       fake.NullLogger(),
 			},
 			wantErr:         false,
 			wantUpdateReady: false,
@@ -492,7 +491,7 @@ func TestUpdateOnUFSChange(t *testing.T) {
 				},
 				name:      "hbase",
 				namespace: "default",
-				Log:       log.NullLogger{},
+				Log:       fake.NullLogger(),
 			},
 			wantErr:         true,
 			wantUpdateReady: false,

@@ -22,9 +22,9 @@ import (
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
 	"github.com/fluid-cloudnative/fluid/pkg/common"
 	"github.com/fluid-cloudnative/fluid/pkg/ddc/base"
+	"github.com/fluid-cloudnative/fluid/pkg/utils/fake"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
-	"sigs.k8s.io/controller-runtime/pkg/log"
 )
 
 func TestTransformResourcesForMaster(t *testing.T) {
@@ -168,7 +168,7 @@ func TestTransformResourcesForWorkerNoValue(t *testing.T) {
 		}},
 	}
 	for _, test := range tests {
-		engine := &GooseFSEngine{Log: log.NullLogger{}}
+		engine := &GooseFSEngine{Log: fake.NullLogger()}
 		engine.transformResourcesForWorker(test.runtime, test.goosefsValue)
 		if result, found := test.goosefsValue.Worker.Resources.Limits[corev1.ResourceMemory]; found {
 			t.Errorf("expected nil, got %v", result)
@@ -213,7 +213,7 @@ func TestTransformResourcesForWorkerWithValue(t *testing.T) {
 		}},
 	}
 	for _, test := range tests {
-		engine := &GooseFSEngine{Log: log.NullLogger{}}
+		engine := &GooseFSEngine{Log: fake.NullLogger()}
 		engine.runtimeInfo, _ = base.BuildRuntimeInfo("test", "test", "goosefs", test.runtime.Spec.TieredStore)
 		engine.UnitTest = true
 		engine.transformResourcesForWorker(test.runtime, test.goosefsValue)
@@ -235,7 +235,7 @@ func TestTransformResourcesForFuseNoValue(t *testing.T) {
 		}},
 	}
 	for _, test := range tests {
-		engine := &GooseFSEngine{Log: log.NullLogger{}}
+		engine := &GooseFSEngine{Log: fake.NullLogger()}
 		engine.transformResourcesForFuse(test.runtime, test.goosefsValue)
 		if result, found := test.goosefsValue.Fuse.Resources.Limits[corev1.ResourceMemory]; found {
 			t.Errorf("expected nil, got %v", result)
@@ -274,7 +274,7 @@ func TestTransformResourcesForFuseWithValue(t *testing.T) {
 		}},
 	}
 	for _, test := range tests {
-		engine := &GooseFSEngine{Log: log.NullLogger{}}
+		engine := &GooseFSEngine{Log: fake.NullLogger()}
 		engine.runtimeInfo, _ = base.BuildRuntimeInfo("test", "test", "goosefs", test.runtime.Spec.TieredStore)
 		engine.UnitTest = true
 		engine.transformResourcesForFuse(test.runtime, test.goosefsValue)

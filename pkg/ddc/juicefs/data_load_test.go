@@ -11,7 +11,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/tools/record"
-	"sigs.k8s.io/controller-runtime/pkg/log"
 
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
 	cruntime "github.com/fluid-cloudnative/fluid/pkg/runtime"
@@ -75,7 +74,7 @@ func TestJuiceFSEngine_CreateDataLoadJob(t *testing.T) {
 		name: "hbase",
 	}
 	ctx := cruntime.ReconcileRequestContext{
-		Log:      log.NullLogger{},
+		Log:      fake.NullLogger(),
 		Client:   client,
 		Recorder: record.NewFakeRecorder(1),
 	}
@@ -119,7 +118,7 @@ func TestJuiceFSEngine_CheckExistenceOfPath(t *testing.T) {
 	engine := JuiceFSEngine{
 		namespace: "fluid",
 		name:      "hbase",
-		Log:       log.NullLogger{},
+		Log:       fake.NullLogger(),
 	}
 
 	err := gohook.Hook(kubeclient.ExecCommandInContainer, mockExecNotExist, nil)

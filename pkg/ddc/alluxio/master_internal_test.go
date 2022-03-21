@@ -14,7 +14,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/net"
-	"sigs.k8s.io/controller-runtime/pkg/log"
 )
 
 func TestSetupMasterInternal(t *testing.T) {
@@ -85,7 +84,7 @@ func TestSetupMasterInternal(t *testing.T) {
 		name:      "hbase",
 		namespace: "fluid",
 		Client:    client,
-		Log:       log.NullLogger{},
+		Log:       fake.NullLogger(),
 		runtime: &datav1alpha1.AlluxioRuntime{
 			Spec: datav1alpha1.AlluxioRuntimeSpec{
 				APIGateway: datav1alpha1.AlluxioCompTemplateSpec{
@@ -210,7 +209,7 @@ func TestGenerateAlluxioValueFile(t *testing.T) {
 		name:      "hbase",
 		namespace: "fluid",
 		Client:    client,
-		Log:       log.NullLogger{},
+		Log:       fake.NullLogger(),
 		runtime: &datav1alpha1.AlluxioRuntime{
 			Spec: datav1alpha1.AlluxioRuntimeSpec{
 				APIGateway: datav1alpha1.AlluxioCompTemplateSpec{

@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	"github.com/fluid-cloudnative/fluid/pkg/runtime"
+	"github.com/fluid-cloudnative/fluid/pkg/utils/fake"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
-	"sigs.k8s.io/controller-runtime/pkg/log"
 
 	fluiderrs "github.com/fluid-cloudnative/fluid/pkg/errors"
 )
@@ -20,7 +20,7 @@ func TestLoggingErrorExceptConflict(t *testing.T) {
 			Namespace: "test",
 			Name:      "test",
 		},
-		Log: log.NullLogger{},
+		Log: fake.NullLogger(),
 	})
 
 	err := engine.loggingErrorExceptConflict(fluiderrs.NewDeprecated(schema.GroupResource{Group: "", Resource: "test"}, types.NamespacedName{}), "test")

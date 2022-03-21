@@ -30,7 +30,6 @@ import (
 	"k8s.io/client-go/tools/record"
 	utilpointer "k8s.io/utils/pointer"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-	"sigs.k8s.io/controller-runtime/pkg/log"
 )
 
 func newGooseFSEngineREP(client client.Client, name string, namespace string) *GooseFSEngine {
@@ -42,7 +41,7 @@ func newGooseFSEngineREP(client client.Client, name string, namespace string) *G
 		namespace:   namespace,
 		Client:      client,
 		runtimeInfo: runTimeInfo,
-		Log:         log.NullLogger{},
+		Log:         fake.NullLogger(),
 	}
 	engine.Helper = ctrl.BuildHelper(runTimeInfo, client, engine.Log)
 	return engine
@@ -297,7 +296,7 @@ func TestSyncReplicas(t *testing.T) {
 	for _, testCase := range testCases {
 		engine := newGooseFSEngineREP(fakeClient, testCase.name, testCase.namespace)
 		err := engine.SyncReplicas(cruntime.ReconcileRequestContext{
-			Log:      log.NullLogger{},
+			Log:      fake.NullLogger(),
 			Recorder: record.NewFakeRecorder(300),
 		})
 		if err != nil {

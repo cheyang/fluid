@@ -35,7 +35,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	apimachineryRuntime "k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
-	"sigs.k8s.io/controller-runtime/pkg/log"
 )
 
 var _ = Describe("TemplateEngine", func() {
@@ -66,7 +65,7 @@ var _ = Describe("TemplateEngine", func() {
 			Name:      mockDatasetName,
 		},
 		Client:        fakeClient,
-		Log:           log.NullLogger{},
+		Log:           fake.NullLogger(),
 		RuntimeType:   "test-runtime-type",
 		FinalizerName: "test-finalizer-name",
 		Runtime:       nil,
@@ -247,7 +246,7 @@ func TestNewTemplateEngine(t *testing.T) {
 			Namespace: "fluid",
 		},
 		Client:      client,
-		Log:         log.NullLogger{},
+		Log:         fake.NullLogger(),
 		RuntimeType: "alluxio",
 	}
 
@@ -272,7 +271,7 @@ func TestID(t *testing.T) {
 			Namespace: "fluid",
 		},
 		Client:      client,
-		Log:         log.NullLogger{},
+		Log:         fake.NullLogger(),
 		RuntimeType: "alluxio",
 	}
 
