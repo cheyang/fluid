@@ -123,10 +123,10 @@ type CleanCachePolicy struct {
 	// a termination signal and the time when the processes are forcibly halted with timeout command.
 	// Set this value longer than the expected cleanup time for your process.
 	// +optional
-	GracePeriodSeconds *int64
+	GracePeriodSeconds *int32
 
 	// Optional max retry Attempts when cleanCache function returns an error after execution, runtime attempts
 	// to run it three more times by default. With Maximum Retry Attempts, you can customize the maximum number
 	// of retries. This gives you the option to continue processing retries.
-	MaxRetryAttempts *int64
+	MaxRetryAttempts *int32
 }
