@@ -303,12 +303,12 @@ func (in *CleanCachePolicy) DeepCopyInto(out *CleanCachePolicy) {
 	*out = *in
 	if in.GracePeriodSeconds != nil {
 		in, out := &in.GracePeriodSeconds, &out.GracePeriodSeconds
-		*out = new(int64)
+		*out = new(int32)
 		**out = **in
 	}
 	if in.MaxRetryAttempts != nil {
 		in, out := &in.MaxRetryAttempts, &out.MaxRetryAttempts
-		*out = new(int64)
+		*out = new(int32)
 		**out = **in
 	}
 }
