@@ -198,3 +198,33 @@ func (e *AlluxioEngine) invokeCleanCache(path string) (err error) {
 	return fileUitls.CleanCache(path)
 
 }
+
+func (e *AlluxioEngine) getGracefulShutdownLimits() (gracefulShutdownLimits int32, err error) {
+	runtime, err := e.getRuntime()
+	if err != nil {
+		return
+	}
+
+	if runtime.Spec.CleanCachePolicy.MaxRetryAttempts != nil {
+		gracefulShutdownLimits = *runtime.Spec.CleanCachePolicy.MaxRetryAttempts
+	} else {
+		gracefulShutdownLimits = e.defaultGracefulShutdownLimits
+	}
+
+	return
+}
+
+func (e *AlluxioEngine) getCleanCacheGracePeriodSeconds() (cleanCacheGracePeriodSeconds int32, err error) {
+	runtime, err := e.getRuntime()
+	if err != nil {
+		return
+	}
+
+	if runtime.Spec.CleanCachePolicy.GracePeriodSeconds != nil {
+		cleanCacheGracePeriodSeconds = *runtime.Spec.CleanCachePolicy.GracePeriodSeconds
+	} else {
+		cleanCacheGracePeriodSeconds = e.defaultCleanCacheGracePeriodSeconds
+	}
+
+	return
+}

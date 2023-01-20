@@ -41,7 +41,11 @@ import (
 
 // shut down the Alluxio engine
 func (e *AlluxioEngine) Shutdown() (err error) {
-	if e.retryShutdown < e.gracefulShutdownLimits {
+	gracefulShutdownLimits, err := e.getGracefulShutdownLimits()
+	if err != nil {
+		return
+	}
+	if e.retryShutdown < gracefulShutdownLimits {
 		err = e.cleanupCache()
 		if err != nil {
 			e.retryShutdown = e.retryShutdown + 1
