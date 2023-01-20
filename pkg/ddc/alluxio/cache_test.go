@@ -31,6 +31,8 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/tools/record"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+
+	utilpointer "k8s.io/utils/pointer"
 )
 
 func TestQueryCacheStatus(t *testing.T) {
@@ -449,10 +451,11 @@ func TestAlluxioEngine_getGracefulShutdownLimits(t *testing.T) {
 		wantErr                    bool
 	}{
 		// TODO: Add test cases.
-		// TODO: Add test cases.
 		{
 			name: "no_clean_cache_policy",
 			fields: fields{
+				name:      "NoCleanCache",
+				namespace: "default",
 				runtime: &datav1alpha1.AlluxioRuntime{
 					ObjectMeta: metav1.ObjectMeta{
 						Name:      "NoCleanCache",
@@ -463,6 +466,26 @@ func TestAlluxioEngine_getGracefulShutdownLimits(t *testing.T) {
 				defaultGracefulShutdownLimits: 5,
 			},
 			wantGracefulShutdownLimits: 5,
+			wantErr:                    false,
+		}, {
+			name: "clean_cache_policy",
+			fields: fields{
+				name:      "cleanCache",
+				namespace: "default",
+				runtime: &datav1alpha1.AlluxioRuntime{
+					ObjectMeta: metav1.ObjectMeta{
+						Name:      "cleanCache",
+						Namespace: "default",
+					},
+					Spec: datav1alpha1.AlluxioRuntimeSpec{
+						CleanCachePolicy: datav1alpha1.CleanCachePolicy{
+							MaxRetryAttempts: utilpointer.Int32(12),
+						},
+					},
+				},
+				defaultGracefulShutdownLimits: 5,
+			},
+			wantGracefulShutdownLimits: 12,
 			wantErr:                    false,
 		},
 	}
