@@ -36,6 +36,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/fluid-cloudnative/fluid/api/v1alpha1.AlluxioRuntimeSpec":       schema_fluid_cloudnative_fluid_api_v1alpha1_AlluxioRuntimeSpec(ref),
 		"github.com/fluid-cloudnative/fluid/api/v1alpha1.BackupLocation":           schema_fluid_cloudnative_fluid_api_v1alpha1_BackupLocation(ref),
 		"github.com/fluid-cloudnative/fluid/api/v1alpha1.CacheableNodeAffinity":    schema_fluid_cloudnative_fluid_api_v1alpha1_CacheableNodeAffinity(ref),
+		"github.com/fluid-cloudnative/fluid/api/v1alpha1.CleanCachePolicy":         schema_fluid_cloudnative_fluid_api_v1alpha1_CleanCachePolicy(ref),
 		"github.com/fluid-cloudnative/fluid/api/v1alpha1.Condition":                schema_fluid_cloudnative_fluid_api_v1alpha1_Condition(ref),
 		"github.com/fluid-cloudnative/fluid/api/v1alpha1.Data":                     schema_fluid_cloudnative_fluid_api_v1alpha1_Data(ref),
 		"github.com/fluid-cloudnative/fluid/api/v1alpha1.DataBackup":               schema_fluid_cloudnative_fluid_api_v1alpha1_DataBackup(ref),
@@ -421,11 +422,18 @@ func schema_fluid_cloudnative_fluid_api_v1alpha1_AlluxioFuseSpec(ref common.Refe
 							Ref:         ref("github.com/fluid-cloudnative/fluid/api/v1alpha1.PodMetadata"),
 						},
 					},
+					"cleanCachePolicy": {
+						SchemaProps: spec.SchemaProps{
+							Description: "CleanCachePolicy defines cleanCache Policy",
+							Default:     map[string]interface{}{},
+							Ref:         ref("github.com/fluid-cloudnative/fluid/api/v1alpha1.CleanCachePolicy"),
+						},
+					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"github.com/fluid-cloudnative/fluid/api/v1alpha1.PodMetadata", "k8s.io/api/core/v1.ResourceRequirements", "k8s.io/api/core/v1.VolumeMount"},
+			"github.com/fluid-cloudnative/fluid/api/v1alpha1.CleanCachePolicy", "github.com/fluid-cloudnative/fluid/api/v1alpha1.PodMetadata", "k8s.io/api/core/v1.ResourceRequirements", "k8s.io/api/core/v1.VolumeMount"},
 	}
 }
 
@@ -734,6 +742,34 @@ func schema_fluid_cloudnative_fluid_api_v1alpha1_CacheableNodeAffinity(ref commo
 		},
 		Dependencies: []string{
 			"k8s.io/api/core/v1.NodeSelector"},
+	}
+}
+
+func schema_fluid_cloudnative_fluid_api_v1alpha1_CleanCachePolicy(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "CleanCachePolicy defines policies of cleaning cache",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"GracePeriodSeconds": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Optional duration in seconds the cache needs to clean gracefully. May be decreased in delete runtime request. Value must be non-negative integer. The value zero indicates clean immediately via the timeout command (no opportunity to shut down). If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with timeout command. Set this value longer than the expected cleanup time for your process.",
+							Type:        []string{"integer"},
+							Format:      "int64",
+						},
+					},
+					"MaxRetryAttempts": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Optional max retry Attempts when cleanCache function returns an error after execution, runtime attempts to run it three more times by default. With Maximum Retry Attempts, you can customize the maximum number of retries. This gives you the option to continue processing retries.",
+							Type:        []string{"integer"},
+							Format:      "int64",
+						},
+					},
+				},
+				Required: []string{"MaxRetryAttempts"},
+			},
+		},
 	}
 }
 
