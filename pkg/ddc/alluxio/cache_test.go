@@ -454,11 +454,11 @@ func TestAlluxioEngine_getGracefulShutdownLimits(t *testing.T) {
 		{
 			name: "no_clean_cache_policy",
 			fields: fields{
-				name:      "NoCleanCache",
+				name:      "noCleanCache",
 				namespace: "default",
 				runtime: &datav1alpha1.AlluxioRuntime{
 					ObjectMeta: metav1.ObjectMeta{
-						Name:      "NoCleanCache",
+						Name:      "noCleanCache",
 						Namespace: "default",
 					},
 					Spec: datav1alpha1.AlluxioRuntimeSpec{},
@@ -545,9 +545,11 @@ func TestAlluxioEngine_getCleanCacheGracePeriodSeconds(t *testing.T) {
 		{
 			name: "no_clean_cache_policy",
 			fields: fields{
+				name:      "noCleanCache",
+				namespace: "default",
 				runtime: &datav1alpha1.AlluxioRuntime{
 					ObjectMeta: metav1.ObjectMeta{
-						Name:      "NoCleanCache",
+						Name:      "noCleanCache",
 						Namespace: "default",
 					},
 					Spec: datav1alpha1.AlluxioRuntimeSpec{},
@@ -555,6 +557,26 @@ func TestAlluxioEngine_getCleanCacheGracePeriodSeconds(t *testing.T) {
 				defaultCleanCacheGracePeriodSeconds: 5,
 			},
 			wantCleanCacheGracePeriodSeconds: 5,
+			wantErr:                          false,
+		}, {
+			name: "clean_cache_policy",
+			fields: fields{
+				name:      "cleanCache",
+				namespace: "default",
+				runtime: &datav1alpha1.AlluxioRuntime{
+					ObjectMeta: metav1.ObjectMeta{
+						Name:      "cleanCache",
+						Namespace: "default",
+					},
+					Spec: datav1alpha1.AlluxioRuntimeSpec{
+						CleanCachePolicy: datav1alpha1.CleanCachePolicy{
+							GracePeriodSeconds: utilpointer.Int32(12),
+						},
+					},
+				},
+				defaultCleanCacheGracePeriodSeconds: 5,
+			},
+			wantCleanCacheGracePeriodSeconds: 12,
 			wantErr:                          false,
 		},
 	}
