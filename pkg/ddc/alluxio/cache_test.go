@@ -490,11 +490,11 @@ func TestAlluxioEngine_getGracefulShutdownLimits(t *testing.T) {
 		}, {
 			name: "test_err",
 			fields: fields{
-				name:      "cleanCache",
+				name:      "err",
 				namespace: "default",
 				runtime: &datav1alpha1.AlluxioRuntime{
 					ObjectMeta: metav1.ObjectMeta{
-						Name:      "err",
+						Name:      "notFoundErr",
 						Namespace: "default",
 					},
 					Spec: datav1alpha1.AlluxioRuntimeSpec{
@@ -505,8 +505,8 @@ func TestAlluxioEngine_getGracefulShutdownLimits(t *testing.T) {
 				},
 				defaultGracefulShutdownLimits: 5,
 			},
-			wantGracefulShutdownLimits: 12,
-			wantErr:                    false,
+			wantGracefulShutdownLimits: 0,
+			wantErr:                    true,
 		},
 	}
 	objs := []runtime.Object{}
@@ -601,11 +601,11 @@ func TestAlluxioEngine_getCleanCacheGracePeriodSeconds(t *testing.T) {
 		}, {
 			name: "test_err",
 			fields: fields{
-				name:      "cleanCache",
+				name:      "notFoundError",
 				namespace: "default",
 				runtime: &datav1alpha1.AlluxioRuntime{
 					ObjectMeta: metav1.ObjectMeta{
-						Name:      "err",
+						Name:      "notFound",
 						Namespace: "default",
 					},
 					Spec: datav1alpha1.AlluxioRuntimeSpec{
@@ -616,8 +616,8 @@ func TestAlluxioEngine_getCleanCacheGracePeriodSeconds(t *testing.T) {
 				},
 				defaultCleanCacheGracePeriodSeconds: 5,
 			},
-			wantCleanCacheGracePeriodSeconds: 12,
-			wantErr:                          false,
+			wantCleanCacheGracePeriodSeconds: 0,
+			wantErr:                          true,
 		},
 	}
 
