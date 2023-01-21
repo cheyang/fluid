@@ -77,11 +77,6 @@ func Build(id string, ctx cruntime.ReconcileRequestContext) (base.Engine, error)
 		return nil, fmt.Errorf("engine %s is failed to parse", ctx.Name)
 	}
 
-	// set defaultCleanCacheGracePeriodSeconds
-	if engine.runtime.Spec.CleanCachePolicy.GracePeriodSeconds != nil {
-		engine.defaultCleanCacheGracePeriodSeconds = *engine.runtime.Spec.CleanCachePolicy.GracePeriodSeconds
-	}
-
 	// Build and setup runtime info
 	runtimeInfo, err := engine.getRuntimeInfo()
 	if err != nil {
