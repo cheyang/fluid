@@ -195,7 +195,11 @@ func (e *AlluxioEngine) invokeCleanCache(path string) (err error) {
 	// 2. run clean action
 	podName, containerName := e.getMasterPodInfo()
 	fileUitls := operations.NewAlluxioFileUtils(podName, containerName, e.namespace, e.Log)
-	return fileUitls.CleanCache(path)
+	cleanCacheGracePeriodSeconds, err := e.getCleanCacheGracePeriodSeconds()
+	if err != nil {
+		return err
+	}
+	return fileUitls.CleanCache(path, cleanCacheGracePeriodSeconds)
 
 }
 
