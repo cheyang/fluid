@@ -86,8 +86,7 @@ func (e *AlluxioEngine) Shutdown() (err error) {
 		e.Log.Info("skip releasePorts for container network mode")
 	}
 
-	err = e.cleanAll()
-	return err
+	return e.cleanAll()
 }
 
 // destroyMaster Destroies the master
