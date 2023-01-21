@@ -48,7 +48,9 @@ func (e *AlluxioEngine) queryCacheStatus() (states cacheStates, err error) {
 
 	dataset, err := utils.GetDataset(e.Client, e.name, e.namespace)
 	if err != nil {
-		e.Log.Error(err, "Failed to get dataset when query cache status")
+		if utils.IgnoreNotFound(err) != nil {
+			e.Log.Error(err, "Failed to get dataset when query cache status")
+		}
 		return states, err
 	}
 

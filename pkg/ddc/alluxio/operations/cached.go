@@ -63,13 +63,14 @@ func (a AlluxioFileUtils) CachedState() (cached int64, err error) {
 func (a AlluxioFileUtils) CleanCache(path string, timeout int32) (err error) {
 	var (
 		// command = []string{"60", "alluxio", "fs", "free", "-f", path}
-		command = []string{"alluxio", "fs", "free", "-f", path}
-		stdout  string
-		stderr  string
+		command = []string{strconv.FormatInt(int64(timeout), 10),
+			"alluxio", "fs", "free", "-f", path}
+		stdout string
+		stderr string
 	)
 
 	//TODO : find solution to use "timeout" or "timeout -t" in different linux release
-	command = append([]string{"timeout", strconv.FormatInt(int64(timeout), 10)}, command...)
+	command = append([]string{"timeout"}, command...)
 
 	stdout, stderr, err = a.exec(command, false)
 	if err != nil {

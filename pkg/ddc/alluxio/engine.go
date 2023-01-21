@@ -54,16 +54,17 @@ type AlluxioEngine struct {
 // Build function builds the Alluxio Engine
 func Build(id string, ctx cruntime.ReconcileRequestContext) (base.Engine, error) {
 	engine := &AlluxioEngine{
-		name:                          ctx.Name,
-		namespace:                     ctx.Namespace,
-		Client:                        ctx.Client,
-		Recorder:                      ctx.Recorder,
-		Log:                           ctx.Log,
-		runtimeType:                   ctx.RuntimeType,
-		defaultGracefulShutdownLimits: 5,
-		retryShutdown:                 0,
-		MetadataSyncDoneCh:            nil,
-		lastCacheHitStates:            nil,
+		name:                                ctx.Name,
+		namespace:                           ctx.Namespace,
+		Client:                              ctx.Client,
+		Recorder:                            ctx.Recorder,
+		Log:                                 ctx.Log,
+		runtimeType:                         ctx.RuntimeType,
+		defaultGracefulShutdownLimits:       5,
+		defaultCleanCacheGracePeriodSeconds: 60,
+		retryShutdown:                       0,
+		MetadataSyncDoneCh:                  nil,
+		lastCacheHitStates:                  nil,
 	}
 	// var implement base.Implement = engine
 	// engine.TemplateEngine = template
