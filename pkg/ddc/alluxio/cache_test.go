@@ -487,6 +487,26 @@ func TestAlluxioEngine_getGracefulShutdownLimits(t *testing.T) {
 			},
 			wantGracefulShutdownLimits: 12,
 			wantErr:                    false,
+		}, {
+			name: "test_err",
+			fields: fields{
+				name:      "cleanCache",
+				namespace: "default",
+				runtime: &datav1alpha1.AlluxioRuntime{
+					ObjectMeta: metav1.ObjectMeta{
+						Name:      "err",
+						Namespace: "default",
+					},
+					Spec: datav1alpha1.AlluxioRuntimeSpec{
+						CleanCachePolicy: datav1alpha1.CleanCachePolicy{
+							MaxRetryAttempts: utilpointer.Int32(12),
+						},
+					},
+				},
+				defaultGracefulShutdownLimits: 5,
+			},
+			wantGracefulShutdownLimits: 12,
+			wantErr:                    false,
 		},
 	}
 	objs := []runtime.Object{}
@@ -578,6 +598,26 @@ func TestAlluxioEngine_getCleanCacheGracePeriodSeconds(t *testing.T) {
 			},
 			wantCleanCacheGracePeriodSeconds: 12,
 			wantErr:                          false,
+		}, {
+			name: "test_err",
+			fields: fields{
+				name:      "cleanCache",
+				namespace: "default",
+				runtime: &datav1alpha1.AlluxioRuntime{
+					ObjectMeta: metav1.ObjectMeta{
+						Name:      "err",
+						Namespace: "default",
+					},
+					Spec: datav1alpha1.AlluxioRuntimeSpec{
+						CleanCachePolicy: datav1alpha1.CleanCachePolicy{
+							MaxRetryAttempts: utilpointer.Int32(12),
+						},
+					},
+				},
+				defaultCleanCacheGracePeriodSeconds: 5,
+			},
+			wantCleanCacheGracePeriodSeconds: 12,
+			wantErr:                          false,
 		},
 	}
 
@@ -602,11 +642,11 @@ func TestAlluxioEngine_getCleanCacheGracePeriodSeconds(t *testing.T) {
 			}
 			gotCleanCacheGracePeriodSeconds, err := e.getCleanCacheGracePeriodSeconds()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("AlluxioEngine.getCleanCacheGracePeriodSeconds() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("testcase %v AlluxioEngine.getCleanCacheGracePeriodSeconds() error = %v, wantErr %v", tt.name, err, tt.wantErr)
 				return
 			}
 			if gotCleanCacheGracePeriodSeconds != tt.wantCleanCacheGracePeriodSeconds {
-				t.Errorf("AlluxioEngine.getCleanCacheGracePeriodSeconds() = %v, want %v", gotCleanCacheGracePeriodSeconds, tt.wantCleanCacheGracePeriodSeconds)
+				t.Errorf("testcase %v AlluxioEngine.getCleanCacheGracePeriodSeconds() = %v, want %v", tt.name, gotCleanCacheGracePeriodSeconds, tt.wantCleanCacheGracePeriodSeconds)
 			}
 		})
 	}
