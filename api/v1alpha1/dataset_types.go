@@ -103,6 +103,19 @@ type Mount struct {
 	EncryptOptions []EncryptOption `json:"encryptOptions,omitempty"`
 }
 
+// Mount describes a mounting. <br>
+// Refer to <a href="https://docs.alluxio.io/os/user/stable/en/ufs/S3.html">Alluxio Storage Integrations</a> for more info
+type Union struct {
+	// MountPoint is the mount point of source.
+	// +kubebuilder:validation:MinLength=5
+	// +required
+	MountPoint string `json:"mountPoint,omitempty"`
+
+	Source Mount
+
+	Destination Mount
+}
+
 // DataRestoreLocation describes the spec restore location of  Dataset
 type DataRestoreLocation struct {
 	// Path describes the path of restore, in the form of  local://subpath or pvc://<pvcName>/subpath
