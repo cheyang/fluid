@@ -19,13 +19,15 @@ package base
 import (
 	"context"
 	"fmt"
+	"reflect"
+
 	"github.com/fluid-cloudnative/fluid/pkg/common"
 	"github.com/fluid-cloudnative/fluid/pkg/dataoperation"
 	cruntime "github.com/fluid-cloudnative/fluid/pkg/runtime"
 	"github.com/fluid-cloudnative/fluid/pkg/utils"
 	v1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/util/retry"
-	"reflect"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -34,54 +36,50 @@ func GetDataOperationRef(name, namespace string) string {
 	return fmt.Sprintf("%s/%s", namespace, name)
 }
 
-// LockTargetDataset lock target dataset if not locked by this data operation.
-func LockTargetDataset(ctx cruntime.ReconcileRequestContext, object client.Object,
-	operation dataoperation.OperationInterface, engine Engine) error {
+// LockTargetDataset locks the target dataset if it is not already locked by this data operation.
+func LockTargetDataset(ctx cruntime.ReconcileRequestContext, object client.Object, operation dataoperation.OperationInterface, engine Engine) error {
 	targetDataset := ctx.Dataset
-
 	operationTypeName := string(operation.GetOperationType())
 
 	// 1. Check if there's any conflict
-	conflictDataOpRef := targetDataset.GetLockedNameForOperation(operationTypeName)
-	dataOpRef := GetDataOperationRef(object.GetName(), object.GetNamespace())
+	conflictingDataOpKey := targetDataset.GetLockedNameForOperation(operationTypeName)
 
-	// already locked by self, return
-	if conflictDataOpRef == dataOpRef {
+	dataOpKey := types.NamespacedName{
+		Namespace: object.GetNamespace(),
+		Name:      object.GetName(),
+	}
+
+	// If the target dataset is already locked by this operation, return nil
+	if dataOpKey.String() == conflictingDataOpKey {
 		return nil
 	}
 
-	// conflict lock, return error and requeue
-	if len(conflictDataOpRef) != 0 && conflictDataOpRef != dataOpRef {
-		ctx.Log.Info(fmt.Sprintf("Found other %s that is in Executing phase, will backoff", operationTypeName), "other", conflictDataOpRef)
+	// If the target dataset is already locked by a different operation, return an error and requeue
+	if len(conflictingDataOpKey) != 0 && conflictingDataOpKey != dataOpKey.String() {
+		ctx.Log.Info(fmt.Sprintf("Found another %s operation that is in the 'Executing' phase, will back off", operationTypeName), "other", conflictingDataOpRef)
 		ctx.Recorder.Eventf(object, v1.EventTypeNormal, common.DataOperationCollision,
-			"Found other %s(%s) that is in Executing phase, will backoff",
-			operationTypeName, conflictDataOpRef)
-		return fmt.Errorf("found other %s that is in Executing phase, will backoff", operationTypeName)
+			"Found another %s operation (%s) that is in the 'Executing' phase, will back off",
+			operationTypeName, conflictingDataOpKey)
+		return fmt.Errorf("found another %s operation that is in the 'Executing' phase, will back off", operationTypeName)
 	}
 
-	// 2. can lock, check if the bounded runtime is ready
-	ready := engine.CheckRuntimeReady()
-	if !ready {
+	// 2. Check if the bounded runtime is ready
+	if !engine.CheckRuntimeReady() {
 		ctx.Log.V(1).Info("Bounded accelerate runtime not ready", "targetDataset", targetDataset)
-		ctx.Recorder.Eventf(object,
-			v1.EventTypeNormal,
-			common.RuntimeNotReady,
-			"Bounded accelerate runtime not ready")
+		ctx.Recorder.Eventf(object, v1.EventTypeNormal, common.RuntimeNotReady, "Bounded accelerate runtime not ready")
 		return fmt.Errorf("bounded accelerate runtime not ready")
 	}
 
-	ctx.Log.Info("No conflicts detected, try to lock the target dataset")
+	ctx.Log.Info("No conflicts detected, attempting to lock the target dataset")
 
-	// 3. Try lock target dataset
+	// 3. Try to lock the target dataset
 	datasetToUpdate := targetDataset.DeepCopy()
-	datasetToUpdate.LockOperation(operationTypeName, dataOpRef)
-
-	// different operation may set other fields
+	datasetToUpdate.LockOperation(operationTypeName, dataOpKey.String())
 	operation.LockTargetDatasetStatus(datasetToUpdate)
 
 	if !reflect.DeepEqual(targetDataset.Status, datasetToUpdate.Status) {
 		if err := ctx.Client.Status().Update(context.TODO(), datasetToUpdate); err != nil {
-			ctx.Log.Info("fail to update target dataset's lock, will requeue", "targetDatasetName", targetDataset.Name)
+			ctx.Log.Info("Failed to update target dataset's lock, will requeue", "targetDatasetName", targetDataset.Name)
 			return err
 		}
 	}
