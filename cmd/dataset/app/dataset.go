@@ -23,7 +23,7 @@ import (
 	"github.com/spf13/cobra"
 	zapOpt "go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	batchv1 "k8s.io/api/batch/v1"
+	batch "k8s.io/api/batch"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/runtime"
 	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
@@ -164,7 +164,7 @@ func NewCache(scheme *runtime.Scheme) cache.NewCacheFunc {
 	return cache.BuilderWithOptions(cache.Options{
 		Scheme: scheme,
 		SelectorsByObject: cache.SelectorsByObject{
-			&batchv1.CronJob{}: {Label: labels.SelectorFromSet(labels.Set{
+			&batch.CronJob{}: {Label: labels.SelectorFromSet(labels.Set{
 				common.JobPolicy: common.CronPolicy,
 			})},
 		},
