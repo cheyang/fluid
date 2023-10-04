@@ -17,17 +17,22 @@ limitations under the License.
 package nodeaffinitywithcache
 
 import (
+	"reflect"
+	"testing"
+
 	"github.com/fluid-cloudnative/fluid/pkg/common"
 	"github.com/fluid-cloudnative/fluid/pkg/utils/fake"
 	"k8s.io/apimachinery/pkg/runtime"
-	"reflect"
-	"testing"
 
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
 	"github.com/fluid-cloudnative/fluid/pkg/ddc/base"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+)
+
+const (
+	sched string = ".sched"
 )
 
 var (
@@ -234,8 +239,8 @@ func TestMutateBothRequiredAndPrefer(t *testing.T) {
 			Name:      "test",
 			Namespace: "test",
 			Labels: map[string]string{
-				"fluid.io/dataset." + alluxioRuntime.Name + ".sched": "required",
-				"fluid.io/dataset.no_exist.sched":                    "required",
+				"fluid.io/dataset." + alluxioRuntime.Name + sched: "required",
+				"fluid.io/dataset.no_exist.sched":                 "required",
 			},
 		},
 	}
@@ -345,7 +350,7 @@ func TestTieredLocality(t *testing.T) {
 						Name:      "test",
 						Namespace: "test",
 						Labels: map[string]string{
-							"fluid.io/dataset." + alluxioRuntime.Name + ".sched": "required",
+							"fluid.io/dataset." + alluxioRuntime.Name + sched: "required",
 						},
 					},
 				},
@@ -359,7 +364,7 @@ func TestTieredLocality(t *testing.T) {
 						Name:      "test",
 						Namespace: "test",
 						Labels: map[string]string{
-							"fluid.io/dataset." + alluxioRuntime.Name + ".sched": "required",
+							"fluid.io/dataset." + alluxioRuntime.Name + sched: "required",
 						},
 					},
 					Spec: corev1.PodSpec{
