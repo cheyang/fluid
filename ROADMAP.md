@@ -45,4 +45,3 @@
   - Organize the documentation so users can navigate it easily and find the information
   - Provide more practical examples and tutorials can significantly improve the user's comprehension and learning process.
   - Maintain consistency in language, style, and formatting throughout the documentation
-
