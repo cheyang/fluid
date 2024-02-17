@@ -28,7 +28,6 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/utils/pointer"
-
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/client/apiutil"
 )
@@ -77,8 +76,8 @@ func SetControllerReference(owner, controlled metav1.Object, scheme *runtime.Sch
 		Kind:               gvk.Kind,
 		Name:               owner.GetName(),
 		UID:                owner.GetUID(),
-		BlockOwnerDeletion: pointer.Bool(true),
-		Controller:         pointer.Bool(true),
+		BlockOwnerDeletion: pointer.BoolPtr(true),
+		Controller:         pointer.BoolPtr(true),
 	}
 
 	// Return early with an error if the object is already controlled.
@@ -208,7 +207,7 @@ func CreateOrUpdate(ctx context.Context, c client.Client, obj client.Object, f M
 		return OperationResultCreated, nil
 	}
 
-	existing := obj.DeepCopyObject()
+	existing := obj.DeepCopyObject() //nolint
 	if err := mutate(f, key, obj); err != nil {
 		return OperationResultNone, err
 	}
@@ -346,38 +345,30 @@ func mutate(f MutateFn, key client.ObjectKey, obj client.Object) error {
 	return nil
 }
 
-// MutateFn is a function which mutates the existing object into its desired state.
+// MutateFn is a function which mutates the existing object into it's desired state.
 type MutateFn func() error
 
 // AddFinalizer accepts an Object and adds the provided finalizer if not present.
-// It returns an indication of whether it updated the object's list of finalizers.
-func AddFinalizer(o client.Object, finalizer string) (finalizersUpdated bool) {
+func AddFinalizer(o client.Object, finalizer string) {
 	f := o.GetFinalizers()
 	for _, e := range f {
 		if e == finalizer {
-			return false
+			return
 		}
 	}
 	o.SetFinalizers(append(f, finalizer))
-	return true
 }
 
 // RemoveFinalizer accepts an Object and removes the provided finalizer if present.
-// It returns an indication of whether it updated the object's list of finalizers.
-func RemoveFinalizer(o client.Object, finalizer string) (finalizersUpdated bool) {
+func RemoveFinalizer(o client.Object, finalizer string) {
 	f := o.GetFinalizers()
-	length := len(f)
-
-	index := 0
-	for i := 0; i < length; i++ {
+	for i := 0; i < len(f); i++ {
 		if f[i] == finalizer {
-			continue
+			f = append(f[:i], f[i+1:]...)
+			i--
 		}
-		f[index] = f[i]
-		index++
 	}
-	o.SetFinalizers(f[:index])
-	return length != index
+	o.SetFinalizers(f)
 }
 
 // ContainsFinalizer checks an Object that the provided finalizer is present.
@@ -390,3 +381,9 @@ func ContainsFinalizer(o client.Object, finalizer string) bool {
 	}
 	return false
 }
+
+// Object allows functions to work indistinctly with any resource that
+// implements both Object interfaces.
+//
+// Deprecated: Use client.Object instead.
+type Object = client.Object

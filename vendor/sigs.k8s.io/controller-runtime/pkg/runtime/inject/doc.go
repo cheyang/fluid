@@ -1,5 +1,5 @@
 /*
-Copyright 2023 The Kubernetes Authors.
+Copyright 2018 The Kubernetes Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -15,12 +15,8 @@ limitations under the License.
 */
 
 /*
-Package server provides the metrics server implementation.
+Package inject defines interfaces and functions for propagating dependencies from a ControllerManager to
+the components registered with it.  Dependencies are propagated to Reconciler, Source, EventHandler and Predicate
+objects which implement the Injectable interfaces.
 */
-package server
-
-import (
-	logf "sigs.k8s.io/controller-runtime/pkg/internal/log"
-)
-
-var log = logf.RuntimeLog.WithName("metrics")
+package inject
