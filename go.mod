@@ -76,13 +76,13 @@ require (
 	google.golang.org/grpc v1.56.3
 	gopkg.in/yaml.v2 v2.4.0
 	gopkg.in/yaml.v3 v3.0.1
-	k8s.io/api v0.28.7
-	k8s.io/apimachinery v0.28.7
-	k8s.io/client-go v0.28.7
-	k8s.io/component-base v0.28.7
-	k8s.io/component-helpers v0.28.7
+	k8s.io/api v0.26.12
+	k8s.io/apimachinery v0.26.12
+	k8s.io/client-go v0.26.12
+	k8s.io/component-base v0.26.12
+	k8s.io/component-helpers v0.0.0
 	k8s.io/klog/v2 v2.110.1
-	k8s.io/kube-openapi v0.0.0-20230717233707-2695361300d9
+	k8s.io/kube-openapi v0.0.0-20221012153701-172d655c2280
 	k8s.io/kubernetes v1.26.12
 	k8s.io/utils v0.0.0-20230406110748-d93618cff8a2
 	sigs.k8s.io/controller-runtime v0.14.6
@@ -106,7 +106,6 @@ require (
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/gnostic v0.5.7-v3refs // indirect
-	github.com/google/gnostic-models v0.6.8 // indirect
 	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/pprof v0.0.0-20211214055906-6f57359322fd // indirect
