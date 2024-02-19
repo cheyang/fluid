@@ -335,7 +335,7 @@ func TestEFCEngine_CheckRuntimeReady(t *testing.T) {
 							APIVersion: "apps/v1",
 							Name:       "efc-test-worker",
 							UID:        "uid1",
-							Controller: utilpointer.BoolPtr(true),
+							Controller: utilpointer.Bool(true),
 						}},
 					},
 					Status: v1.PodStatus{
@@ -378,7 +378,7 @@ func TestEFCEngine_CheckRuntimeReady(t *testing.T) {
 							APIVersion: "apps/v1",
 							Name:       "efc-test-err-worker",
 							UID:        "uid2",
-							Controller: utilpointer.BoolPtr(true),
+							Controller: utilpointer.Bool(true),
 						}},
 					},
 					Status: v1.PodStatus{
@@ -421,7 +421,7 @@ func TestEFCEngine_CheckRuntimeReady(t *testing.T) {
 							APIVersion: "apps/v1",
 							Name:       "efc-test-err2-worker",
 							UID:        "uid3",
-							Controller: utilpointer.BoolPtr(true),
+							Controller: utilpointer.Bool(true),
 						}},
 					},
 					Status: v1.PodStatus{
