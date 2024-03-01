@@ -20,13 +20,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	versionutil "github.com/fluid-cloudnative/fluid/pkg/utils/version"
 	"os"
 	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
+
+	versionutil "github.com/fluid-cloudnative/fluid/pkg/utils/version"
 
 	"github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
@@ -154,9 +155,13 @@ func (e *JindoCacheEngine) transform(runtime *datav1alpha1.JindoRuntime) (value 
 	if err != nil {
 		return
 	}
-	err = e.allocatePorts(value)
-	if err != nil {
-		return
+	if runtime.Spec.Master.Disabled && runtime.Spec.Worker.Disabled {
+		e.Log.Info("skip port allocation for no cache mode")
+	} else {
+		err = e.allocatePorts(value)
+		if err != nil {
+			return
+		}
 	}
 	e.transformNetworkMode(runtime, value)
 	e.transformFuseNodeSelector(runtime, value)
@@ -172,7 +177,11 @@ func (e *JindoCacheEngine) transform(runtime *datav1alpha1.JindoRuntime) (value 
 	e.transformToken(runtime, value)
 	e.transformWorker(runtime, dataPath, userQuotas, value)
 	e.transformFuse(runtime, value)
-	e.transformInitPortCheck(value)
+	if runtime.Spec.Master.Disabled && runtime.Spec.Worker.Disabled {
+		e.Log.Info("skip port allocation for no cache mode")
+	} else {
+		e.transformInitPortCheck(value)
+	}
 	err = e.transformPodMetadata(runtime, value)
 	if err != nil {
 		return
