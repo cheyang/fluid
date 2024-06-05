@@ -104,14 +104,20 @@ func ShouldInQueue(pod *corev1.Pod) bool {
 	}
 
 	// ignore if it's not fluid label pod
-	if !utils.ServerlessEnabled(pod.Labels) {
-		log.Info("Serverless not enable.", "labels", pod.Labels)
+	if !utils.FuseSidecarPrivileged(pod.Labels) {
+		log.Info("Privileged fuse sidecar is not enabled.", "labels", pod.Labels)
+		return false
+	}
+
+	// ignore if not done
+	if !utils.InjectSidecarDone(pod.Labels) {
+		log.Info("Serverless inject not finished.", "labels", pod.Labels)
 		return false
 	}
 
 	// ignore if it claims to ignore
 	if utils.AppControllerDisabled(pod.Labels) {
-		log.Info("Calim to make application controller ignore.", "labels", pod.Labels)
+		log.Info("Claim to make application controller ignore.", "labels", pod.Labels)
 		return false
 	}
 

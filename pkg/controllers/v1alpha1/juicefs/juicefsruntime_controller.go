@@ -134,10 +134,21 @@ func (r *JuiceFSRuntimeReconciler) SetupWithManager(mgr ctrl.Manager, options co
 	}
 }
 
-func NewCache(scheme *runtime.Scheme) cache.NewCacheFunc {
-	return cache.BuilderWithOptions(cache.Options{
+func NewCacheOptions(scheme *runtime.Scheme) cache.Options {
+	// return cache.BuilderWithOptions(cache.Options{
+	// 	Scheme: scheme,
+	// 	SelectorsByObject: cache.SelectorsByObject{
+	// 		&appsv1.StatefulSet{}: {Label: labels.SelectorFromSet(labels.Set{
+	// 			common.App: common.JuiceFSRuntime,
+	// 		})},
+	// 		&appsv1.DaemonSet{}: {Label: labels.SelectorFromSet(labels.Set{
+	// 			common.App: common.JuiceFSRuntime,
+	// 		})},
+	// 	},
+	// })
+	return cache.Options{
 		Scheme: scheme,
-		SelectorsByObject: cache.SelectorsByObject{
+		ByObject: map[client.Object]cache.ByObject{
 			&appsv1.StatefulSet{}: {Label: labels.SelectorFromSet(labels.Set{
 				common.App: common.JuiceFSRuntime,
 			})},
@@ -145,5 +156,5 @@ func NewCache(scheme *runtime.Scheme) cache.NewCacheFunc {
 				common.App: common.JuiceFSRuntime,
 			})},
 		},
-	})
+	}
 }

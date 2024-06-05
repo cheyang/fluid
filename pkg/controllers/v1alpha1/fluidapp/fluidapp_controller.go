@@ -19,6 +19,7 @@ package fluidapp
 import (
 	"context"
 
+	"github.com/fluid-cloudnative/fluid/pkg/common"
 	"github.com/go-logr/logr"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/labels"
@@ -31,7 +32,6 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/controller"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 
-	"github.com/fluid-cloudnative/fluid/pkg/common"
 	"github.com/fluid-cloudnative/fluid/pkg/ctrl/watch"
 	"github.com/fluid-cloudnative/fluid/pkg/utils"
 	"github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient"
@@ -113,13 +113,21 @@ func (f *FluidAppReconciler) SetupWithManager(mgr ctrl.Manager, options controll
 	return watch.SetupAppWatcherWithReconciler(mgr, options, f)
 }
 
-func NewCache(scheme *runtime.Scheme) cache.NewCacheFunc {
-	return cache.BuilderWithOptions(cache.Options{
+func NewCache(scheme *runtime.Scheme) cache.Options {
+	// return cache.BuilderWithOptions(cache.Options{
+	// 	Scheme: scheme,
+	// 	SelectorsByObject: cache.SelectorsByObject{
+	// 		&corev1.Pod{}: {Label: labels.SelectorFromSet(labels.Set{
+	// 			common.InjectSidecarDone: common.True,
+	// 		})},
+	// 	},
+	// })
+	return cache.Options{
 		Scheme: scheme,
-		SelectorsByObject: cache.SelectorsByObject{
+		ByObject: map[client.Object]cache.ByObject{
 			&corev1.Pod{}: {Label: labels.SelectorFromSet(labels.Set{
 				common.InjectSidecarDone: common.True,
 			})},
 		},
-	})
+	}
 }

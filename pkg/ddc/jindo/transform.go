@@ -31,7 +31,7 @@ import (
 	"github.com/fluid-cloudnative/fluid/pkg/ddc/base/portallocator"
 	"github.com/fluid-cloudnative/fluid/pkg/utils"
 	"github.com/fluid-cloudnative/fluid/pkg/utils/docker"
-	"github.com/fluid-cloudnative/fluid/pkg/utils/transfromer"
+	"github.com/fluid-cloudnative/fluid/pkg/utils/transformer"
 	corev1 "k8s.io/api/core/v1"
 )
 
@@ -112,7 +112,7 @@ func (e *JindoEngine) transform(runtime *datav1alpha1.JindoRuntime) (value *Jind
 			Master:            e.transformMasterMountPath(metaPath),
 			WorkersAndClients: e.transformWorkerMountPath(originPath),
 		},
-		Owner: transfromer.GenerateOwnerReferenceFromObject(runtime),
+		Owner: transformer.GenerateOwnerReferenceFromObject(runtime),
 		RuntimeIdentity: common.RuntimeIdentity{
 			Namespace: runtime.Namespace,
 			Name:      runtime.Name,
@@ -250,9 +250,6 @@ func (e *JindoEngine) transformMaster(runtime *datav1alpha1.JindoRuntime, metaPa
 				break
 			}
 			value := secret.Data[secretKeyRef.Key]
-			if err != nil {
-				e.Log.Info("decode value failed")
-			}
 			if key == "fs."+mode+".accessKeyId" {
 				properties["jfs.namespaces.jindo."+mode+".access.key"] = string(value)
 			}
@@ -597,7 +594,7 @@ func (e *JindoEngine) allocatePorts(value *Jindo) error {
 	// usehostnetwork to choose port from port allocator
 	expectedPortNum := 2
 	if !value.UseHostNetwork {
-		value.Master.Port.Rpc = DEFAULT_MASTER_RPC_PORT
+		value.Master.Port.Rpc = defaultMasterRpcPort
 		value.Worker.Port.Rpc = DEFAULT_WORKER_RPC_PORT
 		if value.Master.ReplicaCount == JINDO_HA_MASTERNUM {
 			value.Master.Port.Raft = DEFAULT_RAFT_RPC_PORT

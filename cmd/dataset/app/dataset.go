@@ -17,7 +17,6 @@ limitations under the License.
 package app
 
 import (
-	utilfeature "github.com/fluid-cloudnative/fluid/pkg/utils/feature"
 	"os"
 	"time"
 
@@ -32,6 +31,7 @@ import (
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/cache"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/controller"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
@@ -50,6 +50,7 @@ import (
 	"github.com/fluid-cloudnative/fluid/pkg/utils"
 	"github.com/fluid-cloudnative/fluid/pkg/utils/compatibility"
 	"github.com/fluid-cloudnative/fluid/pkg/utils/discovery"
+	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 )
 
 var (
@@ -101,8 +102,6 @@ func init() {
 	datasetCmd.Flags().StringVar(&controllerWorkqueueMaxSyncBackoffStr, "workqueue-max-sync-backoff", "1000s", "max backoff period for failed reconciliation in controller's workqueue")
 	datasetCmd.Flags().IntVar(&controllerWorkqueueQPS, "workqueue-qps", 10, "qps limit value for controller's workqueue")
 	datasetCmd.Flags().IntVar(&controllerWorkqueueBurst, "workqueue-burst", 100, "burst limit value for controller's workqueue")
-
-	utilfeature.DefaultMutableFeatureGate.AddFlag(datasetCmd.Flags())
 }
 
 func handle() {
@@ -125,13 +124,14 @@ func handle() {
 	utils.NewPprofServer(setupLog, pprofAddr, development)
 
 	mgr, err := ctrl.NewManager(controllers.GetConfigOrDieWithQPSAndBurst(kubeClientQPS, kubeClientBurst), ctrl.Options{
-		Scheme:                  scheme,
-		MetricsBindAddress:      metricsAddr,
+		Scheme: scheme,
+		Metrics: metricsserver.Options{
+			BindAddress: metricsAddr,
+		},
 		LeaderElection:          enableLeaderElection,
 		LeaderElectionNamespace: leaderElectionNamespace,
 		LeaderElectionID:        "dataset.data.fluid.io",
-		Port:                    9443,
-		NewCache:                NewCache(scheme),
+		Cache:                   NewCacheOptions(scheme),
 		NewClient:               controllers.NewFluidControllerClient,
 	})
 	if err != nil {
@@ -235,21 +235,34 @@ func handle() {
 	}
 }
 
-func NewCache(scheme *runtime.Scheme) cache.NewCacheFunc {
-	selectors := make(cache.SelectorsByObject, 1)
+func NewCacheOptions(scheme *runtime.Scheme) cache.Options {
+	// selectors := make(cache.SelectorsByObject, 1)
+	var cronJobKey client.Object
 
 	if compatibility.IsBatchV1CronJobSupported() {
-		selectors[&batchv1.CronJob{}] = cache.ObjectSelector{Label: labels.SelectorFromSet(labels.Set{
-			common.JobPolicy: common.CronPolicy,
-		})}
+		// selectors[&batchv1.CronJob{}] = cache.ObjectSelector{Label: labels.SelectorFromSet(labels.Set{
+		// 	common.JobPolicy: common.CronPolicy,
+		// })}
+		cronJobKey = &batchv1.CronJob{}
 	} else {
-		selectors[&batchv1beta1.CronJob{}] = cache.ObjectSelector{Label: labels.SelectorFromSet(labels.Set{
-			common.JobPolicy: common.CronPolicy,
-		})}
+		// selectors[&batchv1beta1.CronJob{}] = cache.ObjectSelector{Label: labels.SelectorFromSet(labels.Set{
+		// 	common.JobPolicy: common.CronPolicy,
+		// })}
+		cronJobKey = &batchv1beta1.CronJob{}
 	}
 
-	return cache.BuilderWithOptions(cache.Options{
-		Scheme:            scheme,
-		SelectorsByObject: selectors,
-	})
+	// return cache.BuilderWithOptions(cache.Options{
+	// 	Scheme:            scheme,
+	// 	SelectorsByObject: selectors,
+	// })
+	return cache.Options{
+		Scheme: scheme,
+		ByObject: map[client.Object]cache.ByObject{
+			cronJobKey: {
+				Label: labels.SelectorFromSet(labels.Set{
+					common.JobPolicy: common.CronPolicy,
+				}),
+			},
+		},
+	}
 }

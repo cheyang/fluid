@@ -1,5 +1,5 @@
 /*
-Copyright 2022 The Fluid Authors.
+Copyright 2023 The Fluid Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,9 +17,10 @@ package base
 import (
 	"context"
 	"fmt"
-	"github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient"
 	"reflect"
 	"time"
+
+	"github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient"
 
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
 	"github.com/fluid-cloudnative/fluid/pkg/common"
@@ -29,7 +30,7 @@ import (
 	"github.com/fluid-cloudnative/fluid/pkg/utils"
 	"github.com/go-logr/logr"
 	v1 "k8s.io/api/core/v1"
-	utilpointer "k8s.io/utils/pointer"
+	ptr "k8s.io/utils/ptr"
 	ctrl "sigs.k8s.io/controller-runtime"
 )
 
@@ -87,7 +88,7 @@ func (t *TemplateEngine) reconcileNone(ctx cruntime.ReconcileRequestContext, opS
 	opStatus.Infos = map[string]string{}
 
 	if operation.HasPrecedingOperation() {
-		opStatus.WaitingFor.OperationComplete = utilpointer.Bool(true)
+		opStatus.WaitingFor.OperationComplete = ptr.To(true)
 	}
 
 	if err = operation.UpdateOperationApiStatus(opStatus); err != nil {

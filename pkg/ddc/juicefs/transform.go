@@ -29,7 +29,7 @@ import (
 	"github.com/fluid-cloudnative/fluid/pkg/utils"
 	"github.com/fluid-cloudnative/fluid/pkg/utils/docker"
 	"github.com/fluid-cloudnative/fluid/pkg/utils/security"
-	"github.com/fluid-cloudnative/fluid/pkg/utils/transfromer"
+	"github.com/fluid-cloudnative/fluid/pkg/utils/transformer"
 )
 
 func (j *JuiceFSEngine) transform(runtime *datav1alpha1.JuiceFSRuntime) (value *JuiceFS, err error) {
@@ -51,8 +51,9 @@ func (j *JuiceFSEngine) transform(runtime *datav1alpha1.JuiceFSRuntime) (value *
 		},
 	}
 
+	// TODO: Handle cases that FullnameOverride is too long (> 63 chars)
 	value.FullnameOverride = j.name
-	value.Owner = transfromer.GenerateOwnerReferenceFromObject(runtime)
+	value.Owner = transformer.GenerateOwnerReferenceFromObject(runtime)
 
 	// transform toleration
 	j.transformTolerations(dataset, value)
@@ -204,6 +205,7 @@ func (j *JuiceFSEngine) genWorkerMount(value *JuiceFS, workerOptionMap map[strin
 			workerOptionMap["metrics"] = fmt.Sprintf("0.0.0.0:%d", metricsPort)
 		}
 		mountArgsWorker = []string{
+			"exec",
 			common.JuiceFSCeMountPath,
 			value.Source,
 			security.EscapeBashStr(value.Worker.MountPath),
@@ -225,6 +227,7 @@ func (j *JuiceFSEngine) genWorkerMount(value *JuiceFS, workerOptionMap map[strin
 		delete(workerOptionMap, "no-sharing")
 
 		mountArgsWorker = []string{
+			"exec",
 			common.JuiceFSMountPath,
 			value.Source,
 			security.EscapeBashStr(value.Worker.MountPath),

@@ -32,7 +32,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	utilpointer "k8s.io/utils/pointer"
+	ptr "k8s.io/utils/ptr"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -472,7 +472,7 @@ func TestEFCEngine_getWorkerRunningPods(t *testing.T) {
 								APIVersion: "apps/v1",
 								Name:       "spark-worker",
 								UID:        "uid1",
-								Controller: utilpointer.Bool(true),
+								Controller: ptr.To(true),
 							}},
 							Labels: map[string]string{
 								"app":              "efc",
@@ -547,7 +547,7 @@ func TestEFCEngine_getWorkerRunningPods(t *testing.T) {
 								APIVersion: "apps/v1",
 								Name:       "spark-worker",
 								UID:        "uid1",
-								Controller: utilpointer.Bool(true),
+								Controller: ptr.To(true),
 							}},
 							Labels: map[string]string{
 								"app":  "efc",

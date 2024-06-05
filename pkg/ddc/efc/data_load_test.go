@@ -26,7 +26,7 @@ import (
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	utilpointer "k8s.io/utils/pointer"
+	ptr "k8s.io/utils/ptr"
 )
 
 func TestEFCEngine_CheckRuntimeReady(t *testing.T) {
@@ -70,7 +70,7 @@ func TestEFCEngine_CheckRuntimeReady(t *testing.T) {
 							APIVersion: "apps/v1",
 							Name:       "efc-test-worker",
 							UID:        "uid1",
-							Controller: utilpointer.Bool(true),
+							Controller: ptr.To(true),
 						}},
 					},
 					Status: v1.PodStatus{
@@ -113,7 +113,7 @@ func TestEFCEngine_CheckRuntimeReady(t *testing.T) {
 							APIVersion: "apps/v1",
 							Name:       "efc-test-err-worker",
 							UID:        "uid2",
-							Controller: utilpointer.Bool(true),
+							Controller: ptr.To(true),
 						}},
 					},
 					Status: v1.PodStatus{
@@ -156,7 +156,7 @@ func TestEFCEngine_CheckRuntimeReady(t *testing.T) {
 							APIVersion: "apps/v1",
 							Name:       "efc-test-err2-worker",
 							UID:        "uid3",
-							Controller: utilpointer.Bool(true),
+							Controller: ptr.To(true),
 						}},
 					},
 					Status: v1.PodStatus{

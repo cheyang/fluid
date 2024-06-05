@@ -92,6 +92,14 @@ func init() {
 	startCmd.Flags().IntVar(&controllerWorkqueueBurst, "workqueue-burst", 100, "burst limit value for controller's workqueue")
 }
 
+// handle initializes and starts the thinruntime controller.
+//
+// It sets up logging configurations, performance profiling, configures controller options,
+// initializes the manager, sets up the runtime reconciler, and starts the manager with a
+// SIGINT and SIGTERM signal handler for graceful shutdown.
+//
+// The function also includes error handling to log any issues that occur during setup
+// or execution and exits the application if necessary.
 func handle() {
 	fluid.LogVersion()
 
@@ -118,8 +126,8 @@ func handle() {
 		LeaderElectionNamespace: leaderElectionNamespace,
 		LeaderElectionID:        "thin.data.fluid.io",
 		// Port:                    9443,
-		NewCache:                thinctl.NewCache(scheme),
-		NewClient:               controllers.NewFluidControllerClient,
+		Cache:     thinctl.NewCacheOptions(scheme),
+		NewClient: controllers.NewFluidControllerClient,
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start thinruntime manager")

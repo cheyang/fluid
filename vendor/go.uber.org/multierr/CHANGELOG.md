@@ -1,6 +1,10 @@
 Releases
 ========
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3b9d74c58 (Update controller-runtime to v1.17.5, To #57240825)
 v1.11.0 (2023-03-28)
 ====================
 -   `Errors` now supports any error that implements multiple-error
@@ -8,6 +12,11 @@ v1.11.0 (2023-03-28)
 -   Add `Every` function to allow checking if all errors in the chain
     satisfies `errors.Is` against the target error.
 
+<<<<<<< HEAD
+=======
+>>>>>>> 12b98cd10 (Bump go.uber.org/zap from 1.24.0 to 1.27.0 (#3727))
+=======
+>>>>>>> 3b9d74c58 (Update controller-runtime to v1.17.5, To #57240825)
 v1.10.0 (2023-03-08)
 ====================
 

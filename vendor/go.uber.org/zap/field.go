@@ -460,6 +460,11 @@ func (d dictObject) MarshalLogObject(enc zapcore.ObjectEncoder) error {
 // - https://github.com/uber-go/zap/pull/1304
 // - https://github.com/uber-go/zap/pull/1305
 // - https://github.com/uber-go/zap/pull/1308
+<<<<<<< HEAD
+=======
+//
+// See https://github.com/golang/go/issues/62077 for upstream issue.
+>>>>>>> 12b98cd10 (Bump go.uber.org/zap from 1.24.0 to 1.27.0 (#3727))
 type anyFieldC[T any] func(string, T) Field
 
 func (f anyFieldC[T]) Any(key string, val any) Field {

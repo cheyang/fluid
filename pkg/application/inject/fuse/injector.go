@@ -167,7 +167,7 @@ func (s *Injector) inject(in runtime.Object, runtimeInfos map[string]base.Runtim
 			return out, fmt.Errorf("can't find any supported platform-specific mutator in pod's metadata")
 		}
 
-		mutatorBuildOpts := mutator.MutatorBuildOpts{
+		mutatorBuildArgs := mutator.MutatorBuildArgs{
 			Client: s.client,
 			Log:    s.log,
 			Specs:  podSpecs,
@@ -176,9 +176,11 @@ func (s *Injector) inject(in runtime.Object, runtimeInfos map[string]base.Runtim
 				EnableUnprivilegedSidecar:  utils.FuseSidecarUnprivileged(podSpecs.MetaObj.Labels),
 				SkipSidecarPostStartInject: utils.SkipSidecarPostStartInject(podSpecs.MetaObj.Labels),
 			},
+			ExtraArgs: mutator.FindExtraArgsFromMetadata(podSpecs.MetaObj, platform),
 		}
 
-		mtt, err := mutator.BuildMutator(mutatorBuildOpts, platform)
+		s.log.V(1).Info("building mutator with mutatorBuildArgs: %v", mutatorBuildArgs)
+		mtt, err := mutator.BuildMutator(mutatorBuildArgs, platform)
 		if err != nil {
 			return out, err
 		}
@@ -188,7 +190,14 @@ func (s *Injector) inject(in runtime.Object, runtimeInfos map[string]base.Runtim
 			return out, err
 		}
 
-		idx := 0
+		// Determine how many sidecars are already injected. This is necessary in multi-round sidecar injection.
+		injectedSidecars, err := findInjectedSidecars(pod)
+		if err != nil {
+			s.log.Error(err, "failed to find injected sidecars from pod")
+			return out, err
+		}
+
+		idx := len(injectedSidecars)
 		for pvcName, runtimeInfo := range runtimeInfos {
 			s.log.Info("Start mutating pvc in pod spec", "pod name", podName, "pvc name", pvcName)
 			// Append no suffix to fuse container name unless there are multiple ones.
@@ -211,14 +220,7 @@ func (s *Injector) inject(in runtime.Object, runtimeInfos map[string]base.Runtim
 			s.log.Error(err, "error when applying mutated specs to pod", "pod name", podName)
 			return out, err
 		}
-
-		if err = s.labelInjectionDone(pod); err != nil {
-			s.log.Error(err, "failed to labelInjectionDone()", "pod name", podName)
-			return out, err
-		}
 	}
-
-	// kubeclient.IsVolumeMountForPVC(pvcName, )
 
 	err = application.SetPodSpecs(pods)
 	if err != nil {
@@ -250,40 +252,8 @@ func (s *Injector) shouldInject(pod common.FluidObject) (should bool, err error)
 		return should, nil
 	}
 
-	// Skip if found existing container with conflicting name.
-	allContainerNames, err := collectAllContainerNames(pod)
-	if err != nil {
-		return should, err
-	}
-	for _, cName := range allContainerNames {
-		if cName == common.FuseContainerName || cName == common.InitFuseContainerName {
-			s.log.Info("Found existing conflict container name before injection, skip", "containerName", cName)
-			return should, nil
-		}
-	}
-
 	should = true
 	return should, nil
-}
-
-// labelInjectionDone adds a injecting done label to a PodSpec, indicating all the mutations have been finished
-func (s *Injector) labelInjectionDone(pod common.FluidObject) error {
-	metaObj, err := pod.GetMetaObject()
-	if err != nil {
-		return err
-	}
-
-	if metaObj.Labels == nil {
-		metaObj.Labels = map[string]string{}
-	}
-
-	metaObj.Labels[common.InjectSidecarDone] = common.True
-	err = pod.SetMetaObject(metaObj)
-	if err != nil {
-		return err
-	}
-
-	return nil
 }
 
 func (s *Injector) getServerlessPlatformFromMeta(metaObj metav1.ObjectMeta) string {

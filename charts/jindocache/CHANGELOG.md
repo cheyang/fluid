@@ -110,6 +110,4 @@ Delete runtime's fsGroup
 Mount ufs volumes according to dataset's accessModes
 
 1.0.3
-Fix random read cache block error problem with small probability
-Support write cache to different node with one iostream
-Support rdma network
+Supporting syncing AK/SK secret key-value pairs

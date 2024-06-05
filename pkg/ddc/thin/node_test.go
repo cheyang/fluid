@@ -31,7 +31,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/runtime"
-	utilpointer "k8s.io/utils/pointer"
+	ptr "k8s.io/utils/ptr"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -87,7 +87,7 @@ func TestSyncScheduleInfoToCacheNodes(t *testing.T) {
 							APIVersion: "apps/v1",
 							Name:       "spark-worker",
 							UID:        "uid1",
-							Controller: utilpointer.Bool(true),
+							Controller: ptr.To(true),
 						}},
 						Labels: map[string]string{
 							"app":              "thin",
@@ -130,7 +130,7 @@ func TestSyncScheduleInfoToCacheNodes(t *testing.T) {
 								APIVersion: "apps/v1",
 								Name:       "hbase-worker",
 								UID:        "uid2",
-								Controller: utilpointer.Bool(true),
+								Controller: ptr.To(true),
 							}},
 							Labels: map[string]string{
 								"app":              "thin",

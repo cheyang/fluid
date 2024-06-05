@@ -20,13 +20,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	versionutil "github.com/fluid-cloudnative/fluid/pkg/utils/version"
 	"os"
 	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
+
+	versionutil "github.com/fluid-cloudnative/fluid/pkg/utils/version"
 
 	"github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
@@ -36,7 +37,7 @@ import (
 	"github.com/fluid-cloudnative/fluid/pkg/ddc/base/portallocator"
 	"github.com/fluid-cloudnative/fluid/pkg/utils"
 	"github.com/fluid-cloudnative/fluid/pkg/utils/docker"
-	"github.com/fluid-cloudnative/fluid/pkg/utils/transfromer"
+	"github.com/fluid-cloudnative/fluid/pkg/utils/transformer"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	"k8s.io/client-go/util/retry"
@@ -117,6 +118,9 @@ func (e *JindoCacheEngine) transform(runtime *datav1alpha1.JindoRuntime) (value 
 	}
 
 	value = &Jindo{
+		// TODO: Handle cases that FullnameOverride is too long (> 63 chars)
+		// TODO: refactor names of jindoruntime and make it aligned with other runtimes
+		FullnameOverride:    fmt.Sprintf("%s-%s", e.name, common.JindoChartName),
 		Image:               smartdataConfig.image,
 		ImageTag:            smartdataConfig.imageTag,
 		ImagePullPolicy:     smartdataConfig.imagePullPolicy,
@@ -143,7 +147,7 @@ func (e *JindoCacheEngine) transform(runtime *datav1alpha1.JindoRuntime) (value 
 			Master:            e.transformMasterMountPath(metaPath, mediumType, volumeType),
 			WorkersAndClients: e.transformWorkerMountPath(originPath, quotas, e.getMediumTypeFromVolumeSource(string(mediumType), runtime.Spec.TieredStore.Levels), volumeType),
 		},
-		Owner: transfromer.GenerateOwnerReferenceFromObject(runtime),
+		Owner: transformer.GenerateOwnerReferenceFromObject(runtime),
 		RuntimeIdentity: common.RuntimeIdentity{
 			Namespace: e.namespace,
 			Name:      e.name,
@@ -959,7 +963,7 @@ func (e *JindoCacheEngine) getSmartDataConfigs(runtime *datav1alpha1.JindoRuntim
 	// Apply defaults
 	config := smartdataConfig{
 		image:           "registry.cn-shanghai.aliyuncs.com/jindofs/smartdata",
-		imageTag:        "6.4.0",
+		imageTag:        "6.2.0",
 		imagePullPolicy: "Always",
 		dnsServer:       "1.1.1.1",
 	}
@@ -997,7 +1001,7 @@ func (e *JindoCacheEngine) getSmartDataConfigs(runtime *datav1alpha1.JindoRuntim
 func (e *JindoCacheEngine) parseFuseImage(runtime *datav1alpha1.JindoRuntime) (image, tag, imagePullPolicy string) {
 	// Apply defaults
 	image = "registry.cn-shanghai.aliyuncs.com/jindofs/jindo-fuse"
-	tag = "6.4.0"
+	tag = "6.2.0"
 	imagePullPolicy = "Always"
 
 	// Override with global-scoped configs

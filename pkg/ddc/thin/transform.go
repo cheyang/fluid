@@ -23,7 +23,7 @@ import (
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
 	"github.com/fluid-cloudnative/fluid/pkg/common"
 	"github.com/fluid-cloudnative/fluid/pkg/utils"
-	"github.com/fluid-cloudnative/fluid/pkg/utils/transfromer"
+	"github.com/fluid-cloudnative/fluid/pkg/utils/transformer"
 	corev1 "k8s.io/api/core/v1"
 )
 
@@ -46,8 +46,9 @@ func (t *ThinEngine) transform(runtime *datav1alpha1.ThinRuntime, profile *datav
 		},
 	}
 
+	// TODO: Handle cases that FullnameOverride is too long (> 63 chars)
 	value.FullnameOverride = t.name
-	value.Owner = transfromer.GenerateOwnerReferenceFromObject(runtime)
+	value.Owner = transformer.GenerateOwnerReferenceFromObject(runtime)
 	toRuntimeSetConfig, err := t.toRuntimeSetConfig(nil, nil)
 	if err != nil {
 		return

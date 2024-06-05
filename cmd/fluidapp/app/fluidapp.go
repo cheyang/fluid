@@ -19,6 +19,15 @@ package app
 import (
 	"os"
 
+	"github.com/fluid-cloudnative/fluid/pkg/common"
+	"github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/fluidapp/dataflowaffinity"
+	"github.com/fluid-cloudnative/fluid/pkg/dataflow"
+	utilfeature "github.com/fluid-cloudnative/fluid/pkg/utils/feature"
+	batchv1 "k8s.io/api/batch/v1"
+	"k8s.io/apimachinery/pkg/labels"
+	"sigs.k8s.io/controller-runtime/pkg/cache"
+	"sigs.k8s.io/controller-runtime/pkg/client"
+
 	"github.com/fluid-cloudnative/fluid"
 	"github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/fluidapp"
 	"github.com/fluid-cloudnative/fluid/pkg/utils"
@@ -31,6 +40,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/controller"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
+	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 )
 
 var (
@@ -62,6 +72,8 @@ func init() {
 	fluidAppCmd.Flags().BoolVarP(&development, "development", "", true, "Enable development mode for fluid controller.")
 	fluidAppCmd.Flags().StringVarP(&pprofAddr, "pprof-addr", "", "", "The address for pprof to use while exporting profiling results")
 	fluidAppCmd.Flags().IntVar(&maxConcurrentReconciles, "runtime-workers", 3, "Set max concurrent workers for Fluid App controller")
+
+	utilfeature.DefaultMutableFeatureGate.AddFlag(fluidAppCmd.Flags())
 }
 
 func handle() {
@@ -83,13 +95,16 @@ func handle() {
 	utils.NewPprofServer(setupLog, pprofAddr, development)
 
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
-		Scheme:                  scheme,
-		MetricsBindAddress:      metricsAddr,
+		Scheme: scheme,
+		Metrics: metricsserver.Options{
+			BindAddress: metricsAddr,
+		},
 		LeaderElection:          enableLeaderElection,
 		LeaderElectionNamespace: leaderElectionNamespace,
 		LeaderElectionID:        "fluidapp.data.fluid.io",
-		Port:                    9443,
-		NewCache:                fluidapp.NewCache(scheme),
+
+		// Port:                    9443,
+		Cache: newCacheOptions(scheme),
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start fluid app manager")
@@ -98,7 +113,6 @@ func handle() {
 
 	controllerOptions := controller.Options{
 		MaxConcurrentReconciles: maxConcurrentReconciles,
-		// Log:                     ctrl.Log.WithName("appctrl"),
 	}
 	if err = (fluidapp.NewFluidAppReconciler(
 		mgr.GetClient(),
@@ -109,9 +123,58 @@ func handle() {
 		os.Exit(1)
 	}
 
+	if dataflow.Enabled(dataflow.DataflowAffinity) {
+		if err = (dataflowaffinity.NewDataOpJobReconciler(
+			mgr.GetClient(),
+			ctrl.Log.WithName("dataopctrl"),
+			mgr.GetEventRecorderFor("DataOpJob"),
+		)).SetupWithManager(mgr, controllerOptions); err != nil {
+			setupLog.Error(err, "unable to create controller", "controller", "DataOpJob")
+			os.Exit(1)
+		}
+	}
+
 	setupLog.Info("starting fluidapp-controller")
 	if err := mgr.Start(ctrl.SetupSignalHandler()); err != nil {
 		setupLog.Error(err, "problem running fluidapp-controller")
 		os.Exit(1)
 	}
+}
+
+func newCacheOptions(scheme *runtime.Scheme) cache.Options {
+	// options := cache.Options{
+	// 	Scheme: scheme,
+	// 	SelectorsByObject: cache.SelectorsByObject{
+	// 		&corev1.Pod{}: {
+	// 			Label: labels.SelectorFromSet(labels.Set{
+	// 				// watch pods managed by fluid, like data operation pods, serverless app pods.
+	// 				common.LabelAnnotationManagedBy: common.Fluid,
+	// 			}),
+	// 		},
+	// 	},
+	// }
+
+	options := cache.Options{
+		Scheme: scheme,
+		ByObject: map[client.Object]cache.ByObject{
+			&corev1.Pod{}: {
+				Label: labels.SelectorFromSet(labels.Set{
+					// watch pods managed by fluid, like data operation pods, serverless app pods.
+					common.LabelAnnotationManagedBy: common.Fluid,
+				}),
+			},
+		},
+	}
+
+	if dataflow.Enabled(dataflow.DataflowAffinity) {
+		options.ByObject[&batchv1.Job{}] = cache.ByObject{
+			// watch data operation job
+			Label: labels.SelectorFromSet(labels.Set{
+				// only data operations create job resource and the jobs created by cronjob do not have this label.
+				common.LabelAnnotationManagedBy: common.Fluid,
+			}),
+		}
+	}
+	// return cache.BuilderWithOptions(options)
+	return options
 }

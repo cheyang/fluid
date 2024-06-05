@@ -14,6 +14,8 @@ print_usage() {
   echo "        Set the name of runtime."
   echo "    -n, --namespace name"
   echo "        Set the namespace of runtime."
+  echo "    --collect-path"
+  echo "        Set which file the information is collected into. (default: $(pwd)/diagnose_fluid_\${timestamp}.tar.gz)"
 }
 
 run() {
@@ -30,9 +32,14 @@ helm_get() {
   run helm get all -n ${runtime_namespace} "${1}" &>"$diagnose_dir/helm-${1}.yaml"
 }
 
+helm_get_runtime() {
+  run env HELM_DRIVER=configmap helm get all -n ${runtime_namespace} "${1}" &>"$diagnose_dir/helm-${1}.yaml"
+}
+
 pod_status() {
   local namespace=${1:-"default"}
   run kubectl get po -owide -n ${namespace} &>"$diagnose_dir/pods-${namespace}.log"
+  run kubectl get po -oyaml -n ${namespace} &>>"$diagnose_dir/pods-${namespace}.log"
 }
 
 fluid_pod_logs() {
@@ -75,14 +82,19 @@ kubectl_resource() {
 }
 
 archive() {
-  tar -zcvf "${current_dir}/diagnose_fluid_${timestamp}.tar.gz" "${diagnose_dir}"
-  echo "please get diagnose_fluid_${timestamp}.tar.gz for diagnostics"
+  tar_filename="${current_dir}/diagnose_fluid_${timestamp}.tar.gz"
+  if [[ ! -z "${collect_path}" ]]; then
+    tar_filename=${collect_path}
+    mkdir -p $(dirname "$tar_filename")
+  fi
+  tar -zcvf "${tar_filename}" "${diagnose_dir}"
+  echo "please get ${tar_filename} for diagnostics"
 }
 
 pd_collect() {
   echo "Start collecting, runtime-name=${runtime_name}, runtime-namespace=${runtime_namespace}"
   helm_get "${fluid_name}"
-  helm_get "${runtime_name}"
+  helm_get_runtime "${runtime_name}"
   pod_status "${fluid_namespace}"
   pod_status "${runtime_namespace}"
   runtime_pod_logs
@@ -130,6 +142,10 @@ main() {
         ;;
       -n|--namespace)
         runtime_namespace=$2
+        shift
+        ;;
+      --collect-path)
+        collect_path=$2
         shift
         ;;
       *)
