@@ -135,9 +135,13 @@ func (e *JindoEngine) transform(runtime *datav1alpha1.JindoRuntime) (value *Jind
 	if err != nil {
 		return
 	}
-	err = e.allocatePorts(value)
-	if err != nil {
-		return
+	if runtime.Spec.Master.Disabled && runtime.Spec.Worker.Disabled {
+		e.Log.Info("skip port allocation for no cache mode")
+	} else {
+		err = e.allocatePorts(value)
+		if err != nil {
+			return
+		}
 	}
 	err = e.transformMaster(runtime, metaPath, value, dataset)
 	if err != nil {
@@ -151,9 +155,13 @@ func (e *JindoEngine) transform(runtime *datav1alpha1.JindoRuntime) (value *Jind
 	if err != nil {
 		return
 	}
-	err = e.transformInitPortCheck(value)
-	if err != nil {
-		return
+	if runtime.Spec.Master.Disabled && runtime.Spec.Worker.Disabled {
+		e.Log.Info("skip port allocation for no cache mode")
+	} else {
+		err = e.transformInitPortCheck(value)
+		if err != nil {
+			return
+		}
 	}
 	err = e.transformLabels(runtime, value)
 	if err != nil {
