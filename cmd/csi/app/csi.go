@@ -37,6 +37,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
 	ctrl "sigs.k8s.io/controller-runtime"
+	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 )
 
 var (
@@ -102,9 +103,13 @@ func handle() {
 	}
 
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
-		Scheme:             scheme,
-		MetricsBindAddress: metricsAddr,
-		Port:               9443,
+		Scheme: scheme,
+		// MetricsBindAddress: metricsAddr,
+		// Port:               9443,
+		Metrics: metricsserver.Options{
+			BindAddress: metricsAddr,
+			// BindAddress: "0.0.0.0:8080",
+		},
 	})
 
 	if err != nil {
