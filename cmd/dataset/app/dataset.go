@@ -20,6 +20,8 @@ import (
 	"os"
 	"time"
 
+	utilfeature "github.com/fluid-cloudnative/fluid/pkg/utils/feature"
+
 	"github.com/spf13/cobra"
 	zapOpt "go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -49,6 +51,7 @@ import (
 	"github.com/fluid-cloudnative/fluid/pkg/utils"
 	"github.com/fluid-cloudnative/fluid/pkg/utils/compatibility"
 	"github.com/fluid-cloudnative/fluid/pkg/utils/discovery"
+	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 )
 
 var (
@@ -122,12 +125,13 @@ func handle() {
 	utils.NewPprofServer(setupLog, pprofAddr, development)
 
 	mgr, err := ctrl.NewManager(controllers.GetConfigOrDieWithQPSAndBurst(kubeClientQPS, kubeClientBurst), ctrl.Options{
-		Scheme:                  scheme,
-		MetricsBindAddress:      metricsAddr,
+		Scheme: scheme,
+		Metrics: metricsserver.Options{
+			BindAddress: metricsAddr,
+		},
 		LeaderElection:          enableLeaderElection,
 		LeaderElectionNamespace: leaderElectionNamespace,
 		LeaderElectionID:        "dataset.data.fluid.io",
-		Port:                    9443,
 		NewCache:                NewCache(scheme),
 		NewClient:               controllers.NewFluidControllerClient,
 	})
