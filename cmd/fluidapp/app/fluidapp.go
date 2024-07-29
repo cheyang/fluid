@@ -17,13 +17,14 @@
 package app
 
 import (
+	"os"
+
 	"github.com/fluid-cloudnative/fluid/pkg/common"
 	"github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/fluidapp/dataflowaffinity"
 	"github.com/fluid-cloudnative/fluid/pkg/dataflow"
 	utilfeature "github.com/fluid-cloudnative/fluid/pkg/utils/feature"
 	batchv1 "k8s.io/api/batch/v1"
 	"k8s.io/apimachinery/pkg/labels"
-	"os"
 	"sigs.k8s.io/controller-runtime/pkg/cache"
 
 	"github.com/fluid-cloudnative/fluid"
@@ -38,6 +39,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/controller"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
+	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 )
 
 var (
@@ -92,13 +94,16 @@ func handle() {
 	utils.NewPprofServer(setupLog, pprofAddr, development)
 
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
-		Scheme:                  scheme,
-		MetricsBindAddress:      metricsAddr,
+		Scheme: scheme,
+		Metrics: metricsserver.Options{
+			BindAddress: metricsAddr,
+		},
 		LeaderElection:          enableLeaderElection,
 		LeaderElectionNamespace: leaderElectionNamespace,
 		LeaderElectionID:        "fluidapp.data.fluid.io",
-		Port:                    9443,
-		NewCache:                NewCache(scheme),
+
+		// Port:                    9443,
+		NewCache: fluidapp.NewCache(scheme),
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start fluid app manager")
