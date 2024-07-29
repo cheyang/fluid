@@ -211,9 +211,14 @@ func CreatePersistentVolumeClaimForRuntime(client client.Client,
 				},
 				StorageClassName: &common.FluidStorageClass,
 				AccessModes:      accessModes,
-				Resources: corev1.ResourceRequirements{
+				// Resources: corev1.ResourceRequirements{
+				// 	Requests: corev1.ResourceList{
+				// 		corev1.ResourceName(corev1.ResourceStorage): resource.MustParse("100Pi"),
+				// 	},
+				// },
+				Resources: corev1.VolumeResourceRequirements{
 					Requests: corev1.ResourceList{
-						corev1.ResourceName(corev1.ResourceStorage): storageCapacity,
+						corev1.ResourceStorage: resource.MustParse("100Pi"),
 					},
 				},
 			},
