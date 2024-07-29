@@ -103,7 +103,7 @@ func handle() {
 		LeaderElectionID:        "fluidapp.data.fluid.io",
 
 		// Port:                    9443,
-		NewCache: fluidapp.NewCache(scheme),
+		Cache: fluidapp.NewCache(scheme),
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start fluid app manager")

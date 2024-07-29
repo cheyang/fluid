@@ -108,3 +108,22 @@ func (f *FluidAppReconciler) internalReconcile(ctx reconcileRequestContext) (ctr
 func (f *FluidAppReconciler) SetupWithManager(mgr ctrl.Manager, options controller.Options) error {
 	return watch.SetupAppWatcherWithReconciler(mgr, options, f)
 }
+
+func NewCache(scheme *runtime.Scheme) cache.Options {
+	// return cache.BuilderWithOptions(cache.Options{
+	// 	Scheme: scheme,
+	// 	SelectorsByObject: cache.SelectorsByObject{
+	// 		&corev1.Pod{}: {Label: labels.SelectorFromSet(labels.Set{
+	// 			common.InjectSidecarDone: common.True,
+	// 		})},
+	// 	},
+	// })
+	return cache.Options{
+		Scheme: scheme,
+		ByObject: map[client.Object]cache.ByObject{
+			&corev1.Pod{}: {Label: labels.SelectorFromSet(labels.Set{
+				common.InjectSidecarDone: common.True,
+			})},
+		},
+	}
+}
