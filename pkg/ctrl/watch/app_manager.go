@@ -32,7 +32,13 @@ func SetupAppWatcherWithReconciler(mgr ctrl.Manager, options controller.Options,
 	}
 
 	podEventHandler := &podEventHandler{}
-	err = c.Watch(&source.Kind{Type: r.ManagedResource()}, &handler.EnqueueRequestForObject{}, predicate.Funcs{
+	// err = c.Watch(&source.Kind{Type: r.ManagedResource()}, &handler.EnqueueRequestForObject{}, predicate.Funcs{
+	// 	CreateFunc: podEventHandler.onCreateFunc(r),
+	// 	UpdateFunc: podEventHandler.onUpdateFunc(r),
+	// 	DeleteFunc: podEventHandler.onDeleteFunc(r),
+	// })
+
+	err = c.Watch(source.Kind(mgr.GetCache(), r.ManagedResource()), &handler.EnqueueRequestForObject{}, predicate.Funcs{
 		CreateFunc: podEventHandler.onCreateFunc(r),
 		UpdateFunc: podEventHandler.onUpdateFunc(r),
 		DeleteFunc: podEventHandler.onDeleteFunc(r),

@@ -62,11 +62,17 @@ func SetupWatcherForReconcilerWithDataset(mgr ctrl.Manager, options controller.O
 	}
 
 	runtimeEventHandler := &runtimeEventHandler{}
-	err = c.Watch(&source.Kind{Type: r.ManagedResource()}, &handler.EnqueueRequestForObject{}, predicate.Funcs{
+	// err = c.Watch(&source.Kind{Type: r.ManagedResource()}, &handler.EnqueueRequestForObject{}, predicate.Funcs{
+	// 	CreateFunc: runtimeEventHandler.onCreateFunc(r),
+	// 	UpdateFunc: runtimeEventHandler.onUpdateFunc(r),
+	// 	DeleteFunc: runtimeEventHandler.onDeleteFunc(r),
+	// })
+	err = c.Watch(source.Kind(mgr.GetCache(), r.ManagedResource()), &handler.EnqueueRequestForObject{}, predicate.Funcs{
 		CreateFunc: runtimeEventHandler.onCreateFunc(r),
 		UpdateFunc: runtimeEventHandler.onUpdateFunc(r),
 		DeleteFunc: runtimeEventHandler.onDeleteFunc(r),
 	})
+
 	if err != nil {
 		log.Error(err, "Failed to watch JindoRuntime")
 		return err

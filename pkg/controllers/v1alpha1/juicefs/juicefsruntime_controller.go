@@ -134,7 +134,7 @@ func (r *JuiceFSRuntimeReconciler) SetupWithManager(mgr ctrl.Manager, options co
 	}
 }
 
-func NewCache(scheme *runtime.Scheme) cache.Options {
+func NewCacheOptions(scheme *runtime.Scheme) cache.Options {
 	// return cache.BuilderWithOptions(cache.Options{
 	// 	Scheme: scheme,
 	// 	SelectorsByObject: cache.SelectorsByObject{

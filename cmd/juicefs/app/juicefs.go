@@ -138,7 +138,7 @@ func handle() {
 		LeaderElectionNamespace: leaderElectionNamespace,
 		LeaderElectionID:        "juicefs.data.fluid.io",
 		// Port:                    9443,
-		NewCache:  juicefsctl.NewCache(scheme),
+		Cache:     juicefsctl.NewCacheOptions(scheme),
 		NewClient: NewControllerClient,
 	})
 	if err != nil {
