@@ -19,10 +19,11 @@ package mutating
 import (
 	"context"
 	"fmt"
-	"github.com/agiledragon/gomonkey/v2"
-	"github.com/fluid-cloudnative/fluid/pkg/webhook/plugins"
 	"os"
 	"testing"
+
+	"github.com/agiledragon/gomonkey/v2"
+	"github.com/fluid-cloudnative/fluid/pkg/webhook/plugins"
 
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
 	"github.com/fluid-cloudnative/fluid/pkg/common"
@@ -825,10 +826,7 @@ func TestAddScheduleInfoToPod(t *testing.T) {
 }
 
 func TestHandle(t *testing.T) {
-	decoder, err := admission.NewDecoder(scheme.Scheme)
-	if err != nil {
-		t.Errorf("test failed due to err %v", err)
-	}
+	decoder := admission.NewDecoder(scheme.Scheme)
 
 	type testCase struct {
 		name string
