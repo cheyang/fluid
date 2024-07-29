@@ -118,8 +118,8 @@ func handle() {
 		LeaderElectionNamespace: leaderElectionNamespace,
 		LeaderElectionID:        "thin.data.fluid.io",
 		// Port:                    9443,
-		NewCache:                thinctl.NewCache(scheme),
-		NewClient:               controllers.NewFluidControllerClient,
+		Cache:     thinctl.NewCacheOptions(scheme),
+		NewClient: controllers.NewFluidControllerClient,
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start thinruntime manager")
