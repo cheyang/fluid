@@ -160,6 +160,8 @@ func reconcileOperationDataFlow(ctx reconcileRequestContext,
 	opStatus datav1alpha1.OperationStatus,
 	updateStatusFn func() error) (needRequeue bool, err error) {
 
+	ctx.Log.V(1).Info("Reconciling operation dataflow", "opStatus", opStatus)
+
 	opRefNamespace := ctx.Namespace
 	if len(runAfter.Namespace) != 0 {
 		opRefNamespace = runAfter.Namespace

@@ -218,7 +218,7 @@ func CreatePersistentVolumeClaimForRuntime(client client.Client,
 				// },
 				Resources: corev1.VolumeResourceRequirements{
 					Requests: corev1.ResourceList{
-						corev1.ResourceStorage: resource.MustParse("100Pi"),
+						corev1.ResourceStorage: storageCapacity,
 					},
 				},
 			},

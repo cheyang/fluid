@@ -20,8 +20,6 @@ import (
 	"os"
 	"time"
 
-	utilfeature "github.com/fluid-cloudnative/fluid/pkg/utils/feature"
-
 	"github.com/spf13/cobra"
 	zapOpt "go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
