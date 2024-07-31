@@ -32,6 +32,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/controller"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
+	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 
 	"github.com/fluid-cloudnative/fluid"
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
@@ -118,14 +119,15 @@ func handle() {
 	utils.NewPprofServer(setupLog, pprofAddr, development)
 
 	mgr, err := ctrl.NewManager(controllers.GetConfigOrDieWithQPSAndBurst(kubeClientQPS, kubeClientBurst), ctrl.Options{
-		Scheme:                  scheme,
-		MetricsBindAddress:      metricsAddr,
+		Scheme: scheme,
+		// MetricsBindAddress:      metricsAddr,
+		Metrics:                 metricsserver.Options{BindAddress: metricsAddr},
 		LeaderElection:          enableLeaderElection,
 		LeaderElectionNamespace: leaderElectionNamespace,
 		LeaderElectionID:        "thin.data.fluid.io",
-		Port:                    9443,
-		NewCache:                thinctl.NewCache(scheme),
-		NewClient:               controllers.NewFluidControllerClient,
+		// Port:                    9443,
+		Cache:     thinctl.NewCacheOptions(scheme),
+		NewClient: controllers.NewFluidControllerClient,
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start thinruntime manager")

@@ -17,14 +17,16 @@
 package app
 
 import (
+	"os"
+
 	"github.com/fluid-cloudnative/fluid/pkg/common"
 	"github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/fluidapp/dataflowaffinity"
 	"github.com/fluid-cloudnative/fluid/pkg/dataflow"
 	utilfeature "github.com/fluid-cloudnative/fluid/pkg/utils/feature"
 	batchv1 "k8s.io/api/batch/v1"
 	"k8s.io/apimachinery/pkg/labels"
-	"os"
 	"sigs.k8s.io/controller-runtime/pkg/cache"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 
 	"github.com/fluid-cloudnative/fluid"
 	"github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/fluidapp"
@@ -38,6 +40,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/controller"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
+	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 )
 
 var (
@@ -92,13 +95,16 @@ func handle() {
 	utils.NewPprofServer(setupLog, pprofAddr, development)
 
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
-		Scheme:                  scheme,
-		MetricsBindAddress:      metricsAddr,
+		Scheme: scheme,
+		Metrics: metricsserver.Options{
+			BindAddress: metricsAddr,
+		},
 		LeaderElection:          enableLeaderElection,
 		LeaderElectionNamespace: leaderElectionNamespace,
 		LeaderElectionID:        "fluidapp.data.fluid.io",
-		Port:                    9443,
-		NewCache:                NewCache(scheme),
+
+		// Port:                    9443,
+		Cache: newCacheOptions(scheme),
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start fluid app manager")
@@ -135,10 +141,22 @@ func handle() {
 	}
 }
 
-func NewCache(scheme *runtime.Scheme) cache.NewCacheFunc {
+func newCacheOptions(scheme *runtime.Scheme) cache.Options {
+	// options := cache.Options{
+	// 	Scheme: scheme,
+	// 	SelectorsByObject: cache.SelectorsByObject{
+	// 		&corev1.Pod{}: {
+	// 			Label: labels.SelectorFromSet(labels.Set{
+	// 				// watch pods managed by fluid, like data operation pods, serverless app pods.
+	// 				common.LabelAnnotationManagedBy: common.Fluid,
+	// 			}),
+	// 		},
+	// 	},
+	// }
+
 	options := cache.Options{
 		Scheme: scheme,
-		SelectorsByObject: cache.SelectorsByObject{
+		ByObject: map[client.Object]cache.ByObject{
 			&corev1.Pod{}: {
 				Label: labels.SelectorFromSet(labels.Set{
 					// watch pods managed by fluid, like data operation pods, serverless app pods.
@@ -147,8 +165,9 @@ func NewCache(scheme *runtime.Scheme) cache.NewCacheFunc {
 			},
 		},
 	}
+
 	if dataflow.Enabled(dataflow.DataflowAffinity) {
-		options.SelectorsByObject[&batchv1.Job{}] = cache.ObjectSelector{
+		options.ByObject[&batchv1.Job{}] = cache.ByObject{
 			// watch data operation job
 			Label: labels.SelectorFromSet(labels.Set{
 				// only data operations create job resource and the jobs created by cronjob do not have this label.
@@ -156,5 +175,6 @@ func NewCache(scheme *runtime.Scheme) cache.NewCacheFunc {
 			}),
 		}
 	}
-	return cache.BuilderWithOptions(options)
+	// return cache.BuilderWithOptions(options)
+	return options
 }

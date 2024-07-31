@@ -19,6 +19,9 @@ package app
 import (
 	"os"
 	"time"
+
+	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
+
 	// +kubebuilder:scaffold:imports
 
 	"github.com/fluid-cloudnative/fluid"
@@ -115,13 +118,16 @@ func handle() {
 	utils.NewPprofServer(setupLog, pprofAddr, development)
 
 	mgr, err := ctrl.NewManager(controllers.GetConfigOrDieWithQPSAndBurst(kubeClientQPS, kubeClientBurst), ctrl.Options{
-		Scheme:                  scheme,
-		MetricsBindAddress:      metricsAddr,
+		Scheme: scheme,
+		// MetricsBindAddress:      metricsAddr,
+		Metrics: metricsserver.Options{
+			BindAddress: metricsAddr,
+		},
 		LeaderElection:          enableLeaderElection,
 		LeaderElectionNamespace: leaderElectionNamespace,
 		LeaderElectionID:        "alluxio.data.fluid.io",
-		Port:                    9443,
-		NewClient:               controllers.NewFluidControllerClient,
+		// Port:                    9443,
+		NewClient: controllers.NewFluidControllerClient,
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start alluxioruntime manager")

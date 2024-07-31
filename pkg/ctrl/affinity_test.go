@@ -24,7 +24,7 @@ import (
 	"github.com/fluid-cloudnative/fluid/pkg/utils/fake"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	utilpointer "k8s.io/utils/pointer"
+	ptr "k8s.io/utils/ptr"
 
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
 	"github.com/fluid-cloudnative/fluid/pkg/ddc/base"
@@ -61,7 +61,7 @@ func TestBuildWorkersAffinity(t *testing.T) {
 						Namespace: "big-data",
 					},
 					Spec: appsv1.StatefulSetSpec{
-						Replicas: utilpointer.Int32(1),
+						Replicas: ptr.To[int32](1),
 					},
 				},
 				want: &v1.Affinity{
@@ -115,7 +115,7 @@ func TestBuildWorkersAffinity(t *testing.T) {
 						Namespace: "big-data",
 					},
 					Spec: appsv1.StatefulSetSpec{
-						Replicas: utilpointer.Int32(1),
+						Replicas: ptr.To[int32](1),
 					},
 				},
 				want: &v1.Affinity{
@@ -201,7 +201,7 @@ func TestBuildWorkersAffinity(t *testing.T) {
 						Namespace: "big-data",
 					},
 					Spec: appsv1.StatefulSetSpec{
-						Replicas: utilpointer.Int32(1),
+						Replicas: ptr.To[int32](1),
 					},
 				},
 				want: &v1.Affinity{
@@ -307,7 +307,7 @@ func TestBuildWorkersAffinityForEFCRuntime(t *testing.T) {
 					Namespace: "big-data",
 				},
 				Spec: appsv1.StatefulSetSpec{
-					Replicas: utilpointer.Int32(1),
+					Replicas: ptr.To[int32](1),
 				},
 			},
 			want: &v1.Affinity{

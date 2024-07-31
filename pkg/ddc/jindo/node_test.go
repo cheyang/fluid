@@ -32,7 +32,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	utilpointer "k8s.io/utils/pointer"
+	ptr "k8s.io/utils/ptr"
 )
 
 func getTestJindoEngineNode(client client.Client, name string, namespace string, withRunTime bool) *JindoEngine {
@@ -89,7 +89,7 @@ func TestSyncScheduleInfoToCacheNodes(t *testing.T) {
 								APIVersion: "apps/v1",
 								Name:       "spark-jindofs-worker",
 								UID:        "uid1",
-								Controller: utilpointer.Bool(true),
+								Controller: ptr.To(true),
 							}},
 							Labels: map[string]string{
 								"app":              "jindofs",
@@ -134,7 +134,7 @@ func TestSyncScheduleInfoToCacheNodes(t *testing.T) {
 								APIVersion: "apps/v1",
 								Name:       "hbase-jindofs-worker",
 								UID:        "uid2",
-								Controller: utilpointer.Bool(true),
+								Controller: ptr.To(true),
 							}},
 							Labels: map[string]string{
 								"app":              "jindofs",
