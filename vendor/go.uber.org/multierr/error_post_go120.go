@@ -27,10 +27,6 @@ package multierr
 func (merr *multiError) Unwrap() []error {
 	return merr.Errors()
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3b9d74c58 (Update controller-runtime to v1.17.5, To #57240825)
 
 type multipleErrors interface {
 	Unwrap() []error
@@ -50,8 +46,3 @@ func extractErrors(err error) []error {
 
 	return append(([]error)(nil), eg.Unwrap()...)
 }
-<<<<<<< HEAD
-=======
->>>>>>> 12b98cd10 (Bump go.uber.org/zap from 1.24.0 to 1.27.0 (#3727))
-=======
->>>>>>> 3b9d74c58 (Update controller-runtime to v1.17.5, To #57240825)

@@ -137,15 +137,12 @@ func (s *SugaredLogger) Level() zapcore.Level {
 	return zapcore.LevelOf(s.base.core)
 }
 
-<<<<<<< HEAD
-=======
 // Log logs the provided arguments at provided level.
 // Spaces are added between arguments when neither is a string.
 func (s *SugaredLogger) Log(lvl zapcore.Level, args ...interface{}) {
 	s.log(lvl, "", args, nil)
 }
 
->>>>>>> 12b98cd10 (Bump go.uber.org/zap from 1.24.0 to 1.27.0 (#3727))
 // Debug logs the provided arguments at [DebugLevel].
 // Spaces are added between arguments when neither is a string.
 func (s *SugaredLogger) Debug(args ...interface{}) {
@@ -189,15 +186,12 @@ func (s *SugaredLogger) Fatal(args ...interface{}) {
 	s.log(FatalLevel, "", args, nil)
 }
 
-<<<<<<< HEAD
-=======
 // Logf formats the message according to the format specifier
 // and logs it at provided level.
 func (s *SugaredLogger) Logf(lvl zapcore.Level, template string, args ...interface{}) {
 	s.log(lvl, template, args, nil)
 }
 
->>>>>>> 12b98cd10 (Bump go.uber.org/zap from 1.24.0 to 1.27.0 (#3727))
 // Debugf formats the message according to the format specifier
 // and logs it at [DebugLevel].
 func (s *SugaredLogger) Debugf(template string, args ...interface{}) {
@@ -294,15 +288,12 @@ func (s *SugaredLogger) Fatalw(msg string, keysAndValues ...interface{}) {
 	s.log(FatalLevel, msg, nil, keysAndValues)
 }
 
-<<<<<<< HEAD
-=======
 // Logln logs a message at provided level.
 // Spaces are always added between arguments.
 func (s *SugaredLogger) Logln(lvl zapcore.Level, args ...interface{}) {
 	s.logln(lvl, args, nil)
 }
 
->>>>>>> 12b98cd10 (Bump go.uber.org/zap from 1.24.0 to 1.27.0 (#3727))
 // Debugln logs a message at [DebugLevel].
 // Spaces are always added between arguments.
 func (s *SugaredLogger) Debugln(args ...interface{}) {

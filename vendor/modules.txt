@@ -33,21 +33,8 @@ github.com/evanphx/json-patch
 # github.com/evanphx/json-patch/v5 v5.8.0
 ## explicit; go 1.18
 github.com/evanphx/json-patch/v5
-<<<<<<< HEAD
-<<<<<<< HEAD
 github.com/evanphx/json-patch/v5/internal/json
-<<<<<<< HEAD
-# github.com/felixge/fgprof v0.9.3
-=======
 # github.com/felixge/fgprof v0.9.4
->>>>>>> 84ba76290 (Bump github.com/felixge/fgprof from 0.9.3 to 0.9.4 (#4169))
-=======
-github.com/evanphx/json-patch/v5/internal/json
-# github.com/felixge/fgprof v0.9.3
->>>>>>> 3b9d74c58 (Update controller-runtime to v1.17.5, To #57240825)
-=======
-# github.com/felixge/fgprof v0.9.4
->>>>>>> 450e64a20 (Update controller-runtime to v1.17.5, To #57240825)
 ## explicit; go 1.14
 github.com/felixge/fgprof
 # github.com/fsnotify/fsnotify v1.7.0
@@ -56,20 +43,9 @@ github.com/fsnotify/fsnotify
 # github.com/go-logr/logr v1.4.2
 ## explicit; go 1.18
 github.com/go-logr/logr
-<<<<<<< HEAD
-<<<<<<< HEAD
 github.com/go-logr/logr/slogr
 # github.com/go-logr/zapr v1.3.0
 ## explicit; go 1.18
-=======
-# github.com/go-logr/zapr v1.2.3
-## explicit; go 1.16
->>>>>>> 3f53ca99a (--- (#4123))
-=======
-github.com/go-logr/logr/slogr
-# github.com/go-logr/zapr v1.3.0
-## explicit; go 1.18
->>>>>>> 3b9d74c58 (Update controller-runtime to v1.17.5, To #57240825)
 github.com/go-logr/zapr
 # github.com/go-openapi/jsonpointer v0.19.6
 ## explicit; go 1.13
@@ -264,28 +240,10 @@ github.com/spf13/pflag
 # github.com/stretchr/testify v1.9.0
 ## explicit; go 1.17
 github.com/stretchr/testify/assert
-<<<<<<< HEAD
-<<<<<<< HEAD
 # go.uber.org/multierr v1.11.0
 ## explicit; go 1.19
 go.uber.org/multierr
-<<<<<<< HEAD
-# go.uber.org/zap v1.26.0
-=======
-# go.uber.org/multierr v1.10.0
-## explicit; go 1.19
-go.uber.org/multierr
 # go.uber.org/zap v1.27.0
->>>>>>> 12b98cd10 (Bump go.uber.org/zap from 1.24.0 to 1.27.0 (#3727))
-=======
-# go.uber.org/multierr v1.11.0
-## explicit; go 1.19
-go.uber.org/multierr
-# go.uber.org/zap v1.26.0
->>>>>>> 3b9d74c58 (Update controller-runtime to v1.17.5, To #57240825)
-=======
-# go.uber.org/zap v1.27.0
->>>>>>> 450e64a20 (Update controller-runtime to v1.17.5, To #57240825)
 ## explicit; go 1.19
 go.uber.org/zap
 go.uber.org/zap/buffer
@@ -299,28 +257,10 @@ go.uber.org/zap/zapcore
 # golang.org/x/arch v0.0.0-20190312162104-788fe5ffcd8c
 ## explicit; go 1.11
 golang.org/x/arch/x86/x86asm
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3b9d74c58 (Update controller-runtime to v1.17.5, To #57240825)
 # golang.org/x/exp v0.0.0-20220827204233-334a2380cb91
 ## explicit; go 1.18
 golang.org/x/exp/maps
-<<<<<<< HEAD
-# golang.org/x/net v0.25.0
-<<<<<<< HEAD
-=======
-# golang.org/x/net v0.26.0
->>>>>>> 32d869881 (Bump golang.org/x/net from 0.25.0 to 0.26.0 (#4156))
-=======
 # golang.org/x/net v0.27.0
->>>>>>> a052f39c8 (Bump golang.org/x/net from 0.26.0 to 0.27.0 (#4200))
-=======
->>>>>>> 3b9d74c58 (Update controller-runtime to v1.17.5, To #57240825)
-=======
-# golang.org/x/net v0.27.0
->>>>>>> 450e64a20 (Update controller-runtime to v1.17.5, To #57240825)
 ## explicit; go 1.18
 golang.org/x/net/context
 golang.org/x/net/html
@@ -372,12 +312,6 @@ golang.org/x/text/unicode/norm
 ## explicit; go 1.18
 golang.org/x/time/rate
 # gomodules.xyz/jsonpatch/v2 v2.4.0
-<<<<<<< HEAD
-## explicit; go 1.20
-gomodules.xyz/jsonpatch/v2
-# google.golang.org/genproto/googleapis/rpc v0.0.0-20240528184218-531527333157
-=======
->>>>>>> 3b9d74c58 (Update controller-runtime to v1.17.5, To #57240825)
 ## explicit; go 1.20
 gomodules.xyz/jsonpatch/v2
 # google.golang.org/genproto/googleapis/rpc v0.0.0-20240528184218-531527333157
@@ -885,10 +819,6 @@ sigs.k8s.io/structured-merge-diff/v4/value
 ## explicit; go 1.12
 sigs.k8s.io/yaml
 sigs.k8s.io/yaml/goyaml.v2
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3b9d74c58 (Update controller-runtime to v1.17.5, To #57240825)
 # k8s.io/api => k8s.io/api v0.29.5
 # k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.29.5
 # k8s.io/apimachinery => k8s.io/apimachinery v0.29.5
@@ -919,37 +849,3 @@ sigs.k8s.io/yaml/goyaml.v2
 # k8s.io/dynamic-resource-allocation => k8s.io/dynamic-resource-allocation v0.29.5
 # k8s.io/kms => k8s.io/kms v0.29.5
 # k8s.io/endpointslice => k8s.io/endpointslice v0.29.5
-<<<<<<< HEAD
-=======
-# k8s.io/api => k8s.io/api v0.26.15
-# k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.26.15
-# k8s.io/apimachinery => k8s.io/apimachinery v0.26.15
-# k8s.io/apiserver => k8s.io/apiserver v0.26.15
-# k8s.io/cli-runtime => k8s.io/cli-runtime v0.26.15
-# k8s.io/client-go => k8s.io/client-go v0.26.15
-# k8s.io/cloud-provider => k8s.io/cloud-provider v0.26.15
-# k8s.io/cluster-bootstrap => k8s.io/cluster-bootstrap v0.26.15
-# k8s.io/code-generator => k8s.io/code-generator v0.26.15
-# k8s.io/component-base => k8s.io/component-base v0.26.15
-# k8s.io/component-helpers => k8s.io/component-helpers v0.26.15
-# k8s.io/controller-manager => k8s.io/controller-manager v0.26.15
-# k8s.io/cri-api => k8s.io/cri-api v0.26.15
-# k8s.io/csi-translation-lib => k8s.io/csi-translation-lib v0.26.15
-# k8s.io/kube-aggregator => k8s.io/kube-aggregator v0.26.15
-# k8s.io/kube-controller-manager => k8s.io/kube-controller-manager v0.26.15
-# k8s.io/kube-proxy => k8s.io/kube-proxy v0.26.15
-# k8s.io/kube-scheduler => k8s.io/kube-scheduler v0.26.15
-# k8s.io/kubectl => k8s.io/kubectl v0.26.15
-# k8s.io/kubelet => k8s.io/kubelet v0.26.15
-# k8s.io/legacy-cloud-providers => k8s.io/legacy-cloud-providers v0.26.15
-# k8s.io/metrics => k8s.io/metrics v0.26.15
-# k8s.io/mount-utils => k8s.io/mount-utils v0.26.15
-# k8s.io/sample-apiserver => k8s.io/sample-apiserver v0.26.15
-# k8s.io/sample-cli-plugin => k8s.io/sample-cli-plugin v0.26.15
-# k8s.io/sample-controller => k8s.io/sample-controller v0.26.15
-# k8s.io/pod-security-admission => k8s.io/pod-security-admission v0.26.15
-# k8s.io/dynamic-resource-allocation => k8s.io/dynamic-resource-allocation v0.26.15
-# k8s.io/kms => k8s.io/kms v0.26.15
->>>>>>> d1a8eaf1e (Bump sigs.k8s.io/yaml from 1.3.0 to 1.4.0 (#4157))
-=======
->>>>>>> 3b9d74c58 (Update controller-runtime to v1.17.5, To #57240825)

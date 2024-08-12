@@ -195,31 +195,7 @@ type errorGroup interface {
 //
 // Callers of this function are free to modify the returned slice.
 func Errors(err error) []error {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	return extractErrors(err)
-=======
-	if err == nil {
-		return nil
-	}
-
-	// Note that we're casting to multiError, not errorGroup. Our contract is
-	// that returned errors MAY implement errorGroup. Errors, however, only
-	// has special behavior for multierr-specific error objects.
-	//
-	// This behavior can be expanded in the future but I think it's prudent to
-	// start with as little as possible in terms of contract and possibility
-	// of misuse.
-	eg, ok := err.(*multiError)
-	if !ok {
-		return []error{err}
-	}
-
-	return append(([]error)(nil), eg.Errors()...)
->>>>>>> 12b98cd10 (Bump go.uber.org/zap from 1.24.0 to 1.27.0 (#3727))
-=======
-	return extractErrors(err)
->>>>>>> 3b9d74c58 (Update controller-runtime to v1.17.5, To #57240825)
 }
 
 // multiError is an error that holds one or more errors.

@@ -42,11 +42,7 @@ func (b *Buffer) AppendByte(v byte) {
 	b.bs = append(b.bs, v)
 }
 
-<<<<<<< HEAD
-// AppendBytes writes a single byte to the Buffer.
-=======
 // AppendBytes writes the given slice of bytes to the Buffer.
->>>>>>> 12b98cd10 (Bump go.uber.org/zap from 1.24.0 to 1.27.0 (#3727))
 func (b *Buffer) AppendBytes(v []byte) {
 	b.bs = append(b.bs, v...)
 }
