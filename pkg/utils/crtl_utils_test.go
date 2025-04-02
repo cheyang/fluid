@@ -441,13 +441,27 @@ func TestGenerateRandomRequeueDurationFromEnv(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			if test.runtimeReconcileDuration != "" {
-				os.Setenv(RuntimeReconcileDurationEnv, test.runtimeReconcileDuration)
+				err := os.Setenv(RuntimeReconcileDurationEnv, test.runtimeReconcileDuration)
+				if err != nil {
+					t.Errorf("Failed to set environment variable %s: %v", RuntimeReconcileDurationEnv, err)
+				}
 			}
 			if test.runtimeReconcileOffset != "" {
-				os.Setenv(RuntimeReconcileDurationOffsetEnv, test.runtimeReconcileOffset)
+				err := os.Setenv(RuntimeReconcileDurationOffsetEnv, test.runtimeReconcileOffset)
+				if err != nil {
+					t.Errorf("Failed to set environment variable %s: %v", RuntimeReconcileDurationOffsetEnv, err)
+				}
 			}
-			defer os.Unsetenv(RuntimeReconcileDurationEnv)
-			defer os.Unsetenv(RuntimeReconcileDurationOffsetEnv)
+			defer func() {
+				if err := os.Unsetenv(RuntimeReconcileDurationEnv); err != nil {
+					t.Errorf("Cleanup failed for %s: %v", RuntimeReconcileDurationEnv, err)
+				}
+			}()
+			defer func() {
+				if err := os.Unsetenv(RuntimeReconcileDurationOffsetEnv); err != nil {
+					t.Errorf("Cleanup failed for %s: %v", RuntimeReconcileDurationEnv, err)
+				}
+			}()
 			if envVal, exists := os.LookupEnv(RuntimeReconcileDurationEnv); exists {
 				RuntimeReconcileDurationEnvVal = envVal
 				stdlog.Printf("Found %s value %s, using it as RuntimeReconcileDurationEnvVal", RuntimeReconcileDurationEnv, envVal)

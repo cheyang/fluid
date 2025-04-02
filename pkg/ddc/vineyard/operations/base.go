@@ -77,12 +77,21 @@ func (a VineyardFileUtils) ReportSummary() (summary []string, err error) {
 			err = fmt.Errorf("failed to get metrics from %s, error: %v", u.String(), err)
 			return summary, err
 		}
-		defer resp.Body.Close()
+		// defer resp.Body.Close()
 
-		body, err = io.ReadAll(resp.Body)
-		if err != nil {
-			err = fmt.Errorf("failed to read response body from %s, error: %v", u.String(), err)
-			return
+		body, readErr := io.ReadAll(resp.Body)
+		closeErr := resp.Body.Close()
+		// Handle potential close error first
+		if closeErr != nil {
+			if readErr != nil {
+				return nil, fmt.Errorf("failed to read response body from %s: %v, and failed to close body: %w", u.String(), readErr, closeErr)
+			}
+			return nil, fmt.Errorf("failed to close response body from %s: %w", u.String(), closeErr)
+		}
+
+		// Handle read error after confirming successful close
+		if readErr != nil {
+			return nil, fmt.Errorf("failed to read response body from %s: %w", u.String(), readErr)
 		}
 
 		summary = append(summary, string(body))
