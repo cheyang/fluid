@@ -110,11 +110,7 @@ func (e *JindoEngine) genDataLoadValue(image string, runtime *datav1alpha1.Jindo
 	imagePullSecrets := docker.GetImagePullSecretsFromEnv(common.EnvImagePullSecretsKey)
 
 	hadoopConfig := runtime.Spec.HadoopConfig
-	loadMemoryData := false
-
-	if len(runtime.Spec.TieredStore.Levels) > 0 && runtime.Spec.TieredStore.Levels[0].MediumType == "MEM" {
-		loadMemoryData = true
-	}
+	loadMemoryData := len(runtime.Spec.TieredStore.Levels) > 0 && runtime.Spec.TieredStore.Levels[0].MediumType == "MEM"
 
 	dataloadInfo := cdataload.DataLoadInfo{
 		BackoffLimit:     3,

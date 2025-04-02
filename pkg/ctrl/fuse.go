@@ -37,7 +37,7 @@ import (
 // CheckFuseHealthy checks the ds healthy with role
 func (e *Helper) CheckFuseHealthy(recorder record.EventRecorder, runtime base.RuntimeInterface, fuseName string) error {
 	currentStatus := runtime.GetStatus()
-
+	var healthy bool
 	runtimeInfo := e.runtimeInfo
 	ds, err := kubeclient.GetDaemonset(e.client, fuseName, runtimeInfo.GetNamespace())
 	if err != nil {
@@ -45,10 +45,11 @@ func (e *Helper) CheckFuseHealthy(recorder record.EventRecorder, runtime base.Ru
 		return err
 	}
 
-	healthy := true
 	if ds.Status.NumberUnavailable > 0 ||
 		(ds.Status.DesiredNumberScheduled > 0 && ds.Status.NumberAvailable == 0) {
 		healthy = false
+	} else {
+		healthy = true
 	}
 
 	updateRuntimeStatus := func(fusePhase datav1alpha1.RuntimePhase,

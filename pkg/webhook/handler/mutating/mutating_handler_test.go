@@ -19,10 +19,11 @@ package mutating
 import (
 	"context"
 	"fmt"
-	"github.com/agiledragon/gomonkey/v2"
-	"github.com/fluid-cloudnative/fluid/pkg/webhook/plugins"
 	"os"
 	"testing"
+
+	"github.com/agiledragon/gomonkey/v2"
+	"github.com/fluid-cloudnative/fluid/pkg/webhook/plugins"
 
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
 	"github.com/fluid-cloudnative/fluid/pkg/common"
@@ -818,7 +819,7 @@ func TestMutatePod(t *testing.T) {
 		}
 
 		err := handler.MutatePod(testcase.in)
-		if !((err != nil) == testcase.wantErr) {
+		if (err != nil) != testcase.wantErr {
 			t.Errorf("testcase %s is failed due to error %v", testcase.name, err)
 		}
 	}

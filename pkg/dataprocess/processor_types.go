@@ -18,6 +18,7 @@ package dataprocess
 
 import (
 	"fmt"
+
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
 	corev1 "k8s.io/api/core/v1"
 )
@@ -80,7 +81,7 @@ func (p *JobProcessorImpl) TransformDataProcessValues(value *DataProcessValue, d
 var _ Processor = &ScriptProcessorImpl{}
 
 type ScriptProcessorImpl struct {
-	*datav1alpha1.ScriptProcessor
+	ScriptProcessor *datav1alpha1.ScriptProcessor
 }
 
 func (p *ScriptProcessorImpl) ValidateDatasetMountPath(datasetMountPath string) (pass bool, conflictVolName string, conflictContainerName string) {

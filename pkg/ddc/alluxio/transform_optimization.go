@@ -122,7 +122,8 @@ func (e *AlluxioEngine) optimizeDefaultPropertiesAndFuseForHTTP(runtime *datav1a
 	var isHTTP = true
 	for _, mount := range dataset.Spec.Mounts {
 		// the mount is not http
-		if !(strings.HasPrefix(mount.MountPoint, common.HttpScheme.String()) || strings.HasPrefix(mount.MountPoint, common.HttpsScheme.String())) {
+		if !strings.HasPrefix(mount.MountPoint, common.HttpScheme.String()) &&
+			!strings.HasPrefix(mount.MountPoint, common.HttpsScheme.String()) {
 			isHTTP = false
 			break
 		}

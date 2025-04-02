@@ -252,7 +252,7 @@ func (e *AlluxioEngine) checkFuseHealthy() error {
 			e.Log.Error(err, "Failed to get Runtime", "runtimeName", e.name, "runtimeNamespace", e.namespace)
 			return
 		}
-		err = e.Helper.CheckFuseHealthy(e.Recorder, runtime.DeepCopy(), e.getFuseName())
+		err = e.CheckFuseHealthy(e.Recorder, runtime.DeepCopy(), e.getFuseName())
 		if err != nil {
 			e.Log.Error(err, "Failed to check runtimeFuse healthy")
 		}

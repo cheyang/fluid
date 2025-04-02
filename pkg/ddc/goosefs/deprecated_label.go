@@ -26,8 +26,8 @@ func (e *GooseFSEngine) HasDeprecatedCommonLabelname() (deprecated bool, err err
 	// return deprecated.LabelAnnotationStorageCapacityPrefix + e.namespace + "-" + e.name
 
 	var (
-		workerName string = e.getWorkerName()
-		namespace  string = e.namespace
+		workerName = e.getWorkerName()
+		namespace  = e.namespace
 	)
 
 	// runtime, err := e.getRuntime()

@@ -32,9 +32,9 @@ import (
 
 func TestGenerateOwnerReferenceFromCRD(t *testing.T) {
 	var (
-		name      string                = "test-dataset"
-		namespace string                = "fluid"
-		dataset   *datav1alpha1.Dataset = &datav1alpha1.Dataset{
+		name      string = "test-dataset"
+		namespace string = "fluid"
+		dataset          = &datav1alpha1.Dataset{
 			TypeMeta: metav1.TypeMeta{
 				Kind:       "Dataset",
 				APIVersion: "data.fluid.io/v1alpha1",
@@ -45,7 +45,7 @@ func TestGenerateOwnerReferenceFromCRD(t *testing.T) {
 				UID:       "12345",
 			},
 		}
-		expect *common.OwnerReference = &common.OwnerReference{
+		expect = &common.OwnerReference{
 			Enabled:            true,
 			Controller:         true,
 			BlockOwnerDeletion: false,
@@ -56,7 +56,7 @@ func TestGenerateOwnerReferenceFromCRD(t *testing.T) {
 		}
 	)
 
-	var testScheme *runtime.Scheme = runtime.NewScheme()
+	testScheme := runtime.NewScheme()
 	_ = datav1alpha1.AddToScheme(testScheme)
 	testScheme.AddKnownTypes(datav1alpha1.GroupVersion, dataset)
 	testObjs := []runtime.Object{}

@@ -19,9 +19,10 @@ package datamigrate
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"github.com/go-logr/logr"
 	"k8s.io/client-go/tools/record"
-	"time"
 
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -61,7 +62,7 @@ func (r *dataMigrateOperation) GetPossibleTargetDatasetNamespacedNames() []types
 	datasetsToCheck := []*datav1alpha1.DatasetToMigrate{r.dataMigrate.Spec.To.DataSet, r.dataMigrate.Spec.From.DataSet}
 	for _, toCheck := range datasetsToCheck {
 		if toCheck != nil && len(toCheck.Name) > 0 {
-			var namespace string = toCheck.Namespace
+			namespace := toCheck.Namespace
 			if len(namespace) == 0 {
 				namespace = r.dataMigrate.Namespace
 			}

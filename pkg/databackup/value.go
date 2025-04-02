@@ -24,9 +24,9 @@ import (
 
 // DataBackupValue defines the value yaml file used in DataBackup helm chart
 type DataBackupValue struct {
-	DataBackup      DataBackup `yaml:"dataBackup"`
-	common.UserInfo `yaml:",inline"`
-	InitUsers       common.InitUsers `yaml:"initUsers,omitempty"`
+	DataBackup DataBackup       `yaml:"dataBackup"`
+	UserInfo   common.UserInfo  `yaml:",inline"`
+	InitUsers  common.InitUsers `yaml:"initUsers,omitempty"`
 }
 
 // DataBackup defines values used in DataBackup helm chart

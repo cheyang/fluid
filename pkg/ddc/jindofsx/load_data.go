@@ -106,10 +106,8 @@ func (e *JindoFSxEngine) generateDataLoadValueFile(r cruntime.ReconcileRequestCo
 func (e *JindoFSxEngine) genDataLoadValue(image string, runtime *datav1alpha1.JindoRuntime, targetDataset *datav1alpha1.Dataset,
 	dataload *datav1alpha1.DataLoad) (*cdataload.DataLoadValue, error) {
 	hadoopConfig := runtime.Spec.HadoopConfig
-	loadMemorydata := false
-	if len(runtime.Spec.TieredStore.Levels) > 0 && runtime.Spec.TieredStore.Levels[0].MediumType == "MEM" {
-		loadMemorydata = true
-	}
+	loadMemorydata := len(runtime.Spec.TieredStore.Levels) > 0 && runtime.Spec.TieredStore.Levels[0].MediumType == "MEM"
+
 	imagePullSecrets := docker.GetImagePullSecretsFromEnv(common.EnvImagePullSecretsKey)
 
 	dataloadInfo := cdataload.DataLoadInfo{

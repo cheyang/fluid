@@ -166,10 +166,8 @@ func (e *JindoEngine) syncMetadataInternal() (err error) {
 			}*/
 			result.Done = true
 
-			useStsSecret := false
-			if len(e.runtime.Spec.Secret) != 0 {
-				useStsSecret = true
-			}
+			useStsSecret := len(e.runtime.Spec.Secret) != 0
+
 			datasetUFSTotalBytes, err := e.TotalJindoStorageBytes(useStsSecret)
 			if err != nil {
 				e.Log.Error(err, "Get Ufs Total size failed when syncing metadata", "name", e.name, "namespace", e.namespace)

@@ -26,8 +26,8 @@ func (e *JindoFSxEngine) HasDeprecatedCommonLabelname() (deprecated bool, err er
 	// return deprecated.LabelAnnotationStorageCapacityPrefix + e.namespace + "-" + e.name
 
 	var (
-		workerName string = e.getWorkerName()
-		namespace  string = e.namespace
+		workerName = e.getWorkerName()
+		namespace  = e.namespace
 	)
 
 	// runtime, err := e.getRuntime()

@@ -67,7 +67,7 @@ func CreateRuntimeForReferenceDatasetIfNotExist(client client.Client, dataset *d
 
 		// 2. If the runtime doesn't exist
 		if IgnoreNotFound(err) == nil {
-			var runtime datav1alpha1.ThinRuntime = datav1alpha1.ThinRuntime{
+			runtime := datav1alpha1.ThinRuntime{
 				ObjectMeta: metav1.ObjectMeta{
 					Name:      dataset.Name,
 					Namespace: dataset.Namespace,

@@ -72,7 +72,7 @@ func (a *FluidMutatingHandler) Handle(ctx context.Context, req admission.Request
 		return admission.Denied("found invalid pod.metadata.namespace, it must either be empty or equal to request's namespace")
 	}
 
-	var undoNamespaceOverride bool = false
+	undoNamespaceOverride := false
 	if len(pod.Namespace) == 0 {
 		if len(req.Namespace) == 0 {
 			return admission.Errored(http.StatusInternalServerError, fmt.Errorf("unexepcted error: both pod.metadata.namespace and request's namespace is empty"))

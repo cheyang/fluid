@@ -39,12 +39,12 @@ func (b *TemplateEngine) Setup(ctx cruntime.ReconcileRequestContext) (ready bool
 	b.Log.Info("Setup the ddc engine", "runtime", ctx.Runtime)
 	// 1.Check if we should setup the master
 	// shouldSetupMaster, err
-	shouldSetupMaster, err = b.Implement.ShouldSetupMaster()
+	shouldSetupMaster, err = b.ShouldSetupMaster()
 	if err != nil {
 		return ready, err
 	}
 	if shouldSetupMaster {
-		err = b.Implement.SetupMaster()
+		err = b.SetupMaster()
 		if err != nil {
 			b.Log.Error(err, "SetupMaster")
 			return ready, err
@@ -52,7 +52,7 @@ func (b *TemplateEngine) Setup(ctx cruntime.ReconcileRequestContext) (ready bool
 	}
 
 	// 2.Check if the master is ready, then go forward to workers setup
-	masterReady, err = b.Implement.CheckMasterReady()
+	masterReady, err = b.CheckMasterReady()
 	if err != nil {
 		b.Log.Error(err, "Failed to check if it CheckMasterReady.")
 		return ready, err

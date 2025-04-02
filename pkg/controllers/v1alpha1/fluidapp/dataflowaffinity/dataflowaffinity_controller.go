@@ -19,6 +19,8 @@ package dataflowaffinity
 import (
 	"context"
 	"fmt"
+	"strings"
+
 	"github.com/fluid-cloudnative/fluid/pkg/common"
 	"github.com/fluid-cloudnative/fluid/pkg/ctrl/watch"
 	"github.com/fluid-cloudnative/fluid/pkg/utils"
@@ -31,13 +33,12 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/controller"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
-	"strings"
 )
 
 const DataOpJobControllerName string = "DataOpJobController"
 
 type DataOpJobReconciler struct {
-	client.Client
+	Client   client.Client
 	Recorder record.EventRecorder
 	Log      logr.Logger
 }

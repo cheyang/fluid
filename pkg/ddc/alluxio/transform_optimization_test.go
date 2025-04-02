@@ -377,7 +377,7 @@ func TestAlluxioEngine_setPortProperties(t *testing.T) {
 		alluxioValue *Alluxio
 	}
 
-	var port int = 20000
+	port := 20000
 	tests := []struct {
 		name   string
 		fields fields

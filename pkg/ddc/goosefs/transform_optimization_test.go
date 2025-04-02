@@ -333,7 +333,7 @@ func TestGooseFSEngine_setPortProperties(t *testing.T) {
 		goosefsValue *GooseFS
 	}
 
-	var port int = 20000
+	port := 20000
 	tests := []struct {
 		name   string
 		fields fields

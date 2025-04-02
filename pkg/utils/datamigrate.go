@@ -83,7 +83,7 @@ func GetTargetDatasetNamespacedNameOfMigrate(client client.Client, dataMigrate *
 	checkedRuntimeTypes := []string{}
 	for _, toCheck := range datasetsToCheck {
 		if toCheck != nil && len(toCheck.Name) > 0 {
-			var namespace string = toCheck.Namespace
+			namespace := toCheck.Namespace
 			if len(namespace) == 0 {
 				namespace = dataMigrate.Namespace
 			}
