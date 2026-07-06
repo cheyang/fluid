@@ -20,6 +20,8 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"k8s.io/component-base/featuregate"
+
+	utilfeature "github.com/fluid-cloudnative/fluid/pkg/utils/feature"
 )
 
 var _ = Describe("Runtime Feature Gates", func() {
@@ -78,6 +80,15 @@ var _ = Describe("Runtime Feature Gates", func() {
 		It("should have a boolean Default value", func() {
 			spec := defaultFeatureGates[RuntimeFuseHostPID]
 			Expect(spec.Default).To(BeAssignableToTypeOf(false), "Default should be a boolean")
+		})
+	})
+
+	Context("Effective default state (no --feature-gates flag passed)", func() {
+		// This mirrors the chart's behavior when featureGates is unset: the controller
+		// binary starts without --feature-gates, so the compiled-in default applies.
+		It("should have RuntimeFuseHostPID effectively disabled by default", func() {
+			Expect(utilfeature.DefaultFeatureGate.Enabled(RuntimeFuseHostPID)).To(BeFalse(),
+				"Security default: RuntimeFuseHostPID must be effectively disabled when no --feature-gates flag is passed")
 		})
 	})
 
