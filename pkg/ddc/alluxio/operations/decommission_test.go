@@ -73,6 +73,29 @@ func TestAlluxioFileUtils_DecommissionWorkers(t *testing.T) {
 		}
 	})
 
+	t.Run("does not block waiting for the worker to idle", func(t *testing.T) {
+		var capturedCmd []string
+		patches := gomonkey.ApplyFunc(AlluxioFileUtils.exec,
+			func(_ AlluxioFileUtils, cmd []string, _ bool) (string, string, error) {
+				capturedCmd = cmd
+				return "", "", nil
+			})
+		defer patches.Reset()
+
+		if err := a.DecommissionWorkers([]string{"192.168.1.1:30000"}); err != nil {
+			t.Fatalf("want nil, got: %v", err)
+		}
+		for i, arg := range capturedCmd {
+			if arg == "--wait" {
+				if i+1 >= len(capturedCmd) || capturedCmd[i+1] != "0s" {
+					t.Errorf("want --wait 0s, got: %v", capturedCmd)
+				}
+				return
+			}
+		}
+		t.Errorf("--wait flag not found in command: %v", capturedCmd)
+	})
+
 	t.Run("multiple addresses are joined with commas", func(t *testing.T) {
 		var capturedCmd []string
 		patches := gomonkey.ApplyFunc(AlluxioFileUtils.exec,

@@ -19,7 +19,7 @@ package operations
 import "strings"
 
 // DecommissionWorkers signals the Alluxio master to decommission the given
-// workers. Each address must be in "<host>:<rpcPort>" form.
+// workers. Each address must be in "<host>:<webPort>" form.
 // The call is idempotent: re-issuing it against an already-decommissioned
 // worker is safe.
 //
@@ -32,6 +32,11 @@ func (a AlluxioFileUtils) DecommissionWorkers(addresses []string) error {
 	command := []string{
 		"alluxio", "fsadmin", "decommissionWorker",
 		"--addresses", strings.Join(addresses, ","),
+		// --wait defaults to 5m, which would block this exec call (and the
+		// engine's reconcile loop) waiting for the worker to idle. The
+		// engine already polls CountActiveWorkers across reconciles, so
+		// just initiate the decommission and return immediately.
+		"--wait", "0s",
 	}
 	_, _, err := a.exec(command, false)
 	if err != nil {

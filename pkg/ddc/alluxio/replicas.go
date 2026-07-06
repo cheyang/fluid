@@ -184,14 +184,17 @@ func (e *AlluxioEngine) drainScalingDownWorkers(ctx context.Context, runtime *da
 	masterPodName, masterContainerName := e.getMasterPodInfo()
 	fileUtils := operations.NewAlluxioFileUtils(masterPodName, masterContainerName, e.namespace, e.Log)
 
-	workerRPCPort := e.getWorkerRPCPort(runtime)
+	workerWebPort := e.getWorkerWebPort(runtime)
 	workerStsName := e.getWorkerName()
 
-	// Collect RPC addresses of the pods that will be terminated on scale-down.
-	// The worker registers with the master under its node's IP (see the
-	// ALLUXIO_WORKER_HOSTNAME wiring in charts/alluxio, which sources
-	// alluxio.worker.hostname from status.hostIP), not its pod IP, so that is
-	// the identity "fsadmin decommissionWorker" must be addressed by.
+	// Collect web-port addresses of the pods that will be terminated on
+	// scale-down. "fsadmin decommissionWorker" addresses workers by their web
+	// port (not the RPC port used elsewhere) because it monitors the worker's
+	// workload as exposed on the web server. The worker registers with the
+	// master under its node's IP (see the ALLUXIO_WORKER_HOSTNAME wiring in
+	// charts/alluxio, which sources alluxio.worker.hostname from
+	// status.hostIP), not its pod IP, so that is the identity it must be
+	// addressed by.
 	//
 	// Pods sharing a node produce the same HostIP; seen tracks addresses
 	// already added so the request doesn't list the same worker twice.
@@ -216,7 +219,7 @@ func (e *AlluxioEngine) drainScalingDownWorkers(ctx context.Context, runtime *da
 			e.Log.Info("Worker pod has no host IP yet, skipping decommission for this pod", "pod", podName)
 			continue
 		}
-		addr := fmt.Sprintf("%s:%d", pod.Status.HostIP, workerRPCPort)
+		addr := fmt.Sprintf("%s:%d", pod.Status.HostIP, workerWebPort)
 		if _, dup := seen[addr]; dup {
 			continue
 		}
@@ -254,13 +257,13 @@ func (e *AlluxioEngine) drainScalingDownWorkers(ctx context.Context, runtime *da
 	return true, nil
 }
 
-// getWorkerRPCPort returns the configured Alluxio worker RPC port, falling back
-// to the Alluxio default when the runtime does not override it.
-func (e *AlluxioEngine) getWorkerRPCPort(runtime *data.AlluxioRuntime) int {
-	if port, ok := runtime.Spec.Worker.Ports["rpc"]; ok && port > 0 {
+// getWorkerWebPort returns the configured Alluxio worker web port, falling
+// back to the Alluxio default when the runtime does not override it.
+func (e *AlluxioEngine) getWorkerWebPort(runtime *data.AlluxioRuntime) int {
+	if port, ok := runtime.Spec.Worker.Ports["web"]; ok && port > 0 {
 		return port
 	}
-	return defaultWorkerRPCPort
+	return defaultWorkerWebPort
 }
 
 // getDecommissionStart returns when the current worker-drain attempt began,

@@ -59,9 +59,11 @@ const (
 	defaultGracefulShutdownLimits       int32 = 3
 	defaultCleanCacheGracePeriodSeconds int32 = 60
 
-	// defaultWorkerRPCPort is the Alluxio worker Thrift RPC port used when the
-	// runtime spec does not override alluxio.worker.rpc.port.
-	defaultWorkerRPCPort = 29999
+	// defaultWorkerWebPort is the Alluxio worker web port used when the
+	// runtime spec does not override alluxio.worker.web.port. decommissionWorker
+	// addresses this port, not the RPC port, since it monitors the worker's
+	// workload as exposed on the web server.
+	defaultWorkerWebPort = 30000
 
 	MountConfigStorage   = "ALLUXIO_MOUNT_CONFIG_STORAGE"
 	ConfigmapStorageName = "configmap"

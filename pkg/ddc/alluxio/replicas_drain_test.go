@@ -120,7 +120,7 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 			drained, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 3)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(drained).To(BeTrue())
-			Expect(capturedAddrs).To(Equal([]string{"10.0.0.1:" + fmt.Sprint(defaultWorkerRPCPort)}))
+			Expect(capturedAddrs).To(Equal([]string{"10.0.0.1:" + fmt.Sprint(defaultWorkerWebPort)}))
 		})
 	})
 
@@ -232,38 +232,38 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 	})
 })
 
-var _ = Describe("AlluxioEngine getWorkerRPCPort", Label("pkg.ddc.alluxio.replicas_drain_test.go"), func() {
+var _ = Describe("AlluxioEngine getWorkerWebPort", Label("pkg.ddc.alluxio.replicas_drain_test.go"), func() {
 	var engine *AlluxioEngine
 
 	BeforeEach(func() {
 		engine = newAlluxioEngineREP(fake.NewFakeClientWithScheme(testScheme), testDrainWorkerSts, testDrainNamespace)
 	})
 
-	It("returns the configured rpc port when set", func() {
+	It("returns the configured web port when set", func() {
 		rt := &v1alpha1.AlluxioRuntime{
 			Spec: v1alpha1.AlluxioRuntimeSpec{
 				Worker: v1alpha1.AlluxioCompTemplateSpec{
-					Ports: map[string]int{"rpc": 12345},
+					Ports: map[string]int{"web": 12345},
 				},
 			},
 		}
-		Expect(engine.getWorkerRPCPort(rt)).To(Equal(12345))
+		Expect(engine.getWorkerWebPort(rt)).To(Equal(12345))
 	})
 
 	It("falls back to the default port when unset", func() {
 		rt := &v1alpha1.AlluxioRuntime{}
-		Expect(engine.getWorkerRPCPort(rt)).To(Equal(defaultWorkerRPCPort))
+		Expect(engine.getWorkerWebPort(rt)).To(Equal(defaultWorkerWebPort))
 	})
 
 	It("falls back to the default port when the configured value is not positive", func() {
 		rt := &v1alpha1.AlluxioRuntime{
 			Spec: v1alpha1.AlluxioRuntimeSpec{
 				Worker: v1alpha1.AlluxioCompTemplateSpec{
-					Ports: map[string]int{"rpc": 0},
+					Ports: map[string]int{"web": 0},
 				},
 			},
 		}
-		Expect(engine.getWorkerRPCPort(rt)).To(Equal(defaultWorkerRPCPort))
+		Expect(engine.getWorkerWebPort(rt)).To(Equal(defaultWorkerWebPort))
 	})
 })
 
