@@ -211,12 +211,16 @@ func (e *AlluxioEngine) drainScalingDownWorkers(ctx context.Context, runtime *da
 			}
 			return false, err
 		}
-		if pod.Status.HostIP == "" {
-			// Pod hasn't been scheduled yet, so it never registered with the
-			// Alluxio master and holds no cached blocks worth migrating; skip
-			// it rather than aborting the whole batch so any sibling worker
-			// that IS ready still gets decommissioned this reconcile.
-			e.Log.Info("Worker pod has no host IP yet, skipping decommission for this pod", "pod", podName)
+		if pod.Status.HostIP == "" || pod.Status.Phase != corev1.PodRunning {
+			// A pod can have a HostIP as soon as it's scheduled, well before
+			// its containers actually start (Pending/ContainerCreating), so
+			// HostIP alone doesn't mean the Alluxio worker process is up and
+			// listening. Such a pod never registered with the master and
+			// holds no cached blocks worth migrating; skip it rather than
+			// aborting the whole batch so any sibling worker that IS ready
+			// still gets decommissioned this reconcile.
+			e.Log.Info("Worker pod has no host IP or isn't running yet, skipping decommission for this pod",
+				"pod", podName, "phase", pod.Status.Phase)
 			continue
 		}
 		addr := fmt.Sprintf("%s:%d", pod.Status.HostIP, workerWebPort)

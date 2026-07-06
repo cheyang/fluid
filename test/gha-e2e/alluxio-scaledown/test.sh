@@ -154,8 +154,18 @@ function wait_job_completed() {
         job_failed=$(kubectl get job "$job_name" \
             -ojsonpath='{.status.conditions[?(@.type=="Failed")].status}' 2>/dev/null || true)
         if [[ "$job_failed" == "True" ]]; then
-            syslog "dumping logs for failed job $job_name"
-            kubectl logs "job/$job_name" --all-containers --prefix --ignore-errors=true 2>&1 || true
+            syslog "dumping diagnostics for failed job $job_name"
+            kubectl get pods -l job-name="$job_name" -o wide 2>&1 || true
+            # Address pods by name (not job/$job_name) and bound every call
+            # with --request-timeout: resolving logs via the job/deployment
+            # helper can itself hang waiting for a pod to reach Running,
+            # which is exactly the state we're trying to debug.
+            for pod in $(kubectl get pods -l job-name="$job_name" -o jsonpath='{.items[*].metadata.name}' 2>/dev/null); do
+                syslog "describing pod $pod"
+                kubectl describe pod "$pod" --request-timeout=10s 2>&1 || true
+                syslog "logs for pod $pod"
+                kubectl logs "$pod" --all-containers --prefix --ignore-errors=true --request-timeout=10s 2>&1 || true
+            done
             panic "job $job_name failed when accessing data (all retries exhausted)"
         fi
 

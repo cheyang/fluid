@@ -73,6 +73,10 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 	// therefore the worker's registered identity with the master) is sourced
 	// from in charts/alluxio - not the pod's own IP.
 	workerPod := func(ordinal int, hostIP string) *corev1.Pod {
+		phase := corev1.PodRunning
+		if hostIP == "" {
+			phase = corev1.PodPending
+		}
 		return &corev1.Pod{
 			ObjectMeta: metav1.ObjectMeta{
 				Name:      fmt.Sprintf("%s-worker-%d", testDrainWorkerSts, ordinal),
@@ -80,6 +84,7 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 			},
 			Status: corev1.PodStatus{
 				HostIP: hostIP,
+				Phase:  phase,
 			},
 		}
 	}
@@ -289,7 +294,7 @@ var _ = Describe("AlluxioEngine SyncReplicas worker decommission deadline", Labe
 		}
 		pod := &corev1.Pod{
 			ObjectMeta: metav1.ObjectMeta{Name: deadlineTestRuntime + "-worker-1", Namespace: deadlineTestNs},
-			Status:     corev1.PodStatus{HostIP: "10.0.0.5"},
+			Status:     corev1.PodStatus{HostIP: "10.0.0.5", Phase: corev1.PodRunning},
 		}
 		// BuildWorkersAffinity (invoked when Helper.SyncReplicas updates the
 		// StatefulSet's replica count) requires the Dataset to exist.
