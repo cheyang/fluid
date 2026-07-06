@@ -51,4 +51,11 @@ spec:
           value: "minioadmin"
         ports:
         - containerPort: 9000
+        readinessProbe:
+          httpGet:
+            path: /minio/health/ready
+            port: 9000
+          initialDelaySeconds: 1
+          periodSeconds: 2
+          failureThreshold: 30
       automountServiceAccountToken: false

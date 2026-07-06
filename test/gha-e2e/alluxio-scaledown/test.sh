@@ -154,6 +154,8 @@ function wait_job_completed() {
         job_failed=$(kubectl get job "$job_name" \
             -ojsonpath='{.status.conditions[?(@.type=="Failed")].status}' 2>/dev/null || true)
         if [[ "$job_failed" == "True" ]]; then
+            syslog "dumping logs for failed job $job_name"
+            kubectl logs "job/$job_name" --all-containers --prefix --ignore-errors=true 2>&1 || true
             panic "job $job_name failed when accessing data (all retries exhausted)"
         fi
 
