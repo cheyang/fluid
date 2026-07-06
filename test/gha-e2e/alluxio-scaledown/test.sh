@@ -45,6 +45,11 @@ function enable_graceful_scale_down() {
 
 function setup_minio() {
     kubectl create -f test/gha-e2e/alluxio-scaledown/minio.yaml
+    # minio has no readiness probe, and the bucket-create job has a limited
+    # backoffLimit; without waiting here, the job can exhaust all its retries
+    # before minio finishes scheduling/starting on a slower runner.
+    kubectl rollout status deployment/scaledown-minio --timeout=120s \
+        || panic "scaledown-minio deployment did not become ready"
     kubectl create -f test/gha-e2e/alluxio-scaledown/minio_create_bucket.yaml
     wait_job_completed "$bucket_create_job_name"
 }

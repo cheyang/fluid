@@ -209,8 +209,12 @@ func (e *AlluxioEngine) drainScalingDownWorkers(ctx context.Context, runtime *da
 			return false, err
 		}
 		if pod.Status.HostIP == "" {
-			e.Log.Info("Worker pod has no host IP yet, will retry", "pod", podName)
-			return false, nil
+			// Pod hasn't been scheduled yet, so it never registered with the
+			// Alluxio master and holds no cached blocks worth migrating; skip
+			// it rather than aborting the whole batch so any sibling worker
+			// that IS ready still gets decommissioned this reconcile.
+			e.Log.Info("Worker pod has no host IP yet, skipping decommission for this pod", "pod", podName)
+			continue
 		}
 		addr := fmt.Sprintf("%s:%d", pod.Status.HostIP, workerRPCPort)
 		if _, dup := seen[addr]; dup {
@@ -221,12 +225,19 @@ func (e *AlluxioEngine) drainScalingDownWorkers(ctx context.Context, runtime *da
 	}
 
 	if len(toDecommission) == 0 {
-		// All targeted pods are already gone from the cluster.
+		// All targeted pods are already gone from the cluster, or none of
+		// them have been scheduled yet and so hold no data to protect.
 		return true, nil
 	}
 
-	if err := fileUtils.DecommissionWorkers(toDecommission); err != nil {
-		return false, err
+	// alluxio fsadmin decommissionWorker execs into the master pod, which is
+	// too heavy to reissue on every reconcile while we wait for a drain to
+	// finish. Once a decommission attempt is already tracked, only poll the
+	// active worker count instead of re-requesting it.
+	if _, alreadyTracked := getDecommissionStart(runtime); !alreadyTracked {
+		if err := fileUtils.DecommissionWorkers(toDecommission); err != nil {
+			return false, err
+		}
 	}
 
 	activeCount, err := fileUtils.CountActiveWorkers()

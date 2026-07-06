@@ -94,11 +94,61 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 	})
 
 	Context("when the pod has not yet been assigned a host IP", func() {
-		It("returns not drained without error", func() {
+		It("skips the pod and treats it as having nothing to drain", func() {
 			engine = newEngineWithPods(workerPod(1, ""))
 			drained, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
 			Expect(err).NotTo(HaveOccurred())
-			Expect(drained).To(BeFalse())
+			Expect(drained).To(BeTrue())
+		})
+
+		It("still decommissions a sibling pod that does have a host IP", func() {
+			engine = newEngineWithPods(workerPod(1, ""), workerPod(2, "10.0.0.1"))
+
+			var capturedAddrs []string
+			patch1 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.DecommissionWorkers,
+				func(_ operations.AlluxioFileUtils, addrs []string) error {
+					capturedAddrs = append([]string(nil), addrs...)
+					return nil
+				})
+			defer patch1.Reset()
+			patch2 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.CountActiveWorkers,
+				func(_ operations.AlluxioFileUtils) (int, error) {
+					return 1, nil
+				})
+			defer patch2.Reset()
+
+			drained, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 3)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(drained).To(BeTrue())
+			Expect(capturedAddrs).To(Equal([]string{"10.0.0.1:" + fmt.Sprint(defaultWorkerRPCPort)}))
+		})
+	})
+
+	Context("when a decommission attempt is already tracked", func() {
+		It("does not re-issue the decommission command, only polls active worker count", func() {
+			rt.Status.Conditions = []v1alpha1.RuntimeCondition{
+				utils.NewRuntimeCondition(v1alpha1.RuntimeWorkerDecommissioning,
+					v1alpha1.RuntimeWorkerDecommissioningReason, "started earlier", corev1.ConditionTrue),
+			}
+			engine = newEngineWithPods(workerPod(1, "10.0.0.1"))
+
+			decommissionCalled := false
+			patch1 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.DecommissionWorkers,
+				func(_ operations.AlluxioFileUtils, _ []string) error {
+					decommissionCalled = true
+					return nil
+				})
+			defer patch1.Reset()
+			patch2 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.CountActiveWorkers,
+				func(_ operations.AlluxioFileUtils) (int, error) {
+					return 1, nil
+				})
+			defer patch2.Reset()
+
+			drained, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(drained).To(BeTrue())
+			Expect(decommissionCalled).To(BeFalse())
 		})
 	})
 
