@@ -41,7 +41,7 @@ func DeepEqualIgnoringSliceOrder(t assert.TestingT, x interface{}, y interface{}
 		return assert.ElementsMatch(t, v1.Interface(), v2.Interface())
 	case reflect.Slice:
 		return assert.ElementsMatch(t, v1.Interface(), v2.Interface())
-	case reflect.Ptr:
+	case reflect.Pointer:
 		if v1.Pointer() == v2.Pointer() {
 			return true
 		}
