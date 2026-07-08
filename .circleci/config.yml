@@ -7,7 +7,9 @@ jobs:
   build:
     docker:
       # specify the version
-      - image: cimg/go:1.25.12
+      # cimg/go publishes per-minor tags; use the latest 1.25.x. The exact
+      # toolchain (>= go.mod's go directive) is auto-selected by Go.
+      - image: cimg/go:1.25
     working_directory: ~/project/src/github.com/fluid-cloudnative/fluid
     environment:
       TEST_FLAGS: '-race -coverprofile=coverage.txt -covermode=atomic'
