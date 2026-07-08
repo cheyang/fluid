@@ -1,4 +1,4 @@
-FROM golang:1.24.12-bookworm AS builder
+FROM golang:1.25.12-bookworm AS builder
 WORKDIR /src
 COPY main.go .
 RUN CGO_ENABLED=0 go build -o /oss-emulator main.go
