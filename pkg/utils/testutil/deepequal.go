@@ -45,6 +45,11 @@ func DeepEqualIgnoringSliceOrder(t assert.TestingT, x interface{}, y interface{}
 		if v1.Pointer() == v2.Pointer() {
 			return true
 		}
+		// Guard against a nil vs non-nil pointer: calling Elem().Interface()
+		// on a nil pointer would panic on an invalid reflect.Value.
+		if v1.IsNil() || v2.IsNil() {
+			return false
+		}
 		return DeepEqualIgnoringSliceOrder(t, v1.Elem().Interface(), v2.Elem().Interface())
 	case reflect.Struct:
 		for i, n := 0, v1.NumField(); i < n; i++ {
