@@ -17,6 +17,7 @@ limitations under the License.
 package plugins
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -45,7 +46,6 @@ import (
 	"github.com/container-storage-interface/spec/lib/go/csi"
 	"github.com/golang/glog"
 	csicommon "github.com/kubernetes-csi/drivers/pkg/csi-common"
-	"golang.org/x/net/context"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
