@@ -175,7 +175,16 @@ function wait_job_completed() {
                 syslog "describing pod $pod"
                 kubectl describe pod "$pod" --request-timeout=10s 2>&1 || true
                 syslog "logs for pod $pod"
-                kubectl logs "$pod" --all-containers --prefix --ignore-errors=true --request-timeout=10s 2>&1 || true
+                if ! kubectl logs "$pod" --all-containers --prefix --request-timeout=10s 2>&1; then
+                    # By the time backoffLimit is exceeded, the job
+                    # controller may already be terminating the pod, racing
+                    # our own attempt to read its logs. --previous targets
+                    # the last *fully exited* container instance instead of
+                    # the one mid-teardown, and often still works when the
+                    # plain form above doesn't.
+                    syslog "current logs unavailable for pod $pod, retrying with --previous"
+                    kubectl logs "$pod" --all-containers --prefix --previous --request-timeout=10s 2>&1 || true
+                fi
             done
             panic "job $job_name failed when accessing data (all retries exhausted)"
         fi
