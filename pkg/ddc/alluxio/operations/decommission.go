@@ -16,7 +16,10 @@ limitations under the License.
 
 package operations
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 // DecommissionWorkers signals the Alluxio master to decommission the given
 // workers. Each address must be in "<host>:<webPort>" form.
@@ -24,7 +27,12 @@ import "strings"
 // worker is safe.
 //
 // Requires Alluxio >= 2.9, where "fsadmin decommissionWorker" was introduced;
-// against older masters this subcommand does not exist.
+// against older masters this subcommand does not exist and the command exits
+// non-zero. The caller (drainScalingDownWorkers/SyncReplicas) does not treat
+// that as fatal: it retries on every reconcile, bounded by
+// defaultWorkerDecommissionDeadline, after which it degrades to an
+// ungraceful scale-down rather than stalling forever - so an old master
+// still converges, just without the graceful drain.
 func (a AlluxioFileUtils) DecommissionWorkers(addresses []string) error {
 	if len(addresses) == 0 {
 		return nil
@@ -38,11 +46,42 @@ func (a AlluxioFileUtils) DecommissionWorkers(addresses []string) error {
 		// just initiate the decommission and return immediately.
 		"--wait", "0s",
 	}
-	_, _, err := a.exec(command, false)
+	stdout, stderr, err := a.exec(command, false)
 	if err != nil {
-		a.log.Error(err, "AlluxioFileUtils.DecommissionWorkers() failed", "addresses", addresses)
+		a.log.Error(err, "AlluxioFileUtils.DecommissionWorkers() failed", "addresses", addresses, "stdout", stdout, "stderr", stderr)
+		return err
 	}
-	return err
+	// decommissionWorker can report a per-worker problem (an address it
+	// couldn't resolve, a worker it couldn't reach) in its stdout while still
+	// exiting 0 for the batch as a whole. stderr is deliberately not scanned
+	// here: Alluxio's CLI is a JVM process and can print benign warnings to
+	// stderr on a successful run (as every other command wrapper in this
+	// package already assumes by only inspecting stderr once err != nil), so
+	// treating any stderr output as failure would false-positive constantly.
+	// The actual "did it work" signal is re-verified independently on every
+	// subsequent reconcile via CountActiveWorkers, and a false positive here
+	// only costs one extra bounded retry - so this stdout scan is a
+	// best-effort signal, not the authoritative check.
+	if reason, failed := decommissionOutputIndicatesFailure(stdout); failed {
+		err = fmt.Errorf("decommissionWorker for addresses %v reported a possible failure (%s): stdout=%q stderr=%q",
+			addresses, reason, stdout, stderr)
+		a.log.Error(err, "AlluxioFileUtils.DecommissionWorkers() output looked unsuccessful", "addresses", addresses)
+		return err
+	}
+	return nil
+}
+
+// decommissionOutputIndicatesFailure does a best-effort scan of
+// decommissionWorker's stdout for signs that it didn't fully succeed despite
+// exiting 0.
+func decommissionOutputIndicatesFailure(stdout string) (reason string, failed bool) {
+	lower := strings.ToLower(stdout)
+	for _, indicator := range []string{"fail", "unrecognized"} {
+		if strings.Contains(lower, indicator) {
+			return fmt.Sprintf("stdout contains %q", indicator), true
+		}
+	}
+	return "", false
 }
 
 // CountActiveWorkers returns the number of live workers according to
@@ -57,7 +96,12 @@ func (a AlluxioFileUtils) CountActiveWorkers() (int, error) {
 		a.log.Error(err, "AlluxioFileUtils.CountActiveWorkers() failed")
 		return 0, err
 	}
-	return parseActiveWorkerCount(report), nil
+	count, err := parseActiveWorkerCount(report)
+	if err != nil {
+		a.log.Error(err, "AlluxioFileUtils.CountActiveWorkers() failed to parse capacity report", "report", report)
+		return 0, err
+	}
+	return count, nil
 }
 
 // parseActiveWorkerCount counts workers in the capacity report produced by
@@ -70,7 +114,13 @@ func (a AlluxioFileUtils) CountActiveWorkers() (int, error) {
 //	                                 used          443.89MB (21%) <- detail, indented
 //	192.168.1.146    0                capacity      2048.00MB    <- worker entry
 //	                                 used          0B (0%)
-func parseActiveWorkerCount(report string) int {
+//
+// It returns an error rather than silently reporting 0 workers when the
+// "Worker Name" header is never found: a report this caller can't recognize
+// (a format change, an unexpected error message in place of the report, ...)
+// must not be misread as "every worker has drained", since that's exactly
+// the signal the engine acts on to let a scale-down proceed.
+func parseActiveWorkerCount(report string) (int, error) {
 	inWorkerSection := false
 	count := 0
 	for _, line := range strings.Split(report, "\n") {
@@ -87,5 +137,8 @@ func parseActiveWorkerCount(report string) int {
 			count++
 		}
 	}
-	return count
+	if !inWorkerSection {
+		return 0, fmt.Errorf("unrecognized capacity report format: missing %q header", "Worker Name")
+	}
+	return count, nil
 }

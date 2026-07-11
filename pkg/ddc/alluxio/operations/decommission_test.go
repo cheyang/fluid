@@ -119,6 +119,30 @@ func TestAlluxioFileUtils_DecommissionWorkers(t *testing.T) {
 			t.Errorf("joined addresses not found in command: %v", capturedCmd)
 		}
 	})
+
+	t.Run("succeeds when stdout contains no failure indicators", func(t *testing.T) {
+		patches := gomonkey.ApplyFunc(AlluxioFileUtils.exec,
+			func(_ AlluxioFileUtils, _ []string, _ bool) (string, string, error) {
+				return "Decommissioned 1 worker(s).", "", nil
+			})
+		defer patches.Reset()
+
+		if err := a.DecommissionWorkers([]string{"192.168.1.1:30000"}); err != nil {
+			t.Fatalf("want nil, got: %v", err)
+		}
+	})
+
+	t.Run("returns an error when stdout reports a failure despite exit 0", func(t *testing.T) {
+		patches := gomonkey.ApplyFunc(AlluxioFileUtils.exec,
+			func(_ AlluxioFileUtils, _ []string, _ bool) (string, string, error) {
+				return "Failed to decommission worker 192.168.1.1:30000: unreachable", "", nil
+			})
+		defer patches.Reset()
+
+		if err := a.DecommissionWorkers([]string{"192.168.1.1:30000"}); err == nil {
+			t.Error("want error, got nil")
+		}
+	})
 }
 
 func TestAlluxioFileUtils_CountActiveWorkers(t *testing.T) {
@@ -140,12 +164,28 @@ func TestAlluxioFileUtils_CountActiveWorkers(t *testing.T) {
 		}
 	})
 
+	t.Run("unrecognized report format returns an error instead of a silent zero", func(t *testing.T) {
+		patches := gomonkey.ApplyFunc(AlluxioFileUtils.exec,
+			func(_ AlluxioFileUtils, _ []string, _ bool) (string, string, error) {
+				return "", "", nil
+			})
+		defer patches.Reset()
+
+		count, err := a.CountActiveWorkers()
+		if err == nil {
+			t.Error("want error, got nil")
+		}
+		if count != 0 {
+			t.Errorf("want 0 on error, got %d", count)
+		}
+	})
+
 	t.Run("requests live workers only", func(t *testing.T) {
 		var capturedCmd []string
 		patches := gomonkey.ApplyFunc(AlluxioFileUtils.exec,
 			func(_ AlluxioFileUtils, cmd []string, _ bool) (string, string, error) {
 				capturedCmd = cmd
-				return "", "", nil
+				return "Worker Name      Last Heartbeat   Storage       MEM\n", "", nil
 			})
 		defer patches.Reset()
 
@@ -193,19 +233,20 @@ Worker Name      Last Heartbeat   Storage       MEM
 
 func TestParseActiveWorkerCount(t *testing.T) {
 	cases := []struct {
-		name   string
-		input  string
-		expect int
+		name      string
+		input     string
+		expect    int
+		expectErr bool
 	}{
 		{
-			name:   "empty report",
-			input:  "",
-			expect: 0,
+			name:      "empty report",
+			input:     "",
+			expectErr: true,
 		},
 		{
-			name:   "no worker section header",
-			input:  "Capacity information for all workers:\n   Total Capacity: 0B\n",
-			expect: 0,
+			name:      "no worker section header",
+			input:     "Capacity information for all workers:\n   Total Capacity: 0B\n",
+			expectErr: true,
 		},
 		{
 			name: "single worker",
@@ -237,11 +278,26 @@ func TestParseActiveWorkerCount(t *testing.T) {
 `,
 			expect: 1,
 		},
+		{
+			name: "zero workers but header is still present",
+			input: `Worker Name      Last Heartbeat   Storage       MEM
+`,
+			expect: 0,
+		},
 	}
 
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
-			got := parseActiveWorkerCount(tc.input)
+			got, err := parseActiveWorkerCount(tc.input)
+			if tc.expectErr {
+				if err == nil {
+					t.Fatalf("want error, got nil (count=%d)", got)
+				}
+				return
+			}
+			if err != nil {
+				t.Fatalf("want nil, got: %v", err)
+			}
 			if got != tc.expect {
 				t.Errorf("want %d, got %d", tc.expect, got)
 			}

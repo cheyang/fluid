@@ -22,19 +22,30 @@ function panic() {
 
 # GracefulWorkerScaleDown is Alpha and disabled by default; the controller
 # binary has no Helm value wired up for it yet, so enable it directly on the
-# running deployment for this scenario. Nothing else patches a --feature-gates
-# arg onto this deployment today, so the substring check below is safe; if
-# that ever changes, switch to matching the exact GracefulWorkerScaleDown=true
-# token so this doesn't end up appending a second --feature-gates arg.
+# running deployment for this scenario.
 function enable_graceful_scale_down() {
-    if kubectl get deployment "$controller_deployment" -n "$controller_namespace" \
-        -ojsonpath='{.spec.template.spec.containers[0].args}' | grep -q "feature-gates=GracefulWorkerScaleDown=true"; then
+    local existing_args
+    existing_args=$(kubectl get deployment "$controller_deployment" -n "$controller_namespace" \
+        -ojson | jq -c '.spec.template.spec.containers[0].args')
+
+    if echo "$existing_args" | grep -q "GracefulWorkerScaleDown=true"; then
         syslog "GracefulWorkerScaleDown feature gate already enabled"
         return
     fi
 
+    # --feature-gates is a last-flag-wins string flag, so if one is already
+    # present (e.g. via Helm values), merge into it instead of appending a
+    # second occurrence that would silently disable whatever it already set.
+    local new_args
+    if echo "$existing_args" | grep -q -- '--feature-gates='; then
+        new_args=$(echo "$existing_args" | jq -c 'map(
+            if startswith("--feature-gates=") then . + ",GracefulWorkerScaleDown=true" else . end)')
+    else
+        new_args=$(echo "$existing_args" | jq -c '. + ["--feature-gates=GracefulWorkerScaleDown=true"]')
+    fi
+
     kubectl patch deployment "$controller_deployment" -n "$controller_namespace" --type=json \
-        -p '[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--feature-gates=GracefulWorkerScaleDown=true"}]' \
+        -p "[{\"op\":\"replace\",\"path\":\"/spec/template/spec/containers/0/args\",\"value\":$new_args}]" \
         || panic "failed to patch $controller_deployment to enable GracefulWorkerScaleDown"
 
     kubectl rollout status deployment/"$controller_deployment" -n "$controller_namespace" --timeout=120s \

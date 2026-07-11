@@ -122,22 +122,29 @@ func (e *AlluxioEngine) SyncReplicas(ctx cruntime.ReconcileRequestContext) (err 
 				decommissionStart = time.Now()
 			}
 
+			// A hard failure here (e.g. the master is on an Alluxio version
+			// older than 2.9, where "fsadmin decommissionWorker" doesn't
+			// exist) is deliberately NOT returned immediately: doing so would
+			// bypass the deadline tracking below entirely, since
+			// decommissionStart is only ever persisted inside the "not
+			// drained" branch. Treating a drain error the same as "not
+			// drained yet" ensures it is still bounded by
+			// defaultWorkerDecommissionDeadline and eventually degrades to an
+			// ungraceful scale-down, instead of stalling forever.
 			drained, drainErr := e.drainScalingDownWorkers(ctx, runtime, runtime.Replicas(), workers.Status.Replicas)
-			if drainErr != nil {
-				return drainErr
-			}
 
 			if !drained {
 				elapsed := time.Since(decommissionStart)
 				if elapsed > defaultWorkerDecommissionDeadline {
 					// A worker that never finishes draining (unhealthy master,
-					// unreplicable blocks, ...) would otherwise stall scale-down
-					// forever. Past the deadline we fall through and proceed
-					// anyway so the StatefulSet still converges; any data loss
-					// risk this avoided is the same the cluster accepts today
-					// without this feature.
+					// unreplicable blocks, unsupported Alluxio version, ...)
+					// would otherwise stall scale-down forever. Past the
+					// deadline we fall through and proceed anyway so the
+					// StatefulSet still converges; any data loss risk this
+					// avoided is the same the cluster accepts today without
+					// this feature.
 					e.Log.Info("Worker decommission exceeded the deadline; forcing scale-down to proceed",
-						"elapsed", elapsed, "deadline", defaultWorkerDecommissionDeadline)
+						"elapsed", elapsed, "deadline", defaultWorkerDecommissionDeadline, "lastError", drainErr)
 				} else {
 					if !alreadyTracked {
 						runtimeToUpdate.Status.Conditions = utils.UpdateRuntimeCondition(
@@ -145,6 +152,13 @@ func (e *AlluxioEngine) SyncReplicas(ctx cruntime.ReconcileRequestContext) (err 
 						if updateErr := e.Client.Status().Update(ctx, runtimeToUpdate); updateErr != nil {
 							return updateErr
 						}
+					}
+					if drainErr != nil {
+						// Unlike errWorkersNotYetDrained, a real error is
+						// logged at Error level by the caller below, so it's
+						// visible on every reconcile instead of only once the
+						// deadline is hit.
+						return drainErr
 					}
 					return fmt.Errorf("%w: scale-in to %d replicas will resume on next reconcile",
 						errWorkersNotYetDrained, runtime.Replicas())

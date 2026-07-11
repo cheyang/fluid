@@ -371,4 +371,58 @@ var _ = Describe("AlluxioEngine SyncReplicas worker decommission deadline", Labe
 			Expect(*sts.Spec.Replicas).To(Equal(int32(1)))
 		})
 	})
+
+	Context("when DecommissionWorkers itself fails (e.g. unsupported on the master's Alluxio version)", func() {
+		It("still records a decommission-start marker instead of erroring out with nothing tracked", func() {
+			engine := newFixtures(nil)
+			decommissionErr := errors.New("decommissionWorker: command not found")
+			patch1 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.DecommissionWorkers,
+				func(_ operations.AlluxioFileUtils, _ []string) error { return decommissionErr })
+			defer patch1.Reset()
+
+			err := engine.SyncReplicas(cruntime.ReconcileRequestContext{
+				Log: fake.NullLogger(), Recorder: record.NewFakeRecorder(300),
+			})
+			// The real error is returned (and logged at Error level by the
+			// caller) rather than masked as the normal/expected
+			// errWorkersNotYetDrained, so it's visible on every reconcile.
+			Expect(err).To(HaveOccurred())
+			Expect(errors.Is(err, errWorkersNotYetDrained)).To(BeFalse())
+			Expect(err.Error()).To(ContainSubstring("command not found"))
+
+			cond := getCondition(engine)
+			Expect(cond).NotTo(BeNil())
+			Expect(cond.Status).To(Equal(corev1.ConditionTrue))
+		})
+
+		It("still forces the scale-down to proceed past the deadline instead of stalling forever", func() {
+			// Once tracked, drainScalingDownWorkers skips re-issuing
+			// DecommissionWorkers (see the "already tracked" check in
+			// replicas.go) and relies solely on CountActiveWorkers, so an
+			// unsupported/permanently-failing decommission surfaces here as
+			// the worker count never dropping - not as a repeated error.
+			staleCond := utils.NewRuntimeCondition(v1alpha1.RuntimeWorkerDecommissioning,
+				v1alpha1.RuntimeWorkerDecommissioningReason, "started earlier", corev1.ConditionTrue)
+			staleCond.LastTransitionTime = metav1.NewTime(time.Now().Add(-defaultWorkerDecommissionDeadline - time.Minute))
+			engine := newFixtures(&staleCond)
+
+			patch := gomonkey.ApplyFunc(operations.AlluxioFileUtils.CountActiveWorkers,
+				func(_ operations.AlluxioFileUtils) (int, error) { return 2, nil })
+			defer patch.Reset()
+
+			err := engine.SyncReplicas(cruntime.ReconcileRequestContext{
+				Log: fake.NullLogger(), Recorder: record.NewFakeRecorder(300),
+			})
+			Expect(err).NotTo(HaveOccurred())
+
+			cond := getCondition(engine)
+			Expect(cond).NotTo(BeNil())
+			Expect(cond.Status).To(Equal(corev1.ConditionFalse))
+
+			var sts appsv1.StatefulSet
+			Expect(engine.Client.Get(context.TODO(),
+				types.NamespacedName{Name: deadlineTestRuntime + "-worker", Namespace: deadlineTestNs}, &sts)).To(Succeed())
+			Expect(*sts.Spec.Replicas).To(Equal(int32(1)))
+		})
+	})
 })
