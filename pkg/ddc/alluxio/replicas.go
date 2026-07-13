@@ -146,9 +146,18 @@ func (e *AlluxioEngine) SyncReplicas(ctx cruntime.ReconcileRequestContext) (err 
 					e.Log.Info("Worker decommission exceeded the deadline; forcing scale-down to proceed",
 						"elapsed", elapsed, "deadline", defaultWorkerDecommissionDeadline, "lastError", drainErr)
 				} else {
-					if !alreadyTracked {
+					// Refresh (not just initialize) the condition's Reason so
+					// drainScalingDownWorkers can tell a confirmed-attempted
+					// decommission apart from one that failed before ever
+					// reaching the master - the two need different handling
+					// on the next reconcile. decommissionStart, not time.Now(),
+					// anchors LastTransitionTime so the deadline clock isn't
+					// reset by a Reason change alone.
+					newCond := newDecommissioningCondition(decommissionStart, drainErr)
+					_, existingCond := utils.GetRuntimeCondition(runtimeToUpdate.Status.Conditions, data.RuntimeWorkerDecommissioning)
+					if existingCond == nil || existingCond.Reason != newCond.Reason {
 						runtimeToUpdate.Status.Conditions = utils.UpdateRuntimeCondition(
-							runtimeToUpdate.Status.Conditions, newDecommissioningCondition(decommissionStart))
+							runtimeToUpdate.Status.Conditions, newCond)
 						if updateErr := e.Client.Status().Update(ctx, runtimeToUpdate); updateErr != nil {
 							return updateErr
 						}
@@ -253,9 +262,13 @@ func (e *AlluxioEngine) drainScalingDownWorkers(ctx context.Context, runtime *da
 
 	// alluxio fsadmin decommissionWorker execs into the master pod, which is
 	// too heavy to reissue on every reconcile while we wait for a drain to
-	// finish. Once a decommission attempt is already tracked, only poll the
-	// active worker count instead of re-requesting it.
-	if _, alreadyTracked := getDecommissionStart(runtime); !alreadyTracked {
+	// finish. Skip re-requesting it only once a decommission attempt has
+	// actually reached the master - not merely been attempted: a failed
+	// attempt (transient network error, master pod restarting, ...) never
+	// reached it, so skipping the retry would leave the active worker count
+	// unchanged until the deadline forces an ungraceful proceed, even though
+	// simply retrying next reconcile would likely succeed.
+	if !decommissionSucceeded(runtime) {
 		if err := fileUtils.DecommissionWorkers(toDecommission); err != nil {
 			return false, err
 		}
@@ -296,12 +309,27 @@ func getDecommissionStart(runtime *data.AlluxioRuntime) (time.Time, bool) {
 	return cond.LastTransitionTime.Time, true
 }
 
-// newDecommissioningCondition marks the start of a worker-drain attempt that
+// decommissionSucceeded reports whether the most recently tracked
+// decommission attempt actually reached the Alluxio master, as opposed to
+// merely having been attempted. A tracked-but-failed attempt (Reason ==
+// RuntimeWorkerDecommissionFailedReason) must still be retried, not skipped.
+func decommissionSucceeded(runtime *data.AlluxioRuntime) bool {
+	_, cond := utils.GetRuntimeCondition(runtime.Status.Conditions, data.RuntimeWorkerDecommissioning)
+	return cond != nil && cond.Status == corev1.ConditionTrue && cond.Reason != data.RuntimeWorkerDecommissionFailedReason
+}
+
+// newDecommissioningCondition marks the state of a worker-drain attempt that
 // didn't complete within one reconcile, so subsequent reconciles can measure
-// elapsed time against defaultWorkerDecommissionDeadline.
-func newDecommissioningCondition(start time.Time) data.RuntimeCondition {
-	cond := utils.NewRuntimeCondition(data.RuntimeWorkerDecommissioning, data.RuntimeWorkerDecommissioningReason,
-		"Workers are being decommissioned ahead of a scale-down.", corev1.ConditionTrue)
+// elapsed time against defaultWorkerDecommissionDeadline and
+// drainScalingDownWorkers can tell whether the last attempt needs retrying.
+func newDecommissioningCondition(start time.Time, drainErr error) data.RuntimeCondition {
+	reason := data.RuntimeWorkerDecommissioningReason
+	message := "Workers are being decommissioned ahead of a scale-down."
+	if drainErr != nil {
+		reason = data.RuntimeWorkerDecommissionFailedReason
+		message = fmt.Sprintf("Worker decommission attempt failed and will be retried: %v", drainErr)
+	}
+	cond := utils.NewRuntimeCondition(data.RuntimeWorkerDecommissioning, reason, message, corev1.ConditionTrue)
 	cond.LastTransitionTime = metav1.NewTime(start)
 	return cond
 }

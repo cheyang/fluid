@@ -218,6 +218,11 @@ const (
 	RuntimeFusesScaledOutReason = "Fuses scaled out"
 	// RuntimeWorkerDecommissioningReason means workers are being decommissioned ahead of a scale-down
 	RuntimeWorkerDecommissioningReason = "Workers are being decommissioned"
+	// RuntimeWorkerDecommissionFailedReason means the last attempt to decommission workers ahead of
+	// a scale-down did not reach the Alluxio master (e.g. a transient network error, the master pod
+	// restarting) and will be retried on the next reconcile, as opposed to an attempt that reached
+	// the master and is still waiting for the workers to finish draining.
+	RuntimeWorkerDecommissionFailedReason = "DecommissionFailed"
 )
 
 // Condition describes the state of the cache at a certain point.

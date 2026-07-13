@@ -157,6 +157,34 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 		})
 	})
 
+	Context("when a previously tracked decommission attempt failed", func() {
+		It("retries the decommission command instead of skipping it", func() {
+			rt.Status.Conditions = []v1alpha1.RuntimeCondition{
+				utils.NewRuntimeCondition(v1alpha1.RuntimeWorkerDecommissioning,
+					v1alpha1.RuntimeWorkerDecommissionFailedReason, "failed earlier", corev1.ConditionTrue),
+			}
+			engine = newEngineWithPods(workerPod(1, "10.0.0.1"))
+
+			decommissionCalled := false
+			patch1 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.DecommissionWorkers,
+				func(_ operations.AlluxioFileUtils, _ []string) error {
+					decommissionCalled = true
+					return nil
+				})
+			defer patch1.Reset()
+			patch2 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.CountActiveWorkers,
+				func(_ operations.AlluxioFileUtils) (int, error) {
+					return 1, nil
+				})
+			defer patch2.Reset()
+
+			drained, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(drained).To(BeTrue())
+			Expect(decommissionCalled).To(BeTrue())
+		})
+	})
+
 	Context("when the decommission call fails", func() {
 		It("propagates the error", func() {
 			engine = newEngineWithPods(workerPod(1, "10.0.0.1"))
@@ -393,6 +421,50 @@ var _ = Describe("AlluxioEngine SyncReplicas worker decommission deadline", Labe
 			cond := getCondition(engine)
 			Expect(cond).NotTo(BeNil())
 			Expect(cond.Status).To(Equal(corev1.ConditionTrue))
+			Expect(cond.Reason).To(Equal(v1alpha1.RuntimeWorkerDecommissionFailedReason))
+		})
+
+		It("retries on the next reconcile instead of treating the failed attempt as done", func() {
+			// Regression test: a failed attempt must not be recorded the same
+			// way as a successful one, or drainScalingDownWorkers would skip
+			// ever retrying DecommissionWorkers and just poll a worker count
+			// that can never drop, since nothing was ever actually told to
+			// decommission.
+			engine := newFixtures(nil)
+			decommissionErr := errors.New("transient: connection reset")
+			callCount := 0
+			patch1 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.DecommissionWorkers,
+				func(_ operations.AlluxioFileUtils, _ []string) error {
+					callCount++
+					if callCount == 1 {
+						return decommissionErr
+					}
+					return nil
+				})
+			defer patch1.Reset()
+			patch2 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.CountActiveWorkers,
+				func(_ operations.AlluxioFileUtils) (int, error) { return 1, nil })
+			defer patch2.Reset()
+
+			reconcile := func() error {
+				return engine.SyncReplicas(cruntime.ReconcileRequestContext{
+					Log: fake.NullLogger(), Recorder: record.NewFakeRecorder(300),
+				})
+			}
+
+			firstErr := reconcile()
+			Expect(firstErr).To(HaveOccurred())
+			Expect(errors.Is(firstErr, errWorkersNotYetDrained)).To(BeFalse())
+			cond := getCondition(engine)
+			Expect(cond.Reason).To(Equal(v1alpha1.RuntimeWorkerDecommissionFailedReason))
+
+			secondErr := reconcile()
+			Expect(callCount).To(Equal(2), "the second reconcile must retry DecommissionWorkers, not skip it")
+			Expect(secondErr).NotTo(HaveOccurred())
+
+			finalCond := getCondition(engine)
+			Expect(finalCond).NotTo(BeNil())
+			Expect(finalCond.Status).To(Equal(corev1.ConditionFalse))
 		})
 
 		It("still forces the scale-down to proceed past the deadline instead of stalling forever", func() {
