@@ -21,6 +21,7 @@ import (
 	stderrors "errors"
 	"fmt"
 	"reflect"
+	"strings"
 	"time"
 
 	data "github.com/fluid-cloudnative/fluid/api/v1alpha1"
@@ -146,16 +147,23 @@ func (e *AlluxioEngine) SyncReplicas(ctx cruntime.ReconcileRequestContext) (err 
 					e.Log.Info("Worker decommission exceeded the deadline; forcing scale-down to proceed",
 						"elapsed", elapsed, "deadline", defaultWorkerDecommissionDeadline, "lastError", drainErr)
 				} else {
-					// Refresh (not just initialize) the condition's Reason so
-					// drainScalingDownWorkers can tell a confirmed-attempted
-					// decommission apart from one that failed before ever
-					// reaching the master - the two need different handling
-					// on the next reconcile. decommissionStart, not time.Now(),
-					// anchors LastTransitionTime so the deadline clock isn't
-					// reset by a Reason change alone.
-					newCond := newDecommissioningCondition(decommissionStart, drainErr)
+					// Refresh (not just initialize) the condition's Reason and
+					// target-address message so drainScalingDownWorkers can
+					// tell a confirmed-attempted decommission apart from one
+					// that failed before ever reaching the master, or one
+					// whose target set has since gone stale (the user scaled
+					// down further before the first attempt finished) - all
+					// three need a retry, not a skip, on the next reconcile.
+					// decommissionStart, not time.Now(), anchors
+					// LastTransitionTime so the deadline clock isn't reset by
+					// a Reason/Message change alone.
+					addresses, addrErr := e.getDecommissionAddresses(ctx, runtime, runtime.Replicas(), workers.Status.Replicas)
+					if addrErr != nil {
+						return addrErr
+					}
+					newCond := newDecommissioningCondition(decommissionStart, addresses, drainErr)
 					_, existingCond := utils.GetRuntimeCondition(runtimeToUpdate.Status.Conditions, data.RuntimeWorkerDecommissioning)
-					if existingCond == nil || existingCond.Reason != newCond.Reason {
+					if existingCond == nil || existingCond.Reason != newCond.Reason || existingCond.Message != newCond.Message {
 						runtimeToUpdate.Status.Conditions = utils.UpdateRuntimeCondition(
 							runtimeToUpdate.Status.Conditions, newCond)
 						if updateErr := e.Client.Status().Update(ctx, runtimeToUpdate); updateErr != nil {
@@ -207,18 +215,65 @@ func (e *AlluxioEngine) drainScalingDownWorkers(ctx context.Context, runtime *da
 	masterPodName, masterContainerName := e.getMasterPodInfo()
 	fileUtils := operations.NewAlluxioFileUtils(masterPodName, masterContainerName, e.namespace, e.Log)
 
+	toDecommission, err := e.getDecommissionAddresses(ctx, runtime, desiredReplicas, currentReplicas)
+	if err != nil {
+		return false, err
+	}
+
+	if len(toDecommission) == 0 {
+		// All targeted pods are already gone from the cluster, or none of
+		// them have been scheduled yet and so hold no data to protect.
+		return true, nil
+	}
+
+	// alluxio fsadmin decommissionWorker execs into the master pod, which is
+	// too heavy to reissue on every reconcile while we wait for a drain to
+	// finish. Skip re-requesting it only once a decommission attempt has
+	// actually reached the master for exactly this target set - not merely
+	// been attempted: a failed attempt (transient network error, master pod
+	// restarting, ...) never reached it, so skipping the retry would leave
+	// the active worker count unchanged until the deadline forces an
+	// ungraceful proceed, even though simply retrying next reconcile would
+	// likely succeed. Comparing the target set (not just whether *something*
+	// was attempted) also catches the case where the user scaled down
+	// further before the first attempt finished, widening toDecommission to
+	// include a worker that was never actually told to decommission.
+	if !decommissionSucceeded(runtime, toDecommission) {
+		if err := fileUtils.DecommissionWorkers(toDecommission); err != nil {
+			return false, err
+		}
+	}
+
+	activeCount, err := fileUtils.CountActiveWorkers()
+	if err != nil {
+		return false, err
+	}
+
+	if int32(activeCount) > desiredReplicas {
+		e.Log.Info("Workers are still draining, will retry",
+			"activeWorkers", activeCount, "desired", desiredReplicas)
+		return false, nil
+	}
+
+	return true, nil
+}
+
+// getDecommissionAddresses returns the web-port addresses of the worker pods
+// that need to be decommissioned to scale down from currentReplicas to
+// desiredReplicas.
+//
+// A standard StatefulSet removes the highest-ordinal pods first, so the
+// targets are ordinals [desiredReplicas, currentReplicas). "fsadmin
+// decommissionWorker" addresses workers by their web port (not the RPC port
+// used elsewhere) because it monitors the worker's workload as exposed on
+// the web server. The worker registers with the master under its node's IP
+// (see the ALLUXIO_WORKER_HOSTNAME wiring in charts/alluxio, which sources
+// alluxio.worker.hostname from status.hostIP), not its pod IP, so that is
+// the identity it must be addressed by.
+func (e *AlluxioEngine) getDecommissionAddresses(ctx context.Context, runtime *data.AlluxioRuntime, desiredReplicas, currentReplicas int32) ([]string, error) {
 	workerWebPort := e.getWorkerWebPort(runtime)
 	workerStsName := e.getWorkerName()
 
-	// Collect web-port addresses of the pods that will be terminated on
-	// scale-down. "fsadmin decommissionWorker" addresses workers by their web
-	// port (not the RPC port used elsewhere) because it monitors the worker's
-	// workload as exposed on the web server. The worker registers with the
-	// master under its node's IP (see the ALLUXIO_WORKER_HOSTNAME wiring in
-	// charts/alluxio, which sources alluxio.worker.hostname from
-	// status.hostIP), not its pod IP, so that is the identity it must be
-	// addressed by.
-	//
 	// Pods sharing a node produce the same HostIP; seen tracks addresses
 	// already added so the request doesn't list the same worker twice.
 	var toDecommission []string
@@ -232,7 +287,7 @@ func (e *AlluxioEngine) drainScalingDownWorkers(ctx context.Context, runtime *da
 				// Pod is already gone; nothing to decommission here.
 				continue
 			}
-			return false, err
+			return nil, err
 		}
 		if pod.Status.HostIP == "" || pod.Status.Phase != corev1.PodRunning {
 			// A pod can have a HostIP as soon as it's scheduled, well before
@@ -253,39 +308,7 @@ func (e *AlluxioEngine) drainScalingDownWorkers(ctx context.Context, runtime *da
 		seen[addr] = struct{}{}
 		toDecommission = append(toDecommission, addr)
 	}
-
-	if len(toDecommission) == 0 {
-		// All targeted pods are already gone from the cluster, or none of
-		// them have been scheduled yet and so hold no data to protect.
-		return true, nil
-	}
-
-	// alluxio fsadmin decommissionWorker execs into the master pod, which is
-	// too heavy to reissue on every reconcile while we wait for a drain to
-	// finish. Skip re-requesting it only once a decommission attempt has
-	// actually reached the master - not merely been attempted: a failed
-	// attempt (transient network error, master pod restarting, ...) never
-	// reached it, so skipping the retry would leave the active worker count
-	// unchanged until the deadline forces an ungraceful proceed, even though
-	// simply retrying next reconcile would likely succeed.
-	if !decommissionSucceeded(runtime) {
-		if err := fileUtils.DecommissionWorkers(toDecommission); err != nil {
-			return false, err
-		}
-	}
-
-	activeCount, err := fileUtils.CountActiveWorkers()
-	if err != nil {
-		return false, err
-	}
-
-	if int32(activeCount) > desiredReplicas {
-		e.Log.Info("Workers are still draining, will retry",
-			"activeWorkers", activeCount, "desired", desiredReplicas)
-		return false, nil
-	}
-
-	return true, nil
+	return toDecommission, nil
 }
 
 // getWorkerWebPort returns the configured Alluxio worker web port, falling
@@ -310,21 +333,39 @@ func getDecommissionStart(runtime *data.AlluxioRuntime) (time.Time, bool) {
 }
 
 // decommissionSucceeded reports whether the most recently tracked
-// decommission attempt actually reached the Alluxio master, as opposed to
-// merely having been attempted. A tracked-but-failed attempt (Reason ==
-// RuntimeWorkerDecommissionFailedReason) must still be retried, not skipped.
-func decommissionSucceeded(runtime *data.AlluxioRuntime) bool {
+// decommission attempt actually reached the Alluxio master for exactly the
+// given target addresses, as opposed to merely having been attempted, or
+// having been attempted for a now-stale target set. A tracked-but-failed
+// attempt (Reason == RuntimeWorkerDecommissionFailedReason) must still be
+// retried, not skipped. So must an attempt tracked for a different address
+// set: if the user scales down further before the first attempt finishes,
+// drainScalingDownWorkers's target set widens, and a worker newly added to
+// it was never actually told to decommission.
+func decommissionSucceeded(runtime *data.AlluxioRuntime, addresses []string) bool {
 	_, cond := utils.GetRuntimeCondition(runtime.Status.Conditions, data.RuntimeWorkerDecommissioning)
-	return cond != nil && cond.Status == corev1.ConditionTrue && cond.Reason != data.RuntimeWorkerDecommissionFailedReason
+	if cond == nil || cond.Status != corev1.ConditionTrue || cond.Reason == data.RuntimeWorkerDecommissionFailedReason {
+		return false
+	}
+	return cond.Message == decommissionTargetsMessage(addresses)
+}
+
+// decommissionTargetsMessage renders the addresses a decommission attempt
+// targeted, in the canonical form newDecommissioningCondition and
+// decommissionSucceeded both use to detect whether the target set has
+// changed since the last recorded attempt.
+func decommissionTargetsMessage(addresses []string) string {
+	return fmt.Sprintf("Workers being decommissioned ahead of a scale-down: %s", strings.Join(addresses, ","))
 }
 
 // newDecommissioningCondition marks the state of a worker-drain attempt that
 // didn't complete within one reconcile, so subsequent reconciles can measure
 // elapsed time against defaultWorkerDecommissionDeadline and
-// drainScalingDownWorkers can tell whether the last attempt needs retrying.
-func newDecommissioningCondition(start time.Time, drainErr error) data.RuntimeCondition {
+// drainScalingDownWorkers can tell whether the last attempt needs retrying -
+// either because it failed, or because the target address set has since
+// changed.
+func newDecommissioningCondition(start time.Time, addresses []string, drainErr error) data.RuntimeCondition {
 	reason := data.RuntimeWorkerDecommissioningReason
-	message := "Workers are being decommissioned ahead of a scale-down."
+	message := decommissionTargetsMessage(addresses)
 	if drainErr != nil {
 		reason = data.RuntimeWorkerDecommissionFailedReason
 		message = fmt.Sprintf("Worker decommission attempt failed and will be retried: %v", drainErr)

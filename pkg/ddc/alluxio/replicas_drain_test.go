@@ -131,9 +131,10 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 
 	Context("when a decommission attempt is already tracked", func() {
 		It("does not re-issue the decommission command, only polls active worker count", func() {
+			targetAddr := "10.0.0.1:" + fmt.Sprint(defaultWorkerWebPort)
 			rt.Status.Conditions = []v1alpha1.RuntimeCondition{
 				utils.NewRuntimeCondition(v1alpha1.RuntimeWorkerDecommissioning,
-					v1alpha1.RuntimeWorkerDecommissioningReason, "started earlier", corev1.ConditionTrue),
+					v1alpha1.RuntimeWorkerDecommissioningReason, decommissionTargetsMessage([]string{targetAddr}), corev1.ConditionTrue),
 			}
 			engine = newEngineWithPods(workerPod(1, "10.0.0.1"))
 
@@ -154,6 +155,42 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 			Expect(err).NotTo(HaveOccurred())
 			Expect(drained).To(BeTrue())
 			Expect(decommissionCalled).To(BeFalse())
+		})
+	})
+
+	Context("when the target set has widened since the tracked attempt", func() {
+		It("retries instead of treating the stale narrower attempt as done", func() {
+			// Regression test: the user scaled down further (e.g. 3 -> 2 -> 1)
+			// before the first attempt (targeting only worker-2) finished.
+			// The tracked condition still has the success Reason from that
+			// first attempt, but its message only lists worker-2 - not
+			// worker-1, which drainScalingDownWorkers now also targets. A
+			// Reason-only check would treat this as already handled and
+			// leave worker-1 never actually told to decommission.
+			workerTwoAddr := "10.0.0.2:" + fmt.Sprint(defaultWorkerWebPort)
+			rt.Status.Conditions = []v1alpha1.RuntimeCondition{
+				utils.NewRuntimeCondition(v1alpha1.RuntimeWorkerDecommissioning,
+					v1alpha1.RuntimeWorkerDecommissioningReason, decommissionTargetsMessage([]string{workerTwoAddr}), corev1.ConditionTrue),
+			}
+			engine = newEngineWithPods(workerPod(1, "10.0.0.1"), workerPod(2, "10.0.0.2"))
+
+			var capturedAddrs []string
+			patch1 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.DecommissionWorkers,
+				func(_ operations.AlluxioFileUtils, addrs []string) error {
+					capturedAddrs = append([]string(nil), addrs...)
+					return nil
+				})
+			defer patch1.Reset()
+			patch2 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.CountActiveWorkers,
+				func(_ operations.AlluxioFileUtils) (int, error) { return 1, nil })
+			defer patch2.Reset()
+
+			// desiredReplicas=1, currentReplicas=3: targets worker-1 and
+			// worker-2, wider than the tracked attempt's worker-2-only set.
+			drained, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 3)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(drained).To(BeTrue())
+			Expect(capturedAddrs).To(ConsistOf("10.0.0.1:"+fmt.Sprint(defaultWorkerWebPort), workerTwoAddr))
 		})
 	})
 
@@ -468,19 +505,24 @@ var _ = Describe("AlluxioEngine SyncReplicas worker decommission deadline", Labe
 		})
 
 		It("still forces the scale-down to proceed past the deadline instead of stalling forever", func() {
-			// Once tracked, drainScalingDownWorkers skips re-issuing
-			// DecommissionWorkers (see the "already tracked" check in
-			// replicas.go) and relies solely on CountActiveWorkers, so an
-			// unsupported/permanently-failing decommission surfaces here as
-			// the worker count never dropping - not as a repeated error.
+			// The pre-seeded condition's message deliberately doesn't match
+			// the current target set (see decommissionTargetsMessage), so
+			// decommissionSucceeded treats this attempt as stale and
+			// DecommissionWorkers gets retried rather than skipped - it just
+			// doesn't matter to the outcome, since CountActiveWorkers keeps
+			// reporting the worker as active either way and the deadline
+			// forces the scale-down through regardless.
 			staleCond := utils.NewRuntimeCondition(v1alpha1.RuntimeWorkerDecommissioning,
 				v1alpha1.RuntimeWorkerDecommissioningReason, "started earlier", corev1.ConditionTrue)
 			staleCond.LastTransitionTime = metav1.NewTime(time.Now().Add(-defaultWorkerDecommissionDeadline - time.Minute))
 			engine := newFixtures(&staleCond)
 
-			patch := gomonkey.ApplyFunc(operations.AlluxioFileUtils.CountActiveWorkers,
+			patch1 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.DecommissionWorkers,
+				func(_ operations.AlluxioFileUtils, _ []string) error { return nil })
+			defer patch1.Reset()
+			patch2 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.CountActiveWorkers,
 				func(_ operations.AlluxioFileUtils) (int, error) { return 2, nil })
-			defer patch.Reset()
+			defer patch2.Reset()
 
 			err := engine.SyncReplicas(cruntime.ReconcileRequestContext{
 				Log: fake.NullLogger(), Recorder: record.NewFakeRecorder(300),
