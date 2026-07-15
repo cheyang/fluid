@@ -92,7 +92,7 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 	Context("when the pod targeted for removal is already gone", func() {
 		It("treats a NotFound pod as already decommissioned", func() {
 			engine = newEngineWithPods()
-			drained, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
+			drained, _, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(drained).To(BeTrue())
 		})
@@ -101,7 +101,7 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 	Context("when the pod has not yet been assigned a host IP", func() {
 		It("skips the pod and treats it as having nothing to drain", func() {
 			engine = newEngineWithPods(workerPod(1, ""))
-			drained, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
+			drained, _, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(drained).To(BeTrue())
 		})
@@ -122,7 +122,7 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 				})
 			defer patch2.Reset()
 
-			drained, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 3)
+			drained, _, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 3)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(drained).To(BeTrue())
 			Expect(capturedAddrs).To(Equal([]string{"10.0.0.1:" + fmt.Sprint(defaultWorkerWebPort)}))
@@ -151,7 +151,7 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 				})
 			defer patch2.Reset()
 
-			drained, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
+			drained, _, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(drained).To(BeTrue())
 			Expect(decommissionCalled).To(BeFalse())
@@ -187,7 +187,7 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 
 			// desiredReplicas=1, currentReplicas=3: targets worker-1 and
 			// worker-2, wider than the tracked attempt's worker-2-only set.
-			drained, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 3)
+			drained, _, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 3)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(drained).To(BeTrue())
 			Expect(capturedAddrs).To(ConsistOf("10.0.0.1:"+fmt.Sprint(defaultWorkerWebPort), workerTwoAddr))
@@ -215,7 +215,7 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 				})
 			defer patch2.Reset()
 
-			drained, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
+			drained, _, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(drained).To(BeTrue())
 			Expect(decommissionCalled).To(BeTrue())
@@ -231,7 +231,7 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 				})
 			defer patch.Reset()
 
-			drained, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
+			drained, _, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
 			Expect(err).To(HaveOccurred())
 			Expect(drained).To(BeFalse())
 		})
@@ -251,7 +251,7 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 				})
 			defer patch2.Reset()
 
-			drained, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
+			drained, _, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(drained).To(BeFalse())
 		})
@@ -271,7 +271,7 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 				})
 			defer patch2.Reset()
 
-			drained, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
+			drained, _, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(drained).To(BeTrue())
 		})
@@ -294,7 +294,7 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 				})
 			defer patch2.Reset()
 
-			drained, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 3)
+			drained, _, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 3)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(drained).To(BeTrue())
 			Expect(capturedAddrs).To(HaveLen(1))
@@ -383,6 +383,38 @@ var _ = Describe("AlluxioEngine SyncReplicas worker decommission deadline", Labe
 
 	AfterEach(func() {
 		Expect(utilfeature.DefaultMutableFeatureGate.Set(string(features.GracefulWorkerScaleDown) + "=false")).To(Succeed())
+	})
+
+	Context("when a new attempt targets the exact same addresses as a previously cleared one", func() {
+		It("flips the condition back to True instead of leaving it False", func() {
+			// Regression test: clearDecommissioningCondition only flips
+			// Status to False - it leaves Reason/Message as they were. If a
+			// later decommission attempt targets the identical address set
+			// (e.g. scaled back down to the same replica count) and also
+			// reaches the master (Reason unchanged), Reason and Message
+			// alone can't tell this new, still-active attempt apart from the
+			// old, finished one - only Status differs.
+			clearedCond := utils.NewRuntimeCondition(v1alpha1.RuntimeWorkerDecommissioning,
+				v1alpha1.RuntimeWorkerDecommissioningReason,
+				decommissionTargetsMessage([]string{"10.0.0.5:" + fmt.Sprint(defaultWorkerWebPort)}), corev1.ConditionFalse)
+			engine := newFixtures(&clearedCond)
+
+			patch1 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.DecommissionWorkers,
+				func(_ operations.AlluxioFileUtils, _ []string) error { return nil })
+			defer patch1.Reset()
+			patch2 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.CountActiveWorkers,
+				func(_ operations.AlluxioFileUtils) (int, error) { return 2, nil })
+			defer patch2.Reset()
+
+			err := engine.SyncReplicas(cruntime.ReconcileRequestContext{
+				Log: fake.NullLogger(), Recorder: record.NewFakeRecorder(300),
+			})
+			Expect(errors.Is(err, errWorkersNotYetDrained)).To(BeTrue())
+
+			cond := getCondition(engine)
+			Expect(cond).NotTo(BeNil())
+			Expect(cond.Status).To(Equal(corev1.ConditionTrue))
+		})
 	})
 
 	Context("when a drain doesn't finish within one reconcile", func() {
