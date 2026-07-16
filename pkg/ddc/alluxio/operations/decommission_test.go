@@ -284,6 +284,14 @@ func TestParseActiveWorkerCount(t *testing.T) {
 `,
 			expect: 0,
 		},
+		{
+			name: "header with leading whitespace is still recognized",
+			input: `  Worker Name      Last Heartbeat   Storage       MEM
+192.168.1.1      0                capacity      1024.00MB
+                                 used          0B (0%)
+`,
+			expect: 1,
+		},
 	}
 
 	for _, tc := range cases {

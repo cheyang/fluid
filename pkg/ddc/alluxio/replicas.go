@@ -293,6 +293,18 @@ func (e *AlluxioEngine) getDecommissionAddresses(ctx context.Context, runtime *d
 			}
 			return nil, err
 		}
+		if pod.DeletionTimestamp != nil {
+			// Already being torn down. Kubernetes has no distinct "Terminating"
+			// Phase - a pod keeps reporting Running throughout its grace
+			// period - so without this check a pod from an *earlier,
+			// already-successful* drain could be re-targeted here: this
+			// engine lowers the StatefulSet's Spec.Replicas only once that
+			// earlier drain succeeds, and workers.Status.Replicas (used to
+			// decide whether to enter this function at all, see SyncReplicas)
+			// stays elevated until the terminating pod is actually gone,
+			// which can briefly re-trigger this scan.
+			continue
+		}
 		if pod.Status.HostIP == "" || pod.Status.Phase != corev1.PodRunning {
 			// A pod can have a HostIP as soon as it's scheduled, well before
 			// its containers actually start (Pending/ContainerCreating), so
@@ -305,7 +317,12 @@ func (e *AlluxioEngine) getDecommissionAddresses(ctx context.Context, runtime *d
 				"pod", podName, "phase", pod.Status.Phase)
 			continue
 		}
-		addr := fmt.Sprintf("%s:%d", pod.Status.HostIP, workerWebPort)
+		hostIP := pod.Status.HostIP
+		if strings.Contains(hostIP, ":") {
+			// IPv6; needs bracketing in a host:port pair.
+			hostIP = "[" + hostIP + "]"
+		}
+		addr := fmt.Sprintf("%s:%d", hostIP, workerWebPort)
 		if _, dup := seen[addr]; dup {
 			continue
 		}

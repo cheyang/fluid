@@ -89,12 +89,68 @@ var _ = Describe("AlluxioEngine drainScalingDownWorkers", Label("pkg.ddc.alluxio
 		}
 	}
 
+	terminatingWorkerPod := func(ordinal int, hostIP string) *corev1.Pod {
+		pod := workerPod(ordinal, hostIP)
+		now := metav1.Now()
+		pod.DeletionTimestamp = &now
+		// A finalizer is required for the fake client to accept a
+		// DeletionTimestamp on Create - a real API server sets one
+		// automatically only in response to a Delete call.
+		pod.Finalizers = []string{"fluid.io/test-finalizer"}
+		return pod
+	}
+
 	Context("when the pod targeted for removal is already gone", func() {
 		It("treats a NotFound pod as already decommissioned", func() {
 			engine = newEngineWithPods()
 			drained, _, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(drained).To(BeTrue())
+		})
+	})
+
+	Context("when the pod targeted for removal is already terminating", func() {
+		It("skips it instead of re-issuing a decommission for an already-handled worker", func() {
+			// Regression test: workers.Status.Replicas (used to decide
+			// whether to enter the decommission block at all) stays elevated
+			// until a terminating pod is fully gone, which can briefly
+			// re-trigger this scan for a pod from an earlier, already
+			// successful drain. Kubernetes has no distinct "Terminating"
+			// Phase - the pod keeps reporting Running during its grace
+			// period - so DeletionTimestamp is the only reliable signal.
+			engine = newEngineWithPods(terminatingWorkerPod(1, "10.0.0.1"))
+			decommissionCalled := false
+			patch := gomonkey.ApplyFunc(operations.AlluxioFileUtils.DecommissionWorkers,
+				func(_ operations.AlluxioFileUtils, _ []string) error {
+					decommissionCalled = true
+					return nil
+				})
+			defer patch.Reset()
+
+			drained, _, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(drained).To(BeTrue())
+			Expect(decommissionCalled).To(BeFalse())
+		})
+	})
+
+	Context("when the pod's HostIP is IPv6", func() {
+		It("brackets it in the decommission address", func() {
+			engine = newEngineWithPods(workerPod(1, "2001:db8::1"))
+			var capturedAddrs []string
+			patch1 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.DecommissionWorkers,
+				func(_ operations.AlluxioFileUtils, addrs []string) error {
+					capturedAddrs = append([]string(nil), addrs...)
+					return nil
+				})
+			defer patch1.Reset()
+			patch2 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.CountActiveWorkers,
+				func(_ operations.AlluxioFileUtils) (int, error) { return 1, nil })
+			defer patch2.Reset()
+
+			_, _, err := engine.drainScalingDownWorkers(context.TODO(), rt, 1, 2)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(capturedAddrs).To(Equal([]string{"[2001:db8::1]:" + fmt.Sprint(defaultWorkerWebPort)}))
 		})
 	})
 

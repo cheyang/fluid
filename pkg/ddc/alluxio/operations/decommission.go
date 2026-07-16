@@ -124,7 +124,7 @@ func parseActiveWorkerCount(report string) (int, error) {
 	inWorkerSection := false
 	count := 0
 	for _, line := range strings.Split(report, "\n") {
-		if strings.HasPrefix(line, "Worker Name") {
+		if strings.HasPrefix(strings.TrimSpace(line), "Worker Name") {
 			inWorkerSection = true
 			continue
 		}
