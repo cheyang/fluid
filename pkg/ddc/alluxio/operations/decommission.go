@@ -76,7 +76,7 @@ func (a AlluxioFileUtils) DecommissionWorkers(addresses []string) error {
 // exiting 0.
 func decommissionOutputIndicatesFailure(stdout string) (reason string, failed bool) {
 	lower := strings.ToLower(stdout)
-	for _, indicator := range []string{"fail", "unrecognized"} {
+	for _, indicator := range []string{"failed to", "unrecognized"} {
 		if strings.Contains(lower, indicator) {
 			return fmt.Sprintf("stdout contains %q", indicator), true
 		}

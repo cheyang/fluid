@@ -143,6 +143,21 @@ func TestAlluxioFileUtils_DecommissionWorkers(t *testing.T) {
 			t.Error("want error, got nil")
 		}
 	})
+
+	t.Run("does not false-positive on benign output containing 'fail' as a substring", func(t *testing.T) {
+		// HA Alluxio deployments routinely log master failover activity, and
+		// a summary line reporting zero failures still contains "fail" - a
+		// bare substring match on "fail" would misread either as a failure.
+		patches := gomonkey.ApplyFunc(AlluxioFileUtils.exec,
+			func(_ AlluxioFileUtils, _ []string, _ bool) (string, string, error) {
+				return "Primary master failover completed. 0 workers failed.", "", nil
+			})
+		defer patches.Reset()
+
+		if err := a.DecommissionWorkers([]string{"192.168.1.1:30000"}); err != nil {
+			t.Fatalf("want nil, got: %v", err)
+		}
+	})
 }
 
 func TestAlluxioFileUtils_CountActiveWorkers(t *testing.T) {

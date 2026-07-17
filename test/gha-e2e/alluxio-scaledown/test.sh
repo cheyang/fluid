@@ -26,7 +26,7 @@ function panic() {
 function enable_graceful_scale_down() {
     local existing_args
     existing_args=$(kubectl get deployment "$controller_deployment" -n "$controller_namespace" \
-        -ojson | jq -c '.spec.template.spec.containers[0].args')
+        -ojson | jq -c '.spec.template.spec.containers[0].args // []')
 
     if echo "$existing_args" | grep -q "GracefulWorkerScaleDown=true"; then
         syslog "GracefulWorkerScaleDown feature gate already enabled"
