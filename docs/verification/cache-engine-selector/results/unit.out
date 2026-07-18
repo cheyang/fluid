@@ -1,0 +1,11 @@
+2026/07/18 21:32:40 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyWorkerSelectorMatchesWorkerLabels
+--- PASS: TestVerifyWorkerSelectorMatchesWorkerLabels (0.00s)
+=== RUN   TestVerifyCacheRuntimeHasNoScaleSubresource
+--- PASS: TestVerifyCacheRuntimeHasNoScaleSubresource (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.628s
+=== RUN   TestVerifyWorkerCommonLabelScheme
+--- PASS: TestVerifyWorkerCommonLabelScheme (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	1.054s

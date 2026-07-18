@@ -1,0 +1,3 @@
+TestVerifyWorkerSelectorMatchesWorkerLabels	pass
+TestVerifyCacheRuntimeHasNoScaleSubresource	pass
+TestVerifyWorkerCommonLabelScheme	pass

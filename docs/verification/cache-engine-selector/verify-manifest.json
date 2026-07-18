@@ -1,0 +1,33 @@
+{
+  "topic": "cache-engine-selector",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6064",
+  "description": "Verification harness for PR #6064 'fix: populate Status.Selector in CacheEngine for worker pod discovery'. Additive tests only; no production code touched.",
+  "harnessPaths": [
+    "docs/verification/cache-engine-selector",
+    "pkg/ddc/cache/engine/selector_verify_test.go",
+    "pkg/ddc/cache/component/selector_verify_test.go"
+  ],
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/cache/engine/ ./pkg/ddc/cache/component/ -run TestVerify -count=1 -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1-selector-matches-worker-pods",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyWorkerSelectorMatchesWorkerLabels", "TestVerifyWorkerCommonLabelScheme"],
+      "note": "getWorkerSelectors() string must match the labels worker pods actually carry (getCommonLabelsFromComponent). Both PASS on PR head => correct."
+    },
+    {
+      "id": "F2-no-scale-subresource",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": ["TestVerifyCacheRuntimeHasNoScaleSubresource"],
+      "note": "CacheRuntime CRD has NO scale subresource, so Status.Selector is inert for HPA. PASSES while the gap exists; FLIPS to fail once a scale subresource with selectorpath=.status.selector is added — then invert/promote it."
+    }
+  ],
+  "liveNote": "No live (L3) layer: change is a pure label-selector string + a static CRD-shape check; unit layer is authoritative. A real HPA end-to-end test is only meaningful AFTER a scale subresource is added to the CacheRuntime CRD (see Finding 2)."
+}
