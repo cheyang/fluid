@@ -441,6 +441,65 @@ var _ = Describe("AlluxioEngine SyncReplicas worker decommission deadline", Labe
 		Expect(utilfeature.DefaultMutableFeatureGate.Set(string(features.GracefulWorkerScaleDown) + "=false")).To(Succeed())
 	})
 
+	Context("when scaling down to zero replicas", func() {
+		It("skips graceful decommission entirely and scales down directly", func() {
+			// There are no surviving workers left to redistribute cached
+			// blocks to once every worker is being removed, so graceful
+			// decommission has nothing to accomplish here - only a
+			// guaranteed wait for the deadline before falling back to the
+			// same ungraceful scale-down anyway.
+			rt := &v1alpha1.AlluxioRuntime{
+				ObjectMeta: metav1.ObjectMeta{Name: deadlineTestRuntime, Namespace: deadlineTestNs},
+				Spec:       v1alpha1.AlluxioRuntimeSpec{Replicas: 0},
+				Status:     v1alpha1.RuntimeStatus{DesiredWorkerNumberScheduled: 1},
+			}
+			sts := &appsv1.StatefulSet{
+				ObjectMeta: metav1.ObjectMeta{Name: deadlineTestRuntime + "-worker", Namespace: deadlineTestNs},
+				Spec:       appsv1.StatefulSetSpec{Replicas: ptr.To[int32](1)},
+				Status:     appsv1.StatefulSetStatus{Replicas: 1},
+			}
+			pod := &corev1.Pod{
+				ObjectMeta: metav1.ObjectMeta{Name: deadlineTestRuntime + "-worker-0", Namespace: deadlineTestNs},
+				Status:     corev1.PodStatus{HostIP: "10.0.0.5", Phase: corev1.PodRunning},
+			}
+			dataset := &v1alpha1.Dataset{
+				ObjectMeta: metav1.ObjectMeta{Name: deadlineTestRuntime, Namespace: deadlineTestNs},
+			}
+			fakeClient := fake.NewFakeClientWithScheme(testScheme, rt, sts, pod, dataset)
+			engine := newAlluxioEngineREP(fakeClient, deadlineTestRuntime, deadlineTestNs)
+
+			decommissionCalled := false
+			patch1 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.DecommissionWorkers,
+				func(_ operations.AlluxioFileUtils, _ []string) error {
+					decommissionCalled = true
+					return nil
+				})
+			defer patch1.Reset()
+			countCalled := false
+			patch2 := gomonkey.ApplyFunc(operations.AlluxioFileUtils.CountActiveWorkers,
+				func(_ operations.AlluxioFileUtils) (int, error) {
+					countCalled = true
+					return 0, nil
+				})
+			defer patch2.Reset()
+
+			err := engine.SyncReplicas(cruntime.ReconcileRequestContext{
+				Log: fake.NullLogger(), Recorder: record.NewFakeRecorder(300),
+			})
+			Expect(err).NotTo(HaveOccurred())
+			Expect(decommissionCalled).To(BeFalse())
+			Expect(countCalled).To(BeFalse())
+
+			cond := getCondition(engine)
+			Expect(cond).To(BeNil())
+
+			var updatedSts appsv1.StatefulSet
+			Expect(engine.Client.Get(context.TODO(),
+				types.NamespacedName{Name: deadlineTestRuntime + "-worker", Namespace: deadlineTestNs}, &updatedSts)).To(Succeed())
+			Expect(*updatedSts.Spec.Replicas).To(Equal(int32(0)))
+		})
+	})
+
 	Context("when a new attempt targets the exact same addresses as a previously cleared one", func() {
 		It("flips the condition back to True instead of leaving it False", func() {
 			// Regression test: clearDecommissioningCondition only flips

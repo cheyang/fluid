@@ -115,8 +115,15 @@ func (e *AlluxioEngine) SyncReplicas(ctx cruntime.ReconcileRequestContext) (err 
 		// spec is the target this engine itself lowers once a drain succeeds, so
 		// relying on it could under-count pods that still exist but whose spec
 		// update already landed.
+		//
+		// runtime.Replicas() > 0 excludes scaling to zero: graceful
+		// decommission exists to redistribute cached blocks to surviving
+		// workers, and there are none left to redistribute to once every
+		// worker is being removed, so there's nothing for it to accomplish -
+		// only a guaranteed wait for defaultWorkerDecommissionDeadline before
+		// falling back to the same ungraceful scale-down anyway.
 		if utilfeature.DefaultFeatureGate.Enabled(features.GracefulWorkerScaleDown) &&
-			runtime.Replicas() < workers.Status.Replicas {
+			runtime.Replicas() > 0 && runtime.Replicas() < workers.Status.Replicas {
 
 			decommissionStart, alreadyTracked := getDecommissionStart(runtime)
 			if !alreadyTracked {
