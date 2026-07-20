@@ -1,0 +1,13 @@
+2026/07/20 09:48:11 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyF1E2ECannotDetectDataLoss
+    e2e_dataintegrity_verify_test.go:108: F1 CONFIRMED: the e2e reads UFS-backed data identically before/after scale-down with the UFS always available, so a passing read_after cannot prove graceful decommission preserved any block — an ungraceful scale-down would pass the same test. Combined with F2 (drain no-ops) and the deadline-forced ungraceful fallback, the e2e provides false confidence in the reverted-for concern.
+--- PASS: TestVerifyF1E2ECannotDetectDataLoss (0.00s)
+=== RUN   TestVerifyF2WorkerWebPortMatchesAllocatedPort
+    scaledown_verify_test.go:76: worker actually listens on web port 20740; getWorkerWebPort() reports 30000
+    scaledown_verify_test.go:78: F2 CONFIRMED: decommission would target 30000 but the worker's web port is 20740 (default host-network deployment) — graceful drain silently no-ops and scale-down degrades to ungraceful after the deadline
+--- FAIL: TestVerifyF2WorkerWebPortMatchesAllocatedPort (0.00s)
+=== RUN   TestVerifyF2ContainerNetworkModeIsUnaffected
+--- PASS: TestVerifyF2ContainerNetworkModeIsUnaffected (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	0.566s
+FAIL

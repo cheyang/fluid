@@ -1,0 +1,6 @@
+=== RUN   TestVerifyF4ParseActiveWorkerCountTrailingFooter
+    scaledown_verify_test.go:58: with a trailing non-indented footer line, parseActiveWorkerCount returns 3 (true count 2)
+    scaledown_verify_test.go:60: F4 CONFIRMED (latent): a trailing footer inflates the live-worker count to 3; if `report capacity -live` emits any footer, the drain would stall until the deadline and proceed ungracefully
+--- PASS: TestVerifyF4ParseActiveWorkerCountTrailingFooter (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	0.862s

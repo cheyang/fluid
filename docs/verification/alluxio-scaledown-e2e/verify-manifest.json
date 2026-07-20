@@ -1,0 +1,41 @@
+{
+  "topic": "alluxio-scaledown-e2e",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6061",
+  "description": "Verification harness for PR #6061 (re-land AlluxioRuntime graceful worker scale-down + Kind e2e). Additive tests only; no production code touched. Deliberately gomonkey-free so it runs on darwin/arm64.",
+  "harnessPaths": [
+    "docs/verification/alluxio-scaledown-e2e",
+    "pkg/ddc/alluxio/scaledown_verify_test.go",
+    "pkg/ddc/alluxio/e2e_dataintegrity_verify_test.go",
+    "pkg/ddc/alluxio/operations/scaledown_verify_test.go"
+  ],
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/alluxio/ ./pkg/ddc/alluxio/operations/ -run TestVerify -count=1 -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F2-worker-web-port-mismatch",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyF2WorkerWebPortMatchesAllocatedPort", "TestVerifyF2ContainerNetworkModeIsUnaffected"],
+      "note": "BLOCKING. getWorkerWebPort() returns 30000 for the DEFAULT host-network runtime while the worker actually binds a dynamically-allocated port. Decommission targets the wrong port -> graceful drain silently no-ops -> ungraceful scale-down after the 10m deadline. Contract test FAILS on PR head; PASSES when getWorkerWebPort reflects the allocated port. Container-network companion always passes (static 30000 is correct there)."
+    },
+    {
+      "id": "F1-e2e-cannot-detect-data-loss",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": ["TestVerifyF1E2ECannotDetectDataLoss"],
+      "note": "The e2e reads UFS(s3)-backed data identically before/after scale-down with the UFS always available, so read_after passes even under ungraceful scale-down / total cache loss. Passes now (gap present); flip/revise when a real data-integrity check is added (MUST_CACHE data, cache-hit metric, or UFS made unavailable before read_after)."
+    },
+    {
+      "id": "F4-parse-active-worker-footer",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": ["TestVerifyF4ParseActiveWorkerCountTrailingFooter"],
+      "note": "MINOR/latent. parseActiveWorkerCount counts a trailing non-indented footer line as a worker. Passes now (parser miscounts); flip/revise if the parser is hardened. Only bites if real `report capacity -live` emits a footer after the worker table (unconfirmed)."
+    }
+  ],
+  "liveNote": "L3 (needs a Kind cluster; not run here): (F2) deploy a DEFAULT (host-network) AlluxioRuntime with GracefulWorkerScaleDown=true, scale down, and check controller logs — decommission targets hostIP:30000 while the worker's real web port differs; the WorkerDecommissioning condition never clears and scale-down only completes after the 10m deadline. (F1) run the existing e2e with the feature gate DISABLED and confirm read-after-scaledown STILL passes — proving the test can't detect the data loss it was added to catch. (F3, open question) confirm whether `alluxio fsadmin report capacity -live` excludes a decommissioned-but-still-migrating worker; if it drops immediately, `--wait 0s` + activeCount<=desired lets the pod be deleted before blocks migrate."
+}
