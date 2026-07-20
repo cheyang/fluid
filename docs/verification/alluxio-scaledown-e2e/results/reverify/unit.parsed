@@ -1,0 +1,4 @@
+TestVerifyF4ParseActiveWorkerCountTrailingFooter	pass
+TestVerifyF1E2ECannotDetectDataLoss	pass
+TestVerifyF2WorkerWebPortMatchesAllocatedPort	fail
+TestVerifyF2ContainerNetworkModeIsUnaffected	pass
