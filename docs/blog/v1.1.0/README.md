@@ -19,9 +19,23 @@
 | --- | --- | --- |
 | CacheRuntime 架构（竖版，中文） | 博客内嵌 | `cacheruntime-arch` |
 | CacheRuntime 架构（English） | 国际社区 / CNCF Blog | `cacheruntime-arch-en` |
-| CacheRuntime 架构（横版 16:9） | PPT 幻灯片 | `cacheruntime-arch-landscape` |
+| CacheRuntime 架构（横版 16:9，中文） | PPT 幻灯片 | `cacheruntime-arch-landscape` |
+| CacheRuntime 架构（横版 16:9，English） | 英文 PPT / Blog | `cacheruntime-arch-landscape-en` |
 | AI 数据加速链路 | 博客 §2 / 演讲 | `ai-data-pipeline-zh` |
 | 2026 Roadmap | 博客 §8 / 演讲 | `roadmap-2026-zh` |
+
+## 发布宣讲稿（PPT）
+
+| 文件 | 说明 |
+| --- | --- |
+| [fluid-1.1.0-deck.pptx](./fluid-1.1.0-deck.pptx) | 11 页发布宣讲 PPT（16:9），复用上述配图 |
+| [generate_fluid_110_deck.py](./generate_fluid_110_deck.py) | 生成脚本（改内容后重跑即可） |
+
+重新生成 PPT：
+
+```shell
+python3 docs/blog/v1.1.0/generate_fluid_110_deck.py
+```
 
 ## 重新渲染
 
