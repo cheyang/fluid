@@ -1,0 +1,28 @@
+graph LR
+    Root["Fluid<br/>2026 Roadmap"]
+
+    Root ==> A["Data Anyway<br/>不受基础设施约束地访问数据"]
+    Root ==> B["Data Anywhere<br/>跨地域 / 跨集群数据流动"]
+
+    A --> A1["Generic Cache Runtime<br/>标准化可插拔接口<br/>CubeFS · Dragonfly · Vineyard"]
+    A --> A2["AdvancedStatefulSet 编排<br/>精细化生命周期 / 故障切换"]
+    A --> A3["Runtime 零停机动态调参<br/>副本 · 介质层级 · 淘汰策略"]
+    A --> A4["API 升级 v1alpha2<br/>Conditions · 转换 Webhook"]
+    A --> A5["ThinRuntime 产品化<br/>最小容器权限"]
+
+    B --> B1["LLM KV Cache 编排<br/>vLLM / SGLang · Mooncake"]
+    B --> B2["跨 Pod KV Cache 迁移共享"]
+    B --> B3["分布式预热 + 带宽限速"]
+    B --> B4["跨地域同步优化"]
+
+    classDef root fill:#1a73e8,stroke:#1a73e8,stroke-width:1px,color:#ffffff;
+    classDef anyway fill:#E6F4EA,stroke:#34A853,stroke-width:2px,color:#1a1a1a;
+    classDef anywhere fill:#E8F0FE,stroke:#4285F4,stroke-width:2px,color:#1a1a1a;
+    classDef leafA fill:#F1F8F3,stroke:#34A853,stroke-width:1px,color:#1a1a1a;
+    classDef leafB fill:#F0F5FE,stroke:#4285F4,stroke-width:1px,color:#1a1a1a;
+
+    class Root root;
+    class A anyway;
+    class B anywhere;
+    class A1,A2,A3,A4,A5 leafA;
+    class B1,B2,B3,B4 leafB;
