@@ -188,6 +188,9 @@ spec:
 
 大模型训练与推理对数据访问的带宽和冷启动延迟极其敏感。Fluid 在这条链路上持续强化：
 
+![Fluid AI 数据加速链路](./ai-data-pipeline-zh.png)
+
+
 - **模型 Prefetch（预热加速冷启动）**：通过 Prefetch / 文件预取能力，在模型服务启动前把模型权重等数据预热进本地缓存，显著缩短推理服务的**冷启动时间**、提升带宽利用率——这是模型即服务（MaaS）弹性扩缩场景的关键能力。
 - **3FS 高性能存储接入**：新增 `3fs` addon，可通过 ThinRuntime 将 DeepSeek 开源的 [3FS（Fire-Flyer File System）](https://github.com/deepseek-ai/3FS) 这类高性能并行文件系统接入 Fluid 数据编排体系。3FS 采用存算分离架构、CRAQ 强一致，面向 AI 训练数据加载、模型 Checkpoint 与推理 KVCache 等场景，官方公布的聚合读吞吐可达数 TiB/s 级别。
 - **Curvine 高性能缓存**：借助 CacheRuntime 一键部署，面向高吞吐数据访问场景。
@@ -247,6 +250,8 @@ helm upgrade --install fluid fluid/fluid --version 1.1.0 -n fluid-system
 ## 八、未来展望（2026 Roadmap 摘要）
 
 1.1.0 是 Fluid 2026 路线图的起点，后续将围绕两大主线持续演进：
+
+![Fluid 2026 Roadmap](./roadmap-2026-zh.png)
 
 **Data Anyway —— 不受基础设施约束地访问数据**
 
