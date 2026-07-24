@@ -21,20 +21,23 @@
 | CacheRuntime 架构（English） | 国际社区 / CNCF Blog | `cacheruntime-arch-en` |
 | CacheRuntime 架构（横版 16:9，中文） | PPT 幻灯片 | `cacheruntime-arch-landscape` |
 | CacheRuntime 架构（横版 16:9，English） | 英文 PPT / Blog | `cacheruntime-arch-landscape-en` |
-| AI 数据加速链路 | 博客 §2 / 演讲 | `ai-data-pipeline-zh` |
-| 2026 Roadmap | 博客 §8 / 演讲 | `roadmap-2026-zh` |
+| AI 数据加速链路（中/英） | 博客 §2 / 演讲 | `ai-data-pipeline-zh` · `ai-data-pipeline-en` |
+| 2026 Roadmap（中/英） | 博客 §8 / 演讲 | `roadmap-2026-zh` · `roadmap-2026-en` |
 
 ## 发布宣讲稿（PPT）
 
 | 文件 | 说明 |
 | --- | --- |
-| [fluid-1.1.0-deck.pptx](./fluid-1.1.0-deck.pptx) | 11 页发布宣讲 PPT（16:9），复用上述配图 |
-| [generate_fluid_110_deck.py](./generate_fluid_110_deck.py) | 生成脚本（改内容后重跑即可） |
+| [fluid-1.1.0-deck.pptx](./fluid-1.1.0-deck.pptx) | 11 页发布宣讲 PPT（16:9，中文） |
+| [fluid-1.1.0-deck-en.pptx](./fluid-1.1.0-deck-en.pptx) | 11-slide release deck (16:9, English) |
+| [generate_fluid_110_deck.py](./generate_fluid_110_deck.py) | 中文 PPT 生成脚本 |
+| [generate_fluid_110_deck_en.py](./generate_fluid_110_deck_en.py) | English deck generator |
 
 重新生成 PPT：
 
 ```shell
-python3 docs/blog/v1.1.0/generate_fluid_110_deck.py
+python3 docs/blog/v1.1.0/generate_fluid_110_deck.py       # 中文
+python3 docs/blog/v1.1.0/generate_fluid_110_deck_en.py    # English
 ```
 
 ## 重新渲染

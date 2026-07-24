@@ -1,0 +1,28 @@
+graph LR
+    Root["Fluid<br/>2026 Roadmap"]
+
+    Root ==> A["Data Anyway<br/>access data regardless of infra"]
+    Root ==> B["Data Anywhere<br/>cross-region / cross-cluster mobility"]
+
+    A --> A1["Generic Cache Runtime<br/>pluggable interface<br/>CubeFS · Dragonfly · Vineyard"]
+    A --> A2["AdvancedStatefulSet orchestration<br/>fine-grained lifecycle / failover"]
+    A --> A3["Zero-downtime runtime tuning<br/>replicas · tiers · eviction"]
+    A --> A4["API upgrade to v1alpha2<br/>Conditions · conversion webhook"]
+    A --> A5["ThinRuntime productization<br/>minimum privileges"]
+
+    B --> B1["LLM KV Cache orchestration<br/>vLLM / SGLang · Mooncake"]
+    B --> B2["Cross-pod KV cache migration & sharing"]
+    B --> B3["Distributed prewarming + throttling"]
+    B --> B4["Cross-region sync optimization"]
+
+    classDef root fill:#1a73e8,stroke:#1a73e8,stroke-width:1px,color:#ffffff;
+    classDef anyway fill:#E6F4EA,stroke:#34A853,stroke-width:2px,color:#1a1a1a;
+    classDef anywhere fill:#E8F0FE,stroke:#4285F4,stroke-width:2px,color:#1a1a1a;
+    classDef leafA fill:#F1F8F3,stroke:#34A853,stroke-width:1px,color:#1a1a1a;
+    classDef leafB fill:#F0F5FE,stroke:#4285F4,stroke-width:1px,color:#1a1a1a;
+
+    class Root root;
+    class A anyway;
+    class B anywhere;
+    class A1,A2,A3,A4,A5 leafA;
+    class B1,B2,B3,B4 leafB;
