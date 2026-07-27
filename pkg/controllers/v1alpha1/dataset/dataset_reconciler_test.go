@@ -251,6 +251,81 @@ var _ = Describe("DatasetReconciler (fake client)", func() {
 			Expect(result).To(Equal(ctrl.Result{}))
 		})
 
+		It("creates the ThinRuntime with a controller ownerReference the dataset controller can watch", func() {
+			// The dataset controller watches the ThinRuntime it creates via Owns(), which resolves
+			// the owner by the kind and the apiVersion of the ownerReference, so both must be set.
+			ds := datav1alpha1.Dataset{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:       "ref-ds-owner",
+					Namespace:  "default",
+					UID:        types.UID("ref-ds-owner-uid"),
+					Finalizers: []string{finalizer},
+				},
+				Spec: datav1alpha1.DatasetSpec{
+					Mounts: []datav1alpha1.Mount{
+						{Name: "m1", MountPoint: "dataset://default/physical-ds"},
+					},
+				},
+				Status: datav1alpha1.DatasetStatus{Phase: datav1alpha1.NotBoundDatasetPhase},
+			}
+			r := newTestReconciler(&ds)
+			ctx := makeReconcileCtx(r, ds)
+
+			_, err := r.reconcileDataset(ctx, false)
+			Expect(err).NotTo(HaveOccurred())
+
+			thinRuntime := &datav1alpha1.ThinRuntime{}
+			Expect(r.Get(ctx, types.NamespacedName{Namespace: "default", Name: "ref-ds-owner"}, thinRuntime)).To(Succeed())
+			Expect(thinRuntime.OwnerReferences).To(HaveLen(1))
+			Expect(thinRuntime.OwnerReferences[0].Kind).To(Equal(datav1alpha1.Datasetkind))
+			Expect(thinRuntime.OwnerReferences[0].APIVersion).To(Equal(datav1alpha1.GroupVersion.String()))
+			Expect(thinRuntime.OwnerReferences[0].UID).To(Equal(ds.UID))
+			Expect(thinRuntime.OwnerReferences[0].Controller).NotTo(BeNil())
+			Expect(*thinRuntime.OwnerReferences[0].Controller).To(BeTrue())
+		})
+
+		It("returns error when the ThinRuntime of the reference dataset is still terminating", func() {
+			// A leftover ThinRuntime stuck in Terminating must not be treated as a usable runtime:
+			// the reconcile has to fail so that it is retried once the object is really gone,
+			// instead of leaving the dataset silently without any runtime.
+			now := metav1.Now()
+			ds := datav1alpha1.Dataset{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:       "ref-ds-terminating",
+					Namespace:  "default",
+					UID:        types.UID("ref-ds-terminating-uid"),
+					Finalizers: []string{finalizer},
+				},
+				Spec: datav1alpha1.DatasetSpec{
+					Mounts: []datav1alpha1.Mount{
+						{Name: "m1", MountPoint: "dataset://default/physical-ds"},
+					},
+				},
+				Status: datav1alpha1.DatasetStatus{Phase: datav1alpha1.NotBoundDatasetPhase},
+			}
+			// The finalizer keeps the terminating runtime in the fake client's tracker.
+			terminatingRuntime := datav1alpha1.ThinRuntime{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:              "ref-ds-terminating",
+					Namespace:         "default",
+					DeletionTimestamp: &now,
+					Finalizers:        []string{"thin-runtime-controller-finalizer"},
+				},
+			}
+			r := newTestReconciler(&ds, &terminatingRuntime)
+			ctx := makeReconcileCtx(r, ds)
+
+			result, err := r.reconcileDataset(ctx, false)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(ContainSubstring("terminating"))
+			Expect(result).To(Equal(ctrl.Result{}))
+
+			// The terminating runtime must not be adopted by the dataset.
+			stored := &datav1alpha1.ThinRuntime{}
+			Expect(r.Get(ctx, types.NamespacedName{Namespace: "default", Name: "ref-ds-terminating"}, stored)).To(Succeed())
+			Expect(stored.OwnerReferences).To(BeEmpty())
+		})
+
 		It("returns error when CreateRuntimeForReferenceDatasetIfNotExist fails", func() {
 			ds := datav1alpha1.Dataset{
 				ObjectMeta: metav1.ObjectMeta{

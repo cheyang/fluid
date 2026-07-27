@@ -42,14 +42,21 @@ import (
 var _ = Describe("Dataset Controller Unit", func() {
 	var scheme *runtime.Scheme
 	var scaleoutPatch *gomonkey.Patches
+	// scaleoutResult is what the patched deploy.ScaleoutRuntimeControllerOnDemand returns. A spec which
+	// needs another result assigns this variable instead of patching the function a second time, because
+	// resetting and re-applying a patch on the very same function is not reliable.
+	var scaleoutResult func() (string, bool, error)
 
 	BeforeEach(func() {
 		scheme = runtime.NewScheme()
 		Expect(datav1alpha1.AddToScheme(scheme)).NotTo(HaveOccurred())
 		Expect(corev1.AddToScheme(scheme)).To(Succeed())
+		scaleoutResult = func() (string, bool, error) {
+			return "", false, nil
+		}
 		scaleoutPatch = gomonkey.ApplyFunc(deploy.ScaleoutRuntimeControllerOnDemand,
 			func(client.Client, types.NamespacedName, logr.Logger) (string, bool, error) {
-				return "", false, nil
+				return scaleoutResult()
 			})
 	})
 
@@ -209,11 +216,9 @@ var _ = Describe("Dataset Controller Unit", func() {
 		})
 
 		It("should requeue after the resync period when runtime scaleout returns an error", func() {
-			scaleoutPatch.Reset()
-			scaleoutPatch = gomonkey.ApplyFunc(deploy.ScaleoutRuntimeControllerOnDemand,
-				func(client.Client, types.NamespacedName, logr.Logger) (string, bool, error) {
-					return "", false, fmt.Errorf("scaleout failed")
-				})
+			scaleoutResult = func() (string, bool, error) {
+				return "", false, fmt.Errorf("scaleout failed")
+			}
 
 			dataset := &datav1alpha1.Dataset{
 				ObjectMeta: metav1.ObjectMeta{

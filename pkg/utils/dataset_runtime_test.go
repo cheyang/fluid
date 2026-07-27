@@ -84,6 +84,7 @@ func mockThreeRuntimes(index int, category common.Category) []datav1alpha1.Runti
 
 func TestCreateRuntimeForReferenceDatasetIfNotExist(t *testing.T) {
 
+	deletionTimestamp := v1.Now()
 	thinRuntimes := []*datav1alpha1.ThinRuntime{
 		{
 			ObjectMeta: v1.ObjectMeta{
@@ -103,6 +104,16 @@ func TestCreateRuntimeForReferenceDatasetIfNotExist(t *testing.T) {
 			ObjectMeta: v1.ObjectMeta{
 				Name:      "ThinRuntimeExistWithOwnerReference",
 				Namespace: "default",
+			},
+		}, {
+			// A leftover runtime which is stuck in Terminating, e.g. because its controller is
+			// scaled to 0 and can not remove the finalizer. The finalizer is also required to keep
+			// the object in the fake client's tracker once a deletionTimestamp is set.
+			ObjectMeta: v1.ObjectMeta{
+				Name:              "ThinRuntimeTerminating",
+				Namespace:         "default",
+				DeletionTimestamp: &deletionTimestamp,
+				Finalizers:        []string{"thin-runtime-controller-finalizer"},
 			},
 		},
 	}
@@ -148,6 +159,18 @@ func TestCreateRuntimeForReferenceDatasetIfNotExist(t *testing.T) {
 				},
 			},
 			wantErr: false,
+		}, {
+			// The runtime of the same name is still terminating, it can neither be adopted nor be
+			// re-created, so an error is expected to make the caller requeue.
+			name: "ThinRuntimeTerminating",
+			dataset: &datav1alpha1.Dataset{
+				ObjectMeta: v1.ObjectMeta{
+					Name:      "ThinRuntimeTerminating",
+					Namespace: "default",
+					UID:       "5b7bd2c9-e6e8-4c1e-9c9a-5d2b6ff6bd11",
+				},
+			},
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
@@ -156,5 +179,17 @@ func TestCreateRuntimeForReferenceDatasetIfNotExist(t *testing.T) {
 				t.Errorf("Testcase %v CreateRuntimeForReferenceDatasetIfNotExist() error = %v, wantErr %v", tt.name, err, tt.wantErr)
 			}
 		})
+	}
+
+	// The terminating runtime must be left untouched, especially it must not be adopted by the dataset.
+	terminatingRuntime, err := GetThinRuntime(fakeClient, "ThinRuntimeTerminating", "default")
+	if err != nil {
+		t.Fatalf("failed to get the terminating thinRuntime: %v", err)
+	}
+	if !HasDeletionTimestamp(terminatingRuntime.ObjectMeta) {
+		t.Errorf("expected the thinRuntime ThinRuntimeTerminating to be still terminating")
+	}
+	if len(terminatingRuntime.GetOwnerReferences()) != 0 {
+		t.Errorf("expected no ownerReference set on the terminating thinRuntime, but got %v", terminatingRuntime.GetOwnerReferences())
 	}
 }
