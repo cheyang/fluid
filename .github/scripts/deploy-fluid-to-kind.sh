@@ -15,7 +15,7 @@ deploy_fluid() {
     echo "Replacing image tags in values.yaml with ${IMAGE_TAG}"
     sed -i -E "s/version: &defaultVersion .+$/version: \&defaultVersion ${IMAGE_TAG}/g" charts/fluid/fluid/values.yaml
     kubectl create ns fluid-system || true
-    helm upgrade --install --namespace fluid-system --create-namespace --set runtime.jindo.smartdata.imagePrefix=registry-cn-hongkong.ack.aliyuncs.com/acs --set runtime.jindo.fuse.imagePrefix=registry-cn-hongkong.ack.aliyuncs.com/acs --set runtime.cache.enabled=true fluid charts/fluid/fluid
+    helm upgrade --install --namespace fluid-system --create-namespace --set runtime.jindo.smartdata.imagePrefix=registry-cn-hongkong.ack.aliyuncs.com/acs --set runtime.jindo.fuse.imagePrefix=registry-cn-hongkong.ack.aliyuncs.com/acs --set runtime.cacheruntime.enabled=true fluid charts/fluid/fluid
 }
 
 main() {
