@@ -1,0 +1,65 @@
+=== RUN   TestVerifyH0_EmptyTypeMetaIsRecoveredFromScheme
+=== RUN   TestVerifyH0_EmptyTypeMetaIsRecoveredFromScheme/Dataset
+=== RUN   TestVerifyH0_EmptyTypeMetaIsRecoveredFromScheme/DataLoad
+=== RUN   TestVerifyH0_EmptyTypeMetaIsRecoveredFromScheme/DataMigrate
+=== RUN   TestVerifyH0_EmptyTypeMetaIsRecoveredFromScheme/DataProcess
+=== RUN   TestVerifyH0_EmptyTypeMetaIsRecoveredFromScheme/AlluxioRuntime
+=== RUN   TestVerifyH0_EmptyTypeMetaIsRecoveredFromScheme/JuiceFSRuntime
+=== RUN   TestVerifyH0_EmptyTypeMetaIsRecoveredFromScheme/ThinRuntime
+--- PASS: TestVerifyH0_EmptyTypeMetaIsRecoveredFromScheme (0.00s)
+    --- PASS: TestVerifyH0_EmptyTypeMetaIsRecoveredFromScheme/Dataset (0.00s)
+    --- PASS: TestVerifyH0_EmptyTypeMetaIsRecoveredFromScheme/DataLoad (0.00s)
+    --- PASS: TestVerifyH0_EmptyTypeMetaIsRecoveredFromScheme/DataMigrate (0.00s)
+    --- PASS: TestVerifyH0_EmptyTypeMetaIsRecoveredFromScheme/DataProcess (0.00s)
+    --- PASS: TestVerifyH0_EmptyTypeMetaIsRecoveredFromScheme/AlluxioRuntime (0.00s)
+    --- PASS: TestVerifyH0_EmptyTypeMetaIsRecoveredFromScheme/JuiceFSRuntime (0.00s)
+    --- PASS: TestVerifyH0_EmptyTypeMetaIsRecoveredFromScheme/ThinRuntime (0.00s)
+=== RUN   TestVerifyH1_PartialTypeMetaStillYieldsMalformedRef
+=== RUN   TestVerifyH1_PartialTypeMetaStillYieldsMalformedRef/KindOnly
+    owner_reference_verify_test.go:124: H1 observed: input TypeMeta{Kind:"DataLoad" APIVersion:""} -> OwnerReference{Kind:"DataLoad" APIVersion:""}
+    owner_reference_verify_test.go:131: APIVersion: got "", want "data.fluid.io/v1alpha1" (recovery skipped because gvk.Empty()==false)
+=== RUN   TestVerifyH1_PartialTypeMetaStillYieldsMalformedRef/APIVersionOnly
+    owner_reference_verify_test.go:124: H1 observed: input TypeMeta{Kind:"" APIVersion:"data.fluid.io/v1alpha1"} -> OwnerReference{Kind:"" APIVersion:"data.fluid.io/v1alpha1"}
+    owner_reference_verify_test.go:128: Kind: got "", want "DataLoad" (recovery skipped because gvk.Empty()==false)
+=== RUN   TestVerifyH1_PartialTypeMetaStillYieldsMalformedRef/BareVersionOnly
+    owner_reference_verify_test.go:124: H1 observed: input TypeMeta{Kind:"" APIVersion:"v1alpha1"} -> OwnerReference{Kind:"" APIVersion:"v1alpha1"}
+    owner_reference_verify_test.go:128: Kind: got "", want "DataLoad" (recovery skipped because gvk.Empty()==false)
+    owner_reference_verify_test.go:131: APIVersion: got "v1alpha1", want "data.fluid.io/v1alpha1" (recovery skipped because gvk.Empty()==false)
+--- FAIL: TestVerifyH1_PartialTypeMetaStillYieldsMalformedRef (0.00s)
+    --- FAIL: TestVerifyH1_PartialTypeMetaStillYieldsMalformedRef/KindOnly (0.00s)
+    --- FAIL: TestVerifyH1_PartialTypeMetaStillYieldsMalformedRef/APIVersionOnly (0.00s)
+    --- FAIL: TestVerifyH1_PartialTypeMetaStillYieldsMalformedRef/BareVersionOnly (0.00s)
+=== RUN   TestVerifyH1Canary_ObservedPartialTypeMetaOutput
+=== RUN   TestVerifyH1Canary_ObservedPartialTypeMetaOutput/KindOnly
+=== RUN   TestVerifyH1Canary_ObservedPartialTypeMetaOutput/APIVersionOnly
+=== RUN   TestVerifyH1Canary_ObservedPartialTypeMetaOutput/BareVersionOnly
+--- PASS: TestVerifyH1Canary_ObservedPartialTypeMetaOutput (0.00s)
+    --- PASS: TestVerifyH1Canary_ObservedPartialTypeMetaOutput/KindOnly (0.00s)
+    --- PASS: TestVerifyH1Canary_ObservedPartialTypeMetaOutput/APIVersionOnly (0.00s)
+    --- PASS: TestVerifyH1Canary_ObservedPartialTypeMetaOutput/BareVersionOnly (0.00s)
+=== RUN   TestVerifyH1_EmptyPredicateSemantics
+--- PASS: TestVerifyH1_EmptyPredicateSemantics (0.00s)
+=== RUN   TestVerifyH2_UnregisteredTypeLogsNoDiagnostic
+    owner_reference_verify_test.go:218: H2 precondition: apiutil.GVKForObject returns an error that the caller drops: no kind is registered for the type v1.ConfigMap in scheme "pkg/utils/transformer/owner_reference_verify_test.go:211"
+    owner_reference_verify_test.go:231: H2 observed: unregistered *v1.ConfigMap -> OwnerReference{Kind:"" APIVersion:"" Enabled:true Controller:true}; log records captured=0
+    owner_reference_verify_test.go:235: silent degradation confirmed: GVK resolution failed and produced an ownerReference {Kind:"" APIVersion:"" Enabled:true}, but emitted 0 log records — no error return, no event, nothing for an operator to diagnose
+--- FAIL: TestVerifyH2_UnregisteredTypeLogsNoDiagnostic (0.00s)
+=== RUN   TestVerifyH2Canary_UnregisteredTypeReturnsUnusableRef
+--- PASS: TestVerifyH2Canary_UnregisteredTypeReturnsUnusableRef (0.00s)
+=== RUN   TestVerifyH3Canary_BlockOwnerDeletionIsFalseWithControllerTrue
+    owner_reference_verify_test.go:315: H3 observed: Controller=true BlockOwnerDeletion=false
+--- PASS: TestVerifyH3Canary_BlockOwnerDeletionIsFalseWithControllerTrue (0.00s)
+=== RUN   TestTransformer
+Running Suite: Transformer Suite - /root/reviews/pr-6139/fluid/pkg/utils/transformer
+====================================================================================
+Random Seed: [1m1785223135[0m
+
+Will run [1m25[0m of [1m25[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;10m[1mRan 25 of 25 Specs in 0.002 seconds[0m
+[38;5;10m[1mSUCCESS![0m -- [38;5;10m[1m25 Passed[0m | [38;5;9m[1m0 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+--- PASS: TestTransformer (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/transformer	0.297s
+FAIL

@@ -1,0 +1,104 @@
+{
+  "_comment": "Verification harness for fluid PR 6139 (owner reference GVK recovery). Consumed by scripts/re-verify.sh. Production code is NOT modified by this harness.",
+  "topic": "owner-reference-gvk",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6139",
+  "reviewedHead": "ee7e5ffd",
+  "mergeBase": "44cfae9fb700f732a04dbb36eaa45bf9b3b3b64b",
+  "harnessPaths": [
+    "docs/verification/owner-reference-gvk",
+    "pkg/utils/transformer/owner_reference_verify_test.go"
+  ],
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -p 1 -count=1 ./pkg/utils/transformer/ -run 'TestVerify' -json"
+    },
+    "mutation": {
+      "_note": "NOT RUNNABLE by re-verify.sh on purpose. H2b is provable only by inspecting the function signature / mutating production code, so it must never be auto-reported as FIXED just because a spec passed. Verify by hand: see README section 'H2b (mutation-only)'.",
+      "kind": "manual",
+      "cmd": ""
+    }
+  },
+  "findings": [
+    {
+      "id": "H0",
+      "title": "Fully-empty TypeMeta must be recovered from the scheme (regression guard for the bug this PR fixes)",
+      "polarity": "contract",
+      "layer": "unit",
+      "severity": "high",
+      "match": ["TestVerifyH0_EmptyTypeMetaIsRecoveredFromScheme"],
+      "observedOnPrHead": "PASS - Kind/APIVersion correct for all 7 fluid kinds",
+      "observedOnMergeBase": "FAIL - APIVersion \"/\" with empty Kind"
+    },
+    {
+      "id": "H1",
+      "title": "Partially populated TypeMeta skips recovery because gvk.Empty() requires all three of Group/Version/Kind to be empty",
+      "polarity": "contract",
+      "layer": "unit",
+      "severity": "medium",
+      "match": ["TestVerifyH1_PartialTypeMetaStillYieldsMalformedRef"],
+      "observedOnPrHead": "FAIL - Kind-only TypeMeta yields APIVersion:\"\" (not \"/\"); APIVersion-only yields Kind:\"\"",
+      "note": "Confirmed real and still present at PR head. Goes green under the proposed fix (predicate widened to gvk.Kind==\"\" || gvk.Version==\"\")."
+    },
+    {
+      "id": "H1c",
+      "title": "Canary pinning the actual malformed output for partial TypeMeta at PR head",
+      "polarity": "canary",
+      "layer": "unit",
+      "severity": "info",
+      "match": ["TestVerifyH1Canary_ObservedPartialTypeMetaOutput"],
+      "observedOnPrHead": "PASS - documents Kind=\"DataLoad\"/APIVersion=\"\" etc.",
+      "note": "Flips to FAIL under the proposed fix (verified). When it flips, invert or delete it."
+    },
+    {
+      "id": "H1m",
+      "title": "Upstream apimachinery predicate semantics that cause H1 (auditable mechanism)",
+      "polarity": "contract",
+      "layer": "unit",
+      "severity": "info",
+      "match": ["TestVerifyH1_EmptyPredicateSemantics"],
+      "observedOnPrHead": "PASS - passes on both refs; documents that GVK{Kind:\"X\"}.Empty()==false and GroupVersion{}.String()==\"\""
+    },
+    {
+      "id": "H2",
+      "title": "GVKForObject error is swallowed: an unregistered type degrades with zero diagnostics",
+      "polarity": "contract",
+      "layer": "unit",
+      "severity": "low",
+      "match": ["TestVerifyH2_UnregisteredTypeLogsNoDiagnostic"],
+      "observedOnPrHead": "FAIL - 0 log records captured while returning Kind:\"\" APIVersion:\"\" Enabled:true",
+      "note": "Goes green when the fix logs the error instead of discarding it (verified: 1 record captured)."
+    },
+    {
+      "id": "H2c",
+      "title": "Canary pinning the unusable ref returned for an unregistered type at PR head",
+      "polarity": "canary",
+      "layer": "unit",
+      "severity": "info",
+      "match": ["TestVerifyH2Canary_UnregisteredTypeReturnsUnusableRef"],
+      "observedOnPrHead": "PASS - Kind:\"\" APIVersion:\"\" (merge base emitted \"/\" instead, so this canary FAILS on the merge base)",
+      "note": "Stays PASS under a log-only fix, which is correct: logging does not make the returned reference usable."
+    },
+    {
+      "id": "H3",
+      "title": "BlockOwnerDeletion:false alongside Controller:true - PRE-EXISTING, not a regression of this PR",
+      "polarity": "canary",
+      "layer": "unit",
+      "severity": "info",
+      "match": ["TestVerifyH3Canary_BlockOwnerDeletionIsFalseWithControllerTrue"],
+      "observedOnPrHead": "PASS",
+      "observedOnMergeBase": "PASS - identical, confirming it is pre-existing context and not introduced here"
+    },
+    {
+      "id": "H2b",
+      "title": "The function cannot signal failure at all: signature is func(client.Object) *common.OwnerReference with no error return",
+      "polarity": "contract",
+      "layer": "mutation",
+      "severity": "low",
+      "match": ["__manual__"],
+      "observedOnPrHead": "Confirmed by inspection: no error return, no bool, no event; callers unconditionally embed the result into Helm values.",
+      "note": "Deliberately on the non-runnable 'mutation' layer so re-verify.sh reports HARNESS-UPDATE/SKIPPED rather than falsely reporting FIXED."
+    }
+  ],
+  "liveNote": "L3 NOT RUN. The available kubeconfig targets a shared production ACK cluster and the brief forbids mutating it. To close the loop on a disposable cluster: apply a Dataset+DataLoad, then `kubectl get <child> -o jsonpath='{.metadata.ownerReferences}'` on the rendered Helm child resources and confirm apiVersion/kind are populated; a malformed ownerReference is rejected by the API server with 'ownerReferences.apiVersion: Invalid value: \"\": version must not be empty'."
+}
