@@ -191,7 +191,8 @@ func Test_genDataLoadValue(t *testing.T) {
 				Name:           "test-dataload",
 				OwnerDatasetId: "fluid-test-dataset",
 				Owner: &common.OwnerReference{
-					APIVersion:         "/",
+					Kind:               "DataLoad",
+					APIVersion:         "data.fluid.io/v1alpha1",
 					Enabled:            true,
 					Name:               "test-dataload",
 					BlockOwnerDeletion: false,
@@ -304,7 +305,8 @@ func Test_genDataLoadValue(t *testing.T) {
 				Name:           "test-dataload",
 				OwnerDatasetId: "fluid-test-dataset",
 				Owner: &common.OwnerReference{
-					APIVersion:         "/",
+					Kind:               "DataLoad",
+					APIVersion:         "data.fluid.io/v1alpha1",
 					Enabled:            true,
 					Name:               "test-dataload",
 					BlockOwnerDeletion: false,
@@ -420,7 +422,8 @@ func Test_genDataLoadValue(t *testing.T) {
 				Name:           "test-dataload",
 				OwnerDatasetId: "fluid-test-dataset",
 				Owner: &common.OwnerReference{
-					APIVersion:         "/",
+					Kind:               "DataLoad",
+					APIVersion:         "data.fluid.io/v1alpha1",
 					Enabled:            true,
 					Name:               "test-dataload",
 					BlockOwnerDeletion: false,
@@ -507,7 +510,8 @@ func Test_genDataLoadValue(t *testing.T) {
 				Name:           "test-dataload",
 				OwnerDatasetId: "fluid-test-dataset",
 				Owner: &common.OwnerReference{
-					APIVersion:         "/",
+					Kind:               "DataLoad",
+					APIVersion:         "data.fluid.io/v1alpha1",
 					Enabled:            true,
 					Name:               "test-dataload",
 					BlockOwnerDeletion: false,

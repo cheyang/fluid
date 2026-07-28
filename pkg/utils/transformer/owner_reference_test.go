@@ -28,6 +28,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
 var _ = Describe("GenerateOwnerReferenceFromObject", func() {
@@ -187,6 +188,39 @@ var _ = Describe("GenerateOwnerReferenceFromObject", func() {
 				APIVersion:         "data.fluid.io/v1alpha1",
 				Name:               "dataset-test-123",
 			},
+		),
+	)
+
+	// A typed client is allowed to hand back objects without TypeMeta, so the kind and the apiVersion have
+	// to be recovered from the scheme. Otherwise the ownerReference is rejected by the API server and can
+	// not be resolved back to its owner by an owner based watch.
+	DescribeTable("when the TypeMeta of the object is empty",
+		func(obj client.Object, expectedKind string) {
+			result := GenerateOwnerReferenceFromObject(obj)
+
+			Expect(result.Kind).To(Equal(expectedKind))
+			Expect(result.APIVersion).To(Equal(datav1alpha1.GroupVersion.String()))
+		},
+
+		Entry("should recover the kind of a dataset",
+			&datav1alpha1.Dataset{
+				ObjectMeta: metav1.ObjectMeta{Name: "no-typemeta-dataset", Namespace: "default", UID: "uid-1"},
+			},
+			"Dataset",
+		),
+
+		Entry("should recover the kind of an alluxio runtime",
+			&datav1alpha1.AlluxioRuntime{
+				ObjectMeta: metav1.ObjectMeta{Name: "no-typemeta-runtime", Namespace: "default", UID: "uid-2"},
+			},
+			"AlluxioRuntime",
+		),
+
+		Entry("should recover the kind of a data load",
+			&datav1alpha1.DataLoad{
+				ObjectMeta: metav1.ObjectMeta{Name: "no-typemeta-dataload", Namespace: "default", UID: "uid-3"},
+			},
+			"DataLoad",
 		),
 	)
 })

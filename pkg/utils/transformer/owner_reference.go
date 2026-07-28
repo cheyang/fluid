@@ -17,16 +17,35 @@ limitations under the License.
 package transformer
 
 import (
+	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
 	"github.com/fluid-cloudnative/fluid/pkg/common"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
+	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+	"sigs.k8s.io/controller-runtime/pkg/client/apiutil"
 )
 
+// fluidScheme knows the fluid API types. It recovers the GroupVersionKind of an object whose TypeMeta is
+// empty, which a typed client is allowed to hand back: an ownerReference without kind/apiVersion is rejected
+// by the API server and can not be resolved back to its owner by an owner based watch.
+var fluidScheme = runtime.NewScheme()
+
+func init() {
+	utilruntime.Must(datav1alpha1.AddToScheme(fluidScheme))
+}
+
 func GenerateOwnerReferenceFromObject(obj client.Object) *common.OwnerReference {
+	gvk := obj.GetObjectKind().GroupVersionKind()
+	if gvk.Empty() {
+		if resolved, err := apiutil.GVKForObject(obj, fluidScheme); err == nil {
+			gvk = resolved
+		}
+	}
 
 	ref := &common.OwnerReference{
-		APIVersion:         obj.GetObjectKind().GroupVersionKind().GroupKind().Group + "/" + obj.GetObjectKind().GroupVersionKind().Version,
-		Kind:               obj.GetObjectKind().GroupVersionKind().Kind,
+		APIVersion:         gvk.GroupVersion().String(),
+		Kind:               gvk.Kind,
 		UID:                string(obj.GetUID()),
 		Enabled:            true,
 		Name:               obj.GetName(),
