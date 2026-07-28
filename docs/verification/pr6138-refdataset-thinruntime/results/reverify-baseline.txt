@@ -1,0 +1,23 @@
+re-verify: manifest = docs/verification/pr6138-refdataset-thinruntime/verify-manifest.json
+re-verify: last-reviewed = 47077ff0  (review delta = 47077ff0..47077ff0)
+re-verify: fixed-ref=47077ff0  harness-from=verify/pr6138-refdataset-thinruntime
+re-verify: running layer 'unit' (gotest)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+B1     contract  unit         STILL-BROKEN   pass=0 fail=1 miss=0
+B2     contract  unit         STILL-BROKEN   pass=0 fail=1 miss=0
+B3     canary    unit         STILL-PRESENT  pass=1 fail=0 miss=0
+REF-B1 contract  unit         FIXED          pass=1 fail=0 miss=0
+REF-B2 contract  unit         FIXED          pass=1 fail=0 miss=0
+REF-B3 contract  unit         FIXED          pass=1 fail=0 miss=0
+
+Live layer (manual): No live layer was run and none is needed: all three findings are deterministic fake-client contract questions. The kubeconfig on the verification box points at a shared real ACK cluster, so no live layer was attempted on purpose. If a live check is ever wanted for B3, the observable signal is a reference Dataset stuck at status.phase="" (not "NotBound") with the dataset controller logging "Failed to create thinRuntime ... is terminating" on every resync, while a leftover ThinRuntime of the same name holds a deletionTimestamp and an unremoved finalizer.
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/pr6138-refdataset-thinruntime/results/reverify
+
+Review delta this round: 47077ff0..47077ff0
+After reviewing that delta, advance the marker for the next round:
+  echo 47077ff0 > docs/verification/pr6138-refdataset-thinruntime/.last-reviewed && git add docs/verification/pr6138-refdataset-thinruntime/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: not all findings fixed.
