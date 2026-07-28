@@ -28,14 +28,19 @@ docs tree plus two additive `_test.go` files.
 | B2 | The adopt path never backfills `common.LabelAnnotationDatasetId`; the label is only set in the create branch (`dataset_runtime.go:103-105`). | Low-Med | 1 | contract | **Confirmed real** | `TestVerifyB2AdoptBackfillsDatasetIdLabel` FAILS. Observed labels: `map[]` (label wholly absent). Expected `fluid.io/dataset-id = "default-b2-no-label"`. `results/baseline.txt` |
 | B3 | The terminating-runtime guard makes step 3 return `RequeueIfError` before step 4, so a `NoneDatasetPhase` reference dataset never advances to `NotBound` while a leftover runtime is Terminating (`dataset_controller.go:153-174`). | Low | 1 | **canary** | **Confirmed real** (behaviour reproduced; whether it is a *defect* is a design call) | `TestVerifyB3TerminatingRuntimeBlocksNoneToNotBoundPhaseUpdate` PASSES, i.e. the canary fires. Observed `status.phase = ""` (`NoneDatasetPhase`), never `"NotBound"`, with `err = "the ThinRuntime default/b3-none-phase is terminating, …"`. `results/baseline.txt` |
 
-Companion reference tests (green on the code under review, present so a future regression is
-distinguishable from the gaps above):
+Companion **guard** tests — green on the code under review and expected to stay green, present
+so collateral damage from a fix is distinguishable from the gaps above. They are tracked in the
+manifest as separate `REF-*` entries (contract polarity) rather than folded into B1/B2/B3, so
+`re-verify.sh` gives each finding an unambiguous verdict instead of `PARTIAL`:
 
-| Test | Purpose |
-|------|---------|
-| `TestVerifyB1StaleDatasetOwnerReplacedByFreshUID` | A stale `Dataset` owner with an old UID (delete + recreate of the same name) must be superseded, not duplicated. Guards against a B1 fix that merges too eagerly and leaves **two** controller owners. |
-| `TestVerifyB2CreateSetsDatasetIdLabel` | The *create* branch does set the label — keeps a create-path regression separable from the B2 adopt-path gap. |
-| `TestVerifyB3NoneToNotBoundWithoutTerminatingRuntime` | Without the terminating runtime the same dataset **does** go `"" → "NotBound"`, proving the B3 canary isolates the short-circuit rather than a generally broken status update. |
+| Manifest id | Test | Purpose |
+|-------------|------|---------|
+| `REF-B1` | `TestVerifyB1StaleDatasetOwnerReplacedByFreshUID` | A stale `Dataset` owner with an old UID (delete + recreate of the same name) must be superseded, not duplicated. Guards against a B1 fix that merges too eagerly and leaves **two** `controller: true` owners. |
+| `REF-B2` | `TestVerifyB2CreateSetsDatasetIdLabel` | The *create* branch does set the label — keeps a create-path regression separable from the B2 adopt-path gap. |
+| `REF-B3` | `TestVerifyB3NoneToNotBoundWithoutTerminatingRuntime` | Without the terminating runtime the same dataset **does** go `"" → "NotBound"`, proving the B3 canary isolates the short-circuit rather than a generally broken status update. |
+
+`REF-*` rows read `FIXED` in every round (they are green before and after) — that is expected;
+they only carry signal when they turn red.
 
 ## Per-finding detail
 
@@ -202,8 +207,24 @@ bash docs/verification/pr6138-refdataset-thinruntime/scripts/re-verify.sh
 ```
 
 It refuses to run on a dirty tree. Add an explicit ref to pin:
-`… /re-verify.sh <fixed-ref>`. Only the `unit` layer exists, so
-`--layers unit` is equivalent to the default here.
+`… /re-verify.sh <fixed-ref>`. Only the `unit` layer exists, so pass `--layers unit` to avoid a
+`SKIPPED` row for the absent `integration` layer.
+
+Sanity run against the code under review itself (`results/reverify/`) reads:
+
+```
+ID     POLARITY  LAYER  VERDICT        DETAIL
+B1     contract  unit   STILL-BROKEN   pass=0 fail=1 miss=0
+B2     contract  unit   STILL-BROKEN   pass=0 fail=1 miss=0
+B3     canary    unit   STILL-PRESENT  pass=1 fail=0 miss=0
+REF-B1 contract  unit   FIXED          pass=1 fail=0 miss=0
+REF-B2 contract  unit   FIXED          pass=1 fail=0 miss=0
+REF-B3 contract  unit   FIXED          pass=1 fail=0 miss=0
+RESULT: not all findings fixed.
+```
+
+i.e. exit 1 on the buggy code, which is the correct baseline. A round where B1/B2 read `FIXED`
+and B3 reads `FIXED(flipped)` means all three were addressed.
 
 Manual route:
 
