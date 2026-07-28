@@ -1,0 +1,13 @@
+=== RUN   TestVerifyB1AdoptPreservesForeignOwnerReferences
+    dataset_runtime_verify_test.go:101: B1 reproduced: the pre-existing non-Dataset ownerReference example.com/v1/SomeOtherKind (uid=11111111-1111-1111-1111-111111111111) was wiped by the adopt path; ownerReferences are now [{data.fluid.io/v1alpha1 Dataset b1-foreign-owner 22222222-2222-2222-2222-222222222222 0xc000019267 <nil>}]
+--- FAIL: TestVerifyB1AdoptPreservesForeignOwnerReferences (0.00s)
+=== RUN   TestVerifyB1StaleDatasetOwnerReplacedByFreshUID
+--- PASS: TestVerifyB1StaleDatasetOwnerReplacedByFreshUID (0.00s)
+=== RUN   TestVerifyB2AdoptBackfillsDatasetIdLabel
+    dataset_runtime_verify_test.go:202: B2 reproduced: the adopt path did not backfill the fluid.io/dataset-id label; labels are map[] (want "default-b2-no-label")
+--- FAIL: TestVerifyB2AdoptBackfillsDatasetIdLabel (0.00s)
+=== RUN   TestVerifyB2CreateSetsDatasetIdLabel
+--- PASS: TestVerifyB2CreateSetsDatasetIdLabel (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	0.177s
+FAIL

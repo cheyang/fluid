@@ -1,0 +1,18 @@
+2026/07/28 15:23:35 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyB3TerminatingRuntimeBlocksNoneToNotBoundPhaseUpdate
+2026-07-28T15:23:35+08:00	DEBUG	reconcileDataset	process the dataset	{"dataset": "default/b3-none-phase", "dataset": {"metadata":{"name":"b3-none-phase","namespace":"default","uid":"b3-none-phase-uid","resourceVersion":"999","creationTimestamp":null,"finalizers":["fluid-dataset-controller-finalizer"]},"spec":{"mounts":[{"mountPoint":"dataset://default/physical-ds","name":"m1"}]},"status":{"conditions":null}}}
+2026-07-28T15:23:35+08:00	ERROR	Failed to create thinRuntime	{"dataset": "default/b3-none-phase", "ctx": {"name":"b3-none-phase","namespace":"default"}, "error": "the ThinRuntime default/b3-none-phase is terminating, wait for it to be deleted before creating a new one for the reference dataset"}
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.(*DatasetReconciler).reconcileDataset
+	/root/reviews/pr-6138/fluid/pkg/controllers/v1alpha1/dataset/dataset_controller.go:156
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.TestVerifyB3TerminatingRuntimeBlocksNoneToNotBoundPhaseUpdate
+	/root/reviews/pr-6138/fluid/pkg/controllers/v1alpha1/dataset/dataset_reconciler_verify_test.go:75
+testing.tRunner
+	/root/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.25.12.linux-amd64/src/testing/testing.go:1934
+    dataset_reconciler_verify_test.go:91: B3 observed: reconcileDataset err="the ThinRuntime default/b3-none-phase is terminating, wait for it to be deleted before creating a new one for the reference dataset", dataset phase="" (NotBound would be "NotBound")
+--- PASS: TestVerifyB3TerminatingRuntimeBlocksNoneToNotBoundPhaseUpdate (0.00s)
+=== RUN   TestVerifyB3NoneToNotBoundWithoutTerminatingRuntime
+2026-07-28T15:23:35+08:00	DEBUG	reconcileDataset	process the dataset	{"dataset": "default/b3-none-phase-ok", "dataset": {"metadata":{"name":"b3-none-phase-ok","namespace":"default","uid":"b3-none-phase-ok-uid","resourceVersion":"999","creationTimestamp":null,"finalizers":["fluid-dataset-controller-finalizer"]},"spec":{"mounts":[{"mountPoint":"dataset://default/physical-ds","name":"m1"}]},"status":{"conditions":null}}}
+2026-07-28T15:23:35+08:00	DEBUG	Update the status of the dataset successfully	{"dataset": "default/b3-none-phase-ok", "phase": "NotBound"}
+--- PASS: TestVerifyB3NoneToNotBoundWithoutTerminatingRuntime (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset	0.306s

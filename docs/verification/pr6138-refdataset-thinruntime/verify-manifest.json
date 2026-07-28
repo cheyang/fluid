@@ -1,0 +1,53 @@
+{
+  "_comment": "Verification manifest for the review of PR 6138. Consumed by scripts/re-verify.sh. Every finding is unit-level: the whole harness is two additive _test.go files plus this docs tree. Production code is untouched on this branch.",
+  "topic": "pr6138-refdataset-thinruntime",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6138",
+  "prHeadFetch": {
+    "remote": "origin",
+    "ref": "pull/6138/head"
+  },
+  "harnessPaths": [
+    "docs/verification/pr6138-refdataset-thinruntime",
+    "pkg/utils/dataset_runtime_verify_test.go",
+    "pkg/controllers/v1alpha1/dataset/dataset_reconciler_verify_test.go"
+  ],
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/ ./pkg/controllers/v1alpha1/dataset/ -run 'TestVerifyB1|TestVerifyB2|TestVerifyB3' -count=1 -p 1 -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "B1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyB1AdoptPreservesForeignOwnerReferences",
+        "TestVerifyB1StaleDatasetOwnerReplacedByFreshUID"
+      ],
+      "note": "pkg/utils/dataset_runtime.go:85-86 SetOwnerReferences replaces the whole slice, dropping any non-Dataset owner. TestVerifyB1AdoptPreservesForeignOwnerReferences FAILS on 47077ff0 (the SomeOtherKind owner is wiped) and is the reproduction. TestVerifyB1StaleDatasetOwnerReplacedByFreshUID passes on 47077ff0 and guards against a fix that merges too eagerly and leaves two controller owners."
+    },
+    {
+      "id": "B2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyB2AdoptBackfillsDatasetIdLabel",
+        "TestVerifyB2CreateSetsDatasetIdLabel"
+      ],
+      "note": "common.LabelAnnotationDatasetId is set only in the create branch (dataset_runtime.go:103-105), never on the adopt branch (84-91). TestVerifyB2AdoptBackfillsDatasetIdLabel FAILS on 47077ff0 (labels are map[]) and is the reproduction. TestVerifyB2CreateSetsDatasetIdLabel passes on 47077ff0 and keeps a create-path regression distinguishable from the adopt-path gap."
+    },
+    {
+      "id": "B3",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": [
+        "TestVerifyB3TerminatingRuntimeBlocksNoneToNotBoundPhaseUpdate"
+      ],
+      "note": "CANARY. dataset_controller.go:153-159 (step 3) returns RequeueIfError before step 4 (161-174), so a reference dataset in NoneDatasetPhase never reaches NotBound while a leftover runtime is Terminating. The correct behaviour is a design decision (fail loudly and back off vs. still surface NotBound), so this test records the CURRENT phase (\"\") and PASSES on 47077ff0. If it FLIPS TO RED the ordering changed: that means B3 was addressed, and the assertion must then be inverted (or NotBound promoted to a contract test). TestVerifyB3NoneToNotBoundWithoutTerminatingRuntime is a companion reference (always green) proving the canary isolates the short-circuit rather than a broken status update."
+    }
+  ],
+  "liveNote": "No live layer was run and none is needed: all three findings are deterministic fake-client contract questions. /root/.kube/config on the verification box points at a shared real ACK cluster, so no live layer was attempted on purpose. If a live check is ever wanted for B3, the observable signal is a reference Dataset stuck at status.phase=\"\" (not \"NotBound\") with the dataset controller logging \"Failed to create thinRuntime ... is terminating\" on every resync, while a leftover ThinRuntime of the same name holds a deletionTimestamp and an unremoved finalizer.",
+  "_integration_note": "Deliberately absent. pkg/controllers/v1alpha1/dataset/suite_test.go is a plain Ginkgo RunSpecs with no envtest.Environment (only alluxio and dataprocess carry envtest in this repo), and all three findings are pure fake-client contract questions that the unit layer settles exactly. No integration layer was built; do not read its absence as untested coverage."
+}

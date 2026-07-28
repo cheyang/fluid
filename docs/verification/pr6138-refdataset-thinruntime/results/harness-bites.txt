@@ -1,0 +1,27 @@
+=== HARNESS-BITES: proposed fixes applied to production code ===
+ .../v1alpha1/dataset/dataset_controller.go         | 30 +++++++++++-----------
+ pkg/utils/dataset_runtime.go                       | 17 ++++++++++--
+ 2 files changed, 30 insertions(+), 17 deletions(-)
+
+--- pkg/utils B1/B2 ---
+=== RUN   TestVerifyB1AdoptPreservesForeignOwnerReferences
+--- PASS: TestVerifyB1AdoptPreservesForeignOwnerReferences (0.00s)
+=== RUN   TestVerifyB1StaleDatasetOwnerReplacedByFreshUID
+--- PASS: TestVerifyB1StaleDatasetOwnerReplacedByFreshUID (0.00s)
+=== RUN   TestVerifyB2AdoptBackfillsDatasetIdLabel
+--- PASS: TestVerifyB2AdoptBackfillsDatasetIdLabel (0.00s)
+=== RUN   TestVerifyB2CreateSetsDatasetIdLabel
+--- PASS: TestVerifyB2CreateSetsDatasetIdLabel (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.301s
+
+--- controller B3 ---
+=== RUN   TestVerifyB3TerminatingRuntimeBlocksNoneToNotBoundPhaseUpdate
+    dataset_reconciler_verify_test.go:88: B3 canary flipped: expected phase to still be NoneDatasetPhase ("") because the terminating-runtime error short-circuits the phase update, but observed "NotBound". Invert this canary.
+    dataset_reconciler_verify_test.go:91: B3 observed: reconcileDataset err="the ThinRuntime default/b3-none-phase is terminating, wait for it to be deleted before creating a new one for the reference dataset", dataset phase="NotBound" (NotBound would be "NotBound")
+--- FAIL: TestVerifyB3TerminatingRuntimeBlocksNoneToNotBoundPhaseUpdate (0.00s)
+=== RUN   TestVerifyB3NoneToNotBoundWithoutTerminatingRuntime
+--- PASS: TestVerifyB3NoneToNotBoundWithoutTerminatingRuntime (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset	0.329s
+FAIL
