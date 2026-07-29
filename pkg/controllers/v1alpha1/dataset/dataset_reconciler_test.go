@@ -326,6 +326,47 @@ var _ = Describe("DatasetReconciler (fake client)", func() {
 			Expect(stored.OwnerReferences).To(BeEmpty())
 		})
 
+		It("advances phase from None to NotBound even while the ThinRuntime is still terminating", func() {
+			// Recreating the runtime can keep failing for a while, but the dataset is already known not to be
+			// bound to any runtime, so its phase must not stay empty until the terminating object is gone.
+			now := metav1.Now()
+			ds := datav1alpha1.Dataset{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:       "ref-ds-none-terminating",
+					Namespace:  "default",
+					UID:        types.UID("ref-ds-none-terminating-uid"),
+					Finalizers: []string{finalizer},
+				},
+				Spec: datav1alpha1.DatasetSpec{
+					Mounts: []datav1alpha1.Mount{
+						{Name: "m1", MountPoint: "dataset://default/physical-ds"},
+					},
+				},
+				Status: datav1alpha1.DatasetStatus{Phase: datav1alpha1.NoneDatasetPhase},
+			}
+			// The finalizer keeps the terminating runtime in the fake client's tracker.
+			terminatingRuntime := datav1alpha1.ThinRuntime{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:              "ref-ds-none-terminating",
+					Namespace:         "default",
+					DeletionTimestamp: &now,
+					Finalizers:        []string{"thin-runtime-controller-finalizer"},
+				},
+			}
+			r := newTestReconciler(&ds, &terminatingRuntime)
+			ctx := makeReconcileCtx(r, ds)
+
+			// The reconcile still fails, so that it is retried once the runtime is really gone.
+			_, err := r.reconcileDataset(ctx, false)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(ContainSubstring("terminating"))
+
+			// The phase has been advanced regardless of that failure.
+			stored := &datav1alpha1.Dataset{}
+			Expect(r.Get(ctx, types.NamespacedName{Namespace: "default", Name: "ref-ds-none-terminating"}, stored)).To(Succeed())
+			Expect(stored.Status.Phase).To(Equal(datav1alpha1.NotBoundDatasetPhase))
+		})
+
 		It("returns error when CreateRuntimeForReferenceDatasetIfNotExist fails", func() {
 			ds := datav1alpha1.Dataset{
 				ObjectMeta: metav1.ObjectMeta{
