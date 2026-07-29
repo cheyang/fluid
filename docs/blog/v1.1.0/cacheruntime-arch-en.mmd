@@ -1,0 +1,47 @@
+graph TB
+    subgraph API["1 - Declarative API"]
+        direction LR
+        Class["CacheRuntimeClass<br/>template by engine provider<br/>topology · entries · data-op specs"]
+        CR["CacheRuntime<br/>instance by user<br/>replicas · tiered store · resources"]
+        DS["Dataset<br/>points to UFS mount"]
+    end
+
+    Ctrl["2 - Fluid CacheRuntime Controller<br/>Reconcile + Spec to Pod"]
+
+    subgraph Data["3 - Data Plane · Workloads"]
+        direction LR
+        Master["Master · StatefulSet<br/>metadata / Headless Service"]
+        Worker["Worker · AdvancedStatefulSet<br/>tiered store Mem/SSD/HDD<br/>in-place update"]
+        Client["Client · DaemonSet<br/>FUSE · POSIX mount"]
+    end
+
+    App["Application Pod<br/>training / inference / analytics"]
+    UFS[("Underlying Storage · UFS<br/>S3 · OSS · HDFS · MinIO")]
+    DL["DataLoad / DataProcess<br/>prefetch · process"]
+
+    Class --> Ctrl
+    CR --> Ctrl
+    DS --> Ctrl
+    Ctrl ==> Master
+    Ctrl ==> Worker
+    Ctrl ==> Client
+
+    Master -. metadata .-> Worker
+    App -->|POSIX I/O| Client
+    Client -->|cache hit| Worker
+    Worker -->|miss - fetch| UFS
+    DL -->|warm up| Worker
+    DL -. pull .-> UFS
+    Worker -. cache-locality<br/>affinity scheduling .-> App
+
+    classDef api fill:#E8F0FE,stroke:#4285F4,stroke-width:1px,color:#1a1a1a;
+    classDef ctrl fill:#FEF7E0,stroke:#F9AB00,stroke-width:2px,color:#1a1a1a;
+    classDef data fill:#E6F4EA,stroke:#34A853,stroke-width:1px,color:#1a1a1a;
+    classDef store fill:#F1F3F4,stroke:#5F6368,stroke-width:1px,color:#1a1a1a;
+    classDef app fill:#FCE8E6,stroke:#EA4335,stroke-width:1px,color:#1a1a1a;
+
+    class Class,CR,DS api;
+    class Ctrl ctrl;
+    class Master,Worker,Client data;
+    class UFS store;
+    class App,DL app;
