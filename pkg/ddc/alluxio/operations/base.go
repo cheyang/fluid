@@ -173,9 +173,15 @@ var (
 	FileNum     KeyOfMetaDataFile = "filenum"
 )
 
-// QueryMetaDataInfoIntoFile queries the metadata info file.
-func (a AlluxioFileUtils) QueryMetaDataInfoIntoFile(key KeyOfMetaDataFile, filename string) (value string, err error) {
-	line := ""
+// metaDataQueryCommand builds the argv used to read a single line out of the metadata info file.
+//
+// sed's script and the filename are kept as separate argv elements and are never joined into a
+// `bash -c` string. Quoting them into a shell script subjects the command to cmdguard's
+// shell-script validation, which rejects the single quotes a `sed -n '<line>' <file>` script
+// needs. A plain argv keeps the file name in its own element, so it reaches sed verbatim
+// without being reinterpreted.
+func metaDataQueryCommand(key KeyOfMetaDataFile, filename string) (command []string, err error) {
+	var line string
 	switch key {
 	case DatasetName:
 		line = "1p"
@@ -186,13 +192,21 @@ func (a AlluxioFileUtils) QueryMetaDataInfoIntoFile(key KeyOfMetaDataFile, filen
 	case FileNum:
 		line = "4p"
 	default:
-		a.log.Error(errors.New("the key not in  metadatafile"), "key", key)
+		return nil, errors.Errorf("the key %s is not in the metadatafile", key)
+	}
+	return []string{"sed", "-n", line, filename}, nil
+}
+
+// QueryMetaDataInfoIntoFile queries the metadata info file.
+func (a AlluxioFileUtils) QueryMetaDataInfoIntoFile(key KeyOfMetaDataFile, filename string) (value string, err error) {
+	command, err := metaDataQueryCommand(key, filename)
+	if err != nil {
+		a.log.Error(err, "unsupported metadata key", "key", key)
+		return
 	}
 	var (
-		str     = "sed -n '" + line + "' " + filename
-		command = []string{"bash", "-c", str}
-		stdout  string
-		stderr  string
+		stdout string
+		stderr string
 	)
 	stdout, stderr, err = a.exec(command, false)
 	if err != nil {

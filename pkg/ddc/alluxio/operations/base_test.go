@@ -236,7 +236,7 @@ func TestAlluxioFileUtils_QueryMetaDataInfoIntoFile(t *testing.T) {
 
 	a := AlluxioFileUtils{log: fake.NullLogger()}
 
-	keySets := []KeyOfMetaDataFile{DatasetName, Namespace, UfsTotal, FileNum, ""}
+	keySets := []KeyOfMetaDataFile{DatasetName, Namespace, UfsTotal, FileNum}
 	for index, keySet := range keySets {
 		_, err := a.QueryMetaDataInfoIntoFile(keySet, "/tmp/file")
 		if err == nil {
@@ -251,6 +251,71 @@ func TestAlluxioFileUtils_QueryMetaDataInfoIntoFile(t *testing.T) {
 		if err != nil {
 			t.Errorf("%d check failure, want nil, got err: %v", index, err)
 			return
+		}
+	}
+
+}
+
+// TestAlluxioFileUtils_QueryMetaDataInfoIntoFileUnknownKey checks that an unrecognized key is
+// rejected by QueryMetaDataInfoIntoFile itself. The error is returned before exec is reached,
+// so unlike the other cases this needs no exec stub and is stable on every platform.
+func TestAlluxioFileUtils_QueryMetaDataInfoIntoFileUnknownKey(t *testing.T) {
+	a := AlluxioFileUtils{log: fake.NullLogger()}
+	value, err := a.QueryMetaDataInfoIntoFile("bogus", "/tmp/file")
+	if err == nil {
+		t.Errorf("unknown key should return an error, got value %q", value)
+	}
+	if value != "" {
+		t.Errorf("unknown key should return an empty value, got %q", value)
+	}
+}
+
+// TestMetaDataQueryCommand asserts the metadata query is a bare argv vector rather than a
+// `bash -c` script, so it passes cmdguard.ValidateCommandSlice, and that the file name always
+// occupies its own argv element.
+func TestMetaDataQueryCommand(t *testing.T) {
+	var tests = []struct {
+		key  KeyOfMetaDataFile
+		want []string
+	}{
+		{DatasetName, []string{"sed", "-n", "1p", "/tmp/file"}},
+		{Namespace, []string{"sed", "-n", "2p", "/tmp/file"}},
+		{UfsTotal, []string{"sed", "-n", "3p", "/tmp/file"}},
+		{FileNum, []string{"sed", "-n", "4p", "/tmp/file"}},
+	}
+	for _, test := range tests {
+		got, err := metaDataQueryCommand(test.key, "/tmp/file")
+		if err != nil {
+			t.Errorf("key %s: unexpected error: %v", test.key, err)
+			continue
+		}
+		if !reflect.DeepEqual(got, test.want) {
+			t.Errorf("key %s: want %v, got %v", test.key, test.want, got)
+		}
+	}
+
+	// An unrecognized key must fail instead of running sed with an empty script,
+	// which would otherwise return the whole file as the value.
+	if _, err := metaDataQueryCommand("", "/tmp/file"); err == nil {
+		t.Error("unknown key should return an error, got nil")
+	}
+
+	// A file name containing spaces must stay in a single argv element. Spaces are the
+	// shell-significant character that a restore path can actually carry -- cmdguard rejects
+	// the others before the command is executed -- and joining this into a shell string would
+	// word-split it into several sed operands.
+	pathWithSpace := "/pvc/tmp/dir with space/metadata.yaml"
+	got, err := metaDataQueryCommand(UfsTotal, pathWithSpace)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	want := []string{"sed", "-n", "3p", pathWithSpace}
+	if !reflect.DeepEqual(got, want) {
+		t.Fatalf("file name must be a single argv element\nwant: %v\ngot:  %v", want, got)
+	}
+	for _, arg := range got {
+		if arg == "bash" || arg == "sh" || arg == "-c" {
+			t.Errorf("command must not be shell-wrapped, got %v", got)
 		}
 	}
 }

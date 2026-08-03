@@ -24,6 +24,7 @@ import (
 
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
 	"github.com/fluid-cloudnative/fluid/pkg/common"
+	"github.com/fluid-cloudnative/fluid/pkg/utils/cmdguard"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -70,6 +71,15 @@ func GetDataBackupPodName(name string) string {
 func ParseBackupRestorePath(backupRestorePath string) (pvcName string, path string, err error) {
 	if backupRestorePath == "" {
 		err = errors.New("DataBackupRestorePath is empty, cannot parse")
+		return
+	}
+	// The parsed path is used to build commands run inside engine pods and is rendered into
+	// Helm values, so reject the shell metacharacters and control characters that have no
+	// legitimate place in a path here, rather than relying on every consumer to quote it
+	// correctly. Spaces remain valid: they occur in real paths and are harmless once the
+	// command is built as an argv vector.
+	if err = cmdguard.ValidateArg(backupRestorePath); err != nil {
+		err = fmt.Errorf("DataBackupRestorePath is not a valid path: %w", err)
 		return
 	}
 	if strings.HasPrefix(backupRestorePath, common.VolumeScheme.String()) {
