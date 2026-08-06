@@ -29,9 +29,11 @@ Because the defect lives in the chart rather than in Go, **layer 2 is the layer 
 discriminates the fix.** Layer 1 is green on both refs by design and exists to quantify the
 impact.
 
-> Test polarity: contract tests (assert intended behavior) FAIL pre-fix / PASS post-fix.
-> `mechanism` and `evidence` tests are green on both refs and prove impact or context, not
-> the fix. There are no bug-canaries here, so nothing needs inverting after the fix.
+> Test polarity: all four findings are **contract** polarity (must PASS on fixed code), which
+> is what `re-verify.sh` keys on. But only F1 and F2 *discriminate the fix* — they are the ones
+> that go RED pre-fix. F3 and F4 are green on any ref and document impact and context; do not
+> read them as fix confirmation. The manifest records this as `discriminatesFix`.
+> There are no bug-canaries here, so nothing needs inverting after the fix.
 
 ## Summary of results
 
@@ -39,8 +41,8 @@ impact.
 |----|-------|-------|----------|---------|----------|
 | F1 | Chart must emit the threshold under the name Go reads; pre-fix it emitted `REVOCER_WARNING_THRESHOLD`, so `csi.recoverWarningThreshold` was silently dropped | 2 | contract | **Confirmed — fixed by this PR** | pre-fix RED: rendered env names `[… REVOCER_WARNING_THRESHOLD …]`, no `RECOVER_WARNING_THRESHOLD`; post-fix GREEN with `=100`. `results/` |
 | F2 | Every env name the chart sets on the csi-plugin container should be read by something | 2 | contract | **Confirmed — fixed by this PR** | pre-fix RED: `unread: [REVOCER_WARNING_THRESHOLD]` (exactly one, no false positives); post-fix GREEN: all 8 consumed |
-| F3 | With only the misspelled name set, the operator's value is discarded and the threshold silently becomes `defaultRecoverWarningThreshold` = 50 | 1 | mechanism | **Confirmed** | `configured=100 via REVOCER_WARNING_THRESHOLD -> effective threshold=50` |
-| F4 | The chart toolchain is silent about an env name nobody reads, so CI's `helm lint` sweep could not have caught this | 2 | evidence | **Confirmed** | render of the misspelled chart exits 0 with no warning |
+| F3 | With only the misspelled name set, the operator's value is discarded and the threshold silently becomes `defaultRecoverWarningThreshold` = 50 | 1 | contract (no discrim.) | **Confirmed** | `configured=100 via REVOCER_WARNING_THRESHOLD -> effective threshold=50` |
+| F4 | The chart toolchain is silent about an env name nobody reads, so CI's `helm lint` sweep could not have caught this | 2 | contract (no discrim.) | **Confirmed** | render of the misspelled chart exits 0 with no warning |
 
 Net: the PR is a correct and complete fix for a real, previously unguarded defect. No
 blocking issue found in the change itself. The one gap that remains is F2 — the *guard*

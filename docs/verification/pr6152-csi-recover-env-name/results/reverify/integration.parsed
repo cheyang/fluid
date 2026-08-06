@@ -1,0 +1,5 @@
+TestScraperSanity	pass
+TestChartEmitsRecoverWarningThresholdUnderTheNameGoReads	pass
+TestChartDoesNotEmitMisspelledEnvName	pass
+TestCsiPluginEnvNamesAreAllConsumed	pass
+TestChartToolchainIsSilentAboutUnreadEnvNames	pass

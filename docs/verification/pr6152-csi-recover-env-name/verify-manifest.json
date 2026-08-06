@@ -26,7 +26,8 @@
         "TestChartEmitsRecoverWarningThresholdUnderTheNameGoReads",
         "TestChartDoesNotEmitMisspelledEnvName"
       ],
-      "claim": "The chart must emit the recover warning threshold under RECOVER_WARNING_THRESHOLD, the only name pkg/csi/recover/recover.go reads. Pre-fix it emitted REVOCER_WARNING_THRESHOLD, so csi.recoverWarningThreshold was silently discarded."
+      "claim": "The chart must emit the recover warning threshold under RECOVER_WARNING_THRESHOLD, the only name pkg/csi/recover/recover.go reads. Pre-fix it emitted REVOCER_WARNING_THRESHOLD, so csi.recoverWarningThreshold was silently discarded.",
+      "discriminatesFix": true
     },
     {
       "id": "F2",
@@ -35,27 +36,32 @@
       "match": [
         "TestCsiPluginEnvNamesAreAllConsumed"
       ],
-      "claim": "Every env var the chart sets on the csi-plugin container must be read somewhere in the tree. Regression guard for chart/Go env-name drift — this is the check that was missing and let the typo ship."
+      "claim": "Every env var the chart sets on the csi-plugin container must be read somewhere in the tree. Regression guard for chart/Go env-name drift — this is the check that was missing and let the typo ship.",
+      "discriminatesFix": true
     },
     {
       "id": "F3",
-      "polarity": "mechanism",
+      "polarity": "contract",
       "layer": "unit",
       "match": [
         "TestThresholdDroppedWhenOnlyMisspelledEnvIsSet",
         "TestThresholdHonouredWhenCorrectEnvIsSet",
         "TestNoGoConstantHoldsTheMisspelledName"
       ],
-      "claim": "Impact half of F1: with only the misspelled name exported, threshold resolution falls back to defaultRecoverWarningThreshold=50 and the operator's value is lost. Green on both refs by design (Go was never wrong) — it documents impact, it does not discriminate the fix."
+      "claim": "Impact half of F1: with only the misspelled name exported, threshold resolution falls back to defaultRecoverWarningThreshold=50 and the operator's value is lost. Green on both refs by design (Go was never wrong) — it documents impact, it does not discriminate the fix.",
+      "discriminatesFix": false,
+      "polarityNote": "Labelled contract because it must PASS on fixed code (that is what re-verify.sh keys on), but it also passed pre-fix: Go was never wrong. Treat as impact documentation, not fix confirmation."
     },
     {
       "id": "F4",
-      "polarity": "evidence",
+      "polarity": "contract",
       "layer": "integration",
       "match": [
         "TestChartToolchainIsSilentAboutUnreadEnvNames"
       ],
-      "claim": "The chart toolchain renders a misspelled env name with no error or warning, so neither `helm template` nor the weaker `helm lint` sweep in .github/workflows/project-check.yml could have caught this. SKIPs on the pre-fix ref (nothing to un-fix) — there the same fact is shown by the pre-fix render succeeding at all."
+      "claim": "The chart toolchain renders a misspelled env name with no error or warning, so neither `helm template` nor the weaker `helm lint` sweep in .github/workflows/project-check.yml could have caught this. SKIPs on the pre-fix ref (nothing to un-fix) — there the same fact is shown by the pre-fix render succeeding at all.",
+      "discriminatesFix": false,
+      "polarityNote": "Context/evidence about the chart toolchain. PASSES on fixed code, SKIPs pre-fix. Not fix confirmation."
     }
   ],
   "envNotes": {
