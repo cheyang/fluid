@@ -1,0 +1,66 @@
+{
+  "_comment": "Verification harness for PR #6152 (chart env name typo). Consumed by scripts/re-verify.sh. The defect is in the Helm chart, so the discriminating layer is 'render', not 'unit'.",
+  "topic": "pr6152-csi-recover-env-name",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6152",
+  "harnessPaths": [
+    "docs/verification/pr6152-csi-recover-env-name",
+    "pkg/csi/recover/recover_envname_verify_test.go",
+    "test/chartverify/csi_env_render_verify_test.go"
+  ],
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/csi/recover/ -count=1 -run 'TestThresholdDroppedWhenOnlyMisspelledEnvIsSet|TestThresholdHonouredWhenCorrectEnvIsSet|TestNoGoConstantHoldsTheMisspelledName' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./test/chartverify/ -count=1 -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestChartEmitsRecoverWarningThresholdUnderTheNameGoReads",
+        "TestChartDoesNotEmitMisspelledEnvName"
+      ],
+      "claim": "The chart must emit the recover warning threshold under RECOVER_WARNING_THRESHOLD, the only name pkg/csi/recover/recover.go reads. Pre-fix it emitted REVOCER_WARNING_THRESHOLD, so csi.recoverWarningThreshold was silently discarded."
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestCsiPluginEnvNamesAreAllConsumed"
+      ],
+      "claim": "Every env var the chart sets on the csi-plugin container must be read somewhere in the tree. Regression guard for chart/Go env-name drift — this is the check that was missing and let the typo ship."
+    },
+    {
+      "id": "F3",
+      "polarity": "mechanism",
+      "layer": "unit",
+      "match": [
+        "TestThresholdDroppedWhenOnlyMisspelledEnvIsSet",
+        "TestThresholdHonouredWhenCorrectEnvIsSet",
+        "TestNoGoConstantHoldsTheMisspelledName"
+      ],
+      "claim": "Impact half of F1: with only the misspelled name exported, threshold resolution falls back to defaultRecoverWarningThreshold=50 and the operator's value is lost. Green on both refs by design (Go was never wrong) — it documents impact, it does not discriminate the fix."
+    },
+    {
+      "id": "F4",
+      "polarity": "evidence",
+      "layer": "integration",
+      "match": [
+        "TestChartToolchainIsSilentAboutUnreadEnvNames"
+      ],
+      "claim": "The chart toolchain renders a misspelled env name with no error or warning, so neither `helm template` nor the weaker `helm lint` sweep in .github/workflows/project-check.yml could have caught this. SKIPs on the pre-fix ref (nothing to un-fix) — there the same fact is shown by the pre-fix render succeeding at all."
+    }
+  ],
+  "envNotes": {
+    "helm": "Requires the `helm` binary on PATH; the render layer skips without it. Rendering is made hermetic inside the test (chart copied to a temp dir, templates calling helm `lookup` dropped, KUBECONFIG=/dev/null) because charts/fluid/fluid/templates/webhook/plugins-profile.yaml otherwise contacts a live API server and makes the result depend on the reviewer's kubeconfig.",
+    "darwinPreExisting": "On darwin, 3 pre-existing specs in the ginkgo suite TestRecover fail with 'util/mount on this platform is not supported'. Verified identical on the merge-base without this harness, so it is unrelated to PR #6152 and to the harness. The scoped -run filter in layers.unit.cmd avoids them; CI's linux unittest job is green."
+  },
+  "liveNote": "No live (L3) layer: the fix is a rendered manifest field, fully provable at the render layer. To confirm end-to-end anyway, install the chart with --set csi.recoverWarningThreshold=<n != 50> and check `kubectl -n fluid-system get ds csi-nodeplugin -o jsonpath='{.spec.template.spec.containers[?(@.name==\"plugins\")].env}'` contains RECOVER_WARNING_THRESHOLD=<n>, then confirm the csi-nodeplugin log warns 'excessive mount count detected ... threshold=<n>' rather than threshold=50."
+}

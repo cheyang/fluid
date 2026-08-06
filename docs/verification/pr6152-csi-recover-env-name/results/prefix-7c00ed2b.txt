@@ -1,0 +1,40 @@
+### ref: 7c00ed2b (merge-base, PRE-FIX)
+### chart line:
+97:          - name: REVOCER_WARNING_THRESHOLD
+
+### L1 unit
+=== RUN   TestThresholdDroppedWhenOnlyMisspelledEnvIsSet
+    recover_envname_verify_test.go:64: configured=100 via REVOCER_WARNING_THRESHOLD -> effective threshold=50 (operator intent discarded)
+--- PASS: TestThresholdDroppedWhenOnlyMisspelledEnvIsSet (0.00s)
+=== RUN   TestThresholdHonouredWhenCorrectEnvIsSet
+--- PASS: TestThresholdHonouredWhenCorrectEnvIsSet (0.00s)
+=== RUN   TestNoGoConstantHoldsTheMisspelledName
+--- PASS: TestNoGoConstantHoldsTheMisspelledName (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/recover	0.490s
+
+### L2 render
+=== RUN   TestScraperSanity
+    csi_env_render_verify_test.go:100: hermetic render: dropping templates/webhook/plugins-profile.yaml (calls helm lookup)
+    csi_env_render_verify_test.go:191: scraped 8 env vars from the csi-plugin container
+--- PASS: TestScraperSanity (0.18s)
+=== RUN   TestChartEmitsRecoverWarningThresholdUnderTheNameGoReads
+    csi_env_render_verify_test.go:100: hermetic render: dropping templates/webhook/plugins-profile.yaml (calls helm lookup)
+    csi_env_render_verify_test.go:205: csi-plugin container has no env var named RECOVER_WARNING_THRESHOLD, so a configured csi.recoverWarningThreshold is silently ignored. rendered env names: [NODE_IP MOUNT_ROOT REVOCER_WARNING_THRESHOLD KUBELET_ROOTDIR CSI_ENDPOINT NODE_ID ALLOW_PATCH_STALE_NODE NODEPUBLISH_METHOD]
+--- FAIL: TestChartEmitsRecoverWarningThresholdUnderTheNameGoReads (0.09s)
+=== RUN   TestChartDoesNotEmitMisspelledEnvName
+    csi_env_render_verify_test.go:100: hermetic render: dropping templates/webhook/plugins-profile.yaml (calls helm lookup)
+    csi_env_render_verify_test.go:219: chart still emits REVOCER_WARNING_THRESHOLD, which no Go constant reads
+--- FAIL: TestChartDoesNotEmitMisspelledEnvName (0.09s)
+=== RUN   TestCsiPluginEnvNamesAreAllConsumed
+    csi_env_render_verify_test.go:100: hermetic render: dropping templates/webhook/plugins-profile.yaml (calls helm lookup)
+    csi_env_render_verify_test.go:246: the chart sets env vars on the csi-plugin container that nothing reads: [REVOCER_WARNING_THRESHOLD]
+        each of these is a silently-ignored setting
+--- FAIL: TestCsiPluginEnvNamesAreAllConsumed (0.49s)
+=== RUN   TestChartToolchainIsSilentAboutUnreadEnvNames
+    csi_env_render_verify_test.go:100: hermetic render: dropping templates/webhook/plugins-profile.yaml (calls helm lookup)
+    csi_env_render_verify_test.go:293: chart does not contain RECOVER_WARNING_THRESHOLD at this ref; nothing to un-fix
+--- SKIP: TestChartToolchainIsSilentAboutUnreadEnvNames (0.03s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/test/chartverify	0.984s
+FAIL

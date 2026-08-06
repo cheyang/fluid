@@ -1,0 +1,36 @@
+### ref: 53d20172 (PR #6152 head, POST-FIX)
+### chart line:
+97:          - name: RECOVER_WARNING_THRESHOLD
+
+### L1 unit
+=== RUN   TestThresholdDroppedWhenOnlyMisspelledEnvIsSet
+    recover_envname_verify_test.go:64: configured=100 via REVOCER_WARNING_THRESHOLD -> effective threshold=50 (operator intent discarded)
+--- PASS: TestThresholdDroppedWhenOnlyMisspelledEnvIsSet (0.00s)
+=== RUN   TestThresholdHonouredWhenCorrectEnvIsSet
+--- PASS: TestThresholdHonouredWhenCorrectEnvIsSet (0.00s)
+=== RUN   TestNoGoConstantHoldsTheMisspelledName
+--- PASS: TestNoGoConstantHoldsTheMisspelledName (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/recover	0.840s
+
+### L2 render
+=== RUN   TestScraperSanity
+    csi_env_render_verify_test.go:100: hermetic render: dropping templates/webhook/plugins-profile.yaml (calls helm lookup)
+    csi_env_render_verify_test.go:191: scraped 8 env vars from the csi-plugin container
+--- PASS: TestScraperSanity (0.10s)
+=== RUN   TestChartEmitsRecoverWarningThresholdUnderTheNameGoReads
+    csi_env_render_verify_test.go:100: hermetic render: dropping templates/webhook/plugins-profile.yaml (calls helm lookup)
+--- PASS: TestChartEmitsRecoverWarningThresholdUnderTheNameGoReads (0.10s)
+=== RUN   TestChartDoesNotEmitMisspelledEnvName
+    csi_env_render_verify_test.go:100: hermetic render: dropping templates/webhook/plugins-profile.yaml (calls helm lookup)
+--- PASS: TestChartDoesNotEmitMisspelledEnvName (0.09s)
+=== RUN   TestCsiPluginEnvNamesAreAllConsumed
+    csi_env_render_verify_test.go:100: hermetic render: dropping templates/webhook/plugins-profile.yaml (calls helm lookup)
+    csi_env_render_verify_test.go:249: all 8 rendered csi-plugin env names are consumed
+--- PASS: TestCsiPluginEnvNamesAreAllConsumed (0.51s)
+=== RUN   TestChartToolchainIsSilentAboutUnreadEnvNames
+    csi_env_render_verify_test.go:100: hermetic render: dropping templates/webhook/plugins-profile.yaml (calls helm lookup)
+    csi_env_render_verify_test.go:310: helm rendered the misspelled chart with no error or warning: the toolchain cannot detect that REVOCER_WARNING_THRESHOLD is read by nobody
+--- PASS: TestChartToolchainIsSilentAboutUnreadEnvNames (0.09s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/test/chartverify	1.000s
