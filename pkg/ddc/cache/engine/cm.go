@@ -19,6 +19,7 @@ package engine
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
 	"github.com/fluid-cloudnative/fluid/pkg/common"
@@ -104,12 +105,14 @@ func (e *CacheEngine) generateRuntimeConfigData(ctx context.Context, runtime *da
 	if err != nil {
 		return nil, err
 	}
-
 	runtimeClass, err := e.getRuntimeClass(runtime.Spec.RuntimeClassName)
 	if err != nil {
 		return nil, err
 	}
-
+	if runtimeClass.Topology == nil ||
+		(runtimeClass.Topology.Master == nil && runtimeClass.Topology.Worker == nil && runtimeClass.Topology.Client == nil) {
+		return nil, fmt.Errorf("at least one component should be defined in runtimeClass")
+	}
 	var mounts []common.MountConfig
 	for _, m := range dataset.Spec.Mounts {
 		mountCg := common.MountConfig{
@@ -139,7 +142,7 @@ func (e *CacheEngine) generateRuntimeConfigData(ctx context.Context, runtime *da
 		config.AccessModes = []corev1.PersistentVolumeAccessMode{corev1.ReadOnlyMany}
 	}
 
-	if !runtime.Spec.Master.Disabled {
+	if runtimeClass.Topology.Master != nil && !runtime.Spec.Master.Disabled {
 		config.Master = &common.CacheRuntimeComponentConfig{
 			Enabled:  true,
 			Name:     common.GetCacheComponentName(e.name, common.ComponentTypeMaster),
@@ -153,7 +156,7 @@ func (e *CacheEngine) generateRuntimeConfigData(ctx context.Context, runtime *da
 			}
 		}
 	}
-	if !runtime.Spec.Worker.Disabled {
+	if runtimeClass.Topology.Worker != nil && !runtime.Spec.Worker.Disabled {
 		config.Worker = &common.CacheRuntimeComponentConfig{
 			Enabled:  true,
 			Name:     common.GetCacheComponentName(e.name, common.ComponentTypeWorker),
@@ -169,7 +172,7 @@ func (e *CacheEngine) generateRuntimeConfigData(ctx context.Context, runtime *da
 		// Extract tiered store configuration for worker
 		config.Worker.TieredStoreLevels = e.extractTieredStoreLevels(&runtime.Spec.Worker.TieredStore)
 	}
-	if !runtime.Spec.Client.Disabled {
+	if runtimeClass.Topology.Client != nil && !runtime.Spec.Client.Disabled {
 		config.Client = &common.CacheRuntimeComponentConfig{
 			Enabled: true,
 			Name:    common.GetCacheComponentName(e.name, common.ComponentTypeClient),

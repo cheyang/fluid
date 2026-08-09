@@ -18,6 +18,7 @@ package engine
 
 import (
 	"context"
+	"strings"
 	"testing"
 
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
@@ -207,6 +208,11 @@ func newCacheRuntimeForConfigMapTest() *datav1alpha1.CacheRuntime {
 func newCacheRuntimeClassForConfigMapTest() *datav1alpha1.CacheRuntimeClass {
 	return &datav1alpha1.CacheRuntimeClass{
 		ObjectMeta: metav1.ObjectMeta{Name: "test-class"},
+		Topology: &datav1alpha1.RuntimeTopology{
+			Master: &datav1alpha1.RuntimeComponentDefinition{},
+			Worker: &datav1alpha1.RuntimeComponentDefinition{},
+			Client: &datav1alpha1.RuntimeComponentDefinition{},
+		},
 	}
 }
 
@@ -226,5 +232,40 @@ func newDatasetForConfigMapTest() *datav1alpha1.Dataset {
 			},
 		},
 		Status: datav1alpha1.DatasetStatus{Runtimes: []datav1alpha1.Runtime{{Name: "demo", Type: common.CacheRuntime}}},
+	}
+}
+func TestGenerateRuntimeConfigDataWithMissingClientTopology(t *testing.T) {
+	scheme := newCacheEngineTestScheme(t)
+	runtimeObj := newCacheRuntimeForConfigMapTest()
+	runtimeObj.Spec.Client.Disabled = false
+	runtimeClass := newCacheRuntimeClassForConfigMapTest()
+	runtimeClass.Topology = &datav1alpha1.RuntimeTopology{
+		Master: &datav1alpha1.RuntimeComponentDefinition{},
+		Worker: &datav1alpha1.RuntimeComponentDefinition{},
+	}
+	dataset := newDatasetForConfigMapTest()
+	baseClient := fake.NewFakeClientWithScheme(scheme, runtimeObj, runtimeClass, dataset)
+	engine := &CacheEngine{Client: baseClient, name: "demo", namespace: "default"}
+
+	if _, err := engine.generateRuntimeConfigData(context.Background(), runtimeObj); err != nil {
+		t.Fatalf("expected no error when client topology is undefined, got %v", err)
+	}
+}
+
+func TestGenerateRuntimeConfigDataWithNilTopology(t *testing.T) {
+	scheme := newCacheEngineTestScheme(t)
+	runtimeObj := newCacheRuntimeForConfigMapTest()
+	runtimeClass := newCacheRuntimeClassForConfigMapTest()
+	runtimeClass.Topology = nil
+	dataset := newDatasetForConfigMapTest()
+	baseClient := fake.NewFakeClientWithScheme(scheme, runtimeObj, runtimeClass, dataset)
+	engine := &CacheEngine{Client: baseClient, name: "demo", namespace: "default"}
+
+	_, err := engine.generateRuntimeConfigData(context.Background(), runtimeObj)
+	if err == nil {
+		t.Fatal("expected error when topology is nil, got nil")
+	}
+	if !strings.Contains(err.Error(), "at least one component should be defined") {
+		t.Fatalf("unexpected error message: %v", err)
 	}
 }
