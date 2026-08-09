@@ -1,0 +1,9 @@
+baseline: TestGenerateRuntimeConfigData is GREEN
+---------------------------------------------------------------------------
+MUTATION (guard reverted)                      RESULT
+drop Master component guard                    STILL GREEN  <== guard has NO coverage
+drop Worker component guard                    STILL GREEN  <== guard has NO coverage
+drop Client component guard                    fails (guard is covered)
+drop all-components-nil clause                 STILL GREEN  <== guard has NO coverage
+---------------------------------------------------------------------------
+production code restored; git diff should show no change to pkg/ddc/cache/engine/cm.go

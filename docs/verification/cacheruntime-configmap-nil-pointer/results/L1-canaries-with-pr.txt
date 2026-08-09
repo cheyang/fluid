@@ -1,0 +1,15 @@
+2026/08/09 14:01:32 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyF1_GenDataLoadValueNilTopologyStillPanics
+    zz_verify_test.go:140: still panics (as expected, unfixed by PR #6157): runtime error: invalid memory address or nil pointer dereference
+--- PASS: TestVerifyF1_GenDataLoadValueNilTopologyStillPanics (0.00s)
+=== RUN   TestVerifyF1b_GenerateDataLoadValueFileNilTopologyStillPanics
+    zz_verify_test.go:179: still panics (as expected, unfixed by PR #6157): runtime error: invalid memory address or nil pointer dereference
+--- PASS: TestVerifyF1b_GenerateDataLoadValueFileNilTopologyStillPanics (0.00s)
+=== RUN   TestVerifyF2_GetDataOperationImageNilTopologyStillPanics
+    zz_verify_test.go:196: still panics (as expected, unfixed by PR #6157): runtime error: invalid memory address or nil pointer dereference
+--- PASS: TestVerifyF2_GetDataOperationImageNilTopologyStillPanics (0.00s)
+=== RUN   TestVerifyF3_SyncRuntimeSpecNilTopologyStillPanics
+    zz_verify_test.go:225: still panics (as expected, unfixed by PR #6157): runtime error: invalid memory address or nil pointer dereference
+--- PASS: TestVerifyF3_SyncRuntimeSpecNilTopologyStillPanics (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	(cached)
