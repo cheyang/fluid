@@ -1,0 +1,36 @@
+############################################################
+# (A) BITE CHECK -- apply the proposed fix, expect contracts to go GREEN
+############################################################
+applied proposed fix
+  --- PASS: TestPR6156_L1_F1_NoTargetMustYieldAddressableJindoPaths (0.00s)
+  --- PASS: TestPR6156_L1_F1_NoTargetNoMountPathMustYieldAddressableJindoPaths (0.00s)
+  --- PASS: TestPR6156_L1_F1Premise_EmptyTargetPathsIsOmittedSoChartDefaultApplies (0.00s)
+  --- PASS: TestPR6156_L1_F2_JindoCollapsesAllMountsIntoOneNamespace (0.00s)
+  --- PASS: TestPR6156_L1_F3_DefaultJindoEngineIsNotTheOnePatched (0.00s)
+  PASS
+  ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindo	0.279s
+
+production diff vs PR head for load_data.go:
+   pkg/ddc/jindo/load_data.go | 18 +++++++-----------
+   1 file changed, 7 insertions(+), 11 deletions(-)
+
+-- reverting the proposed fix --
+
+production diff vs PR head for load_data.go:
+  (empty)
+
+############################################################
+# (B) MUTATION CHECK (F4) -- is the name-derivation branch covered by the PR's test?
+############################################################
+-- baseline: the PR's own added test on unmodified PR code
+  ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindo	0.323s
+
+-- mutant: GenUFSPathInUnifiedNamespace(mount) -> mount.Path
+applied mutant
+  ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindo	0.274s
+
+  INTERPRETATION: if the mutant still passes, the PR's test never exercises the
+  '/{mount.Name}' fallback that the PR description claims to handle.
+
+production diff vs PR head for load_data.go:
+  (empty)

@@ -1,0 +1,64 @@
+{
+  "_comment": "Verification harness for review findings on PR #6156. Consumed by scripts/re-verify.sh. 'contract' tests should PASS once the finding is fixed; 'canary' tests PASS today and FLIP to fail once fixed (invert them then).",
+  "topic": "pr6156-jindo-dataload-no-target",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6156",
+  "harnessPaths": [
+    "docs/verification/pr6156-jindo-dataload-no-target",
+    "pkg/ddc/jindo/pr6156_verify_test.go"
+  ],
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/jindo/ -run 'TestPR6156_L1' -v"
+    },
+    "integration": {
+      "kind": "script",
+      "cmd": "bash docs/verification/pr6156-jindo-dataload-no-target/scripts/20-helm-render.sh && bash docs/verification/pr6156-jindo-dataload-no-target/scripts/30-script-behavior.sh"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "blocker",
+      "polarity": "contract",
+      "layer": "unit",
+      "claim": "A no-target DataLoad on the jindo engine must emit target paths addressable in the single JindoFS namespace (i.e. nothing, letting the chart default '/' apply, or exactly '/'). PR #6156 emits one path per dataset mount (/mnt0, /mnt1 or /spark, /hive), which are not namespace paths.",
+      "match": [
+        "TestPR6156_L1_F1_NoTargetMustYieldAddressableJindoPaths",
+        "TestPR6156_L1_F1_NoTargetNoMountPathMustYieldAddressableJindoPaths"
+      ]
+    },
+    {
+      "id": "F1-premise",
+      "severity": "blocker",
+      "polarity": "canary",
+      "layer": "unit",
+      "claim": "The PR's premise ('TargetPaths ended up empty, so the DataLoad job loaded no data') is false. DataLoadInfo.TargetPaths is json:\"targetPaths,omitempty\", so an empty slice is omitted from the generated values file and `helm install -f` coalesces the chart default path '/'. Pre-PR behaviour is 'load the whole dataset', not 'load nothing'. Flips only if omitempty is dropped.",
+      "match": [
+        "TestPR6156_L1_F1Premise_EmptyTargetPathsIsOmittedSoChartDefaultApplies"
+      ]
+    },
+    {
+      "id": "F2",
+      "severity": "blocker",
+      "polarity": "canary",
+      "layer": "unit",
+      "claim": "pkg/ddc/jindo/transform.go collapses every dataset mount into the single hardcoded namespace 'jindo' (per-mount accumulation is commented out) and every mount overwrites jfs.namespaces.jindo.<mode>.uri, so only the LAST mount survives. There is no per-mount subtree, which is why the PR's derived paths do not exist. Flips if real multi-mount support lands.",
+      "match": [
+        "TestPR6156_L1_F2_JindoCollapsesAllMountsIntoOneNamespace"
+      ]
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "polarity": "canary",
+      "layer": "unit",
+      "claim": "pkg/ddc/jindo (JindoFS, smartdata:3.8.0) is not the engine a JindoRuntime gets by default -- GetDefaultEngineImpl() returns 'jindocache' unless JINDO_ENGINE_TYPE=jindo|jindofsx. The PR patches a legacy opt-in engine and leaves the default jindocache plus jindofsx with the same gap. Flips when the default changes or the other engines are fixed.",
+      "match": [
+        "TestPR6156_L1_F3_DefaultJindoEngineIsNotTheOnePatched"
+      ]
+    }
+  ],
+  "scriptLayerNote": "F1/F2 are also proven end-to-end without a cluster by scripts/20-helm-render.sh (master renders DATA_PATH=\"/\", PR renders DATA_PATH=\"/mnt0:/mnt1\") and scripts/30-script-behavior.sh (the repo's own dataloader.distributedLoad exits 0 with 1 load on master, and exits 1 with 0 loads on the PR because checkPathExistence rejects the derived paths). Case (d) in 30-script-behavior.sh is the built-in bite control.",
+  "liveNote": "L3-live (a real JindoRuntime against a real OSS/HDFS UFS with JINDO_ENGINE_TYPE=jindo) was NOT run: it needs the legacy smartdata:3.8.0 image plus real OSS credentials, neither of which is available in the sandbox. The observable signal to check there is the dataload pod log: master prints one `jindo jfs -load ... jfs://jindo/`, whereas the PR prints `dataLoad failed because some paths not exist.` and the job goes to Failed."
+}

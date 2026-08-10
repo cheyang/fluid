@@ -1,0 +1,245 @@
+---
+# Source: fluid-dataloader/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dl-pr6156-data-load-script
+  labels:
+    release: dl-pr6156
+    role: dataload-job
+    app.kubernetes.io/name: fluid-dataloader
+    app.kubernetes.io/instance: dl-pr6156
+    app.kubernetes.io/managed-by: Helm
+    fluid.io/managed-by: fluid
+    fluid.io/dataset-id: 
+data:
+  dataloader.jindo.init: |
+    #!/usr/bin/env bash
+    set -xe
+    jindo_env_vars=(
+      STORAGE_ADDRESS
+    )
+    function public::jindo::init_conf() {
+      for key in "${jindo_env_vars[@]}"; do
+        if [[ -v $key ]]; then
+          export ${key}=\"${!key}\"
+        fi
+      done
+    }
+    main() {
+      public::jindo::init_conf
+    }
+    main
+  dataloader.distributedLoad: |
+    #!/usr/bin/env bash
+    set -xe
+    
+    function checkPathExistence() {
+        local targetPath=$1
+        local checkPathResult=$(timeout 30s hadoop fs -ls jfs://jindo$targetPath |& tail -3)
+        local strUnexistence="No such file or directory"
+        if [[ $checkPathResult =~ $strUnexistence ]];then
+            echo -e "dataLoad failed because some paths not exist."
+            exit 1
+        fi
+    }
+
+    function distributedLoad() {
+        local path=$1
+        local replica=$2
+        local default=$3
+        local cmd="jindo jfs -load"
+        checkPathExistence "$path"
+        if [[ $needLoadMetadata == 'true' ]]; then
+            echo -e "--- enable metaCache"
+            cmd="$cmd -meta"
+            echo -e "now cmd $cmd"
+        else
+            echo -e "--- disable metaCache"
+        fi
+
+        if [[ $loadMetadataOnly == 'true' ]]; then
+            echo -e "--- disable datacache"
+        else
+           echo -e "--- enable datacache"
+           cmd="$cmd -data"
+           echo -e "now cmd $cmd"
+        fi
+
+        if [[ $atomicCache == 'true' ]]; then
+            echo -e "--- enable atomicCache"
+            cmd="$cmd -atomic"
+            echo -e "now cmd $cmd"
+        else
+            echo -e "--- disable atomicCache"
+        fi
+
+        if [[ $loadMemorydata == 'true' ]]; then
+            echo -e "--- enable loadMemorydata"
+            cmd="$cmd -m"
+            echo -e "now cmd $cmd"
+        else
+            echo -e "--- disable loadMemorydata"
+        fi
+
+        if [[ $enbaleCacheListLocation == 'false' ]]; then
+            cmd="$cmd -s -R -replica $replica $default$path"
+            echo -e "execute cmd $cmd"
+            time $cmd
+        else
+            echo -e "--- begin download ossutil"
+            apt-get install wget -y
+            wget http://gosspublic.alicdn.com/ossutil/1.7.5/ossutil64
+            chmod 755 ossutil64
+            ./ossutil64 -e $cacheListEndpoint -i $cacheListAccessKeyId -k $cacheListAccessKeySecret cp $cacheListUrl /cachelist.txt
+            echo -e "--- enable File List"
+            cmd="$cmd -s -R -replica $cacheListReplica -cachelist /cachelist.txt -thread $cacheListThread $default/"
+            echo -e "execute cmd $cmd"
+            time $cmd
+        fi
+
+        #echo -e "distributedLoad and sleep start now"
+        #sleep 10m
+    }
+
+    function main() {
+        needLoadMetadata="$NEED_LOAD_METADATA"
+        loadMemorydata="$LOAD_MEMORY_DATA"
+        loadMetadataOnly="$LOAD_METADATA_ONLY"
+        atomicCache="$ENABLE_ATOMIC_CACHE"
+        cacheListReplica=$CACHE_LIST_REPLICA
+        cacheListThread=$CACHE_LIST_THREAD
+        enbaleCacheListLocation=$Enable_CACHE_LIST_LOCATION
+        cacheListAccessKeyId=$CACHE_LIST_ACCESSKEYID
+        cacheListAccessKeySecret=$CACHE_LIST_ACCESSKEYSECRET
+        cacheListEndpoint=$CACHE_LIST_ENDPOINT
+        cacheListUrl=$CACHE_LIST_URL
+        #judge whether to use locaion list
+        if [[ -z "$cacheListAccessKeyId" ]] || [[ -z "$cacheListAccessKeySecret" ]] || [[ -z "$cacheListEndpoint" ]] || [[ -z "$cacheListUrl" ]]; then
+            enbaleCacheListLocation=false
+        else
+            enbaleCacheListLocation=true
+        fi
+        if [[ -z "$cacheListReplica" ]]; then
+            cacheListReplica=1
+        else
+            echo -e "cacheListReplica $cacheListReplica"
+        fi
+        if [[ -z "$cacheListThread" ]]; then
+            cacheListThread=10
+        else
+            echo -e "cacheListThread $cacheListThread"
+        fi
+        dafault="jfs://jindo"
+        paths="$DATA_PATH"
+        paths=(${paths//:/ })
+        replicas="$PATH_REPLICAS"
+        replicas=(${replicas//:/ })
+        for((i=0;i<${#paths[@]};i++)) do
+            local path="${paths[i]}"
+            local replica="${replicas[i]}"
+            echo -e "distributedLoad on $path starts"
+            distributedLoad ${paths[i]} ${replicas[i]} ${dafault}
+            #echo -e "distributedLoad on $path ends"
+        done
+    }
+
+    main "$@"
+---
+# Source: fluid-dataloader/templates/job.yaml
+# .Release.Name will be used to decide which dataset will be preload
+# .Release.Name should be like `<pvc-name>-load`(e.g. hbase-load for a PersistentVolumeClaim named `hbase`)
+# TODO: the length of .Release.Name won't exceed 53(limited by Helm), which means length of `<pvc-name>` can't exceed 48. This might be a problem.
+  
+  
+  
+  
+  
+  
+  
+  
+  
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: dl-pr6156-job
+  labels:
+    release: dl-pr6156
+    role: dataload-job
+    app: jindofs
+    targetDataset: test-dataset
+    app.kubernetes.io/name: fluid-dataloader
+    app.kubernetes.io/instance: dl-pr6156
+    app.kubernetes.io/managed-by: Helm
+    fluid.io/managed-by: fluid
+    fluid.io/dataset-id: 
+  ownerReferences:
+spec:
+  backoffLimit: 3
+  completions: 1
+  parallelism: 1
+  template:
+    metadata:
+      name: dl-pr6156-loader
+      annotations:
+        sidecar.istio.io/inject: "false"
+      labels:
+        release: dl-pr6156
+        role: dataload-pod
+        app: jindofs
+        targetDataset: test-dataset
+        app.kubernetes.io/name: fluid-dataloader
+        app.kubernetes.io/instance: dl-pr6156
+        app.kubernetes.io/managed-by: Helm
+        fluid.io/managed-by: fluid
+        fluid.io/dataset-id: 
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: dataloader
+          image: fluid:v0.0.1
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c"]
+          args: ["/scripts/jindo_env_init.sh && /scripts/jindo_dataload.sh"]
+          env:
+            - name: STORAGE_ADDRESS
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: NEED_LOAD_METADATA
+              value: "false"
+            - name: DATA_PATH
+              value: "/mnt0:/mnt1"
+            - name: PATH_REPLICAS
+              value: "1:1"
+          envFrom:
+            - configMapRef:
+                name: test-dataset-jindofs-client-config
+          volumeMounts:
+            - name: bigboot-config
+              mountPath: /bigboot.cfg
+              subPath: bigboot.cfg
+            - name: bigboot-config
+              mountPath: /hdfs-3.2.1/etc/hadoop/core-site.xml
+              subPath: core-site.xml
+            - mountPath: /scripts
+              name: data-load-script
+      volumes:
+        - name: bigboot-config
+          configMap:
+            name: test-dataset-jindofs-config
+        - name: data-load-script
+          configMap:
+            name: dl-pr6156-data-load-script
+            items:
+              - key: dataloader.jindo.init
+                path: jindo_env_init.sh
+                mode: 365
+              - key: dataloader.distributedLoad
+                path: jindo_dataload.sh
+                mode: 365
+---
+# Source: fluid-dataloader/templates/cronjob.yaml
+# .Release.Name will be used to decide which dataset will be preload
+# .Release.Name should be like `<pvc-name>-load`(e.g. hbase-load for a PersistentVolumeClaim named `hbase`)
+# TODO: the length of .Release.Name won't exceed 53(limited by Helm), which means length of `<pvc-name>` can't exceed 48. This might be a problem.

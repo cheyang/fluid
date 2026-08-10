@@ -1,0 +1,14 @@
+Pre-existing failure check (do NOT attribute to PR #6156)
+=========================================================
+The PR description claims TestDestroyWorker fails on master too. Verified:
+
+  worktree at merge-base 05f06659 (PR code ABSENT)
+  $ go test ./pkg/ddc/jindo/ -run TestDestroyWorker
+  --- FAIL: TestDestroyWorker
+      shutdown_test.go:191: fail to exec the function with the error
+                            jindoruntimes.data.fluid.io "spark" not found
+      shutdown_test.go:200/203: fail to decrease the labels
+  FAIL  github.com/fluid-cloudnative/fluid/pkg/ddc/jindo  0.335s
+
+Same failure at PR head f2e5f7b6. CONCLUSION: pre-existing, unrelated to this PR.
+The author's claim is accurate.

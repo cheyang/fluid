@@ -1,0 +1,20 @@
+### L3 behaviour of the repo's own dataloader.distributedLoad script
+### UFS namespace jfs://jindo/ contains: / and /data (the real bucket contents)
+
+-- (a) master: chart default supplies path '/' (targetPaths omitted from values)
+master-root              DATA_PATH='/'                exit=0   loads=1  => job SUCCEEDS
+      loaded: jindo jfs -load -data -m -s -R -replica 1 jfs://jindo/|
+
+-- (b) PR #6156: per-mount paths derived from spec.mounts[*].path
+pr6156-mount-paths       DATA_PATH='/mnt0:/mnt1'      exit=1   loads=0
+0  => job FAILS (DataLoad -> Failed)
+      loaded: 
+
+-- (c) PR #6156: per-mount paths derived from spec.mounts[*].name (no .path set)
+pr6156-mount-names       DATA_PATH='/spark:/hive'     exit=1   loads=0
+0  => job FAILS (DataLoad -> Failed)
+      loaded: 
+
+-- (d) control: if the derived path DID exist in the UFS, the PR path would work
+pr6156-if-existed        DATA_PATH='/mnt0:/mnt1'      exit=0   loads=2  => job SUCCEEDS
+      loaded: jindo jfs -load -data -m -s -R -replica 1 jfs://jindo/mnt0|jindo jfs -load -data -m -s -R -replica 1 jfs://jindo/mnt1|

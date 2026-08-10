@@ -1,0 +1,34 @@
+2026/08/10 14:08:54 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestPR6156_L1_F1_NoTargetMustYieldAddressableJindoPaths
+    pr6156_verify_test.go:103: observed TargetPaths = [{Path:/mnt0 Replicas:1 FluidNative:false} {Path:/mnt1 Replicas:1 FluidNative:false}]
+    pr6156_verify_test.go:108: C1a FAIL: got 2 target paths [{Path:/mnt0 Replicas:1 FluidNative:false} {Path:/mnt1 Replicas:1 FluidNative:false}]; JindoFS serves one namespace over one UFS, so at most 1 path is addressable
+    pr6156_verify_test.go:116: C1b FAIL: target path "/mnt0" is not the JindoFS namespace root; the jindo engine never mounts a per-mount subtree, so "/mnt0" does not exist in jfs://jindo
+    pr6156_verify_test.go:116: C1b FAIL: target path "/mnt1" is not the JindoFS namespace root; the jindo engine never mounts a per-mount subtree, so "/mnt1" does not exist in jfs://jindo
+--- FAIL: TestPR6156_L1_F1_NoTargetMustYieldAddressableJindoPaths (0.00s)
+=== RUN   TestPR6156_L1_F1_NoTargetNoMountPathMustYieldAddressableJindoPaths
+    pr6156_verify_test.go:140: observed TargetPaths (mounts without .path) = [{Path:/spark Replicas:1 FluidNative:false} {Path:/hive Replicas:1 FluidNative:false}]
+    pr6156_verify_test.go:143: C1a FAIL: got 2 target paths [{Path:/spark Replicas:1 FluidNative:false} {Path:/hive Replicas:1 FluidNative:false}] for a 2-mount dataset
+    pr6156_verify_test.go:147: C1b FAIL: name-derived path "/spark" is not addressable in jfs://jindo
+    pr6156_verify_test.go:147: C1b FAIL: name-derived path "/hive" is not addressable in jfs://jindo
+--- FAIL: TestPR6156_L1_F1_NoTargetNoMountPathMustYieldAddressableJindoPaths (0.00s)
+=== RUN   TestPR6156_L1_F1Premise_EmptyTargetPathsIsOmittedSoChartDefaultApplies
+    pr6156_verify_test.go:182: rendered values:
+        dataloader:
+          backoffLimit: 3
+          image: fluid:v0.0.1
+          policy: ""
+          resources: {}
+          targetDataset: test-dataset
+        name: test-dataload
+        ownerDatasetId: ""
+--- PASS: TestPR6156_L1_F1Premise_EmptyTargetPathsIsOmittedSoChartDefaultApplies (0.00s)
+=== RUN   TestPR6156_L1_F2_JindoCollapsesAllMountsIntoOneNamespace
+    pr6156_verify_test.go:216: jfs.namespaces          = "jindo"
+    pr6156_verify_test.go:217: jfs.namespaces.jindo.oss.uri = "oss://bucket2.oss-cn-hangzhou.aliyuncs.com/hive/"
+--- PASS: TestPR6156_L1_F2_JindoCollapsesAllMountsIntoOneNamespace (0.00s)
+=== RUN   TestPR6156_L1_F3_DefaultJindoEngineIsNotTheOnePatched
+    pr6156_verify_test.go:256: GetDefaultEngineImpl() with JINDO_ENGINE_TYPE unset = "jindocache"
+--- PASS: TestPR6156_L1_F3_DefaultJindoEngineIsNotTheOnePatched (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindo	0.387s
+FAIL

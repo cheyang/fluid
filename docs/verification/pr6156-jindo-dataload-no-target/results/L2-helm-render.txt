@@ -1,0 +1,15 @@
+### L2 helm render of charts/fluid-dataloader/jindo
+
+-- (a) master: values file omits targetPaths -> chart default applies
+master     DATA_PATH="/"                      PATH_REPLICAS="1"
+
+-- (b) PR #6156: values file carries one path per dataset mount
+pr6156     DATA_PATH="/mnt0:/mnt1"            PATH_REPLICAS="1:1"
+
+-- chart documented default (charts/fluid-dataloader/jindo/values.yaml):
+  # Default: (path: "/", replicas: 1, fluidNative: false)
+  # Description: which paths should the DataLoad load
+  targetPaths:
+    - path: "/"
+      replicas: 1
+      fluidNative: false
