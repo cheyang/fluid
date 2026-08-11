@@ -1,0 +1,32 @@
+{
+  "_comment": "Consumed by scripts/re-verify.sh. Map each finding to the tests that prove it, tagged with polarity: 'contract' (PASS when fixed) or 'canary' (FLIP to fail when fixed). 'pr' lets re-verify.sh auto-discover the PR head cross-machine.",
+  "topic": "pr6148-juicefs-edition-shared-encrypt",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6148",
+  "harnessPaths": [
+    "docs/verification/pr6148-juicefs-edition-shared-encrypt",
+    "pkg/ddc/juicefs/transform_format_verify_test.go"
+  ],
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/juicefs/ --ginkgo.focus='edition derived by transform' -timeout 10m",
+      "note": "PR's own table in transform_test.go — pins the genEdition call site in transform()."
+    },
+    "integration": {
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/ddc/juicefs/ --ginkgo.focus='transform format-cmd' -timeout 10m",
+      "report": "docs/verification/pr6148-juicefs-edition-shared-encrypt/results/integration-with-fix.txt"
+    },
+    "live": {
+      "kind": "manual",
+      "cmd": "bash docs/verification/pr6148-juicefs-edition-shared-encrypt/scripts/00-setup.sh && bash scripts/10-community.sh && bash scripts/20-enterprise.sh && bash scripts/99-teardown.sh",
+      "liveNote": "L3 needs a real cluster + KUBECONFIG. Observable signal: the JuiceFSRuntime's values ConfigMap (<runtime>-juicefs-values) data.edition and data.configs.formatCmd. Buggy controller (pre-fix) -> edition=enterprise, formatCmd empty. PR controller -> edition=community, non-empty ce `juicefs format ... ${METAURL}`. Enterprise (token) -> edition=enterprise, ee `juicefs auth --token=${TOKEN}`."
+    }
+  },
+  "findings": [
+    { "id": "B1", "polarity": "contract", "layer": "unit",        "match": ["metaurl in SharedEncryptOptions"], "claim": "metaurl in SharedEncryptOptions classifies as community (genEdition call site in transform)." },
+    { "id": "B2", "polarity": "contract", "layer": "integration", "match": ["community: metaurl in SharedEncryptOptions yields edition=community and a non-empty ce format cmd"], "claim": "Downstream: edition=community AND genFormatCmd produces a non-empty community `juicefs format` (resolves the 'fs never formatted' half)." },
+    { "id": "B4", "polarity": "contract", "layer": "integration", "match": ["enterprise: token in SharedEncryptOptions yields edition=enterprise and an ee auth cmd"], "claim": "Regression: enterprise (token in SharedEncryptOptions) stays enterprise with the ee `juicefs auth` cmd; PR does not touch enterprise classification." },
+    { "id": "B3", "polarity": "contract", "layer": "live",        "match": ["LIVE-EVIDENCE.txt"], "claim": "On a real cluster the PR controller writes edition=community + non-empty ce formatCmd for metaurl-in-SharedEncryptOptions; the installed buggy v1.1.0-36f0467 controller writes edition=enterprise + empty formatCmd for the same Dataset." }
+  ]
+}

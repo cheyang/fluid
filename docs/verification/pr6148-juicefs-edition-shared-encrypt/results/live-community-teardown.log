@@ -1,0 +1,8 @@
+# L3 live teardown (community, real OSS bucket) — controller shutdown path
+# PR controller (sole reconciler), runtime workerPhase=Ready/fusePhase=Ready pre-teardown.
+
+2026-08-12T15:52:33.183+0800	INFO	juicefsctl.JuiceFSRuntime	juicefs/shutdown.go:135	get runtime info	{"juicefsruntime": {"name":"jfs-comm","namespace":"jfs-verify"}, "runtime": {"apiVersion": "data.fluid.io/v1alpha1", "kind": "JuiceFSRuntime", "namespace": "jfs-verify", "name": "jfs-comm"}}
+2026-08-12T15:52:33.183+0800	INFO	juicefsctl.JuiceFSRuntime	juicefs/shutdown.go:223	Get status in pod	{"juicefsruntime": {"name":"jfs-comm","namespace":"jfs-verify"}, "pod": "jfs-comm-worker-0", "source": "${METAURL}"}
+2026-08-12T15:52:33.709+0800	INFO	juicefsctl.JuiceFSRuntime	operations/base.go:64	Exec command succeeded with result	{"juicefsruntime": {"name":"jfs-comm","namespace":"jfs-verify"}, "command": ["sh", "-c", "juicefs status ${METAURL}"], "stdout": "{\n  \"Setting\": {\n    \"Name\": \"jfscomm\",\n    
+2026-08-12T15:52:33.711+0800	INFO	juicefsctl.JuiceFSRuntime	juicefs/shutdown.go:161	Remove cache in worker pod	{"juicefsruntime": {"name":"jfs-comm","namespace":"jfs-verify"}, "pod": "jfs-comm-worker-0", "cache": ["/dev/shm"]}
+2026-08-12T15:52:34.330+0800	INFO	juicefsctl.JuiceFSRuntime	juicefs/shutdown.go:261	clean up fuse count	{"juicefsruntime": {"name":"jfs-comm","namespace":"jfs-verify"}, "n": 0}

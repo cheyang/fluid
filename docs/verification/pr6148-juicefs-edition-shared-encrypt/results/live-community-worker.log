@@ -1,0 +1,5 @@
+/root/script/script.sh: 6: arithmetic expression: expecting EOF: "068276765/1000"
+2026/08/11 12:16:22. juicefs auth start.
+/root/script/script.sh: 9: arithmetic expression: expecting EOF: "069694626/1000"
+2026/08/11 12:16:22. juicefs mount start.
+2026/08/11 12:16:23.296491 juicefs[1] <FATAL>: unsupported scheme redis [parseMetaUrl@status.go:120]

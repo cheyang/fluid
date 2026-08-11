@@ -1,0 +1,7 @@
+=== enterprise values configmap (jfs-ee-juicefs-values) ===
+edition    = enterprise
+source     = jfsee
+formatCmd  = /usr/bin/juicefs auth --token=${TOKEN} --accesskey=${ACCESS_KEY} --secretkey=${SECRET_KEY} --bucket=https://fluid-verify-oss-cn-hongkong.aliyuncs.com jfsee
+fuseImage  = juicedata/mount
+
+=== ee worker pod status ===

@@ -1,0 +1,10 @@
+=== community values configmap (jfs-comm-juicefs-values) ===
+edition    = community
+source     = ${METAURL}
+formatCmd  = /usr/local/bin/juicefs format --access-key=${ACCESS_KEY} --secret-key=${SECRET_KEY} --storage=oss --bucket=https://fluid-verify-oss-cn-hongkong.aliyuncs.com ${METAURL} jfscomm
+fuseImage  = juicedata/mount
+workerImage= None
+
+=== worker pod status ===
+No resources found in jfs-verify namespace.
+jfs-comm-worker-0        0/1     Error     6 (3m6s ago)   6m45s

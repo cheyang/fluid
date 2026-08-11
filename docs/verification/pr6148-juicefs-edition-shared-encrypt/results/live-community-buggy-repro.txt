@@ -1,0 +1,10 @@
+=== BUG-REPRO: buggy v1.1.0 controller on SAME community Dataset ===
+edition    = community
+source     = ${METAURL}
+formatCmd  = '/usr/local/bin/juicefs format --access-key=${ACCESS_KEY} --secret-key=${SECRET_KEY} --storage=oss --bucket=https://fluid-verify-oss-cn-hongkong.aliyuncs.com ${METAURL} jfscomm'
+fuseImage  = juicedata/mount
+=== BUG-REPRO (fresh, buggy v1.1.0-36f0467 controller) ===
+edition    = enterprise
+source     = ${METAURL}
+formatCmd  = None
+fuseImage  = juicedata/mount

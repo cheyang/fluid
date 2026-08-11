@@ -1,0 +1,57 @@
+# Live (L3) evidence — PR #6148 JuiceFS edition-from-SharedEncryptOptions
+#
+# Cluster: ACK 3 nodes, Fluid helm fluid-1.1.0 (app 1.1.0-676f47a).
+# Buggy installed controller image: fluidcloudnative/juicefsruntime-controller:v1.1.0-36f0467
+#   (built from a master commit that predates this PR — master is still buggy, PR is open).
+# PR controller: cmd/juicefs built from the PR head, run out-of-cluster against the kubeconfig,
+#   with the in-cluster buggy controller suppressed (image patched to a non-pullable tag so its
+#   RS can only CrashLoop/ErrImagePull). dataset-controller normally scales the in-cluster
+#   juicefsruntime-controller to 1 "on demand" when a JuiceFSRuntime exists — that had to be
+#   suppressed to make the PR controller the sole reconciler.
+# metaurl backend: in-cluster redis:7-alpine (redis://<svc-clusterIP>:6379/N).
+# OSS backend: real bucket my-jfs (oss-cn-hongkong), creds supplied via env only (redacted below).
+
+## 1. Community Dataset (metaurl in SharedEncryptOptions) — bug vs fix (configmap)
+
+### Buggy installed controller (fresh jfs-bug):
+    edition    = enterprise
+    source     = ${METAURL}
+    formatCmd  = None
+    fuseImage  = juicedata/mount   (ee-5.2.10-eb0a8b3)
+
+### PR-fixed controller (jfs-comm, sole reconciler):
+    edition    = community
+    source     = ${METAURL}
+    formatCmd  = /usr/local/bin/juicefs format --access-key=${ACCESS_KEY} --secret-key=${SECRET_KEY} --storage=oss --bucket=https://my-jfs.oss-cn-hongkong.aliyuncs.com ${METAURL} jfscomm
+    image      = juicedata/mount  ce-v1.3.0
+    fuse.img   = juicedata/mount  ce-v1.3.0
+
+## 2. Enterprise Dataset (token in SharedEncryptOptions) — regression (no change):
+    edition    = enterprise
+    source     = jfsee
+    formatCmd  = /usr/bin/juicefs auth --token=${TOKEN} --accesskey=${ACCESS_KEY} --secretkey=${SECRET_KEY} --bucket=https://... jfsee
+
+## 3. End-to-end with the real OSS bucket (claim #1: "fs never formatted" — RESOLVED)
+PR controller, worker pod juicedata/mount:ce-v1.3.0 (community CE image), Running 1/1:
+    juicefs format → "Data use oss://my-jfs/jfscomm/" → "Volume is formatted as
+      {Storage: oss, Bucket: https://my-jfs.oss-cn-hongkong.aliyuncs.com, AccessKey: <REDACTED>}"
+    juicefs mount  → "Meta address: redis://192.168.14.65:6379/5" (CE supports redis metaurl)
+                  → "OK, jfscomm is ready at /var/runtime-mnt/.../juicefs-fuse"  (MOUNT SUCCEEDED)
+Pre-teardown runtime status: workerPhase=Ready, fusePhase=Ready, workerNumberReady=1 (healthy).
+
+## 4. Teardown (claim #2: "teardown fails and retries" — RESOLVED)
+On delete, PR controller shutdown path (juicefs/shutdown.go):
+    shutdown.go:135 get runtime info
+    shutdown.go:223 Get status in pod  (pod=jfs-comm-worker-0, source=${METAURL})
+        -> community getUUID branch: runs `juicefs status ${METAURL}` on the worker,
+           NOT the buggy enterprise branch that would return uuid=source="${METAURL}".
+    operations/base.go:64 Exec command succeeded  (juicefs status returned real status JSON)
+    shutdown.go:161 Remove cache in worker pod  (cache=["/dev/shm"])
+        -> cleanupCache deletes <cacheDir>/<real-uuid>/raw/chunks — NO literal ${METAURL},
+           so cmdguard does NOT reject '$', so Shutdown does not error, retryShutdown not bumped.
+    shutdown.go:261 clean up fuse count n=0  (clean exit; runtime deleted, finalizer cleared)
+Result: clean shutdown, no retryShutdown increment — the ${METAURL} retry loop does not occur.
+
+See: live-community-buggy-repro.txt, live-community-configmap.txt,
+     live-community-realbucket-configmap.txt, live-community-worker-realbucket.log,
+     live-community-teardown.log, live-enterprise-configmap.txt

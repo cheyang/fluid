@@ -1,0 +1,437 @@
+2026/08/11 16:04:40 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestJuiceFSEngine_queryCacheStatus
+
+  Test queryCacheStatus 
+    queryCacheStatus success 
+    queryCacheStatus 
+
+
+0 total assertions
+
+--- PASS: TestJuiceFSEngine_queryCacheStatus (0.03s)
+=== RUN   TestJuiceFSEngine_CreateVolume
+--- PASS: TestJuiceFSEngine_CreateVolume (1.00s)
+=== RUN   TestJuiceFSEngine_createFusePersistentVolume
+--- PASS: TestJuiceFSEngine_createFusePersistentVolume (1.00s)
+=== RUN   TestJuiceFSEngine_createFusePersistentVolumeClaim
+--- PASS: TestJuiceFSEngine_createFusePersistentVolumeClaim (0.00s)
+=== RUN   TestJuiceFSEngine_GenerateDataLoadValueFileWithRuntimeHDD
+--- PASS: TestJuiceFSEngine_GenerateDataLoadValueFileWithRuntimeHDD (0.00s)
+=== RUN   TestJuiceFSEngine_GenerateDataLoadValueFileWithRuntime
+--- PASS: TestJuiceFSEngine_GenerateDataLoadValueFileWithRuntime (0.00s)
+=== RUN   TestJuiceFSEngine_CheckRuntimeReady
+=== RUN   TestJuiceFSEngine_CheckRuntimeReady/test
+=== RUN   TestJuiceFSEngine_CheckRuntimeReady/test-err
+--- PASS: TestJuiceFSEngine_CheckRuntimeReady (0.00s)
+    --- PASS: TestJuiceFSEngine_CheckRuntimeReady/test (0.00s)
+    --- PASS: TestJuiceFSEngine_CheckRuntimeReady/test-err (0.00s)
+=== RUN   TestJuiceFSEngine_genDataLoadValue
+--- PASS: TestJuiceFSEngine_genDataLoadValue (0.00s)
+=== RUN   TestJuiceFSEngine_generateDataProcessValueFile
+=== RUN   TestJuiceFSEngine_generateDataProcessValueFile/TestNotOfTypeDataProcess
+=== RUN   TestJuiceFSEngine_generateDataProcessValueFile/TestTargetDatasetNotFound
+=== RUN   TestJuiceFSEngine_generateDataProcessValueFile/TestGenerateDataProcessValueFile
+--- PASS: TestJuiceFSEngine_generateDataProcessValueFile (0.00s)
+    --- PASS: TestJuiceFSEngine_generateDataProcessValueFile/TestNotOfTypeDataProcess (0.00s)
+    --- PASS: TestJuiceFSEngine_generateDataProcessValueFile/TestTargetDatasetNotFound (0.00s)
+    --- PASS: TestJuiceFSEngine_generateDataProcessValueFile/TestGenerateDataProcessValueFile (0.00s)
+=== RUN   TestUpdateCacheOfDataset
+--- PASS: TestUpdateCacheOfDataset (0.00s)
+=== RUN   TestUpdateDatasetStatus
+--- PASS: TestUpdateDatasetStatus (0.00s)
+=== RUN   TestBindToDataset
+--- PASS: TestBindToDataset (0.00s)
+=== RUN   TestGetCacheInfoFromConfigmap
+--- PASS: TestGetCacheInfoFromConfigmap (0.00s)
+=== RUN   Test_parseCacheInfoFromConfigMap
+=== RUN   Test_parseCacheInfoFromConfigMap/parseCacheInfoFromConfigMap
+=== RUN   Test_parseCacheInfoFromConfigMap/parseCacheInfoFromConfigMap-err
+--- PASS: Test_parseCacheInfoFromConfigMap (0.00s)
+    --- PASS: Test_parseCacheInfoFromConfigMap/parseCacheInfoFromConfigMap (0.00s)
+    --- PASS: Test_parseCacheInfoFromConfigMap/parseCacheInfoFromConfigMap-err (0.00s)
+=== RUN   TestGetFSInfoFromConfigMap
+--- PASS: TestGetFSInfoFromConfigMap (0.00s)
+=== RUN   Test_parseFSInfoFromConfigMap
+=== RUN   Test_parseFSInfoFromConfigMap/test
+=== RUN   Test_parseFSInfoFromConfigMap/test-err
+--- PASS: Test_parseFSInfoFromConfigMap (0.00s)
+    --- PASS: Test_parseFSInfoFromConfigMap/test (0.00s)
+    --- PASS: Test_parseFSInfoFromConfigMap/test-err (0.00s)
+=== RUN   TestJuiceFSEngine_DeleteVolume
+--- PASS: TestJuiceFSEngine_DeleteVolume (10.00s)
+=== RUN   TestJuiceFSEngine_deleteFusePersistentVolume
+--- PASS: TestJuiceFSEngine_deleteFusePersistentVolume (0.00s)
+=== RUN   TestJuiceFSEngine_deleteFusePersistentVolumeClaim
+--- PASS: TestJuiceFSEngine_deleteFusePersistentVolumeClaim (0.00s)
+=== RUN   TestIncludeEncryptEnvOptionsWithKeys
+=== RUN   TestIncludeEncryptEnvOptionsWithKeys/empty_options
+=== RUN   TestIncludeEncryptEnvOptionsWithKeys/single_option,_no_match
+=== RUN   TestIncludeEncryptEnvOptionsWithKeys/single_option,_matches
+--- PASS: TestIncludeEncryptEnvOptionsWithKeys (0.00s)
+    --- PASS: TestIncludeEncryptEnvOptionsWithKeys/empty_options (0.00s)
+    --- PASS: TestIncludeEncryptEnvOptionsWithKeys/single_option,_no_match (0.00s)
+    --- PASS: TestIncludeEncryptEnvOptionsWithKeys/single_option,_matches (0.00s)
+=== RUN   TestIncludeOptionsWithKeys
+=== RUN   TestIncludeOptionsWithKeys/empty_map
+=== RUN   TestIncludeOptionsWithKeys/single_option,_no_match
+=== RUN   TestIncludeOptionsWithKeys/single_option,_matches
+--- PASS: TestIncludeOptionsWithKeys (0.00s)
+    --- PASS: TestIncludeOptionsWithKeys/empty_map (0.00s)
+    --- PASS: TestIncludeOptionsWithKeys/single_option,_no_match (0.00s)
+    --- PASS: TestIncludeOptionsWithKeys/single_option,_matches (0.00s)
+=== RUN   TestBuildFormatCmdFilterForEnterpriseEditionAndFilterEncryptEnvOptions
+=== RUN   TestBuildFormatCmdFilterForEnterpriseEditionAndFilterEncryptEnvOptions/Test_with_empty_options
+=== RUN   TestBuildFormatCmdFilterForEnterpriseEditionAndFilterEncryptEnvOptions/Test_with_all_allowed_options
+=== RUN   TestBuildFormatCmdFilterForEnterpriseEditionAndFilterEncryptEnvOptions/Test_with_duplicate_options
+--- PASS: TestBuildFormatCmdFilterForEnterpriseEditionAndFilterEncryptEnvOptions (0.00s)
+    --- PASS: TestBuildFormatCmdFilterForEnterpriseEditionAndFilterEncryptEnvOptions/Test_with_empty_options (0.00s)
+    --- PASS: TestBuildFormatCmdFilterForEnterpriseEditionAndFilterEncryptEnvOptions/Test_with_all_allowed_options (0.00s)
+    --- PASS: TestBuildFormatCmdFilterForEnterpriseEditionAndFilterEncryptEnvOptions/Test_with_duplicate_options (0.00s)
+=== RUN   Test_buildFormatCmdFilterForCommunityEdition
+=== RUN   Test_buildFormatCmdFilterForCommunityEdition/Test_with_empty_options
+=== RUN   Test_buildFormatCmdFilterForCommunityEdition/Test_with_all_allowed_options
+--- PASS: Test_buildFormatCmdFilterForCommunityEdition (0.00s)
+    --- PASS: Test_buildFormatCmdFilterForCommunityEdition/Test_with_empty_options (0.00s)
+    --- PASS: Test_buildFormatCmdFilterForCommunityEdition/Test_with_all_allowed_options (0.00s)
+=== RUN   Test_buildFuseMountCmdFilter
+=== RUN   Test_buildFuseMountCmdFilter/Test_with_empty_options
+=== RUN   Test_buildFuseMountCmdFilter/Test_with_all_allowed_options
+=== RUN   Test_buildFuseMountCmdFilter/Test_with_disallowed_options
+--- PASS: Test_buildFuseMountCmdFilter (0.00s)
+    --- PASS: Test_buildFuseMountCmdFilter/Test_with_empty_options (0.00s)
+    --- PASS: Test_buildFuseMountCmdFilter/Test_with_all_allowed_options (0.00s)
+    --- PASS: Test_buildFuseMountCmdFilter/Test_with_disallowed_options (0.00s)
+=== RUN   TestJuicefs
+Running Suite: Juicefs Suite - /root/.cache/github-code-review/repos/fluid-cloudnative/fluid/pkg/ddc/juicefs
+============================================================================================================
+Random Seed: [1m1786435480[0m
+
+Will run [1m2[0m of [1m176[0m specs
+[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;10m[1mRan 2 of 176 Specs in 0.008 seconds[0m
+[38;5;10m[1mSUCCESS![0m -- [38;5;10m[1m2 Passed[0m | [38;5;9m[1m0 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m174 Skipped[0m
+--- PASS: TestJuicefs (0.02s)
+=== RUN   TestSetupMasterInternal
+<nil>
+--- PASS: TestSetupMasterInternal (0.01s)
+=== RUN   TestGenerateJuiceFSValueFile
+--- PASS: TestGenerateJuiceFSValueFile (0.00s)
+=== RUN   TestJuiceFSEngine_ShouldSetupMaster
+--- PASS: TestJuiceFSEngine_ShouldSetupMaster (0.00s)
+=== RUN   TestJuiceFSEngine_SetupMaster
+--- PASS: TestJuiceFSEngine_SetupMaster (0.00s)
+=== RUN   TestJuiceFSEngine_CheckMasterReady
+=== RUN   TestJuiceFSEngine_CheckMasterReady/test
+--- PASS: TestJuiceFSEngine_CheckMasterReady (0.00s)
+    --- PASS: TestJuiceFSEngine_CheckMasterReady/test (0.00s)
+=== RUN   TestSyncScheduleInfoToCacheNodes
+--- PASS: TestSyncScheduleInfoToCacheNodes (0.00s)
+=== RUN   TestGetReservedPorts
+--- PASS: TestGetReservedPorts (0.00s)
+=== RUN   Test_parsePortsFromConfigMap
+=== RUN   Test_parsePortsFromConfigMap/parsePortsFromConfigMap
+--- PASS: Test_parsePortsFromConfigMap (0.00s)
+    --- PASS: Test_parsePortsFromConfigMap/parsePortsFromConfigMap (0.00s)
+=== RUN   TestSyncReplicas
+--- PASS: TestSyncReplicas (0.00s)
+=== RUN   TestJuiceFSEngine_parseMetric
+=== RUN   TestJuiceFSEngine_parseMetric/test
+=== RUN   TestJuiceFSEngine_parseMetric/test#01
+--- PASS: TestJuiceFSEngine_parseMetric (0.00s)
+    --- PASS: TestJuiceFSEngine_parseMetric/test (0.00s)
+    --- PASS: TestJuiceFSEngine_parseMetric/test#01 (0.00s)
+=== RUN   TestJuiceFSEngine_getPodMetrics
+--- PASS: TestJuiceFSEngine_getPodMetrics (0.00s)
+=== RUN   TestJuiceFSEngine_getRuntimeInfo
+--- PASS: TestJuiceFSEngine_getRuntimeInfo (0.00s)
+=== RUN   TestDestroyWorker
+--- PASS: TestDestroyWorker (0.00s)
+=== RUN   TestJuiceFSEngine_destroyMaster
+--- PASS: TestJuiceFSEngine_destroyMaster (0.00s)
+=== RUN   TestJuiceFSEngine_cleanupCache
+
+  Test CleanupCache 
+    cleanup success ✔
+    test1 ✔
+    test2 ✔
+    test3 ✔
+    test4 ✔
+
+
+5 total assertions
+
+--- PASS: TestJuiceFSEngine_cleanupCache (0.00s)
+=== RUN   TestJuiceFSEngine_getUUID_community
+--- PASS: TestJuiceFSEngine_getUUID_community (0.00s)
+=== RUN   TestJuiceFSEngine_getUUID_enterprise
+--- PASS: TestJuiceFSEngine_getUUID_enterprise (0.00s)
+=== RUN   TestJuiceFSEngine_cleanAll
+=== RUN   TestJuiceFSEngine_cleanAll/test
+--- PASS: TestJuiceFSEngine_cleanAll (0.00s)
+    --- PASS: TestJuiceFSEngine_cleanAll/test (0.00s)
+=== RUN   TestJuiceFSEngine_getCacheDirs
+=== RUN   TestJuiceFSEngine_getCacheDirs/test-default
+=== RUN   TestJuiceFSEngine_getCacheDirs/test-hostpath
+=== RUN   TestJuiceFSEngine_getCacheDirs/test-emptydir
+=== RUN   TestJuiceFSEngine_getCacheDirs/test-multipath-tiredstore
+=== RUN   TestJuiceFSEngine_getCacheDirs/test-worker-cache
+=== RUN   TestJuiceFSEngine_getCacheDirs/test-worker-multi-cache
+--- PASS: TestJuiceFSEngine_getCacheDirs (0.00s)
+    --- PASS: TestJuiceFSEngine_getCacheDirs/test-default (0.00s)
+    --- PASS: TestJuiceFSEngine_getCacheDirs/test-hostpath (0.00s)
+    --- PASS: TestJuiceFSEngine_getCacheDirs/test-emptydir (0.00s)
+    --- PASS: TestJuiceFSEngine_getCacheDirs/test-multipath-tiredstore (0.00s)
+    --- PASS: TestJuiceFSEngine_getCacheDirs/test-worker-cache (0.00s)
+    --- PASS: TestJuiceFSEngine_getCacheDirs/test-worker-multi-cache (0.00s)
+=== RUN   TestJuiceFSEngine_CheckAndUpdateRuntimeStatus
+
+  Test CheckAndUpdateRuntimeStatus 
+    CheckAndUpdateRuntimeStatus success 
+
+
+5 total assertions
+
+--- PASS: TestJuiceFSEngine_CheckAndUpdateRuntimeStatus (0.09s)
+=== RUN   TestJuiceFSxEngine_syncWorkerSpec
+=== RUN   TestJuiceFSxEngine_syncWorkerSpec/Not_resource_for_juicefs_runtime
+=== RUN   TestJuiceFSxEngine_syncWorkerSpec/worker_not_found
+=== RUN   TestJuiceFSxEngine_syncWorkerSpec/worker_not_change
+--- PASS: TestJuiceFSxEngine_syncWorkerSpec (0.00s)
+    --- PASS: TestJuiceFSxEngine_syncWorkerSpec/Not_resource_for_juicefs_runtime (0.00s)
+    --- PASS: TestJuiceFSxEngine_syncWorkerSpec/worker_not_found (0.00s)
+    --- PASS: TestJuiceFSxEngine_syncWorkerSpec/worker_not_change (0.00s)
+=== RUN   TestJuiceFSxEngine_syncFuseSpec
+=== RUN   TestJuiceFSxEngine_syncFuseSpec/Not_resource_for_juicefs_runtime
+=== RUN   TestJuiceFSxEngine_syncFuseSpec/fuse_not_found
+=== RUN   TestJuiceFSxEngine_syncFuseSpec/fuse_not_change
+--- PASS: TestJuiceFSxEngine_syncFuseSpec (0.00s)
+    --- PASS: TestJuiceFSxEngine_syncFuseSpec/Not_resource_for_juicefs_runtime (0.00s)
+    --- PASS: TestJuiceFSxEngine_syncFuseSpec/fuse_not_found (0.00s)
+    --- PASS: TestJuiceFSxEngine_syncFuseSpec/fuse_not_change (0.00s)
+=== RUN   TestJuiceFSEngine_isVolumeMountsChanged
+=== RUN   TestJuiceFSEngine_isVolumeMountsChanged/test-false
+=== RUN   TestJuiceFSEngine_isVolumeMountsChanged/test-changed
+=== RUN   TestJuiceFSEngine_isVolumeMountsChanged/test-override
+=== RUN   TestJuiceFSEngine_isVolumeMountsChanged/test-add
+--- PASS: TestJuiceFSEngine_isVolumeMountsChanged (0.00s)
+    --- PASS: TestJuiceFSEngine_isVolumeMountsChanged/test-false (0.00s)
+    --- PASS: TestJuiceFSEngine_isVolumeMountsChanged/test-changed (0.00s)
+    --- PASS: TestJuiceFSEngine_isVolumeMountsChanged/test-override (0.00s)
+    --- PASS: TestJuiceFSEngine_isVolumeMountsChanged/test-add (0.00s)
+=== RUN   TestJuiceFSEngine_isEnvsChanged
+=== RUN   TestJuiceFSEngine_isEnvsChanged/test-false
+=== RUN   TestJuiceFSEngine_isEnvsChanged/test-changed
+=== RUN   TestJuiceFSEngine_isEnvsChanged/test-override
+=== RUN   TestJuiceFSEngine_isEnvsChanged/test-add
+--- PASS: TestJuiceFSEngine_isEnvsChanged (0.00s)
+    --- PASS: TestJuiceFSEngine_isEnvsChanged/test-false (0.00s)
+    --- PASS: TestJuiceFSEngine_isEnvsChanged/test-changed (0.00s)
+    --- PASS: TestJuiceFSEngine_isEnvsChanged/test-override (0.00s)
+    --- PASS: TestJuiceFSEngine_isEnvsChanged/test-add (0.00s)
+=== RUN   TestJuiceFSEngine_isResourcesChanged
+=== RUN   TestJuiceFSEngine_isResourcesChanged/test-false
+=== RUN   TestJuiceFSEngine_isResourcesChanged/test-changed
+--- PASS: TestJuiceFSEngine_isResourcesChanged (0.00s)
+    --- PASS: TestJuiceFSEngine_isResourcesChanged/test-false (0.00s)
+    --- PASS: TestJuiceFSEngine_isResourcesChanged/test-changed (0.00s)
+=== RUN   TestJuiceFSEngine_isVolumesChanged
+=== RUN   TestJuiceFSEngine_isVolumesChanged/test-false
+=== RUN   TestJuiceFSEngine_isVolumesChanged/test-changed
+=== RUN   TestJuiceFSEngine_isVolumesChanged/test-deleted
+=== RUN   TestJuiceFSEngine_isVolumesChanged/test-new
+--- PASS: TestJuiceFSEngine_isVolumesChanged (0.00s)
+    --- PASS: TestJuiceFSEngine_isVolumesChanged/test-false (0.00s)
+    --- PASS: TestJuiceFSEngine_isVolumesChanged/test-changed (0.00s)
+    --- PASS: TestJuiceFSEngine_isVolumesChanged/test-deleted (0.00s)
+    --- PASS: TestJuiceFSEngine_isVolumesChanged/test-new (0.00s)
+=== RUN   TestJuiceFSEngine_isVolumeClaimTemplatesChanged
+=== RUN   TestJuiceFSEngine_isVolumeClaimTemplatesChanged/test-both-empty
+=== RUN   TestJuiceFSEngine_isVolumeClaimTemplatesChanged/test-false
+=== RUN   TestJuiceFSEngine_isVolumeClaimTemplatesChanged/test-changed
+--- PASS: TestJuiceFSEngine_isVolumeClaimTemplatesChanged (0.00s)
+    --- PASS: TestJuiceFSEngine_isVolumeClaimTemplatesChanged/test-both-empty (0.00s)
+    --- PASS: TestJuiceFSEngine_isVolumeClaimTemplatesChanged/test-false (0.00s)
+    --- PASS: TestJuiceFSEngine_isVolumeClaimTemplatesChanged/test-changed (0.00s)
+=== RUN   TestJuiceFSEngine_isImageChanged
+=== RUN   TestJuiceFSEngine_isImageChanged/test-false
+=== RUN   TestJuiceFSEngine_isImageChanged/test-true
+--- PASS: TestJuiceFSEngine_isImageChanged (0.00s)
+    --- PASS: TestJuiceFSEngine_isImageChanged/test-false (0.00s)
+    --- PASS: TestJuiceFSEngine_isImageChanged/test-true (0.00s)
+=== RUN   TestJuiceFSEngine_isNodeSelectorChanged
+=== RUN   TestJuiceFSEngine_isNodeSelectorChanged/test-false
+=== RUN   TestJuiceFSEngine_isNodeSelectorChanged/test-true
+--- PASS: TestJuiceFSEngine_isNodeSelectorChanged (0.00s)
+    --- PASS: TestJuiceFSEngine_isNodeSelectorChanged/test-false (0.00s)
+    --- PASS: TestJuiceFSEngine_isNodeSelectorChanged/test-true (0.00s)
+=== RUN   TestJuiceFSEngine_isCommandChanged
+=== RUN   TestJuiceFSEngine_isCommandChanged/test-false
+=== RUN   TestJuiceFSEngine_isCommandChanged/test-true
+--- PASS: TestJuiceFSEngine_isCommandChanged (0.00s)
+    --- PASS: TestJuiceFSEngine_isCommandChanged/test-false (0.00s)
+    --- PASS: TestJuiceFSEngine_isCommandChanged/test-true (0.00s)
+=== RUN   TestJuiceFSEngine_isLabelsChanged
+=== RUN   TestJuiceFSEngine_isLabelsChanged/test-false
+=== RUN   TestJuiceFSEngine_isLabelsChanged/test-changed
+=== RUN   TestJuiceFSEngine_isLabelsChanged/test-add
+=== RUN   TestJuiceFSEngine_isLabelsChanged/test-remove
+--- PASS: TestJuiceFSEngine_isLabelsChanged (0.00s)
+    --- PASS: TestJuiceFSEngine_isLabelsChanged/test-false (0.00s)
+    --- PASS: TestJuiceFSEngine_isLabelsChanged/test-changed (0.00s)
+    --- PASS: TestJuiceFSEngine_isLabelsChanged/test-add (0.00s)
+    --- PASS: TestJuiceFSEngine_isLabelsChanged/test-remove (0.00s)
+=== RUN   TestJuiceFSEngine_isAnnotationsChanged
+=== RUN   TestJuiceFSEngine_isAnnotationsChanged/test-false
+=== RUN   TestJuiceFSEngine_isAnnotationsChanged/test-changed
+=== RUN   TestJuiceFSEngine_isAnnotationsChanged/test-new
+=== RUN   TestJuiceFSEngine_isAnnotationsChanged/test-remove
+--- PASS: TestJuiceFSEngine_isAnnotationsChanged (0.00s)
+    --- PASS: TestJuiceFSEngine_isAnnotationsChanged/test-false (0.00s)
+    --- PASS: TestJuiceFSEngine_isAnnotationsChanged/test-changed (0.00s)
+    --- PASS: TestJuiceFSEngine_isAnnotationsChanged/test-new (0.00s)
+    --- PASS: TestJuiceFSEngine_isAnnotationsChanged/test-remove (0.00s)
+=== RUN   TestTransformResourcesForWorkerNoValue
+--- PASS: TestTransformResourcesForWorkerNoValue (0.00s)
+=== RUN   TestTransformResourcesForWorkerWithValue
+--- PASS: TestTransformResourcesForWorkerWithValue (0.00s)
+=== RUN   TestTransformResourcesForFuseNoValue
+--- PASS: TestTransformResourcesForFuseNoValue (0.00s)
+=== RUN   TestTransformResourcesForFuseWithValue
+--- PASS: TestTransformResourcesForFuseWithValue (0.00s)
+=== RUN   TestTotalStorageBytes
+=== RUN   TestTotalStorageBytes/test
+--- PASS: TestTotalStorageBytes (0.00s)
+    --- PASS: TestTotalStorageBytes/test (0.00s)
+=== RUN   TestTotalFileNums
+=== RUN   TestTotalFileNums/test
+--- PASS: TestTotalFileNums (0.00s)
+    --- PASS: TestTotalFileNums/test (0.00s)
+=== RUN   TestJuiceFSEngine_FreeStorageBytes
+=== RUN   TestJuiceFSEngine_FreeStorageBytes/test
+--- PASS: TestJuiceFSEngine_FreeStorageBytes (0.00s)
+    --- PASS: TestJuiceFSEngine_FreeStorageBytes/test (0.00s)
+=== RUN   TestJuiceFSEngine_PrepareUFS
+=== RUN   TestJuiceFSEngine_PrepareUFS/test
+--- PASS: TestJuiceFSEngine_PrepareUFS (0.00s)
+    --- PASS: TestJuiceFSEngine_PrepareUFS/test (0.00s)
+=== RUN   TestJuiceFSEngine_ShouldCheckUFS
+=== RUN   TestJuiceFSEngine_ShouldCheckUFS/test
+--- PASS: TestJuiceFSEngine_ShouldCheckUFS (0.00s)
+    --- PASS: TestJuiceFSEngine_ShouldCheckUFS/test (0.00s)
+=== RUN   TestJuiceFSEngine_ShouldUpdateUFS
+=== RUN   TestJuiceFSEngine_ShouldUpdateUFS/test
+--- PASS: TestJuiceFSEngine_ShouldUpdateUFS (0.00s)
+    --- PASS: TestJuiceFSEngine_ShouldUpdateUFS/test (0.00s)
+=== RUN   TestJuiceFSEngine_UpdateOnUFSChange
+=== RUN   TestJuiceFSEngine_UpdateOnUFSChange/test
+--- PASS: TestJuiceFSEngine_UpdateOnUFSChange (0.00s)
+    --- PASS: TestJuiceFSEngine_UpdateOnUFSChange/test (0.00s)
+=== RUN   TestJuiceFSEngine_UsedStorageBytes
+=== RUN   TestJuiceFSEngine_UsedStorageBytes/test
+--- PASS: TestJuiceFSEngine_UsedStorageBytes (0.00s)
+    --- PASS: TestJuiceFSEngine_UsedStorageBytes/test (0.00s)
+=== RUN   TestJuiceFSEngine_getDaemonset
+=== RUN   TestJuiceFSEngine_getDaemonset/test
+--- PASS: TestJuiceFSEngine_getDaemonset (0.00s)
+    --- PASS: TestJuiceFSEngine_getDaemonset/test (0.00s)
+=== RUN   TestJuiceFSEngine_getFuseDaemonsetName
+=== RUN   TestJuiceFSEngine_getFuseDaemonsetName/test
+--- PASS: TestJuiceFSEngine_getFuseDaemonsetName (0.00s)
+    --- PASS: TestJuiceFSEngine_getFuseDaemonsetName/test (0.00s)
+=== RUN   TestJuiceFSEngine_getMountPoint
+=== RUN   TestJuiceFSEngine_getMountPoint/test
+--- PASS: TestJuiceFSEngine_getMountPoint (0.00s)
+    --- PASS: TestJuiceFSEngine_getMountPoint/test (0.00s)
+=== RUN   TestJuiceFSEngine_getHostMountPoint
+=== RUN   TestJuiceFSEngine_getHostMountPoint/test
+--- PASS: TestJuiceFSEngine_getHostMountPoint (0.00s)
+    --- PASS: TestJuiceFSEngine_getHostMountPoint/test (0.00s)
+=== RUN   TestJuiceFSEngine_getRuntime
+=== RUN   TestJuiceFSEngine_getRuntime/test
+--- PASS: TestJuiceFSEngine_getRuntime (0.00s)
+    --- PASS: TestJuiceFSEngine_getRuntime/test (0.00s)
+=== RUN   TestJuiceFSEngine_parseJuiceFSImage
+=== RUN   TestJuiceFSEngine_parseJuiceFSImage/test0
+=== RUN   TestJuiceFSEngine_parseJuiceFSImage/test1
+=== RUN   TestJuiceFSEngine_parseJuiceFSImage/test2
+=== RUN   TestJuiceFSEngine_parseJuiceFSImage/test3
+--- PASS: TestJuiceFSEngine_parseJuiceFSImage (0.00s)
+    --- PASS: TestJuiceFSEngine_parseJuiceFSImage/test0 (0.00s)
+    --- PASS: TestJuiceFSEngine_parseJuiceFSImage/test1 (0.00s)
+    --- PASS: TestJuiceFSEngine_parseJuiceFSImage/test2 (0.00s)
+    --- PASS: TestJuiceFSEngine_parseJuiceFSImage/test3 (0.00s)
+=== RUN   Test_getMountRoot
+=== RUN   Test_getMountRoot/test
+--- PASS: Test_getMountRoot (0.00s)
+    --- PASS: Test_getMountRoot/test (0.00s)
+=== RUN   Test_parseInt64Size
+=== RUN   Test_parseInt64Size/test1
+=== RUN   Test_parseInt64Size/test2
+--- PASS: Test_parseInt64Size (0.00s)
+    --- PASS: Test_parseInt64Size/test1 (0.00s)
+    --- PASS: Test_parseInt64Size/test2 (0.00s)
+=== RUN   TestParseSubPathFromMountPoint
+=== RUN   TestParseSubPathFromMountPoint/test-correct
+=== RUN   TestParseSubPathFromMountPoint/test-wrong
+--- PASS: TestParseSubPathFromMountPoint (0.00s)
+    --- PASS: TestParseSubPathFromMountPoint/test-correct (0.00s)
+    --- PASS: TestParseSubPathFromMountPoint/test-wrong (0.00s)
+=== RUN   TestJuiceFSEngine_GetRunningPodsOfStatefulSet
+=== RUN   TestJuiceFSEngine_GetRunningPodsOfStatefulSet/test1
+=== RUN   TestJuiceFSEngine_GetRunningPodsOfStatefulSet/test2
+--- PASS: TestJuiceFSEngine_GetRunningPodsOfStatefulSet (0.00s)
+    --- PASS: TestJuiceFSEngine_GetRunningPodsOfStatefulSet/test1 (0.00s)
+    --- PASS: TestJuiceFSEngine_GetRunningPodsOfStatefulSet/test2 (0.00s)
+=== RUN   TestJuiceFSEngine_getValuesConfigMap
+=== RUN   TestJuiceFSEngine_getValuesConfigMap/test
+--- PASS: TestJuiceFSEngine_getValuesConfigMap (0.00s)
+    --- PASS: TestJuiceFSEngine_getValuesConfigMap/test (0.00s)
+=== RUN   TestJuiceFSEngine_GetEdition
+=== RUN   TestJuiceFSEngine_GetEdition/test1
+=== RUN   TestJuiceFSEngine_GetEdition/test2
+=== RUN   TestJuiceFSEngine_GetEdition/test3
+=== RUN   TestJuiceFSEngine_GetEdition/test4
+--- PASS: TestJuiceFSEngine_GetEdition (0.00s)
+    --- PASS: TestJuiceFSEngine_GetEdition/test1 (0.00s)
+    --- PASS: TestJuiceFSEngine_GetEdition/test2 (0.00s)
+    --- PASS: TestJuiceFSEngine_GetEdition/test3 (0.00s)
+    --- PASS: TestJuiceFSEngine_GetEdition/test4 (0.00s)
+=== RUN   TestGetMetricsPort
+=== RUN   TestGetMetricsPort/test
+=== RUN   TestGetMetricsPort/test-default
+=== RUN   TestGetMetricsPort/test-wrong1
+=== RUN   TestGetMetricsPort/test-wrong2
+--- PASS: TestGetMetricsPort (0.00s)
+    --- PASS: TestGetMetricsPort/test (0.00s)
+    --- PASS: TestGetMetricsPort/test-default (0.00s)
+    --- PASS: TestGetMetricsPort/test-wrong1 (0.00s)
+    --- PASS: TestGetMetricsPort/test-wrong2 (0.00s)
+=== RUN   Test_parseVersion
+=== RUN   Test_parseVersion/test1
+=== RUN   Test_parseVersion/test2
+=== RUN   Test_parseVersion/test3
+=== RUN   Test_parseVersion/test4
+--- PASS: Test_parseVersion (0.00s)
+    --- PASS: Test_parseVersion/test1 (0.00s)
+    --- PASS: Test_parseVersion/test2 (0.00s)
+    --- PASS: Test_parseVersion/test3 (0.00s)
+    --- PASS: Test_parseVersion/test4 (0.00s)
+=== RUN   TestJuiceFSEngine_getWorkerCommand
+=== RUN   TestJuiceFSEngine_getWorkerCommand/test-normal
+=== RUN   TestJuiceFSEngine_getWorkerCommand/test-not-found
+--- PASS: TestJuiceFSEngine_getWorkerCommand (0.00s)
+    --- PASS: TestJuiceFSEngine_getWorkerCommand/test-normal (0.00s)
+    --- PASS: TestJuiceFSEngine_getWorkerCommand/test-not-found (0.00s)
+=== RUN   TestJuiceFSEngine_updateWorkerScript
+=== RUN   TestJuiceFSEngine_updateWorkerScript/test-normal
+=== RUN   TestJuiceFSEngine_updateWorkerScript/test-not-found
+--- PASS: TestJuiceFSEngine_updateWorkerScript (0.00s)
+    --- PASS: TestJuiceFSEngine_updateWorkerScript/test-normal (0.00s)
+    --- PASS: TestJuiceFSEngine_updateWorkerScript/test-not-found (0.00s)
+=== RUN   TestDeepCopy
+--- PASS: TestDeepCopy (0.00s)
+=== RUN   TestMapDeepCopy
+--- PASS: TestMapDeepCopy (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	12.412s

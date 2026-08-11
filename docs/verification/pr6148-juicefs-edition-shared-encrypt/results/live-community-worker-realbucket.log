@@ -1,0 +1,40 @@
+2026/08/12 07:46:06.328826 juicefs format start.
+2026/08/12 07:46:06.773966 juicefs[10] <INFO>: Meta address: redis://192.168.14.65:6379/5 [NewClient@interface.go:578]
+2026/08/12 07:46:06.774621 juicefs[10] <WARNING>: AOF is not enabled, you may lose data if Redis is not shutdown properly. [checkRedisInfo@info.go:84]
+2026/08/12 07:46:06.774688 juicefs[10] <INFO>: Ping redis latency: 33.459µs [checkServerConfig@redis.go:3692]
+2026/08/12 07:46:06.774895 juicefs[10] <INFO>: Data use oss://my-jfs/jfscomm/ [format@format.go:527]
+2026/08/12 07:46:06.938042 juicefs[10] <INFO>: Volume is formatted as {
+  "Name": "jfscomm",
+  "UUID": "1d44bd38-61b4-465e-99a4-d0c634376a43",
+  "Storage": "oss",
+  "Bucket": "https://my-jfs.oss-cn-hongkong.aliyuncs.com",
+  "AccessKey": "<REDACTED-OSS-AK>",
+  "SecretKey": "removed",
+  "BlockSize": 4096,
+  "Compression": "none",
+  "EncryptAlgo": "aes256gcm-rsa",
+  "KeyEncrypted": true,
+  "TrashDays": 1,
+  "MetaVersion": 1,
+  "MinClientVersion": "1.1.0-A",
+  "DirStats": true,
+  "EnableACL": false
+} [format@format.go:564]
+2026/08/12 07:46:06.943324 juicefs mount start.
+2026/08/12 07:46:07.391248 juicefs[1] <INFO>: Meta address: redis://192.168.14.65:6379/5 [NewClient@interface.go:578]
+2026/08/12 07:46:07.391876 juicefs[1] <WARNING>: AOF is not enabled, you may lose data if Redis is not shutdown properly. [checkRedisInfo@info.go:84]
+2026/08/12 07:46:07.391950 juicefs[1] <INFO>: Ping redis latency: 40.041µs [checkServerConfig@redis.go:3692]
+2026/08/12 07:46:07.392113 juicefs[1] <WARNING>: cache-size is 0, writeback and prefetch will be disabled [SelfCheck@cached_store.go:592]
+2026/08/12 07:46:07.392864 juicefs[1] <INFO>: Data use oss://my-jfs/jfscomm/ [mount@mount.go:588]
+2026/08/12 07:46:07.838627 juicefs[54] <INFO>: Meta address: redis://192.168.14.65:6379/5 [NewClient@interface.go:578]
+2026/08/12 07:46:07.839238 juicefs[54] <WARNING>: AOF is not enabled, you may lose data if Redis is not shutdown properly. [checkRedisInfo@info.go:84]
+2026/08/12 07:46:07.839341 juicefs[54] <INFO>: Ping redis latency: 67.669µs [checkServerConfig@redis.go:3692]
+2026/08/12 07:46:07.839512 juicefs[54] <WARNING>: cache-size is 0, writeback and prefetch will be disabled [SelfCheck@cached_store.go:592]
+2026/08/12 07:46:07.840217 juicefs[54] <INFO>: Data use oss://my-jfs/jfscomm/ [mount@mount.go:588]
+2026/08/12 07:46:07.840235 juicefs[54] <INFO>: JuiceFS version 1.3.0+2025-07-03.30190ca1 [mount@mount.go:631]
+2026/08/12 07:46:07.842124 juicefs[54] <INFO>: Create session 1 OK with version: 1.3.0+2025-07-03.30190ca1 [NewSession@base.go:535]
+2026/08/12 07:46:07.842807 juicefs[54] <INFO>: Prometheus metrics listening on [::]:15071 [exposeMetrics@mount.go:134]
+2026/08/12 07:46:07.843166 juicefs[54] <INFO>: Mounting volume jfscomm at /var/runtime-mnt/juicefs/jfs-verify/jfs-comm/juicefs-fuse ... [mountMain@mount_unix.go:1027]
+2026/08/12 07:46:07.893603 juicefs[1] <INFO>: OK, jfscomm is ready at /var/runtime-mnt/juicefs/jfs-verify/jfs-comm/juicefs-fuse [checkMountpoint@mount_unix.go:235]
+2026-08-12 07:46:12.494833 I | Unimplemented opcode POLL
+2026/08/12 07:46:12.495302 juicefs[1] <INFO>: watching /var/runtime-mnt/juicefs/jfs-verify/jfs-comm/juicefs-fuse, pid 54 [watchdog@mount_unix.go:162]

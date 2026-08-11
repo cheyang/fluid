@@ -1,0 +1,5 @@
+=== FRESH community configmap (PR controller sole, real OSS) ===
+edition   = community
+image     = juicedata/mount | tag= ce-v1.3.0
+fuse.img  = juicedata/mount | tag= ce-v1.3.0
+formatCmd = '/usr/local/bin/juicefs format --access-key=${ACCESS_KEY} --secret-key=${SECRET_KEY} --storage=oss --bucket=https://my-jfs.oss-cn-hongkong.aliyuncs.com ${METAURL} jfscomm'
