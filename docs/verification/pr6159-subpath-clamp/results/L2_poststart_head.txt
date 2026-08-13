@@ -1,0 +1,29 @@
+=== RUN   TestVerifyPR6159_F1_PostStartSubPathCannotInjectShellCommands
+    zz_verify_pr6159_test.go:72: raw subPath      : "x; touch /tmp/TestVerifyPR6159_F1_PostStartSubPathCannotInjectShellCommands4263020358/001/pr6159-injected"
+    zz_verify_pr6159_test.go:73: after CleanSubPath: "x; touch /tmp/TestVerifyPR6159_F1_PostStartSubPathCannotInjectShellCommands4263020358/001/pr6159-injected"
+    zz_verify_pr6159_test.go:79: postStart argv   : []string{"bash", "-c", "time /check-mount.sh /runtime-mnt/alluxio/default/my-dataset alluxio x; touch /tmp/TestVerifyPR6159_F1_PostStartSubPathCannotInjectShellCommands4263020358/001/pr6159-injected"}
+    zz_verify_pr6159_test.go:83: bash output      : bash: /check-mount.sh: No such file or directory
+        
+        real	0m0.001s
+        user	0m0.000s
+        sys	0m0.000s (err=<nil>)
+    zz_verify_pr6159_test.go:86: INJECTION: the postStart hook executed an attacker-supplied command; /tmp/TestVerifyPR6159_F1_PostStartSubPathCannotInjectShellCommands4263020358/001/pr6159-injected was created
+--- FAIL: TestVerifyPR6159_F1_PostStartSubPathCannotInjectShellCommands (0.02s)
+=== RUN   TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence
+    zz_verify_pr6159_test.go:114: using mountinfo pair: mountPoint=/sys fsType=sysfs
+=== RUN   TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence/control_plain_missing_subpath_is_detected
+    zz_verify_pr6159_test.go:120: exit=2 out=22 100 0:21 / /sys rw,nosuid,nodev,noexec,relatime shared:2 - sysfs sysfs rw
+        >>> 2026-08-13 11:25:39 fluid-post-start-check timed out checking sub path [pr6159-definitely-missing] for 30 seconds!
+=== RUN   TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence/crafted_missing_subpath_with_space
+    zz_verify_pr6159_test.go:134: exit=0 out=22 100 0:21 / /sys rw,nosuid,nodev,noexec,relatime shared:2 - sysfs sysfs rw
+        /tmp/TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence579150295/001/check-mount.sh: line 54: [: too many arguments
+        >>> 2026-08-13 11:25:39 fluid-post-start-check succeed in checking mount point /sys after 1 attempts
+    zz_verify_pr6159_test.go:137: GATE BYPASSED: subPath "pr6159 definitely missing" does not exist, yet the postStart script exited 0 (out=22 100 0:21 / /sys rw,nosuid,nodev,noexec,relatime shared:2 - sysfs sysfs rw
+        /tmp/TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence579150295/001/check-mount.sh: line 54: [: too many arguments
+        >>> 2026-08-13 11:25:39 fluid-post-start-check succeed in checking mount point /sys after 1 attempts)
+--- FAIL: TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence (29.19s)
+    --- PASS: TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence/control_plain_missing_subpath_is_detected (29.18s)
+    --- FAIL: TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence/crafted_missing_subpath_with_space (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse/poststart	29.535s
+FAIL

@@ -1,0 +1,12 @@
+=== RUN   TestVerifyPR6159_P0_SubPathTraversalIsContainedInFuseRoot
+    zz_verify_pr6159_test.go:156: fuse root        : /tmp/TestVerifyPR6159_P0_SubPathTraversalIsContainedInFuseRoot1696765957/001/runtime-mnt/alluxio/default/my-dataset/alluxio-fuse
+    zz_verify_pr6159_test.go:157: published symlink: /tmp/TestVerifyPR6159_P0_SubPathTraversalIsContainedInFuseRoot1696765957/001/runtime-mnt/alluxio/default/my-dataset/alluxio-fuse/hostonly
+    zz_verify_pr6159_test.go:158: resolves to      : /tmp/TestVerifyPR6159_P0_SubPathTraversalIsContainedInFuseRoot1696765957/001/runtime-mnt/alluxio/default/my-dataset/alluxio-fuse/hostonly
+    zz_verify_pr6159_test.go:164: content visible in the pod: "DATASET-CONTENT"
+--- PASS: TestVerifyPR6159_P0_SubPathTraversalIsContainedInFuseRoot (0.01s)
+=== RUN   TestVerifyPR6159_F3_AbsoluteSubPathStaysBackwardCompatible
+    zz_verify_pr6159_test.go:210: REGRESSION: an already-persisted absolute fluid_sub_path "/sub-c" no longer publishes: rpc error: code = InvalidArgument desc = fluid_sub_path must be a relative path, but got "/sub-c"
+--- FAIL: TestVerifyPR6159_F3_AbsoluteSubPathStaysBackwardCompatible (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/csi/plugins	0.229s
+FAIL

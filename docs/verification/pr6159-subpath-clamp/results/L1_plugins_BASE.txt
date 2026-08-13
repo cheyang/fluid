@@ -1,0 +1,14 @@
+=== RUN   TestVerifyPR6159_P0_SubPathTraversalIsContainedInFuseRoot
+    zz_verify_pr6159_test.go:156: fuse root        : /tmp/TestVerifyPR6159_P0_SubPathTraversalIsContainedInFuseRoot4083428902/001/runtime-mnt/alluxio/default/my-dataset/alluxio-fuse
+    zz_verify_pr6159_test.go:157: published symlink: /tmp/TestVerifyPR6159_P0_SubPathTraversalIsContainedInFuseRoot4083428902/001/runtime-mnt/alluxio/default/my-dataset/alluxio-fuse/../../../../../hostonly
+    zz_verify_pr6159_test.go:158: resolves to      : /tmp/TestVerifyPR6159_P0_SubPathTraversalIsContainedInFuseRoot4083428902/001/hostonly
+    zz_verify_pr6159_test.go:164: content visible in the pod: "HOST-ONLY-CONTENT"
+    zz_verify_pr6159_test.go:167: ESCAPE: published mount source "/tmp/TestVerifyPR6159_P0_SubPathTraversalIsContainedInFuseRoot4083428902/001/hostonly" resolves outside the FUSE root "/tmp/TestVerifyPR6159_P0_SubPathTraversalIsContainedInFuseRoot4083428902/001/runtime-mnt/alluxio/default/my-dataset/alluxio-fuse"
+    zz_verify_pr6159_test.go:170: ESCAPE: the pod sees "HOST-ONLY-CONTENT"; host-only content is reachable through fluid_sub_path "../../../../../hostonly"
+--- FAIL: TestVerifyPR6159_P0_SubPathTraversalIsContainedInFuseRoot (0.02s)
+=== RUN   TestVerifyPR6159_F3_AbsoluteSubPathStaysBackwardCompatible
+    zz_verify_pr6159_test.go:214: published symlink: /tmp/TestVerifyPR6159_F3_AbsoluteSubPathStaysBackwardCompatible2749642537/001/runtime-mnt/alluxio/default/my-dataset/alluxio-fuse//sub-c
+--- PASS: TestVerifyPR6159_F3_AbsoluteSubPathStaysBackwardCompatible (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/csi/plugins	0.432s
+FAIL
