@@ -1,0 +1,45 @@
+=== RUN   TestVerifyPR6159_P0_SubPathTraversalIsContainedInFuseRoot
+    zz_verify_pr6159_test.go:162: CONTAINED by rejection: rpc error: code = InvalidArgument desc = fluid_sub_path must be a relative path that does not escape the mount point, but got "../hostonly"
+--- PASS: TestVerifyPR6159_P0_SubPathTraversalIsContainedInFuseRoot (0.01s)
+=== RUN   TestVerifyPR6159_N1_SymlinkCheckCoversIntermediateComponents
+    zz_verify_pr6159_test.go:234: CONTAINED by rejection: rpc error: code = InvalidArgument desc = /tmp/fl61592039274684/alluxio-fuse/evil is a symlink, which is not allowed for mounting
+--- PASS: TestVerifyPR6159_N1_SymlinkCheckCoversIntermediateComponents (0.00s)
+=== RUN   TestVerifyPR6159_N1guard_SingleComponentSymlinkIsRejected
+    zz_verify_pr6159_test.go:287: rejected as expected: code=InvalidArgument msg=rpc error: code = InvalidArgument desc = /tmp/fl6159791976285/alluxio-fuse/evil is a symlink, which is not allowed for mounting
+--- PASS: TestVerifyPR6159_N1guard_SingleComponentSymlinkIsRejected (0.00s)
+=== RUN   TestVerifyPR6159_F3_AbsoluteSubPathStaysBackwardCompatible
+    zz_verify_pr6159_test.go:326: REGRESSION: an already-persisted absolute fluid_sub_path "/sub-c" no longer publishes: rpc error: code = InvalidArgument desc = fluid_sub_path must be a relative path that does not escape the mount point, but got "/sub-c"
+--- FAIL: TestVerifyPR6159_F3_AbsoluteSubPathStaysBackwardCompatible (0.00s)
+=== RUN   TestVerifyPR6159_N2_MountRootIsANewHardDependency
+    zz_verify_pr6159_test.go:368: with MOUNT_ROOT unset, publishing fails closed: code=InvalidArgument msg=rpc error: code = InvalidArgument desc = failed to get mount root for validating fluid_path "/tmp/fl61592018018121/alluxio-fuse": invalid mount root path '': the mount root path is empty
+--- PASS: TestVerifyPR6159_N2_MountRootIsANewHardDependency (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/csi/plugins	0.750s
+=== RUN   TestVerifyPR6159_F1_PostStartSubPathCannotInjectShellCommands
+    zz_verify_pr6159_test.go:75: raw subPath           : "x; touch /tmp/TestVerifyPR6159_F1_PostStartSubPathCannotInjectShellCommands3443725344/001/pr6159-injected"
+    zz_verify_pr6159_test.go:76: passes IsLocal gate   : true (reaches the sink unchanged)
+    zz_verify_pr6159_test.go:82: postStart argv   : []string{"bash", "-c", "time \"$0\" \"$@\"", "/check-mount.sh", "/runtime-mnt/alluxio/default/my-dataset", "alluxio", "x; touch /tmp/TestVerifyPR6159_F1_PostStartSubPathCannotInjectShellCommands3443725344/001/pr6159-injected"}
+    zz_verify_pr6159_test.go:86: bash output      : /check-mount.sh: /check-mount.sh: No such file or directory
+        
+        real	0m0.001s
+        user	0m0.001s
+        sys	0m0.000s (err=exit status 127)
+--- PASS: TestVerifyPR6159_F1_PostStartSubPathCannotInjectShellCommands (0.02s)
+=== RUN   TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence
+    zz_verify_pr6159_test.go:117: using mountinfo pair: mountPoint=/sys fsType=sysfs
+=== RUN   TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence/control_plain_missing_subpath_is_detected
+    zz_verify_pr6159_test.go:123: exit=2 out=22 100 0:21 / /sys rw,nosuid,nodev,noexec,relatime shared:2 - sysfs sysfs rw
+        >>> 2026-08-14 11:53:39 fluid-post-start-check timed out checking sub path [pr6159-definitely-missing] for 30 seconds!
+=== RUN   TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence/crafted_missing_subpath_with_space
+    zz_verify_pr6159_test.go:137: exit=0 out=22 100 0:21 / /sys rw,nosuid,nodev,noexec,relatime shared:2 - sysfs sysfs rw
+        /tmp/TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence344137418/001/check-mount.sh: line 54: [: too many arguments
+        >>> 2026-08-14 11:53:39 fluid-post-start-check succeed in checking mount point /sys after 1 attempts
+    zz_verify_pr6159_test.go:140: GATE BYPASSED: subPath "pr6159 definitely missing" does not exist, yet the postStart script exited 0 (out=22 100 0:21 / /sys rw,nosuid,nodev,noexec,relatime shared:2 - sysfs sysfs rw
+        /tmp/TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence344137418/001/check-mount.sh: line 54: [: too many arguments
+        >>> 2026-08-14 11:53:39 fluid-post-start-check succeed in checking mount point /sys after 1 attempts)
+--- FAIL: TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence (29.13s)
+    --- PASS: TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence/control_plain_missing_subpath_is_detected (29.12s)
+    --- FAIL: TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence/crafted_missing_subpath_with_space (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse/poststart	29.318s
+FAIL
