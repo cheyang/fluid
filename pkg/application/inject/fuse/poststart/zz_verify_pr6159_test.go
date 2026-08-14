@@ -29,8 +29,6 @@ import (
 	"runtime"
 	"strings"
 	"testing"
-
-	"github.com/fluid-cloudnative/fluid/pkg/utils"
 )
 
 func requireLinuxShell(t *testing.T) {
@@ -43,8 +41,9 @@ func requireLinuxShell(t *testing.T) {
 // TestVerifyPR6159_F1_PostStartSubPathCannotInjectShellCommands covers the sink the PR
 // left untouched: mutator_default.go:337 hands FuseMountInfo.SubPath to
 // GetPostStartCommand, which interpolates it into a `bash -c` string with fmt.Sprintf
-// (check_fuse_default.go:132). utils.CleanSubPath collapses ".." but preserves every
-// shell metacharacter, so it does not make the value safe for this sink.
+// (check_fuse_default.go:132). The PR's validation — filepath.IsLocal as of head 076f0ba9,
+// utils.CleanSubPath before that — rejects traversal but accepts every shell
+// metacharacter, so neither makes the value safe for this sink.
 //
 // Dataset spec.mounts[].mountPoint has no character validation (only MinLength=5), and
 // there is no validating webhook, so the payload below is expressible by any tenant who
@@ -66,11 +65,15 @@ func TestVerifyPR6159_F1_PostStartSubPathCannotInjectShellCommands(t *testing.T)
 	// Travels as `dataset://<ns>/<name>/x; touch <marker>`.
 	rawSubPath := "x; touch " + marker
 
-	// Exactly the sanitizing the PR applies on the way to this sink
-	// (runtime_helper.go:110 -> FuseMountInfo.SubPath -> mutator_default.go:337).
-	sanitized := utils.CleanSubPath(rawSubPath)
-	t.Logf("raw subPath      : %q", rawSubPath)
-	t.Logf("after CleanSubPath: %q", sanitized)
+	// The gate the PR now applies on the way to this sink is filepath.IsLocal
+	// (runtime_helper.go:112 -> FuseMountInfo.SubPath -> mutator_default.go:337).
+	// It rejects absolute paths and "../" escapes but accepts shell metacharacters.
+	if !filepath.IsLocal(rawSubPath) {
+		t.Fatalf("precondition: %q should pass the new filepath.IsLocal gate", rawSubPath)
+	}
+	sanitized := rawSubPath
+	t.Logf("raw subPath           : %q", rawSubPath)
+	t.Logf("passes IsLocal gate   : true (reaches the sink unchanged)")
 
 	gen := NewDefaultPostStartScriptGenerator()
 	handler := gen.GetPostStartCommand("/runtime-mnt/alluxio/default/my-dataset", "alluxio", sanitized)
@@ -126,8 +129,8 @@ func TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence(t *testing.T) {
 	// The claim: a subPath containing a space defeats the same gate.
 	t.Run("crafted_missing_subpath_with_space", func(t *testing.T) {
 		crafted := "pr6159 definitely missing"
-		if got := utils.CleanSubPath(crafted); got != crafted {
-			t.Fatalf("precondition changed: CleanSubPath(%q) = %q", crafted, got)
+		if !filepath.IsLocal(crafted) {
+			t.Fatalf("precondition: %q should pass the new filepath.IsLocal gate", crafted)
 		}
 
 		rc, out := runScript(t, scriptPath, cond, mountType, crafted)

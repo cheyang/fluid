@@ -1,13 +1,12 @@
 {
   "topic": "pr6159-subpath-clamp",
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6159",
-  "reviewedHead": "70d75f12e3fa4dd770ecc37f573db916d0792f85",
+  "reviewedHead": "076f0ba9578e260de88f5264d3f04e51f2b6fabd",
   "base": "05f06659bd19e72ff2a0c4ca0f4de2a5eb267baa",
   "harnessPaths": [
     "docs/verification/pr6159-subpath-clamp",
     "pkg/csi/plugins/zz_verify_pr6159_test.go",
-    "pkg/application/inject/fuse/poststart/zz_verify_pr6159_test.go",
-    "pkg/utils/zz_verify_pr6159_test.go"
+    "pkg/application/inject/fuse/poststart/zz_verify_pr6159_test.go"
   ],
   "premise": {
     "id": "P0",
@@ -18,13 +17,15 @@
     "runsAgainst": "base",
     "layer": "unit",
     "verdict": "confirmed",
-    "evidence": "On base 05f06659 an untrusted fluid_sub_path of '../../../../../hostonly' makes NodePublishVolume publish a mount source resolving outside the FUSE root; the pod reads 'HOST-ONLY-CONTENT'. On PR head the same input is clamped and the pod reads 'DATASET-CONTENT'. See results/L1_plugins_BASE.txt vs results/L1_plugins_head.txt.",
-    "match": ["TestVerifyPR6159_P0_SubPathTraversalIsContainedInFuseRoot"]
+    "evidence": "On base 05f06659 a fluid_sub_path of '../../../../../hostonly' makes NodePublishVolume publish a mount source outside the FUSE root and the pod reads 'HOST-ONLY-CONTENT'. Contained at head 70d75f12 (clamped) and at head 076f0ba9 (rejected with InvalidArgument). See results/L1_plugins_BASE.txt and results/round2_head.txt.",
+    "match": [
+      "TestVerifyPR6159_P0_SubPathTraversalIsContainedInFuseRoot"
+    ]
   },
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "go test ./pkg/csi/plugins/ ./pkg/utils/ ./pkg/application/inject/fuse/poststart/ -run 'TestVerifyPR6159' -count=1 -timeout 300s -json"
+      "cmd": "go test ./pkg/csi/plugins/ ./pkg/application/inject/fuse/poststart/ -run 'TestVerifyPR6159' -count=1 -timeout 400s -json"
     },
     "mutation": {
       "kind": "manual",
@@ -33,30 +34,26 @@
   },
   "findings": [
     {
-      "id": "F1",
+      "id": "N1",
       "polarity": "contract",
       "layer": "unit",
-      "severity": "major",
-      "introducedByPR": false,
-      "summary": "mutator_default.go:337 feeds the sub path into a `bash -c` string built with fmt.Sprintf (check_fuse_default.go:132). CleanSubPath collapses '..' but preserves shell metacharacters, so the postStart hook executes attacker-supplied commands.",
-      "match": ["TestVerifyPR6159_F1_PostStartSubPathCannotInjectShellCommands"]
+      "severity": "blocker",
+      "introducedByPR": true,
+      "summary": "checkSymlinkFile (nodeserver.go:177) does os.Lstat(mountPath), inspecting only the FINAL component. A subPath whose EARLIER component is a symlink escapes: 'evil' is rejected, 'evil/inner' publishes a mount source resolving outside the FUSE root and the pod reads host content. The new spec added in this PR only covers the single-component case.",
+      "match": [
+        "TestVerifyPR6159_N1_SymlinkCheckCoversIntermediateComponents"
+      ]
     },
     {
-      "id": "F2",
-      "polarity": "contract",
-      "layer": "unit",
-      "severity": "major",
-      "introducedByPR": false,
-      "summary": "The shipped sidecar script's sub path gate is `while [ ! -e  $ConditionPathIsMountPoint/*/$SubPath ]` - unquoted and containing a glob. A sub path with a space makes `[` return 2, so the loop is skipped and the script exits 0, reporting a missing sub path as present. csi/shell/check_mount.sh:48 was already hardened; the two copies have diverged.",
-      "match": ["TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence/crafted_missing_subpath_with_space"]
-    },
-    {
-      "id": "F2guard",
+      "id": "N1guard",
       "polarity": "contract",
       "layer": "unit",
       "severity": "minor",
-      "summary": "Harness-bites guard for F2: an ordinary missing sub path must still be reported missing (exit 2). Proves the gate works normally and is defeated only by the crafted value.",
-      "match": ["TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence/control_plain_missing_subpath_is_detected"]
+      "introducedByPR": false,
+      "summary": "Bites guard for N1: the single-component symlink subPath must stay rejected. Its contrast with N1 is what shows the guard is incomplete rather than absent.",
+      "match": [
+        "TestVerifyPR6159_N1guard_SingleComponentSymlinkIsRejected"
+      ]
     },
     {
       "id": "F3",
@@ -64,38 +61,100 @@
       "layer": "unit",
       "severity": "blocker",
       "introducedByPR": true,
-      "summary": "Upgrade regression. An already-persisted absolute fluid_sub_path (reachable on base via `dataset://ns/ds//sub-c`, whose SplitAfterN parse yields '/sub-c') mounted fine before and is now rejected with InvalidArgument. referencedataset/volume.go sets the PV attribute only at creation time, so upgrading the CSI plugin does not rewrite existing values.",
-      "match": ["TestVerifyPR6159_F3_AbsoluteSubPathStaysBackwardCompatible"]
+      "summary": "Upgrade regression, widened in round 2. A persisted non-local fluid_sub_path (reachable on base via dataset://ns/ds//sub-c) is now rejected at NodePublishVolume, at getMountInfo (runtime_helper.go:112) for the sidecar path, and at GetPhysicalDatasetSubPath (dataset.go:77) via checkDatasetMountSupport, so an existing Dataset also stops reconciling. The PV attribute is only set at creation, so upgrading never rewrites it.",
+      "match": [
+        "TestVerifyPR6159_F3_AbsoluteSubPathStaysBackwardCompatible"
+      ]
     },
     {
-      "id": "F4",
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "severity": "major",
+      "introducedByPR": false,
+      "summary": "mutator_default.go:337 hands the subPath to GetPostStartCommand, which interpolates it into a bash -c string (check_fuse_default.go:132). filepath.IsLocal rejects traversal but accepts shell metacharacters, so the postStart hook executes an attacker-supplied command. Verified by observing the injected side effect.",
+      "match": [
+        "TestVerifyPR6159_F1_PostStartSubPathCannotInjectShellCommands"
+      ]
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "severity": "major",
+      "introducedByPR": false,
+      "summary": "The shipped sidecar gate 'while [ ! -e  $ConditionPathIsMountPoint/*/$SubPath ]' is unquoted and contains a glob. A subPath with a space makes [ return 2, so the loop is skipped and the script exits 0, reporting a missing subPath as present. csi/shell/check_mount.sh:48 was already hardened; the two copies diverged.",
+      "match": [
+        "TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence/crafted_missing_subpath_with_space"
+      ]
+    },
+    {
+      "id": "F2guard",
+      "polarity": "contract",
+      "layer": "unit",
+      "severity": "minor",
+      "introducedByPR": false,
+      "summary": "Bites guard for F2: an ordinary missing subPath must still be reported missing (exit 2).",
+      "match": [
+        "TestVerifyPR6159_F2_RenderedScriptEnforcesSubPathExistence/control_plain_missing_subpath_is_detected"
+      ]
+    },
+    {
+      "id": "N2",
       "polarity": "contract",
       "layer": "unit",
       "severity": "minor",
       "introducedByPR": true,
-      "summary": "CleanSubPath's doc comment claims the result 'can never escape the directory it is later joined to'. filepath.Join/Clean are lexical and do not consider symlinks, so a symlink component still escapes. The code is reasonable; the stated guarantee is not.",
-      "match": ["TestVerifyPR6159_F4_CleanSubPathContainmentHoldsForSymlinkComponent"]
+      "summary": "NodePublishVolume did not consult MOUNT_ROOT before 6432fdfe; checkPathUnderMountRoot now fails closed without it. The Helm chart defaults runtime.mountRoot to /runtime-mnt so a default install is fine. Informational.",
+      "match": [
+        "TestVerifyPR6159_N2_MountRootIsANewHardDependency"
+      ]
     },
     {
       "id": "F5",
       "polarity": "contract",
       "layer": "mutation",
-      "severity": "major",
-      "summary": "No NodePublishVolume coverage for the new validation/clamping. nodeserver_test.go:278-294 discards both the response and the error (`_ = resp; _ = err`), so it passes whether or not absolute paths are rejected and whether or not '../' is clamped. Verified by inspection plus the fact that F3 (a real regression at exactly that call site) ships with all CI green and codecov reporting 50% patch coverage on nodeserver.go.",
-      "match": ["MUTATION-ONLY: see README section F5"]
+      "severity": "minor",
+      "introducedByPR": true,
+      "summary": "Round 2 added three specs with real assertions, resolving the substance. Remaining gaps: the pre-existing 'should append subpath to fluid path' spec still discards both results, nothing covers the F3 back-compat case, and the symlink spec covers only the single-component case.",
+      "match": [
+        "MUTATION-ONLY: see README section F5"
+      ]
     }
   ],
   "notVerifiedByTest": [
     {
-      "id": "F6",
-      "severity": "minor",
-      "summary": "Policy inconsistency, a design point rather than a runtime claim: an absolute sub path is rejected at the CSI layer but silently clamped at the other three call sites, and traversal is silently clamped everywhere. `dataset://ns/ds/../../../etc` becomes 'etc' with no error and no log, so the user silently mounts a different directory than they asked for."
+      "id": "N3",
+      "severity": "nit",
+      "summary": "dataset.go:56 and :61 return the identical 'should only have one mount' error, but :61 guards a different condition (the single mount is not a dataset:// reference)."
+    },
+    {
+      "id": "N4",
+      "severity": "nit",
+      "summary": "The PR title still says 'sanitize and clamp' though nothing is clamped at 076f0ba9 and pkg/utils is net -36 lines. Commit 076f0ba9 is titled 'fix comment' but changes a function signature, adds validation and updates four call sites."
     },
     {
       "id": "F7",
       "severity": "major",
-      "summary": "Tenant reachability of P0 was established by code reading, not by a live cluster run: GetPhysicalDatasetSubPath (the only producer of the PV attribute) applies no character or traversal validation, Dataset spec.mounts[].mountPoint carries only MinLength=5, and there is no validating webhook on Dataset. Stated at that confidence deliberately."
+      "summary": "Tenant reachability of P0 was established by code reading, not a live cluster run: GetPhysicalDatasetSubPath is the only producer of the PV attribute, mountPoint carries only MinLength=5, and there is no validating webhook on Dataset."
     }
   ],
-  "liveNote": "No live layer was needed: the symlink publish method (common.NodePublishMethod=symlink) makes the computed mount source directly observable via os.Readlink, and AnnotationSkipCheckMountReadyTarget=MountPod routes past the check_mount.sh helper that only exists in the CSI image. A live cluster run would additionally confirm the end-to-end tenant path (Dataset -> PV attribute -> pod), which is currently asserted from code reading only (see F7)."
+  "liveNote": "No live layer needed: the symlink publish method makes the computed mount source observable via os.Readlink, and AnnotationSkipCheckMountReadyTarget=MountPod routes past check_mount.sh. A live run would additionally confirm the end-to-end tenant path (Dataset -> PV attribute -> pod), currently asserted from code reading only (F7).",
+  "reviewedHeadHistory": [
+    "70d75f12 (round 1, clamp design)",
+    "6432fdfe (nodeserver validation + symlink guard)",
+    "076f0ba9 (round 2, reject design; CleanSubPath deleted)"
+  ],
+  "resolvedFindings": [
+    {
+      "id": "F6",
+      "status": "fixed in round 2",
+      "note": "Validation is now consistently reject-at-every-boundary instead of silent clamping at three sites and rejection at one. This was the round-1 recommendation."
+    },
+    {
+      "id": "F4",
+      "status": "moot",
+      "note": "utils.CleanSubPath and its 10-case unit test were deleted at 076f0ba9, so the overclaiming doc comment is gone with it."
+    }
+  ]
 }
