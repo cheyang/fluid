@@ -1,0 +1,61 @@
+L3 Phase 1 — P0 premise reproduction on the live cluster (2026-08-14, ACK v1.36.1-aliyun.1, HK)
+================================================================================================
+
+Cluster controller: fluidcloudnative/cacheruntime-controller:v1.1.0-36f0467
+Build 36f0467a (2026-06-25, "fix: remove helm linux binaries... #6058") is a direct
+ancestor of PR #6157's merge-base 05f06659 — i.e. the deployed controller is genuine
+pre-PR code, not base+patch.
+
+Scenario (issue #6147 repro, namespace verify-6157):
+- CacheRuntimeClass verify-a-mc: topology with master+worker, client component omitted
+- Dataset verify-a + CacheRuntime verify-a (master 1 replica, worker 1 replica)
+
+Observed (deployed pre-fix controller):
+- 14:07:19 objects applied; controller pod previously at RESTARTS=0 after 24d uptime
+- within ~40s: RESTARTS 0 -> 2, pod state Error -> CrashLoopBackOff
+- +2min: RESTARTS=3, Dataset verify-a stuck NotBound
+- the crash loop continued for the whole observation window (the panic is
+  deterministic on every reconcile of verify-a)
+
+Panic stack captured from `kubectl logs -n fluid-system <pod> --previous`
+(matches issue #6147 exactly; offsets differ only because the builds differ):
+
+2026-08-14T14:08:08.601+0800  INFO  controller/controller.go:115  Observed a panic in reconciler: runtime error: invalid memory address or nil pointer dereference  {"controller": "CacheRuntimeController", "object": {"name":"verify-a","namespace":"verify-6157"}, "namespace": "verify-6157", "name": "verify-a", "reconcileID": "68bdd962-a04c-454e-8372-90934e423691"}
+panic: runtime error: invalid memory address or nil pointer dereference [recovered]
+	panic: runtime error: invalid memory address or nil pointer dereference
+[signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x22fc49f]
+
+goroutine 107 [running]:
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Reconcile.func1()
+	/go/src/github.com/fluid-cloudnative/fluid/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:116 +0x2f4
+panic({0x28a7060?, 0x3c21690?})
+	/usr/local/go/src/runtime/panic.go:792 +0x136
+github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine.(*CacheEngine).generateRuntimeConfigData(0xc0006b03c0, {0x2db17e0, 0xc00020ed80}, 0xc00087b808)
+	/go/src/github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine/cm.go:178 +0xf9f
+github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine.(*CacheEngine).createRuntimeValueConfigMap(0xc0006b03c0, {0x2db17e0, 0xc00020ed80}, 0xc00087b808, {0xc0000ee500, 0x1, 0x1})
+	/go/src/github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine/cm.go:93 +0x20b
+github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine.(*CacheEngine).createRuntimeConfigMaps(0xc0006b03c0, {0x2db17e0, 0xc00029fb80})
+	/go/src/github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine/cm.go:57 +0x34b
+github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine.(*CacheEngine).Setup(0xc0006b03c0, {{0x2db1b98, 0xc000780a10}, {{0xc00078d840, 0xb}, {0xc00078d838, 0x8}}, {0x2b8c58e, 0xa}, 0xc0009e6508, ...})
+	/go/src/github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine/setup.go:50 +0x45e
+github.com/fluid-cloudnative/fluid/pkg/controllers.(*RuntimeReconciler).ReconcileRuntime(0xc0004beb40, {0x2db70c8, 0xc0006b03c0}, {{0x2db1b98, 0xc000780a10}, {{0xc00078d840, 0xb}, {0xc00078d838, 0x8}}, {0x2b8c58e, ...}, ...})
+	/go/src/github.com/fluid-cloudnative/fluid/pkg/controllers/runtime_controller.go:272 +0x5d5
+github.com/fluid-cloudnative/fluid/pkg/controllers.(*RuntimeReconciler).ReconcileInternal(0xc0004beb40, {{0x2db1b98, 0xc000780a10}, {{0xc00078d840, 0xb}, {0xc00078d838, 0x8}}, {0x2b8c58e, 0xa}, 0xc0009e6508, ...})
+	/go/src/github.com/fluid-cloudnative/fluid/pkg/controllers/runtime_controller.go:181 +0x13ff
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/cacheruntime.(*CacheRuntimeReconciler).Reconcile(0xc0000ca820, {0x2db1af0, 0xc0006764e0}, {{{0xc00078d840, 0xb}, {0xc00078d838, 0x8}}})
+	/go/src/github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/cacheruntime/cacheruntime_controller.go:120 +0xb58
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Reconcile(0xc0002e6460, {0x2db1af0, 0xc0006764e0}, {{{0xc00078d840, 0xb}, {0xc00078d838, 0x8}}})
+	/go/src/github.com/fluid-cloudnative/fluid/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:119 +0x1be
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler(0xc0002e6460, {0x2db1af0, 0xc0006764e0}, {0x299a680, 0xc00029a700})
+	/go/src/github.com/fluid-cloudnative/fluid/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:316 +0x4cb
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem(0xc0002e6460, {0x2db1b28, 0xc0002b0e60})
+	/go/src/github.com/fluid-cloudnative/fluid/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:266 +0x405
+sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Start.func2.2()
+	/go/src/github.com/fluid-cloudnative/fluid/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:227 +0xd1
+created by sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Start.func2 in goroutine 177
+	/go/src/github.com/fluid-cloudnative/fluid/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:223 +0x9c7
+
+Verdict: P0 premise CONFIRMED on a live cluster against a genuine pre-PR build.
+Symptom (controller crash loop + Dataset NotBound when the client component is
+omitted from the CacheRuntimeClass topology) reproduces exactly as reported in
+issue #6147.

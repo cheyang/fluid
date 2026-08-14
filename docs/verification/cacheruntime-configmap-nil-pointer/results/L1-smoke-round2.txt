@@ -1,0 +1,20 @@
+2026/08/14 14:26:38 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyF1_GenDataLoadValueNilTopologyStillPanics
+    zz_verify_test.go:152: still panics (as expected, unfixed by PR #6157): runtime error: invalid memory address or nil pointer dereference
+--- PASS: TestVerifyF1_GenDataLoadValueNilTopologyStillPanics (0.00s)
+=== RUN   TestVerifyF1b_GenerateDataLoadValueFileRejectsTopologyLessClass
+--- PASS: TestVerifyF1b_GenerateDataLoadValueFileRejectsTopologyLessClass (0.01s)
+=== RUN   TestVerifyF2_GetDataOperationImageNilTopologyStillPanics
+    zz_verify_test.go:213: still panics (as expected, unfixed by PR #6157): runtime error: invalid memory address or nil pointer dereference
+--- PASS: TestVerifyF2_GetDataOperationImageNilTopologyStillPanics (0.00s)
+=== RUN   TestVerifyF3_SyncRuntimeSpecNilTopologyStillPanics
+    zz_verify_test.go:244: still panics on direct call (residual; production path is shielded by the loader): runtime error: invalid memory address or nil pointer dereference
+--- PASS: TestVerifyF3_SyncRuntimeSpecNilTopologyStillPanics (0.00s)
+=== RUN   TestVerifyF4_GetRuntimeClassRejectsTopologyLessClass
+=== RUN   TestVerifyF4_GetRuntimeClassRejectsTopologyLessClass/topology_nil
+=== RUN   TestVerifyF4_GetRuntimeClassRejectsTopologyLessClass/topology_declares_no_component
+--- PASS: TestVerifyF4_GetRuntimeClassRejectsTopologyLessClass (0.00s)
+    --- PASS: TestVerifyF4_GetRuntimeClassRejectsTopologyLessClass/topology_nil (0.00s)
+    --- PASS: TestVerifyF4_GetRuntimeClassRejectsTopologyLessClass/topology_declares_no_component (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.248s

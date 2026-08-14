@@ -1,0 +1,11 @@
+61c71c0c test: cover the empty-topology branch of the runtime class validation
+baseline: TestGenerateRuntimeConfigData|TestGenerateDataLoadValueFile is GREEN
+---------------------------------------------------------------------------
+MUTATION (guard reverted)                      RESULT
+drop Master component guard (cm.go)            fails (guard is covered)
+drop Worker component guard (cm.go)            fails (guard is covered)
+drop Client component guard (cm.go)            fails (guard is covered)
+drop loader validation call (runtime.go)       fails (guard is covered)
+drop all-components-nil clause (validate.go)   fails (guard is covered)
+---------------------------------------------------------------------------
+production code restored; git diff should show no change to cm.go/runtime.go/validate.go

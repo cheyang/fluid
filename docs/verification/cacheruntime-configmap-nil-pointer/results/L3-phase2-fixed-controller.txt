@@ -1,0 +1,81 @@
+L3 Phase 2 — fix verification on the live cluster (2026-08-14, ACK v1.36.1-aliyun.1, HK)
+==========================================================================================
+
+Controller under test: cacheruntime-controller binary built from PR #6157 head
+61c71c0ce49c2402add40d5c153aa73cc1963c76, run OUT-OF-CLUSTER on the sandbox host with
+KUBECONFIG=~/.kube/config (leader-election enabled; it acquired and held the
+fluid-system/cache.data.fluid.io lease for the whole run).
+
+Method:
+1. scale the deployed (pre-fix) controller to 0
+2. start the patched binary (`cacheruntime-controller start ...`), wait for lease
+3. observe case A (class with master+worker, client omitted) end to end
+4. re-apply case B (class with NO topology + DataLoad) and observe the error path
+5. grep the controller log for panics; check the final lease holder
+
+Raw capture
+-----------
+== scale down deployed (pre-fix) controller ==
+deployment.apps/cacheruntime-controller scaled
+deployed pod gone
+== start patched controller (PR head 61c71c0) out-of-cluster ==
+pid=2049900
+== wait for lease acquisition ==
+LEASE ACQUIRED
+I0814 14:17:07.264147 2049900 leaderelection.go:260] successfully acquired lease fluid-system/cache.data.fluid.io
+== case A: dataset status ==
+verify-a                           Bound      11m
+verify-b                           NotBound   5m28s
+== case A: configmaps ==
+fluid-runtime-config-verify-a   1     77s
+== case A: runtime config content (client section must be absent) ==
+--- configmap/fluid-runtime-config-verify-a
+{"runtime.json":"{\"mounts\":[{\"mountPoint\":\"local:///data\",\"name\":\"mc\",\"path\":\"/mc\"}],\"accessModes\":[\"ReadWriteMany\"],\"targetPath\":\"/cache/verify-6157/verify-a/cache-fuse\",\"master\":{\"enabled\":true,\"name\":\"verify-a-master\",\"replicas\":1,\"service\":{\"name\":\"svc-verify-a-master\"}},\"worker\":{\"enabled\":true,\"name\":\"verify-a-worker\",\"replicas\":1,\"service\":{\"name\":\"svc-verify-a-worker\"},\"tieredStoreLevels\":[{\"mountPaths\":[\"/etc/fluid/mount/tiered-store/level-0-index-0-emptydir\"],\"mediumType\":\"HDD\",\"quotas\":[\"1Gi\"],\"high\":\"0.8\",\"low\":\"0.5\"}]}}"}
+== case A: components ==
+verify-a-master   1     1     1     1     77s
+verify-a-worker   1     1     1     1     77s
+verify-a-master-0   1/1   Running   0     78s
+verify-a-worker-0   1/1   Running   0     78s
+== panic check (case A) ==
+NO PANIC in fixed controller log
+== apply case B (no topology + DataLoad) ==
+cacheruntimeclass.data.fluid.io/verify-b-empty created
+dataset.data.fluid.io/verify-b created
+cacheruntime.data.fluid.io/verify-b created
+dataload.data.fluid.io/verify-b created
+== case B: datasets/dataload ==
+verify-a                           Bound      12m
+verify-b                           NotBound   50s
+verify-b   verify-b         50s
+== case B: events (expect clear validation error, no panic) ==
+72s         Warning   ErrorProcessRuntime   cacheruntime/verify-b    Failed to setup ddc engine due to error failed to get CacheRuntimeClass verify-b-empty: at least one component should be defined in runtimeClass verify-b-empty
+64s         Normal    RuntimeNotReady       dataload/verify-b        Bounded accelerate runtime not ready
+10s         Warning   ErrorProcessRuntime   cacheruntime/verify-b    Failed to setup ddc engine due to error failed to get CacheRuntimeClass verify-b-empty: at least one component should be defined in runtimeClass verify-b-empty
+4s          Normal    RuntimeNotReady       dataload/verify-b        Bounded accelerate runtime not ready
+== panic check (final) ==
+NO PANIC in fixed controller log
+== lease holder ==
+iZj6c7hj775d4xtarqq2fbZ_203b0b76-5a91-442f-b48d-023392d64dfc   (sandbox host = patched binary)
+PHASE2B-CAPTURE-DONE (controller left running, pid=2049900)
+
+Verdicts
+--------
+Case A (issue #6147 exact repro — client component omitted):
+  FIXED. Dataset verify-a reached Bound; master+worker StatefulSets created and Running;
+  the runtime ConfigMap was generated with master+worker sections and NO client section
+  (treated as absent, not crashed on). Zero panics in the controller log. This is the
+  outcome the issue asked for: "treat the client component as disabled and continue
+  reconciling normally".
+
+Case B (topology omitted entirely + DataLoad — round-1 finding F1's production path):
+  FIXED. The choke-point validation in getRuntimeClass rejects the class at load time:
+  "failed to get CacheRuntimeClass verify-b-empty: at least one component should be
+  defined in runtimeClass verify-b-empty", surfaced as a Warning ErrorProcessRuntime
+  event on the CacheRuntime; the DataLoad reports RuntimeNotReady instead of crashing
+  the controller. Zero panics.
+
+Note on the earlier phase-2 attempt: the first run used the binary WITHOUT the `start`
+subcommand (it exited immediately), and the ACK addon manager auto-restored the deployed
+pre-fix deployment from 0 to 1 replica; that restored pod briefly held the lease. The
+capture above is from the corrected run, which held the lease for the full window
+(lease holder at the end = the sandbox host running the patched binary).

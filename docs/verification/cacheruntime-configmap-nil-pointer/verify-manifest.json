@@ -9,63 +9,89 @@
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "go test ./pkg/ddc/cache/engine/ -run 'TestVerifyF' -json"
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run 'TestVerify' -json"
     }
   },
-  "_layerNote": "Only L1 (deterministic unit) is used. Every claim here is a nil-pointer dereference on a plain struct field, fully determined by the in-process object graph -- envtest or a live cluster would add cost and flakiness without adding proof. L2/L3 deliberately skipped.",
+  "_layerNote": "Round 1 used only L1 (deterministic unit). Round 2 (2026-08-14) added a live L3 layer on an ACK cluster (v1.36.1-aliyun.1): phase 1 reproduced the issue #6147 crash loop against the deployed pre-PR build; phase 2 ran the PR-head binary out-of-cluster (KUBECONFIG + leader lease) and confirmed both production paths are fixed. Evidence: results/L3-phase1-panic-stack.txt, results/L3-phase2-fixed-controller.txt.",
+  "premise": {
+    "id": "P0",
+    "runsAgainst": "deployed pre-PR build (fluidcloudnative/cacheruntime-controller:v1.1.0-36f0467, direct ancestor of merge-base 05f06659) on the live cluster",
+    "claim": "Issue #6147: when the client component is omitted from CacheRuntimeClass.topology, generateRuntimeConfigData panics (nil deref at cm.go:178), crash-looping the cacheruntime-controller and leaving the Dataset NotBound.",
+    "verdict": "CONFIRMED live (2026-08-14): RESTARTS 0->3 within minutes of applying the issue's repro, SIGSEGV at cm.go:178 with the exact stack from the issue, Dataset stuck NotBound.",
+    "artifact": "results/L3-phase1-panic-stack.txt"
+  },
   "findings": [
     {
       "id": "F1",
       "polarity": "canary",
       "layer": "unit",
-      "match": [
-        "TestVerifyF1_GenDataLoadValueNilTopologyStillPanics",
-        "TestVerifyF1b_GenerateDataLoadValueFileNilTopologyStillPanics"
-      ],
-      "claim": "With PR #6157 applied, a DataLoad against a CacheRuntime whose CacheRuntimeClass omits `topology` still panics at dataload.go:97 (nil deref of runtimeClass.Topology.Worker). The DataLoad controller is a separate entry point; transform.go's Topology==nil guard is not on its call graph.",
-      "contradicts": "PR description: 'cm.go is the only place in the repo where this nil check is missing.'"
+      "match": ["TestVerifyF1_GenDataLoadValueNilTopologyStillPanics"],
+      "claim": "Round 2 status: RESIDUAL, UNREACHABLE IN PRODUCTION. genDataLoadValue still derefs runtimeClass.Topology.Worker with no Topology==nil guard, so a DIRECT call with a topology-less class still panics (canary stays green). But the round-2 revision validates the class in getRuntimeClass (runtime.go) before any caller can reach this code, and all production entry points go through that loader -- verified live in L3 phase 2 (DataLoad against a topology-less class yields a clean error event, no panic). Kept as a canary so any future bypass of the loader flips it.",
+      "contradicts": "Nothing in round 2 -- the author's revised PR description explicitly acknowledges these four residual derefs (dataload.go:97, image.go:29, sync.go:190, sync.go:214) and argues (correctly) that the loader guard shields them."
+    },
+    {
+      "id": "F1b",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyF1b_GenerateDataLoadValueFileRejectsTopologyLessClass"],
+      "claim": "Round 1 this was a canary asserting the DataLoad production path (generateDataLoadValueFile -> loader -> genDataLoadValue) panics. Round 2: the canary FLIPPED -- the loader now rejects the topology-less class before genDataLoadValue runs. Promoted to a contract test asserting the error 'at least one component should be defined' and no panic.",
+      "l3evidence": "L3 phase 2 case B: Warning event 'Failed to setup ddc engine due to error failed to get CacheRuntimeClass verify-b-empty: at least one component should be defined in runtimeClass verify-b-empty', DataLoad RuntimeNotReady, zero panics."
     },
     {
       "id": "F2",
       "polarity": "canary",
       "layer": "unit",
       "match": ["TestVerifyF2_GetDataOperationImageNilTopologyStillPanics"],
-      "claim": "Same defect class at image.go:29 (getDataOperationImage derefs runtimeClass.Topology.Worker with no Topology==nil guard). Same DataLoad path as F1; F1 panics a few lines earlier, so this one is independently unsafe but not independently reachable today."
+      "claim": "Round 2 status: RESIDUAL, UNREACHABLE IN PRODUCTION. getDataOperationImage (image.go:29) still derefs Topology unguarded on direct call; its only production caller is dataload.go:123, behind the loader validation."
     },
     {
       "id": "F3",
       "polarity": "canary",
       "layer": "unit",
       "match": ["TestVerifyF3_SyncRuntimeSpecNilTopologyStillPanics"],
-      "claim": "sync.go:190/214 deref runtimeClass.Topology with no Topology==nil guard. LATENT, not live: on the Sync path PR #6157's own new error (raised earlier, at sync.go:55 -> cm.go) short-circuits Sync before syncRuntimeSpec runs. It becomes live if that ordering changes."
+      "claim": "Round 2 status: RESIDUAL, UNREACHABLE IN PRODUCTION. sync.go:190/214 still deref Topology unguarded on direct call; the Sync path loads the class via getRuntimeClass (sync.go:50), which now rejects topology-less classes first."
+    },
+    {
+      "id": "F4",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyF4_GetRuntimeClassRejectsTopologyLessClass"],
+      "claim": "New in round 2: the choke point itself. getRuntimeClass must reject both `topology: nil` and `topology: {}` (no components) with the 'at least one component should be defined' error. Covers all five downstream call sites (setup.go:39, cm.go:107, sync.go:50, ufs.go:97, dataload.go:56) at once.",
+      "evidence": "results/L1-smoke-round2.txt (both subtests PASS on PR head 61c71c0); mutation 'drop loader validation call' in results/L1-mutation-coverage-v2.txt turns the scoped suite red, i.e. this guard is covered."
     },
     {
       "id": "C1",
       "polarity": "contract",
       "layer": "unit",
       "match": ["MUTATION-EVIDENCE-ONLY"],
-      "claim": "The Master and Worker guards added by this PR have no regression coverage: reverting either leaves the cm.go test selection green. Confirms Copilot's review comment on cm_test.go:253.",
-      "evidence": "results/L1-mutation-coverage.txt via scripts/mutation-coverage-check.sh",
-      "_note": "Not a runtime canary -- proven by mutation, not by a test that runs in this harness. re-verify.sh will report it as Harness-update; re-run the mutation script by hand for this one."
+      "claim": "Round 1: the Master and Worker guards had no regression coverage. Round 2: RESOLVED -- the author added table-driven tests (TestGenerateRuntimeConfigDataWithMissingComponentTopology, one case per component) and scripts/mutation-coverage-check-v2.sh confirms dropping the Master or Worker guard now fails the scoped suite.",
+      "evidence": "results/L1-mutation-coverage-v2.txt via scripts/mutation-coverage-check-v2.sh",
+      "_note": "Proven by mutation, not by a test named in this harness. re-verify.sh reports it as Harness-update; re-run mutation-coverage-check-v2.sh by hand."
     },
     {
       "id": "C2",
       "polarity": "contract",
       "layer": "unit",
       "match": ["MUTATION-EVIDENCE-ONLY"],
-      "claim": "The new `all three components nil` error branch is untested -- only `Topology == nil` is covered. Reverting the all-nil clause leaves the suite green. Confirms Copilot's review comment on cm_test.go:271.",
-      "evidence": "results/L1-mutation-coverage.txt via scripts/mutation-coverage-check.sh"
+      "claim": "Round 1: the all-components-nil branch was untested. Round 2: RESOLVED -- TestGenerateRuntimeConfigDataWithoutAnyComponent covers both `topology: nil` and `topology: {}`; mutation v2 shows dropping the all-nil clause fails the scoped suite.",
+      "evidence": "results/L1-mutation-coverage-v2.txt via scripts/mutation-coverage-check-v2.sh"
     }
   ],
   "harnessBitesCheck": {
-    "method": "Applied the proposed fix (add `runtimeClass.Topology != nil &&` at dataload.go:97, image.go:29, sync.go:190, sync.go:214), re-ran the canaries, then reverted.",
-    "result": "All four canaries flipped to RED under the fix and returned to GREEN after revert. Production diff back to the PR patch only.",
-    "artifact": "results/L1-canaries-with-pr.txt"
+    "round1": {
+      "method": "Applied the proposed fix (add `runtimeClass.Topology != nil &&` at dataload.go:97, image.go:29, sync.go:190, sync.go:214), re-ran the canaries, then reverted.",
+      "result": "All four canaries flipped to RED under the fix and returned to GREEN after revert.",
+      "artifact": "results/L1-canaries-with-pr.txt"
+    },
+    "round2": {
+      "method": "The round-2 head (61c71c0) IS the fix, so bites = (a) F1b flipped from round-1 canary-pass to contract-pass on the exact production call chain, and (b) mutation v2: dropping the loader validation call (or any component guard, or the all-nil clause) turns the scoped suite red.",
+      "result": "Both hold. F1/F2/F3 direct-call canaries deliberately stay green (documented residuals).",
+      "artifact": "results/L1-reverify-round2.json, results/L1-mutation-coverage-v2.txt, results/L1-smoke-round2.txt"
+    }
   },
   "baselineNoise": {
-    "warning": "The package's Ginkgo suite (TestCacheEngine) shows 12 pre-existing spec failures on the base used here, IDENTICAL with and without the PR patch -- so they are NOT caused by PR #6157 and must not be reported as findings. Consequence: never use whole-package pass/fail as a mutation signal; it yields a false 'all guards covered' result. Use `-run 'TestGenerateRuntimeConfigData'` / `-run 'TestVerifyF'`, which are green at baseline.",
+    "warning": "The package's Ginkgo suite (TestCacheEngine) shows 12 pre-existing spec failures, IDENTICAL with and without the PR patch -- NOT caused by PR #6157. Never use whole-package pass/fail as a mutation signal. Use `-run 'TestGenerateRuntimeConfigData|TestGenerateDataLoadValueFile'` / `-run 'TestVerify'`, which are green at baseline.",
     "artifact": "results/L1-baseline-ginkgo-noise.txt"
   },
-  "baseCaveat": "Git transport to github.com was unavailable during this round, so the PR head commit 5b14366a98f362aa7191f336f877f26866319b99 could not be fetched. The harness ran on local new-origin/master (44cfae9fb) with the PR patch applied via `gh pr diff 6157 | git apply`. The patch applied cleanly, so cm.go/cm_test.go are byte-identical to the PR; files the PR does not touch may differ from the PR's real base (05f0665). Re-run scripts/re-verify.sh once network is back to confirm against the true head.",
-  "liveNote": "No live layer. If you want an in-cluster confirmation of F1: apply a CacheRuntimeClass with `dataOperationSpecs` but no `topology`, bind a Dataset, then create a DataLoad -- the dataload controller pod crashes with a nil deref at dataload.go:97."
+  "liveNote": "L3 DONE (2026-08-14, ACK v1.36.1-aliyun.1): phase 1 confirmed P0 against the deployed pre-PR build; phase 2 ran the PR-head binary out-of-cluster with the leader lease and confirmed case A (client omitted -> Dataset Bound, ConfigMap without client section, no panic) and case B (no topology + DataLoad -> clean validation error, no panic). Cluster restored afterwards. Artifacts: results/L3-phase1-panic-stack.txt, results/L3-phase2-fixed-controller.txt."
 }
