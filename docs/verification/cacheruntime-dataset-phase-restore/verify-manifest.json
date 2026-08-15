@@ -1,0 +1,59 @@
+{
+  "_comment": "Verification harness for PR #6162. Consumed by scripts/re-verify.sh. Production code is untouched on this branch; harnessPaths graft onto whatever the fixed code is. Polarity: 'contract' tests should PASS once fixed; 'canary' tests would FLIP to red and need inverting (there are none here — every claim is encoded as a contract test).",
+  "topic": "cacheruntime-dataset-phase-restore",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6162",
+  "harnessPaths": [
+    "docs/verification/cacheruntime-dataset-phase-restore",
+    "pkg/ddc/cache/engine/sync_phase_restore_verify_test.go"
+  ],
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -gcflags='all=-N -l' -run TestCacheEngine -count=1 -args -ginkgo.label-filter='verify.pr6162'",
+      "note": "-gcflags='all=-N -l' is required: the harness patches NewCacheFileUtil with gomonkey, which needs inlining disabled. Matches the repo's own LOCAL_FLAGS in the Makefile."
+    }
+  },
+  "findings": [
+    {
+      "id": "F1-a",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["must not issue a cache-state RPC while permitSync() is closed"],
+      "claim": "Restoring the Dataset phase must not issue a cache-state pod-exec RPC while the permitSync() rate limiter is closed.",
+      "observedOnPrHead": "1 RPC (expected 0)"
+    },
+    {
+      "id": "F1-c",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["must issue at most one cache-state RPC per limiter window"],
+      "claim": "Across a not-ready -> ready flap inside one 5s limiter window, at most one cache-state RPC should be issued.",
+      "observedOnPrHead": "3 RPCs across 3 flaps (expected <=1)"
+    },
+    {
+      "id": "F1-b",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["must restore the phase to Bound even while permitSync() is closed"],
+      "claim": "Recovery must not depend on the limiter being open, otherwise recovery is merely delayed. GREEN on PR head; guards against a regressive fix for F1-a that simply gates the restore behind permitSync.",
+      "observedOnPrHead": "PASS"
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["must restore the DatasetReady condition to True"],
+      "claim": "The DatasetReady condition must be restored to True alongside the phase, not left False. GREEN on PR head; the PR's own test asserts only the phase.",
+      "observedOnPrHead": "PASS"
+    }
+  ],
+  "liveNote": "L3 needs a real cluster and is NOT run by re-verify.sh. Order: scripts/live/live-setup.sh (scales fluid-system/cacheruntime-controller to 0, after a pre-flight check that refuses if any CacheRuntime/Dataset not owned by this harness exists) -> scripts/live/live-flap.sh <manager-binary> <label> [flaps] [dwell] for each of the PR-built and master-built managers -> scripts/live/live-teardown.sh (restores the recorded replica count). live-scenario.sh is the simpler single-outage variant. Counter = the manager's own V(1) 'Exec command start' line (fileutils.go:55); do NOT try to count via shell redirection inside reportSummary, because pkg/utils/cmdguard rejects & ; $ ' ` ( ) || >> (exec_pipes.go:57). Key signals: exec_attempts vs limiter_windows_elapsed, restore_branch_hits, and phase-after per flap.",
+  "liveResults": {
+    "prBuild":     { "phaseAfterEachFlap": "Bound 5/5",  "finalPhase": "Bound",  "restoreBranchHits": 5, "execAttempts": 6, "windowsElapsed": 10 },
+    "masterBuild": { "phaseAfterEachFlap": "Failed 0/5", "finalPhase": "Failed", "restoreBranchHits": 0, "execAttempts": 5, "windowsElapsed": 10 },
+    "conclusion": "The PR fixes a real bug end-to-end (master is stuck Failed 5/5, PR recovers to Bound 5/5). F1's amplification did NOT reproduce live: +1 exec attempt total, against a ~10-window throttled ceiling, because a real not-ready->ready cycle (~10s, bounded by readiness-probe cadence) is longer than the 5s defaultSyncRetryDuration. F1 severity: minor. Recommended verdict: COMMENT, not REQUEST_CHANGES."
+  },
+  "layersSkipped": {
+    "integration": "Deliberately skipped. An envtest layer would add only the real informer-cache lag, and L3 measures that directly by counting how many times the manager logs the restore branch for one outage. Building it would have meant puppeteering AdvancedStatefulSet status in a controller-less API server — a flaky duplicate of evidence L1 already provides deterministically."
+  }
+}

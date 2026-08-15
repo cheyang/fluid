@@ -1,0 +1,40 @@
+### Incidental finding — NOT caused by PR #6162, recorded because it cost time
+### A CacheRuntimeClass without a `client` topology section panics the controller.
+
+pkg/ddc/cache/engine/cm.go:172-177 gates on the RUNTIME spec:
+
+    if !runtime.Spec.Client.Disabled {
+        config.Client = &common.CacheRuntimeComponentConfig{
+            ...
+            Options: utils.UnionMapsWithOverride(
+                utils.UnionMapsWithOverride(runtimeClass.Topology.Client.Options, ...
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                            no nil check on Topology.Client
+
+...but then dereferences the RUNTIME CLASS topology. A class that omits `client` while the
+runtime does not set `spec.client.disabled` therefore nil-derefs.
+
+Observed while building this harness (first fixture attempt omitted the client topology):
+
+  INFO  Observed a panic in reconciler: runtime error: invalid memory address or nil
+        pointer dereference {"controller": "CacheRuntimeController", ...}
+  panic: runtime error: invalid memory address or nil pointer dereference [recovered, repanicked]
+  [signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x1873e33]
+    engine.(*CacheEngine).generateRuntimeConfigData  pkg/ddc/cache/engine/cm.go:178
+    engine.(*CacheEngine).createRuntimeValueConfigMap pkg/ddc/cache/engine/cm.go:93
+    engine.(*CacheEngine).createRuntimeConfigMaps     pkg/ddc/cache/engine/cm.go:57
+    engine.(*CacheEngine).Setup                       pkg/ddc/cache/engine/setup.go:50
+    controllers.(*RuntimeReconciler).ReconcileRuntime pkg/controllers/runtime_controller.go:272
+
+Suggested fix: guard on `runtimeClass.Topology.Client != nil` as well, mirroring how
+setup.go/status.go treat the optional topology sections. Adjacent in spirit to PR #6157's
+configmap nil-pointer work. Worth its own issue.
+
+### Second fixture gotcha (working as intended, but non-obvious)
+The client container must be privileged: the engine injects a volumeMount with
+mountPropagation: Bidirectional, and the API server rejects that on a non-privileged
+container, surfacing as a DaemonSet validation error that never mentions privileges:
+
+  DaemonSet.apps "verify6162-client" is invalid:
+    spec.template.spec.containers[0].volumeMounts.mountPropagation: Forbidden:
+    Bidirectional mount propagation is available only to privileged containers

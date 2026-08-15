@@ -1,0 +1,19 @@
+apiVersion: data.fluid.io/v1alpha1
+kind: CacheRuntime
+metadata:
+  name: verify6162
+spec:
+  runtimeClassName: verify6162
+  master:
+    replicas: 1
+  worker:
+    # One replica so that deleting the single worker pod drops ReadyReplicas to 0
+    # and CheckAndUpdateRuntimeStatus reports the runtime NOT ready -- the
+    # transient outage this PR is about.
+    replicas: 1
+    tieredStore:
+      levels:
+        - low: "0.5"
+          high: "0.8"
+          emptyDir:
+            quota: 1Gi

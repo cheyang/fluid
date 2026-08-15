@@ -1,0 +1,20 @@
+### live-scenario.sh — PR build, single worker-pod-deletion outage
+
+label:              pr
+binary:             /root/verify-results/cacheruntime-controller-pr
+recovered_to_bound: yes
+recovery_seconds:   33
+execs_while_failed: 0
+0
+execs_total:        0
+0
+final_phase:        Bound
+
+OK: dataset reached Bound
+execs at baseline: 0
+deleted verify6162-worker-0 at 2026-08-16T00:50:17+08:00
+OK: dataset went Failed after 30s
+execs while Failed: 0
+OK: dataset recovered to Bound 33s after the outage started
+execs_while_failed: 0
+execs_total:        0

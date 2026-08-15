@@ -1,0 +1,10 @@
+### AUTHOR TEST on REVERTED code (expect FAIL: Failed != Bound) ###
+• [FAILED] [0.047 seconds]
+  [FAILED] Expected
+      <v1alpha1.DatasetPhase>: Failed
+      <v1alpha1.DatasetPhase>: Bound
+Ran 1 of 258 Specs in 0.053 seconds
+FAIL! -- 0 Passed | 1 Failed | 0 Pending | 257 Skipped
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.153s
+FAIL

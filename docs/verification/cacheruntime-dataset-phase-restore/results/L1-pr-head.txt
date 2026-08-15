@@ -1,0 +1,48 @@
+2026/08/16 00:21:05 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestCacheEngine
+Running Suite: Cache Engine Suite - /root/verify-6162/pkg/ddc/cache/engine
+[cache_engine] 
+==========================================================================
+Random Seed: 1786810865
+
+Will run 4 of 258 specs
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+------------------------------
+• [FAILED] [0.023 seconds]
+VERIFY PR#6162 Dataset phase restore when the runtime is Ready but the Dataset was left Failed by an outage [It] [contract][F1-a] must not issue a cache-state RPC while permitSync() is closed [verify.pr6162]
+/root/verify-6162/pkg/ddc/cache/engine/sync_phase_restore_verify_test.go:257
+
+  [FAILED] a cache-state pod-exec RPC was issued while the permitSync() rate limiter was closed
+  Expected
+      <int>: 1
+  to equal
+      <int>: 0
+  In [It] at: /root/verify-6162/pkg/ddc/cache/engine/sync_phase_restore_verify_test.go:263 @ 08/16/26 00:21:05.466
+------------------------------
+••
+------------------------------
+• [FAILED] [0.018 seconds]
+VERIFY PR#6162 Dataset phase restore when the runtime flaps not-ready -> ready repeatedly inside one limiter window [It] [contract][F1-c] must issue at most one cache-state RPC per limiter window [verify.pr6162]
+/root/verify-6162/pkg/ddc/cache/engine/sync_phase_restore_verify_test.go:305
+
+  [FAILED] 3 cache-state pod-exec RPCs across 3 flaps within a single 5s rate-limit window
+  Expected
+      <int>: 3
+  to be <=
+      <int>: 1
+  In [It] at: /root/verify-6162/pkg/ddc/cache/engine/sync_phase_restore_verify_test.go:317 @ 08/16/26 00:21:05.492
+------------------------------
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+Summarizing 2 Failures:
+  [FAIL] VERIFY PR#6162 Dataset phase restore when the runtime is Ready but the Dataset was left Failed by an outage [It] [contract][F1-a] must not issue a cache-state RPC while permitSync() is closed [verify.pr6162]
+  /root/verify-6162/pkg/ddc/cache/engine/sync_phase_restore_verify_test.go:263
+  [FAIL] VERIFY PR#6162 Dataset phase restore when the runtime flaps not-ready -> ready repeatedly inside one limiter window [It] [contract][F1-c] must issue at most one cache-state RPC per limiter window [verify.pr6162]
+  /root/verify-6162/pkg/ddc/cache/engine/sync_phase_restore_verify_test.go:317
+
+Ran 4 of 258 Specs in 0.054 seconds
+FAIL! -- 2 Passed | 2 Failed | 0 Pending | 254 Skipped
+--- FAIL: TestCacheEngine (0.09s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.365s
+FAIL

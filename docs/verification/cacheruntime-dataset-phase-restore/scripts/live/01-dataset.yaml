@@ -1,0 +1,11 @@
+apiVersion: data.fluid.io/v1alpha1
+kind: Dataset
+metadata:
+  name: verify6162
+spec:
+  accessModes: ["ReadWriteMany"]
+  mounts:
+    # Never actually mounted: the runtime class has no mountUFS entry, so
+    # IsMountUFSSupported() is false and PrepareUFS is skipped entirely.
+    - mountPoint: "local:///tmp"
+      name: verify

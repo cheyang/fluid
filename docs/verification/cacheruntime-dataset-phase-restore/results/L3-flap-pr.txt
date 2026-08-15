@@ -1,0 +1,34 @@
+### live-flap.sh — PR build 49b2a779 (5 flaps, 3s dwell)
+
+label:                    pr
+binary:                   /root/verify-results/cacheruntime-controller-pr
+flaps:                    5 (dwell 3s each)
+flap_window_seconds:      47
+limiter_windows_elapsed:  ~10  (at defaultSyncRetryDuration=5s)
+exec_attempts:            6
+restore_branch_hits:      5
+final_phase:              Bound
+
+A throttled build cannot exceed ~limiter_windows_elapsed exec attempts.
+exec_attempts >> that bound is the F1 amplification, measured live.
+
+--- per-flap ---
+  flap 1: phase-while-down=Failed phase-after=Bound exec-attempts=1
+  flap 2: phase-while-down=Failed phase-after=Bound exec-attempts=2
+  flap 3: phase-while-down=Failed phase-after=Bound exec-attempts=4
+  flap 4: phase-while-down=Failed phase-after=Bound exec-attempts=5
+  flap 5: phase-while-down=Failed phase-after=Bound exec-attempts=6
+
+--- exec attempt timestamps ---
+2026-08-16T00:56:53+08:00
+2026-08-16T00:56:53+08:00
+2026-08-16T00:56:59+08:00
+2026-08-16T00:57:09+08:00
+2026-08-16T00:57:19+08:00
+2026-08-16T00:57:19+08:00
+2026-08-16T00:57:28+08:00
+2026-08-16T00:57:37+08:00
+
+--- exec starts / finished ---
+8
+8

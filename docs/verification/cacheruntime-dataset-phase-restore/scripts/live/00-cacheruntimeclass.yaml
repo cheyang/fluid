@@ -1,0 +1,87 @@
+# Minimal synthetic CacheRuntimeClass for verifying PR #6162.
+#
+# Deliberately trimmed to the smallest thing that reaches the code under review:
+#   * master + worker drive readiness (runtimeReady == masterReady && workerReady,
+#     per status.go:136 -- the client component does not affect it), and the client
+#     is a bare sleep container rather than a privileged FUSE mount.
+#     The client topology section cannot be omitted: cm.go:177 dereferences
+#     runtimeClass.Topology.Client.Options gated only on
+#     !runtime.Spec.Client.Disabled, so a class without it panics the controller.
+#     That is a pre-existing bug unrelated to PR #6162 -- see README "Incidental".
+#   * NO mountUFS entry, so IsMountUFSSupported() is false and the whole UFS
+#     mount/remount flow is skipped. That keeps Sync's only dataset-status writer
+#     the phase logic this PR touches.
+#   * reportSummary IS present, because that is what makes GetCacheStates reach the
+#     exec seam. Every invocation is counted from the manager's own
+#     "Exec command start" (fileutils.go:55, V(1)) log line.
+#
+# reportSummary must satisfy pkg/utils/cmdguard: the sequences & ; $ ' ` ( ) || >>
+# are all rejected (exec_pipes.go:57), which rules out both shell redirection and
+# single quotes. Hence the backslash-escaped double quotes -- sh strips the
+# backslashes and echoes valid JSON. Note this guard applies only to execs the
+# CONTROLLER issues; the containers' own commands below are unrestricted.
+#
+# The image is the fluid controller image itself: already cached on every node in
+# this cluster and it ships sh/date/cat/wc, so nothing needs pulling.
+apiVersion: data.fluid.io/v1alpha1
+kind: CacheRuntimeClass
+metadata:
+  name: verify6162
+fileSystemType: verifyfs
+topology:
+  master:
+    service:
+      headless: {}
+    executionEntries:
+      reportSummary:
+        command:
+          - sh
+          - -c
+          - echo {\"cached\":\"0\",\"cachedPercentage\":\"0\",\"cacheCapacity\":\"1073741824\",\"cacheHitRatio\":\"0\",\"fileNum\":\"0\",\"ufsTotal\":\"0\"}
+        timeout: 30
+    template:
+      spec:
+        restartPolicy: Always
+        containers:
+          - name: master
+            image: fluidcloudnative/cacheruntime-controller:v1.1.0-36f0467
+            imagePullPolicy: IfNotPresent
+            command: ["sh", "-c", "sleep infinity"]
+  worker:
+    service:
+      headless: {}
+    template:
+      spec:
+        restartPolicy: Always
+        containers:
+          - name: worker
+            image: fluidcloudnative/cacheruntime-controller:v1.1.0-36f0467
+            imagePullPolicy: IfNotPresent
+            # The readiness probe is the outage switch. Deleting /tmp/ready makes the
+            # worker NotReady within ~2s and it STAYS NotReady until the file is put
+            # back, which is what lets live-flap.sh drive fast, repeatable flaps.
+            # Deleting the pod instead gives an outage whose length you cannot control.
+            command: ["sh", "-c", "touch /tmp/ready && sleep infinity"]
+            readinessProbe:
+              exec:
+                command: ["test", "-f", "/tmp/ready"]
+              initialDelaySeconds: 2
+              periodSeconds: 1
+              failureThreshold: 1
+              successThreshold: 1
+  client:
+    template:
+      spec:
+        restartPolicy: Always
+        containers:
+          - name: client
+            image: fluidcloudnative/cacheruntime-controller:v1.1.0-36f0467
+            imagePullPolicy: IfNotPresent
+            command: ["sh", "-c", "sleep infinity"]
+            # Required, not cosmetic: the engine injects a volumeMount with
+            # mountPropagation: Bidirectional for the FUSE mount, and the API server
+            # rejects that on a non-privileged container. Same as the curvine fixture
+            # in test/gha-e2e/curvine/cacheruntimeclass.yaml.
+            securityContext:
+              privileged: true
+              runAsUser: 0

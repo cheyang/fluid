@@ -1,0 +1,21 @@
+### live-flap.sh — master, fix reverted (5 flaps, 3s dwell)
+
+label:                    master
+binary:                   /root/verify-results/cacheruntime-controller-master
+flaps:                    5 (dwell 3s each)
+flap_window_seconds:      47
+limiter_windows_elapsed:  ~10  (at defaultSyncRetryDuration=5s)
+exec_attempts:            5
+restore_branch_hits:      0
+0
+final_phase:              Failed
+
+A throttled build cannot exceed ~limiter_windows_elapsed exec attempts.
+exec_attempts >> that bound is the F1 amplification, measured live.
+
+--- per-flap ---
+  flap 1: phase-while-down=Failed phase-after=Failed exec-attempts=1
+  flap 2: phase-while-down=Failed phase-after=Failed exec-attempts=2
+  flap 3: phase-while-down=Failed phase-after=Failed exec-attempts=3
+  flap 4: phase-while-down=Failed phase-after=Failed exec-attempts=4
+  flap 5: phase-while-down=Failed phase-after=Failed exec-attempts=5
