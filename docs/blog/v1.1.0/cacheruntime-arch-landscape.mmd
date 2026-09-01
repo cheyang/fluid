@@ -1,0 +1,45 @@
+graph LR
+    subgraph API["① 声明式 API"]
+        direction TB
+        Class["CacheRuntimeClass<br/>引擎方模板"]
+        CR["CacheRuntime<br/>使用方实例"]
+        DS["Dataset<br/>UFS 挂载点"]
+    end
+
+    Ctrl["② CacheRuntime<br/>Controller<br/>Reconcile<br/>Spec → Pod"]
+
+    subgraph Data["③ 数据面 · Workloads"]
+        direction TB
+        Master["Master · StatefulSet<br/>元数据 / Headless Svc"]
+        Worker["Worker · AdvancedStatefulSet<br/>分层存储 · 原地升级"]
+        Client["Client · DaemonSet<br/>FUSE · POSIX"]
+    end
+
+    App["应用 Pod<br/>训练/推理/分析"]
+    UFS[("UFS<br/>S3·OSS·HDFS·MinIO")]
+    DL["DataLoad /<br/>DataProcess"]
+
+    Class --> Ctrl
+    CR --> Ctrl
+    DS --> Ctrl
+    Ctrl ==> Master
+    Ctrl ==> Worker
+    Ctrl ==> Client
+    Master -. 元数据 .-> Worker
+    App -->|POSIX 读写| Client
+    Client -->|命中| Worker
+    Worker -->|回源| UFS
+    DL -->|预热| Worker
+    Worker -. 亲和调度 .-> App
+
+    classDef api fill:#E8F0FE,stroke:#4285F4,stroke-width:1px,color:#1a1a1a;
+    classDef ctrl fill:#FEF7E0,stroke:#F9AB00,stroke-width:2px,color:#1a1a1a;
+    classDef data fill:#E6F4EA,stroke:#34A853,stroke-width:1px,color:#1a1a1a;
+    classDef store fill:#F1F3F4,stroke:#5F6368,stroke-width:1px,color:#1a1a1a;
+    classDef app fill:#FCE8E6,stroke:#EA4335,stroke-width:1px,color:#1a1a1a;
+
+    class Class,CR,DS api;
+    class Ctrl ctrl;
+    class Master,Worker,Client data;
+    class UFS store;
+    class App,DL app;

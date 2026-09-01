@@ -1,0 +1,43 @@
+graph LR
+    subgraph Sources["Data Sources · UFS"]
+        direction TB
+        S3["Object Storage<br/>S3 / OSS"]
+        TFS["3FS<br/>high-perf parallel FS"]
+        HDFS["HDFS / NFS"]
+    end
+
+    subgraph FluidLayer["Fluid Acceleration Layer"]
+        direction TB
+        DS["Dataset<br/>unified abstraction"]
+        Cache["CacheRuntime cluster<br/>Curvine / Alluxio / JuiceFS<br/>tiered store Mem / SSD"]
+        PF["Model Prefetch · DataLoad<br/>warm up weights / data"]
+    end
+
+    subgraph AI["AI Workloads"]
+        direction TB
+        Train["Training Job<br/>dataloader random read"]
+        Infer["Inference Service<br/>fast cold start"]
+    end
+
+    KV[("Distributed KV Cache<br/>vLLM / SGLang · Mooncake<br/>Roadmap")]
+
+    S3 --> DS
+    TFS --> DS
+    HDFS --> DS
+    DS --> Cache
+    PF ==>|warm up| Cache
+    Cache -->|high-throughput read| Train
+    Cache -->|instant weight load| Infer
+    Infer -. offload KV cache<br/>cross-pod sharing .-> KV
+
+    classDef store fill:#F1F3F4,stroke:#5F6368,stroke-width:1px,color:#1a1a1a;
+    classDef fluid fill:#E6F4EA,stroke:#34A853,stroke-width:1px,color:#1a1a1a;
+    classDef pf fill:#FEF7E0,stroke:#F9AB00,stroke-width:2px,color:#1a1a1a;
+    classDef ai fill:#FCE8E6,stroke:#EA4335,stroke-width:1px,color:#1a1a1a;
+    classDef road fill:#F3E8FD,stroke:#A142F4,stroke-width:1px,color:#1a1a1a,stroke-dasharray:4 3;
+
+    class S3,TFS,HDFS store;
+    class DS,Cache fluid;
+    class PF pf;
+    class Train,Infer ai;
+    class KV road;
