@@ -1,0 +1,21 @@
+{
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6175",
+  "topic": "pr6175-mooncake-clientless-e2e",
+  "base": "fluid-cloudnative/fluid@master",
+  "head_repo": "btxu-db/fluid",
+  "head_branch": "test/mooncake-client-less-e2e",
+  "head_reviewed": "01b19d16245ac6215cee95c9ef2946c1bd6c9cf4",
+  "reviewer_fork": "cheyang/fluid",
+  "verify_branch": "verify/pr6175-mooncake-clientless-e2e",
+  "sandbox": "root@43.99.38.217",
+  "cluster": "ACK cn-hongkong k8s v1.36.1 (3 nodes)",
+  "layers": {
+    "L0_premise": "client-less topology panics pre-#6157 controller (deployed 36f0467)",
+    "L1_static": "bash -n + shellcheck (koalaman/shellcheck:stable) on test.sh + image scripts",
+    "L2_image_build": "docker build --require-hashes of test/gha-e2e/mooncake/image",
+    "L3_script_unit": "reportSummary.sh + custom-entrypoint.sh + rw_job python against real mooncake_master/worker in docker",
+    "L4_live_e2e": "full test.sh on ACK with master cacheruntime/dataset-controller (rolebasedgroup/*:verify-6175)",
+    "L5_gc_selector": "synthetic ASTS+SVC with controller labels vs test GC selector"
+  },
+  "findings": ["F1-reportsummary-zerocap", "F10-vacuous-gc-selector", "F15-panic-log-previous"]
+}
