@@ -39,6 +39,8 @@ import (
 
 	workloadv1alpha1 "github.com/fluid-cloudnative/advanced-statefulset/api/workload/v1alpha1"
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
+	"github.com/fluid-cloudnative/fluid/pkg/common"
+	"github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component"
 	cruntime "github.com/fluid-cloudnative/fluid/pkg/runtime"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -91,6 +93,9 @@ func verify6183Fixture(t *testing.T, masterReplicas, workerReplicas int32) (*Cac
 				Containers: []corev1.Container{{Name: "master", Image: "test-master:latest"}},
 			}},
 		},
+		Status: workloadv1alpha1.AdvancedStatefulSetStatus{
+			ReadyReplicas: masterReplicas, CurrentReplicas: masterReplicas, AvailableReplicas: masterReplicas,
+		},
 	}
 	wr := workerReplicas
 	workerSts := &workloadv1alpha1.AdvancedStatefulSet{
@@ -101,11 +106,15 @@ func verify6183Fixture(t *testing.T, masterReplicas, workerReplicas int32) (*Cac
 				Containers: []corev1.Container{{Name: "worker", Image: "test-worker:latest"}},
 			}},
 		},
+		Status: workloadv1alpha1.AdvancedStatefulSetStatus{
+			ReadyReplicas: workerReplicas, CurrentReplicas: workerReplicas, AvailableReplicas: workerReplicas,
+		},
 	}
 
 	fakeClient := fake.NewClientBuilder().
 		WithScheme(scheme).
 		WithObjects(runtimeObj, runtimeClass, masterSts, workerSts).
+		WithStatusSubresource(runtimeObj).
 		Build()
 
 	engine := &CacheEngine{
@@ -219,5 +228,70 @@ func TestVerify6183_NoChangeIsIdempotent(t *testing.T) {
 	}
 	if got := getASTSReplicas(t, c, "test-runtime-master"); got != 1 {
 		t.Fatalf("master ASTS replicas = %d, want unchanged 1", got)
+	}
+}
+
+// TestVerify6183_ScalingObservableViaStatus disproves the doc's §3.3 claim that
+// scaling "can only be observed from the controller logs". After syncRuntimeSpec
+// patches the ASTS spec.replicas, the reconcile status path
+// (getRuntimeStatusValue -> CheckAndUpdateRuntimeStatus -> setWorkerComponentStatus
+// -> ConstructComponentStatus -> Status().Update) writes the new count into
+// CacheRuntime.status.worker.desiredReplicas, which is exactly what the sibling
+// curvine_cache_runtime.md doc reads with
+// `kubectl get cacheruntime ... -o jsonpath='{.status.worker.readyReplicas}/{.status.worker.desiredReplicas}'`.
+// CONTRACT: green means the status IS an observability channel; the doc line is wrong.
+func TestVerify6183_ScalingObservableViaStatus(t *testing.T) {
+	engine, runtimeObj, runtimeClass, ctx, c := verify6183Fixture(t, 1, 2)
+
+	// Scale worker 2 -> 3 and sync it into the ASTS.
+	runtimeObj.Spec.Worker.Replicas = 3
+	if err := engine.syncRuntimeSpec(ctx, runtimeObj, runtimeClass); err != nil {
+		t.Fatalf("syncRuntimeSpec: %v", err)
+	}
+	if got := getASTSReplicas(t, c, "test-runtime-worker"); got != 3 {
+		t.Fatalf("precondition: worker ASTS replicas = %d, want 3", got)
+	}
+
+	// Drive the steady-state status write-back that runs on every reconcile.
+	statusValue, err := engine.getRuntimeStatusValue(runtimeObj, runtimeClass)
+	if err != nil {
+		t.Fatalf("getRuntimeStatusValue: %v", err)
+	}
+	if _, err := engine.CheckAndUpdateRuntimeStatus(statusValue); err != nil {
+		t.Fatalf("CheckAndUpdateRuntimeStatus: %v", err)
+	}
+
+	// Read the CacheRuntime CR back and inspect .status.worker, the field the
+	// Curvine doc uses to observe scaling.
+	got := &datav1alpha1.CacheRuntime{}
+	if err := c.Get(context.Background(), types.NamespacedName{Name: "test-runtime", Namespace: "default"}, got); err != nil {
+		t.Fatalf("get cacheruntime: %v", err)
+	}
+	if got.Status.Worker.DesiredReplicas != 3 {
+		t.Fatalf("status.worker.desiredReplicas = %d, want 3 (scaling NOT observable via status — doc claim would be right)", got.Status.Worker.DesiredReplicas)
+	}
+}
+
+// TestVerify6183_ConstructComponentStatusReflectsReplicas is the focused unit
+// behind the test above: ConstructComponentStatus derives desiredReplicas from
+// the ASTS spec.replicas that syncRuntimeSpec just patched. CONTRACT.
+func TestVerify6183_ConstructComponentStatusReflectsReplicas(t *testing.T) {
+	engine, runtimeObj, runtimeClass, ctx, c := verify6183Fixture(t, 1, 2)
+
+	runtimeObj.Spec.Worker.Replicas = 4
+	if err := engine.syncRuntimeSpec(ctx, runtimeObj, runtimeClass); err != nil {
+		t.Fatalf("syncRuntimeSpec: %v", err)
+	}
+
+	manager := component.NewComponentHelper(common.ComponentTypeWorker, c)
+	st, err := manager.ConstructComponentStatus(context.Background(), &common.ComponentIdentity{
+		Name:      common.GetCacheComponentName("test-runtime", common.ComponentTypeWorker),
+		Namespace: "default",
+	})
+	if err != nil {
+		t.Fatalf("ConstructComponentStatus: %v", err)
+	}
+	if st.DesiredReplicas != 4 {
+		t.Fatalf("ConstructComponentStatus.DesiredReplicas = %d, want 4", st.DesiredReplicas)
 	}
 }

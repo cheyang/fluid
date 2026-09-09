@@ -82,3 +82,36 @@ bash scripts/re-verify.sh            # re-runs against the current PR head from 
 All findings are `contract` polarity: green = still correct. If a future change
 stops syncing replicas, C1–C3 go red — that is the reproduction of the docs
 becoming stale.
+
+---
+
+## Correction (added after the initial approval)
+
+One §3.3 statement does **not** hold up and should be fixed before merge
+(minor, non-blocking):
+
+> "Scaling writes no RuntimeCondition and emits no Kubernetes Event; **it can
+> only be observed from the controller logs**."
+
+The first half is correct — this path records no condition and emits no Event
+(unlike `pkg/ctrl/replicas.go`). The second half is wrong. On every reconcile the
+controller persists replica counts to the CacheRuntime **status**:
+
+- `ConstructComponentStatus` (`advanced_statefulset_manager.go:179`) derives
+  `DesiredReplicas` from `asts.Spec.Replicas`, plus `ReadyReplicas`/`CurrentReplicas`;
+- `setWorkerComponentStatus`/`setMasterComponentStatus` assign it to
+  `status.Worker`/`status.Master` (`worker.go:84`, `master.go:85`);
+- `CheckAndUpdateRuntimeStatus` persists it via `Status().Update` (`status.go:156`),
+  and runs from `sync.go:80` on every reconcile.
+
+The project's own sibling doc already uses this channel —
+`docs/{en,zh}/samples/cacheruntime/curvine_cache_runtime.md:573`:
+`kubectl get cacheruntime ... -o jsonpath='{.status.worker.readyReplicas}/{.status.worker.desiredReplicas}'`.
+
+| id | claim | polarity | layer | verdict | evidence |
+|----|-------|----------|-------|---------|----------|
+| C5 | scaling observable via `status.{master,worker}.desiredReplicas` | contract | unit | **Confirmed** | `results/L1-status-observability.txt` (bites: `results/L1-status-bites.txt`) |
+
+Suggested wording (en:129 / zh:128): keep "no RuntimeCondition / no Event", drop
+"only ... logs", and point at `status.{master,worker}.{readyReplicas,desiredReplicas}`
+or the controller logs.

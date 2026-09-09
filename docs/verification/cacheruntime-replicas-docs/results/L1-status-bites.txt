@@ -1,0 +1,7 @@
+--- FAIL: TestVerify6183_ScalingObservableViaStatus (0.00s)
+    verify_6183_replicas_test.go:271: status.worker.desiredReplicas = 0, want 3 (scaling NOT observable via status — doc claim would be right)
+--- FAIL: TestVerify6183_ConstructComponentStatusReflectsReplicas (0.00s)
+    verify_6183_replicas_test.go:295: ConstructComponentStatus.DesiredReplicas = 0, want 4
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.111s
+FAIL
