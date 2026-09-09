@@ -1,0 +1,40 @@
+{
+  "topic": "cacheruntime-replicas-docs",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6183",
+  "harnessPaths": [
+    "docs/verification/cacheruntime-replicas-docs",
+    "pkg/ddc/cache/engine/verify_6183_replicas_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Docs PR: `replicas` can be updated in place on CacheRuntime Master and Worker (synced to the AdvancedStatefulSet on every reconcile), contradicting the previous docs that listed `replicas` as requiring a redeploy.",
+    "reportedComponent": "pkg/ddc/cache/engine/sync.go syncRuntimeSpec + pkg/ddc/cache/component advanced_statefulset_manager.go",
+    "patchedComponent": "docs/{en,zh}/samples/cacheruntime/cacheruntime_spec_update.md (+ stale TODO comment removed from sync.go)",
+    "componentMatch": true,
+    "runsAgainst": "head",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "syncRuntimeSpec passes &runtime.Spec.{Master,Worker}.Replicas (always non-nil) into ComponentSpec; SyncComponentSpec applies it first via updateReplicas and patches the ASTS when the value differs. Proven by the fake-client harness running the real code path. See results/L1-replicas-sync.txt.",
+    "match": ["TestVerify6183_WorkerReplicasSyncedInPlace", "TestVerify6183_MasterReplicasSyncedInPlace"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run 'TestVerify6183' -json"
+    }
+  },
+  "findings": [
+    { "id": "C1", "desc": "spec.worker.replicas is synced in place to the Worker ASTS (doc 3.3)", "polarity": "contract", "layer": "unit", "match": ["TestVerify6183_WorkerReplicasSyncedInPlace", "TestVerify6183_ReplicasSyncedWithoutResources"] },
+    { "id": "C2", "desc": "spec.master.replicas is synced in place to the Master ASTS (doc summary table)", "polarity": "contract", "layer": "unit", "match": ["TestVerify6183_MasterReplicasSyncedInPlace"] },
+    { "id": "C3", "desc": "scale-in (2->1) is propagated, not just scale-out", "polarity": "contract", "layer": "unit", "match": ["TestVerify6183_ScaleInSynced"] },
+    { "id": "C4", "desc": "sync is value-driven/idempotent: unchanged replicas produce no spurious patch", "polarity": "contract", "layer": "unit", "match": ["TestVerify6183_NoChangeIsIdempotent"] }
+  ],
+  "staticClaims": [
+    { "id": "S1", "desc": "Scaling is silent: no RuntimeCondition, no Event on this path (unlike pkg/ctrl/replicas.go SyncReplicas)", "verdict": "confirmed", "how": "grep: syncRuntimeSpec/SyncComponentSpec/updateReplicas emit no recorder.Event and no UpdateRuntimeCondition; SyncReplicas emits RuntimeWorkerScaledIn/Out + Events" },
+    { "id": "S2", "desc": "Scaling in discards cached data (no drain/migration)", "verdict": "confirmed-by-absence", "how": "grep -niE 'scaledown|drain|migrat|preStop' pkg/ddc/cache finds only unrelated DataMigrate CRD code; ASTS scale-down deletes pods with no cache handoff. Inferred, matches author's own note." },
+    { "id": "S3", "desc": "replicas is not subject to the cgroupv1 step-by-step limitation", "verdict": "confirmed", "how": "The cgroupv1 constraint (K8s #127356) is about resizing image+resources simultaneously; replicas touches neither container image nor resources." },
+    { "id": "S4", "desc": "Section 4 'any field not in section 3' is exhaustive", "verdict": "confirmed", "how": "SyncComponentSpec updates exactly {replicas, image(runtimeVersion), resources} = the three subsections of section 3." },
+    { "id": "S5", "desc": "kubectl logs -n fluid-system deploy/cacheruntime-controller | grep 'replicas changed' works", "verdict": "confirmed", "how": "charts/fluid/fluid/templates/controller/cacheruntime_controller.yaml defines a Deployment named cacheruntime-controller in the fluid namespace; 'replicas changed, will update' is logged at Info level (advanced_statefulset_manager.go:263)" }
+  ],
+  "liveNote": "L3 (live) intentionally skipped: the claim is fully decided at L1 by running the real syncRuntimeSpec code path against a fake client. The author independently confirmed on a kind cluster (log lines quoted in the PR body). A live CacheRuntime deploy would be disproportionate for a docs PR."
+}

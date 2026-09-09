@@ -1,0 +1,11 @@
+--- FAIL: TestVerify6183_WorkerReplicasSyncedInPlace (0.00s)
+    verify_6183_replicas_test.go:156: worker ASTS replicas = 2, want 3 (replicas NOT synced in place -- doc 3.3 would be wrong)
+--- FAIL: TestVerify6183_MasterReplicasSyncedInPlace (0.00s)
+    verify_6183_replicas_test.go:171: master ASTS replicas = 1, want 3 (master replicas NOT synced -- doc table would be wrong)
+--- FAIL: TestVerify6183_ScaleInSynced (0.00s)
+    verify_6183_replicas_test.go:186: worker ASTS replicas = 2, want 1 (scale-in NOT synced)
+--- FAIL: TestVerify6183_ReplicasSyncedWithoutResources (0.00s)
+    verify_6183_replicas_test.go:203: worker ASTS replicas = 2, want 5 with no resources declared
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.069s
+FAIL

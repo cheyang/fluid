@@ -1,0 +1,13 @@
+2026/09/09 07:48:27 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerify6183_WorkerReplicasSyncedInPlace
+--- PASS: TestVerify6183_WorkerReplicasSyncedInPlace (0.00s)
+=== RUN   TestVerify6183_MasterReplicasSyncedInPlace
+--- PASS: TestVerify6183_MasterReplicasSyncedInPlace (0.00s)
+=== RUN   TestVerify6183_ScaleInSynced
+--- PASS: TestVerify6183_ScaleInSynced (0.00s)
+=== RUN   TestVerify6183_ReplicasSyncedWithoutResources
+--- PASS: TestVerify6183_ReplicasSyncedWithoutResources (0.00s)
+=== RUN   TestVerify6183_NoChangeIsIdempotent
+--- PASS: TestVerify6183_NoChangeIsIdempotent (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.081s
