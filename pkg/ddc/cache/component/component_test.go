@@ -291,6 +291,47 @@ var _ = Describe("AdvancedStatefulSetManager", func() {
 			})
 			Expect(err).To(HaveOccurred())
 		})
+
+		It("should return status and affinity when ConstructComponentStatusAndAffinity is called", func() {
+			replicas := int32(2)
+			asts := &workloadv1alpha1.AdvancedStatefulSet{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:      "test-runtime-master",
+					Namespace: "fluid",
+				},
+				Spec: workloadv1alpha1.AdvancedStatefulSetSpec{
+					Replicas: &replicas,
+					Template: corev1.PodTemplateSpec{
+						Spec: corev1.PodSpec{
+							NodeSelector: map[string]string{
+								"disktype": "ssd",
+							},
+						},
+					},
+				},
+				Status: workloadv1alpha1.AdvancedStatefulSetStatus{
+					ReadyReplicas:     2,
+					CurrentReplicas:   2,
+					AvailableReplicas: 2,
+				},
+			}
+			Expect(manager.client.Create(ctx, asts)).To(Succeed())
+
+			status, affinity, err := manager.ConstructComponentStatusAndAffinity(ctx, &common.ComponentIdentity{
+				Name:      component.Name,
+				Namespace: component.Namespace,
+			})
+			Expect(err).NotTo(HaveOccurred())
+			Expect(status.Phase).To(Equal(datav1alpha1.RuntimePhaseReady))
+			Expect(affinity).NotTo(BeNil())
+			terms := affinity.RequiredDuringSchedulingIgnoredDuringExecution.NodeSelectorTerms
+			Expect(terms).To(HaveLen(1))
+			Expect(terms[0].MatchExpressions).To(ContainElement(corev1.NodeSelectorRequirement{
+				Key:      "disktype",
+				Operator: corev1.NodeSelectorOpIn,
+				Values:   []string{"ssd"},
+			}))
+		})
 	})
 
 	Describe("GetPodSpec", func() {
@@ -502,6 +543,46 @@ var _ = Describe("DaemonSetManager", func() {
 				Namespace: component.Namespace,
 			})
 			Expect(err).To(HaveOccurred())
+		})
+
+		It("should return status and affinity when ConstructComponentStatusAndAffinity is called", func() {
+			ds := &appsv1.DaemonSet{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:      component.Name,
+					Namespace: component.Namespace,
+				},
+				Spec: appsv1.DaemonSetSpec{
+					Template: corev1.PodTemplateSpec{
+						Spec: corev1.PodSpec{
+							NodeSelector: map[string]string{
+								"disktype": "ssd",
+							},
+						},
+					},
+				},
+				Status: appsv1.DaemonSetStatus{
+					NumberReady:            2,
+					CurrentNumberScheduled: 2,
+					NumberAvailable:        2,
+					DesiredNumberScheduled: 2,
+				},
+			}
+			Expect(manager.client.Create(ctx, ds)).To(Succeed())
+
+			status, affinity, err := manager.ConstructComponentStatusAndAffinity(ctx, &common.ComponentIdentity{
+				Name:      component.Name,
+				Namespace: component.Namespace,
+			})
+			Expect(err).NotTo(HaveOccurred())
+			Expect(status.Phase).To(Equal(datav1alpha1.RuntimePhaseReady))
+			Expect(affinity).NotTo(BeNil())
+			terms := affinity.RequiredDuringSchedulingIgnoredDuringExecution.NodeSelectorTerms
+			Expect(terms).To(HaveLen(1))
+			Expect(terms[0].MatchExpressions).To(ContainElement(corev1.NodeSelectorRequirement{
+				Key:      "disktype",
+				Operator: corev1.NodeSelectorOpIn,
+				Values:   []string{"ssd"},
+			}))
 		})
 	})
 

@@ -146,15 +146,15 @@ func (s *AdvancedStatefulSetManager) constructAdvancedStatefulSet(component *com
 	return asts
 }
 
-func (s *AdvancedStatefulSetManager) ConstructComponentStatus(ctx context.Context, identity *common.ComponentIdentity) (datav1alpha1.RuntimeComponentStatus, error) {
+func (s *AdvancedStatefulSetManager) ConstructComponentStatusAndAffinity(ctx context.Context, identity *common.ComponentIdentity) (datav1alpha1.RuntimeComponentStatus, *corev1.NodeAffinity, error) {
 	logger := log.FromContext(ctx)
-	logger.Info("start to ConstructComponentStatus")
+	logger.Info("start to ConstructComponentStatusAndAffinity")
 
 	asts := &workloadv1alpha1.AdvancedStatefulSet{}
 	err := s.client.Get(ctx, types.NamespacedName{Name: identity.Name, Namespace: identity.Namespace}, asts)
 	if err != nil {
 		logger.Error(err, fmt.Sprintf("failed to get component: %s/%s", identity.Namespace, identity.Name))
-		return datav1alpha1.RuntimeComponentStatus{}, err
+		return datav1alpha1.RuntimeComponentStatus{}, nil, err
 	}
 
 	desiredReplicas := int32(0)
@@ -174,14 +174,23 @@ func (s *AdvancedStatefulSetManager) ConstructComponentStatus(ctx context.Contex
 		unavailableReplicas = 0
 	}
 
-	return datav1alpha1.RuntimeComponentStatus{
+	status := datav1alpha1.RuntimeComponentStatus{
 		Phase:               runtimePhase,
 		DesiredReplicas:     desiredReplicas,
 		CurrentReplicas:     asts.Status.CurrentReplicas,
 		AvailableReplicas:   asts.Status.AvailableReplicas,
 		UnavailableReplicas: unavailableReplicas,
 		ReadyReplicas:       readyReplicas,
-	}, nil
+	}
+
+	affinity := kubeclient.MergeNodeSelectorAndNodeAffinity(asts.Spec.Template.Spec.NodeSelector, asts.Spec.Template.Spec.Affinity)
+
+	return status, affinity, nil
+}
+
+func (s *AdvancedStatefulSetManager) ConstructComponentStatus(ctx context.Context, identity *common.ComponentIdentity) (datav1alpha1.RuntimeComponentStatus, error) {
+	status, _, err := s.ConstructComponentStatusAndAffinity(ctx, identity)
+	return status, err
 }
 
 // SyncComponentSpec synchronizes component specification changes to the AdvancedStatefulSet
