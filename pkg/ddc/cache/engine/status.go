@@ -71,12 +71,19 @@ func (e *CacheEngine) setWorkerComponentStatus(componentInfo *common.ComponentSt
 	}
 	status.Worker = workerStatus
 
-	// Worker Affinity
-	affinity, err := manager.GetNodeAffinity(&componentInfo.ComponentIdentity)
-	if err != nil {
-		return false, err
+	// Worker Affinity: read from cache or runtime status to avoid calling GetNodeAffinity on every status update cycle
+	if e.cacheAffinity != nil {
+		status.CacheAffinity = e.cacheAffinity.DeepCopy()
+	} else if status.CacheAffinity != nil {
+		e.cacheAffinity = status.CacheAffinity.DeepCopy()
+	} else {
+		affinity, err := manager.GetNodeAffinity(&componentInfo.ComponentIdentity)
+		if err != nil {
+			return false, err
+		}
+		e.cacheAffinity = affinity
+		status.CacheAffinity = affinity
 	}
-	status.CacheAffinity = affinity
 	return ready, err
 }
 func (e *CacheEngine) setClientComponentStatus(componentInfo *common.ComponentStatusInfo, status *fluidapi.CacheRuntimeStatus) (fullyReady bool, err error) {

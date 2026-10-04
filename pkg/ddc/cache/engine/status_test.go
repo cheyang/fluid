@@ -24,6 +24,7 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	appsv1 "k8s.io/api/apps/v1"
+	corev1 "k8s.io/api/core/v1"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -195,6 +196,147 @@ var _ = Describe("CheckAndUpdateRuntimeStatus", func() {
 			})
 		})
 	})
+
+	Describe("Worker node affinity caching", func() {
+		It("should fetch affinity on first reconcile, cache on engine, and avoid re-fetching on subsequent reconcile", func() {
+			baseClient := fake.NewFakeClientWithScheme(
+				CacheEngineTestScheme,
+				newStatusTestRuntime(),
+				newAdvancedStatefulSetComponent(testStatusMaster, testStatusNamespace, 1, 1),
+				newAdvancedStatefulSetComponent(testStatusWorker, testStatusNamespace, 1, 1),
+			)
+			countingClient := &getCallCountingClient{Client: baseClient}
+			engine, client = newStatusTestEngineWithClient(countingClient)
+
+			Expect(countingClient.workerGetCount).To(Equal(0))
+			Expect(engine.cacheAffinity).To(BeNil())
+
+			// First cycle: should construct status (1 Get) and fetch node affinity (1 Get)
+			ready, err := engine.CheckAndUpdateRuntimeStatus(newStatusTestRuntimeValue(false))
+			Expect(err).NotTo(HaveOccurred())
+			Expect(ready).To(BeTrue())
+			Expect(countingClient.workerGetCount).To(Equal(2), "expected 1 Get for construct status and 1 Get for node affinity")
+			Expect(engine.cacheAffinity).NotTo(BeNil())
+
+			updatedRuntime := getUpdatedRuntime(client)
+			Expect(updatedRuntime.Status.CacheAffinity).NotTo(BeNil())
+			Expect(updatedRuntime.Status.CacheAffinity).To(Equal(engine.cacheAffinity))
+
+			// Second cycle: should reuse engine.cacheAffinity without calling GetNodeAffinity (only 1 Get for construct status)
+			ready, err = engine.CheckAndUpdateRuntimeStatus(newStatusTestRuntimeValue(false))
+			Expect(err).NotTo(HaveOccurred())
+			Expect(ready).To(BeTrue())
+			Expect(countingClient.workerGetCount).To(Equal(3), "expected only 1 additional Get for construct status, none for node affinity")
+
+			updatedRuntime2 := getUpdatedRuntime(client)
+			Expect(updatedRuntime2.Status.CacheAffinity).To(Equal(engine.cacheAffinity))
+		})
+
+		It("should initialize engine cacheAffinity from runtime status without fetching from kubeclient if already present", func() {
+			preExistingAffinity := &corev1.NodeAffinity{
+				RequiredDuringSchedulingIgnoredDuringExecution: &corev1.NodeSelector{
+					NodeSelectorTerms: []corev1.NodeSelectorTerm{
+						{
+							MatchExpressions: []corev1.NodeSelectorRequirement{
+								{
+									Key:      "topology.kubernetes.io/zone",
+									Operator: corev1.NodeSelectorOpIn,
+									Values:   []string{"zone-a"},
+								},
+							},
+						},
+					},
+				},
+			}
+
+			runtimeWithAffinity := newStatusTestRuntime()
+			runtimeWithAffinity.Status.CacheAffinity = preExistingAffinity
+
+			baseClient := fake.NewFakeClientWithScheme(
+				CacheEngineTestScheme,
+				runtimeWithAffinity,
+				newAdvancedStatefulSetComponent(testStatusMaster, testStatusNamespace, 1, 1),
+				newAdvancedStatefulSetComponent(testStatusWorker, testStatusNamespace, 1, 1),
+			)
+			countingClient := &getCallCountingClient{Client: baseClient}
+			engine, client = newStatusTestEngineWithClient(countingClient)
+
+			Expect(countingClient.workerGetCount).To(Equal(0))
+			Expect(engine.cacheAffinity).To(BeNil())
+
+			ready, err := engine.CheckAndUpdateRuntimeStatus(newStatusTestRuntimeValue(false))
+			Expect(err).NotTo(HaveOccurred())
+			Expect(ready).To(BeTrue())
+			Expect(countingClient.workerGetCount).To(Equal(1), "expected only 1 Get for construct status, reading affinity from runtime status")
+			Expect(engine.cacheAffinity).To(Equal(preExistingAffinity))
+
+			updatedRuntime := getUpdatedRuntime(client)
+			Expect(updatedRuntime.Status.CacheAffinity).To(Equal(preExistingAffinity))
+		})
+
+		It("should correctly merge worker NodeSelector into cacheAffinity and preserve it across cycles", func() {
+			nodeSelector := map[string]string{
+				"disktype": "ssd",
+			}
+
+			baseClient := fake.NewFakeClientWithScheme(
+				CacheEngineTestScheme,
+				newStatusTestRuntime(),
+				newAdvancedStatefulSetComponent(testStatusMaster, testStatusNamespace, 1, 1),
+				newAdvancedStatefulSetComponentWithNodeSelector(testStatusWorker, testStatusNamespace, 1, 1, nodeSelector),
+			)
+			countingClient := &getCallCountingClient{Client: baseClient}
+			engine, client = newStatusTestEngineWithClient(countingClient)
+
+			// First cycle
+			ready, err := engine.CheckAndUpdateRuntimeStatus(newStatusTestRuntimeValue(false))
+			Expect(err).NotTo(HaveOccurred())
+			Expect(ready).To(BeTrue())
+			Expect(countingClient.workerGetCount).To(Equal(2))
+
+			updatedRuntime := getUpdatedRuntime(client)
+			Expect(updatedRuntime.Status.CacheAffinity).NotTo(BeNil())
+			terms := updatedRuntime.Status.CacheAffinity.RequiredDuringSchedulingIgnoredDuringExecution.NodeSelectorTerms
+			Expect(terms).To(HaveLen(1))
+			Expect(terms[0].MatchExpressions).To(ContainElement(corev1.NodeSelectorRequirement{
+				Key:      "disktype",
+				Operator: corev1.NodeSelectorOpIn,
+				Values:   []string{"ssd"},
+			}))
+
+			// Second cycle
+			ready, err = engine.CheckAndUpdateRuntimeStatus(newStatusTestRuntimeValue(false))
+			Expect(err).NotTo(HaveOccurred())
+			Expect(ready).To(BeTrue())
+			Expect(countingClient.workerGetCount).To(Equal(3))
+
+			updatedRuntime2 := getUpdatedRuntime(client)
+			terms2 := updatedRuntime2.Status.CacheAffinity.RequiredDuringSchedulingIgnoredDuringExecution.NodeSelectorTerms
+			Expect(terms2).To(HaveLen(1))
+			Expect(terms2[0].MatchExpressions).To(ContainElement(corev1.NodeSelectorRequirement{
+				Key:      "disktype",
+				Operator: corev1.NodeSelectorOpIn,
+				Values:   []string{"ssd"},
+			}))
+		})
+
+		It("should return error when GetNodeAffinity fails and not cache affinity", func() {
+			baseClient := fake.NewFakeClientWithScheme(
+				CacheEngineTestScheme,
+				newStatusTestRuntime(),
+				newAdvancedStatefulSetComponent(testStatusMaster, testStatusNamespace, 1, 1),
+				newAdvancedStatefulSetComponent(testStatusWorker, testStatusNamespace, 1, 1),
+			)
+			failingClient := &failOnSecondWorkerGetClient{Client: baseClient}
+			engine, _ := newStatusTestEngineWithClient(failingClient)
+
+			ready, err := engine.CheckAndUpdateRuntimeStatus(newStatusTestRuntimeValue(false))
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(ContainSubstring("failed to get node affinity"))
+			Expect(ready).To(BeFalse())
+			Expect(engine.cacheAffinity).To(BeNil())
+		})
+	})
 })
 
 func newStatusTestEngineWithClient(client ctrlclient.Client) (*CacheEngine, ctrlclient.Client) {
@@ -309,4 +451,37 @@ func (w *conflictOnceStatusWriter) Update(ctx context.Context, obj ctrlclient.Ob
 	}
 
 	return w.StatusWriter.Update(ctx, obj, opts...)
+}
+
+func newAdvancedStatefulSetComponentWithNodeSelector(name, namespace string, desiredReplicas, readyReplicas int32, nodeSelector map[string]string) *workloadv1alpha1.AdvancedStatefulSet {
+	sts := newAdvancedStatefulSetComponent(name, namespace, desiredReplicas, readyReplicas)
+	sts.Spec.Template.Spec.NodeSelector = nodeSelector
+	return sts
+}
+
+type getCallCountingClient struct {
+	ctrlclient.Client
+	workerGetCount int
+}
+
+func (c *getCallCountingClient) Get(ctx context.Context, key types.NamespacedName, obj ctrlclient.Object, opts ...ctrlclient.GetOption) error {
+	if key.Name == testStatusWorker {
+		c.workerGetCount++
+	}
+	return c.Client.Get(ctx, key, obj, opts...)
+}
+
+type failOnSecondWorkerGetClient struct {
+	ctrlclient.Client
+	workerGetCount int
+}
+
+func (c *failOnSecondWorkerGetClient) Get(ctx context.Context, key types.NamespacedName, obj ctrlclient.Object, opts ...ctrlclient.GetOption) error {
+	if key.Name == testStatusWorker {
+		c.workerGetCount++
+		if c.workerGetCount == 2 {
+			return errors.New("failed to get node affinity")
+		}
+	}
+	return c.Client.Get(ctx, key, obj, opts...)
 }

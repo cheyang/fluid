@@ -21,6 +21,7 @@ import (
 
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
 	"github.com/fluid-cloudnative/fluid/pkg/utils"
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/types"
 
 	"github.com/go-logr/logr"
@@ -63,6 +64,9 @@ type CacheEngine struct {
 	// TODO(cache runtime): use narrowed interface, and as a part of RuntimeInfoInterface.
 	// always use getRuntimeInfo() method instead of use this directly.
 	runtimeInfo base.RuntimeInfoInterface
+
+	// cacheAffinity caches the worker node affinity to avoid calling kubeclient.GetStatefulSet on every status update cycle
+	cacheAffinity *corev1.NodeAffinity
 }
 
 // ID returns the id of the engine
