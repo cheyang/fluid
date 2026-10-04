@@ -49,16 +49,6 @@ func (s *DaemonSetManager) Reconciler(ctx context.Context, component *common.Cac
 	return reconcileService(ctx, s.client, component)
 }
 
-func (s *DaemonSetManager) GetNodeAffinity(identity *common.ComponentIdentity) (*corev1.NodeAffinity, error) {
-	ds, err := kubeclient.GetDaemonset(s.client, identity.Name, identity.Namespace)
-	if err != nil {
-		return nil, err
-	}
-
-	affinity := kubeclient.MergeNodeSelectorAndNodeAffinity(ds.Spec.Template.Spec.NodeSelector, ds.Spec.Template.Spec.Affinity)
-	return affinity, nil
-}
-
 func (s *DaemonSetManager) GetPodSpec(ctx context.Context, identity *common.ComponentIdentity) (*corev1.PodSpec, error) {
 	ds, err := kubeclient.GetDaemonset(s.client, identity.Name, identity.Namespace)
 	if err != nil {
@@ -123,15 +113,15 @@ func (s *DaemonSetManager) constructDaemonSet(component *common.CacheRuntimeComp
 	return ds
 }
 
-func (s *DaemonSetManager) ConstructComponentStatus(ctx context.Context, identity *common.ComponentIdentity) (datav1alpha1.RuntimeComponentStatus, error) {
+func (s *DaemonSetManager) ConstructComponentStatusAndAffinity(ctx context.Context, identity *common.ComponentIdentity) (datav1alpha1.RuntimeComponentStatus, *corev1.NodeAffinity, error) {
 	logger := log.FromContext(ctx)
-	logger.Info("start to ConstructComponentStatus")
+	logger.Info("start to ConstructComponentStatusAndAffinity")
 
 	ds := &appsv1.DaemonSet{}
 	err := s.client.Get(ctx, types.NamespacedName{Name: identity.Name, Namespace: identity.Namespace}, ds)
 	if err != nil {
 		logger.Error(err, fmt.Sprintf("failed to get component: %s/%s", identity.Namespace, identity.Name))
-		return datav1alpha1.RuntimeComponentStatus{}, err
+		return datav1alpha1.RuntimeComponentStatus{}, nil, err
 	}
 
 	desiredReplicas := ds.Status.DesiredNumberScheduled
@@ -142,14 +132,23 @@ func (s *DaemonSetManager) ConstructComponentStatus(ctx context.Context, identit
 		runtimePhase = datav1alpha1.RuntimePhaseReady
 	}
 
-	return datav1alpha1.RuntimeComponentStatus{
+	status := datav1alpha1.RuntimeComponentStatus{
 		Phase:               runtimePhase,
 		DesiredReplicas:     desiredReplicas,
 		CurrentReplicas:     ds.Status.CurrentNumberScheduled,
 		AvailableReplicas:   ds.Status.NumberAvailable,
 		UnavailableReplicas: ds.Status.NumberUnavailable,
 		ReadyReplicas:       readyReplicas,
-	}, nil
+	}
+
+	affinity := kubeclient.MergeNodeSelectorAndNodeAffinity(ds.Spec.Template.Spec.NodeSelector, ds.Spec.Template.Spec.Affinity)
+
+	return status, affinity, nil
+}
+
+func (s *DaemonSetManager) ConstructComponentStatus(ctx context.Context, identity *common.ComponentIdentity) (datav1alpha1.RuntimeComponentStatus, error) {
+	status, _, err := s.ConstructComponentStatusAndAffinity(ctx, identity)
+	return status, err
 }
 
 // SyncComponentSpec is not supported for DaemonSet, Client Component does not support to be modified after created.
