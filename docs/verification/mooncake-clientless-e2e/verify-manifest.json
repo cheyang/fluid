@@ -1,0 +1,39 @@
+{
+  "topic": "mooncake-clientless-e2e",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6175",
+  "harnessPaths": [
+    "docs/verification/mooncake-clientless-e2e",
+    "pkg/ddc/cache/component/gc_labels_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "No existing e2e case covers a client-less CacheRuntime topology (a CacheRuntimeClass whose topology declares only master and worker); the curvine case ships a client component, so the client-less path through cacheruntime-controller is currently untested. The path used to panic (#6157, fixed in base at d1ae1ace).",
+    "reportedComponent": "test/gha-e2e (cacheruntime e2e coverage)",
+    "patchedComponent": "test/gha-e2e/mooncake + CI wiring",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "inspection",
+    "verdict": "confirmed",
+    "evidence": "On base, test/gha-e2e contains only alluxio/jindo/juicefs/curvine; curvine's cacheruntimeclass.yaml declares a client component (line 102). Panic fix d1ae1ace is an ancestor of the merge base. See results/go-unit.out and README.",
+    "match": ["GC selector labels (PR #6175 verification)"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "shell+gotest",
+      "cmd": "bash docs/verification/mooncake-clientless-e2e/scripts/unit-harness.sh <repo> <results> && go test ./pkg/ddc/cache/component/..."
+    },
+    "integration": {
+      "kind": "static-cross-check",
+      "cmd": "python3 -I docs/verification/mooncake-clientless-e2e/scripts/manifest_checks.py <repo>",
+      "note": "cross-checks the manifests/scripts against the Go constants and helm chart that produce/consume them; no cluster needed"
+    }
+  },
+  "findings": [
+    { "id": "V1", "polarity": "contract", "layer": "unit", "match": ["GC selector labels"], "claim": "cacheruntime-created ASTS/DaemonSet/Service carry cacheruntime.fluid.io/name and component-name (new GC selector bites) and do NOT carry fluid.io/managed-by (old curvine selector was vacuous)" },
+    { "id": "V2", "polarity": "contract", "layer": "unit", "match": ["U2", "U2b"], "claim": "reportSummary.sh emits exactly the CacheRuntimeReportSummary json keys and exits non-zero on an empty metrics response" },
+    { "id": "V3", "polarity": "contract", "layer": "unit", "match": ["U3"], "claim": "the FailedMount grep in test.sh matches the real CSI error wording and does not bridge two unrelated event messages" },
+    { "id": "V4", "polarity": "contract", "layer": "integration", "match": ["manifest_checks.py"], "claim": "manifest name/port/key wiring (svc-<runtime>-<comp>, <comp>-0.<svc>, PVC/PV names, timeout json tag, controller label/container, ports) matches the code base" },
+    { "id": "V5", "polarity": "contract", "layer": "unit", "match": ["U4"], "claim": "custom-entrypoint.sh rejects the client role and bogus actions" }
+  ],
+  "liveNote": "L3 (kind cluster e2e) is out of scope for this round per the debate setup (no KUBECONFIG). CI evidence instead: all five kind-e2e matrix jobs on PR head 8a12cfaa are green."
+}
