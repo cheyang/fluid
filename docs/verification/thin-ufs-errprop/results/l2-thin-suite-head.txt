@@ -1,0 +1,7 @@
+# L2 integration — full thin package suite, PR head
+$ go test ./pkg/ddc/thin/... -count=1 -gcflags="all=-N -l"
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	12.194s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin/operations	0.021s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin/referencedataset	1.037s
+
+Ginkgo spec summary:

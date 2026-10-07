@@ -1,0 +1,38 @@
+{
+  "topic": "thin-ufs-errprop",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6187",
+  "harnessPaths": [
+    "docs/verification/thin-ufs-errprop",
+    "pkg/ddc/thin/ufs_verify_claude_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "ThinEngine.updateFuseConfigOnChange discards the error returned by transformFuseConfig (return update, nil), so ShouldUpdateUFS's t.Log.Error never fires and the transform failure is completely silent.",
+    "reportedComponent": "pkg/ddc/thin/ufs.go ThinEngine.updateFuseConfigOnChange / ShouldUpdateUFS",
+    "patchedComponent": "pkg/ddc/thin/ufs.go:110 (same function)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Both contract tests grafted onto base master 54a41cd4 FAIL with the claimed symptom (error <nil>; no error log entries) — results/l2-base-reproduction.txt",
+    "match": [
+      "TestThinEngine_updateFuseConfigOnChange",
+      "TestVerifyClaude_ShouldUpdateUFSLogsTransformFailure"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/thin/ -run 'TestThinEngine_updateFuseConfigOnChange|TestVerifyClaude_ShouldUpdateUFSLogsTransformFailure' -count=1 -gcflags=\"all=-N -l\""
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/thin/... ./pkg/controllers/v1alpha1/thinruntime/... -count=1 -gcflags=\"all=-N -l\""
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestThinEngine_updateFuseConfigOnChange", "TestVerifyClaude_ShouldUpdateUFSLogsTransformFailure"] },
+    { "id": "F2", "polarity": "contract", "layer": "integration", "match": ["TestThinEngine_updateFuseConfigOnChange", "TestVerifyClaude_ShouldUpdateUFSLogsTransformFailure"] }
+  ],
+  "liveNote": "L3 skipped by debate-pipeline operator instruction (unit+integration only). Probe showed a live cluster WAS reachable (2 nodes, v1.36.2); nothing was created or mutated on it."
+}

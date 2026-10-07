@@ -1,0 +1,24 @@
+# P0 premise — BASE master (54a41cd4) + PR test file + harness test grafted (NO production change)
+$ go test ./pkg/ddc/thin/ -run 'TestThinEngine_updateFuseConfigOnChange|TestVerifyClaude_ShouldUpdateUFSLogsTransformFailure' -count=1 -gcflags="all=-N -l" -v
+2026/10/08 07:52:34 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestThinEngine_updateFuseConfigOnChange
+    ufs_test.go:571: testcase transform fuse config failed failed due to error <nil>
+--- FAIL: TestThinEngine_updateFuseConfigOnChange (0.00s)
+=== RUN   TestVerifyClaude_ShouldUpdateUFSLogsTransformFailure
+    ufs_verify_claude_test.go:131: expected an error log 'Failed to update fuse config' mentioning missing-pvc, got error entries: []
+--- FAIL: TestVerifyClaude_ShouldUpdateUFSLogsTransformFailure (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	0.020s
+FAIL
+
+# Full thin package suite on BASE (only the two grafted contract tests fail = the reproduction; 123/123 Ginkgo specs pass on Linux)
+--- FAIL: TestThinEngine_updateFuseConfigOnChange (0.00s)
+--- FAIL: TestVerifyClaude_ShouldUpdateUFSLogsTransformFailure (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	12.059s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin/operations	0.023s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin/referencedataset	1.039s
+FAIL
+
+# thinruntime controller suite on BASE
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/thinruntime	0.012s

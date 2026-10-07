@@ -1,0 +1,7 @@
+# L2 — build / vet / gofmt, PR head
+$ go build ./...
+exit=0
+$ go vet ./pkg/ddc/thin/... ./pkg/controllers/v1alpha1/thinruntime/...
+exit=0
+$ gofmt -l pkg/ddc/thin/ (transform_fuse.go is pre-existing, untouched by PR; harness file is gofmt-clean)
+pkg/ddc/thin/transform_fuse.go

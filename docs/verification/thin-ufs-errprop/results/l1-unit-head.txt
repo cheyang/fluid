@@ -1,0 +1,13 @@
+# L1 unit layer — PR head (7ac6f29c) + harness
+$ go test ./pkg/ddc/thin/ -run 'TestThinEngine_updateFuseConfigOnChange|TestThinEngine_ShouldUpdateUFS|TestVerifyClaude_ShouldUpdateUFSLogsTransformFailure' -count=1 -gcflags="all=-N -l" -v
+2026/10/08 07:51:52 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestThinEngine_ShouldUpdateUFS
+=== RUN   TestThinEngine_ShouldUpdateUFS/test
+--- PASS: TestThinEngine_ShouldUpdateUFS (0.00s)
+    --- PASS: TestThinEngine_ShouldUpdateUFS/test (0.00s)
+=== RUN   TestThinEngine_updateFuseConfigOnChange
+--- PASS: TestThinEngine_updateFuseConfigOnChange (0.00s)
+=== RUN   TestVerifyClaude_ShouldUpdateUFSLogsTransformFailure
+--- PASS: TestVerifyClaude_ShouldUpdateUFSLogsTransformFailure (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	0.019s

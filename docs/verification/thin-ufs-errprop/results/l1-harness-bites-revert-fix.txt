@@ -1,0 +1,12 @@
+# Harness-bites check — PR head with ONLY the one-token fix reverted (ufs.go:110 'return update, err' -> 'return update, nil'), then restored
+$ go test ./pkg/ddc/thin/ -run 'TestThinEngine_updateFuseConfigOnChange|TestVerifyClaude_ShouldUpdateUFSLogsTransformFailure' -count=1 -gcflags="all=-N -l"
+reverted only the transformFuseConfig error path (1 line)
+2026/10/08 07:52:58 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+--- FAIL: TestThinEngine_updateFuseConfigOnChange (0.00s)
+    ufs_test.go:571: testcase transform fuse config failed failed due to error <nil>
+--- FAIL: TestVerifyClaude_ShouldUpdateUFSLogsTransformFailure (0.00s)
+    ufs_verify_claude_test.go:131: expected an error log 'Failed to update fuse config' mentioning missing-pvc, got error entries: []
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	0.019s
+FAIL
+production ufs.go restored: CLEAN
