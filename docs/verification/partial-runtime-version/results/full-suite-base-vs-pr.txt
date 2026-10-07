@@ -1,0 +1,31 @@
+== base (d8b37f28), label-filter=!verify-pr6186 ==
+  [FAIL] CacheEngine Sync Tests Sync when runtime is ready with ReportSummary configured [It] should get cache states successfully with mocked Execute [pkg.ddc.cache.engine.sync_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return parsed CacheRuntimeMountUfsOutput with valid JSON output [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount returns empty output [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount returns whitespace-only output [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return JSON parse error when Mount returns invalid JSON [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount command fails [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when PrepareUFS returns invalid JSON [It] should return JSON parse error [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when PrepareUFS returns empty output [It] should return empty output error [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when syncDatasetMounts fails due to missing mount point [It] should return mount point not mounted error [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when syncDatasetMounts fails due to unexpected mounted paths [It] should return unexpected mounted paths error [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when all mount points are correctly mounted [It] should successfully update mounts and set status to Bound [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when dataset has native scheme mounts [It] should skip native scheme mounts and succeed [pkg.ddc.cache.engine.ufs_test.go]
+Ran 274 of 293 Specs in 0.200 seconds
+FAIL! -- 262 Passed | 12 Failed | 0 Pending | 19 Skipped
+
+== PR head (0361cc03), label-filter=!verify-pr6186 ==
+  [FAIL] CacheEngine Sync Tests Sync when runtime is ready with ReportSummary configured [It] should get cache states successfully with mocked Execute [pkg.ddc.cache.engine.sync_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return parsed CacheRuntimeMountUfsOutput with valid JSON output [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount returns empty output [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount returns whitespace-only output [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return JSON parse error when Mount returns invalid JSON [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount command fails [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when PrepareUFS returns invalid JSON [It] should return JSON parse error [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when PrepareUFS returns empty output [It] should return empty output error [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when syncDatasetMounts fails due to missing mount point [It] should return mount point not mounted error [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when syncDatasetMounts fails due to unexpected mounted paths [It] should return unexpected mounted paths error [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when all mount points are correctly mounted [It] should successfully update mounts and set status to Bound [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when dataset has native scheme mounts [It] should skip native scheme mounts and succeed [pkg.ddc.cache.engine.ufs_test.go]
+Ran 291 of 313 Specs in 0.199 seconds
+FAIL! -- 279 Passed | 12 Failed | 0 Pending | 22 Skipped

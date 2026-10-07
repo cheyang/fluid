@@ -1,0 +1,2 @@
+Ran 3 of 313 Specs in 0.002 seconds
+SUCCESS! -- 3 Passed | 0 Failed | 0 Pending | 310 Skipped

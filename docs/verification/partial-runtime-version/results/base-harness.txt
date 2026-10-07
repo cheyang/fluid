@@ -1,0 +1,56 @@
+2026/10/08 07:29:12 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Cache Engine Suite - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/base-wt/pkg/ddc/cache/engine
+[cache_engine] 
+==========================================================================================================================================
+Random Seed: 1791415752
+
+Will run 3 of 293 specs
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+------------------------------
+• [FAILED] [0.001 seconds]
+P0 premise (PR #6186 / issue #6178): partial runtimeVersion [It] P0a [contract vs base]: update path applies an imageTag-only version, completed from the class template [verify-pr6186, premise]
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/base-wt/pkg/ddc/cache/engine/verify_pr6186_premise_test.go:106
+
+  [FAILED] Expected
+      <string>: fluid/cache:v1
+  to equal
+      <string>: fluid/cache:v2
+  In [It] at: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/base-wt/pkg/ddc/cache/engine/verify_pr6186_premise_test.go:120 @ 10/08/26 07:29:12.166
+------------------------------
+• [FAILED] [0.000 seconds]
+P0 premise (PR #6186 / issue #6178): partial runtimeVersion [It] P0b [contract vs base]: create path applies an imageTag-only version, completed from the class template [verify-pr6186, premise]
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/base-wt/pkg/ddc/cache/engine/verify_pr6186_premise_test.go:123
+
+  [FAILED] Expected
+      <string>: fluid/cache:v1
+  to equal
+      <string>: fluid/cache:v2
+  In [It] at: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/base-wt/pkg/ddc/cache/engine/verify_pr6186_premise_test.go:149 @ 10/08/26 07:29:12.166
+------------------------------
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+------------------------------
+• [FAILED] [0.000 seconds]
+F2 (PR #6186): a class template image edit propagates to existing runtimes [It] F2 [canary]: an empty-version worker follows the edited class template image [verify-pr6186, f2-class-template]
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/base-wt/pkg/ddc/cache/engine/verify_pr6186_class_template_test.go:55
+
+  [FAILED] Expected
+      <string>: fluid/cache:v1
+  to equal
+      <string>: fluid/cache:v2
+  In [It] at: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/base-wt/pkg/ddc/cache/engine/verify_pr6186_class_template_test.go:112 @ 10/08/26 07:29:12.167
+------------------------------
+
+Summarizing 3 Failures:
+  [FAIL] P0 premise (PR #6186 / issue #6178): partial runtimeVersion [It] P0a [contract vs base]: update path applies an imageTag-only version, completed from the class template [verify-pr6186, premise]
+  /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/base-wt/pkg/ddc/cache/engine/verify_pr6186_premise_test.go:120
+  [FAIL] P0 premise (PR #6186 / issue #6178): partial runtimeVersion [It] P0b [contract vs base]: create path applies an imageTag-only version, completed from the class template [verify-pr6186, premise]
+  /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/base-wt/pkg/ddc/cache/engine/verify_pr6186_premise_test.go:149
+  [FAIL] F2 (PR #6186): a class template image edit propagates to existing runtimes [It] F2 [canary]: an empty-version worker follows the edited class template image [verify-pr6186, f2-class-template]
+  /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/base-wt/pkg/ddc/cache/engine/verify_pr6186_class_template_test.go:112
+
+Ran 3 of 293 Specs in 0.003 seconds
+FAIL! -- 0 Passed | 3 Failed | 0 Pending | 290 Skipped
+--- FAIL: TestCacheEngine (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.017s
+FAIL
