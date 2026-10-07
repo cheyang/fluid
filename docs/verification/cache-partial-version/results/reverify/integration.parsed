@@ -1,0 +1,319 @@
+should return nil and no error when runtime class has no topology	pass
+should return nil and no error when master has no execution entries	pass
+should return nil and no error when MountUFS is nil	pass
+should return error when master template has no containers	pass
+should return parsed CacheRuntimeMountUfsOutput with valid JSON output	fail
+should return error when Mount returns empty output	fail
+should return error when Mount returns whitespace-only output	fail
+should return JSON parse error when Mount returns invalid JSON	fail
+should return error when Mount command fails	fail
+should return early when no UFS changes and no remount required	pass
+should return early when IsMountUFSSupported returns false	pass
+should return JSON parse error	fail
+should return empty output error	fail
+should return mount point not mounted error	fail
+should return unexpected mounted paths error	fail
+should successfully update mounts and set status to Bound	fail
+should skip native scheme mounts and succeed	fail
+should detect restart and perform remount	pass
+should return prefix + secretName without truncation	pass
+should handle empty secret name	pass
+should handle single character secret name	pass
+should not truncate when total length equals DNS1035LabelMaxLength	pass
+should truncate when total length exceeds DNS1035LabelMaxLength by 1	pass
+should truncate and add hash suffix	pass
+should generate different hashes for different secret names with same prefix	pass
+should handle extremely long secret names	pass
+should handle secret names with hyphens	pass
+should handle secret names with numbers	pass
+should handle long secret names with special characters	pass
+should always generate valid DNS-1035 label names	pass
+should generate unique volume names for different secrets that truncate to same prefix	pass
+should return error	pass
+should return error	pass
+should transform successfully with only Master	pass
+should transform successfully with only Worker	pass
+should transform successfully with only Client	pass
+should transform all components successfully	pass
+should include extra configmap names in common config	pass
+should generate correct owner reference	pass
+should generate runtime config volume	pass
+should return error	pass
+should return error	pass
+should set Master as disabled in status value	pass
+should set Worker as disabled in status value	pass
+should set Client as disabled in status value	pass
+should extract status info for all components	pass
+should generate correct component names	pass
+should generate owner reference from runtime object	pass
+should generate runtime config volume	pass
+should populate ExtraConfigMapNames	pass
+should not initialize ExtraConfigMapNames	pass
+should return true when master phase is None	pass
+should return false when master phase is NotReady	skipped
+should return false when master phase is Ready	skipped
+should return error when runtime not found	pass
+should setup master when phase is None	pass
+should skip setup when master already initialized	skipped
+should update runtime status after setup	pass
+should produce volumes referencing the correct ConfigMap	pass
+should produce volume mounts at the correct directory	pass
+should set FLUID_RUNTIME_CONFIG_PATH env to match mount path + config file name	pass
+should keep mount dir and runtime config path in sync	pass
+should return a not-supported error	pass
+should return an error	pass
+contract: an imageTag-only edit is applied to the worker workload [red on base]	pass
+contract: an image-only edit is applied to the worker workload [red on base]	pass
+contract: a complete version is applied unchanged [green everywhere, control]	pass
+contract: dropping a runtimeVersion rolls the worker back to the template image [red on base]	pass
+contract: a class template image edit reaches a live worker that set no runtimeVersion [red on base]	pass
+canary: getDataOperationImage ignores a partially specified worker version [flips when image.go is aligned]	pass
+should return masterWorkerArchApi when master topology is configured and master is enabled	pass
+should return workersOnlyArchApi when runtimeClass is nil	pass
+should return workersOnlyArchApi when runtimeClass.Topology is nil	pass
+should return workersOnlyArchApi when runtimeClass.Topology.Master is nil (workers only)	pass
+should return workersOnlyArchApi when runtime is nil	pass
+should return workersOnlyArchApi when master is disabled in runtime spec	pass
+should complete setup successfully	skipped
+should return error	pass
+should return error when runtime class topology is invalid	pass
+should only setup Master component	skipped
+should only setup Worker component	skipped
+should only setup Client component	skipped
+should call PrepareUFS after runtime is ready	skipped
+should increment metrics on error	pass
+should log errors appropriately	pass
+should call CheckAndUpdateRuntimeStatus with lightweight status value	skipped
+should bind runtime to dataset as final step	skipped
+should follow correct execution order	pass
+args: L3 replaces the template args wholesale	pass
+env: L3 restates a name the template already sets [pins current behaviour, #6185 (env/annotation mismatch)]	pass
+imagePullSecrets: L1 and L2 merge, a name declared twice appears once	pass
+nodeSelector: L3 sets a key the template does not [pins current behaviour, #6185 (nodeSelector/annotation mismatch)]	pass
+podMetadata.labels: L2 alone reaches the pod	pass
+resources: L3 restates only limits.memory over an L1 that declares four keys [pins current behaviour, #6173]	pass
+runtimeVersion: L3 sets imageTag only, over an L1 that names an image	pass
+resources: L3 restates only limits.memory over an L1 that declares four keys [pins current behaviour, #6173]	pass
+runtimeVersion: L3 sets imageTag only, over an L1 that names an image	pass
+should return true when client phase is None	pass
+should return false when client phase is NotReady	skipped
+should return false when client phase is Ready	skipped
+should return error when runtime not found	pass
+should setup client when phase is None	pass
+should skip setup when client already initialized	skipped
+should update runtime status after setup	pass
+should only add volumes that are referenced by volumeMounts	pass
+should return error when volumeMount references non-existent volume	pass
+should not add any volumes when volumeMounts is empty	pass
+should not add duplicate volumes that already exist in podSpec	pass
+should handle mixed scenario with some volumes existing and some missing	pass
+should return error when containers is empty	pass
+should handle empty volumes and empty volumeMounts	pass
+should preserve existing volumes in podSpec	pass
+should return error when multiple volumeMounts reference non-existent volumes	pass
+should return nil without error	pass
+should return error	pass
+should add memory resources to container	pass
+should return error when quota is zero	pass
+should not modify resources when container has no memory constraints	pass
+should return error when multiple processMemory levels are specified	pass
+should create volumes and volume mounts for single path	pass
+should create multiple volumes and mounts for multiple paths	pass
+should return error when paths and quotas count mismatch	pass
+should create volume and mount for disk-based EmptyDir	pass
+should add memory resources for Memory-backed EmptyDir	pass
+should return error when quota is zero	pass
+should process all levels correctly	pass
+should return error when multiple media types in same level	pass
+should preserve watermark configuration in level	pass
+should return zero for a pod spec without volumes	pass
+should sum the memory-backed tiered store volumes	pass
+should round-trip the quota that the transform charged	pass
+should ignore volumes the transform never charges to memory	pass
+GetExecutionPodInfo should return correct worker pod info	pass
+GetExecutionPodInfo should return error when worker template has no containers	pass
+GetExecutionPodInfo should return error when topology is nil	pass
+GetExecutionEntries should return worker execution entries	pass
+GetExecutionEntries should return nil when topology is nil	pass
+GetExecutionEntries should return nil when worker topology is nil	pass
+IsMountUFSSupported should always return false	pass
+IsMountUFSSupported should return false when runtimeClass is nil	pass
+canary: an imageTag-only upgrade moves the worker but not the DataLoad image [flips when image.go is aligned]	pass
+contract: splitImageReference does not read a trailing colon as a tag	pass
+contract: splitImageReference handles a registry port with a nested path	pass
+contract: an image-only version over a tagless template stays incomplete and the edit is dropped (documented residual gap)	pass
+contract: creation keeps the template digest image when the version is partial	pass
+contract: creation over a tagless template drops an image-only edit (documented residual gap)	pass
+should not modify the original runtimeClass PodTemplate	pass
+should set correct master component properties	pass
+should configure headless service when defined	pass
+should merge node selectors correctly	pass
+should set master as disabled	pass
+should not modify runtimeClass when master is disabled	pass
+should not panic when topology is nil	pass
+should not panic when master is nil	pass
+should add runtime config volume and mount	pass
+should add runtime spec volumes and volumeMounts	pass
+should return error if volumeMount has no corresponding volume	pass
+should inject FLUID environment variables	pass
+should set FLUID_RUNTIME_COMPONENT_TYPE to Master	pass
+should preserve all original fields after multiple transformations	pass
+should sync successfully	pass
+should return error	pass
+should return error	pass
+should update configmap	pass
+should create configmap	pass
+should attempt to sync dataset cache states	pass
+should get cache states successfully with mocked Execute	fail
+should not sync dataset cache states when master is not ready	pass
+should not sync dataset cache states when worker is not ready	pass
+should create new configmap	pass
+should update existing configmap	pass
+should not update configmap when data is same	pass
+should handle empty runtime gracefully	pass
+should return nil duration	pass
+should parse and return duration	pass
+should return error	pass
+should parse minutes correctly	pass
+should parse milliseconds correctly	pass
+should parse complex duration correctly	pass
+should roll the worker back to the template image	pass
+should apply the edit to the master and silently drop it for the client	pass
+should leave the DaemonSet untouched even on the creation path	pass
+should gate the creation path off once the client has been set up	pass
+should leave the template's resources untouched	pass
+should apply them to the master workload only	pass
+should apply them to the worker workload only	pass
+should restore the template value when the CacheRuntime specifies none	pass
+should still let the CacheRuntime win over the template	pass
+should leave the workload's resources untouched	pass
+should charge the quota on top of the template value	pass
+should keep the tiered store quota when syncing after creation	pass
+should not let an edited tiered store quota half-apply	pass
+should recharge a quota that an earlier release stripped	pass
+should resolve a version naming neither half to the template image	pass
+should leave a complete version untouched	pass
+should take the repository from the template when only imageTag is named	pass
+should take the tag from the template when only image is named	pass
+should not carry imagePullPolicy into the completion	pass
+should stay incomplete when the template declares no image	pass
+should stay incomplete when the template pins a digest	pass
+should split a plain tagged reference	pass
+should report no tag rather than inventing one	pass
+should not mistake a registry port for a tag	pass
+should split a tag off a reference that also carries a registry port	pass
+should refuse to split a digest reference	pass
+should return an empty image for a nil component definition	pass
+should return an empty image for a template with no containers	pass
+should return the first container's image	pass
+should resolve an imageTag-only version to the same image on both paths	pass
+keeps the template labels and annotations when neither spec sets any	pass
+applies the runtime-level pod metadata	pass
+applies the component-level pod metadata	pass
+layers template, runtime level and component level, with the later layer winning a key	pass
+keeps the template secrets when the runtime names none	pass
+applies the runtime-level secrets	pass
+merges both layers and carries a secret named twice only once	pass
+should return worker pods matching the selector	pass
+should return empty list when no pods match the selector	pass
+should return error when AdvancedStatefulSet does not exist	pass
+should handle pods from different namespaces correctly	pass
+should return all worker pods when multiple replicas exist	pass
+should generate correct worker component name	pass
+should generate correct master component name	pass
+should return empty maps	pass
+should return mount options correctly	pass
+should merge shared options with mount options	pass
+mount options should override shared options with same key	pass
+should collect shared encrypt options correctly	pass
+should collect mount encrypt options correctly	pass
+should collect all encrypt options	pass
+mount encrypt options should override shared encrypt options with same name	pass
+should return error when secret name is empty	pass
+should return error when secret key is empty	pass
+should handle all types of options together	pass
+should generate correct paths for each option	pass
+should return stdout without error	pass
+should return empty stdout without error	pass
+should return error	pass
+should execute command successfully	pass
+should still execute with short timeout	pass
+should pass all arguments correctly	pass
+should return success despite warnings in stderr	pass
+should wrap error with command context	pass
+should return non-nil interface	pass
+should create separate instances	pass
+should generate the volume name for an indexed medium	pass
+should generate the volume name for the process memory medium	pass
+should generate names chargedTieredStoreMemoryQuota recognises	pass
+should always generate valid DNS-1035 label names	pass
+should return true when worker phase is None	pass
+should return false when worker phase is NotReady	skipped
+should return false when worker phase is Ready	skipped
+should return error when runtime not found	pass
+should setup worker when phase is None	pass
+should skip setup when worker already initialized	skipped
+should update runtime status after setup	pass
+GetExecutionPodInfo should return correct master pod info	pass
+GetExecutionPodInfo should return error when master template has no containers	pass
+GetExecutionPodInfo should return error when topology is nil	pass
+GetExecutionEntries should return master execution entries	pass
+GetExecutionEntries should return nil when topology is nil	pass
+GetExecutionEntries should return nil when master topology is nil	pass
+IsMountUFSSupported should return true when MountUFS entry is configured	pass
+IsMountUFSSupported should return false when MountUFS entry is nil	pass
+IsMountUFSSupported should return false when ExecutionEntries is nil	pass
+should not modify the original runtimeClass PodTemplate	pass
+should merge affinities correctly in the worker value without affecting runtimeClass	pass
+should merge node selectors correctly in the worker value without affecting runtimeClass	pass
+should handle nil affinity in runtimeClass template	pass
+should handle nil node affinity in dataset	pass
+should add volumes and volumeMounts to worker PodTemplateSpec	pass
+should not add duplicate volumes	pass
+should return error if volumeMount has no corresponding volume	pass
+should not add volumes when worker is disabled	pass
+should set correct pod labels for worker pods to enable PodAntiAffinity	pass
+should preserve all original fields in runtimeClass after multiple transformations	pass
+should not modify runtimeClass when worker is disabled	pass
+should not panic when topology is nil	pass
+should not panic when worker is nil	pass
+should set RequiredDuringScheduling PodAntiAffinity for exclusive mode	pass
+should not set PreferredDuringScheduling in exclusive mode	pass
+should set PreferredDuringScheduling PodAntiAffinity for share mode	pass
+should not build affinity when worker is disabled	pass
+should parse JSON and return the correct CacheStateList	pass
+should return valid CacheStateList with partial fields when JSON has partial data	pass
+should clamp timeout to MinExecutionTimeoutSeconds when configured timeout is too small	pass
+should respect timeout that is larger than MinExecutionTimeoutSeconds	pass
+should return an error when stdout is not valid JSON	pass
+should return an error when stdout is empty	pass
+should return an error when ExecCommandInContainerWithTimeout fails	pass
+should return an error when exec command times out	pass
+should return an error when ReportSummary is nil in ExecutionEntries	pass
+should return an error when ExecutionEntries itself is nil	pass
+should return an error when master component has no containers	pass
+should parse JSON and return correct CacheStateList via workers-only handler	pass
+should return an error when worker component has no containers	pass
+should return an error when topology is nil	pass
+should return an error when runtimeClass itself is nil	pass
+should propagate the exec error from worker pod	pass
+should return JSON unmarshal error	pass
+should not modify the original runtimeClass PodTemplate	pass
+should set correct client component properties	pass
+should merge node selectors correctly	pass
+should set client as disabled	pass
+should not modify runtimeClass when client is disabled	pass
+should not panic when topology is nil	pass
+should not panic when client is nil	pass
+should NOT mount secrets by default for Client	pass
+should mount secrets when SecretMount is explicitly enabled	pass
+should NOT mount secrets when SecretMount is explicitly disabled	pass
+should inject FLUID environment variables	pass
+should set FLUID_RUNTIME_COMPONENT_TYPE to Client	pass
+should add runtime spec volumes and volumeMounts	pass
+should preserve all original fields after multiple transformations	pass
+should not block runtime ready and set client phase to NotReady	pass
+should not block runtime ready and set client phase to PartialReady	pass
+should keep runtime ready and set client phase to NotReady with zero desired replicas	pass
+should keep runtime ready and set client phase to Ready	pass
+should recompute runtime ready status after retry	pass
