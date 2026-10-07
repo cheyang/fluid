@@ -1,0 +1,10 @@
+    premise_scratch_test.go:32: group-less version        local={v1alpha1 Dataset} shared={v1alpha1 Dataset} agree=true
+    premise_scratch_test.go:32: version only, group-less  local={v1alpha1 Dataset} shared={v1alpha1 Dataset} agree=true
+    premise_scratch_test.go:32: empty TypeMeta            local={data.fluid.io/v1alpha1 Dataset} shared={data.fluid.io/v1alpha1 Dataset} agree=true
+    premise_scratch_test.go:32: complete TypeMeta         local={data.fluid.io/v1alpha1 Dataset} shared={data.fluid.io/v1alpha1 Dataset} agree=true
+    premise_scratch_test.go:32: kind only                 local={data.fluid.io/v1alpha1 Dataset} shared={data.fluid.io/v1alpha1 Dataset} agree=true
+    premise_scratch_test.go:32: apiVersion only           local={data.fluid.io/v1alpha1 Dataset} shared={data.fluid.io/v1alpha1 Dataset} agree=true
+    premise_scratch_test.go:32: custom version            local={data.fluid.io/v1beta1 Dataset} shared={data.fluid.io/v1beta1 Dataset} agree=true
+    premise_scratch_test.go:32: kind only, wrong kind     local={data.fluid.io/v1alpha1 NotADataset} shared={data.fluid.io/v1alpha1 NotADataset} agree=true
+--- PASS: TestPremiseBaseLocalImplVsSharedHelper (0.00s)
+PASS

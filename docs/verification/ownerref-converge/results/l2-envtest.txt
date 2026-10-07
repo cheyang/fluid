@@ -1,0 +1,5 @@
+=== RUN   TestVerifyCreateRuntimeForReferenceDatasetEnvtest
+    dataset_runtime_envtest_verify_test.go:56: typed-client read back TypeMeta: kind="" apiVersion="" (empty proves the recovery path is exercised)
+--- PASS: TestVerifyCreateRuntimeForReferenceDatasetEnvtest (5.07s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	5.077s

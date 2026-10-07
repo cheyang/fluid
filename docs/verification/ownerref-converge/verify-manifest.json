@@ -1,0 +1,36 @@
+{
+  "topic": "ownerref-converge",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6199",
+  "harnessPaths": [
+    "docs/verification/ownerref-converge",
+    "pkg/utils/dataset_runtime_ownerref_verify_test.go",
+    "pkg/utils/dataset_runtime_envtest_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Two independent implementations of 'recover the owner GroupVersionKind when TypeMeta is empty' ... do not agree on semantics (issue #6140); #6138's local helper in pkg/utils/dataset_runtime.go should delegate to the shared transformer helper.",
+    "reportedComponent": "pkg/utils/dataset_runtime.go datasetControllerOwnerReference + pkg/utils/transformer/owner_reference.go GenerateOwnerReferenceFromObject",
+    "patchedComponent": "pkg/utils/dataset_runtime.go datasetControllerOwnerReference",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed-with-nuance",
+    "evidence": "Base e0fc4c18 still has the local per-field implementation in dataset_runtime.go (duplication real), but base and the merged #6139 helper agree for every Dataset TypeMeta shape (results/premise-base-diff.txt): the semantic-divergence half of #6140 was already resolved by merged #6139 (95138fc7); this PR is a behavior-preserving dedup.",
+    "match": ["TestPremiseBaseLocalImplVsSharedHelper"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/ -run 'TestVerifyDatasetControllerOwnerReferenceGolden|TestDatasetControllerOwnerReference' -count=1 -v"
+    },
+    "integration": {
+      "kind": "gotest-envtest",
+      "cmd": "KUBEBUILDER_ASSETS=$(setup-envtest use 1.31.0 -p path 2>/dev/null || echo /home/ecs-user/rbg/bin/k8s/1.31.0-linux-amd64) go test ./pkg/utils/ -run TestVerifyCreateRuntimeForReferenceDatasetEnvtest -count=1 -v"
+    }
+  },
+  "findings": [
+    { "id": "R1", "polarity": "contract", "layer": "unit",        "match": ["TestVerifyDatasetControllerOwnerReferenceGolden"], "claim": "delegation keeps datasetControllerOwnerReference output identical to base behavior for all Dataset TypeMeta shapes (no regression in reference-dataset ThinRuntime adoption)" },
+    { "id": "R2", "polarity": "contract", "layer": "integration", "match": ["TestVerifyCreateRuntimeForReferenceDatasetEnvtest"], "claim": "end-to-end: typed-client read strips TypeMeta, recovery fills Dataset GVK, real API server accepts the ownerReference, second reconcile is a no-op (no update loop)" }
+  ],
+  "liveNote": "L3 skipped per debate setup (no KUBECONFIG layer). The mutation run (results/mutation-bites.txt) already shows the real API server rejects an unrecovered ownerReference, which is the signal a live run would look for."
+}

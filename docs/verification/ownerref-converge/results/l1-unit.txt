@@ -1,0 +1,20 @@
+=== RUN   TestVerifyDatasetControllerOwnerReferenceGolden
+=== RUN   TestVerifyDatasetControllerOwnerReferenceGolden/version_only,_group-less
+=== RUN   TestVerifyDatasetControllerOwnerReferenceGolden/empty_TypeMeta
+=== RUN   TestVerifyDatasetControllerOwnerReferenceGolden/complete_TypeMeta
+=== RUN   TestVerifyDatasetControllerOwnerReferenceGolden/kind_only
+=== RUN   TestVerifyDatasetControllerOwnerReferenceGolden/apiVersion_only
+=== RUN   TestVerifyDatasetControllerOwnerReferenceGolden/custom_version_preserved
+=== RUN   TestVerifyDatasetControllerOwnerReferenceGolden/wrong_kind_kept_as-is
+=== RUN   TestVerifyDatasetControllerOwnerReferenceGolden/group-less_version
+--- PASS: TestVerifyDatasetControllerOwnerReferenceGolden (0.00s)
+    --- PASS: TestVerifyDatasetControllerOwnerReferenceGolden/version_only,_group-less (0.00s)
+    --- PASS: TestVerifyDatasetControllerOwnerReferenceGolden/empty_TypeMeta (0.00s)
+    --- PASS: TestVerifyDatasetControllerOwnerReferenceGolden/complete_TypeMeta (0.00s)
+    --- PASS: TestVerifyDatasetControllerOwnerReferenceGolden/kind_only (0.00s)
+    --- PASS: TestVerifyDatasetControllerOwnerReferenceGolden/apiVersion_only (0.00s)
+    --- PASS: TestVerifyDatasetControllerOwnerReferenceGolden/custom_version_preserved (0.00s)
+    --- PASS: TestVerifyDatasetControllerOwnerReferenceGolden/wrong_kind_kept_as-is (0.00s)
+    --- PASS: TestVerifyDatasetControllerOwnerReferenceGolden/group-less_version (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.011s

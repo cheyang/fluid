@@ -1,0 +1,21 @@
+# Harness-bites check: production code mutated to a naive read with NO scheme recovery and NO fallback.
+# Expected: L1 and L2 both go red (contract polarity).
+== L1 ==
+    dataset_runtime_ownerref_verify_test.go:39: APIVersion: expected "data.fluid.io/v1alpha1" (base behavior), got ""
+    dataset_runtime_ownerref_verify_test.go:36: Kind: expected "Dataset" (base behavior), got ""
+    dataset_runtime_ownerref_verify_test.go:39: APIVersion: expected "data.fluid.io/v1alpha1" (base behavior), got ""
+    dataset_runtime_ownerref_verify_test.go:36: Kind: expected "Dataset" (base behavior), got ""
+    dataset_runtime_ownerref_verify_test.go:36: Kind: expected "Dataset" (base behavior), got ""
+    dataset_runtime_ownerref_verify_test.go:39: APIVersion: expected "data.fluid.io/v1alpha1" (base behavior), got ""
+--- FAIL: TestVerifyDatasetControllerOwnerReferenceGolden (0.00s)
+    --- FAIL: TestVerifyDatasetControllerOwnerReferenceGolden/kind_only (0.00s)
+    --- FAIL: TestVerifyDatasetControllerOwnerReferenceGolden/apiVersion_only (0.00s)
+    --- FAIL: TestVerifyDatasetControllerOwnerReferenceGolden/wrong_kind_kept_as-is (0.00s)
+    --- FAIL: TestVerifyDatasetControllerOwnerReferenceGolden/version_only,_group-less (0.00s)
+    --- FAIL: TestVerifyDatasetControllerOwnerReferenceGolden/empty_TypeMeta (0.00s)
+== L2 ==
+    dataset_runtime_envtest_verify_test.go:60: CreateRuntimeForReferenceDatasetIfNotExist failed: ThinRuntime.data.fluid.io "ref-dataset" is invalid: [metadata.ownerReferences.apiVersion: Invalid value: "": version must not be empty, metadata.ownerReferences.kind: Invalid value: "": kind must not be empty]
+--- FAIL: TestVerifyCreateRuntimeForReferenceDatasetEnvtest (4.49s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	4.501s
+FAIL
