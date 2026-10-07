@@ -1,0 +1,53 @@
+{
+  "topic": "partial-runtime-version",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6186",
+  "harnessPaths": [
+    "docs/verification/partial-runtime-version",
+    "pkg/ddc/cache/engine/verify_pr6186_premise_test.go",
+    "pkg/ddc/cache/engine/verify_pr6186_digest_test.go",
+    "pkg/ddc/cache/engine/verify_pr6186_class_template_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Setting only imageTag in a component runtimeVersion is silently ignored: the AdvancedStatefulSet is not patched, pods keep the old image, no error/event/condition (issue #6178)",
+    "reportedComponent": "pkg/ddc/cache (CacheRuntime engine sync + transform paths, AdvancedStatefulSetManager.updateImage)",
+    "patchedComponent": "pkg/ddc/cache/engine/{sync.go,transform_common.go}",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base, P0a/P0b fail with observed image fluid/cache:v1 (edit dropped) on both the update and create paths; the repo's own composition-matrix row pins the same behavior with knownBug #6178. Both pass on the PR head. results/base-harness.txt, results/pr-head-harness.txt",
+    "match": [
+      "P0a [contract vs base]: update path applies an imageTag-only version",
+      "P0b [contract vs base]: create path applies an imageTag-only version"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run TestCacheEngine -args -ginkgo.label-filter=verify-pr6186 -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "F1a [contract]: a digest image's missing tag stays incomplete",
+        "F1b [contract]: the update path never lands an invalid digest:tag reference",
+        "F1c [contract]: the create path never renders an invalid digest:tag reference"
+      ]
+    },
+    {
+      "id": "F2",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": [
+        "F2 [canary]: an empty-version worker follows the edited class template image"
+      ]
+    }
+  ],
+  "liveNote": "L3 skipped this round (unit+integration scope). If run live: on a kind cluster, patch a healthy CacheRuntime's worker to runtimeVersion={imageTag:<new>}; expect the controller log 'image changed, will update' and the AdvancedStatefulSet image to move to <template-repo>:<new>. For F1, set runtimeVersion={image:<repo@sha256:...>} with no tag and observe the kubelet failing to parse the rendered reference."
+}

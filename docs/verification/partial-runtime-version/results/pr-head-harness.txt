@@ -1,0 +1,55 @@
+2026/10/08 07:29:04 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Cache Engine Suite - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/ddc/cache/engine
+[cache_engine] 
+============================================================================================================================
+Random Seed: 1791415744
+
+Will run 6 of 313 specs
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS•SSSSSSSSSSSSSSSS••SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+------------------------------
+• [FAILED] [0.000 seconds]
+F1 (PR #6186): digest-pinned runtime image completed with a template tag [It] F1a [contract]: a digest image's missing tag stays incomplete [verify-pr6186, f1-digest]
+/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/ddc/cache/engine/verify_pr6186_digest_test.go:63
+
+  [FAILED] a tag must never be appended to a digest reference
+  Expected
+      <string>: v1
+  to be empty
+  In [It] at: /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/ddc/cache/engine/verify_pr6186_digest_test.go:69 @ 10/08/26 07:29:04.8
+------------------------------
+• [FAILED] [0.000 seconds]
+F1 (PR #6186): digest-pinned runtime image completed with a template tag [It] F1b [contract]: the update path never lands an invalid digest:tag reference on the workload [verify-pr6186, f1-digest]
+/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/ddc/cache/engine/verify_pr6186_digest_test.go:73
+
+  [FAILED] Expected
+      <string>: btxu/mooncake@sha256:067614b70d25b496e3edc3480747d558ee8a364ef47a67f669f5d96ca5098552:v1
+  to equal
+      <string>: fluid/cache:v1
+  In [It] at: /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/ddc/cache/engine/verify_pr6186_digest_test.go:128 @ 10/08/26 07:29:04.8
+------------------------------
+• [FAILED] [0.000 seconds]
+F1 (PR #6186): digest-pinned runtime image completed with a template tag [It] F1c [contract]: the create path never renders an invalid digest:tag reference [verify-pr6186, f1-digest]
+/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/ddc/cache/engine/verify_pr6186_digest_test.go:131
+
+  [FAILED] Expected
+      <string>: btxu/mooncake@sha256:067614b70d25b496e3edc3480747d558ee8a364ef47a67f669f5d96ca5098552:v1
+  to equal
+      <string>: fluid/cache:v1
+  In [It] at: /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/ddc/cache/engine/verify_pr6186_digest_test.go:157 @ 10/08/26 07:29:04.8
+------------------------------
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+Summarizing 3 Failures:
+  [FAIL] F1 (PR #6186): digest-pinned runtime image completed with a template tag [It] F1a [contract]: a digest image's missing tag stays incomplete [verify-pr6186, f1-digest]
+  /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/ddc/cache/engine/verify_pr6186_digest_test.go:69
+  [FAIL] F1 (PR #6186): digest-pinned runtime image completed with a template tag [It] F1b [contract]: the update path never lands an invalid digest:tag reference on the workload [verify-pr6186, f1-digest]
+  /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/ddc/cache/engine/verify_pr6186_digest_test.go:128
+  [FAIL] F1 (PR #6186): digest-pinned runtime image completed with a template tag [It] F1c [contract]: the create path never renders an invalid digest:tag reference [verify-pr6186, f1-digest]
+  /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/ddc/cache/engine/verify_pr6186_digest_test.go:157
+
+Ran 6 of 313 Specs in 0.004 seconds
+FAIL! -- 3 Passed | 3 Failed | 0 Pending | 307 Skipped
+--- FAIL: TestCacheEngine (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.017s
+FAIL
