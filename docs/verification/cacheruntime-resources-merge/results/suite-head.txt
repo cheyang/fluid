@@ -1,0 +1,2 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	0.038s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.180s

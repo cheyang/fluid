@@ -1,0 +1,23 @@
+2026/10/08 06:40:06 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6177_DesiredComponentResources_OverlaysOntoTemplate
+    zz_verify_pr6177_test.go:105: desiredComponentResources: requests.cpu = "0", want "1" (template value dropped)
+    zz_verify_pr6177_test.go:105: desiredComponentResources: requests.memory = "0", want "2Gi" (template value dropped)
+    zz_verify_pr6177_test.go:105: desiredComponentResources: limits.cpu = "0", want "2" (template value dropped)
+--- FAIL: TestVerifyPR6177_DesiredComponentResources_OverlaysOntoTemplate (0.00s)
+=== RUN   TestVerifyPR6177_TransformComponentPodTemplate_OverlaysOntoTemplate
+    zz_verify_pr6177_test.go:138: transformComponentPodTemplate: requests.cpu = "0", want "1" (template value dropped)
+    zz_verify_pr6177_test.go:138: transformComponentPodTemplate: requests.memory = "0", want "2Gi" (template value dropped)
+    zz_verify_pr6177_test.go:138: transformComponentPodTemplate: limits.cpu = "0", want "2" (template value dropped)
+--- FAIL: TestVerifyPR6177_TransformComponentPodTemplate_OverlaysOntoTemplate (0.00s)
+=== RUN   TestVerifyPR6177_SyncRuntimeSpec_KeepsUnnamedRequirements
+    zz_verify_pr6177_test.go:248: syncRuntimeSpec: requests.cpu = "0", want "1" (template value dropped)
+    zz_verify_pr6177_test.go:248: syncRuntimeSpec: requests.memory = "0", want "2Gi" (template value dropped)
+    zz_verify_pr6177_test.go:248: syncRuntimeSpec: limits.cpu = "0", want "2" (template value dropped)
+--- FAIL: TestVerifyPR6177_SyncRuntimeSpec_KeepsUnnamedRequirements (0.00s)
+=== RUN   TestVerifyPR6177_NeitherSideDeclares_GuardWorkloadUntouched
+--- PASS: TestVerifyPR6177_NeitherSideDeclares_GuardWorkloadUntouched (0.00s)
+=== RUN   TestVerifyPR6177_TemplateOnly_GuardResolvesToTemplate
+--- PASS: TestVerifyPR6177_TemplateOnly_GuardResolvesToTemplate (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.021s
+FAIL

@@ -1,0 +1,37 @@
+{
+  "topic": "cacheruntime-resources-merge",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6177",
+  "harnessPaths": [
+    "docs/verification/cacheruntime-resources-merge",
+    "pkg/ddc/cache/engine/zz_verify_pr6177_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "CacheRuntime: a partially specified `resources` silently drops the rest of the container's resource requirements (issue #6173): setting just limits.memory clears requests.cpu, limits.cpu, requests.memory and claims on the next reconcile.",
+    "reportedComponent": "pkg/ddc/cache/component/advanced_statefulset_manager.go updateResources (fed by pkg/ddc/cache/engine desiredComponentResources / transformComponentPodTemplate)",
+    "patchedComponent": "pkg/ddc/cache/engine/sync.go desiredComponentResources + pkg/ddc/cache/engine/transform_common.go (mergeResourceRequirements)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit+integration",
+    "verdict": "confirmed",
+    "evidence": "On merge-base e0fc4c1 the three contract tests fail with requests.cpu=\"0\", requests.memory=\"0\", limits.cpu=\"0\" (values dropped), exactly the reported symptom; on the PR head they pass. See results/unit-base.txt vs results/unit-head.txt.",
+    "match": ["TestVerifyPR6177_DesiredComponentResources_OverlaysOntoTemplate", "TestVerifyPR6177_TransformComponentPodTemplate_OverlaysOntoTemplate", "TestVerifyPR6177_SyncRuntimeSpec_KeepsUnnamedRequirements"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=\"all=-N -l\" ./pkg/ddc/cache/engine/ -run 'TestVerifyPR6177_(DesiredComponentResources_OverlaysOntoTemplate|TransformComponentPodTemplate_OverlaysOntoTemplate|TemplateOnly_GuardResolvesToTemplate)' -v"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=\"all=-N -l\" ./pkg/ddc/cache/engine/ -run 'TestVerifyPR6177_(SyncRuntimeSpec_KeepsUnnamedRequirements|NeitherSideDeclares_GuardWorkloadUntouched)' -v"
+    }
+  },
+  "findings": [
+    { "id": "P0", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6177_DesiredComponentResources_OverlaysOntoTemplate", "TestVerifyPR6177_TransformComponentPodTemplate_OverlaysOntoTemplate"] },
+    { "id": "P0", "polarity": "contract", "layer": "integration", "match": ["TestVerifyPR6177_SyncRuntimeSpec_KeepsUnnamedRequirements"] },
+    { "id": "G1", "polarity": "contract", "layer": "integration", "match": ["TestVerifyPR6177_NeitherSideDeclares_GuardWorkloadUntouched"] },
+    { "id": "G2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6177_TemplateOnly_GuardResolvesToTemplate"] }
+  ],
+  "liveNote": "L3 skipped per debate setup (no KUBECONFIG layer). If run live: on a kind cluster, create the CacheRuntimeClass + CacheRuntime from issue #6173, patch spec.worker.resources.limits.memory=8Gi, and check `kubectl get advancedstatefulset <name>-worker -o jsonpath='{.spec.template.spec.containers[0].resources}'` keeps cpu request/limit and memory request."
+}

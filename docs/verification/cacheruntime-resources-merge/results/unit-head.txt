@@ -1,0 +1,13 @@
+2026/10/08 06:39:34 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6177_DesiredComponentResources_OverlaysOntoTemplate
+--- PASS: TestVerifyPR6177_DesiredComponentResources_OverlaysOntoTemplate (0.00s)
+=== RUN   TestVerifyPR6177_TransformComponentPodTemplate_OverlaysOntoTemplate
+--- PASS: TestVerifyPR6177_TransformComponentPodTemplate_OverlaysOntoTemplate (0.00s)
+=== RUN   TestVerifyPR6177_SyncRuntimeSpec_KeepsUnnamedRequirements
+--- PASS: TestVerifyPR6177_SyncRuntimeSpec_KeepsUnnamedRequirements (0.00s)
+=== RUN   TestVerifyPR6177_NeitherSideDeclares_GuardWorkloadUntouched
+--- PASS: TestVerifyPR6177_NeitherSideDeclares_GuardWorkloadUntouched (0.00s)
+=== RUN   TestVerifyPR6177_TemplateOnly_GuardResolvesToTemplate
+--- PASS: TestVerifyPR6177_TemplateOnly_GuardResolvesToTemplate (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.025s
