@@ -1,0 +1,17 @@
+# Harness-bites check for F1 (worker vs DataLoad image divergence)
+#
+# The proposed fix for F1 (align pkg/ddc/cache/engine/image.go with the completion
+# semantics) was applied temporarily to the PR head:
+#
+#   completed := desiredComponentVersion(runtime.Spec.Worker.RuntimeVersion,
+#       componentTemplateImage(runtimeClass.Topology.Worker))
+#   if completed.Image != "" && completed.ImageTag != "" {
+#       image = completed.Image + ":" + completed.ImageTag
+#   }
+#
+# Both canaries flipped to RED under the fix (i.e. they bite), then the fix was
+# reverted with `git checkout -- pkg/ddc/cache/engine/image.go`.
+
+[FAIL] PR-6186 verification: partial runtime version on the unit layer F1b worker vs DataLoad image divergence [It] canary: an imageTag-only upgrade moves the worker but not the DataLoad image [flips when image.go is aligned] [pkg.ddc.cache.engine.version_completion_unit_verify_test.go]
+[FAIL] PR-6186 verification: partial runtime version on the sync path F1a DataLoad image resolution [It] canary: getDataOperationImage ignores a partially specified worker version [flips when image.go is aligned] [pkg.ddc.cache.engine.version_completion_sync_verify_test.go]
+FAIL! -- 289 Passed | 14 Failed | 0 Pending | 16 Skipped

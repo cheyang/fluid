@@ -1,0 +1,326 @@
+2026/10/08 07:25:27 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Cache Engine Suite - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine
+[cache_engine] 
+=================================================================================================================================================
+Random Seed: 1791415527
+
+Will run 319 of 319 specs
+••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••SS••S•••••••••••••••••••••••••••••••••••••••••••
+------------------------------
+• [FAILED] [0.011 seconds]
+CacheEngine Sync Tests Sync when runtime is ready with ReportSummary configured [It] should get cache states successfully with mocked Execute [pkg.ddc.cache.engine.sync_test.go]
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/sync_test.go:351
+
+  [FAILED] Expected
+      <common.CacheStateList | len:0>: nil
+  not to be nil
+  In [It] at: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/sync_test.go:374 @ 10/08/26 07:25:28.052
+------------------------------
+•••••••••••••••••••••••••••SS••S•S••SSSS••SS••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••SS••S••••••••••
+------------------------------
+• [FAILED] [0.010 seconds]
+CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return parsed CacheRuntimeMountUfsOutput with valid JSON output [pkg.ddc.cache.engine.ufs_test.go]
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:226
+
+  Timeline >>
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:241 @ 10/08/26 07:25:28.088
+  << Timeline
+
+  [FAILED] Unexpected error:
+      <*errors.withStack | 0x22aa37c11de8>: 
+      error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+      {
+          error: <*errors.withMessage | 0x22aa3739a860>{
+              cause: <*errors.StatusError | 0x22aa37b92a00>{
+                  ErrStatus: {
+                      TypeMeta: {Kind: "", APIVersion: ""},
+                      ListMeta: {
+                          SelfLink: "",
+                          ResourceVersion: "",
+                          Continue: "",
+                          RemainingItemCount: nil,
+                      },
+                      Status: "Failure",
+                      Message: "pods \"test-runtime-master-0\" not found",
+                      Reason: "NotFound",
+                      Details: {
+                          Name: "test-runtime-master-0",
+                          Group: "",
+                          Kind: "pods",
+                          UID: "",
+                          Causes: nil,
+                          RetryAfterSeconds: 0,
+                      },
+                      Code: 404,
+                  },
+              },
+              msg: "error when executing command [/mount.sh]",
+          },
+          stack: [0x1756845, 0x17568ef, 0x1762bef, 0x17cae18, 0x16cb0d3, 0x16cc930, 0x49aee1],
+      }
+  occurred
+  In [It] at: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:241 @ 10/08/26 07:25:28.088
+------------------------------
+• [FAILED] [0.008 seconds]
+CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount returns empty output [pkg.ddc.cache.engine.ufs_test.go]
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:246
+
+  Timeline >>
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:262 @ 10/08/26 07:25:28.097
+  << Timeline
+
+  [FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: empty output
+  In [It] at: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:262 @ 10/08/26 07:25:28.097
+------------------------------
+• [FAILED] [0.008 seconds]
+CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount returns whitespace-only output [pkg.ddc.cache.engine.ufs_test.go]
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:266
+
+  Timeline >>
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:282 @ 10/08/26 07:25:28.105
+  << Timeline
+
+  [FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: empty output
+  In [It] at: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:282 @ 10/08/26 07:25:28.105
+------------------------------
+• [FAILED] [0.010 seconds]
+CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return JSON parse error when Mount returns invalid JSON [pkg.ddc.cache.engine.ufs_test.go]
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:286
+
+  Timeline >>
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:302 @ 10/08/26 07:25:28.115
+  << Timeline
+
+  [FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: failed to parse mount ufs output
+  In [It] at: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:302 @ 10/08/26 07:25:28.115
+------------------------------
+• [FAILED] [0.010 seconds]
+CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount command fails [pkg.ddc.cache.engine.ufs_test.go]
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:306
+
+  Timeline >>
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:322 @ 10/08/26 07:25:28.125
+  << Timeline
+
+  [FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: mount command failed
+  In [It] at: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:322 @ 10/08/26 07:25:28.125
+------------------------------
+••
+------------------------------
+• [FAILED] [0.010 seconds]
+CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when PrepareUFS returns invalid JSON [It] should return JSON parse error [pkg.ddc.cache.engine.ufs_test.go]
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:573
+
+  Timeline >>
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:580 @ 10/08/26 07:25:28.136
+  << Timeline
+
+  [FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: failed to parse mount ufs output
+  In [It] at: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:580 @ 10/08/26 07:25:28.136
+------------------------------
+• [FAILED] [0.010 seconds]
+CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when PrepareUFS returns empty output [It] should return empty output error [pkg.ddc.cache.engine.ufs_test.go]
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:590
+
+  Timeline >>
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:597 @ 10/08/26 07:25:28.146
+  << Timeline
+
+  [FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: empty output
+  In [It] at: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:597 @ 10/08/26 07:25:28.146
+------------------------------
+• [FAILED] [0.009 seconds]
+CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when syncDatasetMounts fails due to missing mount point [It] should return mount point not mounted error [pkg.ddc.cache.engine.ufs_test.go]
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:607
+
+  Timeline >>
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:614 @ 10/08/26 07:25:28.155
+  << Timeline
+
+  [FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: is not yet mounted
+  In [It] at: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:614 @ 10/08/26 07:25:28.155
+------------------------------
+• [FAILED] [0.010 seconds]
+CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when syncDatasetMounts fails due to unexpected mounted paths [It] should return unexpected mounted paths error [pkg.ddc.cache.engine.ufs_test.go]
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:624
+
+  Timeline >>
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:631 @ 10/08/26 07:25:28.165
+  << Timeline
+
+  [FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: unexpected mounted paths remain
+  In [It] at: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:631 @ 10/08/26 07:25:28.165
+------------------------------
+• [FAILED] [0.009 seconds]
+CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when all mount points are correctly mounted [It] should successfully update mounts and set status to Bound [pkg.ddc.cache.engine.ufs_test.go]
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:641
+
+  Timeline >>
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:647 @ 10/08/26 07:25:28.174
+  << Timeline
+
+  [FAILED] Unexpected error:
+      <*errors.withStack | 0x22aa37531b60>: 
+      failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+      {
+          error: <*errors.withMessage | 0x22aa37b08b80>{
+              cause: <*errors.withStack | 0x22aa37531b30>{
+                  error: <*errors.withMessage | 0x22aa37b08b60>{
+                      cause: <*errors.StatusError | 0x22aa37b1ec80>{
+                          ErrStatus: {
+                              TypeMeta: {Kind: "", APIVersion: ""},
+                              ListMeta: {
+                                  SelfLink: "",
+                                  ResourceVersion: "",
+                                  Continue: "",
+                                  RemainingItemCount: nil,
+                              },
+                              Status: "Failure",
+                              Message: "pods \"test-runtime-master-0\" not found",
+                              Reason: "NotFound",
+                              Details: {
+                                  Name: "test-runtime-master-0",
+                                  Group: "",
+                                  Kind: "pods",
+                                  UID: "",
+                                  Causes: nil,
+                                  RetryAfterSeconds: 0,
+                              },
+                              Code: 404,
+                          },
+                      },
+                      msg: "error when executing command [/mount.sh]",
+                  },
+                  stack: [0x1756845, 0x17568ef, 0x1762bef, 0x1763365, 0x17c6a18, 0x16cb0d3, 0x16cc930, 0x49aee1],
+              },
+              msg: "failed to execute mount ufs command",
+          },
+          stack: [0x1763431, 0x17c6a18, 0x16cb0d3, 0x16cc930, 0x49aee1],
+      }
+  occurred
+  In [It] at: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:647 @ 10/08/26 07:25:28.174
+------------------------------
+• [FAILED] [0.010 seconds]
+CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when dataset has native scheme mounts [It] should skip native scheme mounts and succeed [pkg.ddc.cache.engine.ufs_test.go]
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:662
+
+  Timeline >>
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:675 @ 10/08/26 07:25:28.184
+  << Timeline
+
+  [FAILED] Unexpected error:
+      <*errors.withStack | 0x22aa37530828>: 
+      failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+      {
+          error: <*errors.withMessage | 0x22aa37b08440>{
+              cause: <*errors.withStack | 0x22aa375307f8>{
+                  error: <*errors.withMessage | 0x22aa37b08420>{
+                      cause: <*errors.StatusError | 0x22aa37b8aa00>{
+                          ErrStatus: {
+                              TypeMeta: {Kind: "", APIVersion: ""},
+                              ListMeta: {
+                                  SelfLink: "",
+                                  ResourceVersion: "",
+                                  Continue: "",
+                                  RemainingItemCount: nil,
+                              },
+                              Status: "Failure",
+                              Message: "pods \"test-runtime-master-0\" not found",
+                              Reason: "NotFound",
+                              Details: {
+                                  Name: "test-runtime-master-0",
+                                  Group: "",
+                                  Kind: "pods",
+                                  UID: "",
+                                  Causes: nil,
+                                  RetryAfterSeconds: 0,
+                              },
+                              Code: 404,
+                          },
+                      },
+                      msg: "error when executing command [/mount.sh]",
+                  },
+                  stack: [0x1756845, 0x17568ef, 0x1762bef, 0x1763365, 0x17c6727, 0x16cb0d3, 0x16cc930, 0x49aee1],
+              },
+              msg: "failed to execute mount ufs command",
+          },
+          stack: [0x1763431, 0x17c6727, 0x16cb0d3, 0x16cc930, 0x49aee1],
+      }
+  occurred
+  In [It] at: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:675 @ 10/08/26 07:25:28.184
+------------------------------
+••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
+
+Summarizing 12 Failures:
+  [FAIL] CacheEngine Sync Tests Sync when runtime is ready with ReportSummary configured [It] should get cache states successfully with mocked Execute [pkg.ddc.cache.engine.sync_test.go]
+  /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/sync_test.go:374
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return parsed CacheRuntimeMountUfsOutput with valid JSON output [pkg.ddc.cache.engine.ufs_test.go]
+  /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:241
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount returns empty output [pkg.ddc.cache.engine.ufs_test.go]
+  /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:262
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount returns whitespace-only output [pkg.ddc.cache.engine.ufs_test.go]
+  /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:282
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return JSON parse error when Mount returns invalid JSON [pkg.ddc.cache.engine.ufs_test.go]
+  /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:302
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount command fails [pkg.ddc.cache.engine.ufs_test.go]
+  /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:322
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when PrepareUFS returns invalid JSON [It] should return JSON parse error [pkg.ddc.cache.engine.ufs_test.go]
+  /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:580
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when PrepareUFS returns empty output [It] should return empty output error [pkg.ddc.cache.engine.ufs_test.go]
+  /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:597
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when syncDatasetMounts fails due to missing mount point [It] should return mount point not mounted error [pkg.ddc.cache.engine.ufs_test.go]
+  /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:614
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when syncDatasetMounts fails due to unexpected mounted paths [It] should return unexpected mounted paths error [pkg.ddc.cache.engine.ufs_test.go]
+  /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:631
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when all mount points are correctly mounted [It] should successfully update mounts and set status to Bound [pkg.ddc.cache.engine.ufs_test.go]
+  /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:647
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when dataset has native scheme mounts [It] should skip native scheme mounts and succeed [pkg.ddc.cache.engine.ufs_test.go]
+  /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/ufs_test.go:675
+
+Ran 303 of 319 Specs in 0.199 seconds
+FAIL! -- 291 Passed | 12 Failed | 0 Pending | 16 Skipped
+--- FAIL: TestCacheEngine (0.20s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.224s
+FAIL

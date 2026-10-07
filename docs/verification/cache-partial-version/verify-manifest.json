@@ -1,0 +1,83 @@
+{
+  "topic": "cache-partial-version",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6186",
+  "harnessPaths": [
+    "docs/verification/cache-partial-version",
+    "pkg/ddc/cache/engine/version_completion_sync_verify_test.go",
+    "pkg/ddc/cache/engine/version_completion_unit_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Setting only spec.worker.runtimeVersion.imageTag (a legal edit per VersionSpec: image, imageTag and imagePullPolicy are independent optional strings) is silently ignored: updateImage returns early unless both halves are set, so the AdvancedStatefulSet keeps the old image with no error, event or condition, while the CacheRuntime's generation increments (issue #6178).",
+    "reportedComponent": "pkg/ddc/cache/component/advanced_statefulset_manager.go updateImage (CacheRuntime master/worker sync path)",
+    "patchedComponent": "pkg/ddc/cache/engine/transform_common.go desiredComponentVersion + sync.go syncRuntimeSpec + transformComponentPodTemplate",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "integration",
+    "verdict": "confirmed",
+    "evidence": "On the merge base d8b37f28 the P0 contract specs are RED: an imageTag-only and an image-only edit leave the worker AdvancedStatefulSet image at the template image. See results/base-with-harness.txt (264 Passed | 16 Failed = 12 pre-existing + 4 red harness specs).",
+    "match": [
+      "contract: an imageTag-only edit is applied to the worker workload",
+      "contract: an image-only edit is applied to the worker workload"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "_note": "pure-logic specs (splitImageReference / desiredComponentVersion corner cases) live in version_completion_unit_verify_test.go and run inside the same ginkgo suite as the integration layer; no separate process needed.",
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -ginkgo.focus 'PR-6186 verification: partial runtime version on the unit layer' -ginkgo.json-report=$GINKGO_REPORT"
+    },
+    "integration": {
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    }
+  },
+  "findings": [
+    {
+      "id": "FIX",
+      "_comment": "the PR's own fix: partial versions now reach the workload",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "contract: an imageTag-only edit is applied to the worker workload",
+        "contract: an image-only edit is applied to the worker workload",
+        "contract: a complete version is applied unchanged"
+      ]
+    },
+    {
+      "id": "F1",
+      "_comment": "canary: worker vs DataLoad image divergence introduced by the PR; flips when image.go is aligned",
+      "polarity": "canary",
+      "layer": "integration",
+      "match": [
+        "canary: getDataOperationImage ignores a partially specified worker version",
+        "canary: an imageTag-only upgrade moves the worker but not the DataLoad image"
+      ]
+    },
+    {
+      "id": "F2",
+      "_comment": "contract pinning the new rollback-to-template semantics (deliberate; blast-radius question for the maintainer)",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "contract: dropping a runtimeVersion rolls the worker back to the template image",
+        "contract: a class template image edit reaches a live worker that set no runtimeVersion"
+      ]
+    },
+    {
+      "id": "F3",
+      "_comment": "contract over the documented corner cases of the completion rules",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "contract: splitImageReference does not read a trailing colon as a tag",
+        "contract: splitImageReference handles a registry port with a nested path",
+        "contract: an image-only version over a tagless template stays incomplete",
+        "contract: creation keeps the template digest image when the version is partial",
+        "contract: creation over a tagless template drops an image-only edit"
+      ]
+    }
+  ],
+  "liveNote": "L3 (live cluster) was skipped by instruction for this debate round: the environment probe DID find a reachable cluster (2 aliyun v1.36.2 nodes via ~/.kube/config), but this round was scoped to unit + integration layers only, and no cluster state was touched. The PR author already recorded a kind-cluster run in the PR body. If run later: create a CacheRuntime against a class whose worker template pins an image, patch runtimeVersion.imageTag only, and check the ASTS generation + image and the controller log line 'image changed, will update'."
+}
