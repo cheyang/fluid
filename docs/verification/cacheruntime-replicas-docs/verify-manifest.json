@@ -1,0 +1,62 @@
+{
+  "topic": "cacheruntime-replicas-docs",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6183",
+  "harnessPaths": [
+    "docs/verification/cacheruntime-replicas-docs",
+    "pkg/ddc/cache/engine/sync_replicas_verify_test.go",
+    "pkg/ddc/cache/engine/worker_affinity_placement_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #6182: \"Both docs state that only `runtimeVersion` and `resources` support in-place update, and explicitly list `replicas` under \\\"Unsupported Update Fields\\\" (line 107 in both files), telling readers that \\\"you must redeploy the CacheRuntime for changes to take effect\\\". This is wrong. `replicas` is synced in place for Master and Worker.\"",
+    "reportedComponent": "docs/{zh,en}/samples/cacheruntime/cacheruntime_spec_update.md (and the pkg/ddc/cache engine behavior they describe)",
+    "patchedComponent": "docs/{zh,en}/samples/cacheruntime/cacheruntime_spec_update.md + stale TODO comment in pkg/ddc/cache/engine/sync.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Harness green on merge-base f2785f84: changing spec.worker.replicas 2->3 patches the worker AdvancedStatefulSet spec.replicas in place (1 patch, pod template untouched); see results/l1-unit-base.json",
+    "match": [
+      "should propagate spec.worker.replicas changes to the worker AdvancedStatefulSet in place",
+      "should propagate spec.master.replicas changes to the master AdvancedStatefulSet in place",
+      "should not patch anything when replicas are unchanged"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run TestCacheEngine -ginkgo.focus 'verification harness' -ginkgo.json-report results/l1-unit.json",
+      "report": "results/l1-unit.json"
+    }
+  },
+  "layersNote": "The repo's cache-engine tests (fake controller-runtime client, incl. Patch interception) serve as the integration-equivalent layer: no envtest assets exist for this package. The live layer (real cluster) was intentionally skipped in this round; the PR author already recorded a kind-cluster run in the PR body, and the unit layer decides every claim here.",
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "should propagate spec.worker.replicas changes to the worker AdvancedStatefulSet in place",
+        "should propagate spec.master.replicas changes to the master AdvancedStatefulSet in place",
+        "should not patch anything when replicas are unchanged",
+        "should not sync replicas for a disabled worker component"
+      ]
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "should forbid same-dataset workers from co-locating under the default (Exclusive) placement",
+        "should allow same-dataset workers to co-locate under Shared placement"
+      ]
+    },
+    {
+      "id": "F3",
+      "polarity": "none",
+      "layer": "reasoning",
+      "match": []
+    }
+  ],
+  "liveNote": "L3 skipped this round (no KUBECONFIG / live layer by instruction). If run later: scale a CacheRuntime worker 1->2 on a real cluster and confirm the ASTS patch + no RuntimeCondition/Event beyond the pre-existing RuntimeWorkersReady readiness flip; logs contain 'replicas changed, will update'."
+}

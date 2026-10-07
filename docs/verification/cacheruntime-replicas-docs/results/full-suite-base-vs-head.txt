@@ -1,0 +1,35 @@
+Full-suite regression check: pkg/ddc/cache/engine + pkg/ddc/cache/component
+===========================================================================
+
+Command (both on merge-base f2785f84 and PR head 6bcf1887):
+  go test ./pkg/ddc/cache/engine/ ./pkg/ddc/cache/component/
+
+Result:
+- pkg/ddc/cache/component: ok (both refs)
+- pkg/ddc/cache/engine: 12 pre-existing failures on BOTH refs — identical failure
+  sets (diff of failing spec names = empty). The PR changes no executable code
+  (docs + comment removal only), and the comparison confirms zero test
+  regressions attributable to the PR.
+
+The 12 pre-existing failures are environment/ordering-related specs in
+sync_test.go / ufs_test.go (e.g. "should return parsed CacheRuntimeMountUfsOutput
+with valid JSON output" fails identically on base without the harness files
+present) — they pre-date this PR and are out of scope for it.
+
+The 6 harness specs added by this branch all pass on both refs:
+
+  passed | should propagate spec.worker.replicas changes to the worker AdvancedStatefulSet in place
+  passed | should propagate spec.master.replicas changes to the master AdvancedStatefulSet in place
+  passed | should not patch anything when replicas are unchanged
+  passed | should not sync replicas for a disabled worker component
+  passed | should forbid same-dataset workers from co-locating under the default (Exclusive) placement
+  passed | should allow same-dataset workers to co-locate under Shared placement
+
+Harness-bites check (production code temporarily broken, then reverted):
+- removing `Replicas: &runtime.Spec.Worker.Replicas` from syncRuntimeSpec
+  (pkg/ddc/cache/engine/sync.go) -> exactly the worker-propagation spec goes red
+  (results/bites.txt, results/bites.json)
+- disabling the Exclusive branch of buildWorkerAffinity
+  (pkg/ddc/cache/engine/transform_worker.go) -> exactly the default-placement
+  anti-affinity spec goes red (results/bites2.txt, results/bites2.json)
+- `git diff -- pkg/` empty afterwards: production code untouched on this branch.
