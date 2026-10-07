@@ -1,0 +1,7 @@
+2026/10/07 17:44:54 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestClientLessTopologyGeneratesRuntimeConfig_P0Verify
+    verify_p0_clientless_test.go:133: generateRuntimeConfigData panicked on a client-less topology: runtime error: invalid memory address or nil pointer dereference
+--- FAIL: TestClientLessTopologyGeneratesRuntimeConfig_P0Verify (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.011s
+FAIL

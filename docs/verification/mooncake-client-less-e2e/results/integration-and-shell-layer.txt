@@ -1,0 +1,49 @@
+=== RUN   TestManifestsAcceptedByAPIServer_Verify
+    verify_envtest_test.go:153: test/gha-e2e/mooncake/cacheruntimeclass.yaml: cacheruntimeclass.data.fluid.io/mooncake-demo created (server dry run)
+    verify_envtest_test.go:153: test/gha-e2e/mooncake/dataset.yaml: dataset.data.fluid.io/mooncake-demo created (server dry run)
+    verify_envtest_test.go:153: test/gha-e2e/mooncake/cacheruntime.yaml: cacheruntime.data.fluid.io/mooncake-demo created (server dry run)
+    verify_envtest_test.go:153: test/gha-e2e/mooncake/rw_job.yaml: job.batch/mooncake-rw-job created (server dry run)
+    verify_envtest_test.go:153: test/gha-e2e/mooncake/bad_mount_pod.yaml: pod/mooncake-bad-mount created (server dry run)
+--- PASS: TestManifestsAcceptedByAPIServer_Verify (5.21s)
+=== RUN   TestStaleFailedMountEventsMatchPodNameSelector_F2Verify
+    verify_envtest_test.go:209: stale event still matched after pod deletion (this is the F2 mechanism): MountVolume.SetUp failed for volume "default-mooncake-demo" : rpc error: code = Internal desc = timeout waiting for FUSE mount point to be ready
+    verify_envtest_test.go:221: uid-scoped selector excludes the stale event: the fix works
+--- PASS: TestStaleFailedMountEventsMatchPodNameSelector_F2Verify (3.93s)
+=== RUN   TestReportSummaryParsingHarness_Verify
+    verify_shell_harness_test.go:40: PASS: normal: .cached == 4.19MiB
+        PASS: normal: .cacheCapacity == 1.00GiB
+        PASS: normal: .ufsTotal == 1.00GiB
+        PASS: normal: .fileNum == 3
+        PASS: normal: .cachedPercentage == 0.4
+        PASS: normal: .cacheHitRatio == 95
+        PASS: zero: .cached == 0B
+        PASS: zero: .fileNum == 0
+        PASS: zero: .cacheHitRatio == 0
+        PASS: zero: .cachedPercentage == 0.0
+        PASS: nopercent: .cachedPercentage == 0.0
+        PASS: down: exits non-zero (rc=7) when the metrics endpoint is unreachable
+        reportSummary harness: all cases passed
+        
+--- PASS: TestReportSummaryParsingHarness_Verify (0.07s)
+=== RUN   TestWorkerEntrypointHarness_Verify
+    verify_shell_harness_test.go:50: PASS: worker invoked with --host=mooncake-demo-worker-0.svc-mooncake-demo-worker.default.svc.cluster.local
+        PASS: worker invoked with --master_server_address=svc-mooncake-demo-master.default.svc.cluster.local:50051
+        PASS: worker invoked with --metadata_server=http://svc-mooncake-demo-master.default.svc.cluster.local:8080/metadata
+        PASS: worker invoked with --global_segment_size=1GB
+        PASS: client role exits non-zero (client-less system)
+        entrypoint harness: all cases passed
+        
+--- PASS: TestWorkerEntrypointHarness_Verify (0.02s)
+=== RUN   TestWaitRuntimeDeletedVacuousPass_Canary
+    verify_shell_harness_test.go:61: >>> All runtime resources (AdvancedStatefulSet, Service) garbage collected
+        >>> PV/PVC cleaned up successfully
+        CANARY-TRIPPED: wait_runtime_deleted reported success while every kubectl call was failing
+        
+--- PASS: TestWaitRuntimeDeletedVacuousPass_Canary (0.01s)
+=== RUN   TestFailedMountEventQueryUIDScoped_Canary
+    verify_shell_harness_test.go:71: CANARY-TRIPPED: FailedMount query is not scoped to the pod UID:
+        269:            --field-selector "involvedObject.name=${bad_mount_pod_name},reason=FailedMount" \
+        
+--- PASS: TestFailedMountEventQueryUIDScoped_Canary (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/test/gha-e2e/mooncake	9.246s

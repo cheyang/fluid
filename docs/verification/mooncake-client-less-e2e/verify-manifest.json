@@ -1,0 +1,41 @@
+{
+  "topic": "mooncake-client-less-e2e",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6175",
+  "harnessPaths": [
+    "docs/verification/mooncake-client-less-e2e",
+    "pkg/ddc/cache/engine/verify_p0_clientless_test.go",
+    "pkg/ddc/cache/component/verify_gc_labels_test.go",
+    "test/gha-e2e/mooncake/verify_envtest_test.go",
+    "test/gha-e2e/mooncake/verify_shell_harness_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "A CacheRuntimeClass whose topology declares only master and worker (no client) made the cacheruntime-controller panic with a nil pointer dereference before #6157; no existing e2e case covers that client-less shape.",
+    "reportedComponent": "cacheruntime-controller (pkg/ddc/cache/engine config builder)",
+    "patchedComponent": "test/gha-e2e/mooncake e2e case + .github CI wiring",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "same test panics with nil pointer dereference on d1ae1ace^ (pre-#6157) and passes on the PR head; see results/p0-premise-prefix6157.txt and results/unit-layer.txt",
+    "match": ["TestClientLessTopologyGeneratesRuntimeConfig_P0Verify"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/cache/engine/ ./pkg/ddc/cache/component/ ./test/gha-e2e/mooncake/ -run 'P0Verify|GCSelectorLabel_Verify|Harness_Verify|Canary' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./test/gha-e2e/mooncake/ -run 'TestManifestsAcceptedByAPIServer_Verify|TestStaleFailedMountEventsMatchPodNameSelector_F2Verify' -json"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestAdvancedStatefulSetCarriesGCSelectorLabel_Verify", "TestDaemonSetCarriesGCSelectorLabel_Verify", "TestHeadlessServiceCarriesGCSelectorLabel_Verify"] },
+    { "id": "F2", "polarity": "canary", "layer": "unit", "match": ["TestFailedMountEventQueryUIDScoped_Canary"] },
+    { "id": "F4", "polarity": "canary", "layer": "unit", "match": ["TestWaitRuntimeDeletedVacuousPass_Canary"] },
+    { "id": "F2-evidence", "polarity": "contract", "layer": "integration", "match": ["TestStaleFailedMountEventsMatchPodNameSelector_F2Verify"] },
+    { "id": "PR-scripts", "polarity": "contract", "layer": "unit", "match": ["TestReportSummaryParsingHarness_Verify", "TestWorkerEntrypointHarness_Verify"] }
+  ],
+  "liveNote": "L3 skipped for this round (reviewer ran unit + integration only). The full e2e path is already exercised by the PR's own kind-e2e workflow: 'Fluid basic e2e tests' passed on head 8a12cfaa in 13m48s including the mooncake case."
+}

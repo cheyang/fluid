@@ -1,0 +1,13 @@
+## unit layer (P0 + GC labels)
+=== RUN   TestClientLessTopologyGeneratesRuntimeConfig_P0Verify
+--- PASS: TestClientLessTopologyGeneratesRuntimeConfig_P0Verify (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.012s
+=== RUN   TestAdvancedStatefulSetCarriesGCSelectorLabel_Verify
+--- PASS: TestAdvancedStatefulSetCarriesGCSelectorLabel_Verify (0.00s)
+=== RUN   TestDaemonSetCarriesGCSelectorLabel_Verify
+--- PASS: TestDaemonSetCarriesGCSelectorLabel_Verify (0.00s)
+=== RUN   TestHeadlessServiceCarriesGCSelectorLabel_Verify
+--- PASS: TestHeadlessServiceCarriesGCSelectorLabel_Verify (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	0.011s
