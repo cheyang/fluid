@@ -1,0 +1,38 @@
+{
+  "topic": "ownerref-gvk-converge",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6199",
+  "_prHeadFetch_note": "prHeadFetch is the optional local-remote fallback; 'pr' above is machine-independent and preferred.",
+  "prHeadFetch": { "remote": "origin", "ref": "pull/6199/head" },
+  "harnessPaths": [
+    "docs/verification/ownerref-gvk-converge",
+    "pkg/utils/dataset_runtime_verify_test.go"
+  ],
+  "_premise_note": "P0 is the PR's own problem statement (issue #6140), run against the BASE branch without the patch.",
+  "premise": {
+    "id": "P0",
+    "claim": "The two code paths do not overlap - datasetControllerOwnerReference does not go through the transformer - so neither fix covers the other's callers.",
+    "reportedComponent": "pkg/utils/dataset_runtime.go + pkg/utils/transformer/owner_reference.go",
+    "patchedComponent": "pkg/utils/dataset_runtime.go (delegates to pkg/utils/transformer) + regression tests in both packages",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Base e0fc4c18 dataset_runtime.go carries its own per-field GVK fallback with zero references to utils/transformer; see results/premise-base-inspection.txt. Issue items 1+2 already landed on base via #6139 (95138fc7); this PR implements items 3+4, so merging legitimately closes #6140.",
+    "match": ["TestVerifyOwnerReferenceEquivalenceLegacyVsConverged"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/ -run 'TestVerifyOwnerReferenceEquivalenceLegacyVsConverged|TestVerifyMalformedAPIVersionIsNormalized' -count=1 -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/ -run 'TestVerifyCreatedThinRuntimeCarriesWellFormedOwnerReference' -count=1 -json"
+    }
+  },
+  "findings": [
+    { "id": "B1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyOwnerReferenceEquivalenceLegacyVsConverged", "TestVerifyMalformedAPIVersionIsNormalized"] },
+    { "id": "B2", "polarity": "contract", "layer": "integration", "match": ["TestVerifyCreatedThinRuntimeCarriesWellFormedOwnerReference"] }
+  ],
+  "liveNote": "L3 skipped this round (cluster reachable but round configured unit+integration only). If run later: create a reference dataset on a real cluster and check the auto-created ThinRuntime ownerReference carries Kind=Dataset / APIVersion=data.fluid.io/v1alpha1 and is GC'd on dataset deletion."
+}

@@ -1,0 +1,10 @@
+== PR's own verification commands (from PR body §3) ==
+-- cmd 1 --
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/transformer	0.019s
+-- cmd 2 --
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.021s
+
+== pre-existing failures, attributed by running them on BASE (e0fc4c18) ==
+TestCheckMountPointBroken on base: FAIL (see below)
+TestHelm on base: FAIL
+-> both fail identically without the PR; environmental/pre-existing, not PR findings.

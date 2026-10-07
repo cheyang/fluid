@@ -1,0 +1,5 @@
+== go build ./... (whole repo compiles with the new import edge pkg/utils -> pkg/utils/transformer) ==
+build rc: 0
+
+== go vet on changed packages ==
+vet rc: 0

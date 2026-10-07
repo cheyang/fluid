@@ -1,0 +1,52 @@
+== P0 premise evidence: BASE branch (e0fc4c18) pkg/utils/dataset_runtime.go ==
+-- base implementation of datasetControllerOwnerReference (local, does NOT delegate to transformer) --
+// datasetControllerOwnerReference builds the controller ownerReference which points to the given dataset.
+// Kind and APIVersion come from the dataset's TypeMeta, and fall back to the well-known values of the Dataset
+// CRD when it is empty, which a typed client may hand back depending on how the object was read. The owner
+// based watch of the dataset controller resolves a dependent through those two fields, so they must be set.
+func datasetControllerOwnerReference(dataset *datav1alpha1.Dataset) metav1.OwnerReference {
+	kind := dataset.GetObjectKind().GroupVersionKind().Kind
+	if len(kind) == 0 {
+		kind = datav1alpha1.Datasetkind
+	}
+	apiVersion := dataset.APIVersion
+	if len(apiVersion) == 0 {
+		apiVersion = datav1alpha1.GroupVersion.String()
+	}
+
+	return metav1.OwnerReference{
+		Kind:       kind,
+		APIVersion: apiVersion,
+		Name:       dataset.GetName(),
+		UID:        dataset.GetUID(),
+		Controller: ptr.To(true),
+	}
+
+-- does base pkg/utils import the transformer? --
+0
+0 references -> the two implementations do not overlap on base (issue #6140 premise holds)
+
+-- base transformer helper already recovers per-field with a diagnostic log (issue items 1+2 landed via #6139 at 95138fc7) --
+	gvk := obj.GetObjectKind().GroupVersionKind()
+	if len(gvk.Kind) == 0 || len(gvk.Version) == 0 {
+		resolved, err := apiutil.GVKForObject(obj, fluidScheme)
+		if err != nil {
+			log.Error(err, "failed to recover the GroupVersionKind of the owner from the scheme, the generated ownerReference stays incomplete",
+				"namespace", obj.GetNamespace(), "name", obj.GetName(), "groupVersionKind", gvk.String())
+		} else {
+			if len(gvk.Kind) == 0 {
+				gvk.Kind = resolved.Kind
+			}
+			if len(gvk.Version) == 0 {
+				gvk.Group, gvk.Version = resolved.Group, resolved.Version
+			}
+		}
+	}
+
+	ref := &common.OwnerReference{
+		APIVersion:         gvk.GroupVersion().String(),
+		Kind:               gvk.Kind,
+
+-- base test coverage of partial-TypeMeta shapes: only DataLoad entries (uid-4/uid-5); no Dataset/AlluxioRuntime partial entries --
+230:				ObjectMeta: metav1.ObjectMeta{Name: "kind-only-dataload", Namespace: "default", UID: "uid-4"},
+238:				ObjectMeta: metav1.ObjectMeta{Name: "version-only-dataload", Namespace: "default", UID: "uid-5"},

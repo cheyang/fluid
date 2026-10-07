@@ -1,0 +1,15 @@
+== SABOTAGE APPLIED: datasetControllerOwnerReference drops Kind+APIVersion ==
+--- FAIL: TestVerifyOwnerReferenceEquivalenceLegacyVsConverged (0.00s)
+--- FAIL: TestVerifyMalformedAPIVersionIsNormalized (0.00s)
+--- FAIL: TestVerifyCreatedThinRuntimeCarriesWellFormedOwnerReference (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	0.012s
+FAIL
+sabotaged rc: 1
+
+== SABOTAGE REVERTED (git checkout --), re-run on clean PR head ==
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.011s
+clean rc: 0
+
+== production diff after revert (must be empty) ==
+(empty = production untouched)
