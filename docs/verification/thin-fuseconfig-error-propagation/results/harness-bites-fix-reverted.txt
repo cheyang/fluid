@@ -1,0 +1,8 @@
+2026/10/08 07:52:36 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+--- FAIL: TestThinEngine_updateFuseConfigOnChange (0.00s)
+    ufs_test.go:571: testcase transform fuse config failed failed due to error <nil>
+--- FAIL: TestVerifyPR6187ShouldUpdateUFSLogsTransformError (0.00s)
+    verify_pr6187_harness_test.go:113: transform failure was not surfaced: expected an Error log containing "failed to extract volume info", got errs=[] msgs=[]
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	0.020s
+FAIL

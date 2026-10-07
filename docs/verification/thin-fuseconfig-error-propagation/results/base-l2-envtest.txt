@@ -1,0 +1,7 @@
+2026/10/08 07:52:22 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6187ShouldUpdateUFSRealAPIServer
+    verify_pr6187_envtest_test.go:62: transform failure was not surfaced: expected an Error log containing "failed to extract volume info", got errs=[] msgs=[]
+--- FAIL: TestVerifyPR6187ShouldUpdateUFSRealAPIServer (6.47s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	6.487s
+FAIL

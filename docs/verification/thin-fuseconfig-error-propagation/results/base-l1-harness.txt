@@ -1,0 +1,7 @@
+2026/10/08 07:52:18 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6187ShouldUpdateUFSLogsTransformError
+    verify_pr6187_harness_test.go:113: transform failure was not surfaced: expected an Error log containing "failed to extract volume info", got errs=[] msgs=[]
+--- FAIL: TestVerifyPR6187ShouldUpdateUFSLogsTransformError (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	0.018s
+FAIL

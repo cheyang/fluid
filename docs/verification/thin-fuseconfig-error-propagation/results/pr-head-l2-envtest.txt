@@ -1,0 +1,5 @@
+2026/10/08 07:51:46 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6187ShouldUpdateUFSRealAPIServer
+--- PASS: TestVerifyPR6187ShouldUpdateUFSRealAPIServer (5.68s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	5.698s

@@ -1,0 +1,36 @@
+{
+  "topic": "thin-fuseconfig-error-propagation",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6187",
+  "harnessPaths": [
+    "docs/verification/thin-fuseconfig-error-propagation",
+    "pkg/ddc/thin/verify_pr6187_harness_test.go",
+    "pkg/ddc/thin/verify_pr6187_envtest_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "ThinEngine.updateFuseConfigOnChange (pkg/ddc/thin/ufs.go) discards the error returned by transformFuseConfig ... Because nil is returned, that Log.Error never fires and the transform failure is completely silent.",
+    "reportedComponent": "pkg/ddc/thin/ufs.go (updateFuseConfigOnChange)",
+    "patchedComponent": "pkg/ddc/thin/ufs.go + pkg/ddc/thin/ufs_test.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "PR's new test case grafted onto base 54a41cd4 fails with 'testcase transform fuse config failed failed due to error <nil>' (docs/verification/thin-fuseconfig-error-propagation/results/base-p0-premise.txt)",
+    "match": ["TestThinEngine_updateFuseConfigOnChange"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/thin/ -run 'TestThinEngine_updateFuseConfigOnChange|TestVerifyPR6187ShouldUpdateUFSLogsTransformError' -count=1 -gcflags=\"all=-N -l\" -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "KUBEBUILDER_ASSETS=\"${KUBEBUILDER_ASSETS:-$(ls -d \\\"$HOME\\\"/.local/share/kubebuilder-envtest/k8s/* 2>/dev/null | sort -V | tail -1)}\" go test ./pkg/ddc/thin/ -run 'TestVerifyPR6187ShouldUpdateUFSRealAPIServer' -count=1 -gcflags=\"all=-N -l\" -json"
+    }
+  },
+  "findings": [
+    { "id": "B1", "polarity": "contract", "layer": "unit", "match": ["TestThinEngine_updateFuseConfigOnChange", "TestVerifyPR6187ShouldUpdateUFSLogsTransformError"] },
+    { "id": "B2", "polarity": "contract", "layer": "integration", "match": ["TestVerifyPR6187ShouldUpdateUFSRealAPIServer"] }
+  ],
+  "liveNote": "L3 intentionally skipped (no live/KUBECONFIG layer for this review). Optional manual signal: engine log on a thinruntime whose dataset mounts a pvc:// volume with a missing/unbound PVC should show 'Failed to update fuse config' with 'failed to extract volume info'."
+}

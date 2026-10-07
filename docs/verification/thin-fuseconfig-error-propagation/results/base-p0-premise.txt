@@ -1,0 +1,7 @@
+2026/10/08 07:52:12 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestThinEngine_updateFuseConfigOnChange
+    ufs_test.go:571: testcase transform fuse config failed failed due to error <nil>
+--- FAIL: TestThinEngine_updateFuseConfigOnChange (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	0.020s
+FAIL

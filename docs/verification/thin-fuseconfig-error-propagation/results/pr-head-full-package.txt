@@ -1,0 +1,3 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	12.057s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin/operations	0.021s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin/referencedataset	1.035s

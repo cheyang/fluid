@@ -1,0 +1,8 @@
+2026/10/08 07:51:45 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6187ShouldUpdateUFSRealAPIServer
+    verify_pr6187_envtest_test.go:23: KUBEBUILDER_ASSETS not set; skipping envtest integration layer
+--- SKIP: TestVerifyPR6187ShouldUpdateUFSRealAPIServer (0.00s)
+=== RUN   TestVerifyPR6187ShouldUpdateUFSLogsTransformError
+--- PASS: TestVerifyPR6187ShouldUpdateUFSLogsTransformError (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	0.018s
