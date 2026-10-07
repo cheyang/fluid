@@ -1,0 +1,20 @@
+re-verify: manifest = docs/verification/ownerref-gvk-converge/verify-manifest.json
+re-verify: last-reviewed = 6797b26f4b6aaadb55e81c2ee862c8956d896db1  (review delta = 6797b26f4b6aaadb55e81c2ee862c8956d896db1..6797b26f4b6aaadb55e81c2ee862c8956d896db1)
+re-verify: fixed-ref=6797b26f4b6aaadb55e81c2ee862c8956d896db1  harness-from=verify/ownerref-gvk-converge-claude
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'integration' (gotest)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+B1     contract  unit         FIXED          pass=2 fail=0 miss=0
+B2     contract  integration  FIXED          pass=1 fail=0 miss=0
+
+Live layer (manual): L3 skipped this round (cluster reachable but round configured unit+integration only). If run later: create a reference dataset on a real cluster and check the auto-created ThinRuntime ownerReference carries Kind=Dataset / APIVersion=data.fluid.io/v1alpha1 and is GC'd on dataset deletion.
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/ownerref-gvk-converge/results/reverify
+
+Review delta this round: 6797b26f4b6aaadb55e81c2ee862c8956d896db1..6797b26f4b6aaadb55e81c2ee862c8956d896db1
+After reviewing that delta, advance the marker for the next round:
+  echo 6797b26f4b6aaadb55e81c2ee862c8956d896db1 > docs/verification/ownerref-gvk-converge/.last-reviewed && git add docs/verification/ownerref-gvk-converge/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: all findings fixed.
