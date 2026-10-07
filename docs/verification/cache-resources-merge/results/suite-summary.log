@@ -1,0 +1,26 @@
+== full engine suite, PR head (c1c303e8) ==
+Random Seed: 1791412651
+Ran 287 of 303 Specs in 0.205 seconds
+FAIL! -- 275 Passed | 12 Failed | 0 Pending | 16 Skipped
+
+== full engine suite, merge base (e0fc4c18) ==
+Random Seed: 1791412653
+Ran 274 of 290 Specs in 0.203 seconds
+FAIL! -- 262 Passed | 12 Failed | 0 Pending | 16 Skipped
+
+== failing spec names (identical at base and head, pre-existing) ==
+[It] should get cache states successfully with mocked Execute [pkg.ddc.cache.engine.sync_test.go]
+[It] should return empty output error [pkg.ddc.cache.engine.ufs_test.go]
+[It] should return error when Mount command fails [pkg.ddc.cache.engine.ufs_test.go]
+[It] should return error when Mount returns empty output [pkg.ddc.cache.engine.ufs_test.go]
+[It] should return error when Mount returns whitespace-only output [pkg.ddc.cache.engine.ufs_test.go]
+[It] should return JSON parse error [pkg.ddc.cache.engine.ufs_test.go]
+[It] should return JSON parse error when Mount returns invalid JSON [pkg.ddc.cache.engine.ufs_test.go]
+[It] should return mount point not mounted error [pkg.ddc.cache.engine.ufs_test.go]
+[It] should return parsed CacheRuntimeMountUfsOutput with valid JSON output [pkg.ddc.cache.engine.ufs_test.go]
+[It] should return unexpected mounted paths error [pkg.ddc.cache.engine.ufs_test.go]
+[It] should skip native scheme mounts and succeed [pkg.ddc.cache.engine.ufs_test.go]
+[It] should successfully update mounts and set status to Bound [pkg.ddc.cache.engine.ufs_test.go]
+
+== pkg/ddc/cache/component (head) ==
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	(cached)

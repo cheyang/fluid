@@ -1,0 +1,33 @@
+2026/10/08 06:37:24 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestP0SyncDesiredKeepsUnstatedTemplateKeys
+    verify_premise_6177_test.go:73: limits.cpu dropped (got "0")
+    verify_premise_6177_test.go:77: limits.cpu: got "0", want 2 (template value must survive)
+    verify_premise_6177_test.go:83: requests dropped: got map[], want cpu=1 memory=2Gi
+--- FAIL: TestP0SyncDesiredKeepsUnstatedTemplateKeys (0.00s)
+=== RUN   TestP0CreationKeepsUnstatedTemplateKeys
+    verify_premise_6177_test.go:105: creation: limits.cpu: got "0", want 2
+    verify_premise_6177_test.go:111: creation: requests: got map[], want cpu=1 memory=2Gi
+--- FAIL: TestP0CreationKeepsUnstatedTemplateKeys (0.00s)
+=== RUN   TestP1CreationAndSyncAgree
+=== RUN   TestP1CreationAndSyncAgree/full_template,_partial_runtime
+=== RUN   TestP1CreationAndSyncAgree/full_template,_empty_runtime
+=== RUN   TestP1CreationAndSyncAgree/empty_template,_full_runtime
+=== RUN   TestP1CreationAndSyncAgree/requests-only_runtime_on_limits-only_template
+=== RUN   TestP1CreationAndSyncAgree/claims_on_both_layers
+    verify_premise_6177_test.go:156: sync resolves to nil (leave alone) but creation rendered {map[] map[] [{gpu}]}
+=== RUN   TestP1CreationAndSyncAgree/neither_declares
+--- FAIL: TestP1CreationAndSyncAgree (0.00s)
+    --- PASS: TestP1CreationAndSyncAgree/full_template,_partial_runtime (0.00s)
+    --- PASS: TestP1CreationAndSyncAgree/full_template,_empty_runtime (0.00s)
+    --- PASS: TestP1CreationAndSyncAgree/empty_template,_full_runtime (0.00s)
+    --- PASS: TestP1CreationAndSyncAgree/requests-only_runtime_on_limits-only_template (0.00s)
+    --- FAIL: TestP1CreationAndSyncAgree/claims_on_both_layers (0.00s)
+    --- PASS: TestP1CreationAndSyncAgree/neither_declares (0.00s)
+=== RUN   TestP2ClaimsSurvive
+    verify_premise_6177_test.go:175: sync: claims from template dropped: nil
+    verify_premise_6177_test.go:179: sync: claims from CacheRuntime dropped: nil
+    verify_premise_6177_test.go:195: creation: claims from CacheRuntime dropped: []
+--- FAIL: TestP2ClaimsSurvive (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.010s
+FAIL

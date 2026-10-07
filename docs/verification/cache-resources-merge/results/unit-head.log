@@ -1,0 +1,23 @@
+2026/10/08 06:35:05 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestP0SyncDesiredKeepsUnstatedTemplateKeys
+--- PASS: TestP0SyncDesiredKeepsUnstatedTemplateKeys (0.00s)
+=== RUN   TestP0CreationKeepsUnstatedTemplateKeys
+--- PASS: TestP0CreationKeepsUnstatedTemplateKeys (0.00s)
+=== RUN   TestP1CreationAndSyncAgree
+=== RUN   TestP1CreationAndSyncAgree/full_template,_partial_runtime
+=== RUN   TestP1CreationAndSyncAgree/full_template,_empty_runtime
+=== RUN   TestP1CreationAndSyncAgree/empty_template,_full_runtime
+=== RUN   TestP1CreationAndSyncAgree/requests-only_runtime_on_limits-only_template
+=== RUN   TestP1CreationAndSyncAgree/claims_on_both_layers
+=== RUN   TestP1CreationAndSyncAgree/neither_declares
+--- PASS: TestP1CreationAndSyncAgree (0.00s)
+    --- PASS: TestP1CreationAndSyncAgree/full_template,_partial_runtime (0.00s)
+    --- PASS: TestP1CreationAndSyncAgree/full_template,_empty_runtime (0.00s)
+    --- PASS: TestP1CreationAndSyncAgree/empty_template,_full_runtime (0.00s)
+    --- PASS: TestP1CreationAndSyncAgree/requests-only_runtime_on_limits-only_template (0.00s)
+    --- PASS: TestP1CreationAndSyncAgree/claims_on_both_layers (0.00s)
+    --- PASS: TestP1CreationAndSyncAgree/neither_declares (0.00s)
+=== RUN   TestP2ClaimsSurvive
+--- PASS: TestP2ClaimsSurvive (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	(cached)

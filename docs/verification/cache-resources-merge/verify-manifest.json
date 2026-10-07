@@ -1,0 +1,39 @@
+{
+  "topic": "cache-resources-merge",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6177",
+  "harnessPaths": [
+    "docs/verification/cache-resources-merge",
+    "pkg/ddc/cache/engine/verify_premise_6177_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "A CacheRuntime that names only limits.memory on a worker whose CacheRuntimeClass template declares a full set loses requests.cpu, requests.memory and limits.cpu from the workload on the next reconcile, with no error and no event; Claims is dropped the same way (issue #6173).",
+    "reportedComponent": "pkg/ddc/cache — CacheRuntime resource resolution feeding AdvancedStatefulSetManager.updateResources",
+    "patchedComponent": "pkg/ddc/cache/engine — sync.go desiredComponentResources + transform_common.go transformComponentPodTemplate/mergeResourceRequirements",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Canary at merge base e0fc4c18: 'limits.cpu dropped (got \"0\")', 'requests dropped: got map[]', claims dropped at both creation and sync layers — results/unit-base.log",
+    "match": ["TestP0SyncDesiredKeepsUnstatedTemplateKeys", "TestP0CreationKeepsUnstatedTemplateKeys", "TestP2ClaimsSurvive"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -run 'TestP0|TestP1|TestP2' -json"
+    },
+    "integration": {
+      "kind": "ginkgo",
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -run TestCacheEngine -ginkgo.focus \"names part of the template's resources\" -ginkgo.json-report=$GINKGO_REPORT -v",
+      "report": "$GINKGO_REPORT"
+    }
+  },
+  "findings": [
+    { "id": "B1", "polarity": "contract", "layer": "unit", "match": ["TestP0SyncDesiredKeepsUnstatedTemplateKeys", "TestP0CreationKeepsUnstatedTemplateKeys"] },
+    { "id": "B2", "polarity": "contract", "layer": "unit", "match": ["TestP1CreationAndSyncAgree"] },
+    { "id": "B3", "polarity": "contract", "layer": "unit", "match": ["TestP2ClaimsSurvive"] },
+    { "id": "B4", "polarity": "contract", "layer": "integration", "match": ["should move the key it names and keep the template's other requirements"] },
+    { "id": "B5", "polarity": "contract", "layer": "integration", "match": ["should leave requests unset and stop patching once converged"] }
+  ],
+  "liveNote": "L3 (live cluster) was skipped by the debate configuration (unit + integration layers mandated). A probe did find a reachable cluster (kubectl get no: 1 node, v1.36.2-aliyun.1); it was left untouched. If L3 is ever run: apply the #6173 manifests, kubectl patch the cacheruntime with limits.memory=8Gi only, then read .spec.template.spec.containers[0].resources from the advancedstatefulset — expect limits {cpu 2, memory 8Gi} and requests {cpu 1, memory 2Gi}, and expect requests to stay nil (not an empty map) on the limits-only template."
+}
