@@ -1,0 +1,72 @@
+2026/10/08 06:18:08 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Cache Engine Suite - /tmp/pr6181-base/pkg/ddc/cache/engine
+[cache_engine] 
+=========================================================================
+Random Seed: 1791411488
+
+Will run 4 of 275 specs
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+------------------------------
+• [FAILED] [0.000 seconds]
+PR6181 verify: RuntimeInfo built from worker tiered store V1 [contract] getRuntimeInfo carries the worker tiered store [It] exposes the emptyDir quota through GetLevelStorageMap [verify-pr6181]
+/tmp/pr6181-base/pkg/ddc/cache/engine/verify_pr6181_runtimeinfo_tieredstore_test.go:139
+
+  [FAILED] RuntimeInfo must expose the worker tiered store (empty on base = premise of #6174)
+  Expected
+      <map[common.CacheStoreType]*resource.Quantity | len:0>: {}
+  to have key
+      <common.CacheStoreType>: Disk
+  In [It] at: /tmp/pr6181-base/pkg/ddc/cache/engine/verify_pr6181_runtimeinfo_tieredstore_test.go:154 @ 10/08/26 06:18:08.607
+------------------------------
+• [FAILED] [0.001 seconds]
+PR6181 verify: RuntimeInfo built from worker tiered store V2 [contract] node capacity labels reflect the worker tiered store [It] writes the disk and total capacity labels onto the worker's node [verify-pr6181]
+/tmp/pr6181-base/pkg/ddc/cache/engine/verify_pr6181_runtimeinfo_tieredstore_test.go:162
+
+  [FAILED] Expected
+      <map[string]string | len:5>: {
+          "fluid.io/s-default-mooncake-demo": "true",
+          "fluid.io/s-h-cache-t-default-mooncake-demo": "0B",
+          "fluid_exclusive": "default_mooncake-demo",
+          "fluid.io/dataset-num": "1",
+          "fluid.io/s-cache-default-mooncake-demo": "true",
+      }
+  to have {key: value}
+      <map[interface {}]interface {} | len:1>: {
+          <string>"fluid.io/s-h-cache-d-default-mooncake-demo": <string>"1GiB",
+      }
+  In [It] at: /tmp/pr6181-base/pkg/ddc/cache/engine/verify_pr6181_runtimeinfo_tieredstore_test.go:179 @ 10/08/26 06:18:08.608
+------------------------------
+• [FAILED] [0.000 seconds]
+PR6181 verify: RuntimeInfo built from worker tiered store V3 [contract] process memory levels surface as the memory capacity label [It] writes the memory and total capacity labels onto the worker's node [verify-pr6181]
+/tmp/pr6181-base/pkg/ddc/cache/engine/verify_pr6181_runtimeinfo_tieredstore_test.go:187
+
+  [FAILED] Expected
+      <map[string]string | len:5>: {
+          "fluid.io/dataset-num": "1",
+          "fluid.io/s-cache-default-mooncake-demo": "true",
+          "fluid.io/s-default-mooncake-demo": "true",
+          "fluid.io/s-h-cache-t-default-mooncake-demo": "0B",
+          "fluid_exclusive": "default_mooncake-demo",
+      }
+  to have {key: value}
+      <map[interface {}]interface {} | len:1>: {
+          <string>"fluid.io/s-h-cache-m-default-mooncake-demo": <string>"2GiB",
+      }
+  In [It] at: /tmp/pr6181-base/pkg/ddc/cache/engine/verify_pr6181_runtimeinfo_tieredstore_test.go:202 @ 10/08/26 06:18:08.608
+------------------------------
+•SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+Summarizing 3 Failures:
+  [FAIL] PR6181 verify: RuntimeInfo built from worker tiered store V1 [contract] getRuntimeInfo carries the worker tiered store [It] exposes the emptyDir quota through GetLevelStorageMap [verify-pr6181]
+  /tmp/pr6181-base/pkg/ddc/cache/engine/verify_pr6181_runtimeinfo_tieredstore_test.go:154
+  [FAIL] PR6181 verify: RuntimeInfo built from worker tiered store V2 [contract] node capacity labels reflect the worker tiered store [It] writes the disk and total capacity labels onto the worker's node [verify-pr6181]
+  /tmp/pr6181-base/pkg/ddc/cache/engine/verify_pr6181_runtimeinfo_tieredstore_test.go:179
+  [FAIL] PR6181 verify: RuntimeInfo built from worker tiered store V3 [contract] process memory levels surface as the memory capacity label [It] writes the memory and total capacity labels onto the worker's node [verify-pr6181]
+  /tmp/pr6181-base/pkg/ddc/cache/engine/verify_pr6181_runtimeinfo_tieredstore_test.go:202
+
+Ran 4 of 275 Specs in 0.003 seconds
+FAIL! -- 1 Passed | 3 Failed | 0 Pending | 271 Skipped
+--- FAIL: TestCacheEngine (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.016s
+FAIL

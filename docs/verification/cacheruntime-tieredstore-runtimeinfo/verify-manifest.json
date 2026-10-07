@@ -1,0 +1,63 @@
+{
+  "topic": "cacheruntime-tieredstore-runtimeinfo",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6181",
+  "harnessPaths": [
+    "docs/verification/cacheruntime-tieredstore-runtimeinfo",
+    "pkg/ddc/cache/engine/verify_pr6181_runtimeinfo_tieredstore_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "CacheEngine.getRuntimeInfo() builds its RuntimeInfo with an empty tiered store instead of the one declared in the spec ... so fluid.io/s-h-cache-m-<ns>-<name> and fluid.io/s-h-cache-d-<ns>-<name> are never added at all, while fluid.io/s-h-cache-t-<ns>-<name> is written unconditionally as 0B (issue #6174)",
+    "reportedComponent": "pkg/ddc/cache/engine (CacheRuntime engine) getRuntimeInfo -> node capacity labels",
+    "patchedComponent": "pkg/ddc/cache/engine/runtime.go + transform_tiered_store.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "integration",
+    "verdict": "confirmed",
+    "evidence": "Same harness grafted onto merge-base f2785f84: V1 sees an empty GetLevelStorageMap; V2 produces node labels {fluid.io/s-h-cache-t-default-mooncake-demo: 0B} with no disk label \u2014 the exact symptom quoted in issue #6174. See results/base-f2785f84-harness.txt",
+    "match": [
+      "exposes the emptyDir quota through GetLevelStorageMap",
+      "writes the disk and total capacity labels onto the worker's node"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "ginkgo",
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -count=1 -run TestCacheEngine -args -ginkgo.focus=\"V1 \" -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    },
+    "integration": {
+      "kind": "ginkgo",
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -count=1 -run TestCacheEngine -args -ginkgo.focus=\"V2 |V3 |V4 \" -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "canary",
+      "layer": "integration",
+      "match": [
+        "keeps the stale total label because the node already carries the runtime label"
+      ]
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "exposes the emptyDir quota through GetLevelStorageMap"
+      ]
+    },
+    {
+      "id": "F2-integration",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "writes the disk and total capacity labels onto the worker's node",
+        "writes the memory and total capacity labels onto the worker's node"
+      ]
+    }
+  ],
+  "liveNote": "L3 skipped for this review (no KUBECONFIG layer). The fake-client integration layer drives the real SyncScheduleInfoToCacheNodes/labelCacheNode code; a live run would only add the real API server. If run live: create the CacheRuntime from issue #6174 (worker emptyDir quota 1Gi) and check node labels fluid.io/s-h-cache-t-* = 1GiB plus fluid.io/s-h-cache-d-* present."
+}
