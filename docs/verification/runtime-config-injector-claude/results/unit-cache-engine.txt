@@ -1,0 +1,3 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	(cached)
+EXIT=0

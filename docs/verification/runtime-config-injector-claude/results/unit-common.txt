@@ -1,0 +1,29 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/common	0.062s
+ok  	github.com/fluid-cloudnative/fluid/pkg/common/features	0.028s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	112.097s
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/applications/defaultapp	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/applications/pod	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/applications/unstructured	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/cmdguard	0.028s
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/compatibility	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.048s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/volume	29.115s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/discovery	0.048s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/docker	0.037s
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/fake	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/feature	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/helm	0.035s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/jindo	0.026s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient	0.240s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubelet	0.024s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/mountinfo	0.038s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/runtimes/options	0.026s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/security	0.008s
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/testutil	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/tieredstore	0.037s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/transformer	0.017s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/validation	0.004s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/version	0.004s
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/webhook/generator	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/webhook/writer	1.524s
+EXIT=0

@@ -1,0 +1,73 @@
+{
+  "topic": "runtime-config-injector",
+  "reviewer": "claude",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6197",
+  "codeUnderReview": "origin/pr/6197 (c5ea086bb1c9352fafd73daac27f2c2e2eafd4c5)",
+  "baseRef": "e0fc4c189a6e45ee17a5e812abf3fcbecf566f09",
+  "premise": {
+    "id": "P0",
+    "claim": "On the base branch, app pods of FUSE-less cache runtimes have no way to receive the runtime config that stage 1 (#6191) writes into the runtime ConfigMap, and the webhook lacks RBAC to read cacheruntimes at all.",
+    "runsAgainst": "base",
+    "verdict": "Confirmed",
+    "tests": ["scripts/premise-check.sh"],
+    "layer": "unit"
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "claim": "On helm upgrade over an existing installation (forceReplacePluginsProfile defaults to false), plugins-profile.yaml's lookup keeps the old webhook-plugins ConfigMap without the clientless group, while webhookconfiguration.yaml unconditionally adds the clientless.fluid.io rule; pods labeled fluid.io/inject=true are then intercepted but admitted with zero injection, silently.",
+      "tests": [
+        "pkg/webhook/handler/mutating/clientless_harness_test.go#F1-canary (Go consequence: empty clientless handler list -> no-op)",
+        "scripts/chart_lookup_branch_sim.go (chart half: real template + real values.yaml, stubbed lookup)"
+      ],
+      "polarity": "canary",
+      "layer": "unit+chart",
+      "verdict": "Confirmed"
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "claim": "When the runtime config ConfigMap is missing (not-yet-created or informer lag on the plugin's cached client), the plugin returns a plain non-retryable error; Handle() logs it and admits the pod without any injection - failurePolicy: Fail gives no protection because the webhook itself answers Allowed.",
+      "tests": [
+        "pkg/webhook/handler/mutating/clientless_harness_test.go#F2-canary (MutatePod error is NOT NeedRetryWithApiReaderError, pod left untouched)"
+      ],
+      "polarity": "canary",
+      "layer": "unit",
+      "verdict": "Confirmed"
+    },
+    {
+      "id": "T3",
+      "severity": "info",
+      "claim": "Happy path: MutatePod routes a fluid.io/inject=true + fluid.io/datasets pod to the clientless plugin and injects volume + readOnly mount + FLUID_RUNTIME_CONFIG_PATH_<DS> + done label.",
+      "tests": [
+        "pkg/webhook/handler/mutating/clientless_harness_test.go#T3-contract"
+      ],
+      "polarity": "contract",
+      "layer": "unit",
+      "verdict": "Passing (behavior correct)"
+    },
+    {
+      "id": "T4",
+      "severity": "info",
+      "claim": "A dataset named in the annotation that does not exist fails collection with a retryable error, which after the direct-reader retry rejects pod creation (matches the documented behavior).",
+      "tests": [
+        "pkg/webhook/handler/mutating/clientless_harness_test.go#T4-contract"
+      ],
+      "polarity": "contract",
+      "layer": "unit",
+      "verdict": "Passing (behavior correct)"
+    }
+  ],
+  "harnessBites": {
+    "F2": "temporarily wrapped the plugin's not-found error in NewNeedRetryWithApiReaderError; the F2 canary flipped to FAILED as expected; production code reverted (diff clean)",
+    "F1": "the CONTROL spec in the same run registers the with-clientless profile and observes injection - the canary and control differ only in the profile, proving the test detects the upgrade-state difference"
+  },
+  "layersSkipped": {
+    "live": {
+      "reason": "Skipped per this review round's configuration (unit + integration only). A live cluster WAS reachable from the review host (2 nodes, v1.36.2-aliyun) but it is a shared cluster, not a dedicated test environment.",
+      "liveNote": "On a dedicated cluster, the L3 check for F1 would be: helm upgrade an existing fluid install with this chart, create a pod with labels fluid.io/inject=true + annotation fluid.io/datasets, and observe no FLUID_RUNTIME_CONFIG_PATH_* env and no webhook log line about RuntimeConfigInjector."
+    }
+  },
+  "liveNote": "see layersSkipped.live.liveNote"
+}

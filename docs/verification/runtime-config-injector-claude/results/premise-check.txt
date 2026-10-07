@@ -1,0 +1,15 @@
+P0 premise evidence on base branch e0fc4c189a6e45ee17a5e812abf3fcbecf566f09:
+  [PASS] runtime.sh generation exists (stage 1, #6191) (present on base, 1 hit(s))
+  [PASS] webhook consumes runtime.sh (absent on base)
+  [PASS] webhook reads a fluid.io/datasets annotation (absent on base)
+  [PASS] base.GetRuntimeInfo handles CacheRuntime on base (present on base, 3 hit(s))
+  [PASS] webhook chart RBAC grants cacheruntimes (absent on base)
+  webhook plugins registered on base:
+    - prefernodeswithoutcache
+    - mountpropagationinjector
+    - requirenodewithfuse
+    - nodeaffinitywithcache
+    - fusesidecar
+    - datasetusageinjector
+    - fileprefetcher
+PREMISE CHECK: all facts hold on base => premise CONFIRMED (the delivery gap is real)

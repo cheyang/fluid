@@ -1,0 +1,2 @@
+WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /home/ecs-user/.kube/config
+WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /home/ecs-user/.kube/config

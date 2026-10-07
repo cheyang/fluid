@@ -1,0 +1,32 @@
+case A: fresh install (no existing ConfigMap; lookup -> nil, forceReplace=false)
+  [PASS] fresh install renders the new profile: rendered profile "clientless" PRESENT
+case B: helm upgrade over an existing install (lookup -> live ConfigMap with the pre-PR profile, forceReplace=false)
+  [PASS] upgrade keeps the OLD profile: rendered profile "clientless" absent
+  rendered pluginsProfile (verbatim):
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webhook-plugins
+  namespace: fluid-system
+data:
+  pluginsProfile: |
+    plugins:
+      serverful:
+        withDataset:
+        - RequireNodeWithFuse
+        - NodeAffinityWithCache
+        - MountPropagationInjector
+        withoutDataset:
+        - PreferNodesWithoutCache
+      serverless:
+        withDataset:
+        - FuseSidecar
+        - DatasetUsageInjector
+        withoutDataset: []
+    pluginConfig: []
+
+case C: helm upgrade with forceReplacePluginsProfile=true and the same live ConfigMap
+  [PASS] forced replace renders the new profile: rendered profile "clientless" PRESENT
+VERDICT: F1 chart mechanism CONFIRMED - on helm upgrade with default values, the
+webhook-plugins ConfigMap keeps a profile without the clientless group, while
+webhookconfiguration.yaml unconditionally adds the clientless.fluid.io rule.

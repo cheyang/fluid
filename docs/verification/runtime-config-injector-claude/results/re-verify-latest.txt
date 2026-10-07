@@ -1,0 +1,15 @@
+re-verify at c5ea086bb1c9352fafd73daac27f2c2e2eafd4c5 on 2026-10-07T21:57:29Z
+2026/10/08 05:57:50 WARNING: env variable FILE_PREFETCHER_IMAGE is not set, file prefetcher image is required in Pod's annotation
+=== RUN   TestMutating
+Running Suite: Mutating Suite - /tmp/fluid-reverify-3lub/pkg/webhook/handler/mutating
+=====================================================================================
+Random Seed: [1m1791410270[0m
+
+Will run [1m5[0m of [1m26[0m specs
+[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m
+
+[38;5;10m[1mRan 5 of 26 Specs in 0.003 seconds[0m
+[38;5;10m[1mSUCCESS![0m -- [38;5;10m[1m5 Passed[0m | [38;5;9m[1m0 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m21 Skipped[0m
+--- PASS: TestMutating (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/handler/mutating	0.018s

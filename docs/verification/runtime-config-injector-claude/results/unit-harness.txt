@@ -1,0 +1,15 @@
+2026/10/08 05:49:14 WARNING: env variable FILE_PREFETCHER_IMAGE is not set, file prefetcher image is required in Pod's annotation
+=== RUN   TestMutating
+Running Suite: Mutating Suite - /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid-wt-6197-claude/pkg/webhook/handler/mutating
+================================================================================================================================================
+Random Seed: [1m1791409754[0m
+
+Will run [1m5[0m of [1m26[0m specs
+[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m
+
+[38;5;10m[1mRan 5 of 26 Specs in 0.003 seconds[0m
+[38;5;10m[1mSUCCESS![0m -- [38;5;10m[1m5 Passed[0m | [38;5;9m[1m0 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m21 Skipped[0m
+--- PASS: TestMutating (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/handler/mutating	0.018s
+EXIT=0
