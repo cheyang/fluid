@@ -1,0 +1,303 @@
+should return prefix + secretName without truncation	skipped
+should handle empty secret name	skipped
+should handle single character secret name	skipped
+should not truncate when total length equals DNS1035LabelMaxLength	skipped
+should truncate when total length exceeds DNS1035LabelMaxLength by 1	skipped
+should truncate and add hash suffix	skipped
+should generate different hashes for different secret names with same prefix	skipped
+should handle extremely long secret names	skipped
+should handle secret names with hyphens	skipped
+should handle secret names with numbers	skipped
+should handle long secret names with special characters	skipped
+should always generate valid DNS-1035 label names	skipped
+should generate unique volume names for different secrets that truncate to same prefix	skipped
+should return empty maps	skipped
+should return mount options correctly	skipped
+should merge shared options with mount options	skipped
+mount options should override shared options with same key	skipped
+should collect shared encrypt options correctly	skipped
+should collect mount encrypt options correctly	skipped
+should collect all encrypt options	skipped
+mount encrypt options should override shared encrypt options with same name	skipped
+should return error when secret name is empty	skipped
+should return error when secret key is empty	skipped
+should handle all types of options together	skipped
+should generate correct paths for each option	skipped
+should generate the volume name for an indexed medium	skipped
+should generate the volume name for the process memory medium	skipped
+should generate names chargedTieredStoreMemoryQuota recognises	skipped
+should always generate valid DNS-1035 label names	skipped
+keeps the template labels and annotations when neither spec sets any	skipped
+applies the runtime-level pod metadata	skipped
+applies the component-level pod metadata	skipped
+layers template, runtime level and component level, with the later layer winning a key	skipped
+keeps the template secrets when the runtime names none	skipped
+applies the runtime-level secrets	skipped
+merges both layers and carries a secret named twice only once	skipped
+should parse JSON and return the correct CacheStateList	skipped
+should return valid CacheStateList with partial fields when JSON has partial data	skipped
+should clamp timeout to MinExecutionTimeoutSeconds when configured timeout is too small	skipped
+should respect timeout that is larger than MinExecutionTimeoutSeconds	skipped
+should return an error when stdout is not valid JSON	skipped
+should return an error when stdout is empty	skipped
+should return an error when ExecCommandInContainerWithTimeout fails	skipped
+should return an error when exec command times out	skipped
+should return an error when ReportSummary is nil in ExecutionEntries	skipped
+should return an error when ExecutionEntries itself is nil	skipped
+should return an error when master component has no containers	skipped
+should parse JSON and return correct CacheStateList via workers-only handler	skipped
+should return an error when worker component has no containers	skipped
+should return an error when topology is nil	skipped
+should return an error when runtimeClass itself is nil	skipped
+should propagate the exec error from worker pod	skipped
+should return JSON unmarshal error	skipped
+should return stdout without error	skipped
+should return empty stdout without error	skipped
+should return error	skipped
+should execute command successfully	skipped
+should still execute with short timeout	skipped
+should pass all arguments correctly	skipped
+should return success despite warnings in stderr	skipped
+should wrap error with command context	skipped
+should return non-nil interface	skipped
+should create separate instances	skipped
+should not modify the original runtimeClass PodTemplate	skipped
+should set correct master component properties	skipped
+should configure headless service when defined	skipped
+should merge node selectors correctly	skipped
+should set master as disabled	skipped
+should not modify runtimeClass when master is disabled	skipped
+should not panic when topology is nil	skipped
+should not panic when master is nil	skipped
+should add runtime config volume and mount	skipped
+should add runtime spec volumes and volumeMounts	skipped
+should return error if volumeMount has no corresponding volume	skipped
+should inject FLUID environment variables	skipped
+should set FLUID_RUNTIME_COMPONENT_TYPE to Master	skipped
+should preserve all original fields after multiple transformations	skipped
+should return error	skipped
+should return error	skipped
+should transform successfully with only Master	skipped
+should transform successfully with only Worker	skipped
+should transform successfully with only Client	skipped
+should transform all components successfully	skipped
+should include extra configmap names in common config	skipped
+should generate correct owner reference	skipped
+should generate runtime config volume	skipped
+should return error	skipped
+should return error	skipped
+should set Master as disabled in status value	skipped
+should set Worker as disabled in status value	skipped
+should set Client as disabled in status value	skipped
+should extract status info for all components	skipped
+should generate correct component names	skipped
+should generate owner reference from runtime object	skipped
+should generate runtime config volume	skipped
+should populate ExtraConfigMapNames	skipped
+should not initialize ExtraConfigMapNames	skipped
+args: L3 replaces the template args wholesale	skipped
+env: L3 restates a name the template already sets [pins current behaviour, #6185 (env/annotation mismatch)]	skipped
+imagePullSecrets: L1 and L2 merge, a name declared twice appears once	skipped
+nodeSelector: L3 sets a key the template does not [pins current behaviour, #6185 (nodeSelector/annotation mismatch)]	skipped
+podMetadata.labels: L2 alone reaches the pod	skipped
+resources: L3 restates only limits.memory over an L1 that declares four keys	skipped
+runtimeVersion: L3 sets imageTag only, over an L1 that names an image [pins current behaviour, #6178]	skipped
+resources: L3 restates only limits.memory over an L1 that declares four keys	skipped
+runtimeVersion: L3 sets imageTag only, over an L1 that names an image [pins current behaviour, #6178]	skipped
+GetExecutionPodInfo should return correct master pod info	skipped
+GetExecutionPodInfo should return error when master template has no containers	skipped
+GetExecutionPodInfo should return error when topology is nil	skipped
+GetExecutionEntries should return master execution entries	skipped
+GetExecutionEntries should return nil when topology is nil	skipped
+GetExecutionEntries should return nil when master topology is nil	skipped
+IsMountUFSSupported should return true when MountUFS entry is configured	skipped
+IsMountUFSSupported should return false when MountUFS entry is nil	skipped
+IsMountUFSSupported should return false when ExecutionEntries is nil	skipped
+should move that key and keep the rest of the baseline	skipped
+should add it	skipped
+should leave the lists nil	skipped
+should not mutate the baseline it was given	skipped
+should keep the baseline claims and add the ones the overlay names	skipped
+should keep the baseline claims when the overlay names none	skipped
+should resolve to the template values	skipped
+should keep the template's other requirements	skipped
+should return nil so the workload is left untouched	skipped
+should resolve to them	skipped
+should not mutate the CacheRuntimeClass template	skipped
+should not modify the original runtimeClass PodTemplate	skipped
+should merge affinities correctly in the worker value without affecting runtimeClass	skipped
+should merge node selectors correctly in the worker value without affecting runtimeClass	skipped
+should handle nil affinity in runtimeClass template	skipped
+should handle nil node affinity in dataset	skipped
+should add volumes and volumeMounts to worker PodTemplateSpec	skipped
+should not add duplicate volumes	skipped
+should return error if volumeMount has no corresponding volume	skipped
+should not add volumes when worker is disabled	skipped
+should set correct pod labels for worker pods to enable PodAntiAffinity	skipped
+should preserve all original fields in runtimeClass after multiple transformations	skipped
+should not modify runtimeClass when worker is disabled	skipped
+should not panic when topology is nil	skipped
+should not panic when worker is nil	skipped
+should set RequiredDuringScheduling PodAntiAffinity for exclusive mode	skipped
+should not set PreferredDuringScheduling in exclusive mode	skipped
+should set PreferredDuringScheduling PodAntiAffinity for share mode	skipped
+should not build affinity when worker is disabled	skipped
+should only add volumes that are referenced by volumeMounts	skipped
+should return error when volumeMount references non-existent volume	skipped
+should not add any volumes when volumeMounts is empty	skipped
+should not add duplicate volumes that already exist in podSpec	skipped
+should handle mixed scenario with some volumes existing and some missing	skipped
+should return error when containers is empty	skipped
+should handle empty volumes and empty volumeMounts	skipped
+should preserve existing volumes in podSpec	skipped
+should return error when multiple volumeMounts reference non-existent volumes	skipped
+should return nil without error	skipped
+should return error	skipped
+should add memory resources to container	skipped
+should return error when quota is zero	skipped
+should not modify resources when container has no memory constraints	skipped
+should return error when multiple processMemory levels are specified	skipped
+should create volumes and volume mounts for single path	skipped
+should create multiple volumes and mounts for multiple paths	skipped
+should return error when paths and quotas count mismatch	skipped
+should create volume and mount for disk-based EmptyDir	skipped
+should add memory resources for Memory-backed EmptyDir	skipped
+should return error when quota is zero	skipped
+should process all levels correctly	skipped
+should return error when multiple media types in same level	skipped
+should preserve watermark configuration in level	skipped
+should return zero for a pod spec without volumes	skipped
+should sum the memory-backed tiered store volumes	skipped
+should round-trip the quota that the transform charged	skipped
+should ignore volumes the transform never charges to memory	skipped
+should produce volumes referencing the correct ConfigMap	skipped
+should produce volume mounts at the correct directory	skipped
+should set FLUID_RUNTIME_CONFIG_PATH env to match mount path + config file name	skipped
+should keep mount dir and runtime config path in sync	skipped
+should return a not-supported error	skipped
+should return an error	skipped
+should return true when master phase is None	skipped
+should return false when master phase is NotReady	skipped
+should return false when master phase is Ready	skipped
+should return error when runtime not found	skipped
+should setup master when phase is None	skipped
+should skip setup when master already initialized	skipped
+should update runtime status after setup	skipped
+should sync successfully	skipped
+should return error	skipped
+should return error	skipped
+should update configmap	skipped
+should create configmap	skipped
+should attempt to sync dataset cache states	skipped
+should get cache states successfully with mocked Execute	skipped
+should not sync dataset cache states when master is not ready	skipped
+should not sync dataset cache states when worker is not ready	skipped
+should create new configmap	skipped
+should update existing configmap	skipped
+should not update configmap when data is same	skipped
+should handle empty runtime gracefully	skipped
+should return nil duration	skipped
+should parse and return duration	skipped
+should return error	skipped
+should parse minutes correctly	skipped
+should parse milliseconds correctly	skipped
+should parse complex duration correctly	skipped
+should apply the edit to the master and silently drop it for the client	skipped
+should leave the DaemonSet untouched even on the creation path	skipped
+should gate the creation path off once the client has been set up	skipped
+should leave the template's resources untouched	skipped
+should apply them to the master workload only	skipped
+should apply them to the worker workload only	skipped
+should move the key it names and keep the template's other requirements	pass
+should leave requests unset and stop patching once converged	pass
+should restore the template value when the CacheRuntime specifies none	skipped
+should still let the CacheRuntime win over the template	skipped
+should leave the workload's resources untouched	skipped
+should charge the quota on top of the template value	skipped
+should keep the tiered store quota when syncing after creation	skipped
+should not let an edited tiered store quota half-apply	skipped
+should recharge a quota that an earlier release stripped	skipped
+GetExecutionPodInfo should return correct worker pod info	skipped
+GetExecutionPodInfo should return error when worker template has no containers	skipped
+GetExecutionPodInfo should return error when topology is nil	skipped
+GetExecutionEntries should return worker execution entries	skipped
+GetExecutionEntries should return nil when topology is nil	skipped
+GetExecutionEntries should return nil when worker topology is nil	skipped
+IsMountUFSSupported should always return false	skipped
+IsMountUFSSupported should return false when runtimeClass is nil	skipped
+should return worker pods matching the selector	skipped
+should return empty list when no pods match the selector	skipped
+should return error when AdvancedStatefulSet does not exist	skipped
+should handle pods from different namespaces correctly	skipped
+should return all worker pods when multiple replicas exist	skipped
+should generate correct worker component name	skipped
+should generate correct master component name	skipped
+should return masterWorkerArchApi when master topology is configured and master is enabled	skipped
+should return workersOnlyArchApi when runtimeClass is nil	skipped
+should return workersOnlyArchApi when runtimeClass.Topology is nil	skipped
+should return workersOnlyArchApi when runtimeClass.Topology.Master is nil (workers only)	skipped
+should return workersOnlyArchApi when runtime is nil	skipped
+should return workersOnlyArchApi when master is disabled in runtime spec	skipped
+should return nil and no error when runtime class has no topology	skipped
+should return nil and no error when master has no execution entries	skipped
+should return nil and no error when MountUFS is nil	skipped
+should return error when master template has no containers	skipped
+should return parsed CacheRuntimeMountUfsOutput with valid JSON output	skipped
+should return error when Mount returns empty output	skipped
+should return error when Mount returns whitespace-only output	skipped
+should return JSON parse error when Mount returns invalid JSON	skipped
+should return error when Mount command fails	skipped
+should return early when no UFS changes and no remount required	skipped
+should return early when IsMountUFSSupported returns false	skipped
+should return JSON parse error	skipped
+should return empty output error	skipped
+should return mount point not mounted error	skipped
+should return unexpected mounted paths error	skipped
+should successfully update mounts and set status to Bound	skipped
+should skip native scheme mounts and succeed	skipped
+should detect restart and perform remount	skipped
+should not modify the original runtimeClass PodTemplate	skipped
+should set correct client component properties	skipped
+should merge node selectors correctly	skipped
+should set client as disabled	skipped
+should not modify runtimeClass when client is disabled	skipped
+should not panic when topology is nil	skipped
+should not panic when client is nil	skipped
+should NOT mount secrets by default for Client	skipped
+should mount secrets when SecretMount is explicitly enabled	skipped
+should NOT mount secrets when SecretMount is explicitly disabled	skipped
+should inject FLUID environment variables	skipped
+should set FLUID_RUNTIME_COMPONENT_TYPE to Client	skipped
+should add runtime spec volumes and volumeMounts	skipped
+should preserve all original fields after multiple transformations	skipped
+should complete setup successfully	skipped
+should return error	skipped
+should return error when runtime class topology is invalid	skipped
+should only setup Master component	skipped
+should only setup Worker component	skipped
+should only setup Client component	skipped
+should call PrepareUFS after runtime is ready	skipped
+should increment metrics on error	skipped
+should log errors appropriately	skipped
+should call CheckAndUpdateRuntimeStatus with lightweight status value	skipped
+should bind runtime to dataset as final step	skipped
+should follow correct execution order	skipped
+should not block runtime ready and set client phase to NotReady	skipped
+should not block runtime ready and set client phase to PartialReady	skipped
+should keep runtime ready and set client phase to NotReady with zero desired replicas	skipped
+should keep runtime ready and set client phase to Ready	skipped
+should recompute runtime ready status after retry	skipped
+should return true when client phase is None	skipped
+should return false when client phase is NotReady	skipped
+should return false when client phase is Ready	skipped
+should return error when runtime not found	skipped
+should setup client when phase is None	skipped
+should skip setup when client already initialized	skipped
+should update runtime status after setup	skipped
+should return true when worker phase is None	skipped
+should return false when worker phase is NotReady	skipped
+should return false when worker phase is Ready	skipped
+should return error when runtime not found	skipped
+should setup worker when phase is None	skipped
+should skip setup when worker already initialized	skipped
+should update runtime status after setup	skipped
