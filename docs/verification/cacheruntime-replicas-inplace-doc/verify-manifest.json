@@ -1,0 +1,34 @@
+{
+  "topic": "cacheruntime-replicas-inplace-doc",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6183",
+  "harnessPaths": [
+    "docs/verification/cacheruntime-replicas-inplace-doc",
+    "pkg/ddc/cache/engine/sync_replicas_verification_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "docs/{zh,en}/samples/cacheruntime/cacheruntime_spec_update.md state that only `runtimeVersion` and `resources` can be updated in place and list `replicas` among fields needing a redeploy; in fact `replicas` is synced in place to the AdvancedStatefulSet on every reconcile for Master and Worker",
+    "reportedComponent": "pkg/ddc/cache (CacheRuntime engine sync path)",
+    "patchedComponent": "docs/{zh,en}/samples/cacheruntime/cacheruntime_spec_update.md + one stale TODO comment in pkg/ddc/cache/engine/sync.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "P0 contract specs pass against merge-base f2785f84 with only the additive test file grafted: Ran 3 of 274 Specs, 3 Passed (results/unit-p0-base-branch.txt). Code: syncRuntimeSpec passes &runtime.Spec.{Master,Worker}.Replicas (always non-nil) into SyncComponentSpec, which patches asts.Spec.Replicas via updateReplicas when the value differs.",
+    "match": ["P0 verification: CacheRuntime replicas are synced in place"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run TestCacheEngine -ginkgo.focus 'P0 verification' -count=1 -v"
+    },
+    "integration": {
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/ddc/cache/... -count=1"
+    }
+  },
+  "findings": [
+    { "id": "P0", "polarity": "contract", "layer": "unit", "match": ["P0: syncs an increased spec.worker.replicas", "P0: syncs a decreased spec.master.replicas", "P0: does not write the AdvancedStatefulSet when replicas already match"] }
+  ],
+  "liveNote": "L3 skipped for this review (docs PR; debate setup runs unit + integration only). To re-check live: kind cluster, kubectl patch cacheruntime <name> --type=merge -p '{\"spec\":{\"worker\":{\"replicas\":N}}}'; expect controller log 'replicas changed, will update' and ASTS spec.replicas updated with no redeploy."
+}

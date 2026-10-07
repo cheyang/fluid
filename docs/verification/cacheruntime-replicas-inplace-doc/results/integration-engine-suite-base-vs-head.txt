@@ -1,0 +1,12 @@
+Regression sweep, `go test ./pkg/ddc/cache/... -count=1`:
+
+PR head (6bcf1887, verify branch):  engine suite: 246 Passed | 12 Failed | 16 Skipped; component suite: ok (50/50).
+Base     (f2785f84, merge-base):    engine suite: 246 Passed | 12 Failed | 16 Skipped; component suite: ok.
+
+The 12 engine failures are identical on base and head and are all in
+pkg/ddc/cache/engine/ufs_test.go (UpdateOnUFSChange). Sample failure:
+  CacheFileUtils.Mount() failed: error when executing command [/mount.sh]:
+  pods "test-runtime-master-0" not found
+i.e. the tests' fake mount/exec fixture does not work in this environment.
+Pre-existing environment issue, NOT caused by PR #6183 (the PR changes no Go
+behavior; only docs and one comment line).
