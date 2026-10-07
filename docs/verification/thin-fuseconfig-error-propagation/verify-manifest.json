@@ -16,7 +16,9 @@
     "layer": "unit",
     "verdict": "confirmed",
     "evidence": "PR's new test case grafted onto base 54a41cd4 fails with 'testcase transform fuse config failed failed due to error <nil>' (docs/verification/thin-fuseconfig-error-propagation/results/base-p0-premise.txt)",
-    "match": ["TestThinEngine_updateFuseConfigOnChange"]
+    "match": [
+      "TestThinEngine_updateFuseConfigOnChange"
+    ]
   },
   "layers": {
     "unit": {
@@ -25,12 +27,27 @@
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "KUBEBUILDER_ASSETS=\"${KUBEBUILDER_ASSETS:-$(ls -d \\\"$HOME\\\"/.local/share/kubebuilder-envtest/k8s/* 2>/dev/null | sort -V | tail -1)}\" go test ./pkg/ddc/thin/ -run 'TestVerifyPR6187ShouldUpdateUFSRealAPIServer' -count=1 -gcflags=\"all=-N -l\" -json"
+      "cmd": "KUBEBUILDER_ASSETS=\"${KUBEBUILDER_ASSETS:-$(ls -d \"$HOME\"/.local/share/kubebuilder-envtest/k8s/* 2>/dev/null | sort -V | tail -1)}\" go test ./pkg/ddc/thin/ -run 'TestVerifyPR6187ShouldUpdateUFSRealAPIServer' -count=1 -gcflags=\"all=-N -l\" -json"
     }
   },
   "findings": [
-    { "id": "B1", "polarity": "contract", "layer": "unit", "match": ["TestThinEngine_updateFuseConfigOnChange", "TestVerifyPR6187ShouldUpdateUFSLogsTransformError"] },
-    { "id": "B2", "polarity": "contract", "layer": "integration", "match": ["TestVerifyPR6187ShouldUpdateUFSRealAPIServer"] }
+    {
+      "id": "B1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestThinEngine_updateFuseConfigOnChange",
+        "TestVerifyPR6187ShouldUpdateUFSLogsTransformError"
+      ]
+    },
+    {
+      "id": "B2",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestVerifyPR6187ShouldUpdateUFSRealAPIServer"
+      ]
+    }
   ],
   "liveNote": "L3 intentionally skipped (no live/KUBECONFIG layer for this review). Optional manual signal: engine log on a thinruntime whose dataset mounts a pvc:// volume with a missing/unbound PVC should show 'Failed to update fuse config' with 'failed to extract volume info'."
 }
