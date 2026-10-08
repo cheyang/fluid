@@ -1,0 +1,3 @@
+TestVerifyCacheAffinityPointerAliasing	pass
+TestVerifyWorkerAffinityFetchCount	pass
+TestVerifyStaleCacheAffinityAfterWorkloadChange	fail
