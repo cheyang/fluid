@@ -30,9 +30,9 @@ trap 'rm -rf "$WORK"' EXIT
 
 emit() { # name, ok(0=pass), note
   if [ "$2" -eq 0 ]; then
-    printf '{"Test": "%s", "Action": "pass"}\n' "$1"
+    printf '{"Test":"%s","Action":"pass"}\n' "$1"
   else
-    printf '{"Test": "%s", "Action": "fail"}\n' "$1"
+    printf '{"Test":"%s","Action":"fail"}\n' "$1"
   fi
   [ -n "${3:-}" ] && printf '# %s: %s\n' "$1" "$3"
 }

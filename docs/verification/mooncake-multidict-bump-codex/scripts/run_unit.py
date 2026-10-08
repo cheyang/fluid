@@ -39,7 +39,7 @@ results = []
 
 def emit(name, ok, note=""):
     results.append((name, ok, note))
-    print(json.dumps({"Test": name, "Action": "pass" if ok else "fail"}))
+    print("{\"Test\":\"%s\",\"Action\":\"%s\"}" % (name, "pass" if ok else "fail"))
     if note:
         print("# %s: %s" % (name, note))
 
