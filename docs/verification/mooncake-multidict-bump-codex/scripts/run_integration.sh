@@ -34,7 +34,7 @@ emit() { # name, ok(0=pass), note
   else
     printf '{"Test":"%s","Action":"fail"}\n' "$1"
   fi
-  [ -n "${3:-}" ] && printf '# %s: %s\n' "$1" "$3"
+  [ -n "${3:-}" ] && printf '{"Action":"output","Output":"# %s: %s"}\n' "$1" "$3"
 }
 
 PIP_TARGET=(--implementation cp --abi cp312 --python-version 3.12

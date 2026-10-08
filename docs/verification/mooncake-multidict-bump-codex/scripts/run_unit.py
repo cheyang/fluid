@@ -41,7 +41,7 @@ def emit(name, ok, note=""):
     results.append((name, ok, note))
     print("{\"Test\":\"%s\",\"Action\":\"%s\"}" % (name, "pass" if ok else "fail"))
     if note:
-        print("# %s: %s" % (name, note))
+        print(json.dumps({"Action": "output", "Output": "# %s: %s" % (name, note)}))
 
 
 def parse_multidict_entry(text):
@@ -139,7 +139,7 @@ def main():
          "(header documents one hash per package; base carried 1)" % len(extras))
 
     failed = [n for n, ok, _ in results if not ok]
-    print("# unit layer: %d checks, %d failed" % (len(results), len(failed)))
+    print(json.dumps({"Action": "output", "Output": "# unit layer: %d checks, %d failed" % (len(results), len(failed))}))
     return 1 if failed else 0
 
 
