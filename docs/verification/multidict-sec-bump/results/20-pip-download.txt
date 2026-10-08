@@ -1,0 +1,21 @@
+Saved /tmp/tmp.96iiG6uGKz/typing_extensions-4.16.0-py3-none-any.whl
+Saved /tmp/tmp.96iiG6uGKz/urllib3-2.7.0-py3-none-any.whl
+Saved /tmp/tmp.96iiG6uGKz/yarl-1.24.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded aiohappyeyeballs aiohttp aiosignal attrs certifi charset-normalizer frozenlist idna mooncake-transfer-engine-non-cuda msgpack multidict nvidia-cuda-runtime-cu12 propcache requests typing_extensions urllib3 yarl
+  saved: aiohappyeyeballs-2.7.1-py3-none-any.whl
+  saved: aiohttp-3.14.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+  saved: aiosignal-1.4.0-py3-none-any.whl
+  saved: attrs-26.1.0-py3-none-any.whl
+  saved: certifi-2026.7.22-py3-none-any.whl
+  saved: charset_normalizer-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+  saved: frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl
+  saved: idna-3.19-py3-none-any.whl
+  saved: mooncake_transfer_engine_non_cuda-0.3.12.post1-cp312-cp312-manylinux_2_28_x86_64.whl
+  saved: msgpack-1.2.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+  saved: multidict-6.9.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+  saved: nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+  saved: propcache-0.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+  saved: requests-2.34.2-py3-none-any.whl
+  saved: typing_extensions-4.16.0-py3-none-any.whl
+  saved: urllib3-2.7.0-py3-none-any.whl
+  saved: yarl-1.24.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl

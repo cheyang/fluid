@@ -1,0 +1,70 @@
+requirements under test: /home/ecs-user/.pr-debate/tmp/tmp.YeTvuDprSo/test/gha-e2e/mooncake/image/requirements.txt (head: c68356d7)
+=== L0: static lock integrity (PyPI digest set) ===
+== Part A: every pinned hash is a genuine PyPI digest ==
+  aiohappyeyeballs==2.7.1: 1 hash(es) -> ['aiohappyeyeballs-2.7.1-py3-none-any.whl']
+  aiohttp==3.14.3: 1 hash(es) -> ['aiohttp-3.14.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl']
+  aiosignal==1.4.0: 1 hash(es) -> ['aiosignal-1.4.0-py3-none-any.whl']
+  attrs==26.1.0: 1 hash(es) -> ['attrs-26.1.0-py3-none-any.whl']
+  certifi==2026.7.22: 1 hash(es) -> ['certifi-2026.7.22-py3-none-any.whl']
+  charset-normalizer==3.5.1: 1 hash(es) -> ['charset_normalizer-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl']
+  frozenlist==1.8.0: 1 hash(es) -> ['frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl']
+  idna==3.19: 1 hash(es) -> ['idna-3.19-py3-none-any.whl']
+  mooncake-transfer-engine-non-cuda==0.3.12.post1: 1 hash(es) -> ['mooncake_transfer_engine_non_cuda-0.3.12.post1-cp312-cp312-manylinux_2_28_x86_64.whl']
+  msgpack==1.2.2: 1 hash(es) -> ['msgpack-1.2.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl']
+  multidict==6.9.1: 171 hash(es) -> ['multidict-6.9.1-cp315-cp315-macosx_10_15_universal2.whl', '...']
+  nvidia-cuda-runtime-cu12==12.8.90: 1 hash(es) -> ['nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl']
+  propcache==0.5.2: 1 hash(es) -> ['propcache-0.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl']
+  requests==2.34.2: 1 hash(es) -> ['requests-2.34.2-py3-none-any.whl']
+  typing_extensions==4.16.0: 1 hash(es) -> ['typing_extensions-4.16.0-py3-none-any.whl']
+  urllib3==2.7.0: 1 hash(es) -> ['urllib3-2.7.0-py3-none-any.whl']
+  yarl==1.24.5: 1 hash(es) -> ['yarl-1.24.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl']
+
+== Part B: hash scope vs documented platform (cp312 / linux x86_64) ==
+  multidict==6.9.1: 171 hashes, 168 map to off-platform artifacts
+
+INTEGRITY OK: all pinned hashes are genuine PyPI digests of the pinned versions
+
+=== L1: image-build pip resolution for cp312 / manylinux x86_64 ===
+Saved /home/ecs-user/.pr-debate/tmp/tmp.EBL1gtt4Gt/typing_extensions-4.16.0-py3-none-any.whl
+Saved /home/ecs-user/.pr-debate/tmp/tmp.EBL1gtt4Gt/urllib3-2.7.0-py3-none-any.whl
+Saved /home/ecs-user/.pr-debate/tmp/tmp.EBL1gtt4Gt/yarl-1.24.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded aiohappyeyeballs aiohttp aiosignal attrs certifi charset-normalizer frozenlist idna mooncake-transfer-engine-non-cuda msgpack multidict nvidia-cuda-runtime-cu12 propcache requests typing_extensions urllib3 yarl
+
+=== P0 premise: base multidict 6.7.1 must LEAK (GHSA-54p9-h82j-f925) ===
+multidict 6.7.1: operand | d.items()  (or2)       leaked=100000
+multidict 6.7.1: d.items() - operand  (sub1)      leaked=100000
+multidict 6.7.1: d.items() | operand  (or1, control) leaked=0
+multidict 6.7.1: d.items() & operand  (and, control) leaked=0
+RESULT: LEAKS (vulnerable)
+  => premise reproduced: base pin is vulnerable
+
+=== P0/L2: PR-pinned multidict must be clean ===
+multidict 6.9.1: operand | d.items()  (or2)       leaked=0
+multidict 6.9.1: d.items() - operand  (sub1)      leaked=0
+multidict 6.9.1: d.items() | operand  (or1, control) leaked=0
+multidict 6.9.1: d.items() & operand  (and, control) leaked=0
+RESULT: clean
+
+=== L2: compatibility with pinned aiohttp/yarl ===
+OK multidict 6.9.1 + aiohttp 3.14.3 + yarl 1.24.5: all smoke assertions passed
+No broken requirements found.
+
+=== F1: hash-scope contract (single-platform pin) + fallback demo ===
+multidict==6.9.1: 171 hashes pinned; cp312 manylinux x86_64 wheel hash present: 1
+F1 CONTRACT: FAIL — 171 hashes pinned instead of the single documented platform hash
+
+Fallback demo (mini-lock, cp312/manylinux x86_64 resolution):
+  A) PR-style entry, cp312 wheel hash zeroed:
+       pip exit=0, multidict artifact chosen: multidict-6.9.1-py3-none-any.whl
+       => SILENT FALLBACK to the pure-python wheel: build succeeds with no C extension.
+  B) trimmed single-hash entry, that hash zeroed:
+       pip exit=1, multidict artifact chosen: (none)
+       => hard failure: the lock refuses the resolution (fail-loudly property).
+
+=== summary ===
+L0 lock integrity            : ok
+L1 pip resolution (cp312)    : ok
+P0 premise leak on 6.7.1     : ok
+P0 PR version clean          : ok
+L2 compatibility smoke       : ok
+F1 hash-scope contract       : FAIL   (red == finding live, see README)

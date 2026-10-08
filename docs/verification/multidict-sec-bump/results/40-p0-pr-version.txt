@@ -1,0 +1,5 @@
+multidict 6.9.1: operand | d.items()  (or2)       leaked=0
+multidict 6.9.1: d.items() - operand  (sub1)      leaked=0
+multidict 6.9.1: d.items() | operand  (or1, control) leaked=0
+multidict 6.9.1: d.items() & operand  (and, control) leaked=0
+RESULT: clean

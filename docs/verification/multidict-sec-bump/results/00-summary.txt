@@ -1,0 +1,6 @@
+L0 lock integrity            : ok
+L1 pip resolution (cp312)    : ok
+P0 premise leak on 6.7.1     : ok
+P0 PR version clean          : ok
+L2 compatibility smoke       : ok
+F1 hash-scope contract       : FAIL   (red == finding live, see README)

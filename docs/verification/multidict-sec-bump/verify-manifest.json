@@ -1,0 +1,60 @@
+{
+  "topic": "multidict-sec-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6202",
+  "harnessPaths": [
+    "docs/verification/multidict-sec-bump"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot security alert: multidict 6.7.1 pinned in the mooncake e2e image lock is affected by GHSA-54p9-h82j-f925 (CVE-2026-104874, reference leak in items-view union/subtraction, range >=6.7.0 <=6.9.0, first patched 6.9.1)",
+    "reportedComponent": "multidict C extension (multidict_itemsview_or2_impl / multidict_itemsview_sub1_impl)",
+    "patchedComponent": "test/gha-e2e/mooncake/image/requirements.txt (the repo's only multidict pin)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "leak_probe.py on 6.7.1: or2/sub1 leak 100000 refs, controls 0; on PR pin 6.9.1: 0 — results/30-p0-base-6.7.1.txt, results/40-p0-pr-version.txt",
+    "match": ["leak_probe.py"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "script",
+      "cmd": "bash docs/verification/multidict-sec-bump/scripts/run_all.sh"
+    },
+    "integration": {
+      "kind": "script",
+      "cmd": "bash docs/verification/multidict-sec-bump/scripts/run_all.sh (L1 pip resolution + L2 venv runtime are inside run_all.sh; no separate integration entry)"
+    }
+  },
+  "findings": [
+    {
+      "id": "P0",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["leak_probe.py"],
+      "note": "red on base pin (premise), green on PR pin; Fixed = pinned version leaks 0"
+    },
+    {
+      "id": "V1",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["lock_integrity.py", "pip download"],
+      "note": "lock resolves for cp312/manylinux x86_64, all hashes authentic PyPI digests"
+    },
+    {
+      "id": "V2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["compat_smoke.py"],
+      "note": "multidict 6.9.1 + pinned aiohttp 3.14.3 / yarl 1.24.5 coexist and interoperate"
+    },
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["hash_scope_check.sh"],
+      "note": "RED under the PR: 171 hashes pinned instead of the single documented cp312/manylinux x86_64 hash; silent py3-none-any fallback demonstrated. Fixed = exactly 1 hash == the cp312 wheel hash"
+    }
+  ],
+  "liveNote": "L3 skipped by debate-round instruction (cluster probe succeeded: 2 Ready nodes v1.36.2). No in-cluster behavior in this PR; CI kind-e2e (green, 5 jobs) builds this image and runs the mooncake e2e case — results/05-ci-evidence.txt."
+}
