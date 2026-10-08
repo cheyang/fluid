@@ -1,0 +1,5023 @@
+[
+  {
+    "SuitePath": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component",
+    "SuiteDescription": "Cache Component Suite",
+    "SuiteLabels": [
+      "cache-component"
+    ],
+    "SuiteSemVerConstraints": [],
+    "SuiteSucceeded": true,
+    "SuiteHasProgrammaticFocus": false,
+    "SpecialSuiteFailureReasons": null,
+    "PreRunStats": {
+      "TotalSpecs": 52,
+      "SpecsThatWillRun": 52
+    },
+    "StartTime": "2026-10-09T05:45:57.885696545+08:00",
+    "EndTime": "2026-10-09T05:45:57.894581937+08:00",
+    "RunTime": 8885402,
+    "SuiteConfig": {
+      "RandomSeed": 1791495957,
+      "RandomizeAllSpecs": false,
+      "FocusStrings": null,
+      "SkipStrings": null,
+      "FocusFiles": null,
+      "SkipFiles": null,
+      "LabelFilter": "",
+      "SemVerFilter": "",
+      "FailOnPending": false,
+      "FailOnEmpty": false,
+      "FailFast": false,
+      "FlakeAttempts": 0,
+      "MustPassRepeatedly": 0,
+      "DryRun": false,
+      "PollProgressAfter": 0,
+      "PollProgressInterval": 0,
+      "Timeout": 3600000000000,
+      "EmitSpecProgress": false,
+      "OutputInterceptorMode": "",
+      "SourceRoots": null,
+      "GracePeriod": 30000000000,
+      "ParallelProcess": 1,
+      "ParallelTotal": 1,
+      "ParallelHost": ""
+    },
+    "SpecReports": [
+      {
+        "ContainerHierarchyTexts": [
+          "ComponentManager",
+          "NewComponentHelper"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 36
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 37
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 38
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return AdvancedStatefulSetManager for Master component",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.885778658+08:00",
+        "EndTime": "2026-10-09T05:45:57.885877241+08:00",
+        "RunTime": 98583,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 38
+            },
+            "TimelineLocation": {
+              "Order": 1,
+              "Time": "2026-10-09T05:45:57.885790098+08:00"
+            },
+            "Message": "should return AdvancedStatefulSetManager for Master component",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 38
+            },
+            "TimelineLocation": {
+              "Order": 3,
+              "Time": "2026-10-09T05:45:57.88587457+08:00"
+            },
+            "Message": "should return AdvancedStatefulSetManager for Master component",
+            "Duration": 84483,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "ComponentManager",
+          "NewComponentHelper"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 36
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 37
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 48
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return AdvancedStatefulSetManager for Worker component",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.885885181+08:00",
+        "EndTime": "2026-10-09T05:45:57.885901762+08:00",
+        "RunTime": 16571,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 48
+            },
+            "TimelineLocation": {
+              "Order": 4,
+              "Time": "2026-10-09T05:45:57.885886221+08:00"
+            },
+            "Message": "should return AdvancedStatefulSetManager for Worker component",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 48
+            },
+            "TimelineLocation": {
+              "Order": 6,
+              "Time": "2026-10-09T05:45:57.885900942+08:00"
+            },
+            "Message": "should return AdvancedStatefulSetManager for Worker component",
+            "Duration": 14721,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "ComponentManager",
+          "NewComponentHelper"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 36
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 37
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 58
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return DaemonSetManager for Client component",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.885905782+08:00",
+        "EndTime": "2026-10-09T05:45:57.885916412+08:00",
+        "RunTime": 10630,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 58
+            },
+            "TimelineLocation": {
+              "Order": 7,
+              "Time": "2026-10-09T05:45:57.885906312+08:00"
+            },
+            "Message": "should return DaemonSetManager for Client component",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 58
+            },
+            "TimelineLocation": {
+              "Order": 9,
+              "Time": "2026-10-09T05:45:57.885915912+08:00"
+            },
+            "Message": "should return DaemonSetManager for Client component",
+            "Duration": 9610,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "ComponentManager",
+          "NewComponentHelper"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 36
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 37
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 68
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return AdvancedStatefulSetManager as default for unknown type",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.885919502+08:00",
+        "EndTime": "2026-10-09T05:45:57.885928192+08:00",
+        "RunTime": 8690,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 68
+            },
+            "TimelineLocation": {
+              "Order": 10,
+              "Time": "2026-10-09T05:45:57.885919932+08:00"
+            },
+            "Message": "should return AdvancedStatefulSetManager as default for unknown type",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 68
+            },
+            "TimelineLocation": {
+              "Order": 12,
+              "Time": "2026-10-09T05:45:57.885927772+08:00"
+            },
+            "Message": "should return AdvancedStatefulSetManager as default for unknown type",
+            "Duration": 7840,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "ComponentManager",
+          "getCommonLabelsFromComponent"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 36
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 79
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 80
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should generate correct labels with runtime name and component name",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.885930683+08:00",
+        "EndTime": "2026-10-09T05:45:57.885941863+08:00",
+        "RunTime": 11171,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 80
+            },
+            "TimelineLocation": {
+              "Order": 13,
+              "Time": "2026-10-09T05:45:57.885931212+08:00"
+            },
+            "Message": "should generate correct labels with runtime name and component name",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 80
+            },
+            "TimelineLocation": {
+              "Order": 15,
+              "Time": "2026-10-09T05:45:57.885941413+08:00"
+            },
+            "Message": "should generate correct labels with runtime name and component name",
+            "Duration": 10200,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "SyncComponentSpec",
+          "when updating replicas"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 91
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 92
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 93
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should update replicas successfully",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.885945963+08:00",
+        "EndTime": "2026-10-09T05:45:57.887780003+08:00",
+        "RunTime": 1834030,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "CapturedGinkgoWriterOutput": "\"level\"=0 \"msg\"=\"start syncing component spec\" \"component\"=\"test-runtime-worker\"\n\"level\"=0 \"msg\"=\"replicas changed, will update\" \"old\"=3 \"new\"=5\n\"level\"=0 \"msg\"=\"successfully patched advanced statefulset with new spec\"\n",
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 16,
+              "Time": "2026-10-09T05:45:57.885947403+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 18,
+              "Time": "2026-10-09T05:45:57.886327556+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 380173,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 93
+            },
+            "TimelineLocation": {
+              "Order": 19,
+              "Time": "2026-10-09T05:45:57.886344356+08:00"
+            },
+            "Message": "should update replicas successfully",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 93
+            },
+            "TimelineLocation": {
+              "Offset": 219,
+              "Order": 21,
+              "Time": "2026-10-09T05:45:57.887777393+08:00"
+            },
+            "Message": "should update replicas successfully",
+            "Duration": 1433037,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "SyncComponentSpec",
+          "when updating replicas"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 91
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 92
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 112
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should not update when replicas unchanged",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.887798564+08:00",
+        "EndTime": "2026-10-09T05:45:57.88797094+08:00",
+        "RunTime": 172386,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "CapturedGinkgoWriterOutput": "\"level\"=0 \"msg\"=\"start syncing component spec\" \"component\"=\"test-runtime-worker\"\n\"level\"=0 \"msg\"=\"no spec changes detected, skip update\"\n",
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 22,
+              "Time": "2026-10-09T05:45:57.887810824+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 24,
+              "Time": "2026-10-09T05:45:57.887927738+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 116904,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 112
+            },
+            "TimelineLocation": {
+              "Order": 25,
+              "Time": "2026-10-09T05:45:57.887928688+08:00"
+            },
+            "Message": "should not update when replicas unchanged",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 112
+            },
+            "TimelineLocation": {
+              "Offset": 137,
+              "Order": 27,
+              "Time": "2026-10-09T05:45:57.88797013+08:00"
+            },
+            "Message": "should not update when replicas unchanged",
+            "Duration": 41442,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "SyncComponentSpec",
+          "when updating replicas"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 91
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 92
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 131
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should skip update when replicas is nil",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.88798208+08:00",
+        "EndTime": "2026-10-09T05:45:57.888106204+08:00",
+        "RunTime": 124124,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "CapturedGinkgoWriterOutput": "\"level\"=0 \"msg\"=\"start syncing component spec\" \"component\"=\"test-runtime-worker\"\n\"level\"=0 \"msg\"=\"no spec changes detected, skip update\"\n",
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 28,
+              "Time": "2026-10-09T05:45:57.88798339+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 30,
+              "Time": "2026-10-09T05:45:57.888068993+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 85603,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 131
+            },
+            "TimelineLocation": {
+              "Order": 31,
+              "Time": "2026-10-09T05:45:57.888069453+08:00"
+            },
+            "Message": "should skip update when replicas is nil",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 131
+            },
+            "TimelineLocation": {
+              "Offset": 137,
+              "Order": 33,
+              "Time": "2026-10-09T05:45:57.888105584+08:00"
+            },
+            "Message": "should skip update when replicas is nil",
+            "Duration": 36131,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "SyncComponentSpec",
+          "when updating image"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 91
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 150
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 151
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should update full image (name + tag)",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.888110294+08:00",
+        "EndTime": "2026-10-09T05:45:57.888440965+08:00",
+        "RunTime": 330671,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "CapturedGinkgoWriterOutput": "\"level\"=0 \"msg\"=\"start syncing component spec\" \"component\"=\"test-runtime-worker\"\n\"level\"=0 \"msg\"=\"image changed, will update\" \"old\"=\"fluid-cache:v1.0.0\" \"new\"=\"new-fluid-cache:v2.0.0\"\n\"level\"=0 \"msg\"=\"successfully patched advanced statefulset with new spec\"\n",
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 34,
+              "Time": "2026-10-09T05:45:57.888111254+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 36,
+              "Time": "2026-10-09T05:45:57.888195867+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 84603,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 151
+            },
+            "TimelineLocation": {
+              "Order": 37,
+              "Time": "2026-10-09T05:45:57.888196327+08:00"
+            },
+            "Message": "should update full image (name + tag)",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 151
+            },
+            "TimelineLocation": {
+              "Offset": 258,
+              "Order": 39,
+              "Time": "2026-10-09T05:45:57.888440105+08:00"
+            },
+            "Message": "should update full image (name + tag)",
+            "Duration": 243788,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "SyncComponentSpec",
+          "when updating image"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 91
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 150
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 172
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should not update when only imageTag specified",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.888447325+08:00",
+        "EndTime": "2026-10-09T05:45:57.888562599+08:00",
+        "RunTime": 115284,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "CapturedGinkgoWriterOutput": "\"level\"=0 \"msg\"=\"start syncing component spec\" \"component\"=\"test-runtime-worker\"\n\"level\"=0 \"msg\"=\"no spec changes detected, skip update\"\n",
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 40,
+              "Time": "2026-10-09T05:45:57.888448295+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 42,
+              "Time": "2026-10-09T05:45:57.888529948+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 81653,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 172
+            },
+            "TimelineLocation": {
+              "Order": 43,
+              "Time": "2026-10-09T05:45:57.888530498+08:00"
+            },
+            "Message": "should not update when only imageTag specified",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 172
+            },
+            "TimelineLocation": {
+              "Offset": 137,
+              "Order": 45,
+              "Time": "2026-10-09T05:45:57.888562089+08:00"
+            },
+            "Message": "should not update when only imageTag specified",
+            "Duration": 31591,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "SyncComponentSpec",
+          "when updating image"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 91
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 150
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 192
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should not update when only image specified",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.888566819+08:00",
+        "EndTime": "2026-10-09T05:45:57.888699424+08:00",
+        "RunTime": 132615,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "CapturedGinkgoWriterOutput": "\"level\"=0 \"msg\"=\"start syncing component spec\" \"component\"=\"test-runtime-worker\"\n\"level\"=0 \"msg\"=\"no spec changes detected, skip update\"\n",
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 46,
+              "Time": "2026-10-09T05:45:57.888567419+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 48,
+              "Time": "2026-10-09T05:45:57.888666913+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 99494,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 192
+            },
+            "TimelineLocation": {
+              "Order": 49,
+              "Time": "2026-10-09T05:45:57.888667353+08:00"
+            },
+            "Message": "should not update when only image specified",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 192
+            },
+            "TimelineLocation": {
+              "Offset": 137,
+              "Order": 51,
+              "Time": "2026-10-09T05:45:57.888698923+08:00"
+            },
+            "Message": "should not update when only image specified",
+            "Duration": 31570,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "SyncComponentSpec",
+          "when updating image"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 91
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 150
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 212
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should not update when image unchanged",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.888703004+08:00",
+        "EndTime": "2026-10-09T05:45:57.888815947+08:00",
+        "RunTime": 112943,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "CapturedGinkgoWriterOutput": "\"level\"=0 \"msg\"=\"start syncing component spec\" \"component\"=\"test-runtime-worker\"\n\"level\"=0 \"msg\"=\"no spec changes detected, skip update\"\n",
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 52,
+              "Time": "2026-10-09T05:45:57.888703814+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 54,
+              "Time": "2026-10-09T05:45:57.888776196+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 72382,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 212
+            },
+            "TimelineLocation": {
+              "Order": 55,
+              "Time": "2026-10-09T05:45:57.888776586+08:00"
+            },
+            "Message": "should not update when image unchanged",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 212
+            },
+            "TimelineLocation": {
+              "Offset": 137,
+              "Order": 57,
+              "Time": "2026-10-09T05:45:57.888815327+08:00"
+            },
+            "Message": "should not update when image unchanged",
+            "Duration": 38741,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "SyncComponentSpec",
+          "when updating resources"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 91
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 234
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 235
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should update both requests and limits",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.888820518+08:00",
+        "EndTime": "2026-10-09T05:45:57.889139988+08:00",
+        "RunTime": 319470,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "CapturedGinkgoWriterOutput": "\"level\"=0 \"msg\"=\"start syncing component spec\" \"component\"=\"test-runtime-worker\"\n\"level\"=0 \"msg\"=\"resources changed, will update\"\n\"level\"=0 \"msg\"=\"successfully patched advanced statefulset with new spec\"\n",
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 58,
+              "Time": "2026-10-09T05:45:57.888821108+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 60,
+              "Time": "2026-10-09T05:45:57.88889805+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 76942,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 235
+            },
+            "TimelineLocation": {
+              "Order": 61,
+              "Time": "2026-10-09T05:45:57.88889849+08:00"
+            },
+            "Message": "should update both requests and limits",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 235
+            },
+            "TimelineLocation": {
+              "Offset": 204,
+              "Order": 63,
+              "Time": "2026-10-09T05:45:57.889139138+08:00"
+            },
+            "Message": "should update both requests and limits",
+            "Duration": 240648,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "SyncComponentSpec",
+          "when updating resources"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 91
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 234
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 267
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should not update when resources unchanged",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.889145668+08:00",
+        "EndTime": "2026-10-09T05:45:57.889272753+08:00",
+        "RunTime": 127085,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "CapturedGinkgoWriterOutput": "\"level\"=0 \"msg\"=\"start syncing component spec\" \"component\"=\"test-runtime-worker\"\n\"level\"=0 \"msg\"=\"no spec changes detected, skip update\"\n",
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 64,
+              "Time": "2026-10-09T05:45:57.889146678+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 66,
+              "Time": "2026-10-09T05:45:57.889227991+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 81313,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 267
+            },
+            "TimelineLocation": {
+              "Order": 67,
+              "Time": "2026-10-09T05:45:57.889228471+08:00"
+            },
+            "Message": "should not update when resources unchanged",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 267
+            },
+            "TimelineLocation": {
+              "Offset": 137,
+              "Order": 69,
+              "Time": "2026-10-09T05:45:57.889272173+08:00"
+            },
+            "Message": "should not update when resources unchanged",
+            "Duration": 43702,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "SyncComponentSpec",
+          "when updating multiple fields"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 91
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 297
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 298
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should update replicas, image and resources together",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.889276663+08:00",
+        "EndTime": "2026-10-09T05:45:57.889544391+08:00",
+        "RunTime": 267728,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "CapturedGinkgoWriterOutput": "\"level\"=0 \"msg\"=\"start syncing component spec\" \"component\"=\"test-runtime-worker\"\n\"level\"=0 \"msg\"=\"replicas changed, will update\" \"old\"=3 \"new\"=5\n\"level\"=0 \"msg\"=\"image changed, will update\" \"old\"=\"fluid-cache:v1.0.0\" \"new\"=\"fluid-cache:v1.1.0\"\n\"level\"=0 \"msg\"=\"resources changed, will update\"\n\"level\"=0 \"msg\"=\"successfully patched advanced statefulset with new spec\"\n",
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 70,
+              "Time": "2026-10-09T05:45:57.889277283+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 72,
+              "Time": "2026-10-09T05:45:57.889349335+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 72052,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 298
+            },
+            "TimelineLocation": {
+              "Order": 73,
+              "Time": "2026-10-09T05:45:57.889349755+08:00"
+            },
+            "Message": "should update replicas, image and resources together",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 298
+            },
+            "TimelineLocation": {
+              "Offset": 367,
+              "Order": 75,
+              "Time": "2026-10-09T05:45:57.889543762+08:00"
+            },
+            "Message": "should update replicas, image and resources together",
+            "Duration": 194007,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "SyncComponentSpec",
+          "error handling"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 91
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 330
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 331
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return error when AdvancedStatefulSet not found",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.889556472+08:00",
+        "EndTime": "2026-10-09T05:45:57.889653145+08:00",
+        "RunTime": 96673,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "CapturedGinkgoWriterOutput": "\"level\"=0 \"msg\"=\"start syncing component spec\" \"component\"=\"non-existent\"\n\"msg\"=\"failed to get advanced statefulset\" \"error\"=\"advancedstatefulsets.workload.fluid.io \\\"non-existent\\\" not found\"\n",
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 76,
+              "Time": "2026-10-09T05:45:57.889557312+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 78,
+              "Time": "2026-10-09T05:45:57.889639414+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 82103,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 331
+            },
+            "TimelineLocation": {
+              "Order": 79,
+              "Time": "2026-10-09T05:45:57.889639994+08:00"
+            },
+            "Message": "should return error when AdvancedStatefulSet not found",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 331
+            },
+            "TimelineLocation": {
+              "Offset": 193,
+              "Order": 81,
+              "Time": "2026-10-09T05:45:57.889652645+08:00"
+            },
+            "Message": "should return error when AdvancedStatefulSet not found",
+            "Duration": 12640,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "SyncComponentSpec",
+          "error handling"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 91
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 330
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 344
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return error when no containers found",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.889656665+08:00",
+        "EndTime": "2026-10-09T05:45:57.889754218+08:00",
+        "RunTime": 97553,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "CapturedGinkgoWriterOutput": "\"level\"=0 \"msg\"=\"start syncing component spec\" \"component\"=\"empty-containers\"\n",
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 82,
+              "Time": "2026-10-09T05:45:57.889657235+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 84,
+              "Time": "2026-10-09T05:45:57.889732748+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 75523,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 344
+            },
+            "TimelineLocation": {
+              "Order": 85,
+              "Time": "2026-10-09T05:45:57.889733168+08:00"
+            },
+            "Message": "should return error when no containers found",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 344
+            },
+            "TimelineLocation": {
+              "Offset": 78,
+              "Order": 87,
+              "Time": "2026-10-09T05:45:57.889753748+08:00"
+            },
+            "Message": "should return error when no containers found",
+            "Duration": 20580,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "updateReplicas"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 378
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 379
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return true when replicas changed",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.889763789+08:00",
+        "EndTime": "2026-10-09T05:45:57.89012007+08:00",
+        "RunTime": 356292,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "CapturedGinkgoWriterOutput": "\"level\"=0 \"msg\"=\"replicas changed, will update\" \"old\"=3 \"new\"=5\n",
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 88,
+              "Time": "2026-10-09T05:45:57.889764429+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 90,
+              "Time": "2026-10-09T05:45:57.890006387+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 241958,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 379
+            },
+            "TimelineLocation": {
+              "Order": 91,
+              "Time": "2026-10-09T05:45:57.890010767+08:00"
+            },
+            "Message": "should return true when replicas changed",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 379
+            },
+            "TimelineLocation": {
+              "Offset": 64,
+              "Order": 93,
+              "Time": "2026-10-09T05:45:57.89011878+08:00"
+            },
+            "Message": "should return true when replicas changed",
+            "Duration": 108003,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "updateReplicas"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 378
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 386
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false when replicas unchanged",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.890133591+08:00",
+        "EndTime": "2026-10-09T05:45:57.890365358+08:00",
+        "RunTime": 231767,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 94,
+              "Time": "2026-10-09T05:45:57.890136431+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 96,
+              "Time": "2026-10-09T05:45:57.890350408+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 213987,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 386
+            },
+            "TimelineLocation": {
+              "Order": 97,
+              "Time": "2026-10-09T05:45:57.890352368+08:00"
+            },
+            "Message": "should return false when replicas unchanged",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 386
+            },
+            "TimelineLocation": {
+              "Order": 99,
+              "Time": "2026-10-09T05:45:57.890363598+08:00"
+            },
+            "Message": "should return false when replicas unchanged",
+            "Duration": 11220,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "updateImage"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 393
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 394
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should update full image",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.890385759+08:00",
+        "EndTime": "2026-10-09T05:45:57.890540314+08:00",
+        "RunTime": 154555,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "CapturedGinkgoWriterOutput": "\"level\"=0 \"msg\"=\"image changed, will update\" \"old\"=\"fluid-cache:v1.0.0\" \"new\"=\"new-image:v2.0.0\"\n",
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 100,
+              "Time": "2026-10-09T05:45:57.890387509+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 102,
+              "Time": "2026-10-09T05:45:57.890510113+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 122594,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 394
+            },
+            "TimelineLocation": {
+              "Order": 103,
+              "Time": "2026-10-09T05:45:57.890512063+08:00"
+            },
+            "Message": "should update full image",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 394
+            },
+            "TimelineLocation": {
+              "Offset": 97,
+              "Order": 105,
+              "Time": "2026-10-09T05:45:57.890538604+08:00"
+            },
+            "Message": "should update full image",
+            "Duration": 26541,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "updateImage"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 393
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 404
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false when only imageTag specified",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.890555335+08:00",
+        "EndTime": "2026-10-09T05:45:57.890655088+08:00",
+        "RunTime": 99753,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 106,
+              "Time": "2026-10-09T05:45:57.890557235+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 108,
+              "Time": "2026-10-09T05:45:57.890648098+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 90863,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 404
+            },
+            "TimelineLocation": {
+              "Order": 109,
+              "Time": "2026-10-09T05:45:57.890648618+08:00"
+            },
+            "Message": "should return false when only imageTag specified",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 404
+            },
+            "TimelineLocation": {
+              "Order": 111,
+              "Time": "2026-10-09T05:45:57.890654388+08:00"
+            },
+            "Message": "should return false when only imageTag specified",
+            "Duration": 5780,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "updateImage"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 393
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 412
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false when only image specified",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.890660468+08:00",
+        "EndTime": "2026-10-09T05:45:57.890745591+08:00",
+        "RunTime": 85123,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 112,
+              "Time": "2026-10-09T05:45:57.890661298+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 114,
+              "Time": "2026-10-09T05:45:57.890740321+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 79023,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 412
+            },
+            "TimelineLocation": {
+              "Order": 115,
+              "Time": "2026-10-09T05:45:57.890740791+08:00"
+            },
+            "Message": "should return false when only image specified",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 412
+            },
+            "TimelineLocation": {
+              "Order": 117,
+              "Time": "2026-10-09T05:45:57.890745141+08:00"
+            },
+            "Message": "should return false when only image specified",
+            "Duration": 4350,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "updateImage"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 393
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 420
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false when image unchanged",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.890748991+08:00",
+        "EndTime": "2026-10-09T05:45:57.890838984+08:00",
+        "RunTime": 89993,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 118,
+              "Time": "2026-10-09T05:45:57.890749581+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 120,
+              "Time": "2026-10-09T05:45:57.890826024+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 76453,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 420
+            },
+            "TimelineLocation": {
+              "Order": 121,
+              "Time": "2026-10-09T05:45:57.890826464+08:00"
+            },
+            "Message": "should return false when image unchanged",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 420
+            },
+            "TimelineLocation": {
+              "Order": 123,
+              "Time": "2026-10-09T05:45:57.890838484+08:00"
+            },
+            "Message": "should return false when image unchanged",
+            "Duration": 12020,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "updateImage"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 393
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 429
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false when no containers",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.890847124+08:00",
+        "EndTime": "2026-10-09T05:45:57.890929997+08:00",
+        "RunTime": 82783,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 124,
+              "Time": "2026-10-09T05:45:57.890848024+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 126,
+              "Time": "2026-10-09T05:45:57.890924657+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 76643,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 429
+            },
+            "TimelineLocation": {
+              "Order": 127,
+              "Time": "2026-10-09T05:45:57.890925057+08:00"
+            },
+            "Message": "should return false when no containers",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 429
+            },
+            "TimelineLocation": {
+              "Order": 129,
+              "Time": "2026-10-09T05:45:57.890929517+08:00"
+            },
+            "Message": "should return false when no containers",
+            "Duration": 4460,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "updateResources"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 447
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 448
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should update resources with DeepCopy",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.890933477+08:00",
+        "EndTime": "2026-10-09T05:45:57.89103292+08:00",
+        "RunTime": 99443,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "CapturedGinkgoWriterOutput": "\"level\"=0 \"msg\"=\"resources changed, will update\"\n",
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 130,
+              "Time": "2026-10-09T05:45:57.890934057+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 132,
+              "Time": "2026-10-09T05:45:57.89100607+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 72013,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 448
+            },
+            "TimelineLocation": {
+              "Order": 133,
+              "Time": "2026-10-09T05:45:57.891006639+08:00"
+            },
+            "Message": "should update resources with DeepCopy",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 448
+            },
+            "TimelineLocation": {
+              "Offset": 49,
+              "Order": 135,
+              "Time": "2026-10-09T05:45:57.891032191+08:00"
+            },
+            "Message": "should update resources with DeepCopy",
+            "Duration": 25552,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "updateResources"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 447
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 467
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false when resources unchanged",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.891037431+08:00",
+        "EndTime": "2026-10-09T05:45:57.891127974+08:00",
+        "RunTime": 90543,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 136,
+              "Time": "2026-10-09T05:45:57.891037961+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 138,
+              "Time": "2026-10-09T05:45:57.891113613+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 75642,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 467
+            },
+            "TimelineLocation": {
+              "Order": 139,
+              "Time": "2026-10-09T05:45:57.891114053+08:00"
+            },
+            "Message": "should return false when resources unchanged",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 467
+            },
+            "TimelineLocation": {
+              "Order": 141,
+              "Time": "2026-10-09T05:45:57.891127543+08:00"
+            },
+            "Message": "should return false when resources unchanged",
+            "Duration": 13490,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "updateResources"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 447
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 482
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should update to nil resources (remove limits)",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.891131114+08:00",
+        "EndTime": "2026-10-09T05:45:57.891216637+08:00",
+        "RunTime": 85523,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "CapturedGinkgoWriterOutput": "\"level\"=0 \"msg\"=\"resources changed, will update\"\n",
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 142,
+              "Time": "2026-10-09T05:45:57.891131614+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 144,
+              "Time": "2026-10-09T05:45:57.891204786+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 73172,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 482
+            },
+            "TimelineLocation": {
+              "Order": 145,
+              "Time": "2026-10-09T05:45:57.891205166+08:00"
+            },
+            "Message": "should update to nil resources (remove limits)",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 482
+            },
+            "TimelineLocation": {
+              "Offset": 49,
+              "Order": 147,
+              "Time": "2026-10-09T05:45:57.891216166+08:00"
+            },
+            "Message": "should update to nil resources (remove limits)",
+            "Duration": 11011,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "updateResources"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 447
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 495
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false when no containers",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.891219897+08:00",
+        "EndTime": "2026-10-09T05:45:57.891296489+08:00",
+        "RunTime": 76602,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 148,
+              "Time": "2026-10-09T05:45:57.891220427+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 150,
+              "Time": "2026-10-09T05:45:57.891291069+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 70642,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 495
+            },
+            "TimelineLocation": {
+              "Order": 151,
+              "Time": "2026-10-09T05:45:57.891291469+08:00"
+            },
+            "Message": "should return false when no containers",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 495
+            },
+            "TimelineLocation": {
+              "Order": 153,
+              "Time": "2026-10-09T05:45:57.891296049+08:00"
+            },
+            "Message": "should return false when no containers",
+            "Duration": 4580,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "updateResources"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 447
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 514
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should not report a change when an equal quantity was produced by arithmetic",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.891299109+08:00",
+        "EndTime": "2026-10-09T05:45:57.891386222+08:00",
+        "RunTime": 87123,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 154,
+              "Time": "2026-10-09T05:45:57.891299849+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 156,
+              "Time": "2026-10-09T05:45:57.891367651+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 67802,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 514
+            },
+            "TimelineLocation": {
+              "Order": 157,
+              "Time": "2026-10-09T05:45:57.891368042+08:00"
+            },
+            "Message": "should not report a change when an equal quantity was produced by arithmetic",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 514
+            },
+            "TimelineLocation": {
+              "Order": 159,
+              "Time": "2026-10-09T05:45:57.891385712+08:00"
+            },
+            "Message": "should not report a change when an equal quantity was produced by arithmetic",
+            "Duration": 17680,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager SyncComponentSpec",
+          "updateResources"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 35
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+            "LineNumber": 447
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+          "LineNumber": 541
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should still report a change when the quantity really differs",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.891390812+08:00",
+        "EndTime": "2026-10-09T05:45:57.891480115+08:00",
+        "RunTime": 89293,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "CapturedGinkgoWriterOutput": "\"level\"=0 \"msg\"=\"resources changed, will update\"\n",
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 160,
+              "Time": "2026-10-09T05:45:57.891391322+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 43
+            },
+            "TimelineLocation": {
+              "Order": 162,
+              "Time": "2026-10-09T05:45:57.891461325+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager SyncComponentSpec",
+            "Duration": 70003,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 541
+            },
+            "TimelineLocation": {
+              "Order": 163,
+              "Time": "2026-10-09T05:45:57.891461725+08:00"
+            },
+            "Message": "should still report a change when the quantity really differs",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/sync_component_spec_test.go",
+              "LineNumber": 541
+            },
+            "TimelineLocation": {
+              "Offset": 49,
+              "Order": 165,
+              "Time": "2026-10-09T05:45:57.891479625+08:00"
+            },
+            "Message": "should still report a change when the quantity really differs",
+            "Duration": 17900,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "DaemonSetManager",
+          "Reconciler"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 378
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 415
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 416
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should create DaemonSet and Service successfully",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.891483205+08:00",
+        "EndTime": "2026-10-09T05:45:57.891770195+08:00",
+        "RunTime": 286980,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 166,
+              "Time": "2026-10-09T05:45:57.891483725+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 168,
+              "Time": "2026-10-09T05:45:57.891562508+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "Duration": 78793,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 416
+            },
+            "TimelineLocation": {
+              "Order": 169,
+              "Time": "2026-10-09T05:45:57.891562908+08:00"
+            },
+            "Message": "should create DaemonSet and Service successfully",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 416
+            },
+            "TimelineLocation": {
+              "Order": 171,
+              "Time": "2026-10-09T05:45:57.891769575+08:00"
+            },
+            "Message": "should create DaemonSet and Service successfully",
+            "Duration": 206667,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "DaemonSetManager",
+          "Reconciler"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 378
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 415
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 439
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should not recreate if DaemonSet already exists",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.891775145+08:00",
+        "EndTime": "2026-10-09T05:45:57.891908689+08:00",
+        "RunTime": 133534,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 172,
+              "Time": "2026-10-09T05:45:57.891776265+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 174,
+              "Time": "2026-10-09T05:45:57.891866738+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "Duration": 90473,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 439
+            },
+            "TimelineLocation": {
+              "Order": 175,
+              "Time": "2026-10-09T05:45:57.891867178+08:00"
+            },
+            "Message": "should not recreate if DaemonSet already exists",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 439
+            },
+            "TimelineLocation": {
+              "Order": 177,
+              "Time": "2026-10-09T05:45:57.891908129+08:00"
+            },
+            "Message": "should not recreate if DaemonSet already exists",
+            "Duration": 40961,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "DaemonSetManager",
+          "Reconciler"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 378
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 415
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 447
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should handle nil service gracefully",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.8919128+08:00",
+        "EndTime": "2026-10-09T05:45:57.891997862+08:00",
+        "RunTime": 85072,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 178,
+              "Time": "2026-10-09T05:45:57.891913449+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 180,
+              "Time": "2026-10-09T05:45:57.891988252+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "Duration": 74803,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 447
+            },
+            "TimelineLocation": {
+              "Order": 181,
+              "Time": "2026-10-09T05:45:57.891988632+08:00"
+            },
+            "Message": "should handle nil service gracefully",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 447
+            },
+            "TimelineLocation": {
+              "Order": 183,
+              "Time": "2026-10-09T05:45:57.891997392+08:00"
+            },
+            "Message": "should handle nil service gracefully",
+            "Duration": 8770,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "DaemonSetManager",
+          "ConstructComponentStatus"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 378
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 454
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 455
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return correct status when all nodes are ready",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.892001192+08:00",
+        "EndTime": "2026-10-09T05:45:57.892098406+08:00",
+        "RunTime": 97223,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 184,
+              "Time": "2026-10-09T05:45:57.892001922+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 186,
+              "Time": "2026-10-09T05:45:57.892079285+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "Duration": 77363,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 455
+            },
+            "TimelineLocation": {
+              "Order": 187,
+              "Time": "2026-10-09T05:45:57.892079695+08:00"
+            },
+            "Message": "should return correct status when all nodes are ready",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 455
+            },
+            "TimelineLocation": {
+              "Order": 189,
+              "Time": "2026-10-09T05:45:57.892097915+08:00"
+            },
+            "Message": "should return correct status when all nodes are ready",
+            "Duration": 18210,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "DaemonSetManager",
+          "ConstructComponentStatus"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 378
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 454
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 483
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return NotReady phase when not all nodes are ready",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.892101566+08:00",
+        "EndTime": "2026-10-09T05:45:57.892182208+08:00",
+        "RunTime": 80642,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 190,
+              "Time": "2026-10-09T05:45:57.892102416+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 192,
+              "Time": "2026-10-09T05:45:57.892167888+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "Duration": 65482,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 483
+            },
+            "TimelineLocation": {
+              "Order": 193,
+              "Time": "2026-10-09T05:45:57.892168268+08:00"
+            },
+            "Message": "should return NotReady phase when not all nodes are ready",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 483
+            },
+            "TimelineLocation": {
+              "Order": 195,
+              "Time": "2026-10-09T05:45:57.892181578+08:00"
+            },
+            "Message": "should return NotReady phase when not all nodes are ready",
+            "Duration": 13300,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "DaemonSetManager",
+          "ConstructComponentStatus"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 378
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 454
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 512
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return NotReady phase when no nodes are ready",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.892184838+08:00",
+        "EndTime": "2026-10-09T05:45:57.892273541+08:00",
+        "RunTime": 88713,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 196,
+              "Time": "2026-10-09T05:45:57.892185429+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 198,
+              "Time": "2026-10-09T05:45:57.892260281+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "Duration": 74862,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 512
+            },
+            "TimelineLocation": {
+              "Order": 199,
+              "Time": "2026-10-09T05:45:57.892260671+08:00"
+            },
+            "Message": "should return NotReady phase when no nodes are ready",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 512
+            },
+            "TimelineLocation": {
+              "Order": 201,
+              "Time": "2026-10-09T05:45:57.892273091+08:00"
+            },
+            "Message": "should return NotReady phase when no nodes are ready",
+            "Duration": 12410,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "DaemonSetManager",
+          "ConstructComponentStatus"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 378
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 454
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 540
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return error when DaemonSet doesn't exist",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.892276101+08:00",
+        "EndTime": "2026-10-09T05:45:57.892351064+08:00",
+        "RunTime": 74963,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 202,
+              "Time": "2026-10-09T05:45:57.892276612+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 204,
+              "Time": "2026-10-09T05:45:57.892340494+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "Duration": 63873,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 540
+            },
+            "TimelineLocation": {
+              "Order": 205,
+              "Time": "2026-10-09T05:45:57.892341243+08:00"
+            },
+            "Message": "should return error when DaemonSet doesn't exist",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 540
+            },
+            "TimelineLocation": {
+              "Order": 207,
+              "Time": "2026-10-09T05:45:57.892350644+08:00"
+            },
+            "Message": "should return error when DaemonSet doesn't exist",
+            "Duration": 9411,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "DaemonSetManager",
+          "ConstructComponentStatus"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 378
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 454
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 548
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return status and affinity when ConstructComponentStatusAndAffinity is called",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.892356904+08:00",
+        "EndTime": "2026-10-09T05:45:57.892458767+08:00",
+        "RunTime": 101853,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 208,
+              "Time": "2026-10-09T05:45:57.892359274+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 210,
+              "Time": "2026-10-09T05:45:57.892427076+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "Duration": 67812,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 548
+            },
+            "TimelineLocation": {
+              "Order": 211,
+              "Time": "2026-10-09T05:45:57.892427737+08:00"
+            },
+            "Message": "should return status and affinity when ConstructComponentStatusAndAffinity is called",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 548
+            },
+            "TimelineLocation": {
+              "Order": 213,
+              "Time": "2026-10-09T05:45:57.892458218+08:00"
+            },
+            "Message": "should return status and affinity when ConstructComponentStatusAndAffinity is called",
+            "Duration": 30472,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "DaemonSetManager",
+          "GetPodSpec"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 378
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 589
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 590
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return the pod spec of the workload",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.892461967+08:00",
+        "EndTime": "2026-10-09T05:45:57.892559661+08:00",
+        "RunTime": 97683,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 214,
+              "Time": "2026-10-09T05:45:57.892462578+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 216,
+              "Time": "2026-10-09T05:45:57.89252866+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "Duration": 66073,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 590
+            },
+            "TimelineLocation": {
+              "Order": 217,
+              "Time": "2026-10-09T05:45:57.89252907+08:00"
+            },
+            "Message": "should return the pod spec of the workload",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 590
+            },
+            "TimelineLocation": {
+              "Order": 219,
+              "Time": "2026-10-09T05:45:57.892559201+08:00"
+            },
+            "Message": "should return the pod spec of the workload",
+            "Duration": 30131,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "DaemonSetManager",
+          "GetPodSpec"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 378
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 589
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 604
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return a copy the caller cannot use to mutate the workload",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.892563631+08:00",
+        "EndTime": "2026-10-09T05:45:57.892668844+08:00",
+        "RunTime": 105203,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 220,
+              "Time": "2026-10-09T05:45:57.892564211+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 222,
+              "Time": "2026-10-09T05:45:57.892633393+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "Duration": 69182,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 604
+            },
+            "TimelineLocation": {
+              "Order": 223,
+              "Time": "2026-10-09T05:45:57.892634013+08:00"
+            },
+            "Message": "should return a copy the caller cannot use to mutate the workload",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 604
+            },
+            "TimelineLocation": {
+              "Order": 225,
+              "Time": "2026-10-09T05:45:57.892668364+08:00"
+            },
+            "Message": "should return a copy the caller cannot use to mutate the workload",
+            "Duration": 34351,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "DaemonSetManager",
+          "GetPodSpec"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 378
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 589
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 620
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return error when DaemonSet doesn't exist",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.892671854+08:00",
+        "EndTime": "2026-10-09T05:45:57.892746977+08:00",
+        "RunTime": 75123,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 226,
+              "Time": "2026-10-09T05:45:57.892672334+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 385
+            },
+            "TimelineLocation": {
+              "Order": 228,
+              "Time": "2026-10-09T05:45:57.892738627+08:00"
+            },
+            "Message": "DaemonSetManager",
+            "Duration": 66292,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 620
+            },
+            "TimelineLocation": {
+              "Order": 229,
+              "Time": "2026-10-09T05:45:57.892739007+08:00"
+            },
+            "Message": "should return error when DaemonSet doesn't exist",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 620
+            },
+            "TimelineLocation": {
+              "Order": 231,
+              "Time": "2026-10-09T05:45:57.892746517+08:00"
+            },
+            "Message": "should return error when DaemonSet doesn't exist",
+            "Duration": 7510,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager",
+          "Reconciler"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 107
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 146
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 147
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should create AdvancedStatefulSet and Service successfully",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.892749727+08:00",
+        "EndTime": "2026-10-09T05:45:57.892902232+08:00",
+        "RunTime": 152505,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 232,
+              "Time": "2026-10-09T05:45:57.892750247+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 234,
+              "Time": "2026-10-09T05:45:57.892825999+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "Duration": 75752,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 147
+            },
+            "TimelineLocation": {
+              "Order": 235,
+              "Time": "2026-10-09T05:45:57.89282639+08:00"
+            },
+            "Message": "should create AdvancedStatefulSet and Service successfully",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 147
+            },
+            "TimelineLocation": {
+              "Order": 237,
+              "Time": "2026-10-09T05:45:57.892901652+08:00"
+            },
+            "Message": "should create AdvancedStatefulSet and Service successfully",
+            "Duration": 75262,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager",
+          "Reconciler"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 107
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 146
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 173
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should not recreate if AdvancedStatefulSet already exists",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.892906192+08:00",
+        "EndTime": "2026-10-09T05:45:57.893551013+08:00",
+        "RunTime": 644831,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 238,
+              "Time": "2026-10-09T05:45:57.892907072+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 240,
+              "Time": "2026-10-09T05:45:57.893201002+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "Duration": 293940,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 173
+            },
+            "TimelineLocation": {
+              "Order": 241,
+              "Time": "2026-10-09T05:45:57.893202522+08:00"
+            },
+            "Message": "should not recreate if AdvancedStatefulSet already exists",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 173
+            },
+            "TimelineLocation": {
+              "Order": 243,
+              "Time": "2026-10-09T05:45:57.893547963+08:00"
+            },
+            "Message": "should not recreate if AdvancedStatefulSet already exists",
+            "Duration": 345441,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager",
+          "Reconciler"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 107
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 146
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 183
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should handle nil service gracefully",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.893569024+08:00",
+        "EndTime": "2026-10-09T05:45:57.893737629+08:00",
+        "RunTime": 168606,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 244,
+              "Time": "2026-10-09T05:45:57.893571674+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 246,
+              "Time": "2026-10-09T05:45:57.893693928+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "Duration": 122244,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 183
+            },
+            "TimelineLocation": {
+              "Order": 247,
+              "Time": "2026-10-09T05:45:57.893694888+08:00"
+            },
+            "Message": "should handle nil service gracefully",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 183
+            },
+            "TimelineLocation": {
+              "Order": 249,
+              "Time": "2026-10-09T05:45:57.893736829+08:00"
+            },
+            "Message": "should handle nil service gracefully",
+            "Duration": 41941,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager",
+          "ConstructComponentStatus"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 107
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 199
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 200
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return Ready phase when all replicas are ready",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.89374446+08:00",
+        "EndTime": "2026-10-09T05:45:57.893864014+08:00",
+        "RunTime": 119544,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 250,
+              "Time": "2026-10-09T05:45:57.8937455+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 252,
+              "Time": "2026-10-09T05:45:57.893833983+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "Duration": 88473,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 200
+            },
+            "TimelineLocation": {
+              "Order": 253,
+              "Time": "2026-10-09T05:45:57.893834683+08:00"
+            },
+            "Message": "should return Ready phase when all replicas are ready",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 200
+            },
+            "TimelineLocation": {
+              "Order": 255,
+              "Time": "2026-10-09T05:45:57.893863434+08:00"
+            },
+            "Message": "should return Ready phase when all replicas are ready",
+            "Duration": 28751,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager",
+          "ConstructComponentStatus"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 107
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 199
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 231
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return NotReady phase when replicas are partially ready",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.893868644+08:00",
+        "EndTime": "2026-10-09T05:45:57.893962887+08:00",
+        "RunTime": 94243,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 256,
+              "Time": "2026-10-09T05:45:57.893869334+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 258,
+              "Time": "2026-10-09T05:45:57.893945606+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "Duration": 76282,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 231
+            },
+            "TimelineLocation": {
+              "Order": 259,
+              "Time": "2026-10-09T05:45:57.893946136+08:00"
+            },
+            "Message": "should return NotReady phase when replicas are partially ready",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 231
+            },
+            "TimelineLocation": {
+              "Order": 261,
+              "Time": "2026-10-09T05:45:57.893962357+08:00"
+            },
+            "Message": "should return NotReady phase when replicas are partially ready",
+            "Duration": 16220,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager",
+          "ConstructComponentStatus"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 107
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 199
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 260
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return NotReady phase when no replicas are ready",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.893966307+08:00",
+        "EndTime": "2026-10-09T05:45:57.89406563+08:00",
+        "RunTime": 99323,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 262,
+              "Time": "2026-10-09T05:45:57.893966837+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 264,
+              "Time": "2026-10-09T05:45:57.89403937+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "Duration": 72542,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 260
+            },
+            "TimelineLocation": {
+              "Order": 265,
+              "Time": "2026-10-09T05:45:57.89403991+08:00"
+            },
+            "Message": "should return NotReady phase when no replicas are ready",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 260
+            },
+            "TimelineLocation": {
+              "Order": 267,
+              "Time": "2026-10-09T05:45:57.89406509+08:00"
+            },
+            "Message": "should return NotReady phase when no replicas are ready",
+            "Duration": 25180,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager",
+          "ConstructComponentStatus"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 107
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 199
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 287
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return error when AdvancedStatefulSet doesn't exist",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.894069011+08:00",
+        "EndTime": "2026-10-09T05:45:57.894150263+08:00",
+        "RunTime": 81252,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 268,
+              "Time": "2026-10-09T05:45:57.89406966+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 270,
+              "Time": "2026-10-09T05:45:57.894141463+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "Duration": 71803,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 287
+            },
+            "TimelineLocation": {
+              "Order": 271,
+              "Time": "2026-10-09T05:45:57.894141893+08:00"
+            },
+            "Message": "should return error when AdvancedStatefulSet doesn't exist",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 287
+            },
+            "TimelineLocation": {
+              "Order": 273,
+              "Time": "2026-10-09T05:45:57.894149803+08:00"
+            },
+            "Message": "should return error when AdvancedStatefulSet doesn't exist",
+            "Duration": 7910,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager",
+          "ConstructComponentStatus"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 107
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 199
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 295
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return status and affinity when ConstructComponentStatusAndAffinity is called",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.894153113+08:00",
+        "EndTime": "2026-10-09T05:45:57.894248156+08:00",
+        "RunTime": 95043,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 274,
+              "Time": "2026-10-09T05:45:57.894153813+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 276,
+              "Time": "2026-10-09T05:45:57.894221725+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "Duration": 67913,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 295
+            },
+            "TimelineLocation": {
+              "Order": 277,
+              "Time": "2026-10-09T05:45:57.894222245+08:00"
+            },
+            "Message": "should return status and affinity when ConstructComponentStatusAndAffinity is called",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 295
+            },
+            "TimelineLocation": {
+              "Order": 279,
+              "Time": "2026-10-09T05:45:57.894247666+08:00"
+            },
+            "Message": "should return status and affinity when ConstructComponentStatusAndAffinity is called",
+            "Duration": 25420,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager",
+          "GetPodSpec"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 107
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 337
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 338
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return the pod spec of the workload",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.894251337+08:00",
+        "EndTime": "2026-10-09T05:45:57.89436934+08:00",
+        "RunTime": 118003,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 280,
+              "Time": "2026-10-09T05:45:57.894251906+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 282,
+              "Time": "2026-10-09T05:45:57.894326839+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "Duration": 74943,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 338
+            },
+            "TimelineLocation": {
+              "Order": 283,
+              "Time": "2026-10-09T05:45:57.894327379+08:00"
+            },
+            "Message": "should return the pod spec of the workload",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 338
+            },
+            "TimelineLocation": {
+              "Order": 285,
+              "Time": "2026-10-09T05:45:57.89436881+08:00"
+            },
+            "Message": "should return the pod spec of the workload",
+            "Duration": 41431,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager",
+          "GetPodSpec"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 107
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 337
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 352
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return a copy the caller cannot use to mutate the workload",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.89437297+08:00",
+        "EndTime": "2026-10-09T05:45:57.894494274+08:00",
+        "RunTime": 121304,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 286,
+              "Time": "2026-10-09T05:45:57.894373541+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 288,
+              "Time": "2026-10-09T05:45:57.894452113+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "Duration": 78573,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 352
+            },
+            "TimelineLocation": {
+              "Order": 289,
+              "Time": "2026-10-09T05:45:57.894452643+08:00"
+            },
+            "Message": "should return a copy the caller cannot use to mutate the workload",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 352
+            },
+            "TimelineLocation": {
+              "Order": 291,
+              "Time": "2026-10-09T05:45:57.894493754+08:00"
+            },
+            "Message": "should return a copy the caller cannot use to mutate the workload",
+            "Duration": 41111,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "AdvancedStatefulSetManager",
+          "GetPodSpec"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 107
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+            "LineNumber": 337
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+          "LineNumber": 368
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return error when AdvancedStatefulSet doesn't exist",
+        "State": "passed",
+        "StartTime": "2026-10-09T05:45:57.894498294+08:00",
+        "EndTime": "2026-10-09T05:45:57.894579117+08:00",
+        "RunTime": 80823,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 292,
+              "Time": "2026-10-09T05:45:57.894498854+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 294,
+              "Time": "2026-10-09T05:45:57.894570887+08:00"
+            },
+            "Message": "AdvancedStatefulSetManager",
+            "Duration": 72033,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 368
+            },
+            "TimelineLocation": {
+              "Order": 295,
+              "Time": "2026-10-09T05:45:57.894571457+08:00"
+            },
+            "Message": "should return error when AdvancedStatefulSet doesn't exist",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/cache/component/component_test.go",
+              "LineNumber": 368
+            },
+            "TimelineLocation": {
+              "Order": 297,
+              "Time": "2026-10-09T05:45:57.894578657+08:00"
+            },
+            "Message": "should return error when AdvancedStatefulSet doesn't exist",
+            "Duration": 7190,
+            "NodeType": "It"
+          }
+        ]
+      }
+    ]
+  }
+]

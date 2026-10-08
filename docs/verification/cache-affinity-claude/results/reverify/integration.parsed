@@ -1,0 +1,52 @@
+should return AdvancedStatefulSetManager for Master component	pass
+should return AdvancedStatefulSetManager for Worker component	pass
+should return DaemonSetManager for Client component	pass
+should return AdvancedStatefulSetManager as default for unknown type	pass
+should generate correct labels with runtime name and component name	pass
+should update replicas successfully	pass
+should not update when replicas unchanged	pass
+should skip update when replicas is nil	pass
+should update full image (name + tag)	pass
+should not update when only imageTag specified	pass
+should not update when only image specified	pass
+should not update when image unchanged	pass
+should update both requests and limits	pass
+should not update when resources unchanged	pass
+should update replicas, image and resources together	pass
+should return error when AdvancedStatefulSet not found	pass
+should return error when no containers found	pass
+should return true when replicas changed	pass
+should return false when replicas unchanged	pass
+should update full image	pass
+should return false when only imageTag specified	pass
+should return false when only image specified	pass
+should return false when image unchanged	pass
+should return false when no containers	pass
+should update resources with DeepCopy	pass
+should return false when resources unchanged	pass
+should update to nil resources (remove limits)	pass
+should return false when no containers	pass
+should not report a change when an equal quantity was produced by arithmetic	pass
+should still report a change when the quantity really differs	pass
+should create DaemonSet and Service successfully	pass
+should not recreate if DaemonSet already exists	pass
+should handle nil service gracefully	pass
+should return correct status when all nodes are ready	pass
+should return NotReady phase when not all nodes are ready	pass
+should return NotReady phase when no nodes are ready	pass
+should return error when DaemonSet doesn't exist	pass
+should return status and affinity when ConstructComponentStatusAndAffinity is called	pass
+should return the pod spec of the workload	pass
+should return a copy the caller cannot use to mutate the workload	pass
+should return error when DaemonSet doesn't exist	pass
+should create AdvancedStatefulSet and Service successfully	pass
+should not recreate if AdvancedStatefulSet already exists	pass
+should handle nil service gracefully	pass
+should return Ready phase when all replicas are ready	pass
+should return NotReady phase when replicas are partially ready	pass
+should return NotReady phase when no replicas are ready	pass
+should return error when AdvancedStatefulSet doesn't exist	pass
+should return status and affinity when ConstructComponentStatusAndAffinity is called	pass
+should return the pod spec of the workload	pass
+should return a copy the caller cannot use to mutate the workload	pass
+should return error when AdvancedStatefulSet doesn't exist	pass
