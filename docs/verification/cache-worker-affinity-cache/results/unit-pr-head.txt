@@ -1,0 +1,14 @@
+# unit layer, PR head 106b1650 (code under review)
+2026/10/08 14:45:47 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyCacheAffinityPointerAliasing
+    verify_pr6200_aliasing_prhead_test.go:65: F2 confirmed: engine.cacheAffinity and status.CacheAffinity alias the same object in the fetch branch
+--- PASS: TestVerifyCacheAffinityPointerAliasing (0.00s)
+=== RUN   TestVerifyWorkerAffinityFetchCount
+    verify_pr6200_codex_test.go:122: worker AdvancedStatefulSet client.Get calls: after cycle1=2 after cycle2=3
+--- PASS: TestVerifyWorkerAffinityFetchCount (0.00s)
+=== RUN   TestVerifyStaleCacheAffinityAfterWorkloadChange
+    verify_pr6200_codex_test.go:163: F1 reproduced: status.cacheAffinity did not track the worker workload affinity change; got &NodeAffinity{RequiredDuringSchedulingIgnoredDuringExecution:&NodeSelector{NodeSelectorTerms:[]NodeSelectorTerm{NodeSelectorTerm{MatchExpressions:[]NodeSelectorRequirement{NodeSelectorRequirement{Key:topology.kubernetes.io/zone,Operator:In,Values:[zone-a],},},MatchFields:[]NodeSelectorRequirement{},},},},PreferredDuringSchedulingIgnoredDuringExecution:[]PreferredSchedulingTerm{},}, expected it to contain disktype=ssd
+--- FAIL: TestVerifyStaleCacheAffinityAfterWorkloadChange (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.012s
+FAIL

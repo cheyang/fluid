@@ -1,0 +1,9 @@
+# harness-bites check: temporarily restore always-fetch in status.go on PR head, run F1 contract test, then revert
+patched status.go (bites check)
+2026/10/08 14:46:25 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyStaleCacheAffinityAfterWorkloadChange
+--- PASS: TestVerifyStaleCacheAffinityAfterWorkloadChange (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.011s
+production diff after revert:
+(empty = clean)

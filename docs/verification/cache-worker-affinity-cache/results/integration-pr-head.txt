@@ -1,0 +1,9 @@
+# integration layer (envtest, k8s 1.36.2), PR head 106b1650
+2026/10/08 14:45:58 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyAPIServerLoadPremise
+    verify_pr6200_envtest_test.go:170: scenario A (direct client): API-server GETs of worker AdvancedStatefulSet across 2 status cycles = 3
+    verify_pr6200_envtest_test.go:217: scenario B (informer-cached client, production default): API-server GETs of worker AdvancedStatefulSet across 2 status cycles = 0
+    verify_pr6200_envtest_test.go:222: premise impact: direct client = 3 API GETs / 2 cycles; cached client = 0 API GETs / 2 cycles. The per-cycle GetNodeAffinity fetch is an informer-cache read in fluid's default deployment, not API-server load.
+--- PASS: TestVerifyAPIServerLoadPremise (6.42s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	6.433s

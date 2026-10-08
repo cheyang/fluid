@@ -1,0 +1,38 @@
+{
+  "topic": "cache-worker-affinity-cache",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6200",
+  "harnessPaths": [
+    "docs/verification/cache-worker-affinity-cache",
+    "pkg/ddc/cache/engine/verify_pr6200_codex_test.go",
+    "pkg/ddc/cache/engine/verify_pr6200_aliasing_prhead_test.go",
+    "pkg/ddc/cache/engine/verify_pr6200_envtest_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "get node affinity for worker do not call kubeclient.GetStatefulSet in every status update cycle ... this adds unnecessary API server load (issue #5879)",
+    "reportedComponent": "CacheRuntime cache engine worker status update (pkg/ddc/cache/engine)",
+    "patchedComponent": "pkg/ddc/cache/engine/{engine.go,status.go}",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "base performs 2 worker ASTS client.Get calls per status cycle (TestVerifyWorkerAffinityFetchCount fails on base with after cycle2=4; results/unit-base.txt). Impact correction (F3): with the informer-cached client fluid deploys by default, 0 of those GETs reach the API server (results/integration-base.txt).",
+    "match": ["TestVerifyWorkerAffinityFetchCount"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run 'TestVerifyWorkerAffinityFetchCount|TestVerifyStaleCacheAffinityAfterWorkloadChange|TestVerifyCacheAffinityPointerAliasing' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "KUBEBUILDER_ASSETS=${KUBEBUILDER_ASSETS:-$HOME/.local/share/kubebuilder-envtest/k8s/1.36.2-linux-amd64} go test ./pkg/ddc/cache/engine/ -run 'TestVerifyAPIServerLoadPremise' -json"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyStaleCacheAffinityAfterWorkloadChange"] },
+    { "id": "F2", "polarity": "canary", "layer": "unit", "match": ["TestVerifyCacheAffinityPointerAliasing"] },
+    { "id": "F3", "polarity": "contract", "layer": "integration", "match": ["TestVerifyAPIServerLoadPremise"] }
+  ],
+  "liveNote": "L3 skipped per review setup. If run live: edit the worker AdvancedStatefulSet pod template nodeSelector after the CacheRuntime became ready; pre-PR status.cacheAffinity tracks the change within one sync cycle, post-PR it never changes. Also verify the nodeaffinitywithcache webhook keeps injecting the stale terms into new app pods."
+}
