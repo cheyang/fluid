@@ -1,0 +1,75 @@
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple/
+Collecting aiohappyeyeballs==2.7.1 (from -r /tmp/req-pr.txt (line 23))
+  Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
+Collecting aiohttp==3.14.3 (from -r /tmp/req-pr.txt (line 26))
+  Downloading aiohttp-3.14.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 362.9 kB/s  0:00:04
+Collecting aiosignal==1.4.0 (from -r /tmp/req-pr.txt (line 29))
+  Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Collecting attrs==26.1.0 (from -r /tmp/req-pr.txt (line 32))
+  Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+Collecting certifi==2026.7.22 (from -r /tmp/req-pr.txt (line 35))
+  Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+Collecting charset-normalizer==3.5.1 (from -r /tmp/req-pr.txt (line 38))
+  Downloading charset_normalizer-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (248 kB)
+Collecting frozenlist==1.8.0 (from -r /tmp/req-pr.txt (line 41))
+  Downloading frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (242 kB)
+Collecting idna==3.19 (from -r /tmp/req-pr.txt (line 44))
+  Downloading idna-3.19-py3-none-any.whl (68 kB)
+Collecting mooncake-transfer-engine-non-cuda==0.3.12.post1 (from -r /tmp/req-pr.txt (line 47))
+  Downloading mooncake_transfer_engine_non_cuda-0.3.12.post1-cp312-cp312-manylinux_2_28_x86_64.whl (44.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.5/44.5 MB 362.0 kB/s  0:02:02
+Collecting msgpack==1.2.2 (from -r /tmp/req-pr.txt (line 49))
+  Downloading msgpack-1.2.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (420 kB)
+Collecting multidict==6.7.1 (from -r /tmp/req-pr.txt (line 52))
+  Downloading multidict-6.7.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (256 kB)
+Collecting nvidia-cuda-runtime-cu12==12.8.90 (from -r /tmp/req-pr.txt (line 55))
+  Downloading nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (954 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 954.8/954.8 kB 383.6 kB/s  0:00:02
+Collecting propcache==0.5.2 (from -r /tmp/req-pr.txt (line 57))
+  Downloading propcache-0.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (61 kB)
+Collecting requests==2.34.2 (from -r /tmp/req-pr.txt (line 60))
+  Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+Collecting typing_extensions==4.16.0 (from -r /tmp/req-pr.txt (line 63))
+  Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Collecting urllib3==2.8.0 (from -r /tmp/req-pr.txt (line 66))
+  Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+Collecting yarl==1.24.5 (from -r /tmp/req-pr.txt (line 70))
+  Downloading yarl-1.24.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (109 kB)
+Saved /tmp/dl-pr2/aiohappyeyeballs-2.7.1-py3-none-any.whl
+Saved /tmp/dl-pr2/aiohttp-3.14.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Saved /tmp/dl-pr2/multidict-6.7.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Saved /tmp/dl-pr2/yarl-1.24.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Saved /tmp/dl-pr2/aiosignal-1.4.0-py3-none-any.whl
+Saved /tmp/dl-pr2/attrs-26.1.0-py3-none-any.whl
+Saved /tmp/dl-pr2/certifi-2026.7.22-py3-none-any.whl
+Saved /tmp/dl-pr2/charset_normalizer-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Saved /tmp/dl-pr2/frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl
+Saved /tmp/dl-pr2/idna-3.19-py3-none-any.whl
+Saved /tmp/dl-pr2/mooncake_transfer_engine_non_cuda-0.3.12.post1-cp312-cp312-manylinux_2_28_x86_64.whl
+Saved /tmp/dl-pr2/msgpack-1.2.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Saved /tmp/dl-pr2/nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Saved /tmp/dl-pr2/propcache-0.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Saved /tmp/dl-pr2/requests-2.34.2-py3-none-any.whl
+Saved /tmp/dl-pr2/urllib3-2.8.0-py3-none-any.whl
+Saved /tmp/dl-pr2/typing_extensions-4.16.0-py3-none-any.whl
+Successfully downloaded aiohappyeyeballs aiohttp multidict yarl aiosignal attrs certifi charset-normalizer frozenlist idna mooncake-transfer-engine-non-cuda msgpack nvidia-cuda-runtime-cu12 propcache requests urllib3 typing_extensions
+L2a PASS: 17 artifacts downloaded and hash-verified
+aiohappyeyeballs-2.7.1-py3-none-any.whl
+aiohttp-3.14.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+aiosignal-1.4.0-py3-none-any.whl
+attrs-26.1.0-py3-none-any.whl
+certifi-2026.7.22-py3-none-any.whl
+charset_normalizer-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl
+idna-3.19-py3-none-any.whl
+mooncake_transfer_engine_non_cuda-0.3.12.post1-cp312-cp312-manylinux_2_28_x86_64.whl
+msgpack-1.2.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+multidict-6.7.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+propcache-0.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+requests-2.34.2-py3-none-any.whl
+typing_extensions-4.16.0-py3-none-any.whl
+urllib3-2.8.0-py3-none-any.whl
+yarl-1.24.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+exit=0

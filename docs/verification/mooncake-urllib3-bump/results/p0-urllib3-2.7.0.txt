@@ -1,0 +1,3 @@
+urllib3=2.7.0 outcome="ProtocolError: ('Connection broken: IncompleteRead(5 bytes read, 65531 more expected)', IncompleteRead(5 bytes read, 65531 more expected))" peak_traced_bytes=8602745 line_bytes=4194304
+P0 RESULT: VULNERABLE — over-long chunk-size line fully buffered in memory
+exit=1

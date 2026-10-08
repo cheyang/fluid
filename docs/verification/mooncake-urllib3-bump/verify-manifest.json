@@ -1,0 +1,48 @@
+{
+  "topic": "mooncake-urllib3-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6201",
+  "reviewedHead": "fac7daf4e1cd7a6d1d896ac09619a2c84273352e",
+  "harnessPaths": [
+    "docs/verification/mooncake-urllib3-bump"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "urllib3 2.7.0 (pinned in test/gha-e2e/mooncake/image/requirements.txt on base) is affected by GHSA-8988-9cw3-xx77, GHSA-vxq7-64xx-v4gw and GHSA-gh4c-6fx4-qh6g; 2.8.0 fixes them.",
+    "reportedComponent": "test-only Mooncake e2e image (urllib3 via requests via mooncake-transfer-engine-non-cuda)",
+    "patchedComponent": "test/gha-e2e/mooncake/image/requirements.txt",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Advisory API: all three GHSAs list '< 2.8.0' as affected, patched 2.8.0 (results/ghsa-affected-ranges.txt). Repro of GHSA-vxq7-64xx-v4gw: a 4MiB unterminated chunk-size line is fully buffered (peak 8.6MB traced) under 2.7.0, while 2.8.0 raises ProtocolError after 64KiB (results/p0-urllib3-2.7.0.txt, results/p0-urllib3-2.8.0.txt). Exposure caveat: mooncake 0.3.12.post1 never imports requests/urllib3 in its python code, so in-image runtime exposure is nil; the bump is hygiene.",
+    "match": ["p0_chunked_line_repro.py"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "script",
+      "cmd": "python3 docs/verification/mooncake-urllib3-bump/scripts/l1_lockfile_static_check.py <requirements.txt>"
+    },
+    "integration": {
+      "kind": "script",
+      "cmd": "bash docs/verification/mooncake-urllib3-bump/scripts/l2_full_lockfile_resolve.sh <requirements.txt> && python3 docs/verification/mooncake-urllib3-bump/scripts/l2_runtime_smoke.py (in a venv with requests==2.34.2 urllib3==2.8.0)"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit+integration",
+      "match": ["l1_lockfile_static_check.py", "l2_full_lockfile_resolve.sh"],
+      "note": "Not a defect: verifies the bumped pin's hashes match PyPI digests, requires_python admits the image's python 3.12, reverse-dep constraints admit 2.8.0, and the merged lock file still resolves with --require-hashes for cp312/manylinux x86_64."
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["l2_runtime_smoke.py"],
+      "note": "Runtime compatibility of the pinned requests 2.34.2 with urllib3 2.8.0 (GET + streamed read against a local HTTP server)."
+    }
+  ],
+  "liveNote": "L3 skipped per debate-pipeline instructions; the kind-e2e GHA workflow builds this image with --require-hashes and runs the mooncake e2e on every PR, which is the live-layer equivalent.",
+  "reverify": "bash docs/verification/mooncake-urllib3-bump/scripts/re-verify.sh"
+}

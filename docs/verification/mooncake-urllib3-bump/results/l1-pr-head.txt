@@ -1,0 +1,2 @@
+L1 PASS: pin=urllib3==2.8.0, 2 hash(es) all match PyPI digests, requires_python='>=3.10' admits python 3.12, reverse-dep constraints admit 2.8.0
+l1-pr exit=0

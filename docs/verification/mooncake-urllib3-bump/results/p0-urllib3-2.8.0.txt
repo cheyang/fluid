@@ -1,0 +1,3 @@
+urllib3=2.8.0 outcome='ProtocolError: Response chunk size line exceeded maximum allowed length' peak_traced_bytes=284035 line_bytes=4194304
+P0 RESULT: FIXED — chunk-size line bounded at ~64KiB, ProtocolError raised
+exit=0
