@@ -1,0 +1,4 @@
+== HEAD (1d66cffe) canary: go test ./pkg/ddc/cache/engine/ -run TestCacheEngine -ginkgo.focus='Premise verification' ==
+Ran 1 of 294 Specs in 0.002 seconds
+SUCCESS! -- 1 Passed | 0 Failed | 0 Pending | 293 Skipped
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.016s

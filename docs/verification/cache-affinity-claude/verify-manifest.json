@@ -1,0 +1,42 @@
+{
+  "topic": "cache-affinity-claude",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6200",
+  "harnessPaths": [
+    "docs/verification/cache-affinity-claude",
+    "pkg/ddc/cache/engine/premise_worker_get_count_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "each CacheRuntime status update cycle read the worker AdvancedStatefulSet twice (ConstructComponentStatus + GetNodeAffinity)",
+    "reportedComponent": "cache runtime status update cycle (StatefulSetManager.GetNodeAffinity / kubeclient.GetStatefulSet per cycle)",
+    "patchedComponent": "pkg/ddc/cache/component/{advanced_statefulset_manager,daemonset_manager,component_manager}.go + pkg/ddc/cache/engine/status.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "contract canary on BASE d8b37f28 fails with observed 2 worker Gets per status cycle; on HEAD 1d66cffe passes with 1 (results/base-canary.txt, results/head-canary.txt)",
+    "match": ["should read the worker workload exactly once per status update cycle"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run TestCacheEngine -ginkgo.focus='(Premise verification|Worker node affinity derivation)' -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    },
+    "integration": {
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/ddc/cache/component/ -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    }
+  },
+  "findings": [
+    { "id": "P0", "polarity": "contract", "layer": "unit", "match": ["should read the worker workload exactly once per status update cycle"] },
+    { "id": "H1", "polarity": "contract", "layer": "unit", "match": [
+      "should derive worker node affinity in a single Get per status cycle",
+      "should immediately reflect out-of-band nodeSelector updates on subsequent status cycle with zero staleness",
+      "should return error when worker component cannot be found"
+    ] },
+    { "id": "H2", "polarity": "contract", "layer": "integration", "match": ["should return status and affinity when ConstructComponentStatusAndAffinity is called"] }
+  ],
+  "liveNote": "L3 skipped this round per debate-pipeline scope (unit + integration only). Optional L3 signal: count GETs of the worker StatefulSet in apiserver audit/metrics across two status cycles — expect exactly 1 per cycle after the patch (2 before)."
+}

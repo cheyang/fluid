@@ -1,0 +1,12 @@
+== F1 evidence: production callers of GetNodeAffinity (excluding _test.go) ==
+-- HEAD (1d66cffe):
+pkg/ddc/cache/component/daemonset_manager.go:52:func (s *DaemonSetManager) GetNodeAffinity(identity *common.ComponentIdentity) (*corev1.NodeAffinity, error) {
+pkg/ddc/cache/component/component_manager.go:35:	// GetNodeAffinity gets the node affinity for the component, for app pod cache affinity
+pkg/ddc/cache/component/component_manager.go:36:	GetNodeAffinity(identity *common.ComponentIdentity) (*corev1.NodeAffinity, error)
+pkg/ddc/cache/component/advanced_statefulset_manager.go:55:func (s *AdvancedStatefulSetManager) GetNodeAffinity(identity *common.ComponentIdentity) (*corev1.NodeAffinity, error) {
+-- BASE (d8b37f28):
+pkg/ddc/cache/engine/status.go:75:	affinity, err := manager.GetNodeAffinity(&componentInfo.ComponentIdentity)
+pkg/ddc/cache/component/component_manager.go:33:	// GetNodeAffinity gets the node affinity for the component, for app pod cache affinity
+pkg/ddc/cache/component/component_manager.go:34:	GetNodeAffinity(identity *common.ComponentIdentity) (*corev1.NodeAffinity, error)
+pkg/ddc/cache/component/daemonset_manager.go:52:func (s *DaemonSetManager) GetNodeAffinity(identity *common.ComponentIdentity) (*corev1.NodeAffinity, error) {
+pkg/ddc/cache/component/advanced_statefulset_manager.go:55:func (s *AdvancedStatefulSetManager) GetNodeAffinity(identity *common.ComponentIdentity) (*corev1.NodeAffinity, error) {

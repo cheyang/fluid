@@ -1,0 +1,4 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	0.020s
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.227s
+FAIL

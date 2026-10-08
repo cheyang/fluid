@@ -1,0 +1,4 @@
+== HEAD PR-new specs: -ginkgo.focus='Worker node affinity derivation' ==
+Ran 3 of 294 Specs in 0.003 seconds
+SUCCESS! -- 3 Passed | 0 Failed | 0 Pending | 291 Skipped
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.016s

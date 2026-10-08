@@ -1,0 +1,13 @@
+== BASE (d8b37f28) canary: same command ==
+• [FAILED] [0.001 seconds]
+Premise verification: worker read count per status cycle [It] should read the worker workload exactly once per status update cycle
+  [FAILED] expected exactly 1 Get of the worker workload per status cycle
+      <int>: 2
+      <int>: 1
+  [FAIL] Premise verification: worker read count per status cycle [It] should read the worker workload exactly once per status update cycle
+Ran 1 of 291 Specs in 0.002 seconds
+FAIL! -- 0 Passed | 1 Failed | 0 Pending | 290 Skipped
+--- FAIL: TestCacheEngine (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.016s
+FAIL
