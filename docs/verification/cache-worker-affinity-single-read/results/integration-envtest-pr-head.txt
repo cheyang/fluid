@@ -1,0 +1,6 @@
+2026/10/09 05:48:33 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyWorkerAffinitySingleReadEnvtest
+    zz_verify_pr6200_envtest_test.go:219: envtest: 1 worker Get/cycle, CacheAffinity round-trips via status subresource, out-of-band nodeSelector reflected next cycle
+--- PASS: TestVerifyWorkerAffinitySingleReadEnvtest (4.94s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	(cached)

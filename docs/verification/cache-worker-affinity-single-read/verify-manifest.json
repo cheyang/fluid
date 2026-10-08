@@ -1,0 +1,39 @@
+{
+  "topic": "cache-worker-affinity-single-read",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6200",
+  "harnessPaths": [
+    "docs/verification/cache-worker-affinity-single-read",
+    "pkg/ddc/cache/engine/zz_verify_pr6200_p0_test.go",
+    "pkg/ddc/cache/engine/zz_verify_pr6200_parity_test.go",
+    "pkg/ddc/cache/engine/zz_verify_pr6200_envtest_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "GetNodeAffinity calls kubeclient.GetStatefulSet for every status update cycle (worker workload read twice per CheckAndUpdateRuntimeStatus cycle)",
+    "reportedComponent": "pkg/ddc/cache/component statefulset manager / pkg/ddc/cache/engine status path",
+    "patchedComponent": "pkg/ddc/cache/component (advanced_statefulset_manager.go, daemonset_manager.go, component_manager.go) + pkg/ddc/cache/engine/status.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "TestVerifyWorkerGetCountPerStatusCycle fails on base d8b37f28 with 'observed 2' worker Gets in one status cycle (results/unit-p0-base.txt); passes on PR head with exactly 1",
+    "match": ["TestVerifyWorkerGetCountPerStatusCycle"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run 'TestVerifyWorkerGetCountPerStatusCycle|TestVerifyAffinityParityWithLegacyGetNodeAffinity' -v"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run 'TestVerifyWorkerAffinitySingleReadEnvtest' -v",
+      "note": "envtest-backed; set KUBEBUILDER_ASSETS (e.g. setup-envtest use -p path). Test self-skips when unset."
+    }
+  },
+  "findings": [
+    { "id": "B1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyWorkerGetCountPerStatusCycle"] },
+    { "id": "B2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyAffinityParityWithLegacyGetNodeAffinity"] },
+    { "id": "B3", "polarity": "contract", "layer": "integration", "match": ["TestVerifyWorkerAffinitySingleReadEnvtest"] }
+  ],
+  "liveNote": "L3 skipped per debate setup (no KUBECONFIG layer). On a real cluster the observable signal would be apiserver audit/request counts for the worker AdvancedStatefulSet during steady-state reconciles: 1 GET per status cycle instead of 2."
+}

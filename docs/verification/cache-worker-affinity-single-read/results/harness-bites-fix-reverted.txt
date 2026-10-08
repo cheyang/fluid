@@ -1,0 +1,14 @@
+2026/10/09 05:49:45 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyWorkerGetCountPerStatusCycle
+    zz_verify_pr6200_p0_test.go:74: cycle 1: expected exactly 1 worker workload Get(s) (1 per status cycle), observed 2
+--- FAIL: TestVerifyWorkerGetCountPerStatusCycle (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.011s
+FAIL
+2026/10/09 05:49:46 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyWorkerAffinitySingleReadEnvtest
+    zz_verify_pr6200_envtest_test.go:168: cycle 1: expected exactly 1 worker workload Get, observed 2
+--- FAIL: TestVerifyWorkerAffinitySingleReadEnvtest (5.93s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	5.938s
+FAIL
