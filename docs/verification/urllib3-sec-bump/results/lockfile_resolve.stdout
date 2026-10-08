@@ -1,0 +1,3 @@
+[T2] emulating the Dockerfile install for cp312 / manylinux x86_64 against: /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/test/gha-e2e/mooncake/image/requirements.txt
+[T2] resolved and hash-verified 17 wheels, including urllib3-2.8.0-py3-none-any.whl
+[T2] RESULT: PASS

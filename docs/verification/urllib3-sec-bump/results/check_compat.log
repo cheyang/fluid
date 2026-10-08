@@ -1,0 +1,6 @@
+[T3] requests 2.34.2 requires urllib3 <3,>=1.26
+      -> 2.8.0 satisfies it
+[T3] urllib3 2.8.0 Requires-Python: '>=3.10'; image base python: 3.12.13
+      -> image base Python is admitted
+[T3] urllib3 2.8.0 mandatory runtime deps: none (all others are extras)
+[T3] RESULT: PASS — urllib3 2.8.0 is compatible with the pin set and the image base

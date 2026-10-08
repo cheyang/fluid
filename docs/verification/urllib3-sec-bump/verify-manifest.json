@@ -1,0 +1,38 @@
+{
+  "topic": "urllib3-sec-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6201",
+  "harnessPaths": [
+    "docs/verification/urllib3-sec-bump"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot security bump: master pins urllib3 2.7.0 in test/gha-e2e/mooncake/image/requirements.txt, which is inside the vulnerable range of published urllib3 advisories fixed in 2.8.0 (GHSA-8988-9cw3-xx77 high, GHSA-vxq7-64xx-v4gw high, GHSA-gh4c-6fx4-qh6g medium).",
+    "reportedComponent": "urllib3 as vendored into the mooncake e2e test image (transitive dep via requests <- mooncake-transfer-engine-non-cuda)",
+    "patchedComponent": "test/gha-e2e/mooncake/image/requirements.txt — the only urllib3 pin in the repo",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "check_premise.sh: base pin is 2.7.0; all 3 GHSAs exist on the GitHub Advisory API with vulnerable range '< 2.8.0' containing 2.7.0; exactly 1 repo file mentions urllib3. See results/premise.log. Note: runtime exposure in this image is low (all its endpoints are plain HTTP in-cluster), so the bump is security hygiene rather than an urgent exposure fix.",
+    "match": ["P0_premise_on_base"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/urllib3-sec-bump/scripts/run_unit.sh"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/urllib3-sec-bump/scripts/run_integration.sh"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["T2_lockfile_resolves_cp312"]
+    }
+  ],
+  "liveNote": "L3 (live layer) was skipped per the review setup: no KUBECONFIG / cluster probe target for this PR, and the claim surface (a pip lockfile pin) is fully decided by the unit + integration layers. The PR's own kind-e2e CI (which builds the mooncake image from this file on every run) is green on all 6 k8s versions — corroborating, not substituting, the local layers."
+}

@@ -1,0 +1,5 @@
+[bites] bite 1: corrupting the urllib3 wheel hash in a copy
+[bites]   exit=1 (expected non-zero)
+[bites] bite 2: pin 2.7.0 but keep the 2.8.0 hashes
+[bites]   exit=1 (expected non-zero)
+[bites] RESULT: PASS — T2 goes red on both planted defects; its green on the real file is meaningful

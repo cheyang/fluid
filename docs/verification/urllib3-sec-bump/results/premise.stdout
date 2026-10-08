@@ -1,0 +1,10 @@
+base ref               : origin/master
+base pin of urllib3    : 2.7.0
+advisory GHSA-8988-9cw3-xx77        : EXISTS, base pin 2.7.0 in vulnerable range (>= 1.26.0, < 2.8.0)
+advisory GHSA-vxq7-64xx-v4gw        : EXISTS, base pin 2.7.0 in vulnerable range (>= 1.10.3, < 2.8.0)
+advisory GHSA-gh4c-6fx4-qh6g        : EXISTS, base pin 2.7.0 in vulnerable range (>= 2.6.2, < 2.8.0)
+files mentioning urllib3 on base: 1
+
+VERDICT: premise CONFIRMED — base pins urllib3 2.7.0, inside the vulnerable
+range of 3 published urllib3 advisory(ies) fixed in 2.8.0.
+PREMISE-OK

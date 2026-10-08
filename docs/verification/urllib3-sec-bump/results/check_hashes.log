@@ -1,0 +1,20 @@
+[T1] parsed 17 pinned entries from /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/test/gha-e2e/mooncake/image/requirements.txt
+  aiohappyeyeballs==2.7.1: OK (1 hash(es) all match PyPI digests)
+  aiohttp==3.14.3: OK (1 hash(es) all match PyPI digests)
+  aiosignal==1.4.0: OK (1 hash(es) all match PyPI digests)
+  attrs==26.1.0: OK (1 hash(es) all match PyPI digests)
+  certifi==2026.7.22: OK (1 hash(es) all match PyPI digests)
+  charset-normalizer==3.5.1: OK (1 hash(es) all match PyPI digests)
+  frozenlist==1.8.0: OK (1 hash(es) all match PyPI digests)
+  idna==3.19: OK (1 hash(es) all match PyPI digests)
+  mooncake-transfer-engine-non-cuda==0.3.12.post1: OK (1 hash(es) all match PyPI digests)
+  msgpack==1.2.2: OK (1 hash(es) all match PyPI digests)
+  multidict==6.7.1: OK (1 hash(es) all match PyPI digests)
+  nvidia-cuda-runtime-cu12==12.8.90: OK (1 hash(es) all match PyPI digests)
+  propcache==0.5.2: OK (1 hash(es) all match PyPI digests)
+  requests==2.34.2: OK (1 hash(es) all match PyPI digests)
+  typing_extensions==4.16.0: OK (1 hash(es) all match PyPI digests)
+  urllib3==2.8.0: OK (2 hash(es) all match PyPI digests)
+  yarl==1.24.5: OK (1 hash(es) all match PyPI digests)
+  urllib3==2.8.0: OK — pinned hashes are exactly the PyPI wheel (urllib3-2.8.0-py3-none-any.whl) and sdist (urllib3-2.8.0.tar.gz) digests
+[T1] RESULT: PASS — every pinned hash is a genuine PyPI digest

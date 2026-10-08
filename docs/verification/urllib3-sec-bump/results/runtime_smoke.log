@@ -1,0 +1,88 @@
+[T4] creating venv at /tmp/tmp.FRhs7fraqX/venv
+ERROR: Exception:
+Traceback (most recent call last):
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_internal/cli/base_command.py", line 180, in exc_logging_wrapper
+    status = run_func(*args)
+             ^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_internal/cli/req_command.py", line 245, in wrapper
+    return func(self, options, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_internal/commands/install.py", line 377, in run
+    requirement_set = resolver.resolve(
+                      ^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_internal/resolution/resolvelib/resolver.py", line 95, in resolve
+    result = self._result = resolver.resolve(
+                            ^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_vendor/resolvelib/resolvers.py", line 546, in resolve
+    state = resolution.resolve(requirements, max_rounds=max_rounds)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_vendor/resolvelib/resolvers.py", line 397, in resolve
+    self._add_to_criteria(self.state.criteria, r, parent=None)
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_vendor/resolvelib/resolvers.py", line 173, in _add_to_criteria
+    if not criterion.candidates:
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_vendor/resolvelib/structs.py", line 156, in __bool__
+    return bool(self._sequence)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_internal/resolution/resolvelib/found_candidates.py", line 155, in __bool__
+    return any(self)
+           ^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_internal/resolution/resolvelib/found_candidates.py", line 143, in <genexpr>
+    return (c for c in iterator if id(c) not in self._incompatible_ids)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_internal/resolution/resolvelib/found_candidates.py", line 44, in _iter_built
+    for version, func in infos:
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_internal/resolution/resolvelib/factory.py", line 286, in iter_index_candidate_infos
+    result = self._finder.find_best_candidate(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_internal/index/package_finder.py", line 890, in find_best_candidate
+    candidates = self.find_all_candidates(project_name)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_internal/index/package_finder.py", line 831, in find_all_candidates
+    page_candidates = list(page_candidates_it)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_internal/index/sources.py", line 134, in page_candidates
+    yield from self._candidates_from_page(self._link)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_internal/index/package_finder.py", line 791, in process_project_url
+    index_response = self._link_collector.fetch_response(project_url)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_internal/index/collector.py", line 461, in fetch_response
+    return _get_index_content(location, session=self.session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_internal/index/collector.py", line 364, in _get_index_content
+    resp = _get_simple_response(url, session=session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_internal/index/collector.py", line 135, in _get_simple_response
+    resp = session.get(
+           ^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_vendor/requests/sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_internal/network/session.py", line 519, in request
+    return super().request(method, url, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_vendor/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_vendor/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_vendor/cachecontrol/adapter.py", line 76, in send
+    resp = super().send(request, stream, timeout, verify, cert, proxies)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_vendor/requests/adapters.py", line 538, in send
+    return self.build_response(request, resp)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_vendor/cachecontrol/adapter.py", line 117, in build_response
+    response.read(decode_content=False)
+  File "/tmp/tmp.FRhs7fraqX/venv/lib64/python3.11/site-packages/pip/_vendor/urllib3/response.py", line 913, in read
+    if len(self._decoded_buffer) >= amt:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'int' and 'NoneType'
+install of pinned pair failed
+[T4] installing the pinned pair into /tmp/tmp.fN7PuO3y73/site (system pip, --no-cache-dir)
+[T4] loaded urllib3 2.8.0 + requests 2.34.2
+[T4] requests.get round trip OK (status 200, body matches)
+[T4] urllib3 streamed read (amt=64) OK
+[T4] urllib3 full read (amt=None) OK — no TypeError from the decoded-buffer path
+[T4] RESULT: PASS
