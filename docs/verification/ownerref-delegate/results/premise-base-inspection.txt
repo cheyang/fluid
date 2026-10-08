@@ -1,0 +1,44 @@
+== P0 premise evidence (run against BASE e0fc4c189a6e45ee17a5e812abf3fcbecf566f09, 2026-10-09) ==
+
+-- 1. base pkg/utils/dataset_runtime.go carries its own per-field GVK fallback, no transformer usage --
+45:// datasetControllerOwnerReference builds the controller ownerReference which points to the given dataset.
+49:func datasetControllerOwnerReference(dataset *datav1alpha1.Dataset) metav1.OwnerReference {
+86:				datasetControllerOwnerReference(dataset)})
+101:						datasetControllerOwnerReference(dataset),
+
+-- 2. base datasetControllerOwnerReference body (the duplicated logic issue #6140 targets) --
+// Kind and APIVersion come from the dataset's TypeMeta, and fall back to the well-known values of the Dataset
+// CRD when it is empty, which a typed client may hand back depending on how the object was read. The owner
+// based watch of the dataset controller resolves a dependent through those two fields, so they must be set.
+func datasetControllerOwnerReference(dataset *datav1alpha1.Dataset) metav1.OwnerReference {
+	kind := dataset.GetObjectKind().GroupVersionKind().Kind
+	if len(kind) == 0 {
+		kind = datav1alpha1.Datasetkind
+	}
+	apiVersion := dataset.APIVersion
+	if len(apiVersion) == 0 {
+		apiVersion = datav1alpha1.GroupVersion.String()
+	}
+
+	return metav1.OwnerReference{
+		Kind:       kind,
+		APIVersion: apiVersion,
+		Name:       dataset.GetName(),
+		UID:        dataset.GetUID(),
+		Controller: ptr.To(true),
+	}
+}
+
+-- 3. base owner_reference.go already has per-field recovery + failure logging (#6140 items 1+2 landed via #6139) --
+45:	if len(gvk.Kind) == 0 || len(gvk.Version) == 0 {
+48:			log.Error(err, "failed to recover the GroupVersionKind of the owner from the scheme, the generated ownerReference stays incomplete",
+51:			if len(gvk.Kind) == 0 {
+54:			if len(gvk.Version) == 0 {
+
+-- 4. the merge that brought it: --
+95138fc7 fix(transformer): recover the GroupVersionKind of an owner whose TypeMeta is incomplete (#6139)
+
+-- 5. no base test covers Dataset/AlluxioRuntime partial-TypeMeta shapes or datasetControllerOwnerReference --
+27
+0
+0 (absent)

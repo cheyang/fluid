@@ -1,0 +1,41 @@
+{
+  "topic": "ownerref-delegate",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6199",
+  "_prHeadFetch_note": "prHeadFetch is the optional local-remote fallback; 'pr' above is machine-independent and preferred.",
+  "prHeadFetch": { "remote": "origin", "ref": "pull/6199/head" },
+  "harnessPaths": [
+    "docs/verification/ownerref-delegate",
+    "pkg/utils/ownerref_delegate_verify_test.go",
+    "pkg/utils/transformer/owner_reference_gvk_verify_test.go"
+  ],
+  "_premise_note": "P0 is the PR's own problem statement (issue #6140), run against the BASE branch without the patch.",
+  "premise": {
+    "id": "P0",
+    "claim": "The two code paths do not overlap - datasetControllerOwnerReference does not go through the transformer - so neither fix covers the other's callers.",
+    "reportedComponent": "pkg/utils/dataset_runtime.go + pkg/utils/transformer/owner_reference.go",
+    "patchedComponent": "pkg/utils/dataset_runtime.go (now delegates to the transformer helper) + regression tests in pkg/utils and pkg/utils/transformer",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Base e0fc4c18 dataset_runtime.go:49 implements its own per-field GVK fallback and never imports utils/transformer; issue items 1+2 already landed on base via #6139 (95138fc7), so this PR's delegation + tests are exactly the remaining items 3+4. See results/premise-base-inspection.txt.",
+    "match": ["TestVerifyOwnerReferenceDelegationEquivalence"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/ ./pkg/utils/transformer/ -run 'TestVerify' -count=1 -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/ -run 'TestCreateRuntimeForReferenceDatasetIfNotExist|TestDatasetControllerOwnerReference|TestVerifyThinRuntimeCreationCarriesOwnerReference' -count=1 -json; go test ./pkg/utils/transformer/ -count=1 -json"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyGroupRecoveredWhenVersionIsSet"] },
+    { "id": "F1-canary", "polarity": "canary", "layer": "unit", "match": ["TestVerifyDatasetOwnerRefGrouplessVersionShape", "TestVerifyDelegationMatchesLegacyForMalformedShapes"] },
+    { "id": "F2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyOwnerReferenceDelegationEquivalence"] },
+    { "id": "F3", "polarity": "contract", "layer": "integration", "match": ["TestVerifyThinRuntimeCreationCarriesOwnerReference"] }
+  ],
+  "liveNote": "L3 (live) not run for this round per debate setup: unit + integration layers only. No cluster was involved; the fake-client layer is the deepest layer exercised."
+}
