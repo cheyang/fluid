@@ -1,0 +1,2 @@
+T2_lockfile_resolves_cp312	pass
+T4_requests_roundtrip	pass
