@@ -1,0 +1,37 @@
+{
+  "topic": "clientless-runtime-config-inject",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6197",
+  "harnessPaths": [
+    "docs/verification/clientless-runtime-config-inject",
+    "pkg/webhook/handler/mutating/verify_pr6197_codex_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Cache systems with no FUSE client (e.g. Mooncake) give app pods no way to learn the runtime config: 'app pod that mounts the PVC stays in ContainerCreating forever'; apps 'talk to the cache service directly' but the master address had to be hardcoded. Stage 1 (runtime.sh in the runtime-config ConfigMap, #6191) is already merged. Additionally the webhook ClusterRole lacks cacheruntimes, so base.GetRuntimeInfo blocks ~15s and pod creation fails for CacheRuntime datasets.",
+    "reportedComponent": "webhook (pod admission) + cache runtime engine",
+    "patchedComponent": "pkg/webhook (mutating handler, new RuntimeConfigInjector plugin), charts/fluid/fluid (webhook rule, plugin profile, RBAC), pkg/ddc/cache/engine (constant reuse)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "merge-base e0fc4c1 already contains generateRuntimeSh (pkg/ddc/cache/engine/cm.go) i.e. stage 1 exists; base chart has 0 occurrences of 'clientless' in webhookconfiguration.yaml and 0 of 'cacheruntimes' in the webhook ClusterRole (results/helm-template-checks.txt); base.GetRuntimeInfo reads CacheRuntime through the webhook's cached client (pkg/ddc/base/runtime.go:633, handler registered with mgr.GetClient() in pkg/webhook/handler/register.go:52)",
+    "match": ["helm-template-checks.txt"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 -gcflags=all=-l -v ./pkg/webhook/handler/mutating/ -run TestMutating -args -ginkgo.v"
+    },
+    "integration": {
+      "kind": "helm-template",
+      "cmd": "helm template fluid charts/fluid/fluid --show-only templates/role/webhook/rabc.yaml; helm template fluid charts/fluid/fluid | grep clientless"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "canary", "layer": "unit", "match": ["legacy plugins profile has no clientless"] },
+    { "id": "F2", "polarity": "canary", "layer": "unit", "match": ["43-63 characters are accepted by the annotation"] },
+    { "id": "F3", "polarity": "canary", "layer": "unit", "match": ["admitted without injection (fail-open)", "missing dataset fails closed"] },
+    { "id": "P0-ctrl", "polarity": "contract", "layer": "unit", "match": ["positive control: fresh install profile"] }
+  ],
+  "liveNote": "No live layer in this round. If a cluster is available, the upgrade path (F1) can be shown end-to-end: helm install an old chart, helm upgrade to this PR's chart with default values, create a labeled+annotated pod against a Bound cache dataset and observe that nothing is injected while the webhook configuration does carry the clientless.fluid.io rule."
+}

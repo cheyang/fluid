@@ -1,0 +1,69 @@
+=== RUN   TestRuntimeconfiginjector
+Running Suite: Runtimeconfiginjector Suite - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector
+==========================================================================================================================================================
+Random Seed: [1m1791438082[0m
+
+Will run [1m14[0m of [1m14[0m specs
+[38;5;243m------------------------------[0m
+[0mRuntimeConfigInjector [38;5;243mGetName [0m[1mshould report the name the plugin is registered under[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector/runtime_config_injector_test.go:81[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mRuntimeConfigInjector [38;5;243mMutate [0mwhen the pod is already marked as injected [0m[1mshould leave the pod untouched[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector/runtime_config_injector_test.go:88[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mRuntimeConfigInjector [38;5;243mMutate [0mwhen the pod uses no dataset [0m[1mshould leave the pod untouched[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector/runtime_config_injector_test.go:102[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mRuntimeConfigInjector [38;5;243mMutate [0mwhen one dataset is declared [0m[1mshould inject the volume, the mount and the env pointer[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector/runtime_config_injector_test.go:115[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mRuntimeConfigInjector [38;5;243mMutate [0mwhen the dataset name contains a hyphen [0m[1mshould render an env name a shell can reference[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector/runtime_config_injector_test.go:149[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mRuntimeConfigInjector [38;5;243mMutate [0mwhen several datasets are declared [0m[1mshould inject each of them in a stable order[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector/runtime_config_injector_test.go:164[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mRuntimeConfigInjector [38;5;243mMutate [0mwhen the pod has init containers and a fuse sidecar [0m[1mshould inject into the app and init containers but not the fuse sidecar[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector/runtime_config_injector_test.go:188[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mRuntimeConfigInjector [38;5;243mMutate [0mwhen the config map does not exist [0m[1mshould fail and leave the pod untouched[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector/runtime_config_injector_test.go:208[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mRuntimeConfigInjector [38;5;243mMutate [0mwhen one of several config maps is missing [0m[1mshould inject nothing at all[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector/runtime_config_injector_test.go:227[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mRuntimeConfigInjector [38;5;243mMutate [0mwhen the config map carries no shell rendering [0m[1mshould fail with a message naming the missing key[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector/runtime_config_injector_test.go:243[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mRuntimeConfigInjector [38;5;243mMutate [0mwhen the dataset name is too long for a volume name [0m[1mshould fail before touching the pod[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector/runtime_config_injector_test.go:259[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mRuntimeConfigInjector [38;5;243mMutate [0mwhen the same pod is mutated twice [0m[1mshould not duplicate the injected volume, mount or env[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector/runtime_config_injector_test.go:274[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mRuntimeConfigInjector [38;5;243mMutate [0mwhen the pod already has volumes and env of its own [0m[1mshould keep them[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector/runtime_config_injector_test.go:295[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0menvSuffix [0m[1mshould upper-case the name and replace hyphens[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector/runtime_config_injector_test.go:322[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+
+[38;5;10m[1mRan 14 of 14 Specs in 0.001 seconds[0m
+[38;5;10m[1mSUCCESS![0m -- [38;5;10m[1m14 Passed[0m | [38;5;9m[1m0 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+--- PASS: TestRuntimeconfiginjector (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector	0.011s

@@ -1,0 +1,141 @@
+2026/10/08 13:43:45 WARNING: env variable FILE_PREFETCHER_IMAGE is not set, file prefetcher image is required in Pod's annotation
+=== RUN   TestMutating
+Running Suite: Mutating Suite - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating
+================================================================================================================================
+Random Seed: [1m1791438225[0m
+
+Will run [1m26[0m of [1m26[0m specs
+[38;5;243m------------------------------[0m
+[0mMutatePodWithReferencedDataset [38;5;243mno serverless pod with runtime [0m[1mshould mutate pod and inject cache affinity[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:1040[0m
+[38;5;10m• [0.001 seconds][0m
+[38;5;243m------------------------------[0m
+[0mMutatePodWithReferencedDataset [38;5;243mno serverless pod without ref pvc [0m[1mshould return error when referenced pvc does not exist[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:1258[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mMutatePod - PVC Collection Error [0m[1mshould return error when PVC collection fails[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:1904[0m
+[38;5;10m• [0.001 seconds][0m
+[38;5;243m------------------------------[0m
+[0mFluidMutatingHandler Setup [0m[1mshould setup handler with client, reader and decoder[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:1447[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mHandle - Injection Flags [0m[1mshould skip mutation when injection is disabled via label[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:1649[0m
+[38;5;10m• [0.001 seconds][0m
+[38;5;243m------------------------------[0m
+[0mHandle [38;5;243mwhen handling admission requests [0m[1mshould allow pod with namespace in pod[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:942[0m
+[38;5;10m• [0.001 seconds][0m
+[38;5;243m------------------------------[0m
+[0mHandle [38;5;243mwhen handling admission requests [0m[1mshould allow pod with namespace not in pod[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:977[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mMutatePod - useDirectReader flag [0m[1mshould use direct reader when useDirectReader is true[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:1802[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mHandle - Global Injection Disabled [0m[1mshould skip mutation when global injection is disabled[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:1475[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mMutatePod - Plugin Execution [0m[1mshould handle pod without any special labels[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:1854[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mHandle - Namespace Validation [0m[1mshould deny pod with mismatched namespace[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:1557[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mHandle - Namespace Validation [0m[1mshould return error when both namespaces are empty[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:1593[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mHandle - Decoder Error [0m[1mshould return error when decoder fails[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:1526[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mMutatePod [38;5;243mserverless pod without dataset [0m[1mshould return error when dataset does not exist[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:91[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mMutatePod [38;5;243mserverless pod with dataset [0m[1mshould mutate pod successfully[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:253[0m
+[38;5;10m• [0.001 seconds][0m
+[38;5;243m------------------------------[0m
+[0mMutatePod [38;5;243mserverless pod done [0m[1mshould skip mutation when sidecar already injected[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:425[0m
+[38;5;10m• [0.001 seconds][0m
+[38;5;243m------------------------------[0m
+[0mMutatePod [38;5;243mno serverless pod without runtime [0m[1mshould return error when runtime does not exist[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:588[0m
+[38;5;10m• [0.001 seconds][0m
+[38;5;243m------------------------------[0m
+[0mMutatePod [38;5;243mno serverless pod with runtime [0m[1mshould mutate pod successfully[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:751[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mHandle - Retry with API Reader [0m[1mshould return error when retry with API reader also fails[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/mutating_handler_test.go:1716[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mPR6197 verification: clientless runtime config injection [38;5;243mpositive control: fresh install profile, everything in place [0m[1m[contract] injects the runtime config volume, mount and env into the app pod[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/verify_pr6197_codex_test.go:193[0m
+[38;5;10m• [0.001 seconds][0m
+[38;5;243m------------------------------[0m
+[0mPR6197 verification: clientless runtime config injection [38;5;243mF1: helm upgrade keeps the legacy plugins profile (no clientless section) [0m[1m[canary] the labeled pod is admitted silently unmutated although everything else is in place[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/verify_pr6197_codex_test.go:210[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mPR6197 verification: clientless runtime config injection [38;5;243mF3: the runtime config ConfigMap is missing (e.g. not synced yet, or old controller) [0m[1m[canary] the pod is admitted without injection (fail-open)...[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/verify_pr6197_codex_test.go:231[0m
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/verify_pr6197_codex_test.go:241 [38;5;243m@ 10/08/26 13:43:45.531[0m
+[38;5;9m• [FAILED] [0.001 seconds][0m
+[0mPR6197 verification: clientless runtime config injection [38;5;243mF3: the runtime config ConfigMap is missing (e.g. not synced yet, or old controller) [38;5;9m[1m[It] [canary] the pod is admitted without injection (fail-open)...[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/verify_pr6197_codex_test.go:231[0m
+
+  [38;5;9m[FAILED] Expected
+      <bool>: false
+  to be true[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/verify_pr6197_codex_test.go:241[0m [38;5;243m@ 10/08/26 13:43:45.531[0m
+[38;5;243m------------------------------[0m
+[0mPR6197 verification: clientless runtime config injection [38;5;243mF3: the runtime config ConfigMap is missing (e.g. not synced yet, or old controller) [0m[1m[canary] ...while a missing dataset fails closed and rejects the pod[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/verify_pr6197_codex_test.go:246[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mPR6197 verification: clientless runtime config injection [38;5;243mF2: dataset names of 43-63 characters are accepted by the annotation but cannot be injected [0m[1m[canary] a 50-char dataset passes collection yet the pod is admitted unmutated[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/verify_pr6197_codex_test.go:261[0m
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/verify_pr6197_codex_test.go:280 [38;5;243m@ 10/08/26 13:43:45.532[0m
+[38;5;9m• [FAILED] [0.001 seconds][0m
+[0mPR6197 verification: clientless runtime config injection [38;5;243mF2: dataset names of 43-63 characters are accepted by the annotation but cannot be injected [38;5;9m[1m[It] [canary] a 50-char dataset passes collection yet the pod is admitted unmutated[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/verify_pr6197_codex_test.go:261[0m
+
+  [38;5;9m[FAILED] Expected
+      <bool>: false
+  to be true[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/verify_pr6197_codex_test.go:280[0m [38;5;243m@ 10/08/26 13:43:45.532[0m
+[38;5;243m------------------------------[0m
+[0mHandlerMap [0m[1mshould register a handler under WebhookSchedulePodPath[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/webhook_test.go:26[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+[0mHandlerMap [0m[1mshould map WebhookSchedulePodPath to a *FluidMutatingHandler[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/webhook_test.go:30[0m
+[38;5;10m• [0.000 seconds][0m
+[38;5;243m------------------------------[0m
+
+[38;5;9m[1mSummarizing 2 Failures:[0m
+  [38;5;9m[FAIL][0m [0mPR6197 verification: clientless runtime config injection [38;5;243mF3: the runtime config ConfigMap is missing (e.g. not synced yet, or old controller) [38;5;9m[1m[It] [canary] the pod is admitted without injection (fail-open)...[0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/verify_pr6197_codex_test.go:241[0m
+  [38;5;9m[FAIL][0m [0mPR6197 verification: clientless runtime config injection [38;5;243mF2: dataset names of 43-63 characters are accepted by the annotation but cannot be injected [38;5;9m[1m[It] [canary] a 50-char dataset passes collection yet the pod is admitted unmutated[0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/webhook/handler/mutating/verify_pr6197_codex_test.go:280[0m
+
+[38;5;9m[1mRan 26 of 26 Specs in 0.014 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m24 Passed[0m | [38;5;9m[1m2 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+--- FAIL: TestMutating (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/webhook/handler/mutating	0.028s
+FAIL

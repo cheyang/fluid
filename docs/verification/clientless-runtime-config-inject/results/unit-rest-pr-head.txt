@@ -1,0 +1,5 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	0.031s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.154s
+ok  	github.com/fluid-cloudnative/fluid/pkg/common	0.016s
+ok  	github.com/fluid-cloudnative/fluid/pkg/common/features	0.007s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	112.086s

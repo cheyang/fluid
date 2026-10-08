@@ -1,0 +1,36 @@
+== PR head: webhook ClusterRole runtime rule ==
+kind: ClusterRole
+metadata:
+  name: fluid-webhook
+rules:
+  # Can only list and watch secret `mutatingwebhookconfiguration` with a metadata.name field selector
+  # See https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-resources
+  - apiGroups:
+      - admissionregistration.k8s.io
+    resources:
+      - mutatingwebhookconfigurations
+    resourceNames:
+      - fluid-pod-admission-webhook
+    verbs:
+      - get
+      - patch
+      - list
+      - watch
+  - apiGroups:
+      - data.fluid.io
+    resources:
+      - datasets
+      - alluxioruntimes
+      - jindoruntimes
+      - juicefsruntimes
+      - thinruntimes
+      - efcruntimes
+      - vineyardruntimes
+      - cacheruntimes
+    verbs:
+      - get
+
+== base (e0fc4c1) webhook ClusterRole: cacheruntimes occurrences ==
+0
+== base (e0fc4c1) webhookconfiguration: clientless occurrences ==
+0
