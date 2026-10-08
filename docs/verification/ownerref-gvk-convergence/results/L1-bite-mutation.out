@@ -1,0 +1,26 @@
+--- FAIL: TestVerifyOwnerRefConvergenceEquivalence (0.00s)
+    --- FAIL: TestVerifyOwnerRefConvergenceEquivalence/equivalent/kind_only_non-standard (0.00s)
+        dataset_runtime_ownerref_verify_test.go:118: divergence on reachable shape "kind only non-standard": legacy={APIVersion:data.fluid.io/v1alpha1 Kind:ThinRuntime Name:kind-nonstrd UID:uid-kind-nonstrd Controller:true BlockOwnerDeletion:false} current={APIVersion: Kind:ThinRuntime Name:kind-nonstrd UID:uid-kind-nonstrd Controller:true BlockOwnerDeletion:false}
+    --- FAIL: TestVerifyOwnerRefConvergenceEquivalence/equivalent/apiVersion_only_other_registered_grp (0.00s)
+        dataset_runtime_ownerref_verify_test.go:118: divergence on reachable shape "apiVersion only other registered grp": legacy={APIVersion:data.fluid.io/v1alpha1 Kind:Dataset Name:grp-only UID:uid-grp-only Controller:true BlockOwnerDeletion:false} current={APIVersion:data.fluid.io/v1alpha1 Kind: Name:grp-only UID:uid-grp-only Controller:true BlockOwnerDeletion:false}
+    --- FAIL: TestVerifyOwnerRefConvergenceEquivalence/equivalent/empty_TypeMeta (0.00s)
+        dataset_runtime_ownerref_verify_test.go:118: divergence on reachable shape "empty TypeMeta": legacy={APIVersion:data.fluid.io/v1alpha1 Kind:Dataset Name:empty UID:uid-empty Controller:true BlockOwnerDeletion:false} current={APIVersion: Kind: Name:empty UID:uid-empty Controller:true BlockOwnerDeletion:false}
+    --- FAIL: TestVerifyOwnerRefConvergenceEquivalence/equivalent/apiVersion_only (0.00s)
+        dataset_runtime_ownerref_verify_test.go:118: divergence on reachable shape "apiVersion only": legacy={APIVersion:data.fluid.io/v1alpha1 Kind:Dataset Name:version-only UID:uid-version-only Controller:true BlockOwnerDeletion:false} current={APIVersion:data.fluid.io/v1alpha1 Kind: Name:version-only UID:uid-version-only Controller:true BlockOwnerDeletion:false}
+    --- FAIL: TestVerifyOwnerRefConvergenceEquivalence/equivalent/wrong_kind_only (0.00s)
+        dataset_runtime_ownerref_verify_test.go:118: divergence on reachable shape "wrong kind only": legacy={APIVersion:data.fluid.io/v1alpha1 Kind:DataLoad Name:wrong-kind UID:uid-wrong-kind Controller:true BlockOwnerDeletion:false} current={APIVersion: Kind:DataLoad Name:wrong-kind UID:uid-wrong-kind Controller:true BlockOwnerDeletion:false}
+    --- FAIL: TestVerifyOwnerRefConvergenceEquivalence/equivalent/kind_only (0.00s)
+        dataset_runtime_ownerref_verify_test.go:118: divergence on reachable shape "kind only": legacy={APIVersion:data.fluid.io/v1alpha1 Kind:Dataset Name:kind-only UID:uid-kind-only Controller:true BlockOwnerDeletion:false} current={APIVersion: Kind:Dataset Name:kind-only UID:uid-kind-only Controller:true BlockOwnerDeletion:false}
+    --- FAIL: TestVerifyOwnerRefConvergenceEquivalence/equivalent/apiVersion_only_custom_version (0.00s)
+        dataset_runtime_ownerref_verify_test.go:118: divergence on reachable shape "apiVersion only custom version": legacy={APIVersion:data.fluid.io/v1beta1 Kind:Dataset Name:custom-version-only UID:uid-custom-version-only Controller:true BlockOwnerDeletion:false} current={APIVersion:data.fluid.io/v1beta1 Kind: Name:custom-version-only UID:uid-custom-version-only Controller:true BlockOwnerDeletion:false}
+    --- FAIL: TestVerifyOwnerRefConvergenceEquivalence/equivalent/core-style_apiVersion_(no_group) (0.00s)
+        dataset_runtime_ownerref_verify_test.go:118: divergence on reachable shape "core-style apiVersion (no group)": legacy={APIVersion:v1alpha1 Kind:Dataset Name:core-style UID:uid-core-style Controller:true BlockOwnerDeletion:false} current={APIVersion:v1alpha1 Kind: Name:core-style UID:uid-core-style Controller:true BlockOwnerDeletion:false}
+    --- FAIL: TestVerifyOwnerRefConvergenceEquivalence/normalized/unparseable_apiVersion (0.00s)
+        dataset_runtime_ownerref_verify_test.go:162: expected normalization to {Dataset data.fluid.io/v1alpha1}, got {Dataset a/b/c}
+    --- FAIL: TestVerifyOwnerRefConvergenceEquivalence/normalized/group_set,_version_empty (0.00s)
+        dataset_runtime_ownerref_verify_test.go:162: expected normalization to {Dataset data.fluid.io/v1alpha1}, got {Dataset data.fluid.io/}
+    --- FAIL: TestVerifyOwnerRefConvergenceEquivalence/normalized/lone_slash (0.00s)
+        dataset_runtime_ownerref_verify_test.go:162: expected normalization to {Dataset data.fluid.io/v1alpha1}, got { /}
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	0.010s
+FAIL

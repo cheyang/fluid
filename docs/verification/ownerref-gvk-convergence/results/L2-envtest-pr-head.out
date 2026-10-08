@@ -1,0 +1,8 @@
+=== RUN   TestVerifyOwnerRefAgainstRealAPIServer
+    dataset_runtime_envtest_verify_test.go:99: typed-client Get returned TypeMeta: kind="" apiVersion="" (empty TypeMeta is what motivates the recovery logic)
+    dataset_runtime_envtest_verify_test.go:142: owner GVK resolves to resource datasets
+    dataset_runtime_envtest_verify_test.go:179: counterfactual cf-empty-gvk rejected as expected: ThinRuntime.data.fluid.io "cf-empty-gvk" is invalid: [metadata.ownerReferences.apiVersion: Invalid value: "": version must not be empty, metadata.ownerReferences.kind: Invalid value: "": must not be empty]
+    dataset_runtime_envtest_verify_test.go:179: counterfactual cf-empty-version rejected as expected: ThinRuntime.data.fluid.io "cf-empty-version" is invalid: metadata.ownerReferences.apiVersion: Invalid value: "data.fluid.io/": version must not be empty
+--- PASS: TestVerifyOwnerRefAgainstRealAPIServer (5.81s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	5.818s

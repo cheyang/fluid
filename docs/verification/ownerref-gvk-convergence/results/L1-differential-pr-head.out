@@ -1,0 +1,40 @@
+=== RUN   TestVerifyOwnerRefConvergenceEquivalence
+=== RUN   TestVerifyOwnerRefConvergenceEquivalence/equivalent/apiVersion_only_other_registered_grp
+=== RUN   TestVerifyOwnerRefConvergenceEquivalence/equivalent/empty_TypeMeta
+=== RUN   TestVerifyOwnerRefConvergenceEquivalence/equivalent/apiVersion_only
+=== RUN   TestVerifyOwnerRefConvergenceEquivalence/equivalent/complete_custom_version
+=== RUN   TestVerifyOwnerRefConvergenceEquivalence/equivalent/apiVersion_only_custom_version
+=== RUN   TestVerifyOwnerRefConvergenceEquivalence/equivalent/wrong_kind_only
+=== RUN   TestVerifyOwnerRefConvergenceEquivalence/equivalent/kind_only_non-standard
+=== RUN   TestVerifyOwnerRefConvergenceEquivalence/equivalent/complete_standard_TypeMeta
+=== RUN   TestVerifyOwnerRefConvergenceEquivalence/equivalent/kind_only
+=== RUN   TestVerifyOwnerRefConvergenceEquivalence/equivalent/wrong_kind_with_custom_version
+=== RUN   TestVerifyOwnerRefConvergenceEquivalence/equivalent/core-style_apiVersion_(no_group)
+=== RUN   TestVerifyOwnerRefConvergenceEquivalence/normalized/group_set,_version_empty
+=== RUN   TestVerifyOwnerRefConvergenceEquivalence/normalized/lone_slash
+=== RUN   TestVerifyOwnerRefConvergenceEquivalence/normalized/unparseable_apiVersion
+--- PASS: TestVerifyOwnerRefConvergenceEquivalence (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceEquivalence/equivalent/apiVersion_only_other_registered_grp (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceEquivalence/equivalent/empty_TypeMeta (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceEquivalence/equivalent/apiVersion_only (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceEquivalence/equivalent/complete_custom_version (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceEquivalence/equivalent/apiVersion_only_custom_version (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceEquivalence/equivalent/wrong_kind_only (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceEquivalence/equivalent/kind_only_non-standard (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceEquivalence/equivalent/complete_standard_TypeMeta (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceEquivalence/equivalent/kind_only (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceEquivalence/equivalent/wrong_kind_with_custom_version (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceEquivalence/equivalent/core-style_apiVersion_(no_group) (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceEquivalence/normalized/group_set,_version_empty (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceEquivalence/normalized/lone_slash (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceEquivalence/normalized/unparseable_apiVersion (0.00s)
+=== RUN   TestVerifyHelperPartialTypeMetaRecovery
+=== RUN   TestVerifyHelperPartialTypeMetaRecovery/only_kind_set
+=== RUN   TestVerifyHelperPartialTypeMetaRecovery/only_apiVersion_set
+=== RUN   TestVerifyHelperPartialTypeMetaRecovery/fully_empty_TypeMeta
+--- PASS: TestVerifyHelperPartialTypeMetaRecovery (0.00s)
+    --- PASS: TestVerifyHelperPartialTypeMetaRecovery/only_kind_set (0.00s)
+    --- PASS: TestVerifyHelperPartialTypeMetaRecovery/only_apiVersion_set (0.00s)
+    --- PASS: TestVerifyHelperPartialTypeMetaRecovery/fully_empty_TypeMeta (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.011s
