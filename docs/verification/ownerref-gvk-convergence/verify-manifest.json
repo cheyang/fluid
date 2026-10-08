@@ -1,0 +1,36 @@
+{
+  "topic": "ownerref-gvk-convergence",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6199",
+  "harnessPaths": [
+    "docs/verification/ownerref-gvk-convergence",
+    "pkg/utils/dataset_runtime_ownerref_verify_test.go",
+    "pkg/utils/dataset_runtime_envtest_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Two independent implementations of 'recover the owner GroupVersionKind when TypeMeta is empty' exist (pkg/utils/dataset_runtime.go datasetControllerOwnerReference vs pkg/utils/transformer/owner_reference.go GenerateOwnerReferenceFromObject) and should converge; the convergence must be behavior-preserving for a typed client that hands back an empty TypeMeta.",
+    "reportedComponent": "pkg/utils/dataset_runtime.go + pkg/utils/transformer/owner_reference.go",
+    "patchedComponent": "pkg/utils/dataset_runtime.go (delegation) + tests",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Base @e0fc4c18 carries both implementations (dataset_runtime.go:49 local per-field fallback; owner_reference.go:41 scheme-backed per-field recovery). envtest (results/L2-envtest-pr-head.out) shows a typed-client Get returns empty TypeMeta (kind=\"\" apiVersion=\"\"), so the recovery path is the one that runs in production. On base, malformed apiVersions (data.fluid.io/, /, a/b/c) are copied verbatim into the ownerReference and are rejected by the real API server (results/L1-differential-base.out normalized/* FAIL; L2 counterfactual cf-empty-version rejection).",
+    "match": ["TestVerifyOwnerRefConvergenceEquivalence", "TestVerifyHelperPartialTypeMetaRecovery"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/ -run 'TestVerifyOwnerRefConvergenceEquivalence|TestVerifyHelperPartialTypeMetaRecovery|TestDatasetControllerOwnerReference|TestCreateRuntimeForReferenceDatasetIfNotExist' -count=1 -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "export KUBEBUILDER_ASSETS=${KUBEBUILDER_ASSETS:-$HOME/.local/share/kubebuilder-envtest/k8s/1.36.2-linux-amd64}; go test ./pkg/utils/ -run 'TestVerifyOwnerRefAgainstRealAPIServer' -count=1 -json"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyOwnerRefConvergenceEquivalence"] },
+    { "id": "F2", "polarity": "contract", "layer": "integration", "match": ["TestVerifyOwnerRefAgainstRealAPIServer"] }
+  ],
+  "liveNote": "L3 skipped per debate setup (unit + integration only). The e2e signal to watch in a live cluster: reference-dataset reconcile creates/adopts a ThinRuntime whose ownerReference carries kind=Dataset apiVersion=data.fluid.io/v1alpha1, and the dataset controller's owner-based watch enqueues on ThinRuntime events."
+}
