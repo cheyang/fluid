@@ -25,8 +25,12 @@ set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TOPIC_DIR="$(dirname "$HERE")"
 REQ="$TOPIC_DIR/../../../test/gha-e2e/mooncake/image/requirements.txt"
-WORK="$(mktemp -d)"
+# /tmp on typical CI/review hosts may be a small tmpfs; keep scratch (and pip's
+# TMPDIR, since pip streams downloads through it) on the repo filesystem.
+WORK="$TOPIC_DIR/results/tmp"
+mkdir -p "$WORK"
 trap 'rm -rf "$WORK"' EXIT
+export TMPDIR="$WORK"
 
 emit() { # name, ok(0=pass), note
   if [ "$2" -eq 0 ]; then

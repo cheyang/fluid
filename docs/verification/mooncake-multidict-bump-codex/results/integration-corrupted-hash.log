@@ -1,37 +1,37 @@
 Looking in indexes: https://mirrors.aliyun.com/pypi/simple/
-Collecting aiohappyeyeballs==2.7.1 (from -r /tmp/tmp.fjpy9ZsI2X/requirements-allbad.txt (line 23))
+Collecting aiohappyeyeballs==2.7.1 (from -r /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/docs/verification/mooncake-multidict-bump-codex/results/tmp/requirements-allbad.txt (line 23))
   Downloading https://mirrors.aliyun.com/pypi/packages/71/43/1947f06babed6b3f1d7f38b0c767f52df66bfb2bc10b468c4a7de9eceff2/aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
-Collecting aiohttp==3.14.3 (from -r /tmp/tmp.fjpy9ZsI2X/requirements-allbad.txt (line 26))
+Collecting aiohttp==3.14.3 (from -r /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/docs/verification/mooncake-multidict-bump-codex/results/tmp/requirements-allbad.txt (line 26))
   Downloading https://mirrors.aliyun.com/pypi/packages/52/b7/7cd31f29d6055bd711ae6e669367fba6f5ae9de463910a793e30556a8db7/aiohttp-3.14.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.8 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 740.1 kB/s eta 0:00:00
-Collecting aiosignal==1.4.0 (from -r /tmp/tmp.fjpy9ZsI2X/requirements-allbad.txt (line 29))
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 803.8 kB/s eta 0:00:00
+Collecting aiosignal==1.4.0 (from -r /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/docs/verification/mooncake-multidict-bump-codex/results/tmp/requirements-allbad.txt (line 29))
   Downloading https://mirrors.aliyun.com/pypi/packages/fb/76/641ae371508676492379f16e2fa48f4e2c11741bd63c48be4b12a6b09cba/aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
-Collecting attrs==26.1.0 (from -r /tmp/tmp.fjpy9ZsI2X/requirements-allbad.txt (line 32))
+Collecting attrs==26.1.0 (from -r /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/docs/verification/mooncake-multidict-bump-codex/results/tmp/requirements-allbad.txt (line 32))
   Downloading https://mirrors.aliyun.com/pypi/packages/64/b4/17d4b0b2a2dc85a6df63d1157e028ed19f90d4cd97c36717afef2bc2f395/attrs-26.1.0-py3-none-any.whl (67 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 67.5/67.5 kB 590.2 MB/s eta 0:00:00
-Collecting certifi==2026.7.22 (from -r /tmp/tmp.fjpy9ZsI2X/requirements-allbad.txt (line 35))
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 67.5/67.5 kB 576.0 MB/s eta 0:00:00
+Collecting certifi==2026.7.22 (from -r /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/docs/verification/mooncake-multidict-bump-codex/results/tmp/requirements-allbad.txt (line 35))
   Downloading https://mirrors.aliyun.com/pypi/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl (136 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 137.0/137.0 kB 778.1 MB/s eta 0:00:00
-Collecting charset-normalizer==3.5.1 (from -r /tmp/tmp.fjpy9ZsI2X/requirements-allbad.txt (line 38))
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 137.0/137.0 kB 725.3 MB/s eta 0:00:00
+Collecting charset-normalizer==3.5.1 (from -r /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/docs/verification/mooncake-multidict-bump-codex/results/tmp/requirements-allbad.txt (line 38))
   Downloading https://mirrors.aliyun.com/pypi/packages/6f/89/bb5108dc6c3651dca963f2b0a3ba19bbcb370c94e1b6d3e0e844a58e6dca/charset_normalizer-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (248 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 248.8/248.8 kB 1.2 MB/s eta 0:00:00
-Collecting frozenlist==1.8.0 (from -r /tmp/tmp.fjpy9ZsI2X/requirements-allbad.txt (line 41))
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 248.8/248.8 kB 131.9 MB/s eta 0:00:00
+Collecting frozenlist==1.8.0 (from -r /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/docs/verification/mooncake-multidict-bump-codex/results/tmp/requirements-allbad.txt (line 41))
   Downloading https://mirrors.aliyun.com/pypi/packages/6a/bd/d91c5e39f490a49df14320f4e8c80161cfcce09f1e2cde1edd16a551abb3/frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (242 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 242.4/242.4 kB 1.1 MB/s eta 0:00:00
-Collecting idna==3.19 (from -r /tmp/tmp.fjpy9ZsI2X/requirements-allbad.txt (line 44))
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 242.4/242.4 kB 573.3 MB/s eta 0:00:00
+Collecting idna==3.19 (from -r /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/docs/verification/mooncake-multidict-bump-codex/results/tmp/requirements-allbad.txt (line 44))
   Downloading https://mirrors.aliyun.com/pypi/packages/57/b0/0e52c878c53f245edd3a11020f20979b3f490f245af532c7cae3027754b5/idna-3.19-py3-none-any.whl (68 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 68.5/68.5 kB 584.3 MB/s eta 0:00:00
-Collecting mooncake-transfer-engine-non-cuda==0.3.12.post1 (from -r /tmp/tmp.fjpy9ZsI2X/requirements-allbad.txt (line 47))
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 68.5/68.5 kB 589.4 MB/s eta 0:00:00
+Collecting mooncake-transfer-engine-non-cuda==0.3.12.post1 (from -r /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/docs/verification/mooncake-multidict-bump-codex/results/tmp/requirements-allbad.txt (line 47))
   Downloading https://mirrors.aliyun.com/pypi/packages/69/b8/fc2574b07297d66906e1651490c228ecaaaac2ae7c5a0716f8f8856312b2/mooncake_transfer_engine_non_cuda-0.3.12.post1-cp312-cp312-manylinux_2_28_x86_64.whl (44.5 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.5/44.5 MB 818.6 kB/s eta 0:00:00
-Collecting msgpack==1.2.2 (from -r /tmp/tmp.fjpy9ZsI2X/requirements-allbad.txt (line 49))
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.5/44.5 MB 892.6 kB/s eta 0:00:00
+Collecting msgpack==1.2.2 (from -r /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/docs/verification/mooncake-multidict-bump-codex/results/tmp/requirements-allbad.txt (line 49))
   Downloading https://mirrors.aliyun.com/pypi/packages/41/f0/29f591bea185616cf417645ac03bd3ad9b317483ad8572160e325f7fe777/msgpack-1.2.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (420 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 420.6/420.6 kB 2.0 MB/s eta 0:00:00
-Collecting multidict==6.9.1 (from -r /tmp/tmp.fjpy9ZsI2X/requirements-allbad.txt (line 52))
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 420.6/420.6 kB 1.0 MB/s eta 0:00:00
+Collecting multidict==6.9.1 (from -r /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/docs/verification/mooncake-multidict-bump-codex/results/tmp/requirements-allbad.txt (line 52))
   Downloading https://mirrors.aliyun.com/pypi/packages/ed/5b/db08419c1e1f7c9d60cfd2787b2b517d7ae4ebbda8281b48a33eb5141467/multidict-6.9.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (336 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 336.9/336.9 kB 1.6 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 336.9/336.9 kB 814.1 kB/s eta 0:00:00
 ERROR: THESE PACKAGES DO NOT MATCH THE HASHES FROM THE REQUIREMENTS FILE. If you have updated the package versions, please update the hashes. Otherwise, examine the package contents carefully; someone may have tampered with them.
-    multidict==6.9.1 from https://mirrors.aliyun.com/pypi/packages/ed/5b/db08419c1e1f7c9d60cfd2787b2b517d7ae4ebbda8281b48a33eb5141467/multidict-6.9.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl#sha256=976fd7689d69ec78d67d31d38d396d8adb562f7e8368279f76aed4aa451fa06d (from -r /tmp/tmp.fjpy9ZsI2X/requirements-allbad.txt (line 52)):
+    multidict==6.9.1 from https://mirrors.aliyun.com/pypi/packages/ed/5b/db08419c1e1f7c9d60cfd2787b2b517d7ae4ebbda8281b48a33eb5141467/multidict-6.9.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl#sha256=976fd7689d69ec78d67d31d38d396d8adb562f7e8368279f76aed4aa451fa06d (from -r /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/docs/verification/mooncake-multidict-bump-codex/results/tmp/requirements-allbad.txt (line 52)):
         Expected sha256 00083a8a0f4e1b26b599889e90b9802504ce5d3f7722f925bbb7ca47dd22a7c1
         Expected     or 001ed8b02a5990c67a91c732843609d43a6be1f7576fcdfc867331239f37fbd3
         Expected     or 003f8b575a71b1b299d677c28db0653459c79b5308874efec813f17b7457c7f1
