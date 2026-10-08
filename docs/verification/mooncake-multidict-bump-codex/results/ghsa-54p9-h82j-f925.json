@@ -1,0 +1,13 @@
+{
+  "ghsa_id": "GHSA-54p9-h82j-f925",
+  "cve_id": "CVE-2026-104874",
+  "summary": "Multidict: Reference leak in CIMultiDict/MultiDict items-view union and subtraction",
+  "severity": "medium",
+  "vulnerabilities": [
+    {
+      "package": "multidict",
+      "vulnerable_version_range": ">= 6.7.0, <= 6.9.0",
+      "first_patched_version": "6.9.1"
+    }
+  ]
+}

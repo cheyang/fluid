@@ -1,0 +1,41 @@
+{
+  "topic": "mooncake-multidict-bump-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6202",
+  "harnessPaths": [
+    "docs/verification/mooncake-multidict-bump-codex"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "test/gha-e2e/mooncake/image pins multidict==6.7.1, which is inside GHSA-54p9-h82j-f925 (CVE-2026-104874, medium: reference leak in CIMultiDict/MultiDict items-view union and subtraction) vulnerable range >= 6.7.0, <= 6.9.0; 6.9.1 is the first patched version.",
+    "reportedComponent": "test/gha-e2e/mooncake/image/requirements.txt (mooncake e2e helper image)",
+    "patchedComponent": "test/gha-e2e/mooncake/image/requirements.txt",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "TestP0_BasePinsVulnerableMultidict: base pins 6.7.1, inside advisory range; see results/ghsa-54p9-h82j-f925.json",
+    "match": ["TestP0_BasePinsVulnerableMultidict"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "python3 docs/verification/mooncake-multidict-bump-codex/scripts/run_unit.py"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/mooncake-multidict-bump-codex/scripts/run_integration.sh"
+    }
+  },
+  "findings": [
+    { "id": "F1-unit-canary", "polarity": "canary", "layer": "unit",
+      "match": ["TestMultidictEntryAllPlatformHashes"] },
+    { "id": "F1-integration-canary", "polarity": "canary", "layer": "integration",
+      "match": ["TestSingleHashLossFallsBackToPureWheel"] },
+    { "id": "hash-gate-green", "polarity": "contract", "layer": "integration",
+      "match": ["TestPipDownloadRequiresHashesSucceeds"] },
+    { "id": "harness-bites", "polarity": "contract", "layer": "integration",
+      "match": ["TestHarnessBitesOnCorruptedHashes"] }
+  ],
+  "liveNote": "L3 skipped per debate instructions (no KUBECONFIG). The real end-to-end signal is the kind-e2e GHA job building this image with --require-hashes on the PR itself.",
+  "notes": "Layers emit go-test-JSON style lines so re-verify.sh's gotest parser works; the checks are python/bash, not Go."
+}
