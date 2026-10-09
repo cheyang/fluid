@@ -1,0 +1,10 @@
+# Harness-bites check (step 4): sabotage the deep-copy, expect the contract test to flip red, then revert.
+# Sabotage: cache the derived affinity across calls in AdvancedStatefulSetManager (models the 'engine-level caching' design the PR body rejects).
+--- FAIL: TestVerifyAffinityIsDeepCopied (0.00s)
+    verify_affinity_contract_test.go:119: contract: mutating the first returned affinity leaked into a later derivation (not a deep copy)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	0.010s
+FAIL
+# reverted; production tree clean:
+(empty = clean)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	(cached)

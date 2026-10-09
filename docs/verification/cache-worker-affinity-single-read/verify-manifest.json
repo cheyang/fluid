@@ -1,0 +1,38 @@
+{
+  "topic": "cache-worker-affinity-single-read",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6200",
+  "harnessPaths": [
+    "docs/verification/cache-worker-affinity-single-read",
+    "pkg/ddc/cache/component/verify_affinity_contract_test.go",
+    "pkg/ddc/cache/engine/verify_worker_affinity_harness_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "StatefulSetManager GetNodeAffinity calls kubeclient.GetStatefulSet for every status update cycle: the worker AdvancedStatefulSet is read twice per status cycle (ConstructComponentStatus + GetNodeAffinity)",
+    "reportedComponent": "pkg/ddc/cache/component AdvancedStatefulSetManager + pkg/ddc/cache/engine status update (CacheRuntime)",
+    "patchedComponent": "pkg/ddc/cache/component (both managers + ComponentManager interface) + pkg/ddc/cache/engine/status.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "integration",
+    "verdict": "confirmed",
+    "evidence": "merge-base d8b37f28: workerGetCount observed 2 per cycle / 4 after two cycles (results/base-engine-verify.txt); PR head 6e3345ef: 1 / 2 (results/pr-head-engine-verify.txt)",
+    "match": ["TestVerifyWorkerGetCountPerStatusCycle"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/cache/component/ -run 'TestVerify' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run 'TestVerify' -json"
+    }
+  },
+  "findings": [
+    { "id": "C1", "polarity": "contract", "layer": "integration", "match": ["TestVerifyWorkerGetCountPerStatusCycle"] },
+    { "id": "C2", "polarity": "contract", "layer": "integration", "match": ["TestVerifyWorkerAffinityMergedFromSelectorAndAffinity"] },
+    { "id": "C3", "polarity": "contract", "layer": "integration", "match": ["TestVerifyWorkerMissingErrorPropagation"] },
+    { "id": "C4", "polarity": "contract", "layer": "unit", "match": ["TestVerifyAffinityIsDeepCopied", "TestVerifyDaemonSetAffinityIsDeepCopied"] }
+  ],
+  "liveNote": "L3 not run this round: a cluster was reachable (kubectl get no OK) but the debate-pipeline configuration restricts stage 2 to unit+integration. If run later, check client-go cache_read_total vs apiserver_request_total for statefulsets (1 cache read per status cycle, not 2) and status.CacheAffinity tracking an out-of-band nodeSelector change on the next sync."
+}

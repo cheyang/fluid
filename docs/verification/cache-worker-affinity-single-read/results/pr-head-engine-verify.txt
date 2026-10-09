@@ -1,0 +1,9 @@
+2026/10/10 06:47:48 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyWorkerGetCountPerStatusCycle
+--- PASS: TestVerifyWorkerGetCountPerStatusCycle (0.00s)
+=== RUN   TestVerifyWorkerAffinityMergedFromSelectorAndAffinity
+--- PASS: TestVerifyWorkerAffinityMergedFromSelectorAndAffinity (0.00s)
+=== RUN   TestVerifyWorkerMissingErrorPropagation
+--- PASS: TestVerifyWorkerMissingErrorPropagation (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.011s

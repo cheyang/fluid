@@ -1,0 +1,5 @@
+      2 [pkg.ddc.cache.engine.sync_test.go]
+     22 [pkg.ddc.cache.engine.ufs_test.go]
+# Failing ginkgo spec files (counts) on merge-base d8b37f28 — identical to PR head 6e3345ef
+# (12 failing specs in sync_test.go / ufs_test.go on BOTH refs; pre-existing, unrelated to this PR).
+# PR head adds 3 new passing specs (all in status_test.go) and 293-290 = 3 more specs total.
