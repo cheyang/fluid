@@ -1,0 +1,18 @@
+# L2/L1 on PR head 6ea38789 (FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -count=1)
+# baseline (harness files removed): Ran 265 of 281 Specs -> with harness: Ran 277 of 293
+# all 12 harness specs green (failures stayed at the 12 pre-existing ufs_test/sync_test ones, identical to base)
+Ran 277 of 293 Specs in 0.205 seconds
+FAIL! -- 265 Passed | 12 Failed | 0 Pending | 16 Skipped
+
+# spec-count proof: 281 (no harness) + 12 harness specs = 293; 265 passed + 12 pre-existing failures;
+# every failed It is tagged ufs_test.go / sync_test.go and matches base file:line exactly
+
+# PR-recommended suites on head:
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/base	0.033s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/base/portallocator	0.013s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/tieredstore	0.013s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.022s
+
+# failing spec files by tag (head):
+      1 sync_test.go]
+     11 ufs_test.go]

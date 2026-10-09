@@ -1,0 +1,24 @@
+# Focused harness runs (premise + fix check)
+# base f2785f847 (merge-base, no patch): 4 contract specs FAILED, canary passed
+# head 6ea38789 (PR head):             all 12 specs PASSED
+
+== base: go test ./pkg/ddc/cache/engine/ -ginkgo.focus 'Verification harness'
+contract: node gets total=1GiB and disk=1GiB labels, no memory label	failed
+contract: node gets total=4GiB and memory=4GiB labels, no disk label	failed
+contract: node disk label sums per-path quotas (4GiB), not the average (2GiB)	failed
+contract: memory and disk labels each carry their level's quota	failed
+canary: stale 0B capacity labels are NOT healed by SyncScheduleInfoToCacheNodes	passed
+
+== head: go test ./pkg/ddc/cache/engine/ -ginkgo.focus 'Verification harness'
+binary SI suffixes	passed
+decimal SI suffixes	passed
+decimal mantissa with binary suffix	passed
+mixed formats across paths	passed
+small binary units	passed
+plain byte count	passed
+contract: multiple hostPath levels in one tiered store all count toward disk capacity	passed
+contract: node gets total=1GiB and disk=1GiB labels, no memory label	passed
+contract: node gets total=4GiB and memory=4GiB labels, no disk label	passed
+contract: node disk label sums per-path quotas (4GiB), not the average (2GiB)	passed
+contract: memory and disk labels each carry their level's quota	passed
+canary: stale 0B capacity labels are NOT healed by SyncScheduleInfoToCacheNodes	passed

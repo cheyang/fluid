@@ -1,0 +1,31 @@
+  [FAILED] Expected
+  [FAILED] Expected
+  [FAILED] Expected
+  [FAILED] Expected
+  [FAILED] Expected
+  [FAILED] Expected
+  [FAILED] Expected
+  [FAILED] Expected
+Verification harness: PR #6181 tiered store -> node capacity labels P0/V1: worker tiered store emptyDir (default medium) [It] contract: node gets total=1GiB and disk=1GiB labels, no memory label [pr-6181-verification]
+  [FAILED] Expected
+          "fluid.io/s-h-cache-t-default-demo": "0B",
+          <string>"fluid.io/s-h-cache-t-default-demo": <string>"1GiB",
+Verification harness: PR #6181 tiered store -> node capacity labels V1-mem: processMemory medium [It] contract: node gets total=4GiB and memory=4GiB labels, no disk label [pr-6181-verification]
+  [FAILED] Expected
+          "fluid.io/s-h-cache-t-default-demo": "0B",
+          <string>"fluid.io/s-h-cache-t-default-demo": <string>"4GiB",
+Verification harness: PR #6181 tiered store -> node capacity labels V1-hp: hostPath medium with per-path quotas [It] contract: node disk label sums per-path quotas (4GiB), not the average (2GiB) [pr-6181-verification]
+  [FAILED] Expected
+          "fluid.io/s-h-cache-t-default-demo": "0B",
+          <string>"fluid.io/s-h-cache-t-default-demo": <string>"4GiB",
+Verification harness: PR #6181 tiered store -> node capacity labels V1-2lvl: processMemory and emptyDir across two levels [It] contract: memory and disk labels each carry their level's quota [pr-6181-verification]
+  [FAILED] Expected
+          "fluid.io/s-h-cache-t-default-demo": "0B",
+          <string>"fluid.io/s-h-cache-t-default-demo": <string>"5GiB",
+  [FAILED] Expected
+  [FAIL] Verification harness: PR #6181 tiered store -> node capacity labels P0/V1: worker tiered store emptyDir (default medium) [It] contract: node gets total=1GiB and disk=1GiB labels, no memory label [pr-6181-verification]
+  [FAIL] Verification harness: PR #6181 tiered store -> node capacity labels V1-mem: processMemory medium [It] contract: node gets total=4GiB and memory=4GiB labels, no disk label [pr-6181-verification]
+  [FAIL] Verification harness: PR #6181 tiered store -> node capacity labels V1-hp: hostPath medium with per-path quotas [It] contract: node disk label sums per-path quotas (4GiB), not the average (2GiB) [pr-6181-verification]
+  [FAIL] Verification harness: PR #6181 tiered store -> node capacity labels V1-2lvl: processMemory and emptyDir across two levels [It] contract: memory and disk labels each carry their level's quota [pr-6181-verification]
+Ran 260 of 276 Specs in 0.200 seconds
+FAIL! -- 244 Passed | 16 Failed | 0 Pending | 16 Skipped

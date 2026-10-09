@@ -1,0 +1,44 @@
+{
+  "topic": "cache-tieredstore-labels",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6181",
+  "harnessPaths": [
+    "docs/verification/cache-tieredstore-labels",
+    "pkg/ddc/cache/engine/verify_pr6181_labels_test.go",
+    "pkg/ddc/cache/engine/verify_pr6181_unit_test.go"
+  ],
+  "_premise_note": "P0 is the PR's own problem statement (issue #6174), run against the BASE branch f2785f847 without the patch.",
+  "premise": {
+    "id": "P0",
+    "claim": "CacheEngine.getRuntimeInfo() builds its RuntimeInfo with an empty tiered store ... fluid.io/s-h-cache-m-<ns>-<name> and fluid.io/s-h-cache-d-<ns>-<name> are never added at all, while ... fluid.io/s-h-cache-t-<ns>-<name> is written unconditionally as 0B (issue #6174)",
+    "reportedComponent": "pkg/ddc/cache/engine/runtime.go getRuntimeInfo -> node capacity labels",
+    "patchedComponent": "pkg/ddc/cache/engine/runtime.go + transform_tiered_store.go convertToLegacyTieredStore",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "integration",
+    "verdict": "confirmed",
+    "evidence": "contract specs red on merge-base f2785f847: node label map literally shows fluid.io/s-h-cache-t-default-demo=0B and no m/d labels (results/l2-base-premise.log, results/focused-runs.log)",
+    "match": ["contract: node gets total=1GiB and disk=1GiB labels, no memory label"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "ginkgo",
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -count=1 -ginkgo.focus 'quota string round-trip' -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    },
+    "integration": {
+      "kind": "ginkgo",
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -count=1 -ginkgo.focus 'Verification harness: PR #6181 tiered store' -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "integration", "match": ["contract: node gets total=1GiB and disk=1GiB labels, no memory label"] },
+    { "id": "F1", "polarity": "contract", "layer": "integration", "match": ["contract: node gets total=4GiB and memory=4GiB labels, no disk label"] },
+    { "id": "F1", "polarity": "contract", "layer": "integration", "match": ["contract: node disk label sums per-path quotas (4GiB), not the average (2GiB)"] },
+    { "id": "F1", "polarity": "contract", "layer": "integration", "match": ["contract: memory and disk labels each carry their level's quota"] },
+    { "id": "F2", "polarity": "contract", "layer": "unit", "match": ["binary SI suffixes"] },
+    { "id": "F2", "polarity": "contract", "layer": "unit", "match": ["mixed formats across paths"] },
+    { "id": "F3", "polarity": "canary", "layer": "integration", "match": ["canary: stale 0B capacity labels are NOT healed by SyncScheduleInfoToCacheNodes"] }
+  ],
+  "liveNote": "L3 (real cluster) skipped this round by the debate pipeline configuration, not because the probe failed: kubectl get no returned 2 ready nodes (cn-hongkong.10.215.180.124/125, aliyun v1.36.2). Live signal to check if it is ever run: kubectl get node -o json node labels fluid.io/s-h-cache-* for a CacheRuntime with a worker tieredStore, per the PR body's verification steps."
+}
