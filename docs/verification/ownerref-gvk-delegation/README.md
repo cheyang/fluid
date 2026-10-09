@@ -33,9 +33,9 @@ P0 canary source (run on base; intentionally not committed to this branch — it
 fail once convergence lands): `TestBasePremise_TwoImplementationsDiverge` builds a
 `*datav1alpha1.Dataset` with `TypeMeta{Kind:"Dataset", APIVersion:"data.fluid.io/"}` and asserts
 `datasetControllerOwnerReference` keeps the malformed apiVersion while
-`transformer.GenerateOwnerReferenceFromObject` repairs it. Full source is preserved in
-`results/layer1-base-premise-canary.txt`'s sibling run; the same file grafted onto the PR head
-produces the flip recorded in `results/layer1-head-canary-flip.txt`.
+`transformer.GenerateOwnerReferenceFromObject` repairs it. Full source: `scripts/base_premise_canary_test.go` (copy it into `pkg/utils/` to run it; it is
+designed to pass on base and fail once convergence lands — the graft onto the PR head produced
+the flip recorded in `results/layer1-head-canary-flip.txt`).
 
 ## Summary of results
 
