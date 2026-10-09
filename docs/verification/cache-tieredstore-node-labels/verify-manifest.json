@@ -1,0 +1,51 @@
+{
+  "topic": "cache-tieredstore-node-labels",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6181",
+  "harnessPaths": [
+    "docs/verification/cache-tieredstore-node-labels",
+    "pkg/ddc/cache/engine/verify_pr6181_codex_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "CacheEngine.getRuntimeInfo() builds its RuntimeInfo with an empty tiered store instead of the one declared in the spec, so fluid.io/s-h-cache-t-<ns>-<name> is written as 0B and the fluid.io/s-h-cache-{m,d}- labels never appear on nodes running worker pods (issue #6174).",
+    "reportedComponent": "pkg/ddc/cache/engine/runtime.go (CacheEngine.getRuntimeInfo)",
+    "patchedComponent": "pkg/ddc/cache/engine/runtime.go + pkg/ddc/cache/engine/transform_tiered_store.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On merge-base f2785f84 the harness goes red exactly as the issue describes: GetLevelStorageMap returns map[] and the node gets fluid.io/s-h-cache-t-default-demo=\"0B\" with no -m-/-d- labels. See results/base-run.txt. On the PR head the same tests pass with 1GiB labels. See results/head-run.txt.",
+    "match": [
+      "TestVerifyPR6181RuntimeInfoStorageMap",
+      "TestVerifyPR6181NodeCapacityLabels"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -run 'TestVerifyPR6181' -count=1 -gcflags=all=-l -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "P0",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6181RuntimeInfoStorageMap",
+        "TestVerifyPR6181NodeCapacityLabels"
+      ],
+      "note": "Fix-validation for the premise: PASS means the worker tiered store still reaches the node capacity labels on the re-checked head."
+    },
+    {
+      "id": "F1",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6181StaleLabelsAfterSpecChange"
+      ],
+      "note": "Stale capacity labels limitation (disclosed by the author). Expected to report Still-broken until re-labelling of already-assigned nodes lands; the canary flips red at that point and must then be inverted. re-verify exiting non-zero because of F1 alone is expected."
+    }
+  ],
+  "liveNote": "L3 skipped per debate setup. If run live: create the CacheRuntime from issue #6174 (worker emptyDir quota 1Gi), wait for worker placement, then `kubectl get node <n> -o json | jq '.metadata.labels | with_entries(select(.key | contains(\"fluid.io\")))'` should show fluid.io/s-h-cache-t-<ns>-<name>=1GiB and a -d- label (pre-fix: 0B, no -m-/-d-)."
+}

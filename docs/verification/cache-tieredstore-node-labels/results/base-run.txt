@@ -1,0 +1,31 @@
+2026/10/10 06:28:49 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6181RuntimeInfoStorageMap
+=== RUN   TestVerifyPR6181RuntimeInfoStorageMap/issue_repro:_1Gi_emptyDir
+    verify_pr6181_codex_test.go:203: storage[Disk] missing, want 1Gi (full map: map[])
+=== RUN   TestVerifyPR6181RuntimeInfoStorageMap/mixed_processMemory_+_hostPath
+    verify_pr6181_codex_test.go:203: storage[Memory] missing, want 4Gi (full map: map[])
+    verify_pr6181_codex_test.go:203: storage[Disk] missing, want 4Gi (full map: map[])
+--- FAIL: TestVerifyPR6181RuntimeInfoStorageMap (0.00s)
+    --- FAIL: TestVerifyPR6181RuntimeInfoStorageMap/issue_repro:_1Gi_emptyDir (0.00s)
+    --- FAIL: TestVerifyPR6181RuntimeInfoStorageMap/mixed_processMemory_+_hostPath (0.00s)
+=== RUN   TestVerifyPR6181NodeCapacityLabels
+=== RUN   TestVerifyPR6181NodeCapacityLabels/issue_repro:_1Gi_emptyDir
+    verify_pr6181_codex_test.go:261: node labels: total fluid.io/s-h-cache-t-default-demo="0B", mem fluid.io/s-h-cache-m-default-demo="", disk fluid.io/s-h-cache-d-default-demo=""
+    verify_pr6181_codex_test.go:265: total capacity label fluid.io/s-h-cache-t-default-demo = "0B", want "1GiB"
+    verify_pr6181_codex_test.go:276: label fluid.io/s-h-cache-d-default-demo = "" (present=false), want "1GiB"
+=== RUN   TestVerifyPR6181NodeCapacityLabels/mixed_processMemory_+_hostPath
+    verify_pr6181_codex_test.go:261: node labels: total fluid.io/s-h-cache-t-default-demo="0B", mem fluid.io/s-h-cache-m-default-demo="", disk fluid.io/s-h-cache-d-default-demo=""
+    verify_pr6181_codex_test.go:265: total capacity label fluid.io/s-h-cache-t-default-demo = "0B", want "8GiB"
+    verify_pr6181_codex_test.go:276: label fluid.io/s-h-cache-m-default-demo = "" (present=false), want "4GiB"
+    verify_pr6181_codex_test.go:276: label fluid.io/s-h-cache-d-default-demo = "" (present=false), want "4GiB"
+--- FAIL: TestVerifyPR6181NodeCapacityLabels (0.00s)
+    --- FAIL: TestVerifyPR6181NodeCapacityLabels/issue_repro:_1Gi_emptyDir (0.00s)
+    --- FAIL: TestVerifyPR6181NodeCapacityLabels/mixed_processMemory_+_hostPath (0.00s)
+=== RUN   TestVerifyPR6181LabelFormatSanity
+--- PASS: TestVerifyPR6181LabelFormatSanity (0.00s)
+=== RUN   TestVerifyPR6181StaleLabelsAfterSpecChange
+    verify_pr6181_codex_test.go:338: precondition failed: after first sync fluid.io/s-h-cache-t-default-demo = "0B", want "1GiB"
+--- FAIL: TestVerifyPR6181StaleLabelsAfterSpecChange (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.020s
+FAIL

@@ -1,0 +1,22 @@
+2026/10/10 06:28:48 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6181RuntimeInfoStorageMap
+=== RUN   TestVerifyPR6181RuntimeInfoStorageMap/issue_repro:_1Gi_emptyDir
+=== RUN   TestVerifyPR6181RuntimeInfoStorageMap/mixed_processMemory_+_hostPath
+--- PASS: TestVerifyPR6181RuntimeInfoStorageMap (0.00s)
+    --- PASS: TestVerifyPR6181RuntimeInfoStorageMap/issue_repro:_1Gi_emptyDir (0.00s)
+    --- PASS: TestVerifyPR6181RuntimeInfoStorageMap/mixed_processMemory_+_hostPath (0.00s)
+=== RUN   TestVerifyPR6181NodeCapacityLabels
+=== RUN   TestVerifyPR6181NodeCapacityLabels/issue_repro:_1Gi_emptyDir
+    verify_pr6181_codex_test.go:261: node labels: total fluid.io/s-h-cache-t-default-demo="1GiB", mem fluid.io/s-h-cache-m-default-demo="", disk fluid.io/s-h-cache-d-default-demo="1GiB"
+=== RUN   TestVerifyPR6181NodeCapacityLabels/mixed_processMemory_+_hostPath
+    verify_pr6181_codex_test.go:261: node labels: total fluid.io/s-h-cache-t-default-demo="8GiB", mem fluid.io/s-h-cache-m-default-demo="4GiB", disk fluid.io/s-h-cache-d-default-demo="4GiB"
+--- PASS: TestVerifyPR6181NodeCapacityLabels (0.00s)
+    --- PASS: TestVerifyPR6181NodeCapacityLabels/issue_repro:_1Gi_emptyDir (0.00s)
+    --- PASS: TestVerifyPR6181NodeCapacityLabels/mixed_processMemory_+_hostPath (0.00s)
+=== RUN   TestVerifyPR6181LabelFormatSanity
+--- PASS: TestVerifyPR6181LabelFormatSanity (0.00s)
+=== RUN   TestVerifyPR6181StaleLabelsAfterSpecChange
+    verify_pr6181_codex_test.go:371: after quota edit 1Gi->2Gi: fluid.io/s-h-cache-t-default-demo="1GiB" fluid.io/s-h-cache-d-default-demo="1GiB"
+--- PASS: TestVerifyPR6181StaleLabelsAfterSpecChange (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.018s
