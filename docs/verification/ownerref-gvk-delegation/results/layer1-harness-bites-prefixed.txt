@@ -1,0 +1,64 @@
+=== RUN   TestDatasetControllerOwnerReference
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_malformed_APIVersion_(group_only,_missing_version)
+    dataset_runtime_test.go:332: expected APIVersion data.fluid.io/v1alpha1, got data.fluid.io/
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_complete_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_empty_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_only_Kind_in_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_only_APIVersion_in_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_custom_APIVersion_in_TypeMeta
+--- FAIL: TestDatasetControllerOwnerReference (0.00s)
+    --- FAIL: TestDatasetControllerOwnerReference/dataset_with_malformed_APIVersion_(group_only,_missing_version) (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_complete_TypeMeta (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_empty_TypeMeta (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_only_Kind_in_TypeMeta (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_only_APIVersion_in_TypeMeta (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_custom_APIVersion_in_TypeMeta (0.00s)
+=== RUN   TestVerifyOwnerRefConvergenceContract
+=== RUN   TestVerifyOwnerRefConvergenceContract/empty_TypeMeta
+=== RUN   TestVerifyOwnerRefConvergenceContract/complete_TypeMeta
+=== RUN   TestVerifyOwnerRefConvergenceContract/kind_only
+=== RUN   TestVerifyOwnerRefConvergenceContract/apiVersion_only
+=== RUN   TestVerifyOwnerRefConvergenceContract/custom_version
+=== RUN   TestVerifyOwnerRefConvergenceContract/group-less_apiVersion
+=== RUN   TestVerifyOwnerRefConvergenceContract/wrong_kind_preserved
+=== RUN   TestVerifyOwnerRefConvergenceContract/malformed_apiVersion:_group_without_version
+    ownerref_convergence_verify_test.go:79: divergence from shared helper: got {Kind:"Dataset" APIVersion:"data.fluid.io/"}, want {Kind:"Dataset" APIVersion:"data.fluid.io/v1alpha1"}
+=== RUN   TestVerifyOwnerRefConvergenceContract/malformed_apiVersion:_bare_slash
+    ownerref_convergence_verify_test.go:79: divergence from shared helper: got {Kind:"Dataset" APIVersion:"/"}, want {Kind:"Dataset" APIVersion:"data.fluid.io/v1alpha1"}
+--- FAIL: TestVerifyOwnerRefConvergenceContract (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceContract/empty_TypeMeta (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceContract/complete_TypeMeta (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceContract/kind_only (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceContract/apiVersion_only (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceContract/custom_version (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceContract/group-less_apiVersion (0.00s)
+    --- PASS: TestVerifyOwnerRefConvergenceContract/wrong_kind_preserved (0.00s)
+    --- FAIL: TestVerifyOwnerRefConvergenceContract/malformed_apiVersion:_group_without_version (0.00s)
+    --- FAIL: TestVerifyOwnerRefConvergenceContract/malformed_apiVersion:_bare_slash (0.00s)
+=== RUN   TestVerifyOwnerRefBehaviorDeltaVsOldImpl
+=== RUN   TestVerifyOwnerRefBehaviorDeltaVsOldImpl/empty_TypeMeta
+=== RUN   TestVerifyOwnerRefBehaviorDeltaVsOldImpl/complete_TypeMeta
+=== RUN   TestVerifyOwnerRefBehaviorDeltaVsOldImpl/kind_only
+=== RUN   TestVerifyOwnerRefBehaviorDeltaVsOldImpl/apiVersion_only
+=== RUN   TestVerifyOwnerRefBehaviorDeltaVsOldImpl/custom_version
+=== RUN   TestVerifyOwnerRefBehaviorDeltaVsOldImpl/group-less_apiVersion
+=== RUN   TestVerifyOwnerRefBehaviorDeltaVsOldImpl/wrong_kind_preserved
+=== RUN   TestVerifyOwnerRefBehaviorDeltaVsOldImpl/malformed_apiVersion:_group_without_version
+    ownerref_convergence_verify_test.go:113: malformed shape must be repaired to the canonical Dataset GVK, got {Kind:"Dataset" APIVersion:"data.fluid.io/"}
+    ownerref_convergence_verify_test.go:116: replica of the old implementation unexpectedly already repaired the shape; check the replica
+=== RUN   TestVerifyOwnerRefBehaviorDeltaVsOldImpl/malformed_apiVersion:_bare_slash
+    ownerref_convergence_verify_test.go:113: malformed shape must be repaired to the canonical Dataset GVK, got {Kind:"Dataset" APIVersion:"/"}
+    ownerref_convergence_verify_test.go:116: replica of the old implementation unexpectedly already repaired the shape; check the replica
+--- FAIL: TestVerifyOwnerRefBehaviorDeltaVsOldImpl (0.00s)
+    --- PASS: TestVerifyOwnerRefBehaviorDeltaVsOldImpl/empty_TypeMeta (0.00s)
+    --- PASS: TestVerifyOwnerRefBehaviorDeltaVsOldImpl/complete_TypeMeta (0.00s)
+    --- PASS: TestVerifyOwnerRefBehaviorDeltaVsOldImpl/kind_only (0.00s)
+    --- PASS: TestVerifyOwnerRefBehaviorDeltaVsOldImpl/apiVersion_only (0.00s)
+    --- PASS: TestVerifyOwnerRefBehaviorDeltaVsOldImpl/custom_version (0.00s)
+    --- PASS: TestVerifyOwnerRefBehaviorDeltaVsOldImpl/group-less_apiVersion (0.00s)
+    --- PASS: TestVerifyOwnerRefBehaviorDeltaVsOldImpl/wrong_kind_preserved (0.00s)
+    --- FAIL: TestVerifyOwnerRefBehaviorDeltaVsOldImpl/malformed_apiVersion:_group_without_version (0.00s)
+    --- FAIL: TestVerifyOwnerRefBehaviorDeltaVsOldImpl/malformed_apiVersion:_bare_slash (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	0.012s
+FAIL

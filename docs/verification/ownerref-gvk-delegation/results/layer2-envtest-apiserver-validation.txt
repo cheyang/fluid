@@ -1,0 +1,5 @@
+=== RUN   TestVerifyOwnerRefAPIServerValidation
+    ownerref_envtest_verify_test.go:63: malformed ownerReference rejected as expected: ConfigMap "verify-malformed-ownerref" is invalid: metadata.ownerReferences.apiVersion: Invalid value: "data.fluid.io/": version must not be empty
+--- PASS: TestVerifyOwnerRefAPIServerValidation (2.66s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	2.675s

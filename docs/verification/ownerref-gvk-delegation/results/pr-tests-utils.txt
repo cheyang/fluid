@@ -1,0 +1,26 @@
+=== RUN   TestCreateRuntimeForReferenceDatasetIfNotExist
+=== RUN   TestCreateRuntimeForReferenceDatasetIfNotExist/ThinRuntimeExists
+=== RUN   TestCreateRuntimeForReferenceDatasetIfNotExist/ThinRuntimeExistWithOwnerReference
+=== RUN   TestCreateRuntimeForReferenceDatasetIfNotExist/ThinRuntimeDoesnotExist
+=== RUN   TestCreateRuntimeForReferenceDatasetIfNotExist/ThinRuntimeTerminating
+--- PASS: TestCreateRuntimeForReferenceDatasetIfNotExist (0.00s)
+    --- PASS: TestCreateRuntimeForReferenceDatasetIfNotExist/ThinRuntimeExists (0.00s)
+    --- PASS: TestCreateRuntimeForReferenceDatasetIfNotExist/ThinRuntimeExistWithOwnerReference (0.00s)
+    --- PASS: TestCreateRuntimeForReferenceDatasetIfNotExist/ThinRuntimeDoesnotExist (0.00s)
+    --- PASS: TestCreateRuntimeForReferenceDatasetIfNotExist/ThinRuntimeTerminating (0.00s)
+=== RUN   TestDatasetControllerOwnerReference
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_custom_APIVersion_in_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_malformed_APIVersion_(group_only,_missing_version)
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_complete_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_empty_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_only_Kind_in_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_only_APIVersion_in_TypeMeta
+--- PASS: TestDatasetControllerOwnerReference (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_custom_APIVersion_in_TypeMeta (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_malformed_APIVersion_(group_only,_missing_version) (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_complete_TypeMeta (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_empty_TypeMeta (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_only_Kind_in_TypeMeta (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_only_APIVersion_in_TypeMeta (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.020s

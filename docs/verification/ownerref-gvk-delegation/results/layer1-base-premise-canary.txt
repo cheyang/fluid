@@ -1,0 +1,6 @@
+=== RUN   TestBasePremise_TwoImplementationsDiverge
+    ownerref_base_premise_test.go:29: base local helper  -> Kind="Dataset" APIVersion="data.fluid.io/"
+    ownerref_base_premise_test.go:30: base shared helper -> Kind="Dataset" APIVersion="data.fluid.io/v1alpha1"
+--- PASS: TestBasePremise_TwoImplementationsDiverge (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.011s

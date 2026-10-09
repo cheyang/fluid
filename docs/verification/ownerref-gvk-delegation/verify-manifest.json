@@ -1,0 +1,37 @@
+{
+  "topic": "ownerref-gvk-delegation",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6199",
+  "harnessPaths": [
+    "docs/verification/ownerref-gvk-delegation",
+    "pkg/utils/ownerref_convergence_verify_test.go",
+    "pkg/utils/ownerref_envtest_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Two independent implementations of 'recover the owner GroupVersionKind when TypeMeta is empty' (#6138's local datasetControllerOwnerReference and #6139's scheme-based GenerateOwnerReferenceFromObject) do not agree on semantics; neither fix covers the other's callers.",
+    "reportedComponent": "pkg/utils/dataset_runtime.go (datasetControllerOwnerReference) and pkg/utils/transformer/owner_reference.go (GenerateOwnerReferenceFromObject)",
+    "patchedComponent": "pkg/utils/dataset_runtime.go (delegation) + tests",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base e0fc4c18, datasetControllerOwnerReference(TypeMeta{Kind:Dataset, APIVersion:'data.fluid.io/'}) returns apiVersion 'data.fluid.io/' (version missing) while the shared helper returns 'data.fluid.io/v1alpha1' — results/layer1-base-premise-canary.txt; the same canary flips to FAIL on the PR head (converged) — results/layer1-head-canary-flip.txt. Integration layer: a real API server (envtest) rejects the old output with 'version must not be empty' — results/layer2-envtest-apiserver-validation.txt",
+    "match": ["TestBasePremise_TwoImplementationsDiverge"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/ -run 'TestVerifyOwnerRefConvergenceContract|TestVerifyOwnerRefBehaviorDeltaVsOldImpl' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "KUBEBUILDER_ASSETS=$HOME/.local/share/kubebuilder-envtest/k8s/1.36.2-linux-amd64 go test ./pkg/utils/ -run 'TestVerifyOwnerRefAPIServerValidation' -json"
+    }
+  },
+  "findings": [
+    { "id": "C1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyOwnerRefConvergenceContract"] },
+    { "id": "C2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyOwnerRefBehaviorDeltaVsOldImpl"] },
+    { "id": "C3", "polarity": "contract", "layer": "integration", "match": ["TestVerifyOwnerRefAPIServerValidation"] }
+  ],
+  "liveNote": "L3 skipped by design of this review round (no KUBECONFIG layer). The observable signal would be the dataset controller creating/adopting a ThinRuntime for a reference dataset whose TypeMeta apiVersion lost its version part; the issue scope states this shape is not reachable from current call sites, and envtest (L2) already proves the API-server validation half."
+}
