@@ -1,0 +1,14 @@
+2026/10/10 07:01:29 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestZZVerifyPR6200SingleWorkerGetPerCycle
+    zz_verify_pr6200_single_read_test.go:148: observed worker AdvancedStatefulSet Gets: 4 over 2 cycles (2.0 per cycle)
+    zz_verify_pr6200_single_read_test.go:150: P0 premise check: expected exactly 1 worker Get per status cycle (2 total over 2 cycles), observed 4 total — duplicate read present
+--- FAIL: TestZZVerifyPR6200SingleWorkerGetPerCycle (0.00s)
+=== RUN   TestZZVerifyPR6200AffinityParity
+--- PASS: TestZZVerifyPR6200AffinityParity (0.00s)
+=== RUN   TestZZVerifyPR6200WorkerMissingError
+--- PASS: TestZZVerifyPR6200WorkerMissingError (0.00s)
+=== RUN   TestZZVerifyPR6200OutOfBandNodeSelectorReflected
+--- PASS: TestZZVerifyPR6200OutOfBandNodeSelectorReflected (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.013s
+FAIL

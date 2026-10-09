@@ -1,0 +1,6 @@
+# pristine base (d8b37f28), PR reverted, harness files present but suite-level:
+Ran 274 of 290 Specs in 0.199 seconds
+FAIL! -- 262 Passed | 12 Failed | 0 Pending | 16 Skipped
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	7.038s
+FAIL

@@ -1,0 +1,6 @@
+2026/10/10 07:01:13 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestZZVerifyPR6200EnvtestSingleRead
+    zz_verify_pr6200_envtest_test.go:195: envtest observed worker Gets: 2 over 2 cycles; affinity updated ssd->nvme
+--- PASS: TestZZVerifyPR6200EnvtestSingleRead (6.31s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	6.324s

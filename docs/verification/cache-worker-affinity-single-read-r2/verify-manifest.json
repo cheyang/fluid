@@ -1,0 +1,77 @@
+{
+  "topic": "cache-worker-affinity-single-read-r2",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6200",
+  "harnessPaths": [
+    "docs/verification/cache-worker-affinity-single-read-r2",
+    "pkg/ddc/cache/engine/zz_verify_pr6200_single_read_test.go",
+    "pkg/ddc/cache/engine/zz_verify_pr6200_envtest_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "get node affinity for worker calls a workload Get (kubeclient.GetStatefulSet equivalent) in every status update cycle, adding a redundant read",
+    "reportedComponent": "CacheRuntime worker status update (pkg/ddc/cache)",
+    "patchedComponent": "pkg/ddc/cache/component + pkg/ddc/cache/engine/status.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit+integration",
+    "verdict": "confirmed",
+    "evidence": "2.0 worker AdvancedStatefulSet Gets per CheckAndUpdateRuntimeStatus cycle on merge-base d8b37f28 (unit + envtest); 1.0 per cycle on PR head 6e3345ef. See results/base-unit.txt, results/base-envtest.txt, results/head-unit.txt, results/head-envtest.txt.",
+    "match": [
+      "TestZZVerifyPR6200SingleWorkerGetPerCycle",
+      "TestZZVerifyPR6200EnvtestSingleRead"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run 'TestZZVerifyPR6200SingleWorkerGetPerCycle|TestZZVerifyPR6200AffinityParity|TestZZVerifyPR6200WorkerMissingError|TestZZVerifyPR6200OutOfBandNodeSelectorReflected' -count=1 -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run 'TestZZVerifyPR6200EnvtestSingleRead' -count=1 -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "P0",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestZZVerifyPR6200SingleWorkerGetPerCycle"
+      ]
+    },
+    {
+      "id": "P0",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestZZVerifyPR6200EnvtestSingleRead"
+      ]
+    },
+    {
+      "id": "V1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestZZVerifyPR6200AffinityParity"
+      ]
+    },
+    {
+      "id": "V2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestZZVerifyPR6200WorkerMissingError"
+      ]
+    },
+    {
+      "id": "V3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestZZVerifyPR6200OutOfBandNodeSelectorReflected"
+      ]
+    }
+  ],
+  "liveNote": "L3 skipped this round. If needed: run the dataset controller against a real cluster and confirm exactly one AdvancedStatefulSet Get per CacheRuntime status cycle (audit log / client metrics), and that status.cacheAffinity tracks out-of-band worker nodeSelector edits on the next reconcile."
+}
