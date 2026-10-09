@@ -29,8 +29,8 @@ must flip to red once the implementations converge.
 | **Verdict** | **Confirmed** (real divergence, reproduced on base; issue's own scope applies: contract-level, not reachable from current call sites) |
 | Evidence | results/layer1-base-premise-canary.txt (base: local helper → `APIVersion="data.fluid.io/"`, shared helper → `"data.fluid.io/v1alpha1"` for the same object); results/layer1-head-canary-flip.txt (same canary FAILS on the PR head — convergence achieved); results/layer2-envtest-apiserver-validation.txt (real API server rejects the old output: `metadata.ownerReferences.apiVersion: Invalid value: "data.fluid.io/": version must not be empty`) |
 
-P0 canary source (run on base; intentionally not committed to this branch — it is designed to
-fail once convergence lands): `TestBasePremise_TwoImplementationsDiverge` builds a
+P0 canary source (run on base; kept under `scripts/` rather than `pkg/utils/` so it is not
+compiled into the harness — it is designed to fail once convergence lands): `TestBasePremise_TwoImplementationsDiverge` builds a
 `*datav1alpha1.Dataset` with `TypeMeta{Kind:"Dataset", APIVersion:"data.fluid.io/"}` and asserts
 `datasetControllerOwnerReference` keeps the malformed apiVersion while
 `transformer.GenerateOwnerReferenceFromObject` repairs it. Full source: `scripts/base_premise_canary_test.go` (copy it into `pkg/utils/` to run it; it is
