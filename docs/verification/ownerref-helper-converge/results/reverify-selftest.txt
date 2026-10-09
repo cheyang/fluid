@@ -1,0 +1,23 @@
+re-verify: manifest = docs/verification/ownerref-helper-converge/verify-manifest.json
+re-verify: resolving PR head via 'git fetch https://github.com/fluid-cloudnative/fluid.git pull/6199/head' (machine-independent)
+re-verify: current head = 1bad02a99451d2beafcea8010de3fd9961695827
+re-verify: last-reviewed = 1bad02a99451d2beafcea8010de3fd9961695827  (review delta = 1bad02a99451d2beafcea8010de3fd9961695827..1bad02a99451d2beafcea8010de3fd9961695827)
+re-verify: fixed-ref=1bad02a99451d2beafcea8010de3fd9961695827  harness-from=verify/ownerref-helper-converge-claude
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'integration' (gotest)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+B1     contract  unit         FIXED          pass=1 fail=0 miss=0
+B2     contract  unit         FIXED          pass=1 fail=0 miss=0
+B3     canary    unit         STILL-PRESENT  pass=1 fail=0 miss=0
+
+Live layer (manual): L3 not applicable: the change is pure in-process logic (ownerReference construction); no cluster-observable behavior beyond what the fake-client suites already exercise. Skipped per debate instructions (unit + integration layers only; no live/KUBECONFIG layer).
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/ownerref-helper-converge/results/reverify
+
+Review delta this round: 1bad02a99451d2beafcea8010de3fd9961695827..1bad02a99451d2beafcea8010de3fd9961695827
+After reviewing that delta, advance the marker for the next round:
+  echo 1bad02a99451d2beafcea8010de3fd9961695827 > docs/verification/ownerref-helper-converge/.last-reviewed && git add docs/verification/ownerref-helper-converge/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: not all findings fixed.
