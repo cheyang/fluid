@@ -1,0 +1,51 @@
+{
+  "topic": "ownerref-helper-converge",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6199",
+  "harnessPaths": [
+    "docs/verification/ownerref-helper-converge",
+    "pkg/utils/dataset_runtime_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #6140: \"The two code paths do not overlap — datasetControllerOwnerReference does not go through the transformer — so neither fix covers the other's callers.\" Two divergent copies of owner-reference GVK recovery live in the tree: the per-field fallback in pkg/utils/dataset_runtime.go and the scheme-backed recovery in pkg/utils/transformer/owner_reference.go.",
+    "reportedComponent": "pkg/utils/dataset_runtime.go (datasetControllerOwnerReference) + pkg/utils/transformer/owner_reference.go (GenerateOwnerReferenceFromObject)",
+    "patchedComponent": "pkg/utils/dataset_runtime.go delegates to the transformer helper; tests in pkg/utils/dataset_runtime_test.go and pkg/utils/transformer/owner_reference_test.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "git show 1bad02a9^:pkg/utils/dataset_runtime.go shows a self-contained per-field implementation with no call into the transformer; the differential oracle (legacy copy of the base function) in pkg/utils/dataset_runtime_verify_test.go diverges from the scheme-backed helper on malformed apiVersion shapes — see results/unit-base-red.txt",
+    "match": ["TestVerifyDelegationEquivalence"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/ -run 'TestVerify' -count=1 -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/... ./pkg/controllers/v1alpha1/dataset/... -count=1 -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "B1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyDelegationEquivalence"]
+    },
+    {
+      "id": "B2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyWellKnownFallbackUnreachable"]
+    },
+    {
+      "id": "B3",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": ["TestVerifyGrouplessAPIVersionPassesThrough"]
+    }
+  ],
+  "liveNote": "L3 not applicable: the change is pure in-process logic (ownerReference construction); no cluster-observable behavior beyond what the fake-client suites already exercise. Skipped per debate instructions (unit + integration layers only; no live/KUBECONFIG layer)."
+}

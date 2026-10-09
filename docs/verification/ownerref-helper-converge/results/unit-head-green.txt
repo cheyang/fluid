@@ -1,0 +1,8 @@
+=== RUN   TestVerifyDelegationEquivalence
+--- PASS: TestVerifyDelegationEquivalence (0.00s)
+=== RUN   TestVerifyWellKnownFallbackUnreachable
+--- PASS: TestVerifyWellKnownFallbackUnreachable (0.00s)
+=== RUN   TestVerifyGrouplessAPIVersionPassesThrough
+--- PASS: TestVerifyGrouplessAPIVersionPassesThrough (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.011s

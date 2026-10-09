@@ -1,0 +1,237 @@
+2026/10/10 05:45:04 Found FLUID_RUNTIME_RECONCILE_DURATION value abc, using it as RuntimeReconcileDurationEnvVal
+2026/10/10 05:45:04 Found FLUID_RUNTIME_RECONCILE_DURATION value -1, using it as RuntimeReconcileDurationEnvVal
+2026/10/10 05:45:04 Found FLUID_RUNTIME_RECONCILE_DURATION value 10, using it as RuntimeReconcileDurationEnvVal
+2026/10/10 05:45:04 Found FLUID_RUNTIME_RECONCILE_DURATION value 10, using it as RuntimeReconcileDurationEnvVal
+2026/10/10 05:45:04 Found FLUID_RUNTIME_RECONCILE_DURATION_OFFSET value abc, using it as RuntimeReconcileDurationOffsetEnvVal
+2026/10/10 05:45:04 Found FLUID_RUNTIME_RECONCILE_DURATION value 10, using it as RuntimeReconcileDurationEnvVal
+2026/10/10 05:45:04 Found FLUID_RUNTIME_RECONCILE_DURATION_OFFSET value 15, using it as RuntimeReconcileDurationOffsetEnvVal
+2026/10/10 05:45:04 Found FLUID_RUNTIME_RECONCILE_DURATION value 10, using it as RuntimeReconcileDurationEnvVal
+2026/10/10 05:45:04 Found FLUID_RUNTIME_RECONCILE_DURATION_OFFSET value 2, using it as RuntimeReconcileDurationOffsetEnvVal
+....
+4 total assertions
+
+........
+12 total assertions
+
+x........
+Failures:
+
+  * /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/mount_test.go 
+  Line 220:
+  Expected: nil
+  Actual:   'checking mounted failed: test'
+
+
+21 total assertions
+
+--- FAIL: TestCheckMountPointBroken (0.00s)
+[controller-runtime] log.SetLogger(...) was never called; logs will not be displayed.
+Detected at:
+	>  goroutine 55 [running]:
+	>  runtime/debug.Stack()
+	>  	/usr/local/go/src/runtime/debug/stack.go:26 +0x5e
+	>  sigs.k8s.io/controller-runtime/pkg/log.eventuallyFulfillRoot()
+	>  	/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/vendor/sigs.k8s.io/controller-runtime/pkg/log/log.go:60 +0xcd
+	>  sigs.k8s.io/controller-runtime/pkg/log.(*delegatingLogSink).WithName(0x3c4f732a9ac0, {0x17749ea, 0x4})
+	>  	/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/vendor/sigs.k8s.io/controller-runtime/pkg/log/deleg.go:147 +0x3e
+	>  github.com/go-logr/logr.Logger.WithName(...)
+	>  	/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/vendor/github.com/go-logr/logr/logr.go:345
+	>  github.com/fluid-cloudnative/fluid/pkg/utils.TestNewPprofServerWithDevelopment(0x3c4f7394a008)
+	>  	/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/pprof_test.go:47 +0x62
+	>  testing.tRunner(0x3c4f7394a008, 0x2b979c8)
+	>  	/usr/local/go/src/testing/testing.go:2193 +0xea
+	>  created by testing.(*T).Run in goroutine 1
+	>  	/usr/local/go/src/testing/testing.go:2258 +0x4d4
+signal: terminated
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	73.499s
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/applications/defaultapp	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/applications/pod	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/applications/unstructured	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/cmdguard	0.037s
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/compatibility	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.062s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/volume	29.147s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/discovery	0.054s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/docker	0.067s
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/fake	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/feature	[no test files]
+Running Suite: Helm Suite - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm
+===================================================================================================================================
+Random Seed: [1m1791582304[0m
+
+Will run [1m29[0m of [1m29[0m specs
+[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;13m• [PANICKED] [0.000 seconds][0m
+[0mHelm [38;5;243mInstallRelease [0mwhen CombinedOutput fails [38;5;13m[1m[It] should return an error[0m
+[38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:75[0m
+
+  [38;5;13m[PANICKED] Test Panicked[0m
+  [38;5;13mIn [1m[It][0m[38;5;13m at: [1m/usr/local/go/src/runtime/panic.go:336[0m [38;5;243m@ 10/10/26 05:45:04.118[0m
+
+  [38;5;13mruntime error: invalid memory address or nil pointer dereference[0m
+
+  [38;5;13mFull Stack Trace[0m
+    os/exec.findExecutable({0x14a9a5ee93c0, 0x1a})
+    	/usr/local/go/src/os/exec/lp_unix.go:27 +0x2e
+    os/exec.lookPath({0x167253e, 0x8})
+    	/usr/local/go/src/os/exec/lp_unix.go:67 +0x29f
+    os/exec.LookPath(...)
+    	/usr/local/go/src/os/exec/lookpath.go:29
+    github.com/fluid-cloudnative/fluid/pkg/utils/helm.InstallRelease({0x166e3a1, 0x5}, {0x1670aaa, 0x7}, {0x16795c3, 0xd}, {0x1677f12, 0xc})
+    	/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils.go:46 +0x199
+    github.com/fluid-cloudnative/fluid/pkg/utils/helm.init.func1.1.4.1()
+    	/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:86 +0x397
+[38;5;243m------------------------------[0m
+[38;5;13m• [PANICKED] [0.000 seconds][0m
+[0mHelm [38;5;243mInstallRelease [0mwhen namespace contains invalid characters [38;5;13m[1m[It] should return an error[0m
+[38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:92[0m
+
+  [38;5;13m[PANICKED] Test Panicked[0m
+  [38;5;13mIn [1m[It][0m[38;5;13m at: [1m/usr/local/go/src/runtime/panic.go:336[0m [38;5;243m@ 10/10/26 05:45:04.119[0m
+
+  [38;5;13mruntime error: invalid memory address or nil pointer dereference[0m
+
+  [38;5;13mFull Stack Trace[0m
+    os/exec.findExecutable({0x14a9a5ee9820, 0x1a})
+    	/usr/local/go/src/os/exec/lp_unix.go:27 +0x2e
+    os/exec.lookPath({0x167253e, 0x8})
+    	/usr/local/go/src/os/exec/lp_unix.go:67 +0x29f
+    os/exec.LookPath(...)
+    	/usr/local/go/src/os/exec/lookpath.go:29
+    github.com/fluid-cloudnative/fluid/pkg/utils/helm.InstallRelease({0x166e3a1, 0x5}, {0x1672546, 0x8}, {0x16795c3, 0xd}, {0x1677f12, 0xc})
+    	/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils.go:46 +0x199
+    github.com/fluid-cloudnative/fluid/pkg/utils/helm.init.func1.1.5.1()
+    	/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:101 +0x26d
+[38;5;243m------------------------------[0m
+[38;5;13m• [PANICKED] [0.000 seconds][0m
+[0mHelm [38;5;243mInstallRelease [0mwhen all conditions are met [38;5;13m[1m[It] should install release successfully[0m
+[38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:107[0m
+
+  [38;5;13m[PANICKED] Test Panicked[0m
+  [38;5;13mIn [1m[It][0m[38;5;13m at: [1m/usr/local/go/src/runtime/panic.go:336[0m [38;5;243m@ 10/10/26 05:45:04.119[0m
+
+  [38;5;13mruntime error: invalid memory address or nil pointer dereference[0m
+
+  [38;5;13mFull Stack Trace[0m
+    os/exec.findExecutable({0x14a9a5ee9b80, 0x1a})
+    	/usr/local/go/src/os/exec/lp_unix.go:27 +0x2e
+    os/exec.lookPath({0x167253e, 0x8})
+    	/usr/local/go/src/os/exec/lp_unix.go:67 +0x29f
+    os/exec.LookPath(...)
+    	/usr/local/go/src/os/exec/lookpath.go:29
+    github.com/fluid-cloudnative/fluid/pkg/utils/helm.InstallRelease({0x166e3a1, 0x5}, {0x1670aaa, 0x7}, {0x16795c3, 0xd}, {0x1677f12, 0xc})
+    	/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils.go:46 +0x199
+    github.com/fluid-cloudnative/fluid/pkg/utils/helm.init.func1.1.6.1()
+    	/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:118 +0x397
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mHelm [38;5;243mDeleteRelease [0mwhen all conditions are met [38;5;9m[1m[It] should delete release successfully[0m
+[38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:251[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*exec.Error | 0x14a9a6306b40>: 
+      exec: "ddc-helm": executable file not found in $PATH
+      {
+          Name: "ddc-helm",
+          Err: <*errors.errorString | 0x2a99fa0>{
+              s: "executable file not found in $PATH",
+          },
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:260[0m [38;5;243m@ 10/10/26 05:45:04.122[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mHelm [38;5;243mListReleases [0mwhen all conditions are met [38;5;9m[1m[It] should list releases successfully[0m
+[38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:317[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*exec.Error | 0x14a9a6306e40>: 
+      exec: "ddc-helm": executable file not found in $PATH
+      {
+          Name: "ddc-helm",
+          Err: <*errors.errorString | 0x2a99fa0>{
+              s: "executable file not found in $PATH",
+          },
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:326[0m [38;5;243m@ 10/10/26 05:45:04.122[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mHelm [38;5;243mListReleaseMap [0mwhen all conditions are met [38;5;9m[1m[It] should list release map successfully[0m
+[38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:384[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*exec.Error | 0x14a9a6307180>: 
+      exec: "ddc-helm": executable file not found in $PATH
+      {
+          Name: "ddc-helm",
+          Err: <*errors.errorString | 0x2a99fa0>{
+              s: "executable file not found in $PATH",
+          },
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:393[0m [38;5;243m@ 10/10/26 05:45:04.123[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mHelm [38;5;243mListAllReleasesWithDetail [0mwhen all conditions are met [38;5;9m[1m[It] should list all releases with detail successfully[0m
+[38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:451[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*exec.Error | 0x14a9a6307480>: 
+      exec: "ddc-helm": executable file not found in $PATH
+      {
+          Name: "ddc-helm",
+          Err: <*errors.errorString | 0x2a99fa0>{
+              s: "executable file not found in $PATH",
+          },
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:460[0m [38;5;243m@ 10/10/26 05:45:04.123[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;9m[1mSummarizing 7 Failures:[0m
+  [38;5;13m[PANICKED!][0m [0mHelm [38;5;243mInstallRelease [0mwhen CombinedOutput fails [38;5;13m[1m[It] should return an error[0m
+  [38;5;243m/usr/local/go/src/runtime/panic.go:336[0m
+  [38;5;13m[PANICKED!][0m [0mHelm [38;5;243mInstallRelease [0mwhen namespace contains invalid characters [38;5;13m[1m[It] should return an error[0m
+  [38;5;243m/usr/local/go/src/runtime/panic.go:336[0m
+  [38;5;13m[PANICKED!][0m [0mHelm [38;5;243mInstallRelease [0mwhen all conditions are met [38;5;13m[1m[It] should install release successfully[0m
+  [38;5;243m/usr/local/go/src/runtime/panic.go:336[0m
+  [38;5;9m[FAIL][0m [0mHelm [38;5;243mDeleteRelease [0mwhen all conditions are met [38;5;9m[1m[It] should delete release successfully[0m
+  [38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:260[0m
+  [38;5;9m[FAIL][0m [0mHelm [38;5;243mListReleases [0mwhen all conditions are met [38;5;9m[1m[It] should list releases successfully[0m
+  [38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:326[0m
+  [38;5;9m[FAIL][0m [0mHelm [38;5;243mListReleaseMap [0mwhen all conditions are met [38;5;9m[1m[It] should list release map successfully[0m
+  [38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:393[0m
+  [38;5;9m[FAIL][0m [0mHelm [38;5;243mListAllReleasesWithDetail [0mwhen all conditions are met [38;5;9m[1m[It] should list all releases with detail successfully[0m
+  [38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-10/pr-6199/wt-6199-claude/pkg/utils/helm/utils_test.go:460[0m
+
+[38;5;9m[1mRan 29 of 29 Specs in 0.005 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m22 Passed[0m | [38;5;9m[1m7 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+--- FAIL: TestHelm (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/helm	0.089s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/jindo	0.061s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient	0.263s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubelet	0.035s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/mountinfo	0.083s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/runtimes/options	0.053s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/security	0.045s
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/testutil	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/tieredstore	0.020s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/transformer	0.020s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/validation	0.007s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/version	0.007s
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/webhook/generator	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/webhook/writer	1.648s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset	0.096s
+FAIL

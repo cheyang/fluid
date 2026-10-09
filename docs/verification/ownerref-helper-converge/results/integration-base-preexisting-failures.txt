@@ -1,0 +1,30 @@
+x........
+Failures:
+
+  * /tmp/wt-6199-base/pkg/utils/mount_test.go 
+  Line 220:
+  Expected: nil
+  Actual:   'checking mounted failed: test'
+
+
+9 total assertions
+
+--- FAIL: TestCheckMountPointBroken (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	0.011s
+FAIL
+  [38;5;9m[FAIL][0m [0mHelm [38;5;243mDeleteRelease [0mwhen all conditions are met [38;5;9m[1m[It] should delete release successfully[0m
+  [38;5;243m/tmp/wt-6199-base/pkg/utils/helm/utils_test.go:260[0m
+  [38;5;9m[FAIL][0m [0mHelm [38;5;243mListReleases [0mwhen all conditions are met [38;5;9m[1m[It] should list releases successfully[0m
+  [38;5;243m/tmp/wt-6199-base/pkg/utils/helm/utils_test.go:326[0m
+  [38;5;9m[FAIL][0m [0mHelm [38;5;243mListReleaseMap [0mwhen all conditions are met [38;5;9m[1m[It] should list release map successfully[0m
+  [38;5;243m/tmp/wt-6199-base/pkg/utils/helm/utils_test.go:393[0m
+  [38;5;9m[FAIL][0m [0mHelm [38;5;243mListAllReleasesWithDetail [0mwhen all conditions are met [38;5;9m[1m[It] should list all releases with detail successfully[0m
+  [38;5;243m/tmp/wt-6199-base/pkg/utils/helm/utils_test.go:460[0m
+
+[38;5;9m[1mRan 29 of 29 Specs in 0.002 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m22 Passed[0m | [38;5;9m[1m7 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+--- FAIL: TestHelm (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/helm	0.013s
+FAIL
