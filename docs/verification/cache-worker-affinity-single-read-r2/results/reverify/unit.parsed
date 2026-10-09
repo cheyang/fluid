@@ -1,0 +1,4 @@
+TestZZVerifyPR6200SingleWorkerGetPerCycle	pass
+TestZZVerifyPR6200AffinityParity	pass
+TestZZVerifyPR6200WorkerMissingError	pass
+TestZZVerifyPR6200OutOfBandNodeSelectorReflected	pass
