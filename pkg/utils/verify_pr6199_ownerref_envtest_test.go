@@ -47,8 +47,12 @@ import (
 )
 
 func TestVerifyPR6199EnvtestOwnerReference(t *testing.T) {
-	if os.Getenv("KUBEBUILDER_ASSETS") == "" {
-		t.Skip("KUBEBUILDER_ASSETS not set, skipping envtest layer")
+	assets := os.Getenv("KUBEBUILDER_ASSETS")
+	if assets == "" {
+		assets = "/usr/local/kubebuilder/bin" // envtest's own default
+	}
+	if st, err := os.Stat(assets); err != nil || !st.IsDir() {
+		t.Skipf("envtest assets not found at %s (set KUBEBUILDER_ASSETS), skipping integration layer", assets)
 	}
 
 	testEnv := &envtest.Environment{

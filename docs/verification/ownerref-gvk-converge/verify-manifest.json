@@ -25,7 +25,7 @@
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "KUBEBUILDER_ASSETS=${KUBEBUILDER_ASSETS:-/usr/local/kubebuilder/bin} go test ./pkg/utils/ -run 'TestVerifyPR6199EnvtestOwnerReference' -count=1 -json"
+      "cmd": "go test ./pkg/utils/ -run 'TestVerifyPR6199EnvtestOwnerReference' -count=1 -json"
     }
   },
   "findings": [
