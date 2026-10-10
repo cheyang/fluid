@@ -1,0 +1,56 @@
+should create AdvancedStatefulSet and Service successfully	skipped
+should not recreate if AdvancedStatefulSet already exists	skipped
+should handle nil service gracefully	skipped
+should return Ready phase when all replicas are ready	skipped
+should return NotReady phase when replicas are partially ready	skipped
+should return NotReady phase when no replicas are ready	skipped
+should return error when AdvancedStatefulSet doesn't exist	skipped
+should return status and affinity when ConstructComponentStatusAndAffinity is called	skipped
+should merge nodeSelector with existing nodeAffinity terms in ConstructComponentStatusAndAffinity	skipped
+should return the pod spec of the workload	skipped
+should return a copy the caller cannot use to mutate the workload	skipped
+should return error when AdvancedStatefulSet doesn't exist	skipped
+should return AdvancedStatefulSetManager for Master component	skipped
+should return AdvancedStatefulSetManager for Worker component	skipped
+should return DaemonSetManager for Client component	skipped
+should return AdvancedStatefulSetManager as default for unknown type	skipped
+should generate correct labels with runtime name and component name	skipped
+should create DaemonSet and Service successfully	skipped
+should not recreate if DaemonSet already exists	skipped
+should handle nil service gracefully	skipped
+should return correct status when all nodes are ready	skipped
+should return NotReady phase when not all nodes are ready	skipped
+should return NotReady phase when no nodes are ready	skipped
+should return error when DaemonSet doesn't exist	skipped
+should return status and affinity when ConstructComponentStatusAndAffinity is called	skipped
+should merge nodeSelector with existing nodeAffinity terms in ConstructComponentStatusAndAffinity	skipped
+should return the pod spec of the workload	skipped
+should return a copy the caller cannot use to mutate the workload	skipped
+should return error when DaemonSet doesn't exist	skipped
+should update replicas successfully	skipped
+should not update when replicas unchanged	skipped
+should skip update when replicas is nil	skipped
+should update full image (name + tag)	skipped
+should not update when only imageTag specified	skipped
+should not update when only image specified	skipped
+should not update when image unchanged	skipped
+should update both requests and limits	skipped
+should not update when resources unchanged	skipped
+should update replicas, image and resources together	skipped
+should return error when AdvancedStatefulSet not found	skipped
+should return error when no containers found	skipped
+should return true when replicas changed	skipped
+should return false when replicas unchanged	skipped
+should update full image	skipped
+should return false when only imageTag specified	skipped
+should return false when only image specified	skipped
+should return false when image unchanged	skipped
+should return false when no containers	skipped
+should update resources with DeepCopy	skipped
+should return false when resources unchanged	skipped
+should update to nil resources (remove limits)	skipped
+should return false when no containers	skipped
+should not report a change when an equal quantity was produced by arithmetic	skipped
+should still report a change when the quantity really differs	skipped
+C1+C2+C3: ASTS manager returns independent, non-aliasing, semantically-equal affinity	pass
+C3: DaemonSet manager derives the same affinity the removed GetNodeAffinity produced	pass
