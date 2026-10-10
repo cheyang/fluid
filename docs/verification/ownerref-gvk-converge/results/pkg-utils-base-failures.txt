@@ -1,0 +1,3 @@
+--- FAIL: TestCheckMountPointBroken (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	112.077s

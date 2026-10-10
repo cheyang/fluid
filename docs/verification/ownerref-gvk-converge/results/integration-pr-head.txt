@@ -1,0 +1,6 @@
+=== RUN   TestVerifyPR6199EnvtestOwnerReference
+    verify_pr6199_ownerref_envtest_test.go:97: confirmed: typed client returns Dataset with empty TypeMeta (uid=a64c841d-5a2d-4936-bbf1-d2f9c05a84b3)
+    verify_pr6199_ownerref_envtest_test.go:163: C4: API server REJECTED thinRuntime with empty ownerReference kind/apiVersion: ThinRuntime.data.fluid.io "verify-pr6199-legacy" is invalid: [metadata.ownerReferences.apiVersion: Invalid value: "": version must not be empty, metadata.ownerReferences.kind: Invalid value: "": kind must not be empty]
+--- PASS: TestVerifyPR6199EnvtestOwnerReference (5.60s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	5.609s

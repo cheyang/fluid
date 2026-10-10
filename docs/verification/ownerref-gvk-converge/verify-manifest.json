@@ -1,0 +1,37 @@
+{
+  "topic": "ownerref-gvk-converge",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6199",
+  "harnessPaths": [
+    "docs/verification/ownerref-gvk-converge",
+    "pkg/utils/verify_pr6199_ownerref_converge_test.go",
+    "pkg/utils/verify_pr6199_ownerref_envtest_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Two independent implementations of 'recover the owner GroupVersionKind when TypeMeta is empty' (datasetControllerOwnerReference from #6138, GenerateOwnerReferenceFromObject from #6139) do not agree on semantics and neither fix covers the other's callers.",
+    "reportedComponent": "pkg/utils/dataset_runtime.go + pkg/utils/transformer/owner_reference.go",
+    "patchedComponent": "pkg/utils/dataset_runtime.go (delegates to transformer helper) + regression tests",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "base branch keeps a group-only apiVersion (\"data.fluid.io/\", empty version segment) verbatim in the ownerReference while the transformer helper repairs it; harness goes red on exactly that shape against base code. See results/unit-base-harness-bites.txt",
+    "match": ["TestVerifyPR6199GroupOnlyAPIVersionRecovered", "TestVerifyPR6199ConvergesWithTransformerHelper"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/ -run 'TestVerifyPR6199' -count=1 -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "KUBEBUILDER_ASSETS=${KUBEBUILDER_ASSETS:-/usr/local/kubebuilder/bin} go test ./pkg/utils/ -run 'TestVerifyPR6199EnvtestOwnerReference' -count=1 -json"
+    }
+  },
+  "findings": [
+    { "id": "C1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK", "TestVerifyPR6199GroupOnlyAPIVersionRecovered"] },
+    { "id": "C2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6199ConvergesWithTransformerHelper"] },
+    { "id": "C3", "polarity": "contract", "layer": "integration", "match": ["TestVerifyPR6199EnvtestOwnerReference"] }
+  ],
+  "liveNote": "L3 skipped per debate setup (no KUBECONFIG layer). The unit + envtest layers fully decide every claim: the only production caller passes a typed-client Dataset whose TypeMeta round-trips empty (asserted as a precondition inside TestVerifyPR6199EnvtestOwnerReference)."
+}

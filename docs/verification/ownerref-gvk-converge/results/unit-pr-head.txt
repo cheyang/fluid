@@ -1,0 +1,39 @@
+=== RUN   TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK
+=== RUN   TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/complete_TypeMeta
+=== RUN   TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/group-only_apiVersion
+=== RUN   TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/custom_version
+=== RUN   TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/foreign_kind,_empty_version
+=== RUN   TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/empty_TypeMeta
+=== RUN   TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/kind_only
+=== RUN   TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/apiVersion_only
+--- PASS: TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK (0.00s)
+    --- PASS: TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/complete_TypeMeta (0.00s)
+    --- PASS: TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/group-only_apiVersion (0.00s)
+    --- PASS: TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/custom_version (0.00s)
+    --- PASS: TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/foreign_kind,_empty_version (0.00s)
+    --- PASS: TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/empty_TypeMeta (0.00s)
+    --- PASS: TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/kind_only (0.00s)
+    --- PASS: TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/apiVersion_only (0.00s)
+=== RUN   TestVerifyPR6199GroupOnlyAPIVersionRecovered
+--- PASS: TestVerifyPR6199GroupOnlyAPIVersionRecovered (0.00s)
+=== RUN   TestVerifyPR6199ConvergesWithTransformerHelper
+=== RUN   TestVerifyPR6199ConvergesWithTransformerHelper/apiVersion_only
+=== RUN   TestVerifyPR6199ConvergesWithTransformerHelper/complete_TypeMeta
+=== RUN   TestVerifyPR6199ConvergesWithTransformerHelper/group-only_apiVersion
+=== RUN   TestVerifyPR6199ConvergesWithTransformerHelper/custom_version
+=== RUN   TestVerifyPR6199ConvergesWithTransformerHelper/foreign_kind,_empty_version
+=== RUN   TestVerifyPR6199ConvergesWithTransformerHelper/empty_TypeMeta
+=== RUN   TestVerifyPR6199ConvergesWithTransformerHelper/kind_only
+--- PASS: TestVerifyPR6199ConvergesWithTransformerHelper (0.00s)
+    --- PASS: TestVerifyPR6199ConvergesWithTransformerHelper/apiVersion_only (0.00s)
+    --- PASS: TestVerifyPR6199ConvergesWithTransformerHelper/complete_TypeMeta (0.00s)
+    --- PASS: TestVerifyPR6199ConvergesWithTransformerHelper/group-only_apiVersion (0.00s)
+    --- PASS: TestVerifyPR6199ConvergesWithTransformerHelper/custom_version (0.00s)
+    --- PASS: TestVerifyPR6199ConvergesWithTransformerHelper/foreign_kind,_empty_version (0.00s)
+    --- PASS: TestVerifyPR6199ConvergesWithTransformerHelper/empty_TypeMeta (0.00s)
+    --- PASS: TestVerifyPR6199ConvergesWithTransformerHelper/kind_only (0.00s)
+=== RUN   TestVerifyPR6199EnvtestOwnerReference
+    verify_pr6199_ownerref_envtest_test.go:51: KUBEBUILDER_ASSETS not set, skipping envtest layer
+--- SKIP: TestVerifyPR6199EnvtestOwnerReference (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.012s

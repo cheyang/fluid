@@ -1,0 +1,40 @@
+=== RUN   TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK
+=== RUN   TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/apiVersion_only
+=== RUN   TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/complete_TypeMeta
+=== RUN   TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/group-only_apiVersion
+    verify_pr6199_ownerref_converge_test.go:70: C1: APIVersion "data.fluid.io/" has an empty version segment and must have been recovered from the scheme
+=== RUN   TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/custom_version
+=== RUN   TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/foreign_kind,_empty_version
+=== RUN   TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/empty_TypeMeta
+=== RUN   TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/kind_only
+--- FAIL: TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK (0.00s)
+    --- PASS: TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/apiVersion_only (0.00s)
+    --- PASS: TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/complete_TypeMeta (0.00s)
+    --- FAIL: TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/group-only_apiVersion (0.00s)
+    --- PASS: TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/custom_version (0.00s)
+    --- PASS: TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/foreign_kind,_empty_version (0.00s)
+    --- PASS: TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/empty_TypeMeta (0.00s)
+    --- PASS: TestVerifyPR6199DatasetControllerOwnerReferenceCompleteGVK/kind_only (0.00s)
+=== RUN   TestVerifyPR6199GroupOnlyAPIVersionRecovered
+    verify_pr6199_ownerref_converge_test.go:85: C1: expected group-only apiVersion to be repaired to "data.fluid.io/v1alpha1", got "data.fluid.io/"
+--- FAIL: TestVerifyPR6199GroupOnlyAPIVersionRecovered (0.00s)
+=== RUN   TestVerifyPR6199ConvergesWithTransformerHelper
+=== RUN   TestVerifyPR6199ConvergesWithTransformerHelper/empty_TypeMeta
+=== RUN   TestVerifyPR6199ConvergesWithTransformerHelper/kind_only
+=== RUN   TestVerifyPR6199ConvergesWithTransformerHelper/apiVersion_only
+=== RUN   TestVerifyPR6199ConvergesWithTransformerHelper/complete_TypeMeta
+=== RUN   TestVerifyPR6199ConvergesWithTransformerHelper/group-only_apiVersion
+    verify_pr6199_ownerref_converge_test.go:106: C2: apiVersion divergence: datasetControllerOwnerReference="data.fluid.io/", GenerateOwnerReferenceFromObject="data.fluid.io/v1alpha1"
+=== RUN   TestVerifyPR6199ConvergesWithTransformerHelper/custom_version
+=== RUN   TestVerifyPR6199ConvergesWithTransformerHelper/foreign_kind,_empty_version
+--- FAIL: TestVerifyPR6199ConvergesWithTransformerHelper (0.00s)
+    --- PASS: TestVerifyPR6199ConvergesWithTransformerHelper/empty_TypeMeta (0.00s)
+    --- PASS: TestVerifyPR6199ConvergesWithTransformerHelper/kind_only (0.00s)
+    --- PASS: TestVerifyPR6199ConvergesWithTransformerHelper/apiVersion_only (0.00s)
+    --- PASS: TestVerifyPR6199ConvergesWithTransformerHelper/complete_TypeMeta (0.00s)
+    --- FAIL: TestVerifyPR6199ConvergesWithTransformerHelper/group-only_apiVersion (0.00s)
+    --- PASS: TestVerifyPR6199ConvergesWithTransformerHelper/custom_version (0.00s)
+    --- PASS: TestVerifyPR6199ConvergesWithTransformerHelper/foreign_kind,_empty_version (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	0.011s
+FAIL
