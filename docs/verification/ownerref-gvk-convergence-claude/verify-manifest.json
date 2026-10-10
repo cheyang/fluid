@@ -1,0 +1,36 @@
+{
+  "topic": "ownerref-gvk-convergence-claude",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6199",
+  "harnessPaths": [
+    "docs/verification/ownerref-gvk-convergence-claude",
+    "pkg/utils/ownerref_convergence_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Two divergent GVK-recovery implementations: datasetControllerOwnerReference (pkg/utils/dataset_runtime.go) and transformer.GenerateOwnerReferenceFromObject (pkg/utils/transformer/owner_reference.go) do not overlap, so neither fix covers the other's callers (issue #6140).",
+    "reportedComponent": "pkg/utils/dataset_runtime.go + pkg/utils/transformer/owner_reference.go",
+    "patchedComponent": "pkg/utils/dataset_runtime.go (delegation) + test files; transformer production code already per-field on base via merged #6139",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base e0fc4c18 the same Dataset input yields different ownerReferences from the two helpers (data.fluid.io/ vs data.fluid.io/v1alpha1 for a group-only apiVersion; likewise / and a/b/c). See results/l1-premise-bites-base.txt",
+    "match": ["TestP0OwnerRefImplementationsAgree"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 -v -run 'TestP0|TestF3|TestDatasetControllerOwnerReference|TestCreateRuntimeForReferenceDatasetIfNotExist' ./pkg/utils/ && go test -count=1 ./pkg/utils/transformer/..."
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 ./pkg/controllers/v1alpha1/dataset/..."
+    }
+  },
+  "findings": [
+    { "id": "P0", "polarity": "contract", "layer": "unit", "match": ["TestP0OwnerRefImplementationsAgree"] },
+    { "id": "F1", "polarity": "canary", "layer": "unit", "match": ["TestF3VersionOnlyGroupNotRecovered"] },
+    { "id": "F3", "polarity": "contract", "layer": "unit", "match": ["TestDatasetControllerOwnerReference"] }
+  ],
+  "liveNote": "L3 skipped by phase scoping (unit + integration only). No claim needs a cluster; the observable signals are ownerReference Kind/APIVersion values in unit output."
+}

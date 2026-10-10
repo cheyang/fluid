@@ -1,0 +1,31 @@
+# BASE e0fc4c18 (merge base, production code WITHOUT the PR patch)
+# premise P0 + harness-bites: harness file + the PR's new dataset_runtime_test.go grafted onto base (scratch worktree, not committed)
+$ go test -count=1 -v -run 'TestP0|TestF3|TestDatasetControllerOwnerReference' ./pkg/utils/
+=== RUN   TestDatasetControllerOwnerReference
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_only_Kind_in_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_only_APIVersion_in_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_custom_APIVersion_in_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_malformed_APIVersion_(group_only,_missing_version)
+    dataset_runtime_test.go:352: expected APIVersion data.fluid.io/v1alpha1, got data.fluid.io/
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_complete_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_empty_TypeMeta
+--- FAIL: TestDatasetControllerOwnerReference (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_only_Kind_in_TypeMeta (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_only_APIVersion_in_TypeMeta (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_custom_APIVersion_in_TypeMeta (0.00s)
+    --- FAIL: TestDatasetControllerOwnerReference/dataset_with_malformed_APIVersion_(group_only,_missing_version) (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_complete_TypeMeta (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_empty_TypeMeta (0.00s)
+=== RUN   TestP0OwnerRefImplementationsAgree
+    ownerref_convergence_verify_test.go:85: [malformed apiversion, group only] the two implementations disagree: datasetControllerOwnerReference="data.fluid.io/"/"Dataset", transformer="data.fluid.io/v1alpha1"/"Dataset"
+    ownerref_convergence_verify_test.go:85: [malformed apiversion, slash only] the two implementations disagree: datasetControllerOwnerReference="/"/"Dataset", transformer="data.fluid.io/v1alpha1"/"Dataset"
+    ownerref_convergence_verify_test.go:92: [malformed apiversion, slash only] ownerReference is malformed: Kind="Dataset" APIVersion="/"
+    ownerref_convergence_verify_test.go:85: [malformed apiversion, two slashes] the two implementations disagree: datasetControllerOwnerReference="a/b/c"/"Dataset", transformer="data.fluid.io/v1alpha1"/"Dataset"
+--- FAIL: TestP0OwnerRefImplementationsAgree (0.00s)
+=== RUN   TestP0TransformerPartialRecovery
+--- PASS: TestP0TransformerPartialRecovery (0.00s)
+=== RUN   TestF3VersionOnlyGroupNotRecovered
+--- PASS: TestF3VersionOnlyGroupNotRecovered (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	0.011s
+FAIL

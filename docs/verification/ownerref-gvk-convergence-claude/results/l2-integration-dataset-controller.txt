@@ -1,0 +1,4 @@
+# PR head: integration layer - dataset controller suite consumes CreateRuntimeForReferenceDatasetIfNotExist
+$ go test -count=1 ./pkg/controllers/v1alpha1/dataset/...
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset	0.021s
+exit=0

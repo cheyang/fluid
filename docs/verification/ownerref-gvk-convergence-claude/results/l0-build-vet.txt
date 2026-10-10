@@ -1,0 +1,3 @@
+# go build / go vet ./pkg/utils/... (PR head dc3f33ca)
+build: OK
+vet: OK
