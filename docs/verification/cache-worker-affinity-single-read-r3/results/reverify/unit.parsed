@@ -1,0 +1,5 @@
+TestVerifyPR6200CanaryAffinityExpressionOrderUnstable	pass
+TestVerifyPR6200CanaryStatusWriteChurn	pass
+TestVerifyPR6200ConsequenceDeepEqual	pass
+TestVerifyPR6200SingleWorkerReadPerCycle	pass
+TestVerifyPR6200ParityCombinedMatchesLegacyOutputs	pass
