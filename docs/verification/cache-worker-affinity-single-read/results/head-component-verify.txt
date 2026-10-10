@@ -1,0 +1,22 @@
+=== RUN   TestCacheComponent
+Running Suite: Cache Component Suite - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-11/pr-6200/wt-6200-head-claude/pkg/ddc/cache/component
+[cache-component] 
+============================================================================================================================================================
+Random Seed: 1791670722
+Will run 2 of 56 specs
+SSSSSSSSSSSSSSSSSSSSSSSSS
+------------------------------
+Verification: combined status+affinity derivation (PR #6200) C1+C2+C3: ASTS manager returns independent, non-aliasing, semantically-equal affinity
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-11/pr-6200/wt-6200-head-claude/pkg/ddc/cache/component/status_affinity_verify_test.go:79
+• [0.001 seconds]
+------------------------------
+Verification: combined status+affinity derivation (PR #6200) C3: DaemonSet manager derives the same affinity the removed GetNodeAffinity produced
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-11/pr-6200/wt-6200-head-claude/pkg/ddc/cache/component/status_affinity_verify_test.go:119
+• [0.000 seconds]
+------------------------------
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+Ran 2 of 56 Specs in 0.001 seconds
+SUCCESS! -- 2 Passed | 0 Failed | 0 Pending | 54 Skipped
+--- PASS: TestCacheComponent (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	0.012s

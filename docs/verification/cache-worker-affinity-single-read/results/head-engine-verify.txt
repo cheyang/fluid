@@ -1,0 +1,36 @@
+2026/10/11 06:18:41 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestCacheEngine
+Running Suite: Cache Engine Suite - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-11/pr-6200/wt-6200-head-claude/pkg/ddc/cache/engine
+[cache_engine] 
+======================================================================================================================================================
+Random Seed: 1791670721
+Will run 5 of 298 specs
+SSSSSSSSSSS
+------------------------------
+Verification: worker affinity single-read (PR #6200) P1: performs exactly one worker AdvancedStatefulSet Get per status cycle
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-11/pr-6200/wt-6200-head-claude/pkg/ddc/cache/engine/status_affinity_verify_test.go:50
+• [0.001 seconds]
+------------------------------
+Verification: worker affinity single-read (PR #6200) P2: status.CacheAffinity equals MergeNodeSelectorAndNodeAffinity of the worker pod template
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-11/pr-6200/wt-6200-head-claude/pkg/ddc/cache/engine/status_affinity_verify_test.go:69
+• [0.000 seconds]
+------------------------------
+Verification: worker affinity single-read (PR #6200) P3: out-of-band worker nodeSelector change is reflected on the next cycle (zero staleness)
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-11/pr-6200/wt-6200-head-claude/pkg/ddc/cache/engine/status_affinity_verify_test.go:100
+• [0.000 seconds]
+------------------------------
+Verification: worker affinity single-read (PR #6200) P4: missing worker workload surfaces as an error
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-11/pr-6200/wt-6200-head-claude/pkg/ddc/cache/engine/status_affinity_verify_test.go:133
+• [0.000 seconds]
+------------------------------
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+------------------------------
+Verification: worker affinity helpers sanity (PR #6200) newStatusTestRuntimeValue(false) keeps the worker component enabled
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-11/pr-6200/wt-6200-head-claude/pkg/ddc/cache/engine/status_affinity_verify_test.go:162
+• [0.000 seconds]
+------------------------------
+Ran 5 of 298 Specs in 0.003 seconds
+SUCCESS! -- 5 Passed | 0 Failed | 0 Pending | 293 Skipped
+--- PASS: TestCacheEngine (0.01s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.016s
