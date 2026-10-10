@@ -20,11 +20,11 @@
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "go test -count=1 -v -run 'TestP0|TestF3|TestDatasetControllerOwnerReference|TestCreateRuntimeForReferenceDatasetIfNotExist' ./pkg/utils/ && go test -count=1 ./pkg/utils/transformer/..."
+      "cmd": "go test -count=1 -json -run 'TestP0|TestF3|TestDatasetControllerOwnerReference|TestCreateRuntimeForReferenceDatasetIfNotExist' ./pkg/utils/ && go test -count=1 -json ./pkg/utils/transformer/..."
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "go test -count=1 ./pkg/controllers/v1alpha1/dataset/..."
+      "cmd": "go test -count=1 -json ./pkg/controllers/v1alpha1/dataset/..."
     }
   },
   "findings": [
