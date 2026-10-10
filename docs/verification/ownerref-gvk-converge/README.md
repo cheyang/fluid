@@ -64,7 +64,10 @@ bash docs/verification/ownerref-gvk-converge/scripts/re-verify.sh
 ```
 
 (with no ref it fetches the current PR head via the manifest's `pr` URL). Layer 2 needs
-envtest assets (`KUBEBUILDER_ASSETS`, e.g. via `setup-envtest`); it self-skips without them.
+envtest assets (`KUBEBUILDER_ASSETS`, e.g. via `setup-envtest`); without them the envtest
+test self-skips and re-verify reports C3 as `HARNESS-UPDATE` (miss) — that means "no
+evidence this run", not a regression. With assets set, all three findings report FIXED and
+the script exits 0 (verified on this machine, k8s 1.30.3 envtest assets).
 
 ### Kickoff prompt for a fresh agent
 ```text
