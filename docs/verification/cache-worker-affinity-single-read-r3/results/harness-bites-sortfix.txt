@@ -1,0 +1,17 @@
+# harness-bites check: sort-fix applied to MergeNodeSelectorAndNodeAffinity (TEMPORARY, reverted after)
+# expected: F3 canaries FLIP to red; contract/parity stay green
+=== RUN   TestVerifyPR6200CanaryAffinityExpressionOrderUnstable
+--- FAIL: TestVerifyPR6200CanaryAffinityExpressionOrderUnstable (0.00s)
+=== RUN   TestVerifyPR6200CanaryStatusWriteChurn
+--- FAIL: TestVerifyPR6200CanaryStatusWriteChurn (0.00s)
+=== RUN   TestVerifyPR6200ConsequenceDeepEqual
+--- PASS: TestVerifyPR6200ConsequenceDeepEqual (0.00s)
+=== RUN   TestVerifyPR6200SingleWorkerReadPerCycle
+--- PASS: TestVerifyPR6200SingleWorkerReadPerCycle (0.00s)
+=== RUN   TestVerifyPR6200EnvtestCacheAffinityRoundTrip
+=== RUN   TestVerifyPR6200ParityCombinedMatchesLegacyOutputs
+--- PASS: TestVerifyPR6200ParityCombinedMatchesLegacyOutputs (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.013s
+FAIL
+REVERTED: production diff empty

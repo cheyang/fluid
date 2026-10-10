@@ -1,0 +1,8 @@
+# PR's own suites on head: component package (all pass)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	0.020s
+
+# engine package: 12 pre-existing ufs_test failures, identical set on base (md5 of failing spec lists matches)
+--- FAIL: TestCacheEngine (0.20s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.229s
+FAIL

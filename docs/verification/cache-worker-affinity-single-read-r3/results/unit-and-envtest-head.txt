@@ -1,0 +1,18 @@
+# harness on PR head 7b6392c2 (unit + envtest L2)
+=== RUN   TestVerifyPR6200CanaryAffinityExpressionOrderUnstable
+    zz_verify_pr6200_canary_order_test.go:95: order variants observed: 175/200 computations differed from the reference order
+--- PASS: TestVerifyPR6200CanaryAffinityExpressionOrderUnstable (0.00s)
+=== RUN   TestVerifyPR6200CanaryStatusWriteChurn
+    zz_verify_pr6200_canary_order_test.go:135: spurious status writes in cycles 2..6: 5/5 cycles rewrote status with no spec change
+--- PASS: TestVerifyPR6200CanaryStatusWriteChurn (0.00s)
+=== RUN   TestVerifyPR6200ConsequenceDeepEqual
+    zz_verify_pr6200_canary_order_test.go:156: DeepEqual mismatches across 200 identical computations: 181
+--- PASS: TestVerifyPR6200ConsequenceDeepEqual (0.00s)
+=== RUN   TestVerifyPR6200SingleWorkerReadPerCycle
+--- PASS: TestVerifyPR6200SingleWorkerReadPerCycle (0.00s)
+=== RUN   TestVerifyPR6200EnvtestCacheAffinityRoundTrip
+--- PASS: TestVerifyPR6200EnvtestCacheAffinityRoundTrip (4.58s)
+=== RUN   TestVerifyPR6200ParityCombinedMatchesLegacyOutputs
+--- PASS: TestVerifyPR6200ParityCombinedMatchesLegacyOutputs (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	4.597s

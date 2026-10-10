@@ -1,0 +1,16 @@
+# harness contract test on merge-base d8b37f28 (P0 premise check; files copied verbatim from the verify branch)
+=== RUN   TestVerifyPR6200CanaryAffinityExpressionOrderUnstable
+    zz_verify_pr6200_canary_order_test.go:95: order variants observed: 94/200 computations differed from the reference order
+--- PASS: TestVerifyPR6200CanaryAffinityExpressionOrderUnstable (0.00s)
+=== RUN   TestVerifyPR6200CanaryStatusWriteChurn
+    zz_verify_pr6200_canary_order_test.go:135: spurious status writes in cycles 2..6: 2/5 cycles rewrote status with no spec change
+--- PASS: TestVerifyPR6200CanaryStatusWriteChurn (0.00s)
+=== RUN   TestVerifyPR6200ConsequenceDeepEqual
+    zz_verify_pr6200_canary_order_test.go:156: DeepEqual mismatches across 200 identical computations: 172
+--- PASS: TestVerifyPR6200ConsequenceDeepEqual (0.00s)
+=== RUN   TestVerifyPR6200SingleWorkerReadPerCycle
+    zz_verify_pr6200_contract_test.go:157: cycle 1: worker AdvancedStatefulSet Get calls = 2, want exactly 1 (1 per status cycle)
+--- FAIL: TestVerifyPR6200SingleWorkerReadPerCycle (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.013s
+FAIL
