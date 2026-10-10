@@ -16,26 +16,77 @@
     "layer": "integration",
     "verdict": "confirmed",
     "evidence": "P1 spec on base d8b37f28: 'cycle 1: expected exactly 1 worker Get, got 2' (results/base-engine-verify.txt); on head 7b6392c2 it passes with 1",
-    "match": ["P1: performs exactly one worker AdvancedStatefulSet Get per status cycle"]
+    "match": [
+      "P1: performs exactly one worker AdvancedStatefulSet Get per status cycle"
+    ]
   },
   "layers": {
     "unit": {
-      "kind": "gotest",
-      "cmd": "go test -count=1 ./pkg/ddc/cache/component/ -run TestCacheComponent -ginkgo.focus 'Verification' -ginkgo.v"
+      "kind": "ginkgo",
+      "cmd": "go test -count=1 ./pkg/ddc/cache/component/ -run TestCacheComponent -ginkgo.focus 'Verification' -ginkgo.json-report=$GINKGO_REPORT"
     },
     "integration": {
-      "kind": "gotest",
-      "cmd": "go test -count=1 ./pkg/ddc/cache/engine/ -run TestCacheEngine -ginkgo.focus 'Verification' -ginkgo.v"
+      "kind": "ginkgo",
+      "cmd": "go test -count=1 ./pkg/ddc/cache/engine/ -run TestCacheEngine -ginkgo.focus 'Verification' -ginkgo.json-report=$GINKGO_REPORT"
     }
   },
   "findings": [
-    { "id": "P1", "polarity": "contract", "layer": "integration", "match": ["P1: performs exactly one worker AdvancedStatefulSet Get per status cycle"] },
-    { "id": "P2", "polarity": "contract", "layer": "integration", "match": ["P2: status.CacheAffinity equals MergeNodeSelectorAndNodeAffinity"] },
-    { "id": "P3", "polarity": "contract", "layer": "integration", "match": ["P3: out-of-band worker nodeSelector change"] },
-    { "id": "P4", "polarity": "contract", "layer": "integration", "match": ["P4: missing worker workload surfaces as an error"] },
-    { "id": "C1", "polarity": "contract", "layer": "unit", "match": ["C1+C2+C3: ASTS manager returns independent"] },
-    { "id": "C2", "polarity": "contract", "layer": "unit", "match": ["C1+C2+C3: ASTS manager returns independent"] },
-    { "id": "C3", "polarity": "contract", "layer": "unit", "match": ["C3: DaemonSet manager derives the same affinity"] }
+    {
+      "id": "P1",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "P1: performs exactly one worker AdvancedStatefulSet Get per status cycle"
+      ]
+    },
+    {
+      "id": "P2",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "P2: status.CacheAffinity equals MergeNodeSelectorAndNodeAffinity"
+      ]
+    },
+    {
+      "id": "P3",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "P3: out-of-band worker nodeSelector change"
+      ]
+    },
+    {
+      "id": "P4",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "P4: missing worker workload surfaces as an error"
+      ]
+    },
+    {
+      "id": "C1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "C1+C2+C3: ASTS manager returns independent"
+      ]
+    },
+    {
+      "id": "C2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "C1+C2+C3: ASTS manager returns independent"
+      ]
+    },
+    {
+      "id": "C3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "C3: DaemonSet manager derives the same affinity"
+      ]
+    }
   ],
   "liveNote": "L3 skipped this round (no cluster). Observable signal if run: apiserver audit log shows one GET of the worker advancedstatefulset per reconcile tick after the PR, two before."
 }
