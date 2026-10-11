@@ -86,6 +86,15 @@
       "match": [
         "C3: DaemonSet manager derives the same affinity"
       ]
+    },
+    {
+      "id": "P5",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "P5: ConstructComponentStatus delegation keeps one read"
+      ],
+      "note": "added 2026-10-12 for delta commit 0182b4f1 (delegation refactor): guards against the delegate reintroducing a second workload Get, status-content drift, or swallowed errors"
     }
   ],
   "liveNote": "L3 skipped this round (no cluster). Observable signal if run: apiserver audit log shows one GET of the worker advancedstatefulset per reconcile tick after the PR, two before."

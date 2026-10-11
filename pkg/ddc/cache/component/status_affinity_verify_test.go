@@ -27,6 +27,10 @@ package component
 //       (mutating the result does not rewrite the workload's pod template).
 //   C3: for both managers the derived affinity equals kubeclient.MergeNodeSelectorAndNodeAffinity
 //       computed on the workload's pod template — parity with the removed GetNodeAffinity.
+//   P5 (added round 2026-10-12 for delta commit 0182b4f1 "delegate ConstructComponentStatus
+//       to ConstructComponentStatusAndAffinity"): the delegate preserves semantics —
+//       identical status content, exactly ONE workload Get per call (the delegation must not
+//       reintroduce the duplicate read), and missing-workload errors still propagate.
 
 import (
 	"context"
@@ -45,6 +49,19 @@ import (
 	"github.com/fluid-cloudnative/fluid/pkg/utils/fake"
 	"github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient"
 )
+
+// countingClient wraps a client and counts Get calls, so the harness can pin the
+// number of workload reads per component-status call (the delegation added in
+// 0182b4f1 must keep it at exactly one).
+type countingClient struct {
+	ctrlclient.Client
+	gets int
+}
+
+func (c *countingClient) Get(ctx context.Context, key ctrlclient.ObjectKey, obj ctrlclient.Object) error {
+	c.gets++
+	return c.Client.Get(ctx, key, obj)
+}
 
 func verifyAffinityTestClient() ctrlclient.Client {
 	scheme := runtime.NewScheme()
@@ -135,5 +152,58 @@ var _ = Describe("Verification: combined status+affinity derivation (PR #6200)",
 		expected := kubeclient.MergeNodeSelectorAndNodeAffinity(
 			fetched.Spec.Template.Spec.NodeSelector, fetched.Spec.Template.Spec.Affinity)
 		Expect(affinity).To(Equal(expected))
+	})
+
+	It("P5: ConstructComponentStatus delegation keeps one read, identical status, and error propagation", func() {
+		// ASTS manager (worker/master path).
+		astsClient := &countingClient{Client: verifyAffinityTestClient()}
+		astsManager := newAdvancedStatefulSetManager(astsClient)
+
+		replicas := int32(2)
+		asts := &workloadv1alpha1.AdvancedStatefulSet{
+			ObjectMeta: metav1.ObjectMeta{Name: "verify-delegate-worker", Namespace: "fluid"},
+			Spec: workloadv1alpha1.AdvancedStatefulSetSpec{
+				Replicas: &replicas,
+				Template: verifyAffinityPodTemplate(),
+			},
+			Status: workloadv1alpha1.AdvancedStatefulSetStatus{
+				ReadyReplicas: 2, CurrentReplicas: 2, AvailableReplicas: 2,
+			},
+		}
+		Expect(astsClient.Create(ctx, asts)).To(Succeed())
+		astsIdentity := &common.ComponentIdentity{Name: "verify-delegate-worker", Namespace: "fluid"}
+
+		statusViaDelegate, err := astsManager.ConstructComponentStatus(ctx, astsIdentity)
+		Expect(err).NotTo(HaveOccurred())
+		Expect(astsClient.gets).To(Equal(1), "delegation must not reintroduce a second workload Get")
+
+		statusDirect, _, err := astsManager.ConstructComponentStatusAndAffinity(ctx, astsIdentity)
+		Expect(err).NotTo(HaveOccurred())
+		Expect(statusViaDelegate).To(Equal(statusDirect), "delegated status must equal the combined method's status half")
+
+		// DaemonSet manager (client path).
+		dsClient := &countingClient{Client: verifyAffinityTestClient()}
+		dsManager := newDaemonSetManager(dsClient)
+
+		ds := &appsv1.DaemonSet{
+			ObjectMeta: metav1.ObjectMeta{Name: "verify-delegate-client", Namespace: "fluid"},
+			Spec:       appsv1.DaemonSetSpec{Template: verifyAffinityPodTemplate()},
+		}
+		Expect(dsClient.Create(ctx, ds)).To(Succeed())
+		dsIdentity := &common.ComponentIdentity{Name: "verify-delegate-client", Namespace: "fluid"}
+
+		dsStatusViaDelegate, err := dsManager.ConstructComponentStatus(ctx, dsIdentity)
+		Expect(err).NotTo(HaveOccurred())
+		Expect(dsClient.gets).To(Equal(1), "delegation must not reintroduce a second workload Get")
+
+		dsStatusDirect, _, err := dsManager.ConstructComponentStatusAndAffinity(ctx, dsIdentity)
+		Expect(err).NotTo(HaveOccurred())
+		Expect(dsStatusViaDelegate).To(Equal(dsStatusDirect))
+
+		// Error propagation: a missing workload must still surface as an error through the delegate.
+		_, err = astsManager.ConstructComponentStatus(ctx, &common.ComponentIdentity{Name: "no-such-worker", Namespace: "fluid"})
+		Expect(err).To(HaveOccurred())
+		_, err = dsManager.ConstructComponentStatus(ctx, &common.ComponentIdentity{Name: "no-such-client", Namespace: "fluid"})
+		Expect(err).To(HaveOccurred())
 	})
 })
