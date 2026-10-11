@@ -2,11 +2,40 @@
 
 Reproducible evidence for the review of [PR #6200](https://github.com/fluid-cloudnative/fluid/pull/6200)
 (`perf(cache): derive worker node affinity during status construction to avoid duplicate read`,
-fixes #5879).
+refs #5879).
 
-Layers run against the **code under review** (`7b6392c2`, PR head; base merge-base `d8b37f28`
-for the premise check). Harness is **additive only** — production code untouched
-(`git diff 7b6392c2 -- pkg/ docs/` shows only new test files + this directory).
+Layers run against the **code under review** (current head `0182b4f1`; previous reviewed head
+`7b6392c2`; base merge-base `d8b37f28` for the premise check). Harness is **additive only** —
+production code untouched (`git diff 0182b4f1 -- pkg/ docs/` shows only new test files + this
+directory).
+
+## Round 2026-10-12 — delta `7b6392c2..0182b4f1` (verified)
+
+The author pushed one commit, `0182b4f1` "refactor(cache): delegate
+`ConstructComponentStatus` to `ConstructComponentStatusAndAffinity`" — exactly the F1
+de-duplication fix proposed in the prior round — and retargeted the PR body from
+`fixes #5879` to `refs #5879` (resolving the prior F2 merge-metadata ask; no auto-close).
+
+New claim **P5** (contract, unit layer) guards the delegation: `ConstructComponentStatus`
+on **both** managers still performs **exactly one** workload `Get` (counting client),
+returns a status **identical** to the combined method's status half, and still propagates
+missing-workload errors.
+
+- `re-verify.sh` against `0182b4f1`: **all 8 claims pass** (P1–P5, C1–C3),
+  `results/reverify/`.
+- Harness-bites for P5: mutating the ASTS delegate to call the combined method twice
+  (simulated duplicate-read regression, in a throwaway worktree, reverted) makes P5 FAIL
+  at the `gets == 1` assertion — the spec demonstrably bites.
+- Full-suite attribution on `0182b4f1`: `go test ./pkg/ddc/cache/...` — component PASS;
+  engine fails the **same 12 pre-existing specs** (11× `ufs_test.go`, 1× `sync_test.go`)
+  with a byte-identical failing-spec set on base `d8b37f28`, previous head `7b6392c2`,
+  and head `0182b4f1` — pre-existing, not PR-caused.
+- Blast-radius of the delegation on non-worker callers (`status.go` master/client,
+  `master.go`/`worker.go`/`client.go`): one extra `MergeNodeSelectorAndNodeAffinity`
+  computation per call — deep-copying, non-mutating, nil-safe, no extra API reads.
+  Log line changes from "start to ConstructComponentStatus" to
+  "start to ConstructComponentStatusAndAffinity"; no test asserts the old string.
+
 
 | Layer | What it exercises | How to run |
 |-------|-------------------|------------|
@@ -50,11 +79,13 @@ head — no behavioral change beyond the read consolidation).
 | C1 | successive `ConstructComponentStatusAndAffinity` calls return deep-independent affinity objects | 1 | Confirmed | head-component-verify.txt |
 | C2 | returned affinity does not alias the stored workload | 1 | Confirmed | head-component-verify.txt |
 | C3 | derived affinity equals `MergeNodeSelectorAndNodeAffinity` for ASTS **and** DaemonSet managers | 1 | Confirmed | head-component-verify.txt |
+| P5 | (round 2026-10-12) `ConstructComponentStatus` delegation: exactly one workload Get, identical status content, error propagation — for both managers | 1 | Confirmed | results/reverify/unit.out |
 
-Pre-existing failures: `go test ./pkg/ddc/cache/...` fails 12 specs in
-`pkg/ddc/cache/engine/ufs_test.go` (UpdateOnUFSChange) **identically on base and head**
-(`results/base-full-suite.txt`, `results/head-full-suite.txt`; diff of failing spec line
-numbers is empty). They are not caused by this PR and are not counted against it.
+Pre-existing failures: `go test ./pkg/ddc/cache/...` fails 12 specs
+(11× `pkg/ddc/cache/engine/ufs_test.go`, 1× `pkg/ddc/cache/engine/sync_test.go`)
+**identically on base `d8b37f28`, previous head `7b6392c2`, and head `0182b4f1`**
+(failing-spec sets diff empty). They are not caused by this PR and are not counted
+against it.
 
 ## Per-finding detail
 
@@ -86,14 +117,17 @@ two before.
 
 ## Proposed fixes (NOT applied to production here)
 
-The review found no correctness defects. Non-blocking suggestions filed in the review:
+The review found no correctness defects. Prior non-blocking suggestions and their status
+after round 2026-10-12:
 
-- `ConstructComponentStatus` (both managers) duplicates the Get + error-handling block of
-  `ConstructComponentStatusAndAffinity`; it could be a 3-line wrapper
-  `status, _, err := s.ConstructComponentStatusAndAffinity(ctx, identity)`.
+- ~~`ConstructComponentStatus` (both managers) duplicates the Get + error-handling block
+  of `ConstructComponentStatusAndAffinity`~~ — **applied by the author in `0182b4f1`**
+  (exact 3-line delegate proposed); verified by P5.
+- ~~`fixes #5879` auto-close concern~~ — **resolved**: PR body now says `refs #5879`,
+  so merging no longer auto-closes the issue.
 - `DaemonSetManager.ConstructComponentStatusAndAffinity` has no production caller (worker
   components always resolve to the AdvancedStatefulSet manager via `NewComponentHelper`);
-  it exists for interface conformance only.
+  it exists for interface conformance only. Still open (nit).
 
 ## Continuing after the fix (possibly on another machine)
 
