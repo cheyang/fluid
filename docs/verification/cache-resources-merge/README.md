@@ -1,6 +1,6 @@
 # Verification — PR #6177 — merge CacheRuntime resources onto the CacheRuntimeClass baseline
 
-Reviewer: Claude (Reviewer A, first round). Branch: `verify/cache-resources-merge-claude`, based on PR head `c1c303e8`.
+Reviewer: Claude (Reviewer A). Branch: `verify/cache-resources-merge-claude`, based on PR head `c1c303e8` (round 1) and re-verified against `e259d738` (round 2).
 Production code is untouched on this branch — the diff is this harness only.
 
 ## Premise (P0) — CONFIRMED
@@ -35,11 +35,36 @@ The reported component (`pkg/ddc/cache` resource resolution feeding
 No code-level defect was found in the PR; the review findings are design/test-gap items
 (see the debate document in the run workspace, not on this branch).
 
+## Round 2 — delta `c1c303e8..e259d738`
+
+The PR added 7 commits after round 1. The production change is `ecd41afa`
+("clear a resource neither the CacheRuntime nor its template declares"):
+`desiredComponentResources` no longer returns nil, and the worker's
+`GetPodSpec`/tiered-store-quota read-back became unconditional. Everything else is
+tests, docs, and the curvine e2e case the first round asked for.
+
+All round-1 findings B1–B5 re-verified **FIXED** on `e259d738`
+(`scripts/re-verify.sh`, see `results/reverify/`). Full engine suite: 292 passed /
+12 failed at head vs 275 / 12 at the previous head — the failing set is
+byte-identical (pre-existing `ufs_test.go` failures), so no revision regression.
+
+New harness probes (`verify_delta_6177_test.go`):
+
+| id | claim | polarity | verdict | evidence |
+| --- | --- | --- | --- | --- |
+| D1 | Neither side declaring resolves to a non-nil empty desired (the nil "leave alone" is gone; undeclared keys are cleared) | contract | **Confirmed** — fails on `c1c303e` (nil return), passes on `e259d738`; the intended semantic change, now pinned | `results/round2/unit-harness-{previous-head,head}.log` |
+| D2 | The merge can synthesize requests > limits from individually valid inputs (template requests.cpu=1/limits.cpu=2, CacheRuntime limits.cpu=500m), and `syncRuntimeSpec` applies that combination to the workload with no error and no event | **canary** | **Still present** (open finding F6 in the round-2 ledger) | `TestD2MergeSynthesizesRequestsAboveLimits` passes at head: workload ends with requests.cpu=1 above limits.cpu=500m, sync returns nil. On the merge base the same input drops the requests instead (the #6173 bug), so the invalid combination is introduced by this PR's merge. The Kubernetes API server rejects pods whose requests exceed their limits, so on a real cluster this input now sticks the rollout with no event on the CacheRuntime. |
+| D3 | An unconstrained container with a memory-medium tiered-store volume stays unconstrained and unpatched by sync (the now-unconditional quota read-back must not invent a memory request) | contract | **Confirmed** | `TestD3QuotaWithoutBaselineStaysUnconstrained` — resources stay nil, resourceVersion unchanged |
+
+`.last-reviewed` advanced to `e259d738`.
+
 ## Harness layout
 
 - `../../pkg/ddc/cache/engine/verify_premise_6177_test.go` — plain Go contract tests
   (P0 premise reproduction, P1 creation/sync equivalence, P2 claims survival).
-  Runs with the package's normal suite: `FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -run 'TestP0|TestP1|TestP2' -v`.
+- `../../pkg/ddc/cache/engine/verify_delta_6177_test.go` — round-2 tests (D1 nil-removal
+  semantics, D2 requests-above-limits canary, D3 quota read-back boundary).
+  Runs with the package's normal suite: `FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -run 'TestP0|TestP1|TestP2|TestD1|TestD2|TestD3' -v`.
 - `results/` — captured raw output:
   - `unit-base.log` / `unit-head.log` — canaries at merge base vs PR head.
   - `suite-summary.log` — full engine suite base vs head (274→287 specs, 262→275 passed;
@@ -51,8 +76,10 @@ No code-level defect was found in the PR; the review findings are design/test-ga
 
 ## Polarity
 
-All tests are **contract** tests: green at head means fixed, red means broken. None are
-bug-canaries, so nothing needs inverting after the fix.
+P0/P1/P2, B1–B5, D1 and D3 are **contract** tests: green at head means fixed, red means
+broken. **D2 is a bug-canary**: it passes while the unvalidated merge is the current
+behavior; if the controller starts validating (or refusing) requests-above-limits
+combinations, it flips to fail and must then be inverted or promoted to a contract test.
 
 ## Continuing after the fix
 
@@ -64,8 +91,8 @@ bash docs/verification/cache-resources-merge/scripts/re-verify.sh
 
 It fetches the current PR head from the `pr` URL, grafts `harnessPaths` onto it, runs the
 unit + integration layers, and prints per-finding Fixed / Still-broken / Partial. Exit 0
-iff all findings are fixed. `.last-reviewed` holds `c1c303e8` — advance it after the next
-review round.
+iff all findings are fixed (D2 keeps it non-zero until the requests-above-limits finding
+is resolved). `.last-reviewed` holds `e259d738` — advance it after the next review round.
 
 ## Live layer (L3) — skipped
 

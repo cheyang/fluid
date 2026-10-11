@@ -1,0 +1,33 @@
+2026/10/12 06:14:42 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestD1NeitherDeclaresResolvesEmpty
+    verify_delta_6177_test.go:83: desiredComponentResources returned nil for definition &{map[] {{      0 0001-01-01 00:00:00 +0000 UTC <nil> <nil> map[] map[] [] [] []} {[] [] [{worker fluid/cache:v1 [] []  [] [] [] {map[] map[] []} [] <nil> [] [] nil nil nil nil    nil false false false}] []  <nil> <nil>  map[]   <nil>  false false false <nil> nil []   nil  [] []  <nil> nil [] <nil> <nil> <nil> map[] [] <nil> nil <nil> [] []}} {{<nil>}} {<nil> <nil>} <nil>}: the delta must resolve to empty, not nil
+--- FAIL: TestD1NeitherDeclaresResolvesEmpty (0.00s)
+=== RUN   TestD2MergeSynthesizesRequestsAboveLimits
+    verify_delta_6177_test.go:117: canary: merged requests.cpu (1) exceeds merged limits.cpu (500m) — invalid pod spec
+    verify_delta_6177_test.go:169: canary: sync applied requests.cpu=1 above limits.cpu=500m with no error and no event
+--- PASS: TestD2MergeSynthesizesRequestsAboveLimits (0.00s)
+=== RUN   TestD3QuotaWithoutBaselineStaysUnconstrained
+--- PASS: TestD3QuotaWithoutBaselineStaysUnconstrained (0.00s)
+=== RUN   TestP0SyncDesiredKeepsUnstatedTemplateKeys
+--- PASS: TestP0SyncDesiredKeepsUnstatedTemplateKeys (0.00s)
+=== RUN   TestP0CreationKeepsUnstatedTemplateKeys
+--- PASS: TestP0CreationKeepsUnstatedTemplateKeys (0.00s)
+=== RUN   TestP1CreationAndSyncAgree
+=== RUN   TestP1CreationAndSyncAgree/full_template,_partial_runtime
+=== RUN   TestP1CreationAndSyncAgree/full_template,_empty_runtime
+=== RUN   TestP1CreationAndSyncAgree/empty_template,_full_runtime
+=== RUN   TestP1CreationAndSyncAgree/requests-only_runtime_on_limits-only_template
+=== RUN   TestP1CreationAndSyncAgree/claims_on_both_layers
+=== RUN   TestP1CreationAndSyncAgree/neither_declares
+--- PASS: TestP1CreationAndSyncAgree (0.00s)
+    --- PASS: TestP1CreationAndSyncAgree/full_template,_partial_runtime (0.00s)
+    --- PASS: TestP1CreationAndSyncAgree/full_template,_empty_runtime (0.00s)
+    --- PASS: TestP1CreationAndSyncAgree/empty_template,_full_runtime (0.00s)
+    --- PASS: TestP1CreationAndSyncAgree/requests-only_runtime_on_limits-only_template (0.00s)
+    --- PASS: TestP1CreationAndSyncAgree/claims_on_both_layers (0.00s)
+    --- PASS: TestP1CreationAndSyncAgree/neither_declares (0.00s)
+=== RUN   TestP2ClaimsSurvive
+--- PASS: TestP2ClaimsSurvive (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.017s
+FAIL

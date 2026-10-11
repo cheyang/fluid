@@ -3,24 +3,29 @@
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6177",
   "harnessPaths": [
     "docs/verification/cache-resources-merge",
-    "pkg/ddc/cache/engine/verify_premise_6177_test.go"
+    "pkg/ddc/cache/engine/verify_premise_6177_test.go",
+    "pkg/ddc/cache/engine/verify_delta_6177_test.go"
   ],
   "premise": {
     "id": "P0",
     "claim": "A CacheRuntime that names only limits.memory on a worker whose CacheRuntimeClass template declares a full set loses requests.cpu, requests.memory and limits.cpu from the workload on the next reconcile, with no error and no event; Claims is dropped the same way (issue #6173).",
-    "reportedComponent": "pkg/ddc/cache — CacheRuntime resource resolution feeding AdvancedStatefulSetManager.updateResources",
-    "patchedComponent": "pkg/ddc/cache/engine — sync.go desiredComponentResources + transform_common.go transformComponentPodTemplate/mergeResourceRequirements",
+    "reportedComponent": "pkg/ddc/cache \u2014 CacheRuntime resource resolution feeding AdvancedStatefulSetManager.updateResources",
+    "patchedComponent": "pkg/ddc/cache/engine \u2014 sync.go desiredComponentResources + transform_common.go transformComponentPodTemplate/mergeResourceRequirements",
     "componentMatch": true,
     "runsAgainst": "base",
     "layer": "unit",
     "verdict": "confirmed",
-    "evidence": "Canary at merge base e0fc4c18: 'limits.cpu dropped (got \"0\")', 'requests dropped: got map[]', claims dropped at both creation and sync layers — results/unit-base.log",
-    "match": ["TestP0SyncDesiredKeepsUnstatedTemplateKeys", "TestP0CreationKeepsUnstatedTemplateKeys", "TestP2ClaimsSurvive"]
+    "evidence": "Canary at merge base e0fc4c18: 'limits.cpu dropped (got \"0\")', 'requests dropped: got map[]', claims dropped at both creation and sync layers \u2014 results/unit-base.log",
+    "match": [
+      "TestP0SyncDesiredKeepsUnstatedTemplateKeys",
+      "TestP0CreationKeepsUnstatedTemplateKeys",
+      "TestP2ClaimsSurvive"
+    ]
   },
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -run 'TestP0|TestP1|TestP2' -json"
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -run 'TestP0|TestP1|TestP2|TestD1|TestD2|TestD3' -json"
     },
     "integration": {
       "kind": "ginkgo",
@@ -29,11 +34,125 @@
     }
   },
   "findings": [
-    { "id": "B1", "polarity": "contract", "layer": "unit", "match": ["TestP0SyncDesiredKeepsUnstatedTemplateKeys", "TestP0CreationKeepsUnstatedTemplateKeys"] },
-    { "id": "B2", "polarity": "contract", "layer": "unit", "match": ["TestP1CreationAndSyncAgree"] },
-    { "id": "B3", "polarity": "contract", "layer": "unit", "match": ["TestP2ClaimsSurvive"] },
-    { "id": "B4", "polarity": "contract", "layer": "integration", "match": ["should move the key it names and keep the template's other requirements"] },
-    { "id": "B5", "polarity": "contract", "layer": "integration", "match": ["should leave requests unset and stop patching once converged"] }
+    {
+      "id": "B1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestP0SyncDesiredKeepsUnstatedTemplateKeys",
+        "TestP0CreationKeepsUnstatedTemplateKeys"
+      ]
+    },
+    {
+      "id": "B2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestP1CreationAndSyncAgree"
+      ]
+    },
+    {
+      "id": "B3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestP2ClaimsSurvive"
+      ]
+    },
+    {
+      "id": "B4",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "should move the key it names and keep the template's other requirements"
+      ]
+    },
+    {
+      "id": "B5",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "should leave requests unset and stop patching once converged"
+      ]
+    },
+    {
+      "id": "D1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestD1NeitherDeclaresResolvesEmpty"
+      ],
+      "note": "delta c1c303e8..e259d738: desiredComponentResources never returns nil; a key neither side declares is cleared. fails on c1c303e (nil return), passes on e259d738."
+    },
+    {
+      "id": "D2",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": [
+        "TestD2MergeSynthesizesRequestsAboveLimits"
+      ],
+      "note": "F6 open finding: the merge can synthesize requests > limits from individually valid inputs; sync applies it to the workload with no error and no event. Canary passes while unvalidated; flip + invert when validation is added."
+    },
+    {
+      "id": "D3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestD3QuotaWithoutBaselineStaysUnconstrained"
+      ],
+      "note": "delta made the tiered-store quota read-back unconditional: an unconstrained container with a memory tmpfs must stay unconstrained and unpatched."
+    }
   ],
-  "liveNote": "L3 (live cluster) was skipped by the debate configuration (unit + integration layers mandated). A probe did find a reachable cluster (kubectl get no: 1 node, v1.36.2-aliyun.1); it was left untouched. If L3 is ever run: apply the #6173 manifests, kubectl patch the cacheruntime with limits.memory=8Gi only, then read .spec.template.spec.containers[0].resources from the advancedstatefulset — expect limits {cpu 2, memory 8Gi} and requests {cpu 1, memory 2Gi}, and expect requests to stay nil (not an empty map) on the limits-only template."
+  "liveNote": "L3 (live cluster) was skipped by the debate configuration (unit + integration layers mandated). A probe did find a reachable cluster (kubectl get no: 1 node, v1.36.2-aliyun.1); it was left untouched. If L3 is ever run: apply the #6173 manifests, kubectl patch the cacheruntime with limits.memory=8Gi only, then read .spec.template.spec.containers[0].resources from the advancedstatefulset \u2014 expect limits {cpu 2, memory 8Gi} and requests {cpu 1, memory 2Gi}, and expect requests to stay nil (not an empty map) on the limits-only template.",
+  "rounds": {
+    "2026-10-08": {
+      "head": "c1c303e8b2dc0a237ab9abe289be4e64c4445970",
+      "verdicts": {
+        "P0": "confirmed",
+        "B1": "fixed",
+        "B2": "fixed",
+        "B3": "fixed",
+        "B4": "fixed",
+        "B5": "fixed"
+      }
+    },
+    "2026-10-12": {
+      "head": "e259d738dec605902755ff5f9b5a6a56a2ef73fc",
+      "delta": "c1c303e8..e259d738 (7 commits: nil-return removal 'clear undeclared', equivalence tests, master spec, curvine e2e, docs)",
+      "verification": {
+        "base": {
+          "B1": "fail",
+          "B2": "fail",
+          "B3": "fail",
+          "D1": "fail",
+          "D2": "fail",
+          "D3": "pass"
+        },
+        "previous": {
+          "B1": "pass",
+          "B2": "pass",
+          "B3": "pass",
+          "B4": "pass",
+          "B5": "pass",
+          "D1": "fail",
+          "D2": "pass",
+          "D3": "pass"
+        },
+        "head": {
+          "B1": "pass",
+          "B2": "pass",
+          "B3": "pass",
+          "B4": "pass",
+          "B5": "pass",
+          "D1": "pass",
+          "D2": "pass(canary)",
+          "D3": "pass"
+        }
+      },
+      "suite": "full engine suite: 292 passed / 12 failed at head vs 275 / 12 at previous head; failing set byte-identical (pre-existing ufs_test.go failures) - no revision regression",
+      "newFindings": [
+        "D2 -> ledger F6 (major): merged requests can exceed limits; controller applies without validation/event"
+      ]
+    }
+  }
 }

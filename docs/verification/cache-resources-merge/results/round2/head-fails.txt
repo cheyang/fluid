@@ -1,0 +1,35 @@
+[38;5;9m• [FAILED] [0.008 seconds][0m
+[38;5;9m• [FAILED] [0.008 seconds][0m
+[38;5;9m• [FAILED] [0.009 seconds][0m
+[38;5;9m• [FAILED] [0.009 seconds][0m
+[38;5;9m• [FAILED] [0.010 seconds][0m
+[38;5;9m• [FAILED] [0.010 seconds][0m
+[38;5;9m• [FAILED] [0.010 seconds][0m
+[38;5;9m• [FAILED] [0.010 seconds][0m
+[38;5;9m• [FAILED] [0.010 seconds][0m
+[38;5;9m• [FAILED] [0.011 seconds][0m
+[38;5;9m• [FAILED] [0.011 seconds][0m
+[38;5;9m• [FAILED] [0.012 seconds][0m
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6177/wt-6177-head/pkg/ddc/cache/engine/ufs_test.go:241 [38;5;243m@ 10/12/26 06:11:54.435[0m
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6177/wt-6177-head/pkg/ddc/cache/engine/ufs_test.go:262 [38;5;243m@ 10/12/26 06:11:54.446[0m
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6177/wt-6177-head/pkg/ddc/cache/engine/ufs_test.go:282 [38;5;243m@ 10/12/26 06:11:54.455[0m
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6177/wt-6177-head/pkg/ddc/cache/engine/ufs_test.go:302 [38;5;243m@ 10/12/26 06:11:54.465[0m
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6177/wt-6177-head/pkg/ddc/cache/engine/ufs_test.go:322 [38;5;243m@ 10/12/26 06:11:54.476[0m
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6177/wt-6177-head/pkg/ddc/cache/engine/ufs_test.go:580 [38;5;243m@ 10/12/26 06:11:54.485[0m
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6177/wt-6177-head/pkg/ddc/cache/engine/ufs_test.go:597 [38;5;243m@ 10/12/26 06:11:54.496[0m
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6177/wt-6177-head/pkg/ddc/cache/engine/ufs_test.go:614 [38;5;243m@ 10/12/26 06:11:54.507[0m
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6177/wt-6177-head/pkg/ddc/cache/engine/ufs_test.go:631 [38;5;243m@ 10/12/26 06:11:54.517[0m
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6177/wt-6177-head/pkg/ddc/cache/engine/ufs_test.go:647 [38;5;243m@ 10/12/26 06:11:54.529[0m
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6177/wt-6177-head/pkg/ddc/cache/engine/ufs_test.go:675 [38;5;243m@ 10/12/26 06:11:54.539[0m
+  [38;5;9m[FAILED] Expected
+  [38;5;9m[FAILED] Expected
+  [38;5;9m[FAILED] Expected
+  [38;5;9m[FAILED] Expected
+  [38;5;9m[FAILED] Expected
+  [38;5;9m[FAILED] Expected
+  [38;5;9m[FAILED] Expected
+  [38;5;9m[FAILED] Expected
+  [38;5;9m[FAILED] Expected
+  [38;5;9m[FAILED] Unexpected error:
+  [38;5;9m[FAILED] Unexpected error:
+  [38;5;9m[FAILED] Unexpected error:
