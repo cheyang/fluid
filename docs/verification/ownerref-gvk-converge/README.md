@@ -4,7 +4,10 @@ Reproducible evidence for the findings raised while reviewing
 https://github.com/fluid-cloudnative/fluid/pull/6199
 (fixes #6140: converge the two owner-reference GVK recovery implementations).
 
-Layers run against the **code under review** (`6797b26f4b6aaadb55e81c2ee862c8956d896db1`, PR head):
+Round 1 reviewed PR head `6797b26f4b6aaadb55e81c2ee862c8956d896db1`.
+Round 2 (incremental) reviewed PR head `069ed7dc36b161c280c32857fe21b60a3f069c4b` — see "Round 2 (incremental)" below.
+
+Layers run against the **code under review** (PR head; per-round sha above):
 
 | Layer | What it exercises | How to run |
 |-------|-------------------|------------|
@@ -44,6 +47,40 @@ whether the problem exists today.
 Pre-existing failures **not caused by this PR** (verified by running them on base `e0fc4c18`):
 `TestCheckMountPointBroken` (pkg/utils — ginkgo mount-check assertion + pprof port 6060 collision)
 and `TestHelm` (pkg/utils/helm). See results/pr-commands-and-attribution.txt.
+
+## Round 2 (incremental) — head `069ed7dc`
+
+Delta reviewed: `6797b26f..069ed7dc` (PR was rebased; `dc3f33ca` = rebased convergence commit now
+carrying the test additions, `069ed7dc` = "test(utils): add equivalence assertion against
+transformer and clean fallback logs"). Merge-base with master is unchanged at `e0fc4c18`, and no
+master commit since then touches `pkg/utils/transformer/` or `dataset_runtime*`
+(results/round2/build-vet-consumers-base.txt), so the changed-base risk for this code is nil;
+contracts were re-verified on the head anyway.
+
+| Check | Result | Evidence |
+|-------|--------|----------|
+| `re-verify.sh 069ed7dc` (B1 equivalence + B2 persisted-reference, contract polarity) | B1 pass=2, B2 pass=1 — **no regression from the delta** | results/reverify/ |
+| PR's §Ⅳ commands (transformer package; `TestDatasetControllerOwnerReference\|TestCreateRuntimeForReferenceDatasetIfNotExist`) | pass, incl. all six table cases and the create/adopt/repair persisted-ref assertions | results/round2/pr-commands-head.txt |
+| `go build ./...`, `go vet ./pkg/utils/...`, consumer `pkg/controllers/v1alpha1/dataset` | all green | results/round2/build-vet-consumers-base.txt |
+| Full `./pkg/utils/...` suite | only the two known pre-existing failures (same merge-base as round 1, so round-1 base attribution still applies) | results/round2/full-suite-attribution.txt |
+| Harness-bites for the delta's new tests (sabotage: force `Kind=Bogus`/`APIVersion=bogus/v9`) | new tests FAIL, revert → green, production diff empty | results/round2/delta-sabotage.txt |
+
+Prior review findings, re-checked against the delta:
+
+- **F1 (minor, unreachable fallback + misleading comment)** — **fixed** at `069ed7dc`: the
+  fallback is kept as defense-in-depth, the comment now says plainly "unreachable by design:
+  Dataset is statically registered in fluidScheme", and the speculative `log.Info` lines that
+  were briefly added in `dc3f33ca` were removed (the branch is unreachable for this wrapper's
+  only input type, so no observable change).
+- **F2 (minor, missingTests: persisted ownerReference)** — **fixed** at `dc3f33ca`:
+  `TestCreateRuntimeForReferenceDatasetIfNotExist` now asserts the persisted ownerReference
+  through the fake client on all three lifecycle paths — created, adopted (no prior ref), and
+  repaired (pre-existing ref with Kind/APIVersion missing) — plus the terminating-runtime
+  isolation case. Verified to bite via the sabotage check above.
+
+No new findings in the delta: the only production-code change is the removal of the two
+unreachable-branch log lines (the `log` symbol is a package-level var from `affinity.go`, so
+compilation is unaffected); everything else is additive test coverage.
 
 ## Per-finding detail
 
@@ -99,15 +136,15 @@ and is garbage-collected when the dataset is deleted.
 
 ## Proposed fixes (NOT applied to production here)
 
-- **F1 (minor)**: the "last resort" fallback in `datasetControllerOwnerReference` is unreachable
-  for its only input type — `*datav1alpha1.Dataset` is always registered in the transformer's
-  scheme, and recovery triggers exactly when Kind or Version is empty, so `ref.Kind` /
-  `ref.APIVersion` can never come back empty. Keep it as defense-in-depth or drop it, but the
-  doc comment + test naming should not imply the fallback path is exercised (it cannot be,
-  through this wrapper). Optionally log if it ever fires.
-- **F2 (minor, missingTests)**: no test asserted the persisted ownerReference through
-  `CreateRuntimeForReferenceDatasetIfNotExist` (existing test only checked error/termination
-  behavior). The harness adds exactly that test; upstreaming it would close the gap.
+- **F1 (minor)** — **addressed upstream in round 2** (head `069ed7dc`): the "last resort" fallback
+  is unreachable for its only input type — `*datav1alpha1.Dataset` is always registered in the
+  transformer's scheme, and recovery triggers exactly when Kind or Version is empty, so `ref.Kind` /
+  `ref.APIVersion` can never come back empty. The author kept it as defense-in-depth with a
+  comment that now says "unreachable by design".
+- **F2 (minor, missingTests)** — **addressed upstream in round 2** (head `dc3f33ca`): no test
+  asserted the persisted ownerReference through `CreateRuntimeForReferenceDatasetIfNotExist`
+  (existing test only checked error/termination behavior). The PR now asserts it on the
+  create/adopt/repair paths; the harness's version remains here as an independent guard.
 
 ## Continuing after the fix (possibly on another machine)
 

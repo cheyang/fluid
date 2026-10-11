@@ -1,0 +1,32 @@
+== Harness-bites check for the delta's new tests (head 069ed7dc) ==
+Sabotage: datasetControllerOwnerReference forced to return Kind=Bogus / APIVersion=bogus/v9 (breaks the delegation).
+
+--- FAIL: TestCreateRuntimeForReferenceDatasetIfNotExist (0.00s)
+    dataset_runtime_test.go:197: expected ownerReference Kind=Dataset APIVersion=data.fluid.io/v1alpha1, got Kind=Bogus APIVersion=bogus/v9
+    dataset_runtime_test.go:217: expected ownerReference Kind=Dataset APIVersion=data.fluid.io/v1alpha1, got Kind=Bogus APIVersion=bogus/v9
+    dataset_runtime_test.go:237: expected ownerReference Kind=Dataset APIVersion=data.fluid.io/v1alpha1, got Kind=Bogus APIVersion=bogus/v9
+--- FAIL: TestDatasetControllerOwnerReference (0.00s)
+        dataset_runtime_test.go:350: expected Kind Dataset, got Bogus
+        dataset_runtime_test.go:353: expected APIVersion data.fluid.io/v1beta1, got bogus/v9
+        dataset_runtime_test.go:368: expected Kind to match transformer (Dataset), got Bogus
+        dataset_runtime_test.go:371: expected APIVersion to match transformer (data.fluid.io/v1beta1), got bogus/v9
+        dataset_runtime_test.go:350: expected Kind Dataset, got Bogus
+        dataset_runtime_test.go:353: expected APIVersion data.fluid.io/v1alpha1, got bogus/v9
+        dataset_runtime_test.go:368: expected Kind to match transformer (Dataset), got Bogus
+        dataset_runtime_test.go:371: expected APIVersion to match transformer (data.fluid.io/v1alpha1), got bogus/v9
+        dataset_runtime_test.go:350: expected Kind Dataset, got Bogus
+        dataset_runtime_test.go:353: expected APIVersion data.fluid.io/v1alpha1, got bogus/v9
+        dataset_runtime_test.go:368: expected Kind to match transformer (Dataset), got Bogus
+        dataset_runtime_test.go:371: expected APIVersion to match transformer (data.fluid.io/v1alpha1), got bogus/v9
+        dataset_runtime_test.go:350: expected Kind Dataset, got Bogus
+        dataset_runtime_test.go:353: expected APIVersion data.fluid.io/v1alpha1, got bogus/v9
+        dataset_runtime_test.go:368: expected Kind to match transformer (Dataset), got Bogus
+        dataset_runtime_test.go:371: expected APIVersion to match transformer (data.fluid.io/v1alpha1), got bogus/v9
+        dataset_runtime_test.go:350: expected Kind Dataset, got Bogus
+        dataset_runtime_test.go:353: expected APIVersion data.fluid.io/v1alpha1, got bogus/v9
+        dataset_runtime_test.go:368: expected Kind to match transformer (Dataset), got Bogus
+        dataset_runtime_test.go:371: expected APIVersion to match transformer (data.fluid.io/v1alpha1), got bogus/v9
+
+Reverted; re-run:
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.012s
+git diff --stat after revert: 0 lines (0 = production code untouched)

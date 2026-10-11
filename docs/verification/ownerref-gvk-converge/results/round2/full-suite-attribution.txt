@@ -1,0 +1,27 @@
+== Full pkg/utils/... suite at head 069ed7dc (attribution of failures) ==
+--- FAIL: TestCheckMountPointBroken (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	112.085s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/cmdguard	0.012s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.031s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/volume	29.095s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/discovery	0.031s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/docker	0.028s
+--- FAIL: TestHelm (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/helm	0.026s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/jindo	0.020s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient	0.222s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubelet	0.028s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/mountinfo	0.032s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/runtimes/options	0.028s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/security	0.014s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/tieredstore	0.029s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/transformer	0.013s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/validation	0.004s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/version	0.003s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/webhook/writer	1.474s
+FAIL
+
+Only failures: TestCheckMountPointBroken (pkg/utils, ginkgo mount-check + pprof 6060 collision) and TestHelm (pkg/utils/helm).
+Both were already failing on the merge-base e0fc4c18 before this PR — see ../pr-commands-and-attribution.txt from round 1 (run on base). Merge-base is unchanged (e0fc4c18), so the round-1 base attribution still applies; the PR touches none of their code paths.
