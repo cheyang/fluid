@@ -35,6 +35,46 @@ unless `HELM_DRIVER=secret`, so in the default deployment the eliminated read hi
 cache, not the API server. The "API server load" framing is exact only for the
 `HELM_DRIVER=secret` deployment mode; the change is strictly beneficial either way.
 
+## Round 4 update — head `0182b4f1` (delta `7b6392c2..0182b4f1`)
+
+Delta reviewed this round: a single commit, "refactor(cache): delegate
+ConstructComponentStatus to ConstructComponentStatusAndAffinity", touching only
+`advanced_statefulset_manager.go` and `daemonset_manager.go` (-22/+4). It implements the
+round-3 review recommendation: both `ConstructComponentStatus` methods are now 3-line
+delegates of the combined single-read method. Blast radius checked: all 5 production call
+sites of `ConstructComponentStatus` (engine status.go master/client paths, worker.go
+SetupWorkerInternal, master.go, client.go) still cause exactly one workload Get; the
+additionally computed-and-discarded affinity comes from
+`kubeclient.MergeNodeSelectorAndNodeAffinity`, a pure in-memory, nil-safe function, so the
+delegate cannot introduce a new failure mode. The only observable delta is the log message
+string ("start to ConstructComponentStatus" -> "...AndAffinity"); no test or log-scraping
+code depends on it.
+
+New contract test `TestVerifyPR6200DelegateConstructComponentStatus`
+(`zz_verify_pr6200_delegate_test.go`): for both managers, happy path and not-found path,
+`ConstructComponentStatus` must return exactly the same status and error as the combined
+method. Harness-bites: a temporary delegate break (DesiredReplicas forced to -7) flips it
+red; fix reverted, production diff empty afterwards.
+
+Re-verify on `0182b4f1` (unit + integration, see `results/reverify/`):
+
+| ID | Polarity | Verdict |
+|----|----------|---------|
+| P0-fix-contract | contract | FIXED (1 worker Get/cycle) |
+| parity | contract | FIXED |
+| F3 | canary | STILL-PRESENT (pre-existing; delta did not touch pod.go) |
+| P0-fix-contract-L2 | contract | FIXED (envtest round-trip green) |
+| delegate-r4 | contract | FIXED |
+
+PR's own suites on `0182b4f1`: `pkg/ddc/cache/component` fully green; `pkg/ddc/cache/engine`
+shows the same 12 pre-existing `ufs_test.go` failures (gomonkey/`PrepareUFS` mount fixtures,
+no reference to the changed code; r3 md5-matched them base-vs-head) — 265 passed / 12 failed
+/ 16 skipped (`results/pr-suites-head-r4.txt`).
+
+Also closed this round (PR metadata, not code): the PR body now says `refs #5879` instead of
+`fixes #5879` (round-3 finding F1 — issue no longer auto-closes), and explicitly names the
+informer-cache vs `HELM_DRIVER=secret` deployment modes (round-3 finding F2).
+
 ## Summary of results
 
 | ID | Claim | Layer | Verdict | Evidence |
