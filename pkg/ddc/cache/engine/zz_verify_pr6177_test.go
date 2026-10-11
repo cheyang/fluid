@@ -23,9 +23,13 @@ package engine
 //   - TestVerifyPR6177_*Overlay* / *KeepsUnnamedRequirements are CONTRACT tests:
 //     they assert the intended merged behaviour, so they FAIL on the base
 //     commit (reproducing #6173) and PASS once the fix lands.
-//   - TestVerifyPR6177_*Guard* tests pin behaviour that must hold both before
-//     and after the fix (the #6165 "nil means leave the workload alone"
-//     contract and the template-as-baseline fallback). They PASS on both.
+//   - TestVerifyPR6177_*Guard* tests pin behaviour that holds both before and
+//     after the fix (the template-as-baseline fallback). They PASS on both.
+//   - TestVerifyPR6177_*Contract* tests pin the current intended behaviour.
+//     NeitherSideDeclares_ContractClearsWorkload replaces the #6165-era
+//     "nil means leave the workload alone" guard, which head e259d738
+//     (commit ecd41afa) intentionally redefined to "cleared"; it is RED on
+//     base and on the previous head c1c303e8, GREEN on e259d738.
 
 import (
 	"context"
@@ -267,10 +271,16 @@ func TestVerifyPR6177_SyncRuntimeSpec_KeepsUnnamedRequirements(t *testing.T) {
 	}
 }
 
-// Guard (green before and after): when neither the CacheRuntime nor the
-// template declares resources, the sync must leave the workload's current
-// resources untouched — the "nil means hands off" contract from #6165.
-func TestVerifyPR6177_NeitherSideDeclares_GuardWorkloadUntouched(t *testing.T) {
+// Contract (round 2, head e259d738): the "nil means hands off" guard from
+// #6165 was intentionally replaced by commit ecd41afa ("clear a resource
+// neither the CacheRuntime nor its template declares"), a semantics change
+// the PR documents in docs/{en,zh}/samples/cacheruntime/cacheruntime_spec_update.md.
+// The old guard (workload untouched when neither side declares) is RED on this
+// head by design and was removed; this contract pins the replacement:
+// a workload carrying resources neither side declares is cleared, and the sync
+// converges (second pass patches nothing). RED on base and on the previous
+// head c1c303e8, GREEN on e259d738.
+func TestVerifyPR6177_NeitherSideDeclares_ContractClearsWorkload(t *testing.T) {
 	drifted := corev1.ResourceRequirements{
 		Requests: corev1.ResourceList{corev1.ResourceMemory: resource.MustParse("3Gi")},
 	}
@@ -280,8 +290,76 @@ func TestVerifyPR6177_NeitherSideDeclares_GuardWorkloadUntouched(t *testing.T) {
 		t.Fatalf("syncRuntimeSpec: %v", err)
 	}
 	got := verifyPR6177WorkerResources(t, engine)
-	if q := got.Requests.Memory().String(); q != "3Gi" {
-		t.Errorf("workload resources changed although neither side declares any: requests.memory = %q, want %q", q, "3Gi")
+	if len(got.Requests) != 0 || len(got.Limits) != 0 || len(got.Claims) != 0 {
+		t.Errorf("workload resources not cleared although neither side declares any: got %+v, want empty", got)
+	}
+
+	// Convergence: a second sync with no spec change must not patch the workload.
+	sts := &workloadv1alpha1.AdvancedStatefulSet{}
+	if err := engine.Client.Get(context.Background(),
+		types.NamespacedName{Name: "test-runtime-worker", Namespace: "default"}, sts); err != nil {
+		t.Fatalf("get worker sts: %v", err)
+	}
+	convergedRV := sts.ResourceVersion
+	if err := engine.syncRuntimeSpec(ctx, runtimeObj, runtimeClass); err != nil {
+		t.Fatalf("second syncRuntimeSpec: %v", err)
+	}
+	sts = &workloadv1alpha1.AdvancedStatefulSet{}
+	if err := engine.Client.Get(context.Background(),
+		types.NamespacedName{Name: "test-runtime-worker", Namespace: "default"}, sts); err != nil {
+		t.Fatalf("get worker sts: %v", err)
+	}
+	if sts.ResourceVersion != convergedRV {
+		t.Errorf("sync did not converge after clearing: resourceVersion %q -> %q with no spec change", convergedRV, sts.ResourceVersion)
+	}
+}
+
+// Guard (green on base, previous head and this head): a drifted workload whose
+// CacheRuntime declares nothing is restored to the template values, and the
+// sync converges. This is the "removing an override falls back to the
+// template's value" case, and it also pins that the new never-nil return from
+// desiredComponentResources did not regress the #6165 template fallback.
+func TestVerifyPR6177_DriftedWorkload_ContractRestoresTemplate(t *testing.T) {
+	template := verifyPR6177FullTemplateResources()
+	drifted := corev1.ResourceRequirements{
+		Limits: corev1.ResourceList{corev1.ResourceMemory: resource.MustParse("8Gi")},
+	}
+	engine, ctx, runtimeObj, runtimeClass := verifyPR6177BuildSyncFixture(drifted, &template, nil)
+
+	if err := engine.syncRuntimeSpec(ctx, runtimeObj, runtimeClass); err != nil {
+		t.Fatalf("syncRuntimeSpec: %v", err)
+	}
+	got := verifyPR6177WorkerResources(t, engine)
+	for name, check := range map[string]struct {
+		got, want string
+	}{
+		"limits.memory":   {got.Limits.Memory().String(), "4Gi"},
+		"limits.cpu":      {got.Limits.Cpu().String(), "2"},
+		"requests.cpu":    {got.Requests.Cpu().String(), "1"},
+		"requests.memory": {got.Requests.Memory().String(), "2Gi"},
+	} {
+		if check.got != check.want {
+			t.Errorf("%s = %q, want template value %q (drift not restored)", name, check.got, check.want)
+		}
+	}
+
+	// Convergence: a second sync must not patch the workload again.
+	sts := &workloadv1alpha1.AdvancedStatefulSet{}
+	if err := engine.Client.Get(context.Background(),
+		types.NamespacedName{Name: "test-runtime-worker", Namespace: "default"}, sts); err != nil {
+		t.Fatalf("get worker sts: %v", err)
+	}
+	convergedRV := sts.ResourceVersion
+	if err := engine.syncRuntimeSpec(ctx, runtimeObj, runtimeClass); err != nil {
+		t.Fatalf("second syncRuntimeSpec: %v", err)
+	}
+	sts = &workloadv1alpha1.AdvancedStatefulSet{}
+	if err := engine.Client.Get(context.Background(),
+		types.NamespacedName{Name: "test-runtime-worker", Namespace: "default"}, sts); err != nil {
+		t.Fatalf("get worker sts: %v", err)
+	}
+	if sts.ResourceVersion != convergedRV {
+		t.Errorf("sync did not converge after restoring template: resourceVersion %q -> %q with no spec change", convergedRV, sts.ResourceVersion)
 	}
 }
 
