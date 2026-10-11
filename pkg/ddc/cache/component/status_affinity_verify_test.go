@@ -58,9 +58,9 @@ type countingClient struct {
 	gets int
 }
 
-func (c *countingClient) Get(ctx context.Context, key ctrlclient.ObjectKey, obj ctrlclient.Object) error {
+func (c *countingClient) Get(ctx context.Context, key ctrlclient.ObjectKey, obj ctrlclient.Object, opts ...ctrlclient.GetOption) error {
 	c.gets++
-	return c.Client.Get(ctx, key, obj)
+	return c.Client.Get(ctx, key, obj, opts...)
 }
 
 func verifyAffinityTestClient() ctrlclient.Client {
