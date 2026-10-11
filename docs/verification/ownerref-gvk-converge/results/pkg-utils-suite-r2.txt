@@ -1,0 +1,7 @@
+# round 2: base(e0fc4c18) vs head(069ed7dc) suite comparison, TestNewPprofServer skipped (host port 6060 held by another leftover utils.test process, env-only)
+## base:
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.049s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/transformer	0.022s
+## head:
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.048s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/transformer	0.021s

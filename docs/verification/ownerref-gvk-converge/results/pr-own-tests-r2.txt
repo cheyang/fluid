@@ -1,0 +1,18 @@
+# round 2 (head 069ed7dc): PR's own tests
+=== RUN   TestCreateRuntimeForReferenceDatasetIfNotExist
+=== RUN   TestCreateRuntimeForReferenceDatasetIfNotExist/ThinRuntimeExists
+=== RUN   TestCreateRuntimeForReferenceDatasetIfNotExist/ThinRuntimeExistWithOwnerReference
+=== RUN   TestCreateRuntimeForReferenceDatasetIfNotExist/ThinRuntimeDoesnotExist
+=== RUN   TestCreateRuntimeForReferenceDatasetIfNotExist/ThinRuntimeTerminating
+--- PASS: TestCreateRuntimeForReferenceDatasetIfNotExist (0.00s)
+=== RUN   TestDatasetControllerOwnerReference
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_complete_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_empty_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_only_Kind_in_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_only_APIVersion_in_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_custom_APIVersion_in_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_malformed_APIVersion_(group_only,_missing_version)
+--- PASS: TestDatasetControllerOwnerReference (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.021s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/transformer	0.020s

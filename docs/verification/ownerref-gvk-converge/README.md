@@ -80,3 +80,24 @@ Read docs/verification/ownerref-gvk-converge/README.md and follow "Continuing af
 fix": re-run unit + integration layers (set KUBEBUILDER_ASSETS for envtest), all tests are
 contract polarity (green = good), then advance .last-reviewed and push.
 ```
+
+## Round 2 (2026-10-12, head 069ed7dc)
+
+Incremental round over delta `dc3f33ca..069ed7dc` ("test(utils): add equivalence assertion
+against transformer and clean fallback logs"). The delta is test-hardening plus removal of the
+two redundant `log.Info` fallback lines in `datasetControllerOwnerReference`; the diagnostic
+for a failed scheme lookup still exists (at Error level) inside
+`transformer.GenerateOwnerReferenceFromObject` itself. No production behavior change.
+
+- Re-verify (`scripts/re-verify.sh`, KUBEBUILDER_ASSETS=1.30.3 envtest assets): C1, C2, C3 all
+  pass on the new head (contract polarity; exit 0). Raw output: results/reverify/.
+- PR's own tests on 069ed7dc: `TestDatasetControllerOwnerReference` (incl. the new equivalence
+  assertions) and `TestCreateRuntimeForReferenceDatasetIfNotExist` pass; transformer suite
+  passes. Evidence: results/pr-own-tests-r2.txt.
+- Base moved (452e343b -> 4753a4db) but the range touches nothing under pkg/utils,
+  pkg/controllers/v1alpha1/dataset, or api/v1alpha1; contracts unaffected. Full ./pkg/utils +
+  ./pkg/utils/transformer suites pass identically on base and head (TestNewPprofServer skipped:
+  host port 6060 is held by an unrelated leftover utils.test process — environment-only).
+  Evidence: results/pkg-utils-suite-r2.txt.
+- New findings this round: none. Verdict unchanged: premise confirmed, no defects.
+
