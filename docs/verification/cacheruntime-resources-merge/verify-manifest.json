@@ -3,7 +3,8 @@
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6177",
   "harnessPaths": [
     "docs/verification/cacheruntime-resources-merge",
-    "pkg/ddc/cache/engine/zz_verify_pr6177_test.go"
+    "pkg/ddc/cache/engine/zz_verify_pr6177_test.go",
+    "pkg/ddc/cache/engine/zz_verify_pr6177_f6_contract_test.go"
   ],
   "premise": {
     "id": "P0",
@@ -24,11 +25,11 @@
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=\"all=-N -l\" ./pkg/ddc/cache/engine/ -json -run 'TestVerifyPR6177_(DesiredComponentResources_OverlaysOntoTemplate|TransformComponentPodTemplate_OverlaysOntoTemplate|TemplateOnly_GuardResolvesToTemplate)'"
+      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=\"all=-N -l\" ./pkg/ddc/cache/engine/ -json -run 'TestVerifyPR6177_(DesiredComponentResources_OverlaysOntoTemplate|TransformComponentPodTemplate_OverlaysOntoTemplate|TemplateOnly_GuardResolvesToTemplate|F6_ConflictMerge_CreationRefuses)'"
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=\"all=-N -l\" ./pkg/ddc/cache/engine/ -json -run 'TestVerifyPR6177_(SyncRuntimeSpec_KeepsUnnamedRequirements|NeitherSideDeclares_ContractClearsWorkload|DriftedWorkload_ContractRestoresTemplate)'"
+      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=\"all=-N -l\" ./pkg/ddc/cache/engine/ -json -run 'TestVerifyPR6177_(SyncRuntimeSpec_KeepsUnnamedRequirements|NeitherSideDeclares_ContractClearsWorkload|DriftedWorkload_ContractRestoresTemplate|F6_ConflictMerge_SyncSkipsAndWarns)'"
     }
   },
   "findings": [
@@ -74,6 +75,24 @@
         "TestVerifyPR6177_DriftedWorkload_ContractRestoresTemplate"
       ],
       "note": "Guard added round 2: drifted workload + template-only config is restored to the template and converges. GREEN on base, previous head and head."
+    },
+    {
+      "id": "F6",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6177_F6_ConflictMerge_CreationRefuses"
+      ],
+      "note": "Round-2 canary (zz_adhoc_f6_test.go, never committed) reproduced F6 on e259d738; the head fix f02054bd inverts it into these contract tests. RED on base e0fc4c18 and previous head e259d738, GREEN on 497bbeaf. Compile-safe on all three refs (pre-existing symbols only)."
+    },
+    {
+      "id": "F6",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestVerifyPR6177_F6_ConflictMerge_SyncSkipsAndWarns"
+      ],
+      "note": "Sync path must refuse a conflicting merge: workload resources untouched, Warning event RuntimeResourcesConflict naming the key, nil error, convergent. RED on base and previous head, GREEN on 497bbeaf."
     }
   ],
   "liveNote": "L3 skipped per debate setup (no KUBECONFIG layer). If run live: on a kind cluster, create the CacheRuntimeClass + CacheRuntime from issue #6173, patch spec.worker.resources.limits.memory=8Gi, and check `kubectl get advancedstatefulset <name>-worker -o jsonpath='{.spec.template.spec.containers[0].resources}'` keeps cpu request/limit and memory request."
