@@ -1,0 +1,17 @@
+### Harness-bites check: do the contract tests go green when the candidate fixes are applied?
+### scratch = base + cherry-picked PR commit re-signed with proper DCO sign-off + comment-side fixes for F2/F3/F4
+--- amended commit message ---
+docs: fix typos in GoDoc comments for quantity and error utility functions
+
+Signed-off-by: saiashok0981 <saiashok103@gmail.com>
+
+candidate fixes applied to scratch working tree
+--- go test run with candidate fixes ---
+--- PASS: TestVerifyDocCommentsMatchIdentifiers_PR6127 (0.00s)
+--- PASS: TestVerifyExportedFuncsDocumented_PR6127 (0.00s)
+--- PASS: TestVerifyIgnoreNoKindMatchErrorDocComplete_PR6127 (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.013s
+--- PASS: TestVerifyDCOSignoff_PR6127 (0.02s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/docs/verification/pr-6127-godoc-typos-codex/checks	0.021s

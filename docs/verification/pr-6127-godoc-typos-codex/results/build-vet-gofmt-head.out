@@ -1,0 +1,7 @@
+### head = ffe934cfe94e469476bbb45f644143a25e73ecb6
+### build: go build ./pkg/utils/... 
+BUILD OK
+### vet: go vet ./pkg/utils/
+VET OK
+### gofmt -l on touched files (empty = clean)
+(end of gofmt list)
