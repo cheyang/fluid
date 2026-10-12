@@ -1,35 +1,68 @@
 # Verification: PR #6177 — merge CacheRuntime resources onto the CacheRuntimeClass baseline
 
-Reviewer: Codex (Reviewer B). Reviewed head: `c1c303e8b2dc0a237ab9abe289be4e64c4445970`
+Reviewer: Codex (Reviewer B). Reviewed head: `497bbeaf254071c522904d654a0e574651df65fd`
 (`.last-reviewed`). Base (merge-base with master): `e0fc4c189a6e45ee17a5e812abf3fcbecf566f09`.
 
 ## Premise (P0) — verdict: CONFIRMED
 
 Issue #6173 (open) claims: a CacheRuntime that names only some resource keys loses every
 requirement it does not restate — setting just `limits.memory` clears `requests.cpu`,
-`limits.cpu` and `requests.memory` from the workload on the next reconcile.
+`limits.cpu` and `requests.memory` from the workload on the next reconcile. Reproduced on the
+base commit (see round-1/2 notes in git history): the contract tests fail with exactly the
+dropped keys. Component match: the issue names `updateResources`, which only applies the
+desired state it is handed; the PR fixes the two places that compute that state.
 
-Reproduced on the **base** commit with the harness below: the three contract tests fail with
+## Round 3 (e259d738 -> 497bbeaf): what changed
 
-```
-desiredComponentResources: requests.cpu = "0", want "1" (template value dropped)
-desiredComponentResources: requests.memory = "0", want "2Gi" (template value dropped)
-desiredComponentResources: limits.cpu = "0", want "2" (template value dropped)
-```
+The delta is the round-2 consensus remedy for F6 plus its docs:
 
-on the resolver (`sync.go`), the creation path (`transformComponentPodTemplate`) and the full
-sync path through a fake client (`syncRuntimeSpec` → `SyncComponentSpec` → `updateResources`).
-Component match: the issue names `updateResources`, which only applies the desired state it is
-handed; the PR fixes the two places that compute that state. Symptom matches exactly.
+- `f02054bd` adds `validateResourceRequirements` (rejects any request above its limit) and
+  wires it into both paths: creation (`transformMaster/Worker/Client` fail the transform, which
+  surfaces as a `Failed to setup ddc engine` Warning event + dataset not-ready condition via
+  `ReconcileRuntime`), and sync (`validDesiredResources` refuses the resource patch, emits a
+  `RuntimeResourcesConflict` Warning event naming the conflicting keys, and still syncs image
+  and replicas).
+- `497bbeaf` documents the behavior in en+zh. The rebase also re-signed the delta (DCO green).
 
-## Hypotheses and polarity
+The round-2 F6 canary is inverted into two contract tests (both compile-safe on base,
+previous head and head):
 
 | id | claim | polarity | layer | test |
 |----|-------|----------|-------|------|
-| P0 | partial `resources` drops unstated template keys | contract (red on base, green on head) | unit | `TestVerifyPR6177_DesiredComponentResources_OverlaysOntoTemplate`, `TestVerifyPR6177_TransformComponentPodTemplate_OverlaysOntoTemplate` |
-| P0 | same, through the whole reconcile-side sync | contract | integration (fake client) | `TestVerifyPR6177_SyncRuntimeSpec_KeepsUnnamedRequirements` (incl. convergence: 2nd sync must not patch) |
-| G1 | neither side declaring resources leaves the workload untouched (#6165 contract) | guard, green both | integration | `TestVerifyPR6177_NeitherSideDeclares_GuardWorkloadUntouched` |
-| G2 | runtime sets nothing → resolves to template, template not mutated | guard, green both | unit | `TestVerifyPR6177_TemplateOnly_GuardResolvesToTemplate` |
+| F6 | conflicting merge (request>limit) is refused at creation | contract | unit | `TestVerifyPR6177_F6_ConflictMerge_CreationRefuses` |
+| F6 | conflicting merge is not synced; Warning event; converges | contract | integration | `TestVerifyPR6177_F6_ConflictMerge_SyncSkipsAndWarns` |
+| F9 | non-overcommittable merge (request!=limit on hugepages/extended) must be refused too | contract | integration | `TestVerifyPR6177_F9_NonOvercommittableMerge_SyncMustRefuse` |
+
+## Round-3 results (unit + integration layers; live layer skipped per debate setup)
+
+| ref | P0 | G1 | G2 | G3 | F6 | F9 |
+|-----|----|----|----|----|----|----|
+| base e0fc4c18 | STILL-BROKEN (premise) | STILL-BROKEN (pre-clear) | pass | pass | STILL-BROKEN | STILL-BROKEN* |
+| previous e259d738 | pass | pass | pass | pass | STILL-BROKEN | STILL-BROKEN |
+| head 497bbeaf | pass | pass | pass | pass | **pass (fixed)** | **STILL-BROKEN (new finding)** |
+
+*On base, the F9 input's sync wholesale-drops requests leaving a limit-only list the API
+server defaults to request=limit (valid) — the apiserver-invalid applied spec is introduced
+by this PR's merge, and the head's new validator does not cover the family.
+
+Raw output: `results/round3/{unit,integration}-{base-e0fc4c18,previous-e259d738,head-497bbeaf}.json`.
+Full package suite at head (harness grafted): `ok pkg/ddc/cache/engine`, ginkgo 310 passed /
+0 failed / 16 skipped — no revision regression (`results/round3/suite-head.txt`).
+
+## F9 details (new this round)
+
+`validateResourceRequirements` (transform_common.go) only rejects `request > limit`. The
+apiserver's `ValidateResourceRequirements` (vendored version k8s.io/kubernetes v1.29.15,
+`pkg/apis/core/validation/validation.go`) additionally requires `request == limit` for
+non-overcommittable resources (`helper.IsOvercommitAllowed` = native non-hugepages only), and
+requires a limit at all for them. A template with `hugepages-2Mi` request=limit=1Gi plus a
+CacheRuntime raising only the limit to 2Gi merges into request 1Gi != limit 2Gi: the head
+accepts and applies it with no event; the API server rejects the first Pod
+("must be equal to hugepages-2Mi limit of 2Gi") and the rollout sticks silently — the exact
+failure shape F6 was about, one resource family over. Reproduced at head by the F9 test above
+(observed: workload mutated to request 1Gi != limit 2Gi, no event). Remedy: mirror the
+apiserver rule in `validateResourceRequirements` (request must equal limit when
+`!IsOvercommitAllowed(name)`), or document the limitation.
 
 ## How to run
 
@@ -41,27 +74,16 @@ FLUID_UNIT_TEST=true go test -gcflags="all=-N -l" ./pkg/ddc/cache/engine/ -run '
 FLUID_UNIT_TEST=true go test -gcflags="all=-N -l" ./pkg/ddc/cache/...
 ```
 
-## Observed vs expected
-
-| run | expected | observed | artifact |
-|-----|----------|----------|----------|
-| harness @ base e0fc4c1 | P0 contract tests FAIL (bug reproduces), guards PASS | 3 contract FAIL with the exact dropped keys, 2 guards PASS | `results/unit-base.txt` |
-| harness @ PR head c1c303e8 | all PASS | 5/5 PASS | `results/unit-head.txt` |
-| full package @ PR head | PASS | `ok pkg/ddc/cache/component`, `ok pkg/ddc/cache/engine` | `results/suite-head.txt` |
-
-Harness-bites check: the polarity flip base→head *is* the apply-fix/revert-fix cycle — the same
-unmodified harness file is red on the unpatched code and green on the patched code, and the two
-guard tests prove the file exercises real behavior rather than vacuously passing.
-
-No defects found in the diff itself: the merge deep-copies both sides (no informer-cache or
-template mutation — covered by assertions), preserves nil vs empty maps so reconciles converge
-(covered by the convergence assertion), keeps master/worker/client and the tiered-store memory
-quota accounting consistent between creation and sync, and updates both docs files to match.
-
 ## Continuing after the fix
 
 `bash docs/verification/cacheruntime-resources-merge/scripts/re-verify.sh` from a checkout of
 this branch fetches the current PR head (from `manifest.pr`), grafts the harness onto it, runs
 the unit + integration layers, and prints Fixed / Still-broken per finding. All findings are
-contract polarity: green means good. If a future change *intentionally* restores wholesale
-replace semantics, the P0 contract tests flip red — invert or delete them then.
+contract polarity: green means good. F9 stays red until the validator mirrors the apiserver's
+non-overcommittable rule (or the merge otherwise guarantees apiserver-valid output).
+
+Kickoff prompt for a fresh machine:
+"Continue the review pipeline for https://github.com/fluid-cloudnative/fluid/pull/6177 —
+check out verify/cacheruntime-resources-merge-codex from https://github.com/cheyang/fluid.git,
+run docs/verification/cacheruntime-resources-merge/scripts/re-verify.sh, review the
+.last-reviewed..head delta."
