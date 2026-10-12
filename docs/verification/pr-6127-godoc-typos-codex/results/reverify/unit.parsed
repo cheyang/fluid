@@ -1,0 +1,4 @@
+TestVerifyDocCommentsMatchIdentifiers_PR6127	fail
+TestVerifyExportedFuncsDocumented_PR6127	fail
+TestVerifyIgnoreNoKindMatchErrorDocComplete_PR6127	fail
+TestVerifyDCOSignoff_PR6127	fail
