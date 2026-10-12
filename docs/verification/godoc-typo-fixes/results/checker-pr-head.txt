@@ -1,0 +1,6 @@
+# Contract test: check_godoc_consistency.py on PR head ffe934cf
+$ python3 scripts/check_godoc_consistency.py pkg/utils/errors.go pkg/utils/quantity.go
+FAIL: 2 godoc consistency violation(s)
+  pkg/utils/quantity.go:64: F2: exported function has no doc comment
+  pkg/utils/quantity.go:74: F1: doc comment starts with 'TransformQuantityToUnits' but the identifier is 'TranformQuantityToUnits'
+exit=1

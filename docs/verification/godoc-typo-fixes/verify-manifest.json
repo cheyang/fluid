@@ -1,0 +1,76 @@
+{
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6127",
+  "topic": "godoc-typo-fixes",
+  "reviewer": "claude",
+  "headSha": "ffe934cfe94e469476bbb45f644143a25e73ecb6",
+  "baseSha": "3e44ad250ae658738f6eba536bd6eb938a89bd6c",
+  "premise": {
+    "id": "P0",
+    "claim": "GoDoc docs debt exists on base (misspelled comment names, undocumented exported function IgnoreNoKindMatchError)",
+    "runsAgainst": "base",
+    "verdict": "Confirmed",
+    "evidence": "git show 3e44ad2:pkg/utils/{errors,quantity}.go — base has no comment on IgnoreNoKindMatchError and the two misspellings the PR fixes",
+    "layer": "inspection"
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "title": "Commit message claims a quantity.go:72 fix that is not in the diff; doc comment / identifier mismatch for TranformQuantityToUnits remains",
+      "status": "open",
+      "origin": "initial-pr",
+      "introducedByPR": false,
+      "firstSeenSha": "ffe934cfe94e469476bbb45f644143a25e73ecb6",
+      "evidenceKind": "differential",
+      "evidence": "results/checker-pr-head.txt — quantity.go:74 doc comment 'TransformQuantityToUnits' vs func TranformQuantityToUnits; commit message of ffe934cf lists 'Line 72: TranformQuantityToUnits -> TransformQuantityToUnits' but git diff contains no such hunk",
+      "tests": ["check_godoc_consistency.py"],
+      "polarity": "contract",
+      "layer": "unit"
+    },
+    {
+      "id": "F2",
+      "title": "Exported function TransformEFCUnitToQuantity has no doc comment (same file the PR touches, same gap class it claims to fix)",
+      "status": "open",
+      "origin": "preexisting",
+      "introducedByPR": false,
+      "firstSeenSha": "ffe934cfe94e469476bbb45f644143a25e73ecb6",
+      "evidenceKind": "code-path",
+      "evidence": "results/checker-pr-head.txt — quantity.go:64 no doc comment",
+      "tests": ["check_godoc_consistency.py"],
+      "polarity": "contract",
+      "layer": "unit"
+    },
+    {
+      "id": "F3",
+      "title": "DCO sign-off 'Signed-off-by: saiashok103@gmail.com' lacks Name <email> format; GitHub DCO check is ACTION_REQUIRED",
+      "status": "open",
+      "origin": "initial-pr",
+      "introducedByPR": true,
+      "firstSeenSha": "ffe934cfe94e469476bbb45f644143a25e73ecb6",
+      "evidenceKind": "code-path",
+      "evidence": "results/dco-trailer.txt; statusCheckRollup: DCO ACTION_REQUIRED (probot)",
+      "tests": [],
+      "polarity": "contract",
+      "layer": "inspection"
+    },
+    {
+      "id": "F4",
+      "title": "nit: new IgnoreNoKindMatchError comment wording ('API server does not recognize') vs RESTMapper-side IsNoMatchError semantics",
+      "status": "open",
+      "origin": "initial-pr",
+      "introducedByPR": true,
+      "firstSeenSha": "ffe934cfe94e469476bbb45f644143a25e73ecb6",
+      "evidenceKind": "hypothesis",
+      "evidence": "comment text vs k8s.io/apimachinery/pkg/api/meta.IsNoMatchError matching NoKindMatchError and NoResourceMatchError from the client-side RESTMapper",
+      "tests": [],
+      "polarity": "contract",
+      "layer": "inspection"
+    }
+  ],
+  "harnessBites": {
+    "performed": true,
+    "method": "locally applied the docs-only fix (align comment at quantity.go:72, add doc comment for TransformEFCUnitToQuantity); checker flipped FAIL->PASS; then reverted, production diff empty"
+  },
+  "environmentNotes": [
+    "go test ./pkg/utils/... local failures TestCheckMountPointBroken and pkg/utils/helm TestHelm are identical on base 3e44ad2 — pre-existing/environmental, not PR-attributed (GitHub unittest check is green)"
+  ]
+}

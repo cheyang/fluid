@@ -1,0 +1,3 @@
+// TransformQuantityToUnits returns a human-readable size in bytes, kibibytes,
+// mebibytes, gibibytes, or tebibytes (eg. "44kiB", "17MiB").
+func TranformQuantityToUnits(q *resource.Quantity) (value string) {
