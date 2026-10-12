@@ -184,8 +184,32 @@
     },
     "2026-10-13": {
       "head": "497bbeaf254071c522904d654a0e574651df65fd",
-      "delta": "e259d738..497bbeaf (history rewritten by rebase --signoff: ecd41afa->4194456f, e259d738->54e3756b; new commits f02054bd validation + 497bbeaf docs)",
-      "note": "pending: re-verify at head after harness update"
+      "delta": "e259d738..497bbeaf: history rewritten by rebase --signoff (ecd41afa->4194456f, e259d738->54e3756b, all commits now Signed-off-by, DCO green); new commits f02054bd (fix: reject merged resources whose request exceeds its limit) and 497bbeaf (docs en+zh).",
+      "verification": {
+        "head": {
+          "B1": "pass",
+          "B2": "pass",
+          "B3": "pass",
+          "B4": "pass",
+          "B5": "pass",
+          "D1": "pass",
+          "D2": "pass(contract, inverted)",
+          "D3": "pass",
+          "D4": "pass",
+          "D5": "pass",
+          "D6": "pass"
+        },
+        "previous_head_e259d738": {
+          "D2": "fail",
+          "D4": "fail",
+          "D5": "fail",
+          "D6": "fail",
+          "B1..B5,D1,D3": "pass"
+        }
+      },
+      "suite": "full engine suite at head with harness grafted: 298 passed / 12 failed; the 12 failing specs are the pre-existing ufs_test.go set, byte-identical to the pre-PR base e0fc4c18 and to round 2 - no revision regression.",
+      "changedBase": "master moved e0fc4c18 -> 3e99063a; local test merge of 497bbeaf + 3e99063a compiles and passes the harness (unit ok, full suite 311/12, identical failure set). Overlapping files (sync.go, curvine test.sh, spec-update docs) merge without semantic conflict.",
+      "ledger": "F6 fixed by f02054bd; DCO green; F1 maintainer ack still outstanding; F7/F8 nits unchanged."
     }
   }
 }

@@ -1,0 +1,33 @@
+== re-verify.sh at head 497bbeaf (2026-10-13, round 3)
+B1..B5, D1, D3 contracts pass; D2 (inverted canary) passes as contract; D4/D5/D6 (new) pass.
+
+== polarity / harness-bites: re-verify.sh at previous head e259d738
+D2 fail, D4 fail, D5 fail, D6 fail (contracts red on pre-fix code; B1..B5,D1,D3 green on both)
+
+== full engine suite at head (harness grafted): 298 Passed | 12 Failed | 16 Skipped
+failing spec set (ufs_test.go lines) byte-identical to the pre-PR base e0fc4c18 and to round 2
+ufs_test.go:226
+ufs_test.go:241
+ufs_test.go:246
+ufs_test.go:262
+ufs_test.go:266
+ufs_test.go:282
+ufs_test.go:286
+ufs_test.go:302
+ufs_test.go:306
+ufs_test.go:322
+ufs_test.go:573
+ufs_test.go:580
+ufs_test.go:590
+ufs_test.go:597
+ufs_test.go:607
+ufs_test.go:614
+ufs_test.go:624
+ufs_test.go:631
+ufs_test.go:641
+ufs_test.go:647
+ufs_test.go:662
+ufs_test.go:675
+
+== changed-base check: local merge of 497bbeaf + master 3e99063a (tmp-6177-mergetest, deleted after)
+harness unit layer: ok; full suite 311 Passed | 12 Failed, failure set identical; no semantic conflict with master delta (sync.go TODO removal, tiered-store legacy conversion additions)

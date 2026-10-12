@@ -100,3 +100,45 @@ Skipped by the debate configuration (unit + integration mandated for this round)
 environment probe did find a reachable cluster (1 node, v1.36.2-aliyun.1); it was left
 untouched. See `liveNote` in `verify-manifest.json` for the exact manual procedure if the
 live check is wanted later.
+
+## Round 3 — delta `e259d738..497bbeaf`
+
+The PR fixed the round-2 major (ledger F6) in commit `f02054bd` ("reject merged
+resources whose request exceeds its limit") and re-signed the history (all commits
+now carry `Signed-off-by`; the DCO gate is green at head). The mechanism:
+
+- `validateResourceRequirements` (transform_common.go) reports every key whose
+  request exceeds its limit, sorted for deterministic messages.
+- Creation path: `transformMaster`/`transformWorker`/`transformClient` call
+  `validateComponentResources` right after `transformComponentPodTemplate`, so a
+  conflicting pair fails setup loudly with the component and keys named.
+- Sync path: `validDesiredResources` (sync.go) wraps `desiredComponentResources`
+  for master and worker; on conflict it returns nil — `SyncComponentSpec` skips the
+  resource patch (image and replicas still sync) — and emits a
+  `RuntimeResourcesConflict` Warning event on the CacheRuntime.
+
+The validation sits *before* the tiered-store quota charge by design:
+`withTieredStoreMemoryQuota` adds the quota to the request and the limit
+symmetrically, so it cannot break requests ≤ limits.
+
+Harness updates this round (all in `verify_delta_6177_test.go` /
+`verify_delta_r3_6177_test.go`; production code untouched):
+
+| id | claim | polarity | verdict | evidence |
+| --- | --- | --- | --- | --- |
+| D2 | A conflicting merge is refused: sync returns nil, the workload keeps its current resources, and a `RuntimeResourcesConflict` Warning event names the pair | contract (inverted canary) | **Fixed** — the round-2 canary flipped when `f02054bd` landed, so it was inverted into this contract; red on `e259d738`, green on `497bbeaf` | `results/round3/summary.txt` |
+| D4 | The conflict does not abort the component: worker replicas still sync while the resource patch is skipped and the event names the memory pair | contract | **Confirmed** — red on `e259d738`, green on `497bbeaf` | `TestD4SyncConflictSkipsResourcesButSyncsReplicas` |
+| D5 | The creation path fails loudly on a conflicting pair (`invalid worker resources: memory request 2Gi exceeds limit 1Gi`) | contract | **Confirmed** — red on `e259d738`, green on `497bbeaf` | `TestD5CreationRejectsConflictingPair` |
+| D6 | The master call site in `syncRuntimeSpec` shares the same skip + event + replica behavior | contract | **Confirmed** | `TestD6MasterSyncConflictSkipsResources` |
+
+All B1–B5/D1/D3 contracts from earlier rounds stay green at head (the fix regressed
+nothing). Full engine suite with the harness grafted: 298 passed / 12 failed, the
+failing specs byte-identical to the pre-PR base `e0fc4c18` (pre-existing
+`ufs_test.go` failures) — no revision regression.
+
+Changed base: master moved `e0fc4c18 -> 3e99063a`. A local test merge of
+`497bbeaf` + `3e99063a` compiles, passes the harness and the full suite (311/12,
+same failure set); the overlapping files (`sync.go`, curvine `test.sh`, the
+spec-update docs) merge without semantic conflict.
+
+`.last-reviewed` advanced to `497bbeaf`.
