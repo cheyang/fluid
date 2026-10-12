@@ -1,7 +1,8 @@
 === RUN   TestApiserverRejectsHugepagesRequestBelowLimit
-    main_test.go:47: apiserver rejected the pod as expected: Pod "f9-hugepages" is invalid: [spec.containers[0].resources.requests: Invalid value: "1Gi": must be equal to hugepages-2Mi limit of 2Gi, spec.containers[0].resources: Forbidden: HugePages require cpu or memory]
-    main_test.go:64: apiserver rejected the cpu pod as expected: Pod "f6-cpu" is invalid: spec.containers[0].resources.requests: Invalid value: "1": must be less than or equal to cpu limit of 500m
-    main_test.go:82: apiserver accepted equal hugepages request=limit=1Gi (control)
---- PASS: TestApiserverRejectsHugepagesRequestBelowLimit (3.58s)
+    main_test.go:48: apiserver rejected the pod as expected: Pod "f9-hugepages" is invalid: [spec.containers[0].resources.requests: Invalid value: "1Gi": must be equal to hugepages-2Mi limit of 2Gi, spec.containers[0].resources: Forbidden: HugePages require cpu or memory]
+    main_test.go:65: apiserver rejected the cpu pod as expected: Pod "f6-cpu" is invalid: spec.containers[0].resources.requests: Invalid value: "1": must be less than or equal to cpu limit of 500m
+    main_test.go:90: apiserver rejected the enriched pod for the must-be-equal rule only: Pod "f9-hugepages-with-cpu" is invalid: spec.containers[0].resources.requests: Invalid value: "1Gi": must be equal to hugepages-2Mi limit of 2Gi
+    main_test.go:107: apiserver accepted equal hugepages request=limit=1Gi (control)
+--- PASS: TestApiserverRejectsHugepagesRequestBelowLimit (3.26s)
 PASS
-ok  	f9envtest	3.583s
+ok  	f9envtest	3.270s

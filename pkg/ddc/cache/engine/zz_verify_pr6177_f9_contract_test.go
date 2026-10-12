@@ -28,20 +28,29 @@ package engine
 //	be equal."  (helper.IsOvercommitAllowed = native non-hugepages only)
 //
 // The merge can synthesize exactly that from two individually valid documents:
-// a template declaring hugepages-2Mi request=1Gi limit=1Gi, plus a CacheRuntime
-// raising only the limit to 2Gi, merges into request 1Gi != limit 2Gi. The
-// head's validateResourceRequirements only rejects request > limit
+// a template declaring cpu plus hugepages-2Mi request=1Gi limit=1Gi, and a
+// CacheRuntime raising the hugepages limit to 2Gi (restating cpu so it stays
+// valid on its own). Both are specs the API server accepts. The merge yields
+// hugepages-2Mi request 1Gi != limit 2Gi; the head's
+// validateResourceRequirements only rejects request > limit
 // (transform_common.go), so it accepts the pair and syncRuntimeSpec applies it
 // with no Warning event -- the same silent stuck-rollout shape as F6, one
-// resource family over. On the base the same input wholesale-dropped the
-// requests, leaving a limit-only list the API server defaults to request=limit
-// (valid), so this exposure was introduced by this PR's merge and is not closed
-// by the head's validation.
+// resource family over.
+//
+// Differential, same input: on base e0fc4c18 the sync wholesale-replaces with
+// the CacheRuntime's list, whose hugepages request the API server defaults to
+// the limit -- a valid pod spec. On head the merged (invalid) pair is applied
+// instead, and the F6 gate added this round does not catch it. So the
+// apiserver-invalid applied state is introduced by this PR's merge and survives
+// its remediation. (Proven against a real API server: see
+// docs/verification/cacheruntime-resources-merge/results/round3/envtest-apiserver-rule.txt.)
 //
 // Polarity: CONTRACT. Compile-safe on base e0fc4c18, previous head e259d738
-// and head 497bbeaf (pre-existing symbols only). Expected RED on all three
-// (the exposure exists on every ref; only the head's remediation attempt is
-// incomplete). Goes GREEN when the gate mirrors the apiserver rule.
+// and head 497bbeaf (pre-existing symbols only). RED on all three today: on
+// base because it patches the workload at all (this contract demands the
+// controller refuse), on previous head and head because the apiserver-invalid
+// pair is applied silently. Goes GREEN only when the gate mirrors the
+// apiserver rule (reject request != limit for non-overcommittable resources).
 
 import (
 	"strings"
@@ -55,16 +64,30 @@ import (
 // F9 contract, integration layer (fake client): when the merged worker
 // resources set request != limit on a non-overcommittable resource,
 // syncRuntimeSpec must NOT patch the workload's resources and must emit a
-// Warning event -- the apiserver would reject the first Pod ("must be equal to
+// Warning event -- the apiserver rejects the first Pod ("must be equal to
 // hugepages-2Mi limit of 2Gi"), sticking the rollout silently.
 func TestVerifyPR6177_F9_NonOvercommittableMerge_SyncMustRefuse(t *testing.T) {
 	hugepages := corev1.ResourceName("hugepages-2Mi")
+	// Individually valid template: cpu present, hugepages request == limit.
 	template := corev1.ResourceRequirements{
-		Requests: corev1.ResourceList{hugepages: resource.MustParse("1Gi")},
-		Limits:   corev1.ResourceList{hugepages: resource.MustParse("1Gi")},
+		Requests: corev1.ResourceList{
+			corev1.ResourceCPU: resource.MustParse("1"),
+			hugepages:          resource.MustParse("1Gi"),
+		},
+		Limits: corev1.ResourceList{
+			corev1.ResourceCPU: resource.MustParse("2"),
+			hugepages:          resource.MustParse("1Gi"),
+		},
 	}
+	// Individually valid overlay: raising only the hugepages limit; its
+	// hugepages request is absent, which the API server would default to the
+	// limit, so on its own (and on the base's wholesale apply) this is valid.
 	overlay := corev1.ResourceRequirements{
-		Limits: corev1.ResourceList{hugepages: resource.MustParse("2Gi")},
+		Requests: corev1.ResourceList{corev1.ResourceCPU: resource.MustParse("1")},
+		Limits: corev1.ResourceList{
+			corev1.ResourceCPU: resource.MustParse("2"),
+			hugepages:          resource.MustParse("2Gi"),
+		},
 	}
 	// The workload currently carries the (valid, equal) template values.
 	engine, ctx, runtimeObj, runtimeClass := verifyPR6177BuildSyncFixture(template, &template, &overlay)
