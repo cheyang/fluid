@@ -1,0 +1,38 @@
+{
+  "topic": "pr-6127-godoc-typos-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6127",
+  "harnessPaths": [
+    "docs/verification/pr-6127-godoc-typos-codex",
+    "pkg/utils/doc_comment_consistency_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Fix three GoDoc documentation errors across pkg/utils/quantity.go and pkg/utils/errors.go: two misspelled function names in doc comments and one typo in an existing comment. Additionally, add the missing GoDoc comment for the exported function IgnoreNoKindMatchError.",
+    "reportedComponent": "pkg/utils (GoDoc comments in quantity.go and errors.go)",
+    "patchedComponent": "pkg/utils (GoDoc comments in quantity.go and errors.go)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed-with-inaccuracy",
+    "evidence": "Base 3e44ad25 does contain the 'existes' typo (errors.go:26), the 'TransfromQuantityToJindoUnit' doc-comment misspelling (quantity.go:40), and an undocumented IgnoreNoKindMatchError (errors.go) - see results/p0-premise-base.txt. However the claimed second misspelled doc-comment name ('TranformQuantityToUnits' -> 'TransformQuantityToUnits') is NOT in the diff and the base already reads differently: the doc comment says 'TransformQuantityToUnits' while the identifier is misspelled 'TranformQuantityToUnits' (quantity.go:71-74). That mismatch remains at head.",
+    "match": ["manual grep evidence in results/p0-premise-base.txt"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/ ./docs/verification/pr-6127-godoc-typos-codex/checks/ -run 'TestVerify.*_PR6127' -count=1 -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/ ./pkg/utils/dataset/lifecycle/ -count=1 -json"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyDCOSignoff_PR6127"] },
+    { "id": "F2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyDocCommentsMatchIdentifiers_PR6127"] },
+    { "id": "F3", "polarity": "contract", "layer": "unit", "match": ["TestVerifyIgnoreNoKindMatchErrorDocComplete_PR6127"] },
+    { "id": "F4", "polarity": "contract", "layer": "unit", "match": ["TestVerifyExportedFuncsDocumented_PR6127"] }
+  ],
+  "liveNote": "L3 not applicable: docs-only diff (2 comment edits + 3 added comment lines; zero code change). Merge-relevant external signal is the DCO check-run on the PR head (currently action_required), which F1 reproduces locally.",
+  "integrationNote": "The integration layer runs the pre-existing suites of the touched package and its direct consumer. Known baseline failure, NOT PR-caused: TestCheckMountPointBroken fails identically on base 3e44ad25 in this container (mount detection), while the PR's CI unittest job is green. No finding is mapped to this layer."
+}

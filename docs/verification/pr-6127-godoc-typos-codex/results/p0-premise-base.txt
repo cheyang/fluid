@@ -1,0 +1,37 @@
+=== P0 premise evidence - PR #6127 claims GoDoc doc-debt; check on BASE 3e44ad25 ===
+--- base pkg/utils/errors.go 'existes' typo (PR fixes it) ---
+26:// IgnoreAlreadyExists ignores already existes error
+--- base pkg/utils/quantity.go misspelled doc-comment name (PR fixes it) ---
+40:// TransfromQuantityToJindoUnit transform a given input quantity to another one
+--- base: IgnoreNoKindMatchError undocumented, line above the func (PR adds GoDoc) ---
+41-
+42:func IgnoreNoKindMatchError(err error) error {
+--- base: TranformQuantityToUnits identifier/comment mismatch (pre-existing, NOT fixed by PR though commit message claims it) ---
+
+// TransformQuantityToUnits returns a human-readable size in bytes, kibibytes,
+// mebibytes, gibibytes, or tebibytes (eg. "44kiB", "17MiB").
+func TranformQuantityToUnits(q *resource.Quantity) (value string) {
+--- head: still mismatched ---
+
+// TransformQuantityToUnits returns a human-readable size in bytes, kibibytes,
+// mebibytes, gibibytes, or tebibytes (eg. "44kiB", "17MiB").
+func TranformQuantityToUnits(q *resource.Quantity) (value string) {
+--- vendored apimeta.IsNoMatchError matches BOTH NoResourceMatchError and NoKindMatchError ---
+func IsNoMatchError(err error) bool {
+	if err == nil {
+		return false
+	}
+	return errors.Is(err, &NoResourceMatchError{}) || errors.Is(err, &NoKindMatchError{})
+}
+--- repo lint config: style checks disabled, no revive/golint -> PR body's lint-warning claim does not apply to this CI ---
+3-linters:
+4-  settings:
+5:    staticcheck:
+6-      checks:
+7-        - all
+8-        # Disable all quickfix suggestions (refactoring hints, not bugs)
+9-        - "-QF*"
+10-        # Disable all style checks (pre-existing naming/comment conventions)
+11-        - "-ST*"
+12-
+13-  exclusions:
