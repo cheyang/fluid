@@ -41,9 +41,13 @@ previous head and head):
 | previous e259d738 | pass | pass | pass | pass | STILL-BROKEN | STILL-BROKEN |
 | head 497bbeaf | pass | pass | pass | pass | **pass (fixed)** | **STILL-BROKEN (new finding)** |
 
-*On base, the F9 input's sync wholesale-drops requests leaving a limit-only list the API
-server defaults to request=limit (valid) — the apiserver-invalid applied spec is introduced
-by this PR's merge, and the head's new validator does not cover the family.
+*On base, the F9 input's sync wholesale-applies the CacheRuntime's own list
+(`{requests: {cpu: 1}, limits: {cpu: 2, hugepages-2Mi: 2Gi}}`); the absent hugepages request
+is defaulted to the limit by the API server, so the applied spec is valid. On head the merged
+(hugepages request 1Gi != limit 2Gi) spec is applied instead — the apiserver-invalid applied
+state is introduced by this PR's merge, and the head's new validator does not cover the
+family. The contract is red on base too because the contract demands the controller refuse
+to touch the workload (and emit a warning), which the base also does not do.
 
 Raw output: `results/round3/{unit,integration}-{base-e0fc4c18,previous-e259d738,head-497bbeaf}.json`.
 Full package suite at head (harness grafted): `ok pkg/ddc/cache/engine`, ginkgo 310 passed /
@@ -63,6 +67,22 @@ failure shape F6 was about, one resource family over. Reproduced at head by the 
 (observed: workload mutated to request 1Gi != limit 2Gi, no event). Remedy: mirror the
 apiserver rule in `validateResourceRequirements` (request must equal limit when
 `!IsOvercommitAllowed(name)`), or document the limitation.
+
+The F9 fixture was sharpened after the first reproduction so that both inputs are
+apiserver-valid pod specs on their own: the template declares cpu and hugepages-2Mi
+request=limit=1Gi, and the CacheRuntime restates cpu while raising only the hugepages limit
+to 2Gi (its absent hugepages request would be defaulted to the limit, so the overlay alone is
+valid too). Differential, same input, observed in `results/round3/integration-*.json`: on base
+e0fc4c18 the sync wholesale-applies the overlay — `{requests: {cpu: 1}, limits: {cpu: 2,
+hugepages-2Mi: 2Gi}}` — which the API server accepts after defaulting the hugepages request to
+the limit; on head 497bbeaf the merge applies `{requests: {cpu: 1, hugepages-2Mi: 1Gi},
+limits: {cpu: 2, hugepages-2Mi: 2Gi}}`, which the API server rejects. envtest against a real
+API server (results/round3/envtest-apiserver-rule.txt) confirms the merged spec is rejected
+for the must-be-equal rule only (cpu/memory present), while the equal-pair control is
+accepted. Harness-bites check: patching `validateResourceRequirements` in a scratch worktree
+to also reject request != limit for non-overcommittable names turns the F9 test green and
+keeps the rest of the suite (`pkg/ddc/cache/...`) green; the scratch was discarded, no
+production change was kept.
 
 ## How to run
 
