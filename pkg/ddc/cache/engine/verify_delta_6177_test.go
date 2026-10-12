@@ -21,11 +21,18 @@ package engine
 // The delta makes desiredComponentResources always return the merged result, so a
 // key neither the CacheRuntime nor its CacheRuntimeClass template declares is
 // cleared from the workload. These tests pin the new boundary semantics and the
-// one behavior the PR's own tests do not cover: the merge can synthesize a
-// requests-above-limits combination from two individually valid inputs.
+// one behavior the PR's own tests did not cover at the time: the merge can
+// synthesize a requests-above-limits combination from two individually valid
+// inputs.
+//
+// Round 3 (e259d738 -> 497bbeaf) inverted the D2 canary into a contract test:
+// commit f02054bd added the validation the round-2 review asked for, so the
+// conflicting merge must now be refused with a RuntimeResourcesConflict Warning
+// event instead of applied silently.
 
 import (
 	"context"
+	"strings"
 	"testing"
 
 	workloadv1alpha1 "github.com/fluid-cloudnative/advanced-statefulset/api/workload/v1alpha1"
@@ -36,6 +43,7 @@ import (
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/client-go/tools/record"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client/fake"
 )
@@ -88,14 +96,17 @@ func TestD1NeitherDeclaresResolvesEmpty(t *testing.T) {
 	}
 }
 
-// D2 (CANARY — current-behavior, flips if validation is added): the overlay can
-// synthesize an invalid pod spec from two individually valid inputs. The template
-// declares requests {cpu 1} / limits {cpu 2}; the CacheRuntime lowers limits.cpu
-// to 500m. Both are valid on their own; the merged result has requests.cpu=1
-// above limits.cpu=500m, which the Kubernetes API server rejects
-// ("must be less than or equal to cpu limit"). The sync applies the combination
-// to the workload and reports success — the rejection surfaces only at pod
-// rollout, with no event on the CacheRuntime.
+// D2 (CONTRACT — inverted in round 3 after commit f02054bd landed the validation):
+// the overlay can synthesize an invalid pod spec from two individually valid
+// inputs. The template declares requests {cpu 1} / limits {cpu 2}; the CacheRuntime
+// lowers limits.cpu to 500m. Both are valid on their own; the merged result has
+// requests.cpu=1 above limits.cpu=500m, which the Kubernetes API server rejects
+// ("must be less than or equal to cpu limit"). Round 2 pinned the then-broken
+// behavior as a canary (sync applies the combination, no error, no event); the
+// fix flips it, so the assertion is now the contract the round-2 review asked
+// for: the sync refuses the resource update, leaves the workload's current
+// values alone and emits a RuntimeResourcesConflict Warning event naming the
+// conflicting keys.
 func TestD2MergeSynthesizesRequestsAboveLimits(t *testing.T) {
 	template := v6177TemplateResources // requests {cpu 1, mem 2Gi}, limits {cpu 2, mem 4Gi}
 	runtimeRes := corev1.ResourceRequirements{
@@ -113,15 +124,15 @@ func TestD2MergeSynthesizesRequestsAboveLimits(t *testing.T) {
 	if got := desired.Limits.Cpu().String(); got != "500m" {
 		t.Errorf("limits.cpu: got %q, want 500m (the override)", got)
 	}
-	if desired.Requests.Cpu().Cmp(*desired.Limits.Cpu()) > 0 {
-		t.Logf("canary: merged requests.cpu (%s) exceeds merged limits.cpu (%s) — invalid pod spec",
+	if desired.Requests.Cpu().Cmp(*desired.Limits.Cpu()) <= 0 {
+		t.Fatalf("fixture sanity: merged requests.cpu (%s) must exceed merged limits.cpu (%s) for this test to mean anything",
 			desired.Requests.Cpu().String(), desired.Limits.Cpu().String())
 	}
 
-	// Workload layer: the sync patches the invalid combination onto the ASTS and
-	// returns nil error. The fake client performs no validation, mirroring the
-	// controller's own lack of one — on a real cluster the API server rejects the
-	// pods created from this template and the rollout sticks.
+	// Workload layer: the sync must refuse the resource update. The fake client
+	// performs no validation, mirroring a schemaless ASTS pod template, so the
+	// only thing standing between the invalid merge and the workload is the
+	// controller's own validation (validDesiredResources).
 	replicas := int32(1)
 	asts := &workloadv1alpha1.AdvancedStatefulSet{
 		ObjectMeta: metav1.ObjectMeta{Name: "test-worker", Namespace: "default"},
@@ -147,9 +158,11 @@ func TestD2MergeSynthesizesRequestsAboveLimits(t *testing.T) {
 		},
 	}
 	engine := v6177r2Engine(t, asts, runtimeObj, runtimeClass)
+	recorder := record.NewFakeRecorder(10)
+	engine.Recorder = recorder
 
 	if err := engine.syncRuntimeSpec(cruntime.ReconcileRequestContext{Context: context.TODO()}, runtimeObj, runtimeClass); err != nil {
-		t.Fatalf("syncRuntimeSpec failed: %v — the canary documents that it succeeds", err)
+		t.Fatalf("syncRuntimeSpec failed: %v — a conflicting merge must be skipped, not fail the sync", err)
 	}
 
 	key := types.NamespacedName{Name: "test-worker", Namespace: "default"}
@@ -158,15 +171,29 @@ func TestD2MergeSynthesizesRequestsAboveLimits(t *testing.T) {
 		t.Fatalf("get ASTS: %v", err)
 	}
 	got := synced.Spec.Template.Spec.Containers[0].Resources
-	if got.Requests.Cpu().String() != "1" || got.Limits.Cpu().String() != "500m" {
-		t.Fatalf("workload resources: got requests.cpu=%s limits.cpu=%s, want 1 / 500m (the invalid combination applied)",
+	// The workload keeps what it already carried (the template combination), not
+	// the invalid merged one.
+	if got.Requests.Cpu().String() != "1" || got.Limits.Cpu().String() != "2" {
+		t.Fatalf("workload resources: got requests.cpu=%s limits.cpu=%s, want the untouched 1 / 2 (the merge must be refused)",
 			got.Requests.Cpu().String(), got.Limits.Cpu().String())
 	}
-	if got.Requests.Cpu().Cmp(*got.Limits.Cpu()) <= 0 {
-		t.Fatalf("expected the applied combination to be invalid (requests > limits); got requests=%s limits=%s",
+	if got.Requests.Cpu().Cmp(*got.Limits.Cpu()) > 0 {
+		t.Fatalf("an invalid combination reached the workload: requests=%s limits=%s",
 			got.Requests.Cpu().String(), got.Limits.Cpu().String())
 	}
-	t.Logf("canary: sync applied requests.cpu=1 above limits.cpu=500m with no error and no event")
+
+	// The only signal an operator gets is the event: it must name the conflict.
+	select {
+	case ev := <-recorder.Events:
+		if !strings.Contains(ev, v6177r3ConflictReason) {
+			t.Errorf("event reason: got %q, want it to contain %q", ev, v6177r3ConflictReason)
+		}
+		if !strings.Contains(ev, "cpu request 1 exceeds limit 500m") {
+			t.Errorf("event body: got %q, want it to name the conflicting pair", ev)
+		}
+	default:
+		t.Fatal("no RuntimeResourcesConflict event was emitted for the conflicting merge")
+	}
 }
 
 // D3 (contract): a workload whose template and CacheRuntime declare no resources

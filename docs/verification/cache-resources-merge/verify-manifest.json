@@ -4,18 +4,19 @@
   "harnessPaths": [
     "docs/verification/cache-resources-merge",
     "pkg/ddc/cache/engine/verify_premise_6177_test.go",
-    "pkg/ddc/cache/engine/verify_delta_6177_test.go"
+    "pkg/ddc/cache/engine/verify_delta_6177_test.go",
+    "pkg/ddc/cache/engine/verify_delta_r3_6177_test.go"
   ],
   "premise": {
     "id": "P0",
     "claim": "A CacheRuntime that names only limits.memory on a worker whose CacheRuntimeClass template declares a full set loses requests.cpu, requests.memory and limits.cpu from the workload on the next reconcile, with no error and no event; Claims is dropped the same way (issue #6173).",
-    "reportedComponent": "pkg/ddc/cache \u2014 CacheRuntime resource resolution feeding AdvancedStatefulSetManager.updateResources",
-    "patchedComponent": "pkg/ddc/cache/engine \u2014 sync.go desiredComponentResources + transform_common.go transformComponentPodTemplate/mergeResourceRequirements",
+    "reportedComponent": "pkg/ddc/cache — CacheRuntime resource resolution feeding AdvancedStatefulSetManager.updateResources",
+    "patchedComponent": "pkg/ddc/cache/engine — sync.go desiredComponentResources + transform_common.go transformComponentPodTemplate/mergeResourceRequirements",
     "componentMatch": true,
     "runsAgainst": "base",
     "layer": "unit",
     "verdict": "confirmed",
-    "evidence": "Canary at merge base e0fc4c18: 'limits.cpu dropped (got \"0\")', 'requests dropped: got map[]', claims dropped at both creation and sync layers \u2014 results/unit-base.log",
+    "evidence": "Canary at merge base e0fc4c18: 'limits.cpu dropped (got \"0\")', 'requests dropped: got map[]', claims dropped at both creation and sync layers — results/unit-base.log",
     "match": [
       "TestP0SyncDesiredKeepsUnstatedTemplateKeys",
       "TestP0CreationKeepsUnstatedTemplateKeys",
@@ -25,7 +26,7 @@
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -run 'TestP0|TestP1|TestP2|TestD1|TestD2|TestD3' -json"
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -run 'TestP0|TestP1|TestP2|TestD1|TestD2|TestD3|TestD4|TestD5|TestD6' -json"
     },
     "integration": {
       "kind": "ginkgo",
@@ -86,12 +87,12 @@
     },
     {
       "id": "D2",
-      "polarity": "canary",
+      "polarity": "contract",
       "layer": "unit",
       "match": [
         "TestD2MergeSynthesizesRequestsAboveLimits"
       ],
-      "note": "F6 open finding: the merge can synthesize requests > limits from individually valid inputs; sync applies it to the workload with no error and no event. Canary passes while unvalidated; flip + invert when validation is added."
+      "note": "F6 fixed by commit f02054bd (round 3): the canary flipped, so it was inverted into a contract test — the sync must refuse the conflicting merge, leave the workload's resources untouched and emit a RuntimeResourcesConflict Warning event."
     },
     {
       "id": "D3",
@@ -101,9 +102,36 @@
         "TestD3QuotaWithoutBaselineStaysUnconstrained"
       ],
       "note": "delta made the tiered-store quota read-back unconditional: an unconstrained container with a memory tmpfs must stay unconstrained and unpatched."
+    },
+    {
+      "id": "D4",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestD4SyncConflictSkipsResourcesButSyncsReplicas"
+      ],
+      "note": "round 3: the conflict must not abort the component sync — replicas still move while the resource patch is skipped and the Warning event names the memory pair."
+    },
+    {
+      "id": "D5",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestD5CreationRejectsConflictingPair"
+      ],
+      "note": "round 3: the creation path (transformWorker) must fail loudly on a conflicting pair, naming the component and the keys, instead of rendering a pod spec the API server rejects at rollout."
+    },
+    {
+      "id": "D6",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestD6MasterSyncConflictSkipsResources"
+      ],
+      "note": "round 3: the master call site in syncRuntimeSpec shares the worker's validation; pin the skip + event + replica behavior there too."
     }
   ],
-  "liveNote": "L3 (live cluster) was skipped by the debate configuration (unit + integration layers mandated). A probe did find a reachable cluster (kubectl get no: 1 node, v1.36.2-aliyun.1); it was left untouched. If L3 is ever run: apply the #6173 manifests, kubectl patch the cacheruntime with limits.memory=8Gi only, then read .spec.template.spec.containers[0].resources from the advancedstatefulset \u2014 expect limits {cpu 2, memory 8Gi} and requests {cpu 1, memory 2Gi}, and expect requests to stay nil (not an empty map) on the limits-only template.",
+  "liveNote": "L3 (live cluster) was skipped by the debate configuration (unit + integration layers mandated). A probe did find a reachable cluster (kubectl get no: 1 node, v1.36.2-aliyun.1); it was left untouched. If L3 is ever run: apply the #6173 manifests, kubectl patch the cacheruntime with limits.memory=8Gi only, then read .spec.template.spec.containers[0].resources from the advancedstatefulset — expect limits {cpu 2, memory 8Gi} and requests {cpu 1, memory 2Gi}, and expect requests to stay nil (not an empty map) on the limits-only template.",
   "rounds": {
     "2026-10-08": {
       "head": "c1c303e8b2dc0a237ab9abe289be4e64c4445970",
@@ -153,6 +181,11 @@
       "newFindings": [
         "D2 -> ledger F6 (major): merged requests can exceed limits; controller applies without validation/event"
       ]
+    },
+    "2026-10-13": {
+      "head": "497bbeaf254071c522904d654a0e574651df65fd",
+      "delta": "e259d738..497bbeaf (history rewritten by rebase --signoff: ecd41afa->4194456f, e259d738->54e3756b; new commits f02054bd validation + 497bbeaf docs)",
+      "note": "pending: re-verify at head after harness update"
     }
   }
 }
