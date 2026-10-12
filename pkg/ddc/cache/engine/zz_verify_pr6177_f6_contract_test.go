@@ -164,6 +164,20 @@ func TestVerifyPR6177_F6_ConflictMerge_CreationRefuses(t *testing.T) {
 			Name:       "test-runtime",
 			UID:        "test-uid",
 		},
+		// Needed so old heads (which lack the validation and proceed into
+		// transformVolumes) fail cleanly instead of panicking.
+		RuntimeConfigs: &RuntimeConfigVolumeConfig{
+			RuntimeConfigVolume: corev1.Volume{
+				Name: "runtime-config",
+				VolumeSource: corev1.VolumeSource{
+					ConfigMap: &corev1.ConfigMapVolumeSource{
+						LocalObjectReference: corev1.LocalObjectReference{Name: "test-runtime-config"},
+					},
+				},
+			},
+			RuntimeConfigVolumeMount: corev1.VolumeMount{Name: "runtime-config", MountPath: "/etc/fluid/config"},
+			ExtraConfigMapNames:      make(map[string]bool),
+		},
 	}
 	value := &common.CacheRuntimeValue{}
 
