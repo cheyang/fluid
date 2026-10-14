@@ -1,0 +1,10 @@
+{"ImportPath":"k8s.io/apimachinery/pkg/util/managedfields/internal","Action":"build-output","Output":"# k8s.io/apimachinery/pkg/util/managedfields/internal\n"}
+{"ImportPath":"k8s.io/apimachinery/pkg/util/managedfields/internal","Action":"build-output","Output":"vendor/k8s.io/apimachinery/pkg/util/managedfields/internal/structuredmerge.go:56:4: unknown field IgnoredFields in struct literal of type merge.Updater\n"}
+{"ImportPath":"k8s.io/apimachinery/pkg/util/managedfields/internal","Action":"build-output","Output":"vendor/k8s.io/apimachinery/pkg/util/managedfields/internal/structuredmerge.go:73:4: unknown field IgnoredFields in struct literal of type merge.Updater\n"}
+{"ImportPath":"k8s.io/apimachinery/pkg/util/managedfields/internal","Action":"build-fail"}
+{"Time":"2026-10-15T05:20:34.302502211+08:00","Action":"start","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/base/portallocator"}
+{"Time":"2026-10-15T05:20:34.302599254+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/base/portallocator","Output":"FAIL\tgithub.com/fluid-cloudnative/fluid/pkg/ddc/base/portallocator [build failed]\n","OutputType":"frame"}
+{"Time":"2026-10-15T05:20:34.302614954+08:00","Action":"fail","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/base/portallocator","Elapsed":0,"FailedBuild":"k8s.io/apimachinery/pkg/util/managedfields/internal"}
+{"Time":"2026-10-15T05:20:34.324777274+08:00","Action":"start","Package":"github.com/fluid-cloudnative/fluid/pkg/csi/plugins"}
+{"Time":"2026-10-15T05:20:34.324796815+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/csi/plugins","Output":"FAIL\tgithub.com/fluid-cloudnative/fluid/pkg/csi/plugins [build failed]\n","OutputType":"frame"}
+{"Time":"2026-10-15T05:20:34.324809825+08:00","Action":"fail","Package":"github.com/fluid-cloudnative/fluid/pkg/csi/plugins","Elapsed":0,"FailedBuild":"k8s.io/apimachinery/pkg/util/managedfields/internal"}
