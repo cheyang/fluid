@@ -1,0 +1,36 @@
+{
+  "topic": "k8s-132-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/5392",
+  "harnessPaths": [
+    "docs/verification/k8s-132-bump",
+    "pkg/ddc/base/portallocator/allocate_order_verify_test.go",
+    "pkg/csi/plugins/csi_interface_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Bumping k8s.io/kubernetes 1.29.15 -> 1.32.10 together with the transitive set dependabot chose (structured-merge-diff v4.4.2, sigs.k8s.io/json 20241010, kube-openapi 20241105, csi-spec v1.9.0) keeps the repo buildable while all k8s.io/* staging modules stay replace-pinned at v0.29.15",
+    "reportedComponent": "go.mod / vendor (dependency set)",
+    "patchedComponent": "go.mod / go.sum / vendor",
+    "componentMatch": true,
+    "runsAgainst": "head (deviation from template: for a dependency-bump chore the claim under test is about the patched tree; the base tree is the control and builds green)",
+    "layer": "unit",
+    "verdict": "refuted",
+    "evidence": "go build ./... fails on head 8534d282 (results/head-8534d282-check-build.out) and succeeds on base 3e99063 (results/base-3e99063-build.out); matches failing CI build/unittest/lint/e2e jobs",
+    "match": ["TestVerifyRepoCompilesPortallocator"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/base/portallocator/... ./pkg/csi/plugins/... -run 'TestVerify' -json"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyRepoCompilesPortallocator"],
+      "note": "repo must compile; on the un-fixed head the layer reports __BUILD_OR_NO_TESTS__ which re-verify prints as HARNESS-UPDATE — for F1/F2 that state means STILL-BROKEN (the finding IS the compile failure). Run scripts/check-build.sh for the precise per-finding signature split." },
+    { "id": "F2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyControllerServerSatisfiesCSIInterface"],
+      "note": "masked by F1 until F1 is fixed; check-build.sh reports it separately once reachable" },
+    { "id": "F3", "polarity": "contract", "layer": "unit", "match": ["TestVerifyAllocateBatchCoversFullRange"],
+      "note": "regression guard: fluid's factory must keep discarding the upstream static-subrange offset; passes on base and on the probe-fixed head" }
+  ],
+  "liveNote": "not run for this review (debate policy: unit + integration layers only); the findings are compile-time, so no live layer is needed"
+}
