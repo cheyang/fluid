@@ -1,0 +1,7 @@
+== integration layer: check-run conclusions on PR head ==
+head sha: 7e1edc06215a06119f64271ca2f57999891a62d5
+[PASS] kind-e2e-matrix: 5/5 success; bad: none
+[PASS] backward-compat-matrix: 5/5 success; bad: none
+kind-e2e-matrix	pass
+backward-compat-matrix	pass
+exit=0

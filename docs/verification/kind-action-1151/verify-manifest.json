@@ -1,0 +1,37 @@
+{
+  "topic": "kind-action-1151",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6208",
+  "harnessPaths": [
+    "docs/verification/kind-action-1151"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot maintenance: 'Bumps helm/kind-action from 1.15.0 to 1.15.1' — keep the CI action pin current on the v1.15.1 patch release.",
+    "reportedComponent": ".github/workflows/{kind-e2e,backward-compatibility-e2e}.yml (helm/kind-action pin)",
+    "patchedComponent": "same two workflow files, uses: line only",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "v1.15.1 exists upstream and its tag resolves to commit 1544676c07bb3570fcb70166beaa07c4528fd4aa; the base branch pinned v1.15.0 (06c1ae10...). results/unit-run.log, results/bites-base.log",
+    "match": ["tag-identity", "pin-integrity"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "custom",
+      "cmd": "python3 -I docs/verification/kind-action-1151/scripts/verify_action_pin.py --report"
+    },
+    "integration": {
+      "kind": "custom",
+      "cmd": "python3 -I docs/verification/kind-action-1151/scripts/check_ci.py --report"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit",        "match": ["pin-integrity"] },
+    { "id": "F2", "polarity": "contract", "layer": "unit",        "match": ["input-compat"] },
+    { "id": "F3", "polarity": "contract", "layer": "unit",        "match": ["explicit-overrides"] },
+    { "id": "F4", "polarity": "contract", "layer": "unit",        "match": ["yaml-valid"] },
+    { "id": "F5", "polarity": "contract", "layer": "integration", "match": ["kind-e2e-matrix", "backward-compat-matrix"] }
+  ],
+  "liveNote": "L3 (live GitHub Actions run) is covered by F5's check-run query instead of being re-executed locally; the workflows themselves are the live system."
+}

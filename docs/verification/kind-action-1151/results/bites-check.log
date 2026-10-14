@@ -1,0 +1,25 @@
+== bites 1: base e4a10bf49a1e8068d901e6f146ee4e435db7e785 workflows (expect pin-integrity FAIL) ==
+[FAIL] pin-integrity: pinned 06c1ae10762d3b9c1644e7fe69596ae519e015a2 (expected 1544676c07bb3570fcb70166beaa07c4528fd4aa) in 2 step(s)
+[PASS] tag-identity: v1.15.1 tag -> 1544676c07bb3570fcb70166beaa07c4528fd4aa (pinned 1544676c07bb3570fcb70166beaa07c4528fd4aa)
+[PASS] input-compat: unknown input(s): none
+[PASS] explicit-overrides: relying on action defaults for: nothing
+[PASS] yaml-valid: unparseable: none
+pin-integrity	fail
+tag-identity	pass
+input-compat	pass
+explicit-overrides	pass
+yaml-valid	pass
+
+== bites 2: broken fixture (expect pin-integrity + input-compat + explicit-overrides FAIL) ==
+[FAIL] pin-integrity: pinned 06c1ae10762d3b9c1644e7fe69596ae519e015a2 (expected 1544676c07bb3570fcb70166beaa07c4528fd4aa) in 1 step(s)
+[PASS] tag-identity: v1.15.1 tag -> 1544676c07bb3570fcb70166beaa07c4528fd4aa (pinned 1544676c07bb3570fcb70166beaa07c4528fd4aa)
+[FAIL] input-compat: unknown input(s): ['/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/docs/verification/kind-action-1151/scripts/bites-fixture/.github/workflows/broken.yml: bogus_input_renamed_in_v1151']
+[FAIL] explicit-overrides: relying on action defaults for: ['/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/docs/verification/kind-action-1151/scripts/bites-fixture/.github/workflows/broken.yml: kubectl_version']
+[PASS] yaml-valid: unparseable: none
+pin-integrity	fail
+tag-identity	pass
+input-compat	fail
+explicit-overrides	fail
+yaml-valid	pass
+
+BITES OK: all negative controls failed as expected

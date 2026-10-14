@@ -1,0 +1,12 @@
+== unit layer: PR head 7e1edc06 (run from repo root) ==
+[PASS] pin-integrity: pinned 1544676c07bb3570fcb70166beaa07c4528fd4aa (expected 1544676c07bb3570fcb70166beaa07c4528fd4aa) in 2 step(s)
+[PASS] tag-identity: v1.15.1 tag -> 1544676c07bb3570fcb70166beaa07c4528fd4aa (pinned 1544676c07bb3570fcb70166beaa07c4528fd4aa)
+[PASS] input-compat: unknown input(s): none
+[PASS] explicit-overrides: relying on action defaults for: nothing
+[PASS] yaml-valid: unparseable: none
+pin-integrity	pass
+tag-identity	pass
+input-compat	pass
+explicit-overrides	pass
+yaml-valid	pass
+exit=0
