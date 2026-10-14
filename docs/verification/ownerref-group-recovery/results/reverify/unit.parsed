@@ -1,0 +1,3 @@
+TestOwnerRefGroupRecoveryGrouplessAPIVersionWithKind	pass
+TestOwnerRefGroupRecoveryGrouplessAPIVersionWithoutKind	pass
+TestOwnerRefGroupRecoveryCoreTypeCompleteTypeMetaUnchanged	pass
