@@ -1,0 +1,34 @@
+{
+  "topic": "upload-artifact-v702",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6210",
+  "reviewer": "claude",
+  "harnessPaths": [
+    "docs/verification/upload-artifact-v702"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "actions/upload-artifact v7.0.1 is outdated: upstream has released v7.0.2 (download-retry improvements, @actions/artifact 6.3.1) and the pin should move to it.",
+    "reportedComponent": "GitHub Actions workflows (.github/workflows/*)",
+    "patchedComponent": ".github/workflows/backward-compatibility-e2e.yml, kind-e2e.yml, sonarcloud.yaml",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "tag v7.0.2 exists upstream at cf430e030ddb and is distinct from v7.0.1 at 043fb46d1a93; base pins all three workflows at v7.0.1 — see results/base-premise.out",
+    "match": ["P0 premise (tag exists)"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "custom",
+      "cmd": "python3 -I docs/verification/upload-artifact-v702/scripts/verify_pins.py --repo . --ref <ref>",
+      "note": "custom script layer; <ref> is replaced by re-verify.sh with the ref under test. Needs git + gh + PyYAML."
+    }
+  },
+  "findings": [
+    { "id": "C1", "polarity": "contract", "layer": "unit", "match": ["C1 pin-matches-tag"] },
+    { "id": "C2", "polarity": "contract", "layer": "unit", "match": ["C2 version-consistency"] },
+    { "id": "C3", "polarity": "contract", "layer": "unit", "match": ["C3 yaml-parse"] },
+    { "id": "C4", "polarity": "contract", "layer": "unit", "match": ["C4 input-compat"] }
+  ],
+  "liveNote": "No live layer needed: GitHub's own CI on the PR head already executed the new pinned action (kind-e2e-test / backward-compat-test 'Dump environment' steps run if: !cancelled(), SonarCloud upload) and all checks are SUCCESS — that is the end-to-end evidence."
+}
