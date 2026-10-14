@@ -1,0 +1,60 @@
+{
+  "topic": "bump-kind-action-1-15-1-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6208",
+  "harnessPaths": [
+    "docs/verification/bump-kind-action-1-15-1-codex"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: 'Bumps helm/kind-action from 1.15.0 to 1.15.1' \u2014 the new pinned sha 1544676c07bb3570fcb70166beaa07c4528fd4aa is the upstream v1.15.1 release commit and the bump is safe for fluid's e2e workflows.",
+    "reportedComponent": ".github/workflows (kind-e2e.yml, backward-compatibility-e2e.yml)",
+    "patchedComponent": ".github/workflows (kind-e2e.yml, backward-compatibility-e2e.yml)",
+    "componentMatch": true,
+    "runsAgainst": "revision-independent (upstream tag resolution); the pin checks themselves run against the PR head",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "git ls-remote https://github.com/helm/kind-action.git: refs/tags/v1.15.0=06c1ae10762d3b9c1644e7fe69596ae519e015a2 (old pin), refs/tags/v1.15.1=1544676c07bb3570fcb70166beaa07c4528fd4aa (new pin). Upstream v1.15.0..v1.15.1 diff touches only version_file (new opt-in input, unused), kubectl default v1.37.0->v1.37.1 (overridden by explicit kubectl_version), cloud-provider-kind 0.6.0->0.12.0 (only installed when cloud_provider=true, unset). See results/.",
+    "match": [
+      "yaml-pin-tag-match"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "shell",
+      "cmd": "bash docs/verification/bump-kind-action-1-15-1-codex/scripts/10-verify-pin.sh ."
+    },
+    "integration": {
+      "kind": "shell",
+      "cmd": "python3 docs/verification/bump-kind-action-1-15-1-codex/scripts/20-verify-inputs.py ."
+    }
+  },
+  "findings": [
+    {
+      "id": "pin-authenticity",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "yaml-pin-tag-match"
+      ]
+    },
+    {
+      "id": "no-version-drift",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "yaml-pin-drift",
+        "old-pin-absent"
+      ]
+    },
+    {
+      "id": "inert-upstream-delta",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "yaml-parse",
+        "inputs-pinned"
+      ]
+    }
+  ],
+  "liveNote": "L3 (skipped per review policy): the real signal is GitHub Actions CI on the PR head \u2014 `gh pr checks 6208` must show kind-e2e-test and backward-compat-test green across the full k8s matrix (v1.33.2, v1.30.13, v1.28.15, v1.24.17, v1.22.17). Captured at review time in results/ci-status.txt."
+}

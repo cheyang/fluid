@@ -1,0 +1,5 @@
+yaml-pin-tag-match[backward-compatibility-e2e.yml]	pass
+yaml-pin-tag-match[kind-e2e.yml]	pass
+yaml-pin-tag-match[all]	pass
+yaml-pin-drift	pass
+old-pin-absent	pass

@@ -1,0 +1,3 @@
+OK   backward-compatibility-e2e.yml: 1544676c07bb3570fcb70166beaa07c4528fd4aa == https://github.com/helm/kind-action.git v1.15.1
+OK   kind-e2e.yml: 1544676c07bb3570fcb70166beaa07c4528fd4aa == https://github.com/helm/kind-action.git v1.15.1
+pins found: 2, distinct shas: 1

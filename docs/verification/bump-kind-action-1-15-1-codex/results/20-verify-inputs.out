@@ -1,0 +1,9 @@
+yaml-parse[backward-compatibility-e2e.yml]	pass
+inputs-pinned[backward-compatibility-e2e.yml]	pass
+yaml-parse[codeql-analysis.yml]	pass
+yaml-parse[kind-e2e.yml]	pass
+inputs-pinned[kind-e2e.yml]	pass
+yaml-parse[pr-quota-limit.yml]	pass
+yaml-parse[project-check.yml]	pass
+yaml-parse[all]	pass
+inputs-pinned[all]	pass

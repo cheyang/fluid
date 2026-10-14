@@ -1,0 +1,6 @@
+ .github/workflows/test.yaml | 52 +++++++++++++++++++++++++++++++++++++++++++++
+ README.md                   |  3 ++-
+ action.yml                  |  7 ++++--
+ kind.sh                     |  4 ++--
+ main.sh                     | 35 ++++++++++++++++++++++++++++++
+ 5 files changed, 96 insertions(+), 5 deletions(-)

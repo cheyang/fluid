@@ -1,0 +1,23 @@
+Analyze (go)	pass	11m22s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626696012/job/116067542433	
+CodeQL	pass	4s	https://github.com/fluid-cloudnative/fluid/runs/116072834383	
+DCO	pass	1s	https://probot.github.io/apps/dco/	
+SonarCloud	pass	3s	https://github.com/fluid-cloudnative/fluid/runs/116067880816	
+SonarCloud Code Analysis	pass	36s	https://sonarcloud.io/dashboard?id=fluid-cloudnative_fluid&pullRequest=6208	
+backward-compat-test (v1.22.17)	pass	16m45s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626696293/job/116067544205	
+backward-compat-test (v1.24.17)	pass	16m41s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626696293/job/116067544045	
+backward-compat-test (v1.28.15)	pass	17m0s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626696293/job/116067543587	
+backward-compat-test (v1.30.13)	pass	15m35s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626696293/job/116067543892	
+backward-compat-test (v1.33.2)	pass	16m6s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626696293/job/116067544156	
+build (ubuntu-24.04-arm)	pass	6m18s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626695873/job/116067542867	
+build (ubuntu-latest)	pass	6m38s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626695873/job/116067542615	
+check-pr-quota	pass	7s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626696119/job/116067545083	
+ci/circleci: build	pass	0	https://circleci.com/gh/fluid-cloudnative/fluid/4171	Your tests passed on CircleCI!
+kind-e2e-test (v1.22.17)	pass	31m5s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626696141/job/116067545010	
+kind-e2e-test (v1.24.17)	pass	32m53s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626696141/job/116067544040	
+kind-e2e-test (v1.28.15)	pass	35m8s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626696141/job/116067544211	
+kind-e2e-test (v1.30.13)	pass	30m43s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626696141/job/116067544184	
+lint	pass	2m11s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626695873/job/116067542501	
+staticcheck	pass	1m44s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626695873/job/116067542823	
+unittest	pass	6m49s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626695873/job/116067542141	
+tide	pending	0		Not mergeable. Needs approved, lgtm labels.
+kind-e2e-test (v1.33.2)	pass	29m2s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626696141/job/116067544179	

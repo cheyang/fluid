@@ -1,0 +1,91 @@
+diff --git a/action.yml b/action.yml
+index 9101a6d..587dddf 100644
+--- a/action.yml
++++ b/action.yml
+@@ -9,6 +9,9 @@ inputs:
+     description: "The kind version to use (default: v0.33.0)"
+     required: false
+     default: "v0.33.0"
++  version_file:
++    description: "The path to a file containing the kind version to use (asdf '.tool-versions' or a plain version file; the version is used as-is, e.g. v0.33.0). Takes precedence over 'version' when set."
++    required: false
+   config:
+     description: "The path to the kind config file"
+     required: false
+@@ -31,9 +34,9 @@ inputs:
+     default: "0"
+     required: false
+   kubectl_version:
+-    description: "The kubectl version to use (default: v1.37.0)"
++    description: "The kubectl version to use (default: v1.37.1)"
+     required: false
+-    default: "v1.37.0"
++    default: "v1.37.1"
+   registry:
+     description: "Whether to configure an insecure local registry (default: false)"
+     required: false
+diff --git a/kind.sh b/kind.sh
+index eea0dea..2ea8ff1 100755
+--- a/kind.sh
++++ b/kind.sh
+@@ -20,8 +20,8 @@ set -o pipefail
+ 
+ DEFAULT_KIND_VERSION=v0.33.0
+ DEFAULT_CLUSTER_NAME=chart-testing
+-DEFAULT_KUBECTL_VERSION=v1.37.0
+-DEFAULT_CLOUD_PROVIDER_KIND_VERSION=0.6.0
++DEFAULT_KUBECTL_VERSION=v1.37.1
++DEFAULT_CLOUD_PROVIDER_KIND_VERSION=0.12.0
+ 
+ show_help() {
+ cat << EOF
+diff --git a/main.sh b/main.sh
+index bd9e67e..1446f26 100755
+--- a/main.sh
++++ b/main.sh
+@@ -20,10 +20,45 @@ set -o pipefail
+ 
+ SCRIPT_DIR=$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}" || realpath "${BASH_SOURCE[0]}")")
+ 
++# Resolve the kind version from a version file. Supports the asdf
++# '.tool-versions' format (a line such as "kind v0.33.0") as well as a plain
++# file that contains only the version string.
++resolve_version_from_file() {
++    local file="$1"
++    local version=""
++
++    if [[ ! -f "${file}" ]]; then
++        echo "ERROR: version_file '${file}' does not exist." >&2
++        exit 1
++    fi
++
++    # asdf '.tool-versions' format: a line such as "kind v0.33.0".
++    version=$(grep -E '^[[:space:]]*kind[[:space:]]+' "${file}" | head -n 1 | tr -d '\r' | awk '{print $2}') || true
++
++    # Otherwise treat the file as a plain version file (first token of the
++    # first non-empty, non-comment line).
++    if [[ -z "${version}" ]]; then
++        version=$(grep -vE '^[[:space:]]*(#|$)' "${file}" | head -n 1 | tr -d '\r' | awk '{print $1}') || true
++    fi
++
++    if [[ -z "${version}" ]]; then
++        echo "ERROR: no kind version found in version_file '${file}'." >&2
++        exit 1
++    fi
++
++    echo "${version}"
++}
++
+ main() {
+     local args=()
+     local registry_args=()
+ 
++    # A version file takes precedence over the 'version' input when set.
++    if [[ -n "${INPUT_VERSION_FILE:-}" ]]; then
++        INPUT_VERSION="$(resolve_version_from_file "${INPUT_VERSION_FILE}")"
++        echo "Using kind version '${INPUT_VERSION}' from version_file '${INPUT_VERSION_FILE}'." >&2
++    fi
++
+     if [[ -n "${INPUT_VERSION:-}" ]]; then
+         args+=(--version "${INPUT_VERSION}")
+     fi
