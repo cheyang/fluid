@@ -1,0 +1,5 @@
+{"Action":"pass","Test":"TestPinSHAsResolveToExactReleaseTags","Package":"verify/codeql-action-4383"}
+{"Action":"fail","Test":"TestPinCommentMatchesResolvedTag","Package":"verify/codeql-action-4383"}
+{"Action":"pass","Test":"TestPRDiffTouchesOnlyCodeqlActionPins","Package":"verify/codeql-action-4383"}
+{"Action":"pass","Test":"TestWorkflowFilesParseAsYaml","Package":"verify/codeql-action-4383"}
+{"Action":"pass","Package":"verify/codeql-action-4383","Elapsed":0}

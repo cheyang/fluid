@@ -1,0 +1,13 @@
+# harness-bites check (skill step 4)
+# 1. PR head 602efe53, unfixed:
+{"Action":"pass","Test":"TestPinSHAsResolveToExactReleaseTags","Package":"verify/codeql-action-4383"}
+{"Action":"fail","Test":"TestPinCommentMatchesResolvedTag","Package":"verify/codeql-action-4383"}
+{"Action":"pass","Test":"TestPRDiffTouchesOnlyCodeqlActionPins","Package":"verify/codeql-action-4383"}
+{"Action":"pass","Test":"TestWorkflowFilesParseAsYaml","Package":"verify/codeql-action-4383"}
+# 2. proposed F1 fix applied (comments corrected to v4.38.3) in working tree:
+{"Action":"pass","Test":"TestPinSHAsResolveToExactReleaseTags","Package":"verify/codeql-action-4383"}
+{"Action":"pass","Test":"TestPinCommentMatchesResolvedTag","Package":"verify/codeql-action-4383"}
+{"Action":"pass","Test":"TestPRDiffTouchesOnlyCodeqlActionPins","Package":"verify/codeql-action-4383"}
+{"Action":"pass","Test":"TestWorkflowFilesParseAsYaml","Package":"verify/codeql-action-4383"}
+# 3. reverted (git checkout --), production diff empty, test red again:
+{"Action":"fail","Test":"TestPinCommentMatchesResolvedTag","Package":"verify/codeql-action-4383"}

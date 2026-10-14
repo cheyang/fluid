@@ -1,0 +1,10 @@
+  .github/workflows/codeql-analysis.yml:49 github/codeql-action/init -> v4.38.3 (24c54180a607b1449ed407dd24f251e4e9147c8d)
+  .github/workflows/codeql-analysis.yml:69 github/codeql-action/analyze -> v4.38.3 (24c54180a607b1449ed407dd24f251e4e9147c8d)
+  .github/workflows/sonarcloud.yaml:54 github/codeql-action/upload-sarif -> v4.38.3 (24c54180a607b1449ed407dd24f251e4e9147c8d)
+[pass] all pins resolve to exact release-tag commits
+  .github/workflows/codeql-analysis.yml:49 comment says v3.29.5 but pin resolves to v4.38.3
+  .github/workflows/codeql-analysis.yml:69 comment says v3.29.5 but pin resolves to v4.38.3
+  .github/workflows/sonarcloud.yaml:54 comment says v2.22.11 but pin resolves to v4.38.3
+[FAIL] stale pin comments (F1)
+[pass] diff is exactly codeql-action pin updates
+[pass] both workflows parse as YAML

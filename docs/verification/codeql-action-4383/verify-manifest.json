@@ -1,0 +1,34 @@
+{
+  "topic": "codeql-action-4383",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6209",
+  "harnessPaths": [
+    "docs/verification/codeql-action-4383"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Bumps the codeql-action group with 3 updates: github/codeql-action/init, /analyze and /upload-sarif, from 4.38.2 to 4.38.3.",
+    "reportedComponent": ".github/workflows/codeql-analysis.yml + .github/workflows/sonarcloud.yaml (CI dependency pin maintenance)",
+    "patchedComponent": "same two workflow files, 3 pinned uses: lines",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base e4a10bf all three pins are 2892aa5e..., the peeled commit of refs/tags/v4.38.2 of github/codeql-action (git ls-remote, cross-checked with a fetched tag in a bare clone); v4.38.3 exists upstream, so the update is real and applicable. results/pins.tsv + results/codeql-action-tags.tsv.",
+    "match": ["TestPinSHAsResolveToExactReleaseTags"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/codeql-action-4383/scripts/run_unit_checks.sh"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestPinCommentMatchesResolvedTag"]
+    }
+  ],
+  "liveNote": "L3 not applicable for this round's debate policy (unit+integration only). The integration signal is the PR's own CI: the CodeQL workflow runs on pull_request and exercised init@+analyze@24c5418 (gh pr checks: CodeQL pass, 'Analyze (go)' pass 11m46s). sonarcloud.yaml only triggers on schedule/push-to-master, so its upload-sarif pin is first exercised after merge by the Saturday cron run — check https://github.com/fluid-cloudnative/fluid/actions/workflows/sonarcloud.yaml after the next scheduled run."
+}
