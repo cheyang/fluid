@@ -118,3 +118,40 @@ it: bash docs/verification/partial-runtime-version/scripts/re-verify.sh, mind th
 table (F1 contract, F2 canary), and report an observed-vs-expected table. Do not touch
 production code.
 ```
+
+---
+
+## Round 2 — incremental review of `0361cc03..382d926a` (head `382d926ae2d4`)
+
+Re-ran the harness against the new head (`scripts/re-verify.sh`, grafted onto `382d926a`)
+and reviewed the seven new commits (`7c7abfbf` digest guard, `514396bb`/`b159f1cc` tests,
+`99659bf4` data-operation image, `194cba6d` incomplete-version log, `ad7eca8b`/`382d926a`
+docs). Branch rebased onto `382d926a` so the branch diff is again harness-only.
+
+| ID | Round-1 claim | Round-2 verdict | Evidence |
+|----|---------------|-----------------|----------|
+| F1 | digest-pinned runtime image gets a template tag appended (`repo@sha256:…:v1`) | **FIXED** | `desiredComponentVersion` now refuses to complete a tag onto an `@`-pinned image; F1a/F1b/F1c pass on the new head (re-verify: pass=3 fail=0) |
+| F2 | class template image edits propagate to existing runtimes, undocumented | **FIXED (documented)** | docs (`cacheruntime_spec_update.md`, en+zh) now state the template baseline, the propagation rule, the reconcile-delay caveat and the upgrade note; behavior unchanged, so the spec was promoted canary→contract as a regression guard (manifest `changeReason`) |
+| F3 | NEW: the discarded-edit signal is `e.Log.V(1)`, but the shipped chart pins `--development=false` (→ zap InfoLevel, V(1) dropped) and the binary registers no verbosity flag; docs' `-v=1` hint is not actionable | **Confirmed, open** | `results/f3-production-visibility.txt` (static chain); F3 contract spec FAILS under `UseDevMode(false)` while the dev-mode control PASSES (`results/f3-bites-check.txt`); bites check: the one-line fix `e.Log.V(1)`→`e.Log.Info` turns the contract green |
+
+Full suite on the new head: 295 passed / 12 failed — the same 12 pre-existing
+mount-handling failures recorded in round 1; the delta adds only passing specs
+(`results/full-suite-head-r2.txt`, run with the harness grafted: 301 passed / 12 failed).
+
+### F3 — detail
+
+`logIncompleteVersion` (transform_common.go) is the only signal for the deliberately
+un-completable cases (digest-pinned runtime image without a tag; template without a usable
+half). It logs at V(1). The vendored controller-runtime zap defaults
+(`vendor/sigs.k8s.io/controller-runtime/pkg/log/zap/zap.go` `addDefaults`) select
+`InfoLevel` when `Development` is false, which drops V(1) records; the Helm chart deploys
+the controller with `--development=false`; and `cmd/cache/app/cache.go` never calls
+`zap.BindFlags`, so no `--zap-log-level`/`-v` flag exists to turn it back on. Issue #6178's
+fallback ask was "at minimum a Warning event" for edits that are accepted and discarded;
+in production these cases are still silent. Suggested fixes: log at V(0), or emit a Warning
+event from `syncRuntimeSpec` (its `ctx.Recorder` is available), and drop or fix the `-v=1`
+doc hint.
+
+Polarity after this round: all findings are contract tests. F3 stays red until the signal
+becomes visible in the production config; everything else is green on `382d926a`.
+`.last-reviewed` advanced to `382d926ae2d433506982896ea56c4d57bd747bb7`.
