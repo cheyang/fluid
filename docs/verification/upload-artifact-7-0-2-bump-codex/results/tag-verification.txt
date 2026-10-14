@@ -1,0 +1,4 @@
+# tag <-> pin verification (git ls-remote https://github.com/actions/upload-artifact.git)
+refs/tags/v7.0.1   : 043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  (base pin 043fb46d — matches)
+refs/tags/v7.0.2   : cf430e030ddbb5b0abf93d22962f4752f3646cd9  (head pin cf430e03 — matches)
+peeled ^{} refs    : (none — both are lightweight tags pointing directly at the commits)

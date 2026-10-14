@@ -1,0 +1,70 @@
+upstream tag v7.0.2 -> cf430e030ddbb5b0abf93d22962f4752f3646cd9 (peeled='' direct='cf430e030ddbb5b0abf93d22962f4752f3646cd9')
+A2: pins under .github/ (n=3):
+    cf430e030ddbb5b0abf93d22962f4752f3646cd9
+    cf430e030ddbb5b0abf93d22962f4752f3646cd9
+    cf430e030ddbb5b0abf93d22962f4752f3646cd9
+A4: .github/workflows/backward-compatibility-e2e.yml parses as YAML
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/usr/lib64/python3.11/site-packages/yaml/__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/composer.py", line 133, in compose_mapping_node
+    item_value = self.compose_node(node, item_key)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/composer.py", line 133, in compose_mapping_node
+    item_value = self.compose_node(node, item_key)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/composer.py", line 133, in compose_mapping_node
+    item_value = self.compose_node(node, item_key)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/composer.py", line 82, in compose_node
+    node = self.compose_sequence_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/composer.py", line 111, in compose_sequence_node
+    node.value.append(self.compose_node(node, index))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/composer.py", line 133, in compose_mapping_node
+    item_value = self.compose_node(node, item_key)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/composer.py", line 82, in compose_node
+    node = self.compose_sequence_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/composer.py", line 110, in compose_sequence_node
+    while not self.check_event(SequenceEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/site-packages/yaml/parser.py", line 483, in parse_flow_sequence_entry
+    raise ParserError("while parsing a flow sequence", self.marks[-1],
+yaml.parser.ParserError: while parsing a flow sequence
+  in "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/.github/workflows/kind-e2e.yml", line 41, column 15
+expected ',' or ']', but got '{'
+  in "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/.github/workflows/kind-e2e.yml", line 42, column 24
+A4 FAIL: .github/workflows/kind-e2e.yml does not parse as YAML
+A4: .github/workflows/sonarcloud.yaml parses as YAML

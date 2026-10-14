@@ -1,0 +1,15 @@
+# upstream diff v7.0.1..v7.0.2 (clone of github.com/actions/upload-artifact)
+cf430e0 Merge pull request #822 from actions/tunc-d-prepare-upload-v7-0-2
+c2acded chore: prepare v7.0.2 release
+4687c1b Merge pull request #821 from actions/tunc-d-upload-artifact-package-bump
+8cbe1be Bump @actions/artifact to 6.3.1
+
+git diff --stat v7.0.1..v7.0.2 -- . ':!dist':
+ .licenses/npm/@actions/artifact.dep.yml |   6 +-
+ .licenses/npm/@actions/core.dep.yml     |   6 +-
+ .licenses/npm/@actions/github.dep.yml   |   6 +-
+ package-lock.json                       | 129 ++++++--------------------------
+ package.json                            |   4 +-
+git diff v7.0.1..v7.0.2 -- action.yml: EMPTY (no interface change; runs/inputs identical)
+package.json: "version": 7.0.1 -> 7.0.2; "@actions/artifact": ^6.2.0 -> ^6.3.1; engines.node unchanged (>=24)
+dist/merge/index.js + dist/upload/index.js: +108/-14 (compiled artifact of the above; retry-after handling on 429)

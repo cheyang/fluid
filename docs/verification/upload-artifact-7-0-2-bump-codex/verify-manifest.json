@@ -1,0 +1,44 @@
+{
+  "topic": "upload-artifact-7-0-2-bump-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6210",
+  "headShaAtReview": "c29b9a04b0838f06549701089334f059b3695087",
+  "baseSha": "e4a10bf49a1e8068d901e6f146ee4e435db7e785",
+  "harnessPaths": [
+    "docs/verification/upload-artifact-7-0-2-bump-codex"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: bump pinned actions/upload-artifact from 7.0.1 to 7.0.2. No runtime bug in fluid is claimed; the risk to verify is that the bump itself is malformed (wrong/unknown pin, partial bump, dropped inputs, broken workflow).",
+    "reportedComponent": ".github/workflows/{backward-compatibility-e2e.yml,kind-e2e.yml,sonarcloud.yaml} upload-artifact steps",
+    "patchedComponent": "same three workflow files (one uses: line each)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "integration",
+    "verdict": "confirmed",
+    "evidence": "results/tag-verification.txt — base pins 043fb46d (= upstream tag v7.0.1); upstream v7.0.2 exists at cf430e03 and its diff to v7.0.1 is exactly the advertised @actions/artifact 6.3.1 bump (no action.yml change). The repo is genuinely one patch release behind and the release is real.",
+    "match": ["A1_PinMatchesOfficialTag"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/upload-artifact-7-0-2-bump-codex/scripts/run-checks.sh unit",
+      "note": "Shell checks emitting go-test-JSON events (one per Test) so the stock re-verify.sh 'gotest' parser consumes them unmodified. unit = A2 (repo pin consistency) + A4 (workflow YAML parses); fully local."
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/upload-artifact-7-0-2-bump-codex/scripts/run-checks.sh integration",
+      "note": "integration = A1 (pin == live upstream tag refs/tags/v7.0.2) + A3 (inputs used by the workflows still declared in action.yml at the pin); needs https to github.com, no cluster."
+    }
+  },
+  "findings": [
+    { "id": "A1", "polarity": "contract", "layer": "integration", "match": ["A1_PinMatchesOfficialTag"],
+      "claim": "The SHA pinned in all three workflows is exactly the upstream refs/tags/v7.0.2 commit and the trailing comment agrees." },
+    { "id": "A2", "polarity": "contract", "layer": "unit", "match": ["A2_NoStalePinsRepoWide"],
+      "claim": "Every actions/upload-artifact pin under .github/ is the new SHA; exactly 3 call sites exist (no stale/forgotten pin)." },
+    { "id": "A3", "polarity": "contract", "layer": "integration", "match": ["A3_InputsStillSupported"],
+      "claim": "Every with:-input used by the upload steps (name, path, retention-days) is still declared in action.yml at the pinned commit." },
+    { "id": "A4", "polarity": "contract", "layer": "unit", "match": ["A4_WorkflowYamlParses"],
+      "claim": "The three changed workflow files still parse as YAML." }
+  ],
+  "liveNote": "L3 intentionally skipped per debate setup. Closest real-environment evidence: the PR's own pull_request CI ran the bumped workflows — the 'Dump environment' steps using the v7.0.2 pin succeeded on all 10 matrix legs of kind-e2e and backward-compat (see results/pr-ci-evidence.txt). sonarcloud.yaml only triggers on schedule/push, so its pin is first exercised post-merge; watch the next scheduled Sonarcloud Scan run's 'Upload artifact' step."
+}

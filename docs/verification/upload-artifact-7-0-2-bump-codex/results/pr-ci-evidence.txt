@@ -1,0 +1,43 @@
+# PR #6210 CI evidence at head c29b9a04b0838f06549701089334f059b3695087 (queried 2026-10-15)
+# kind-e2e.yml and backward-compatibility-e2e.yml are pull_request-triggered, so the
+# PR-head workflow files (with the v7.0.2 pin) are what ran. 'Dump environment' is the
+# step that uses actions/upload-artifact.
+
+## kind-e2e (run 38626855761) — Dump environment step conclusions:
+kind-e2e-test (v1.30.13): success
+kind-e2e-test (v1.28.15): success
+kind-e2e-test (v1.24.17): success
+kind-e2e-test (v1.33.2): success
+kind-e2e-test (v1.22.17): success
+
+## backward-compat (run 38626856014) — Dump environment step conclusions:
+backward-compat-test (v1.22.17): success
+backward-compat-test (v1.30.13): success
+backward-compat-test (v1.33.2): success
+backward-compat-test (v1.28.15): success
+backward-compat-test (v1.24.17): success
+
+## full check rollup (gh pr checks 6210):
+Analyze (go)	pass	11m6s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626855797/job/116068091356	
+CodeQL	pass	4s	https://github.com/fluid-cloudnative/fluid/runs/116073242825	
+DCO	pass	1s	https://probot.github.io/apps/dco/	
+SonarCloud	pass	4s	https://github.com/fluid-cloudnative/fluid/runs/116068424379	
+SonarCloud Code Analysis	pass	34s	https://sonarcloud.io/dashboard?id=fluid-cloudnative_fluid&pullRequest=6210	
+backward-compat-test (v1.22.17)	pass	16m38s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626856014/job/116068093196	
+backward-compat-test (v1.24.17)	pass	15m58s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626856014/job/116068093781	
+backward-compat-test (v1.28.15)	pass	16m30s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626856014/job/116068093600	
+backward-compat-test (v1.30.13)	pass	16m19s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626856014/job/116068093560	
+backward-compat-test (v1.33.2)	pass	16m34s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626856014/job/116068093568	
+build (ubuntu-24.04-arm)	pass	6m5s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626855760/job/116068092523	
+build (ubuntu-latest)	pass	9m38s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626855760/job/116068092414	
+check-pr-quota	pass	7s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626855880/job/116068091966	
+ci/circleci: build	pass	0	https://circleci.com/gh/fluid-cloudnative/fluid/4173	Your tests passed on CircleCI!
+kind-e2e-test (v1.22.17)	pass	32m13s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626855761/job/116068093682	
+kind-e2e-test (v1.24.17)	pass	31m10s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626855761/job/116068093623	
+kind-e2e-test (v1.28.15)	pass	32m5s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626855761/job/116068093546	
+kind-e2e-test (v1.33.2)	pass	30m27s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626855761/job/116068093678	
+lint	pass	1m56s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626855760/job/116068092244	
+staticcheck	pass	1m10s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626855760/job/116068092409	
+unittest	pass	6m53s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626855760/job/116068091957	
+tide	pending	0		Not mergeable. Needs approved, lgtm labels.
+kind-e2e-test (v1.30.13)	pass	31m12s	https://github.com/fluid-cloudnative/fluid/actions/runs/38626855761/job/116068093362	
