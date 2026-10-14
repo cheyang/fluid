@@ -16,25 +16,70 @@
     "layer": "unit+integration",
     "verdict": "confirmed",
     "evidence": "On base e4a10bf4 the harness generates apiVersion=\"v1alpha1\" (group dropped) and the real EnqueueRequestForOwner + discovery RESTMapper enqueues 0 requests; results/base-unit-integration.txt",
-    "match": ["TestVerifyPR6206GroupLessAPIVersionContract", "TestVerifyPR6206OwnerWatchEnqueueIntegration"]
+    "match": [
+      "TestVerifyPR6206GroupLessAPIVersionContract",
+      "TestVerifyPR6206OwnerWatchEnqueueIntegration"
+    ]
   },
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "go test ./pkg/utils/transformer/ -run 'TestVerifyPR6206' -v"
+      "cmd": "go test ./pkg/utils/transformer/ -run 'TestVerifyPR6206(GroupLessAPIVersionContract|GroupLessAPIVersionNoKindContract|WatchGroupMatchUnitContract|CoreTypeRegressionGuard|FullyPopulatedFluidTypeGuard)' -json"
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "go test ./pkg/utils/transformer/ -run 'TestVerifyPR6206OwnerWatchEnqueueIntegration' -v"
+      "cmd": "go test ./pkg/utils/transformer/ -run 'TestVerifyPR6206OwnerWatchEnqueueIntegration' -count=1 -json"
     }
   },
   "findings": [
-    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6206GroupLessAPIVersionContract"] },
-    { "id": "F2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6206GroupLessAPIVersionNoKindContract"] },
-    { "id": "F3", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6206WatchGroupMatchUnitContract"] },
-    { "id": "F4", "polarity": "contract", "layer": "integration", "match": ["TestVerifyPR6206OwnerWatchEnqueueIntegration"] },
-    { "id": "G1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6206CoreTypeRegressionGuard"] },
-    { "id": "G2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6206FullyPopulatedFluidTypeGuard"] }
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6206GroupLessAPIVersionContract"
+      ]
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6206GroupLessAPIVersionNoKindContract"
+      ]
+    },
+    {
+      "id": "F3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6206WatchGroupMatchUnitContract"
+      ]
+    },
+    {
+      "id": "F4",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestVerifyPR6206OwnerWatchEnqueueIntegration"
+      ]
+    },
+    {
+      "id": "G1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6206CoreTypeRegressionGuard"
+      ]
+    },
+    {
+      "id": "G2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6206FullyPopulatedFluidTypeGuard"
+      ]
+    }
   ],
   "liveNote": "L3 (real cluster GC behavior) intentionally skipped per round instructions; the GC half of the impact (unresolvable ownerReference => dependent never garbage-collected) is stock Kubernetes garbage-collector behavior over discovery and is not reproduced here."
 }
