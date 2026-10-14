@@ -1,0 +1,12 @@
+=== RUN   TestVerifyRepoCompilesPortallocator
+    allocate_order_verify_test.go:57: package pkg/ddc/base/portallocator compiled: F1 module-skew breakage absent
+--- PASS: TestVerifyRepoCompilesPortallocator (0.00s)
+=== RUN   TestVerifyAllocateBatchCoversFullRange
+--- PASS: TestVerifyAllocateBatchCoversFullRange (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/base/portallocator	0.010s
+=== RUN   TestVerifyControllerServerSatisfiesCSIInterface
+    csi_interface_verify_test.go:53: controllerServer satisfies csi.ControllerServer: F2 CSI-interface breakage absent
+--- PASS: TestVerifyControllerServerSatisfiesCSIInterface (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/plugins	0.011s

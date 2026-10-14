@@ -1,0 +1,7 @@
+# k8s.io/apimachinery/pkg/util/managedfields/internal
+vendor/k8s.io/apimachinery/pkg/util/managedfields/internal/structuredmerge.go:56:4: unknown field IgnoredFields in struct literal of type merge.Updater
+vendor/k8s.io/apimachinery/pkg/util/managedfields/internal/structuredmerge.go:73:4: unknown field IgnoredFields in struct literal of type merge.Updater
+CHECK-BUILD: FAIL (go build exit=1)
+  F1 (structured-merge-diff v4.4.2 vs apimachinery v0.29.15, 'unknown field IgnoredFields'): PRESENT
+  F2 (csi spec v1.9.0 ControllerServer needs ControllerModifyVolume): masked-or-fixed
+  note: F1 masks F2 — F1 must be fixed before F2's compile error is reachable (verified via probe)

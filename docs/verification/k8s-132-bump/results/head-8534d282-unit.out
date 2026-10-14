@@ -1,0 +1,6 @@
+# k8s.io/apimachinery/pkg/util/managedfields/internal
+vendor/k8s.io/apimachinery/pkg/util/managedfields/internal/structuredmerge.go:56:4: unknown field IgnoredFields in struct literal of type merge.Updater
+vendor/k8s.io/apimachinery/pkg/util/managedfields/internal/structuredmerge.go:73:4: unknown field IgnoredFields in struct literal of type merge.Updater
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/base/portallocator [build failed]
+FAIL	github.com/fluid-cloudnative/fluid/pkg/csi/plugins [build failed]
+FAIL
