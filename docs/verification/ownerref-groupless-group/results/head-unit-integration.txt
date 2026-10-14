@@ -1,0 +1,37 @@
+=== RUN   TestVerifyPR6206OwnerWatchEnqueueIntegration
+    verify_pr6206_envtest_test.go:119: generated ownerReference: apiVersion="data.fluid.io/v1alpha1" kind="Dataset"
+    verify_pr6206_envtest_test.go:157: enqueued reconcile requests for the Dataset: 1
+--- PASS: TestVerifyPR6206OwnerWatchEnqueueIntegration (5.18s)
+=== RUN   TestVerifyPR6206GroupLessAPIVersionContract
+=== RUN   TestVerifyPR6206GroupLessAPIVersionContract/dataset
+    verify_pr6206_groupless_ownerref_test.go:58: generated ownerReference: apiVersion="data.fluid.io/v1alpha1" kind="Dataset"
+=== RUN   TestVerifyPR6206GroupLessAPIVersionContract/alluxio-runtime
+    verify_pr6206_groupless_ownerref_test.go:58: generated ownerReference: apiVersion="data.fluid.io/v1alpha1" kind="AlluxioRuntime"
+=== RUN   TestVerifyPR6206GroupLessAPIVersionContract/thin-runtime
+    verify_pr6206_groupless_ownerref_test.go:58: generated ownerReference: apiVersion="data.fluid.io/v1alpha1" kind="ThinRuntime"
+=== RUN   TestVerifyPR6206GroupLessAPIVersionContract/dataload
+    verify_pr6206_groupless_ownerref_test.go:58: generated ownerReference: apiVersion="data.fluid.io/v1alpha1" kind="DataLoad"
+=== RUN   TestVerifyPR6206GroupLessAPIVersionContract/datamigrate
+    verify_pr6206_groupless_ownerref_test.go:58: generated ownerReference: apiVersion="data.fluid.io/v1alpha1" kind="DataMigrate"
+=== RUN   TestVerifyPR6206GroupLessAPIVersionContract/dataprocess
+    verify_pr6206_groupless_ownerref_test.go:58: generated ownerReference: apiVersion="data.fluid.io/v1alpha1" kind="DataProcess"
+--- PASS: TestVerifyPR6206GroupLessAPIVersionContract (0.00s)
+    --- PASS: TestVerifyPR6206GroupLessAPIVersionContract/dataset (0.00s)
+    --- PASS: TestVerifyPR6206GroupLessAPIVersionContract/alluxio-runtime (0.00s)
+    --- PASS: TestVerifyPR6206GroupLessAPIVersionContract/thin-runtime (0.00s)
+    --- PASS: TestVerifyPR6206GroupLessAPIVersionContract/dataload (0.00s)
+    --- PASS: TestVerifyPR6206GroupLessAPIVersionContract/datamigrate (0.00s)
+    --- PASS: TestVerifyPR6206GroupLessAPIVersionContract/dataprocess (0.00s)
+=== RUN   TestVerifyPR6206GroupLessAPIVersionNoKindContract
+    verify_pr6206_groupless_ownerref_test.go:80: generated ownerReference: apiVersion="data.fluid.io/v1alpha1" kind="DataLoad"
+--- PASS: TestVerifyPR6206GroupLessAPIVersionNoKindContract (0.00s)
+=== RUN   TestVerifyPR6206WatchGroupMatchUnitContract
+    verify_pr6206_groupless_ownerref_test.go:115: owner GroupKind=Dataset.data.fluid.io, ownerReference parsed group="data.fluid.io" kind="Dataset"
+--- PASS: TestVerifyPR6206WatchGroupMatchUnitContract (0.00s)
+=== RUN   TestVerifyPR6206CoreTypeRegressionGuard
+    verify_pr6206_groupless_ownerref_test.go:133: generated ownerReference: apiVersion="v1" kind="Pod"
+--- PASS: TestVerifyPR6206CoreTypeRegressionGuard (0.00s)
+=== RUN   TestVerifyPR6206FullyPopulatedFluidTypeGuard
+--- PASS: TestVerifyPR6206FullyPopulatedFluidTypeGuard (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/transformer	5.195s

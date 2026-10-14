@@ -1,0 +1,40 @@
+{
+  "topic": "ownerref-groupless-group",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6206",
+  "harnessPaths": [
+    "docs/verification/ownerref-groupless-group",
+    "pkg/utils/transformer/verify_pr6206_groupless_ownerref_test.go",
+    "pkg/utils/transformer/verify_pr6206_envtest_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "When an object carries a group-less apiVersion (e.g. TypeMeta{Kind: \"Dataset\", APIVersion: \"v1alpha1\"}), GenerateOwnerReferenceFromObject skips scheme recovery and yields an OwnerReference with apiVersion \"v1alpha1\" without the data.fluid.io group prefix; the controller's owner-based watch and Kubernetes GC resolve references using both Kind and Group, so the enqueue is skipped and GC cannot resolve the owner.",
+    "reportedComponent": "pkg/utils/transformer/owner_reference.go GenerateOwnerReferenceFromObject",
+    "patchedComponent": "pkg/utils/transformer/owner_reference.go GenerateOwnerReferenceFromObject",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit+integration",
+    "verdict": "confirmed",
+    "evidence": "On base e4a10bf4 the harness generates apiVersion=\"v1alpha1\" (group dropped) and the real EnqueueRequestForOwner + discovery RESTMapper enqueues 0 requests; results/base-unit-integration.txt",
+    "match": ["TestVerifyPR6206GroupLessAPIVersionContract", "TestVerifyPR6206OwnerWatchEnqueueIntegration"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/transformer/ -run 'TestVerifyPR6206' -v"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/transformer/ -run 'TestVerifyPR6206OwnerWatchEnqueueIntegration' -v"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6206GroupLessAPIVersionContract"] },
+    { "id": "F2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6206GroupLessAPIVersionNoKindContract"] },
+    { "id": "F3", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6206WatchGroupMatchUnitContract"] },
+    { "id": "F4", "polarity": "contract", "layer": "integration", "match": ["TestVerifyPR6206OwnerWatchEnqueueIntegration"] },
+    { "id": "G1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6206CoreTypeRegressionGuard"] },
+    { "id": "G2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6206FullyPopulatedFluidTypeGuard"] }
+  ],
+  "liveNote": "L3 (real cluster GC behavior) intentionally skipped per round instructions; the GC half of the impact (unresolvable ownerReference => dependent never garbage-collected) is stock Kubernetes garbage-collector behavior over discovery and is not reproduced here."
+}
