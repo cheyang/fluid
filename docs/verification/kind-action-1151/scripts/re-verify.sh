@@ -170,10 +170,10 @@ run_layer() {
     # custom harness: the command itself prints `NAME<TAB>pass|fail` report lines
     # (see scripts/verify_action_pin.py --report / scripts/check_ci.py --report).
     bash -c "$cmd" >"$out" 2>&1 || true
-    if ! grep -qE '\t(pass|fail)$' "$out"; then
+    if ! awk -F'\t' '$2=="pass"||$2=="fail"{found=1} END{exit !found}' "$out"; then
       echo "__BUILD_OR_NO_TESTS__"; return 0
     fi
-    grep -E '\t(pass|fail)$' "$out" || echo "__PARSE_ERROR__"
+    awk -F'\t' '$2=="pass"||$2=="fail"{print $1"\t"$2}' "$out" || echo "__PARSE_ERROR__"
   fi
 }
 
