@@ -1,0 +1,8 @@
+=== RUN   TestOwnerRefGroupRecoveryGrouplessAPIVersionWithKind
+--- PASS: TestOwnerRefGroupRecoveryGrouplessAPIVersionWithKind (0.00s)
+=== RUN   TestOwnerRefGroupRecoveryGrouplessAPIVersionWithoutKind
+--- PASS: TestOwnerRefGroupRecoveryGrouplessAPIVersionWithoutKind (0.00s)
+=== RUN   TestOwnerRefGroupRecoveryCoreTypeCompleteTypeMetaUnchanged
+--- PASS: TestOwnerRefGroupRecoveryCoreTypeCompleteTypeMetaUnchanged (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/transformer	0.010s

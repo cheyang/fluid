@@ -1,0 +1,7 @@
+--- FAIL: TestOwnerRefGroupRecoveryGrouplessAPIVersionWithKind (0.00s)
+    owner_reference_group_recovery_test.go:53: F1: APIVersion = "v1alpha1", want "data.fluid.io/v1alpha1" (group must be recovered from the scheme)
+--- FAIL: TestOwnerRefGroupRecoveryGrouplessAPIVersionWithoutKind (0.00s)
+    owner_reference_group_recovery_test.go:70: F2: APIVersion = "v1alpha1", want "data.fluid.io/v1alpha1"
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/transformer	0.010s
+FAIL

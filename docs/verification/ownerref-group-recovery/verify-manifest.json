@@ -1,0 +1,38 @@
+{
+  "topic": "ownerref-group-recovery",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6206",
+  "harnessPaths": [
+    "docs/verification/ownerref-group-recovery",
+    "pkg/utils/transformer/owner_reference_group_recovery_test.go",
+    "pkg/utils/dataset_runtime_groupless_ownerref_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "GenerateOwnerReferenceFromObject recovers the GroupVersionKind from the scheme only when Kind or Version is empty, so an object carrying a group-less apiVersion (e.g. TypeMeta{Kind: \"Dataset\", APIVersion: \"v1alpha1\"}) yields an OwnerReference with apiVersion \"v1alpha1\", which the Kubernetes garbage collector and the controller's owner-based watch cannot resolve (issue #6205).",
+    "reportedComponent": "pkg/utils/transformer/owner_reference.go",
+    "patchedComponent": "pkg/utils/transformer/owner_reference.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "results/base-run.txt: on base e4a10bf, TestOwnerRefGroupRecoveryGrouplessAPIVersionWithKind fails with APIVersion = \"v1alpha1\", want \"data.fluid.io/v1alpha1\" (same for the consumer path, results/base-consumer-run.txt)",
+    "match": ["TestOwnerRefGroupRecoveryGrouplessAPIVersionWithKind"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/transformer/ -run 'TestOwnerRefGroupRecovery' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/ -run 'TestDatasetControllerOwnerReferenceGrouplessAPIVersion' -json"
+    }
+  },
+  "findings": [
+    { "id": "P0", "polarity": "contract", "layer": "unit", "match": ["TestOwnerRefGroupRecoveryGrouplessAPIVersionWithKind"] },
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestOwnerRefGroupRecoveryGrouplessAPIVersionWithoutKind"] },
+    { "id": "F3", "polarity": "contract", "layer": "unit", "match": ["TestOwnerRefGroupRecoveryCoreTypeCompleteTypeMetaUnchanged"] },
+    { "id": "F4", "polarity": "contract", "layer": "integration", "match": ["TestDatasetControllerOwnerReferenceGrouplessAPIVersion"] }
+  ],
+  "liveNote": "L3 not run per debate policy (unit + integration only). If run later with a real cluster: create a Dataset whose dependent workload carries an ownerReference written with apiVersion \"v1alpha1\", upgrade the controller, and confirm the GC and the dataset controller's owner-based watch (resolveControllerRef in pkg/utils/kubeclient/metadata.go rejects controllerRefGV.Group != group) resolve the owner after the fix."
+}
