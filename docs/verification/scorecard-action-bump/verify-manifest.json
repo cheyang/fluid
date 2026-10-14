@@ -16,7 +16,7 @@
   "findings": [
     {
       "id": "F1-inert-exclude-inputs",
-      "firstSeenSha": "e4a10bf49a1e8068d901e6f146ee4e435db7e785",
+      "firstSeenSha": "838b73be0602b3b10ebcb82b5a54a417191324f7",
       "introducedByPR": false,
       "origin": "preexisting",
       "status": "open",
