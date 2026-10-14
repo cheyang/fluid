@@ -1,0 +1,39 @@
+{
+  "topic": "pr-6209-codeql-action-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6209",
+  "harnessPaths": [
+    "docs/verification/pr-6209-codeql-action-bump"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "github/codeql-action v4.38.3 is a genuine upstream release, works in this repo's CodeQL workflow, and the whole codeql-action group is bumped together (required by .github/dependabot.yml: 'They must run on the same version').",
+    "reportedComponent": "CI workflows: .github/workflows/codeql-analysis.yml, .github/workflows/sonarcloud.yaml",
+    "patchedComponent": "same two workflow files (pinned SHA bump only)",
+    "componentMatch": true,
+    "runsAgainst": "head (deps-bump premise: verified against upstream tags + PR-head CI, not the base branch)",
+    "layer": "integration",
+    "verdict": "confirmed",
+    "evidence": "git ls-remote: v4.38.3^{} == new pin 24c5418..., v4.38.2^{} == old pin 2892aa5...; CodeQL run 38626852738 on PR head 602efe53 (pull_request event) succeeded with the new pins. results/ci-and-tag-evidence.txt",
+    "match": ["GroupUsesSingleSHA", "PinnedToFullLengthSHA", "PinResolvesToUpstreamTag"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/pr-6209-codeql-action-bump/scripts/check-codeql-pin-consistency.sh"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/pr-6209-codeql-action-bump/scripts/check-codeql-tags.sh"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["VersionCommentMatchesPinnedTag"],
+      "note": "Trailing '# vX.Y.Z' comments (v3.29.5 / v2.22.11) do not match the pinned SHA's tag (v4.38.3). Preexisting; Dependabot preserves an already-mismatched comment. Contract test is RED on the reviewed head and flips GREEN once comments match the pinned tag."
+    }
+  ],
+  "liveNote": "No live layer: CI-config-only change. The upload-sarif path in sonarcloud.yaml is not exercised by PR CI (triggers: push to master/release-* + weekly schedule); watch the first post-merge scheduled run."
+}
