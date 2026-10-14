@@ -1,0 +1,4 @@
+TestPinSHAsResolveToExactReleaseTags	pass
+TestPinCommentMatchesResolvedTag	fail
+TestPRDiffTouchesOnlyCodeqlActionPins	pass
+TestWorkflowFilesParseAsYaml	pass
