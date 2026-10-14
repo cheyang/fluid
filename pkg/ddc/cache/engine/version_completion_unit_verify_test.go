@@ -21,11 +21,16 @@ package engine
 // componentTemplateImage), so this file is not compiled on the merge base.
 //
 // Polarity:
-//   - F1b is a canary over the divergence the PR introduces between the worker
-//     workload image and the DataLoad image for a partially specified version. It is
-//     green while the divergence exists and flips to red when image.go is aligned.
+//   - F1b started (round 1) as a canary over the worker/DataLoad image divergence
+//     the PR introduced. Commit 99659bf4 aligned image.go, the canary flipped, and
+//     it is now inverted into a contract: the worker and the DataLoad image must
+//     move together. Red on base and on the round-1 head, green since 99659bf4.
 //   - the F3 specs are contract tests over the documented corner cases of the
 //     completion rules (tagless template, digest-pinned template, registry ports).
+//   - F4 pins the digest completion rule added by 7c7abfbf: a runtimeVersion whose
+//     image is pinned by digest must not gain a tag. Red on the round-1 head
+//     (0361cc03, where the template tag was appended, rendering an invalid
+//     "repo@sha256:...:v1" reference), green since 7c7abfbf.
 
 import (
 	. "github.com/onsi/ginkgo/v2"
@@ -39,11 +44,11 @@ import (
 
 var _ = Describe("PR-6186 verification: partial runtime version on the unit layer", Label("pkg.ddc.cache.engine.version_completion_unit_verify_test.go"), func() {
 
-	// F1b pins the worker/DataLoad image divergence the PR introduces: the sync path
-	// completes a partial version while getDataOperationImage does not, so the same
-	// CacheRuntime yields two different images for the same declared intent.
-	Context("F1b worker vs DataLoad image divergence", func() {
-		It("canary: an imageTag-only upgrade moves the worker but not the DataLoad image [flips when image.go is aligned]", func() {
+	// F1b (inverted in round 2): the worker workload and the DataLoad image must not
+	// diverge for a partially specified version — the same CacheRuntime expresses one
+	// intent and must yield one image on both paths.
+	Context("F1b worker and DataLoad image agreement", func() {
+		It("contract: an imageTag-only upgrade moves the worker and the DataLoad image together [red on base and on round-1 head]", func() {
 			engine, _, runtimeClass, ctx, client := newPartialVersionFixture("verify/worker:v1", "verify/worker:v1")
 
 			syncWorkerVersion(engine, client, ctx, runtimeClass, datav1alpha1.VersionSpec{ImageTag: "v2"})
@@ -53,8 +58,30 @@ var _ = Describe("PR-6186 verification: partial runtime version on the unit laye
 			Expect(client.Get(ctx.Context, types.NamespacedName{Name: verifyRuntimeName, Namespace: "default"}, edited)).To(Succeed())
 			dataLoadImage, err := engine.getDataOperationImage(edited, runtimeClass)
 			Expect(err).NotTo(HaveOccurred())
-			// CURRENT behavior: the DataLoad image lags one override behind the worker.
-			Expect(dataLoadImage).To(Equal("verify/worker:v1"))
+			Expect(dataLoadImage).To(Equal("verify/worker:v2"))
+		})
+	})
+
+	// F4 pins the digest rule from 7c7abfbf: a runtimeVersion naming only a
+	// digest-pinned image must stay incomplete rather than take the template's tag,
+	// which would render "repo@sha256:...:v1" — a reference no runtime can pull.
+	Context("F4 digest-pinned runtime image", func() {
+		It("contract: a digest-pinned runtime image does not gain a tag [red on round-1 head 0361cc03]", func() {
+			const digestImage = "verify/worker@sha256:067614b70d25b496e3edc3480747d558ee8a364ef47a67f669f5d96ca5098552"
+
+			desired := desiredComponentVersion(datav1alpha1.VersionSpec{Image: digestImage}, "verify/worker:v1")
+
+			Expect(desired.Image).To(Equal(digestImage))
+			Expect(desired.ImageTag).To(BeEmpty())
+		})
+
+		It("contract: a digest-pinned template does not lend its (absent) tag to an image-only version", func() {
+			const digestTemplate = "verify/worker@sha256:067614b70d25b496e3edc3480747d558ee8a364ef47a67f669f5d96ca5098552"
+
+			desired := desiredComponentVersion(datav1alpha1.VersionSpec{Image: "other/app"}, digestTemplate)
+
+			Expect(desired.Image).To(Equal("other/app"))
+			Expect(desired.ImageTag).To(BeEmpty())
 		})
 	})
 

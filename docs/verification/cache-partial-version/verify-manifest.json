@@ -47,12 +47,12 @@
     },
     {
       "id": "F1",
-      "_comment": "canary: worker vs DataLoad image divergence introduced by the PR; flips when image.go is aligned",
-      "polarity": "canary",
+      "_comment": "inverted in round 2 (canary flipped at 99659bf4): worker and DataLoad images must move together for a partial version",
+      "polarity": "contract",
       "layer": "integration",
       "match": [
-        "canary: getDataOperationImage ignores a partially specified worker version",
-        "canary: an imageTag-only upgrade moves the worker but not the DataLoad image"
+        "contract: getDataOperationImage completes a partially specified worker version",
+        "contract: an imageTag-only upgrade moves the worker and the DataLoad image together"
       ]
     },
     {
@@ -76,6 +76,16 @@
         "contract: an image-only version over a tagless template stays incomplete",
         "contract: creation keeps the template digest image when the version is partial",
         "contract: creation over a tagless template drops an image-only edit"
+      ]
+    },
+    {
+      "id": "F4",
+      "_comment": "digest completion rule from 7c7abfbf: a digest-pinned runtime image must not gain the template tag (round-1 head rendered repo@sha256:...:v1)",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "contract: a digest-pinned runtime image does not gain a tag",
+        "contract: a digest-pinned template does not lend its (absent) tag to an image-only version"
       ]
     }
   ],

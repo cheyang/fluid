@@ -27,10 +27,10 @@ package engine
 //
 // Polarity (see docs/verification/cache-partial-version/):
 //   - "P0 contract" specs assert intended behavior -> red on base, green on PR.
-//   - "F1a canary" asserts the current (arguably wrong) behavior of
-//     getDataOperationImage, which the PR leaves untouched -> green on base AND on
-//     the PR head; it must flip to red if image.go is ever aligned with the
-//     completion semantics.
+//   - F1a started (round 1) as a canary over the worker/DataLoad image divergence;
+//     commit 99659bf4 aligned image.go, the canary flipped, and it is now inverted
+//     into this contract: a partial worker version must move the DataLoad image
+//     too. Red on base and on the round-1 head, green from 99659bf4 on.
 
 import (
 	"context"
@@ -198,12 +198,12 @@ var _ = Describe("PR-6186 verification: partial runtime version on the sync path
 		})
 	})
 
-	// F1a is a canary for the gap the PR does NOT close: getDataOperationImage (the
-	// DataLoad image resolution) still requires both halves and otherwise falls back
-	// to the template image. It is green on base AND on the PR head; when image.go is
-	// aligned with the completion semantics it flips to red and must be inverted.
+	// F1a (inverted in round 2): getDataOperationImage must resolve the worker image
+	// the same way the worker workload does, so a partially specified version moves
+	// data operations along with the worker. Red on base and on the round-1 head
+	// (0361cc03, where the partial version was ignored); green since 99659bf4.
 	Context("F1a DataLoad image resolution", func() {
-		It("canary: getDataOperationImage ignores a partially specified worker version [flips when image.go is aligned]", func() {
+		It("contract: getDataOperationImage completes a partially specified worker version [red on base and on round-1 head]", func() {
 			engine, _, runtimeClass, ctx, client := newPartialVersionFixture("verify/worker:v1", "verify/worker:v1")
 
 			edited := &datav1alpha1.CacheRuntime{}
@@ -213,8 +213,7 @@ var _ = Describe("PR-6186 verification: partial runtime version on the sync path
 
 			image, err := engine.getDataOperationImage(edited, runtimeClass)
 			Expect(err).NotTo(HaveOccurred())
-			// CURRENT behavior: the partial version is ignored, the template image wins.
-			Expect(image).To(Equal("verify/worker:v1"))
+			Expect(image).To(Equal("verify/worker:v2"))
 		})
 	})
 })
