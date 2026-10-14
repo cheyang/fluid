@@ -1,0 +1,43 @@
+# Harness-bites check — 2026-10-14T22:46:19Z
+# Mutated workflow copies + local fixture repo; production code untouched.
+
+## bite A: pin SHA replaced with 0x111... (expect C2 FAIL)
+[PASS] C1 workflow YAML parses: 1 jobs, uses ossf/scorecard-action@111111111111 (v2.5.0)
+[FAIL] C2 pin SHA is the commit of upstream tag v2.5.0: tag v2.5.0 -> fa7117db83c52d787ae5a89f350999701505d78e, workflow pins 1111111111111111111111111111111111111111
+[FAIL] C4 action.yaml readable at pin: cannot read action.yaml at 1111111111111111111111111111111111111111: fatal: remote error: upload-pack: not our ref 1111111111111111111111111111111111111111
+fatal: remote error: upload-pack: not our ref 1111111111111111111111111111111111111111
+fatal: remote error: upload-pack: not our ref 1111111111111111111111111111111111111111
+fatal: path 'action.yaml' does not exist in '1111111111111111111111111111111111111111'
+
+report written: /tmp/tmp.b88CGaLvbM/a.json
+bite A: exit 1 (expected 1) OK
+
+## bite B: required input results_file removed from with: (expect C4 FAIL)
+[PASS] C1 workflow YAML parses: 1 jobs, uses ossf/scorecard-action@fa7117db83c5 (v2.5.0)
+[PASS] C2 pin SHA is the commit of upstream tag v2.5.0: tag v2.5.0 -> fa7117db83c52d787ae5a89f350999701505d78e, workflow pins fa7117db83c52d787ae5a89f350999701505d78e
+[WARN] C3 all with: inputs declared by the action (canary: inert inputs): undeclared: ['exclude_checks', 'exclude_paths'] (declared: ['file_mode', 'internal_default_token', 'internal_publish_base_url', 'publish_results', 'repo_token', 'results_file', 'results_format']) [action.yaml via raw.githubusercontent]
+[FAIL] C4 all required action inputs supplied: missing required: ['results_file']
+[PASS] C6 action docker image matches pin version: image: docker://ghcr.io/ossf/scorecard-action:v2.5.0
+report written: /tmp/tmp.b88CGaLvbM/b.json
+bite B: exit 1 (expected 1) OK
+
+## bite C: --strict-inputs on the real workflow (expect C3 FAIL — documents the inert exclude_* inputs)
+[PASS] C1 workflow YAML parses: 1 jobs, uses ossf/scorecard-action@fa7117db83c5 (v2.5.0)
+[PASS] C2 pin SHA is the commit of upstream tag v2.5.0: tag v2.5.0 -> fa7117db83c52d787ae5a89f350999701505d78e, workflow pins fa7117db83c52d787ae5a89f350999701505d78e
+[FAIL] C3 all with: inputs declared by the action (canary: inert inputs): undeclared: ['exclude_checks', 'exclude_paths'] (declared: ['file_mode', 'internal_default_token', 'internal_publish_base_url', 'publish_results', 'repo_token', 'results_file', 'results_format']) [action.yaml via raw.githubusercontent]
+[PASS] C4 all required action inputs supplied: missing required: none
+[PASS] C6 action docker image matches pin version: image: docker://ghcr.io/ossf/scorecard-action:v2.5.0
+report written: /tmp/tmp.b88CGaLvbM/c.json
+bite C: exit 1 (expected 1) OK
+
+## bite D: local fixture action repo whose new pin drops exclude_checks/exclude_paths (expect C5 FAIL, C6 FAIL)
+[PASS] C1 workflow YAML parses: 1 jobs, uses ossf/scorecard-action@b2aff8c5113c (v9.9.9)
+[PASS] C2 pin SHA is the commit of upstream tag v9.9.9: tag v9.9.9 -> b2aff8c5113c9eb9870b8f300901a3dfcbc3b3aa, workflow pins b2aff8c5113c9eb9870b8f300901a3dfcbc3b3aa
+[WARN] C3 all with: inputs declared by the action (canary: inert inputs): undeclared: ['exclude_checks', 'exclude_paths', 'publish_results'] (declared: ['results_file', 'results_format']) [action.yaml via git-clone]
+[PASS] C4 all required action inputs supplied: missing required: none
+[FAIL] C5 no used input dropped between prev pin and head pin: dropped: ['exclude_checks', 'exclude_paths'] (prev declared: ['exclude_checks', 'exclude_paths', 'results_file', 'results_format'])
+[FAIL] C6 action docker image matches pin version: image: docker://ghcr.io/ossf/scorecard-action:v2.5.0
+report written: /tmp/tmp.b88CGaLvbM/d.json
+bite D: exit 1 (expected 1) OK
+
+bites with unexpected exit codes: 0

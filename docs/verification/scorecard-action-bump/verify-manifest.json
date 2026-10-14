@@ -1,0 +1,81 @@
+{
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6207",
+  "topic": "scorecard-action-bump",
+  "reviewer": "claude",
+  "round": 1,
+  "headSha": "838b73be0602b3b10ebcb82b5a54a417191324f7",
+  "baseSha": "e4a10bf49a1e8068d901e6f146ee4e435db7e785",
+  "premise": {
+    "id": "P0",
+    "claim": "The repo pins ossf/scorecard-action at v2.4.4 (2d1146689b8cda280b9bc96326124645441f03bc) and a newer release v2.5.0 exists upstream.",
+    "runsAgainst": "base",
+    "layer": "L1",
+    "verdict": "confirmed",
+    "evidence": "git ls-remote --tags https://github.com/ossf/scorecard-action.git: refs/tags/v2.5.0 -> 46dc3187 (tag object) -> fa7117db (commit); base workflow pins 2d11466 = v2.4.4 commit. results/l1-report.json check C2 (run against head) and scratch ls-remote output in README."
+  },
+  "findings": [
+    {
+      "id": "F1-inert-exclude-inputs",
+      "firstSeenSha": "e4a10bf49a1e8068d901e6f146ee4e435db7e785",
+      "introducedByPR": false,
+      "origin": "preexisting",
+      "status": "open",
+      "severity": "minor",
+      "claim": "Under any run of .github/workflows/sonarcloud.yaml, the with: inputs exclude_checks (\"Pinned-Dependencies\") and exclude_paths (\"vendor/**\") should be honored by the action, but they are silently ignored: scorecard-action declares (and reads) neither INPUT_EXCLUDE_CHECKS nor INPUT_EXCLUDE_PATHS in v2.4.4 or v2.5.0 (options/env.go lists only repo_token, results_file, results_format, publish_results, file_mode, internal_*).",
+      "evidenceKind": "code-path",
+      "evidence": "results/l1-report.json check C3 (WARN, undeclared: exclude_checks, exclude_paths) plus git grep at both pins; bites documented in results/l1-bite-check.txt (bite C with --strict-inputs).",
+      "tests": [
+        {"name": "check_action_pin.py C3", "polarity": "canary", "layer": "L1"}
+      ],
+      "layer": "L1"
+    }
+  ],
+  "acceptance": [
+    {
+      "id": "AC1-pin-matches-tag",
+      "contract": "The workflow pins scorecard-action at the exact commit of the upstream v2.5.0 annotated tag (comment and SHA agree).",
+      "tests": [{"name": "check_action_pin.py C2", "polarity": "contract", "layer": "L1"}],
+      "status": "passed",
+      "evidence": "results/l1-report.json: tag v2.5.0 -> fa7117db83c52d787ae5a89f350999701505d78e = workflow pin."
+    },
+    {
+      "id": "AC2-input-contract-preserved",
+      "contract": "Every with: input the workflow passes that was declared by scorecard-action v2.4.4 is still declared by v2.5.0 (no input dropped/renamed across the bump); action.yaml input sets of both pins are identical.",
+      "tests": [{"name": "check_action_pin.py C5", "polarity": "contract", "layer": "L1"}],
+      "status": "passed",
+      "evidence": "results/l1-report.json: dropped: none; prev declared == head declared (diff of action.yaml shows only description/results_format wording + docker tag)."
+    },
+    {
+      "id": "AC3-workflow-yaml-valid",
+      "contract": ".github/workflows/sonarcloud.yaml parses as YAML at the PR head.",
+      "tests": [{"name": "check_action_pin.py C1", "polarity": "contract", "layer": "L1"}],
+      "status": "passed",
+      "evidence": "results/l1-report.json check C1."
+    },
+    {
+      "id": "AC4-required-inputs-supplied",
+      "contract": "All required inputs of scorecard-action v2.5.0 (results_file, results_format) are supplied by the workflow.",
+      "tests": [{"name": "check_action_pin.py C4", "polarity": "contract", "layer": "L1"}],
+      "status": "passed",
+      "evidence": "results/l1-report.json: missing required: none."
+    },
+    {
+      "id": "AC5-image-tag-consistent",
+      "contract": "The docker image referenced by the pinned action.yaml matches the pinned version (docker://ghcr.io/ossf/scorecard-action:v2.5.0).",
+      "tests": [{"name": "check_action_pin.py C6", "polarity": "contract", "layer": "L1"}],
+      "status": "passed",
+      "evidence": "results/l1-report.json check C6."
+    }
+  ],
+  "ci": {
+    "status": "pass",
+    "attribution": "not-covered",
+    "evidence": "PR checks all SUCCESS at head 838b73be (gh statusCheckRollup 2026-10-14), but the changed workflow only triggers on schedule + push to master/release-*; no PR check executes it. First real exercise: next weekly cron (Sat 01:30 UTC) or first post-merge push to master."
+  },
+  "liveNote": "L3 (live) not run per debate setup (unit+integration only). The workflow's first live run post-merge is the observable signal: scorecard analysis completes, results.sarif uploaded, code-scanning upload succeeds.",
+  "scripts": {
+    "check": "scripts/check_action_pin.py",
+    "bites": "scripts/bite-check.sh",
+    "reVerify": "scripts/re-verify.sh"
+  }
+}

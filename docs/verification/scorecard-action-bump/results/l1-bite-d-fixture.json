@@ -1,0 +1,53 @@
+{
+  "harness": "check_action_pin.py",
+  "workflow": "/tmp/tmp.b88CGaLvbM/wd.yaml",
+  "checks": [
+    {
+      "id": "C1",
+      "level": "fail",
+      "name": "workflow YAML parses",
+      "status": "pass",
+      "detail": "1 jobs, uses ossf/scorecard-action@b2aff8c5113c (v9.9.9)"
+    },
+    {
+      "id": "C2",
+      "level": "fail",
+      "name": "pin SHA is the commit of upstream tag v9.9.9",
+      "status": "pass",
+      "detail": "tag v9.9.9 -> b2aff8c5113c9eb9870b8f300901a3dfcbc3b3aa, workflow pins b2aff8c5113c9eb9870b8f300901a3dfcbc3b3aa"
+    },
+    {
+      "id": "C3",
+      "level": "warn",
+      "name": "all with: inputs declared by the action (canary: inert inputs)",
+      "status": "warn",
+      "detail": "undeclared: ['exclude_checks', 'exclude_paths', 'publish_results'] (declared: ['results_file', 'results_format']) [action.yaml via git-clone]"
+    },
+    {
+      "id": "C4",
+      "level": "fail",
+      "name": "all required action inputs supplied",
+      "status": "pass",
+      "detail": "missing required: none"
+    },
+    {
+      "id": "C5",
+      "level": "fail",
+      "name": "no used input dropped between prev pin and head pin",
+      "status": "fail",
+      "detail": "dropped: ['exclude_checks', 'exclude_paths'] (prev declared: ['exclude_checks', 'exclude_paths', 'results_file', 'results_format'])"
+    },
+    {
+      "id": "C6",
+      "level": "fail",
+      "name": "action docker image matches pin version",
+      "status": "fail",
+      "detail": "image: docker://ghcr.io/ossf/scorecard-action:v2.5.0"
+    }
+  ],
+  "summary": {
+    "fail": 2,
+    "warn": 1,
+    "pass": 3
+  }
+}

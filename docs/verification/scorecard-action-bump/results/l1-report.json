@@ -1,0 +1,53 @@
+{
+  "harness": "check_action_pin.py",
+  "workflow": ".github/workflows/sonarcloud.yaml",
+  "checks": [
+    {
+      "id": "C1",
+      "level": "fail",
+      "name": "workflow YAML parses",
+      "status": "pass",
+      "detail": "1 jobs, uses ossf/scorecard-action@fa7117db83c5 (v2.5.0)"
+    },
+    {
+      "id": "C2",
+      "level": "fail",
+      "name": "pin SHA is the commit of upstream tag v2.5.0",
+      "status": "pass",
+      "detail": "tag v2.5.0 -> fa7117db83c52d787ae5a89f350999701505d78e, workflow pins fa7117db83c52d787ae5a89f350999701505d78e"
+    },
+    {
+      "id": "C3",
+      "level": "warn",
+      "name": "all with: inputs declared by the action (canary: inert inputs)",
+      "status": "warn",
+      "detail": "undeclared: ['exclude_checks', 'exclude_paths'] (declared: ['file_mode', 'internal_default_token', 'internal_publish_base_url', 'publish_results', 'repo_token', 'results_file', 'results_format']) [action.yaml via raw.githubusercontent]"
+    },
+    {
+      "id": "C4",
+      "level": "fail",
+      "name": "all required action inputs supplied",
+      "status": "pass",
+      "detail": "missing required: none"
+    },
+    {
+      "id": "C5",
+      "level": "fail",
+      "name": "no used input dropped between prev pin and head pin",
+      "status": "pass",
+      "detail": "dropped: none (prev declared: ['file_mode', 'internal_default_token', 'internal_publish_base_url', 'publish_results', 'repo_token', 'results_file', 'results_format'])"
+    },
+    {
+      "id": "C6",
+      "level": "fail",
+      "name": "action docker image matches pin version",
+      "status": "pass",
+      "detail": "image: docker://ghcr.io/ossf/scorecard-action:v2.5.0"
+    }
+  ],
+  "summary": {
+    "fail": 0,
+    "warn": 1,
+    "pass": 5
+  }
+}

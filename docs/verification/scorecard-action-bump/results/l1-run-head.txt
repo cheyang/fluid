@@ -1,0 +1,7 @@
+[PASS] C1 workflow YAML parses: 1 jobs, uses ossf/scorecard-action@fa7117db83c5 (v2.5.0)
+[PASS] C2 pin SHA is the commit of upstream tag v2.5.0: tag v2.5.0 -> fa7117db83c52d787ae5a89f350999701505d78e, workflow pins fa7117db83c52d787ae5a89f350999701505d78e
+[WARN] C3 all with: inputs declared by the action (canary: inert inputs): undeclared: ['exclude_checks', 'exclude_paths'] (declared: ['file_mode', 'internal_default_token', 'internal_publish_base_url', 'publish_results', 'repo_token', 'results_file', 'results_format']) [action.yaml via raw.githubusercontent]
+[PASS] C4 all required action inputs supplied: missing required: none
+[PASS] C5 no used input dropped between prev pin and head pin: dropped: none (prev declared: ['file_mode', 'internal_default_token', 'internal_publish_base_url', 'publish_results', 'repo_token', 'results_file', 'results_format'])
+[PASS] C6 action docker image matches pin version: image: docker://ghcr.io/ossf/scorecard-action:v2.5.0
+report written: docs/verification/scorecard-action-bump/results/l1-report.json
