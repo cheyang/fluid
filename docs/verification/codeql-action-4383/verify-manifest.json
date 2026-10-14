@@ -19,7 +19,7 @@
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "bash docs/verification/codeql-action-4383/scripts/run_unit_checks.sh"
+      "cmd": "bash docs/verification/codeql-action-4383/scripts/run_unit_checks.sh 2>/dev/null"
     }
   },
   "findings": [
