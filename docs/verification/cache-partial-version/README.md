@@ -111,3 +111,57 @@ bash docs/verification/cache-partial-version/scripts/re-verify.sh
 Fresh-agent kickoff: clone this branch (`verify/cache-partial-version-claude` from the
 reviewer fork `cheyang/fluid`), then `bash docs/verification/cache-partial-version/scripts/re-verify.sh`
 — no sha needed; it fetches the current PR head itself.
+
+---
+
+# Round 2 — head 382d926a (delta 0361cc03..382d926a)
+
+The PR gained 7 commits since round 1. Three of them are functional:
+
+- **99659bf4** `fix(cache): resolve the data operation image like the worker image` —
+  `getDataOperationImage` now routes through `componentImage`, closing the F1 divergence.
+- **7c7abfbf** `fix(cache): leave a digest-pinned runtime image without a tag` — a
+  `runtimeVersion` whose `image` is pinned by digest no longer takes the template's tag.
+- **194cba6d** `fix(cache): log a partial runtime version the template cannot complete` —
+  `logIncompleteVersion` records the un-completable partials at V(1).
+
+plus tests (514396bb, b159f1cc) and docs (ad7eca8b, 382d926a, en+zh).
+
+## Re-verify outcome (canary polarity applied)
+
+| id | polarity | on round-1 head 0361cc03 | on head 382d926a | verdict |
+|----|----------|--------------------------|------------------|---------|
+| FIX | contract | green | green (3/3) | fix still holds |
+| F1 | canary→contract | **red** (divergence present) | **green** (2/2) | **FIXED** — canary flipped at 99659bf4, inverted into contracts |
+| F2 | contract | green | green (2/2) | deliberate semantics still pinned, now documented |
+| F3 | contract | green | green (5/5) | corner cases hold |
+| F4 | contract (new) | **red** (runtime-side digest spec) | **green** (2/2) | regression present at round-1 head, fixed by 7c7abfbf |
+
+F4 was discovered this round while reviewing the delta: at the round-1 head,
+`desiredComponentVersion({Image: "repo@sha256:..."}, "fluid/cache:v1")` appended the
+template tag, which callers render as `repo@sha256:...:v1` — an unpullable reference.
+The merge base did not have this problem (it dropped the edit instead — the #6178
+behavior), so the defect was introduced by the initial PR and fixed within it.
+
+Raw evidence:
+
+- `results/reverify-previous-head-0361cc03/` — 290 Passed | 15 Failed (12 pre-existing
+  + 2 inverted F1 contracts + 1 F4 spec red).
+- `results/reverify-current-head-382d926a/` — 309 Passed | 12 Failed; the 12 are the
+  byte-identical pre-existing mount/Execute specs.
+- The red→green flip across the two heads is also the harness-bites proof for the
+  inverted F1 contracts and the new F4 contract (no production patch was applied this
+  round; the author's own commits are the fix under test).
+
+## Harness updates this round
+
+- F1a/F1b canaries inverted into contracts (`getDataOperationImage completes a
+  partially specified worker version`, `an imageTag-only upgrade moves the worker and
+  the DataLoad image together`).
+- F4 added (`a digest-pinned runtime image does not gain a tag`, `a digest-pinned
+  template does not lend its (absent) tag to an image-only version`).
+- Manifest updated accordingly (F1 → contract, F4 added, unit layer).
+
+L3 (live) still skipped by instruction; the PR author's kind-cluster run in the PR
+body remains the live evidence, and CI is fully green at this head (see the round-2
+findings ledger).
