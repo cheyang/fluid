@@ -1,0 +1,3 @@
+{"Test":"PinnedToFullLengthSHA","Action":"pass"}
+{"Test":"GroupUsesSingleSHA","Action":"pass"}
+L1 exit=0

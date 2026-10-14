@@ -14,7 +14,7 @@ emit() { printf '{"Test":"%s","Action":"%s"}\n' "$1" "$2"; }
 
 tags="$(git ls-remote --tags "$UPSTREAM" 2>/dev/null)"
 if [ -z "$tags" ]; then
-  echo "check-codeql-tags: cannot reach $UPSTREAM; integration layer requires network" >&2
+  printf '{"Test":"IntegrationLayerRequiresNetwork","Action":"output","Output":"cannot reach %s; layer skipped"}\n' "$UPSTREAM"
   exit 2
 fi
 # map: commit-sha -> tag (dereference annotated tags via the ^{} lines)
@@ -31,17 +31,17 @@ grep -RnE 'uses: github/codeql-action/[a-z-]+@[0-9a-f]{40}' .github/workflows/ |
     emit "PinResolvesToUpstreamTag/$loc" "pass"
   else
     emit "PinResolvesToUpstreamTag/$loc" "fail"
-    echo "  $loc: pinned sha $sha does not match any upstream release tag" >&2
+    printf '{"Test":"PinResolvesToUpstreamTag/%s","Action":"output","Output":"pinned sha %s does not match any upstream release tag"}\n' "$loc" "$sha"
   fi
   comment="$(printf '%s' "$line" | grep -oE '#[[:space:]]*v[0-9]+\.[0-9]+\.[0-9]+' | head -1 | tr -d '# ')"
   if [ -z "$comment" ]; then
     emit "VersionCommentPresent/$loc" "fail"
-    echo "  $loc: no trailing '# vX.Y.Z' comment (audit value lost)" >&2
+    printf '{"Test":"VersionCommentPresent/%s","Action":"output","Output":"no trailing vX.Y.Z comment; audit value lost"}\n' "$loc"
   elif [ -n "$tag" ] && [ "$comment" = "$tag" ]; then
     emit "VersionCommentMatchesPinnedTag/$loc" "pass"
   else
     emit "VersionCommentMatchesPinnedTag/$loc" "fail"
-    echo "  $loc: comment says $comment but pinned sha $sha is tag $tag" >&2
+    printf '{"Test":"VersionCommentMatchesPinnedTag/%s","Action":"output","Output":"comment says %s but pinned sha %s is tag %s"}\n' "$loc" "$comment" "$sha" "$tag"
   fi
 done
 

@@ -36,8 +36,8 @@ Layers run against the **code under review** (`602efe53e8f46b22c4a2df7d3e590bafd
 
 | ID | Claim | Layer | Verdict | Evidence |
 |----|-------|-------|---------|----------|
-| P0 | v4.38.3 is genuine and the bumped group is consistent | 1+2 | Confirmed | `results/layer1-unit.head.out` (GroupUsesSingleSHA pass), `results/layer2-integration.head.out` (PinResolvesToUpstreamTag 3/3 pass), `results/ci-and-tag-evidence.txt` |
-| F1 | Trailing version comments (`# v3.29.5`, `# v2.22.11`) do not match the pinned action version (v4.38.3) | 2 | Confirmed (preexisting, carried through this bump) | `results/layer2-integration.head.out` — VersionCommentMatchesPinnedTag fails on all 3 usage lines: comments say v3.29.5/v2.22.11, pinned SHA is tag v4.38.3 |
+| P0 | v4.38.3 is genuine and the bumped group is consistent | 1+2 | Confirmed | `results/layer1-unit.head.txt` (GroupUsesSingleSHA pass), `results/layer2-integration.head.txt` (PinResolvesToUpstreamTag 3/3 pass), `results/ci-and-tag-evidence.txt` |
+| F1 | Trailing version comments (`# v3.29.5`, `# v2.22.11`) do not match the pinned action version (v4.38.3) | 2 | Confirmed (preexisting, carried through this bump) | `results/layer2-integration.head.txt` — VersionCommentMatchesPinnedTag fails on all 3 usage lines: comments say v3.29.5/v2.22.11, pinned SHA is tag v4.38.3 |
 
 ## Per-finding detail
 
@@ -53,7 +53,7 @@ Layers run against the **code under review** (`602efe53e8f46b22c4a2df7d3e590bafd
 - Observed vs expected: expected comment `v4.38.3` (the tag of `24c5418...`); observed
   `v3.29.5` (x2) and `v2.22.11` (x1).
 - Harness-bites check: with the comments corrected to `# v4.38.3` (fix applied temporarily,
-  then reverted) the layer flips all-green — `results/layer2-integration.with-comment-fix.out`.
+  then reverted) the layer flips all-green — `results/layer2-integration.with-comment-fix.txt`.
   Production diff is empty after the check.
 
 ## Proposed fix (NOT applied to production here)

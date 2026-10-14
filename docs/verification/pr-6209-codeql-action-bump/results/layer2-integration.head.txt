@@ -1,0 +1,10 @@
+{"Test":"PinResolvesToUpstreamTag/.github/workflows/sonarcloud.yaml:54","Action":"pass"}
+{"Test":"VersionCommentMatchesPinnedTag/.github/workflows/sonarcloud.yaml:54","Action":"fail"}
+{"Test":"VersionCommentMatchesPinnedTag/.github/workflows/sonarcloud.yaml:54","Action":"output","Output":"comment says v2.22.11 but pinned sha 24c54180a607b1449ed407dd24f251e4e9147c8d is tag v4.38.3"}
+{"Test":"PinResolvesToUpstreamTag/.github/workflows/codeql-analysis.yml:49","Action":"pass"}
+{"Test":"VersionCommentMatchesPinnedTag/.github/workflows/codeql-analysis.yml:49","Action":"fail"}
+{"Test":"VersionCommentMatchesPinnedTag/.github/workflows/codeql-analysis.yml:49","Action":"output","Output":"comment says v3.29.5 but pinned sha 24c54180a607b1449ed407dd24f251e4e9147c8d is tag v4.38.3"}
+{"Test":"PinResolvesToUpstreamTag/.github/workflows/codeql-analysis.yml:69","Action":"pass"}
+{"Test":"VersionCommentMatchesPinnedTag/.github/workflows/codeql-analysis.yml:69","Action":"fail"}
+{"Test":"VersionCommentMatchesPinnedTag/.github/workflows/codeql-analysis.yml:69","Action":"output","Output":"comment says v3.29.5 but pinned sha 24c54180a607b1449ed407dd24f251e4e9147c8d is tag v4.38.3"}
+L2 exit=1

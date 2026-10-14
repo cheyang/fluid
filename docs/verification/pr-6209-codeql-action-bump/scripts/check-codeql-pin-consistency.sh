@@ -12,7 +12,7 @@ cd "$(git rev-parse --show-toplevel 2>/dev/null || echo .)"
 
 emit() { # name, pass|fail, detail
   printf '{"Test":"%s","Action":"%s"}\n' "$1" "$2"
-  [ "$2" = "fail" ] && printf '  %s\n' "$3" >&2
+  [ -n "${3:-}" ] && printf '{"Test":"%s","Action":"output","Output":"%s"}\n' "$1" "$(printf '%s' "$3" | tr '"' "'")"
   return 0
 }
 
