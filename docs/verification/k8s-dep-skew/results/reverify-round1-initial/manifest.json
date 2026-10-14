@@ -1,0 +1,53 @@
+{
+  "topic": "k8s-dep-skew",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/5392",
+  "reviewer": "claude",
+  "headShaReviewed": "8534d282a80df1bb36c3d47bf821aebeaaf746bb",
+  "baseSha": "3e99063a060ef341696ca916a69eb00a534ba807",
+  "harnessPaths": [
+    "docs/verification/k8s-dep-skew"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: \"Bumps [k8s.io/kubernetes] from 1.29.15 to 1.32.10\" — routine dependency refresh, no user-visible symptom claimed (no linked issue).",
+    "reportedComponent": "go.mod dependency k8s.io/kubernetes (vendored k8s.io/kubernetes packages used by fluid: pkg/api/v1/pod, pkg/registry/core/service/{allocator,portallocator}, pkg/apis/core)",
+    "patchedComponent": "go.mod / go.sum / vendor tree for k8s.io/kubernetes and 7 transitive modules (smd v4.4.2, csi spec v1.9.0, kube-openapi, k8s.io/utils, go-openapi/swag+jsonpointer, sigs.k8s.io/json)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "not-reproduced",
+    "evidence": "No symptom is claimed and none is checkable on base; base builds clean (results/01-base-build.txt). For a chore(deps) bump the premise to validate is 'the bump is viable', and that is REFUTED on the head: go build ./... fails (results/02-head-build.txt).",
+    "match": ["check-build.sh"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "build-gate",
+      "cmd": "bash docs/verification/k8s-dep-skew/scripts/check-build.sh"
+    },
+    "probe": {
+      "kind": "build-gate",
+      "cmd": "bash docs/verification/k8s-dep-skew/scripts/probe-csi-interface.sh"
+    },
+    "regression": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/k8s-dep-skew/scripts/run-affected-tests.sh"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "claim": "go build ./... must exit 0 on the PR head",
+      "match": ["check-build.sh"]
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "probe",
+      "claim": "pkg/csi/plugins controllerServer must satisfy csi.ControllerServer (csi spec v1.9.0); error is masked by F1 on the head, surfaced via the smd shim probe",
+      "match": ["probe-csi-interface.sh"]
+    }
+  ],
+  "liveNote": "L3 not run for this review round (unit+integration layers only, per round policy). CI evidence captured in results/05-ci-status.json: build/unittest/lint/staticcheck/kind-e2e/backward-compat all FAILURE on head 8534d282."
+}
