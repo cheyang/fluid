@@ -1,0 +1,2 @@
+# github.com/fluid-cloudnative/fluid/pkg/csi/plugins
+pkg/csi/plugins/driver.go:107:3: cannot use d.newControllerServer() (value of type *controllerServer) as csi.ControllerServer value in argument to s.Start: *controllerServer does not implement csi.ControllerServer (missing method ControllerModifyVolume)

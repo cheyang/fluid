@@ -1,0 +1,1 @@
+BASE go build ./... EXIT 0 (control)

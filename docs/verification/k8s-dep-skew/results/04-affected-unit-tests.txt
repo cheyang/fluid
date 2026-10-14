@@ -1,0 +1,22 @@
+# Unit sweep of packages consuming the bumped vendored code.
+# Conditions: run in a throwaway copy of PR head 8534d282 with BOTH compile breakers
+# neutralized diagnostically (smd IgnoredFields shim + ControllerModifyVolume stub).
+# Purpose: prove no THIRD behavioral/compile break exists beyond F1 and F2.
+# On the unmodified head this sweep is unrunnable (blocked by F1).
+
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/base/portallocator	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi	(cached)
+?   	github.com/fluid-cloudnative/fluid/pkg/csi/config	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/features	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/plugins	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/recover	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/updatedbconf	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs/operations	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin/operations	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin/referencedataset	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/efc	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations	(cached)
+EXIT=0
