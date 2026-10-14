@@ -1,0 +1,8 @@
+== F3 harness run on PR head 382d926a (harness grafted) ==
+PR6186 F3 discarded-edit signal visibility [It] F3 [contract]: the shipped production config (--development=false) emits the discarded-edit signal [verify-pr6186]
+  [FAIL] PR6186 F3 discarded-edit signal visibility [It] F3 [contract]: the shipped production config (--development=false) emits the discarded-edit signal [verify-pr6186]
+FAIL! -- 1 Passed | 1 Failed | 0 Pending | 329 Skipped
+
+== F3 harness-bites: same run with proposed fix e.Log.V(1)->e.Log.Info applied ==
+(run in scratch worktree /tmp/fluid-pr6186-head, fix reverted afterwards)
+F3 contract + control: ok github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine 0.015s (both specs passed)

@@ -5,7 +5,8 @@
     "docs/verification/partial-runtime-version",
     "pkg/ddc/cache/engine/verify_pr6186_premise_test.go",
     "pkg/ddc/cache/engine/verify_pr6186_digest_test.go",
-    "pkg/ddc/cache/engine/verify_pr6186_class_template_test.go"
+    "pkg/ddc/cache/engine/verify_pr6186_class_template_test.go",
+    "pkg/ddc/cache/engine/verify_pr6186_visibility_test.go"
   ],
   "premise": {
     "id": "P0",
@@ -42,10 +43,20 @@
     },
     {
       "id": "F2",
-      "polarity": "canary",
+      "polarity": "contract",
       "layer": "unit",
       "match": [
         "F2 [canary]: an empty-version worker follows the edited class template image"
+      ],
+      "changeReason": "behavior documented as intended at 382d926a; promoted canary->contract as a regression guard"
+    },
+    {
+      "id": "F3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "F3 [contract]: the shipped production config (--development=false) emits the discarded-edit signal",
+        "F3 [control]: development mode emits the same record"
       ]
     }
   ],

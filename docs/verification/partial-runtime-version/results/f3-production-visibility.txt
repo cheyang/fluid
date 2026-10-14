@@ -1,0 +1,24 @@
+== F3 evidence: production visibility of the incomplete-version signal (head 382d926a) ==
+
+-- charts pin development mode off:
+46:          - --development=false
+
+-- cmd/cache registers no zap/klog verbosity flags (BindFlags absent):
+  (no matches)
+
+-- vendored controller-runtime zap defaults: development=false selects InfoLevel, dropping V(1):
+180:		if o.Level == nil {
+181-			lvl := zap.NewAtomicLevelAt(zap.DebugLevel)
+182-			o.Level = &lvl
+183-		}
+--
+193:		if o.Level == nil {
+194-			lvl := zap.NewAtomicLevelAt(zap.InfoLevel)
+195-			o.Level = &lvl
+196-		}
+
+-- the only discarded-edit signal is V(1):
+249:	e.Log.V(1).Info("runtimeVersion cannot be completed from the CacheRuntimeClass template, leaving the image unchanged",
+
+-- docs claim -v=1 shows it:
+56:- When only one half is set and the other cannot be completed (only `image` is set and the template image has no tag, or the template image or `image` is pinned by digest (`@sha256:...`)), the component uses the template image on creation; on update the edit has no effect and the component keeps its current image (logged when the controller runs with `-v=1`). `runtimeVersion` cannot express a digest reference; to pin a digest, put it in the CacheRuntimeClass template.
