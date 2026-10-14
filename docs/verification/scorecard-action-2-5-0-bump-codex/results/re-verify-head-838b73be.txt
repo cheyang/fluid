@@ -1,0 +1,23 @@
+re-verify: fetching PR head from https://github.com/fluid-cloudnative/fluid.git pull/6207/head
+re-verify: target ref = 838b73be0602b3b10ebcb82b5a54a417191324f7
+=== check-action-bump.sh against ref: 838b73be0602b3b10ebcb82b5a54a417191324f7 ===
+--- C1: pinned SHA matches refs/tags/v2.5.0^{} upstream
+workflow pin : fa7117db83c52d787ae5a89f350999701505d78e
+tag commit   : fa7117db83c52d787ae5a89f350999701505d78e
+PASS     C1 pin == v2.5.0
+--- C2: workflow inputs still honored by v2.5.0
+PASS     C2 required input still declared: results_file
+PASS     C2 required input still declared: results_format
+PASS     C2 optional input still declared: publish_results
+PASS     C2 results_format=sarif still supported
+--- C3: docker image for v2.5.0 exists on ghcr.io
+image: ghcr.io/ossf/scorecard-action:v2.5.0
+manifest GET https://ghcr.io/v2/ossf/scorecard-action/manifests/v2.5.0 -> 200
+PASS     C3 image manifest exists
+--- C4: publish endpoint reachable
+GET https://api.scorecard.dev/ -> 200
+PASS     C4 publish endpoint reachable
+--- F1(pre-existing): exclude_checks / exclude_paths recognized by action source?
+action source has NO EXCLUDE handling: workflow's exclude_checks/exclude_paths are dead inputs (pre-existing, unchanged by bump)
+=== failures: 0 ===
+re-verify: check-action-bump.sh exit=0 (0 = all contract checks pass)

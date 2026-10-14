@@ -1,0 +1,47 @@
+{
+  "topic": "scorecard-action-2-5-0-bump-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6207",
+  "headShaAtReview": "838b73be0602b3b10ebcb82b5a54a417191324f7",
+  "baseSha": "e4a10bf49a1e8068d901e6f146ee4e435db7e785",
+  "harnessPaths": [
+    "docs/verification/scorecard-action-2-5-0-bump-codex"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: keep the pinned ossf/scorecard-action dependency current (2.4.4 -> 2.5.0). No runtime bug is claimed; the risk to verify is that the bump itself is malformed (wrong pin, missing image, incompatible inputs).",
+    "reportedComponent": ".github/workflows/sonarcloud.yaml (Scorecards analysis job)",
+    "patchedComponent": ".github/workflows/sonarcloud.yaml (same line)",
+    "componentMatch": true,
+    "runsAgainst": "head",
+    "layer": "unit+integration",
+    "verdict": "confirmed",
+    "evidence": "results/check-action-bump-head-838b73be.txt — pin matches tag v2.5.0, all workflow inputs still honored, image manifest 200, publish endpoint 200.",
+    "match": ["check-action-bump.sh C1..C4"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "script",
+      "cmd": "bash docs/verification/scorecard-action-2-5-0-bump-codex/scripts/check-action-bump.sh <ref>",
+      "note": "C1 (pin==tag) and C2 (inputs honored) are the deterministic checks; they need network to github.com but no cluster."
+    },
+    "integration": {
+      "kind": "script",
+      "cmd": "same script, checks C3 (ghcr.io manifest) and C4 (api.scorecard.dev) — read-only GETs against the real upstream services",
+      "note": "L3 live layer (running the actual GitHub Actions workflow) is intentionally skipped per debate setup; the workflow only triggers on schedule/push to master, so it cannot run pre-merge anyway."
+    }
+  },
+  "findings": [
+    { "id": "C1", "polarity": "contract", "layer": "unit", "match": ["C1 pin == v2.5.0"],
+      "claim": "The SHA pinned in the workflow is exactly the peeled commit of upstream tag v2.5.0." },
+    { "id": "C2", "polarity": "contract", "layer": "unit", "match": ["C2"],
+      "claim": "All inputs the workflow passes (results_file, results_format=sarif, publish_results) are still declared/honored by the action at the new pin." },
+    { "id": "C3", "polarity": "contract", "layer": "integration", "match": ["C3 image manifest exists"],
+      "claim": "The container image referenced by the new action.yaml (ghcr.io/ossf/scorecard-action:v2.5.0) exists." },
+    { "id": "C4", "polarity": "contract", "layer": "integration", "match": ["C4 publish endpoint reachable"],
+      "claim": "The publish endpoint used by publish_results:true (https://api.scorecard.dev) is alive." },
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["exclude_checks"],
+      "preexisting": true,
+      "claim": "exclude_checks/exclude_paths are dead inputs in both v2.4.4 and v2.5.0 (no EXCLUDE handling in the action source). Informational check; prints the state, never fails the harness." }
+  ],
+  "liveNote": "L3 intentionally skipped: the sonarcloud/scorecard workflow triggers only on schedule and push to master/release-*, so the bump cannot be exercised pre-merge. Post-merge, watch the next scheduled 'Sonarcloud Scan' run for the 'Run analysis' step to succeed with scorecard-action v2.5.0."
+}
