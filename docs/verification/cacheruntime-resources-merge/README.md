@@ -107,6 +107,8 @@ Round-4 results (`results/round4/reverify-{base-e0fc4c18,prevhead-497bbeaf,head-
 | previous 497bbeaf | pass | pass | pass | pass | pass | STILL-BROKEN (fail=2) |
 | head 3adc547d | pass | pass | pass | pass | pass | **pass (fixed)** |
 
+F11 canary: STILL-PRESENT (pass) at head — open pre-existing finding, see below.
+
 Full package suite at head with the harness grafted: `ok pkg/ddc/cache/engine` +
 `ok pkg/ddc/cache/component` (`-count=1`), no revision regression. Master moved to e4a10bf4;
 a local test merge of head into current master is clean, the merged tree keeps
@@ -118,6 +120,27 @@ cross-key check (validation.go:6591). The author scoped it out in the commit mes
 cannot break them when both inputs satisfy them"). Verified sound: the merge is key-union per
 list (`mergeResourceList`), so a presence-rule violation requires an already-pod-invalid input,
 and neither CR is pod-validated by the API server — a pre-existing gap, not merge-synthesized.
+
+### F11 (new this round, pre-existing): template claims propagate without pod-level declarations
+
+Copilot's review of this head (discussion_r4276559859) flagged that a CacheRuntimeClass edited
+after workload creation to add a claim propagates the container claim to existing workloads
+while `SyncComponentSpec` never syncs pod-level `spec.resourceClaims`; on DRA-enabled clusters
+the API server rejects replacement Pods (`validateResourceClaimNames`, validation.go:6595).
+Independently reproduced with ad-hoc probes grafted on base and head
+(`results/round4/f11-claims-{base-e0fc4c18,head-3adc547d}.txt`):
+
+- CacheRuntime declares nothing: the claim propagates on **both** base (template fallback in
+  the old `desiredComponentResources`) and head — a pre-existing gap, `origin=preexisting`.
+- CacheRuntime declares a partial value (cpu request only): base wholesale-applies the runtime
+  list (claim dropped — the #6173 shape), head merges (claim propagates). The PR widens
+  exposure to this combination while fixing the dropped-keys bug for it.
+
+Pinned as the canary `TestVerifyPR6177_F11_TemplateClaimsPropagateWithoutPodLevelDeclaration_Canary`
+(asserts current behavior: propagated, nil error, no Warning event; must flip red when a guard
+lands). Filed as a minor non-blocking risk; remedy direction: validate resolved claims against
+the workload's pod-level declarations and refuse with a Warning event (the F6/F9 pattern), or
+sync pod-level `resourceClaims`, or document the DRA limitation.
 
 ## How to run
 
