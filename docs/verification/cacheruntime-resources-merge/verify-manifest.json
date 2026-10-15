@@ -30,7 +30,7 @@
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=\"all=-N -l\" ./pkg/ddc/cache/engine/ -json -run 'TestVerifyPR6177_(SyncRuntimeSpec_KeepsUnnamedRequirements|NeitherSideDeclares_ContractClearsWorkload|DriftedWorkload_ContractRestoresTemplate|F6_ConflictMerge_SyncSkipsAndWarns|F9_NonOvercommittableMerge_SyncMustRefuse)'"
+      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=\"all=-N -l\" ./pkg/ddc/cache/engine/ -json -run 'TestVerifyPR6177_(SyncRuntimeSpec_KeepsUnnamedRequirements|NeitherSideDeclares_ContractClearsWorkload|DriftedWorkload_ContractRestoresTemplate|F6_ConflictMerge_SyncSkipsAndWarns|F9_NonOvercommittableMerge_SyncMustRefuse|F9_ExtendedRequestWithoutLimit_SyncMustRefuse)'"
     }
   },
   "findings": [
@@ -100,9 +100,10 @@
       "polarity": "contract",
       "layer": "integration",
       "match": [
-        "TestVerifyPR6177_F9_NonOvercommittableMerge_SyncMustRefuse"
+        "TestVerifyPR6177_F9_NonOvercommittableMerge_SyncMustRefuse",
+        "TestVerifyPR6177_F9_ExtendedRequestWithoutLimit_SyncMustRefuse"
       ],
-      "note": "New round-3 finding: the head's validateResourceRequirements only rejects request>limit, but the apiserver (k8s.io/kubernetes v1.29.15 ValidateResourceRequirements) requires request==limit for non-overcommittable resources (hugepages-*, extended resources). A merge can synthesize request<limit from two individually valid documents; head applies it silently. Differential with the enriched fixture (both inputs apiserver-valid): on base e0fc4c18 the overlay is applied wholesale and the absent hugepages request is defaulted to the limit (valid); on previous head and head the invalid merged pair is applied. RED on all three refs (on base because the contract demands refusal, which base also does not do); goes GREEN when the gate mirrors the apiserver rule. Harness-bites: scratch worktree with the proposed rule turns the test green, suite stays green, scratch discarded."
+      "note": "FIXED at head 3adc547d: validateResourceRequirements now mirrors the apiserver rule for non-overcommittable resources (hugepages-*, extended) -- request must equal limit, and a request needs a limit -- via a local isOvercommitAllowed mirror (the k8s.io/kubernetes helper package is genuinely not vendored; verified byte-equivalent logic against v1.29.15 helpers.go:127 + validation.go:6568-6579). Both contract tests flip RED->GREEN exactly at 3adc547d: RED on base e0fc4c18 and previous head 497bbeaf (invalid pair applied silently), GREEN on head (workload untouched, Warning event naming the key). The additive second test pins the request-without-limit sub-rule. The F9 remedy's third element (hugepages-require-cpu-or-memory cross-key check) was consciously scoped out by the author; adjudicated sound: merge is key-union per list, so a presence violation needs an already-invalid input, and no layer pod-validates the CRs -- a pre-existing gap outside the merge-synthesized class."
     }
   ],
   "liveNote": "L3 skipped per debate setup (no KUBECONFIG layer). If run live: on a kind cluster, create the CacheRuntimeClass + CacheRuntime from issue #6173, patch spec.worker.resources.limits.memory=8Gi, and check `kubectl get advancedstatefulset <name>-worker -o jsonpath='{.spec.template.spec.containers[0].resources}'` keeps cpu request/limit and memory request."

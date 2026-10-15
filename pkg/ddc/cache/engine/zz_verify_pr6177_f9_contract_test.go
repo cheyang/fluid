@@ -53,6 +53,7 @@ package engine
 // apiserver rule (reject request != limit for non-overcommittable resources).
 
 import (
+	"reflect"
 	"strings"
 	"testing"
 
@@ -122,6 +123,74 @@ func TestVerifyPR6177_F9_NonOvercommittableMerge_SyncMustRefuse(t *testing.T) {
 		default:
 			if !drainedWarn {
 				t.Errorf("no Warning event naming the conflicting hugepages key was emitted; " +
+					"the stuck rollout is invisible on the CacheRuntime")
+			}
+			return
+		}
+	}
+}
+
+// F9 contract, second sub-rule (round 4, additive): an extended resource
+// request with NO limit is apiserver-invalid ("Limit must be set for non
+// overcommitable resources", k8s.io/kubernetes@v1.29.15 validation.go:6577),
+// and the head's validator must refuse it the same way. Unlike the
+// request!=limit case this one cannot be produced from two individually
+// pod-valid documents -- a requests-only extended entry is invalid on its
+// own -- but neither CR is pod-validated by the API server, so the trap is
+// reachable in practice: template declares cpu only, the CacheRuntime sets
+// requests.nvidia.com/gpu=1 (no limit). The merged pair carries the orphaned
+// request; the apiserver would reject the first Pod.
+//
+// Differential, same input: base e0fc4c18 applies the overlay wholesale
+// (requests-only gpu applied as-is -> invalid, no event); previous head
+// 497bbeaf merges and applies (the F6 gate only checks request>limit, which
+// needs a limit to compare against -> invalid applied, no event); head
+// 3adc547d refuses with a Warning event naming nvidia.com/gpu.
+//
+// Polarity: CONTRACT. Compile-safe on all three refs (pre-existing symbols
+// only). RED on base and previous head (invalid spec applied, no event),
+// GREEN on head 3adc547d.
+func TestVerifyPR6177_F9_ExtendedRequestWithoutLimit_SyncMustRefuse(t *testing.T) {
+	gpu := corev1.ResourceName("nvidia.com/gpu")
+	template := corev1.ResourceRequirements{
+		Requests: corev1.ResourceList{corev1.ResourceCPU: resource.MustParse("1")},
+		Limits:   corev1.ResourceList{corev1.ResourceCPU: resource.MustParse("2")},
+	}
+	// Requests-only extended resource: no limit anywhere in the merge inputs.
+	overlay := corev1.ResourceRequirements{
+		Requests: corev1.ResourceList{gpu: resource.MustParse("1")},
+	}
+	engine, ctx, runtimeObj, runtimeClass := verifyPR6177BuildSyncFixture(template, &template, &overlay)
+	recorder := record.NewFakeRecorder(10)
+	engine.Recorder = recorder
+
+	before := verifyPR6177WorkerResources(t, engine)
+
+	if err := engine.syncRuntimeSpec(ctx, runtimeObj, runtimeClass); err != nil {
+		t.Fatalf("syncRuntimeSpec returned %v; the conflict must not fail the sync (image/replicas still sync)", err)
+	}
+
+	got := verifyPR6177WorkerResources(t, engine)
+	if _, reqOK := got.Requests[gpu]; reqOK {
+		if _, limOK := got.Limits[gpu]; !limOK {
+			t.Errorf("workload now carries nvidia.com/gpu request with no limit: the API server rejects that " +
+				"pod spec (limit must be set for non overcommitable resources), so the rollout sticks with no Warning event")
+		}
+	}
+	if !reflect.DeepEqual(before, got) {
+		t.Errorf("workload resources changed under an apiserver-invalid merge: before %+v, after %+v", before, got)
+	}
+
+	drainedWarn := false
+	for {
+		select {
+		case event := <-recorder.Events:
+			if strings.Contains(event, "Warning") && strings.Contains(event, "nvidia.com/gpu") {
+				drainedWarn = true
+			}
+		default:
+			if !drainedWarn {
+				t.Errorf("no Warning event naming the conflicting nvidia.com/gpu key was emitted; " +
 					"the stuck rollout is invisible on the CacheRuntime")
 			}
 			return
