@@ -1,6 +1,6 @@
 # Verification: PR #6177 — merge CacheRuntime resources onto the CacheRuntimeClass baseline
 
-Reviewer: Codex (Reviewer B). Reviewed head: `497bbeaf254071c522904d654a0e574651df65fd`
+Reviewer: Codex (Reviewer B). Reviewed head: `3adc547d4da45c2da9540c94ab447ff0f4269c91`
 (`.last-reviewed`). Base (merge-base with master): `e0fc4c189a6e45ee17a5e812abf3fcbecf566f09`.
 
 ## Premise (P0) — verdict: CONFIRMED
@@ -84,6 +84,41 @@ to also reject request != limit for non-overcommittable names turns the F9 test 
 keeps the rest of the suite (`pkg/ddc/cache/...`) green; the scratch was discarded, no
 production change was kept.
 
+## Round 4 (497bbeaf -> 3adc547d): F9 fixed
+
+The delta is a single commit, `3adc547d`, the round-3 consensus remedy for F9:
+`validateResourceRequirements` now mirrors the apiserver's non-overcommittable rule via a
+local `isOvercommitAllowed` (verified byte-equivalent in logic against
+k8s.io/kubernetes v1.29.15 `helpers.go:127` `IsOvercommitAllowed` = `IsNativeResource &&
+!IsHugePageResourceName`, and `validation.go:6568-6579`; the helper package is genuinely not
+vendored, `vendor/modules.txt` has no `pkg/apis/core/v1/helper`). For hugepages-*/extended
+resources it rejects request != limit (subsumes request > limit) and rejects a request with
+no limit; docs updated en+zh; new unit + sync specs land in the PR itself.
+
+Additive harness change: `TestVerifyPR6177_F9_ExtendedRequestWithoutLimit_SyncMustRefuse`
+pins the second sub-rule (requests-only `nvidia.com/gpu` merged onto a cpu-only template must
+be refused with a Warning event naming the key). RED on base and previous head, GREEN at head.
+
+Round-4 results (`results/round4/reverify-{base-e0fc4c18,prevhead-497bbeaf,head-3adc547d}-{unit,integration}.out`):
+
+| ref | P0 | G1 | G2 | G3 | F6 | F9 (2 tests) |
+|-----|----|----|----|----|----|----|
+| base e0fc4c18 | STILL-BROKEN | STILL-BROKEN | pass | pass | STILL-BROKEN | STILL-BROKEN |
+| previous 497bbeaf | pass | pass | pass | pass | pass | STILL-BROKEN (fail=2) |
+| head 3adc547d | pass | pass | pass | pass | pass | **pass (fixed)** |
+
+Full package suite at head with the harness grafted: `ok pkg/ddc/cache/engine` +
+`ok pkg/ddc/cache/component` (`-count=1`), no revision regression. Master moved to e4a10bf4;
+a local test merge of head into current master is clean, the merged tree keeps
+`validDesiredResources` wired in sync.go, and the suite + all 10 harness tests pass on the
+merge result.
+
+Scope adjudication: the round-3 remedy also floated the "HugePages require cpu or memory"
+cross-key check (validation.go:6591). The author scoped it out in the commit message ("a merge
+cannot break them when both inputs satisfy them"). Verified sound: the merge is key-union per
+list (`mergeResourceList`), so a presence-rule violation requires an already-pod-invalid input,
+and neither CR is pod-validated by the API server — a pre-existing gap, not merge-synthesized.
+
 ## How to run
 
 ```bash
@@ -99,8 +134,8 @@ FLUID_UNIT_TEST=true go test -gcflags="all=-N -l" ./pkg/ddc/cache/...
 `bash docs/verification/cacheruntime-resources-merge/scripts/re-verify.sh` from a checkout of
 this branch fetches the current PR head (from `manifest.pr`), grafts the harness onto it, runs
 the unit + integration layers, and prints Fixed / Still-broken per finding. All findings are
-contract polarity: green means good. F9 stays red until the validator mirrors the apiserver's
-non-overcommittable rule (or the merge otherwise guarantees apiserver-valid output).
+contract polarity: green means good. All contracts, F9 included, are green at head 3adc547d; they
+now serve as the regression suite for the whole merge/validation behavior.
 
 Kickoff prompt for a fresh machine:
 "Continue the review pipeline for https://github.com/fluid-cloudnative/fluid/pull/6177 —
