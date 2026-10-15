@@ -1,0 +1,13 @@
+2026/10/15 08:23:50 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestAdhocPR6177_ClaimsWideningLeg
+    zz_adhoc_claims2_test.go:29: workload resources after sync: {Limits:map[cpu:{i:{value:2 scale:0} d:{Dec:<nil>} s:2 Format:DecimalSI}] Requests:map[cpu:{i:{value:500 scale:-3} d:{Dec:<nil>} s:500m Format:DecimalSI}] Claims:[{Name:gpu-claim}]}
+    zz_adhoc_claims2_test.go:32: OBSERVED: claim propagated to workload (head merge behavior)
+--- PASS: TestAdhocPR6177_ClaimsWideningLeg (0.00s)
+=== RUN   TestAdhocPR6177_TemplateClaimsPropagateWithoutPodLevelDeclaration
+    zz_adhoc_claims_test.go:54: workload container claims after sync: [{Name:gpu-claim}]
+    zz_adhoc_claims_test.go:68: warning event emitted: false
+    zz_adhoc_claims_test.go:74: CLAIM CONFIRMED: sync patched container claim gpu-claim onto the workload, but the workload's pod-level spec.resourceClaims is never synced (SyncComponentSpec touches replicas/image/resources only), so replacement Pods reference an undeclared claim and the API server rejects them (validateResourceClaimNames); nil error, warning event emitted: false
+--- FAIL: TestAdhocPR6177_TemplateClaimsPropagateWithoutPodLevelDeclaration (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.021s
+FAIL
