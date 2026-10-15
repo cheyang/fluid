@@ -142,3 +142,46 @@ same failure set); the overlapping files (`sync.go`, curvine `test.sh`, the
 spec-update docs) merge without semantic conflict.
 
 `.last-reviewed` advanced to `497bbeaf`.
+
+## Round 4 — delta `497bbeaf..3adc547d`
+
+The delta is a single commit, `3adc547d` ("require equal requests and limits for
+non-overcommittable resources") — the round-3 F9 remedy. `validateResourceRequirements`
+now rejects, for `hugepages-*` and extended (domain-qualified) resources, a request that
+differs from its limit or has no limit at all, via a local `isOvercommitAllowed` mirror.
+The mirror was checked verbatim against
+`k8s.io/kubernetes@v1.29.15 pkg/apis/core/v1/helper/helpers.go`
+(`IsNativeResource && !IsHugePageResourceName`, where `IsNativeResource` = no `/` or
+containing `kubernetes.io/`) and against `ValidateResourceRequirements`
+(`pkg/apis/core/validation/validation.go:6568-6578`) — including the upstream quirk that
+a `kubernetes.io/`-prefixed qualified name still counts as native (the PR pins that
+behavior in its own spec, matching upstream). The hugepages-need-cpu-or-memory
+cross-key rule is provably merge-safe and correctly left out: the merge preserves the
+union of the per-map keys (`mergeResourceList` never removes), so whenever either input
+carries hugepages it also carries cpu/memory, and that key survives the merge.
+
+New harness probes (`verify_delta_r4_6177_test.go`, all compile on 497bbeaf too, so the
+differential runs use one file):
+
+| id | claim | polarity | verdict | evidence |
+| --- | --- | --- | --- | --- |
+| D7 | The validator mirrors the API server's non-overcommittable rules (request == limit; a request needs a limit; equal quantities spelled differently accepted; limit-only accepted; native and kubernetes.io-prefixed requests below limits still accepted) | contract | **Fixed** — red on `497bbeaf` (4 subtests), green on `3adc547d` | `results/round4/unit-d7d8e1e2-{prev,head}*.log` |
+| D8 | The sync path refuses a merged non-overcommittable conflict end to end: workload resources untouched, replicas still move, `RuntimeResourcesConflict` event names `nvidia.com/gpu request 1 must equal limit 2`, second sync patches nothing | contract | **Fixed** — red on `497bbeaf`, green on `3adc547d` | same logs |
+| E1 | A CacheRuntimeClass edit adding a pod-level `resourceClaims` entry + matching container claim must not leave an existing workload's pod template referencing an undeclared claim (replacement Pods would be rejected by `validateResourceClaimNames`, "must be one of the names in pod.spec.resourceClaims", and the rollout stalls with no CacheRuntime event) | contract | **STILL BROKEN at head — new finding F11, pre-existing, non-blocking.** Red on `3adc547d` and `497bbeaf` (container claim `shm` synced, pod-level list stays `[]`). Base probe (`scripts/base_probe_f11_test.go.txt`): the paired template shape (claim + requests/limits) reproduces on the merge base `e0fc4c18` (base `desiredComponentResources` copied the whole template struct), so the mechanism is pre-existing; the claim-only template shape does *not* wedge at base (base returned nil for claim-only), so the PR broadens that subcase. Copilot discussion_r4276559859 flags the same mechanism. | `results/round4/unit-base-probe-f11-e0fc4c18.log` |
+| E2 | An explicit `limits: {}` on the CacheRuntime still clears the workload's stale limit (refutes Copilot discussion_r4212708077, which claimed the limit is "retained forever" because `desiredComponentResources` "returns nil" — it never returns nil) | contract | **Refutation confirmed** — green on base, `497bbeaf` and `3adc547d` | same logs |
+
+All B1–B5, D1–D6 contracts stay green at head (`re-verify.sh` round 4, all FIXED).
+Full engine suite with the harness grafted: 312 passed / 12 failed at `3adc547d` vs
+298 / 12 at `497bbeaf` — the failing spec set is **byte-identical** between the two
+heads (pre-existing `ufs_test.go` / `sync_test.go` ReportSummary failures, present at
+base), so no revision regression. The go-test level adds exactly one failure: E1, the
+F11 repro, by design.
+
+Copilot's review of this head (5525027377) marks the non-overcommittable thread
+resolved and adds one new finding — the claims mechanism E1 pins above; its other
+carried thread (r4212708077, empty maps) is refuted by E2.
+
+Compatibility: `git merge-tree --write-tree 3adc547d e4a10bf4` (current master) merges
+cleanly.
+
+`.last-reviewed` advanced to `3adc547d`.

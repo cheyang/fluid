@@ -1,0 +1,31 @@
+2026/10/15 08:18:35 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestD7NonOvercommittableMergeRules
+=== RUN   TestD7NonOvercommittableMergeRules/gpu_overlay_raising_only_the_limit
+=== RUN   TestD7NonOvercommittableMergeRules/hugepages_overlay_raising_only_the_limit
+=== RUN   TestD7NonOvercommittableMergeRules/gpu_request_with_no_limit_at_all
+=== RUN   TestD7NonOvercommittableMergeRules/gpu_request_above_its_limit_is_reported_as_unequal
+=== RUN   TestD7NonOvercommittableMergeRules/equal_pair_accepted,_quantities_spelled_two_ways
+=== RUN   TestD7NonOvercommittableMergeRules/limit_alone_accepted,_the_API_server_copies_it_into_the_request
+=== RUN   TestD7NonOvercommittableMergeRules/native_request_below_its_limit_still_accepted
+=== RUN   TestD7NonOvercommittableMergeRules/kubernetes.io-prefixed_name_keeps_native_semantics
+=== RUN   TestD7NonOvercommittableMergeRules/cpu_conflict_and_gpu_conflict_are_named_together
+--- PASS: TestD7NonOvercommittableMergeRules (0.00s)
+    --- PASS: TestD7NonOvercommittableMergeRules/gpu_overlay_raising_only_the_limit (0.00s)
+    --- PASS: TestD7NonOvercommittableMergeRules/hugepages_overlay_raising_only_the_limit (0.00s)
+    --- PASS: TestD7NonOvercommittableMergeRules/gpu_request_with_no_limit_at_all (0.00s)
+    --- PASS: TestD7NonOvercommittableMergeRules/gpu_request_above_its_limit_is_reported_as_unequal (0.00s)
+    --- PASS: TestD7NonOvercommittableMergeRules/equal_pair_accepted,_quantities_spelled_two_ways (0.00s)
+    --- PASS: TestD7NonOvercommittableMergeRules/limit_alone_accepted,_the_API_server_copies_it_into_the_request (0.00s)
+    --- PASS: TestD7NonOvercommittableMergeRules/native_request_below_its_limit_still_accepted (0.00s)
+    --- PASS: TestD7NonOvercommittableMergeRules/kubernetes.io-prefixed_name_keeps_native_semantics (0.00s)
+    --- PASS: TestD7NonOvercommittableMergeRules/cpu_conflict_and_gpu_conflict_are_named_together (0.00s)
+=== RUN   TestD8SyncRefusesNonOvercommittableConflict
+--- PASS: TestD8SyncRefusesNonOvercommittableConflict (0.00s)
+=== RUN   TestE1ClassClaimAdditionMustNotWedgeExistingWorkload
+    verify_delta_r4_6177_test.go:310: F11 repro: after the class edit, the workload's container references claim "shm" which the workload's pod-level spec.resourceClaims does not declare ([]) — every replacement Pod is rejected by the API server (validateResourceClaimNames) and the rollout stalls with no event on the CacheRuntime
+--- FAIL: TestE1ClassClaimAdditionMustNotWedgeExistingWorkload (0.00s)
+=== RUN   TestE2ExplicitEmptyMapStillClearsWorkload
+--- PASS: TestE2ExplicitEmptyMapStillClearsWorkload (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.013s
+FAIL

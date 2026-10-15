@@ -1,0 +1,329 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	0.021s
+2026/10/15 08:14:37 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Cache Engine Suite - /tmp/wt6177r4/pkg/ddc/cache/engine
+[38;5;204m[cache_engine][0m 
+======================================================================
+Random Seed: [1m1792023277[0m
+
+Will run [1m340[0m of [1m340[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.012 seconds][0m
+[0mCacheEngine Sync Tests [38;5;243mSync [0mwhen runtime is ready with ReportSummary configured [38;5;9m[1m[It] should get cache states successfully with mocked Execute[0m [38;5;204m[pkg.ddc.cache.engine.sync_test.go][0m
+[38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/sync_test.go:353[0m
+
+  [38;5;9m[FAILED] Expected
+      <common.CacheStateList | len:0>: nil
+  not to be nil[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/wt6177r4/pkg/ddc/cache/engine/sync_test.go:376[0m [38;5;243m@ 10/15/26 08:14:37.393[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.010 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return parsed CacheRuntimeMountUfsOutput with valid JSON output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:226[0m
+
+  [38;5;243mTimeline >>[0m
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:241 [38;5;243m@ 10/15/26 08:14:37.424[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*errors.withStack | 0x30ea5afacfd8>: 
+      error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+      {
+          error: <*errors.withMessage | 0x30ea5a7994c0>{
+              cause: <*errors.StatusError | 0x30ea5afa6780>{
+                  ErrStatus: {
+                      TypeMeta: {Kind: "", APIVersion: ""},
+                      ListMeta: {
+                          SelfLink: "",
+                          ResourceVersion: "",
+                          Continue: "",
+                          RemainingItemCount: nil,
+                      },
+                      Status: "Failure",
+                      Message: "pods \"test-runtime-master-0\" not found",
+                      Reason: "NotFound",
+                      Details: {
+                          Name: "test-runtime-master-0",
+                          Group: "",
+                          Kind: "pods",
+                          UID: "",
+                          Causes: nil,
+                          RetryAfterSeconds: 0,
+                      },
+                      Code: 404,
+                  },
+              },
+              msg: "error when executing command [/mount.sh]",
+          },
+          stack: [0x1759e05, 0x1759eaf, 0x176730f, 0x17e7858, 0x16cbd53, 0x16cd5b0, 0x49b301],
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:241[0m [38;5;243m@ 10/15/26 08:14:37.424[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.010 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount returns empty output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:246[0m
+
+  [38;5;243mTimeline >>[0m
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:262 [38;5;243m@ 10/15/26 08:14:37.434[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: empty output[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:262[0m [38;5;243m@ 10/15/26 08:14:37.434[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.011 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount returns whitespace-only output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:266[0m
+
+  [38;5;243mTimeline >>[0m
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:282 [38;5;243m@ 10/15/26 08:14:37.445[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: empty output[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:282[0m [38;5;243m@ 10/15/26 08:14:37.445[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.009 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return JSON parse error when Mount returns invalid JSON[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:286[0m
+
+  [38;5;243mTimeline >>[0m
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:302 [38;5;243m@ 10/15/26 08:14:37.454[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: failed to parse mount ufs output[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:302[0m [38;5;243m@ 10/15/26 08:14:37.454[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.010 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount command fails[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:306[0m
+
+  [38;5;243mTimeline >>[0m
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:322 [38;5;243m@ 10/15/26 08:14:37.464[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: mount command failed[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:322[0m [38;5;243m@ 10/15/26 08:14:37.464[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.010 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen PrepareUFS returns invalid JSON [38;5;9m[1m[It] should return JSON parse error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:573[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:580 [38;5;243m@ 10/15/26 08:14:37.474[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: failed to parse mount ufs output[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:580[0m [38;5;243m@ 10/15/26 08:14:37.474[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.010 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen PrepareUFS returns empty output [38;5;9m[1m[It] should return empty output error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:590[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:597 [38;5;243m@ 10/15/26 08:14:37.484[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: empty output[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:597[0m [38;5;243m@ 10/15/26 08:14:37.484[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.008 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen syncDatasetMounts fails due to missing mount point [38;5;9m[1m[It] should return mount point not mounted error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:607[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:614 [38;5;243m@ 10/15/26 08:14:37.493[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: is not yet mounted[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:614[0m [38;5;243m@ 10/15/26 08:14:37.493[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.009 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen syncDatasetMounts fails due to unexpected mounted paths [38;5;9m[1m[It] should return unexpected mounted paths error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:624[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:631 [38;5;243m@ 10/15/26 08:14:37.502[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: unexpected mounted paths remain[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:631[0m [38;5;243m@ 10/15/26 08:14:37.502[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.011 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen all mount points are correctly mounted [38;5;9m[1m[It] should successfully update mounts and set status to Bound[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:641[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:647 [38;5;243m@ 10/15/26 08:14:37.512[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*errors.withStack | 0x30ea5b001170>: 
+      failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+      {
+          error: <*errors.withMessage | 0x30ea5a4d5ae0>{
+              cause: <*errors.withStack | 0x30ea5b001140>{
+                  error: <*errors.withMessage | 0x30ea5a4d5ac0>{
+                      cause: <*errors.StatusError | 0x30ea5abf5d60>{
+                          ErrStatus: {
+                              TypeMeta: {Kind: "", APIVersion: ""},
+                              ListMeta: {
+                                  SelfLink: "",
+                                  ResourceVersion: "",
+                                  Continue: "",
+                                  RemainingItemCount: nil,
+                              },
+                              Status: "Failure",
+                              Message: "pods \"test-runtime-master-0\" not found",
+                              Reason: "NotFound",
+                              Details: {
+                                  Name: "test-runtime-master-0",
+                                  Group: "",
+                                  Kind: "pods",
+                                  UID: "",
+                                  Causes: nil,
+                                  RetryAfterSeconds: 0,
+                              },
+                              Code: 404,
+                          },
+                      },
+                      msg: "error when executing command [/mount.sh]",
+                  },
+                  stack: [0x1759e05, 0x1759eaf, 0x176730f, 0x1767a85, 0x17e3458, 0x16cbd53, 0x16cd5b0, 0x49b301],
+              },
+              msg: "failed to execute mount ufs command",
+          },
+          stack: [0x1767b51, 0x17e3458, 0x16cbd53, 0x16cd5b0, 0x49b301],
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:647[0m [38;5;243m@ 10/15/26 08:14:37.512[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.011 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen dataset has native scheme mounts [38;5;9m[1m[It] should skip native scheme mounts and succeed[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:662[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:675 [38;5;243m@ 10/15/26 08:14:37.523[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*errors.withStack | 0x30ea5b001bc0>: 
+      failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+      {
+          error: <*errors.withMessage | 0x30ea5ae14c60>{
+              cause: <*errors.withStack | 0x30ea5b001b90>{
+                  error: <*errors.withMessage | 0x30ea5ae14c40>{
+                      cause: <*errors.StatusError | 0x30ea5adfb720>{
+                          ErrStatus: {
+                              TypeMeta: {Kind: "", APIVersion: ""},
+                              ListMeta: {
+                                  SelfLink: "",
+                                  ResourceVersion: "",
+                                  Continue: "",
+                                  RemainingItemCount: nil,
+                              },
+                              Status: "Failure",
+                              Message: "pods \"test-runtime-master-0\" not found",
+                              Reason: "NotFound",
+                              Details: {
+                                  Name: "test-runtime-master-0",
+                                  Group: "",
+                                  Kind: "pods",
+                                  UID: "",
+                                  Causes: nil,
+                                  RetryAfterSeconds: 0,
+                              },
+                              Code: 404,
+                          },
+                      },
+                      msg: "error when executing command [/mount.sh]",
+                  },
+                  stack: [0x1759e05, 0x1759eaf, 0x176730f, 0x1767a85, 0x17e3167, 0x16cbd53, 0x16cd5b0, 0x49b301],
+              },
+              msg: "failed to execute mount ufs command",
+          },
+          stack: [0x1767b51, 0x17e3167, 0x16cbd53, 0x16cd5b0, 0x49b301],
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:675[0m [38;5;243m@ 10/15/26 08:14:37.523[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;9m[1mSummarizing 12 Failures:[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine Sync Tests [38;5;243mSync [0mwhen runtime is ready with ReportSummary configured [38;5;9m[1m[It] should get cache states successfully with mocked Execute[0m [38;5;204m[pkg.ddc.cache.engine.sync_test.go][0m
+  [38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/sync_test.go:376[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return parsed CacheRuntimeMountUfsOutput with valid JSON output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:241[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount returns empty output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:262[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount returns whitespace-only output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:282[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return JSON parse error when Mount returns invalid JSON[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:302[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount command fails[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:322[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen PrepareUFS returns invalid JSON [38;5;9m[1m[It] should return JSON parse error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:580[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen PrepareUFS returns empty output [38;5;9m[1m[It] should return empty output error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:597[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen syncDatasetMounts fails due to missing mount point [38;5;9m[1m[It] should return mount point not mounted error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:614[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen syncDatasetMounts fails due to unexpected mounted paths [38;5;9m[1m[It] should return unexpected mounted paths error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:631[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen all mount points are correctly mounted [38;5;9m[1m[It] should successfully update mounts and set status to Bound[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:647[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen dataset has native scheme mounts [38;5;9m[1m[It] should skip native scheme mounts and succeed[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:675[0m
+
+[38;5;9m[1mRan 324 of 340 Specs in 0.214 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m312 Passed[0m | [38;5;9m[1m12 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m16 Skipped[0m
+--- FAIL: TestCacheEngine (0.22s)
+--- FAIL: TestE1ClassClaimAdditionMustNotWedgeExistingWorkload (0.00s)
+    verify_delta_r4_6177_test.go:310: F11 repro: after the class edit, the workload's container references claim "shm" which the workload's pod-level spec.resourceClaims does not declare ([]) — every replacement Pod is rejected by the API server (validateResourceClaimNames) and the rollout stalls with no event on the CacheRuntime
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.243s
+FAIL

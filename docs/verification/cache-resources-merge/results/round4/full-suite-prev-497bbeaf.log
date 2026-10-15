@@ -1,0 +1,341 @@
+2026/10/15 08:18:19 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Cache Engine Suite - /tmp/wt6177r4/pkg/ddc/cache/engine
+[cache_engine] 
+======================================================================
+Random Seed: 1792023499
+
+Will run 326 of 326 specs
+••••••••••••••••••••••••••••••••••••••••••••••
+------------------------------
+• [FAILED] [0.010 seconds]
+CacheEngine Sync Tests Sync when runtime is ready with ReportSummary configured [It] should get cache states successfully with mocked Execute [pkg.ddc.cache.engine.sync_test.go]
+/tmp/wt6177r4/pkg/ddc/cache/engine/sync_test.go:353
+
+  [FAILED] Expected
+      <common.CacheStateList | len:0>: nil
+  not to be nil
+  In [It] at: /tmp/wt6177r4/pkg/ddc/cache/engine/sync_test.go:376 @ 10/15/26 08:18:19.546
+------------------------------
+•••••••••••••••••••••••••••••••••••••••••••••••••••••••
+------------------------------
+• [FAILED] [0.011 seconds]
+CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return parsed CacheRuntimeMountUfsOutput with valid JSON output [pkg.ddc.cache.engine.ufs_test.go]
+/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:226
+
+  Timeline >>
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:241 @ 10/15/26 08:18:19.568
+  << Timeline
+
+  [FAILED] Unexpected error:
+      <*errors.withStack | 0x25bc9da14cd8>: 
+      error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+      {
+          error: <*errors.withMessage | 0x25bc9d43a920>{
+              cause: <*errors.StatusError | 0x25bc9d7b1cc0>{
+                  ErrStatus: {
+                      TypeMeta: {Kind: "", APIVersion: ""},
+                      ListMeta: {
+                          SelfLink: "",
+                          ResourceVersion: "",
+                          Continue: "",
+                          RemainingItemCount: nil,
+                      },
+                      Status: "Failure",
+                      Message: "pods \"test-runtime-master-0\" not found",
+                      Reason: "NotFound",
+                      Details: {
+                          Name: "test-runtime-master-0",
+                          Group: "",
+                          Kind: "pods",
+                          UID: "",
+                          Causes: nil,
+                          RetryAfterSeconds: 0,
+                      },
+                      Code: 404,
+                  },
+              },
+              msg: "error when executing command [/mount.sh]",
+          },
+          stack: [0x1759e05, 0x1759eaf, 0x1766f0f, 0x17e2cd8, 0x16cbd53, 0x16cd5b0, 0x49b301],
+      }
+  occurred
+  In [It] at: /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:241 @ 10/15/26 08:18:19.568
+------------------------------
+• [FAILED] [0.010 seconds]
+CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount returns empty output [pkg.ddc.cache.engine.ufs_test.go]
+/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:246
+
+  Timeline >>
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:262 @ 10/15/26 08:18:19.579
+  << Timeline
+
+  [FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: empty output
+  In [It] at: /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:262 @ 10/15/26 08:18:19.579
+------------------------------
+• [FAILED] [0.011 seconds]
+CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount returns whitespace-only output [pkg.ddc.cache.engine.ufs_test.go]
+/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:266
+
+  Timeline >>
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:282 @ 10/15/26 08:18:19.589
+  << Timeline
+
+  [FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: empty output
+  In [It] at: /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:282 @ 10/15/26 08:18:19.589
+------------------------------
+• [FAILED] [0.010 seconds]
+CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return JSON parse error when Mount returns invalid JSON [pkg.ddc.cache.engine.ufs_test.go]
+/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:286
+
+  Timeline >>
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:302 @ 10/15/26 08:18:19.599
+  << Timeline
+
+  [FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: failed to parse mount ufs output
+  In [It] at: /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:302 @ 10/15/26 08:18:19.599
+------------------------------
+• [FAILED] [0.009 seconds]
+CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount command fails [pkg.ddc.cache.engine.ufs_test.go]
+/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:306
+
+  Timeline >>
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:322 @ 10/15/26 08:18:19.608
+  << Timeline
+
+  [FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: mount command failed
+  In [It] at: /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:322 @ 10/15/26 08:18:19.608
+------------------------------
+••
+------------------------------
+• [FAILED] [0.011 seconds]
+CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when PrepareUFS returns invalid JSON [It] should return JSON parse error [pkg.ddc.cache.engine.ufs_test.go]
+/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:573
+
+  Timeline >>
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:580 @ 10/15/26 08:18:19.619
+  << Timeline
+
+  [FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: failed to parse mount ufs output
+  In [It] at: /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:580 @ 10/15/26 08:18:19.619
+------------------------------
+• [FAILED] [0.009 seconds]
+CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when PrepareUFS returns empty output [It] should return empty output error [pkg.ddc.cache.engine.ufs_test.go]
+/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:590
+
+  Timeline >>
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:597 @ 10/15/26 08:18:19.628
+  << Timeline
+
+  [FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: empty output
+  In [It] at: /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:597 @ 10/15/26 08:18:19.628
+------------------------------
+• [FAILED] [0.010 seconds]
+CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when syncDatasetMounts fails due to missing mount point [It] should return mount point not mounted error [pkg.ddc.cache.engine.ufs_test.go]
+/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:607
+
+  Timeline >>
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:614 @ 10/15/26 08:18:19.638
+  << Timeline
+
+  [FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: is not yet mounted
+  In [It] at: /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:614 @ 10/15/26 08:18:19.638
+------------------------------
+• [FAILED] [0.010 seconds]
+CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when syncDatasetMounts fails due to unexpected mounted paths [It] should return unexpected mounted paths error [pkg.ddc.cache.engine.ufs_test.go]
+/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:624
+
+  Timeline >>
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:631 @ 10/15/26 08:18:19.648
+  << Timeline
+
+  [FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: unexpected mounted paths remain
+  In [It] at: /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:631 @ 10/15/26 08:18:19.648
+------------------------------
+• [FAILED] [0.009 seconds]
+CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when all mount points are correctly mounted [It] should successfully update mounts and set status to Bound [pkg.ddc.cache.engine.ufs_test.go]
+/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:641
+
+  Timeline >>
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:647 @ 10/15/26 08:18:19.657
+  << Timeline
+
+  [FAILED] Unexpected error:
+      <*errors.withStack | 0x25bc9db21110>: 
+      failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+      {
+          error: <*errors.withMessage | 0x25bc9d077960>{
+              cause: <*errors.withStack | 0x25bc9db210e0>{
+                  error: <*errors.withMessage | 0x25bc9d077940>{
+                      cause: <*errors.StatusError | 0x25bc9d671b80>{
+                          ErrStatus: {
+                              TypeMeta: {Kind: "", APIVersion: ""},
+                              ListMeta: {
+                                  SelfLink: "",
+                                  ResourceVersion: "",
+                                  Continue: "",
+                                  RemainingItemCount: nil,
+                              },
+                              Status: "Failure",
+                              Message: "pods \"test-runtime-master-0\" not found",
+                              Reason: "NotFound",
+                              Details: {
+                                  Name: "test-runtime-master-0",
+                                  Group: "",
+                                  Kind: "pods",
+                                  UID: "",
+                                  Causes: nil,
+                                  RetryAfterSeconds: 0,
+                              },
+                              Code: 404,
+                          },
+                      },
+                      msg: "error when executing command [/mount.sh]",
+                  },
+                  stack: [0x1759e05, 0x1759eaf, 0x1766f0f, 0x1767685, 0x17de8d8, 0x16cbd53, 0x16cd5b0, 0x49b301],
+              },
+              msg: "failed to execute mount ufs command",
+          },
+          stack: [0x1767751, 0x17de8d8, 0x16cbd53, 0x16cd5b0, 0x49b301],
+      }
+  occurred
+  In [It] at: /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:647 @ 10/15/26 08:18:19.657
+------------------------------
+• [FAILED] [0.009 seconds]
+CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when dataset has native scheme mounts [It] should skip native scheme mounts and succeed [pkg.ddc.cache.engine.ufs_test.go]
+/tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:662
+
+  Timeline >>
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [FAILED] in [It] - /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:675 @ 10/15/26 08:18:19.666
+  << Timeline
+
+  [FAILED] Unexpected error:
+      <*errors.withStack | 0x25bc9db21bd8>: 
+      failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+      {
+          error: <*errors.withMessage | 0x25bc9ce6b8e0>{
+              cause: <*errors.withStack | 0x25bc9db21ba8>{
+                  error: <*errors.withMessage | 0x25bc9ce6b8c0>{
+                      cause: <*errors.StatusError | 0x25bc9d7b1540>{
+                          ErrStatus: {
+                              TypeMeta: {Kind: "", APIVersion: ""},
+                              ListMeta: {
+                                  SelfLink: "",
+                                  ResourceVersion: "",
+                                  Continue: "",
+                                  RemainingItemCount: nil,
+                              },
+                              Status: "Failure",
+                              Message: "pods \"test-runtime-master-0\" not found",
+                              Reason: "NotFound",
+                              Details: {
+                                  Name: "test-runtime-master-0",
+                                  Group: "",
+                                  Kind: "pods",
+                                  UID: "",
+                                  Causes: nil,
+                                  RetryAfterSeconds: 0,
+                              },
+                              Code: 404,
+                          },
+                      },
+                      msg: "error when executing command [/mount.sh]",
+                  },
+                  stack: [0x1759e05, 0x1759eaf, 0x1766f0f, 0x1767685, 0x17de5e7, 0x16cbd53, 0x16cd5b0, 0x49b301],
+              },
+              msg: "failed to execute mount ufs command",
+          },
+          stack: [0x1767751, 0x17de5e7, 0x16cbd53, 0x16cd5b0, 0x49b301],
+      }
+  occurred
+  In [It] at: /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:675 @ 10/15/26 08:18:19.666
+------------------------------
+••••••••••••SS••S••••••••••••••••••••••SS••S•••••••••••••••••••••••••••••••S••SSSS••SS•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••SS••S•••••••••••••••••••••••••••••••
+
+Summarizing 12 Failures:
+  [FAIL] CacheEngine Sync Tests Sync when runtime is ready with ReportSummary configured [It] should get cache states successfully with mocked Execute [pkg.ddc.cache.engine.sync_test.go]
+  /tmp/wt6177r4/pkg/ddc/cache/engine/sync_test.go:376
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return parsed CacheRuntimeMountUfsOutput with valid JSON output [pkg.ddc.cache.engine.ufs_test.go]
+  /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:241
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount returns empty output [pkg.ddc.cache.engine.ufs_test.go]
+  /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:262
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount returns whitespace-only output [pkg.ddc.cache.engine.ufs_test.go]
+  /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:282
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return JSON parse error when Mount returns invalid JSON [pkg.ddc.cache.engine.ufs_test.go]
+  /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:302
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount command fails [pkg.ddc.cache.engine.ufs_test.go]
+  /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:322
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when PrepareUFS returns invalid JSON [It] should return JSON parse error [pkg.ddc.cache.engine.ufs_test.go]
+  /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:580
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when PrepareUFS returns empty output [It] should return empty output error [pkg.ddc.cache.engine.ufs_test.go]
+  /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:597
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when syncDatasetMounts fails due to missing mount point [It] should return mount point not mounted error [pkg.ddc.cache.engine.ufs_test.go]
+  /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:614
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when syncDatasetMounts fails due to unexpected mounted paths [It] should return unexpected mounted paths error [pkg.ddc.cache.engine.ufs_test.go]
+  /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:631
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when all mount points are correctly mounted [It] should successfully update mounts and set status to Bound [pkg.ddc.cache.engine.ufs_test.go]
+  /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:647
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when dataset has native scheme mounts [It] should skip native scheme mounts and succeed [pkg.ddc.cache.engine.ufs_test.go]
+  /tmp/wt6177r4/pkg/ddc/cache/engine/ufs_test.go:675
+
+Ran 310 of 326 Specs in 0.202 seconds
+FAIL! -- 298 Passed | 12 Failed | 0 Pending | 16 Skipped
+--- FAIL: TestCacheEngine (0.20s)
+--- FAIL: TestD7NonOvercommittableMergeRules (0.00s)
+    --- FAIL: TestD7NonOvercommittableMergeRules/gpu_overlay_raising_only_the_limit (0.00s)
+        verify_delta_r4_6177_test.go:154: merged {map[nvidia.com/gpu:{{2 0} {<nil>} 2 DecimalSI}] map[nvidia.com/gpu:{{1 0} {<nil>} 1 DecimalSI}] []} accepted; the API server rejects it: want error containing "nvidia.com/gpu request 1 must equal limit 2"
+    --- FAIL: TestD7NonOvercommittableMergeRules/hugepages_overlay_raising_only_the_limit (0.00s)
+        verify_delta_r4_6177_test.go:154: merged {map[hugepages-2Mi:{{2147483648 0} {<nil>} 2Gi BinarySI}] map[hugepages-2Mi:{{1073741824 0} {<nil>} 1Gi BinarySI}] []} accepted; the API server rejects it: want error containing "hugepages-2Mi request 1Gi must equal limit 2Gi"
+    --- FAIL: TestD7NonOvercommittableMergeRules/gpu_request_with_no_limit_at_all (0.00s)
+        verify_delta_r4_6177_test.go:154: merged {map[] map[nvidia.com/gpu:{{1 0} {<nil>} 1 DecimalSI}] []} accepted; the API server rejects it: want error containing "nvidia.com/gpu request 1 has no limit"
+    --- FAIL: TestD7NonOvercommittableMergeRules/gpu_request_above_its_limit_is_reported_as_unequal (0.00s)
+        verify_delta_r4_6177_test.go:157: error "nvidia.com/gpu request 2 exceeds limit 1" does not name the conflict; want it to contain "nvidia.com/gpu request 2 must equal limit 1"
+    --- FAIL: TestD7NonOvercommittableMergeRules/cpu_conflict_and_gpu_conflict_are_named_together (0.00s)
+        verify_delta_r4_6177_test.go:157: error "cpu request 1 exceeds limit 500m" does not name the conflict; want it to contain "cpu request 1 exceeds limit 500m; nvidia.com/gpu request 1 has no limit"
+--- FAIL: TestD8SyncRefusesNonOvercommittableConflict (0.00s)
+    verify_delta_r4_6177_test.go:215: workload resources: got gpu request=1 limit=2, want the untouched 1/1 — the invalid merge must not be patched
+--- FAIL: TestE1ClassClaimAdditionMustNotWedgeExistingWorkload (0.00s)
+    verify_delta_r4_6177_test.go:310: F11 repro: after the class edit, the workload's container references claim "shm" which the workload's pod-level spec.resourceClaims does not declare ([]) — every replacement Pod is rejected by the API server (validateResourceClaimNames) and the rollout stalls with no event on the CacheRuntime
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.229s
+FAIL
