@@ -99,7 +99,7 @@ Additive harness change: `TestVerifyPR6177_F9_ExtendedRequestWithoutLimit_SyncMu
 pins the second sub-rule (requests-only `nvidia.com/gpu` merged onto a cpu-only template must
 be refused with a Warning event naming the key). RED on base and previous head, GREEN at head.
 
-Round-4 results (`results/round4/reverify-{base-e0fc4c18,prevhead-497bbeaf,head-3adc547d}-{unit,integration}.out`):
+Round-4 results (`results/round4/reverify-{base-e0fc4c18,prevhead-497bbeaf,head-3adc547d}-{unit,integration}.txt`):
 
 | ref | P0 | G1 | G2 | G3 | F6 | F9 (2 tests) |
 |-----|----|----|----|----|----|----|
