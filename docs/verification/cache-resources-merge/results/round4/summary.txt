@@ -1,0 +1,25 @@
+== re-verify.sh at head 3adc547d (2026-10-15, round 4)
+B1..B5, D1..D6, F9 (new D7/D8), E2 all FIXED.
+F11 (new E1) STILL-BROKEN: pre-existing class-claims half-propagation, non-blocking (see README round 4).
+
+== polarity / harness-bites: D7/D8 at previous head 497bbeaf
+D7 fail (4 subtests), D8 fail (rules absent pre-fix); green at 3adc547d. E1 red on both
+heads; base probe: paired shape red on base e0fc4c18 (pre-existing), claim-only shape green
+on base (PR-broadened subcase). E2 green on base, 497bbeaf, 3adc547d (refutation).
+
+== full engine suite (harness grafted)
+497bbeaf: 298 Passed | 12 Failed | 16 Skipped
+3adc547d: 312 Passed | 12 Failed | 16 Skipped
+failing spec set byte-identical between the two heads (pre-existing ufs_test.go /
+sync_test.go ReportSummary failures, present at base) — no revision regression.
+go-test level adds exactly one failure at head: TestE1 (the F11 repro, by design).
+
+== upstream rule check (module cache k8s.io/kubernetes@v1.29.15)
+isOvercommitAllowed mirror == IsNativeResource && !IsHugePageResourceName
+(pkg/apis/core/v1/helper/helpers.go:50-66,127-131);
+switch == ValidateResourceRequirements (pkg/apis/core/validation/validation.go:6568-6578).
+Claims rule: validateResourceClaimNames "must be one of the names in pod.spec.resourceClaims"
+(validation.go:6621).
+
+== compatibility
+git merge-tree --write-tree 3adc547d e4a10bf4 (current master): clean.
