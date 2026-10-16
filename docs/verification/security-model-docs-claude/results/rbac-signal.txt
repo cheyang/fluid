@@ -1,0 +1,283 @@
+# helmDriver=configmap: RBAC signal extracted from full render (2904+ lines)
+
+[
+ {
+  "kind": "Role",
+  "name": "fluid-webhook",
+  "secretRules": [
+   {
+    "apiGroups": [
+     ""
+    ],
+    "resources": [
+     "secrets"
+    ],
+    "verbs": [
+     "get",
+     "update"
+    ],
+    "resourceNames": [
+     "fluid-webhook-certs"
+    ]
+   },
+   {
+    "apiGroups": [
+     ""
+    ],
+    "resources": [
+     "secrets"
+    ],
+    "verbs": [
+     "create"
+    ]
+   }
+  ],
+  "wildcardRules": []
+ },
+ {
+  "kind": "MutatingWebhookConfiguration",
+  "name": "fluid-pod-admission-webhook",
+  "webhooks": [
+   {
+    "name": "sidecar.fuse.fluid.io",
+    "failurePolicy": "Ignore",
+    "objectSelector": {
+     "matchLabels": {
+      "serverless.fluid.io/inject": "true"
+     }
+    }
+   },
+   {
+    "name": "fuse.serverful.fluid.io",
+    "failurePolicy": "Ignore",
+    "objectSelector": {
+     "matchLabels": {
+      "fuse.serverful.fluid.io/inject": "true"
+     }
+    }
+   }
+  ]
+ }
+]
+# helmDriver=secret: RBAC signal extracted from full render (2904+ lines)
+
+[
+ {
+  "kind": "ClusterRole",
+  "name": "alluxioruntime-controller",
+  "secretRules": [
+   {
+    "apiGroups": [
+     ""
+    ],
+    "resources": [
+     "secrets"
+    ],
+    "verbs": [
+     "get",
+     "list",
+     "watch",
+     "create",
+     "update",
+     "delete"
+    ]
+   }
+  ],
+  "wildcardRules": []
+ },
+ {
+  "kind": "ClusterRole",
+  "name": "dataset-controller",
+  "secretRules": [
+   {
+    "apiGroups": [
+     ""
+    ],
+    "resources": [
+     "secrets"
+    ],
+    "verbs": [
+     "get",
+     "list",
+     "watch",
+     "create",
+     "update",
+     "delete"
+    ]
+   }
+  ],
+  "wildcardRules": []
+ },
+ {
+  "kind": "ClusterRole",
+  "name": "efcruntime-controller",
+  "secretRules": [
+   {
+    "apiGroups": [
+     ""
+    ],
+    "resources": [
+     "secrets"
+    ],
+    "verbs": [
+     "get",
+     "list",
+     "watch",
+     "create",
+     "update",
+     "delete"
+    ]
+   }
+  ],
+  "wildcardRules": []
+ },
+ {
+  "kind": "ClusterRole",
+  "name": "jindoruntime-controller",
+  "secretRules": [
+   {
+    "apiGroups": [
+     ""
+    ],
+    "resources": [
+     "secrets"
+    ],
+    "verbs": [
+     "get",
+     "list",
+     "watch",
+     "create",
+     "update",
+     "delete"
+    ]
+   }
+  ],
+  "wildcardRules": []
+ },
+ {
+  "kind": "ClusterRole",
+  "name": "juicefsruntime-controller",
+  "secretRules": [
+   {
+    "apiGroups": [
+     ""
+    ],
+    "resources": [
+     "secrets"
+    ],
+    "verbs": [
+     "get",
+     "list",
+     "watch",
+     "create",
+     "update",
+     "delete"
+    ]
+   }
+  ],
+  "wildcardRules": []
+ },
+ {
+  "kind": "ClusterRole",
+  "name": "thinruntime-controller",
+  "secretRules": [
+   {
+    "apiGroups": [
+     ""
+    ],
+    "resources": [
+     "secrets"
+    ],
+    "verbs": [
+     "get",
+     "list",
+     "watch",
+     "create",
+     "update",
+     "delete"
+    ]
+   }
+  ],
+  "wildcardRules": []
+ },
+ {
+  "kind": "ClusterRole",
+  "name": "vineyardruntime-controller",
+  "secretRules": [
+   {
+    "apiGroups": [
+     ""
+    ],
+    "resources": [
+     "secrets"
+    ],
+    "verbs": [
+     "get",
+     "list",
+     "watch",
+     "create",
+     "update",
+     "delete"
+    ]
+   }
+  ],
+  "wildcardRules": []
+ },
+ {
+  "kind": "Role",
+  "name": "fluid-webhook",
+  "secretRules": [
+   {
+    "apiGroups": [
+     ""
+    ],
+    "resources": [
+     "secrets"
+    ],
+    "verbs": [
+     "get",
+     "update"
+    ],
+    "resourceNames": [
+     "fluid-webhook-certs"
+    ]
+   },
+   {
+    "apiGroups": [
+     ""
+    ],
+    "resources": [
+     "secrets"
+    ],
+    "verbs": [
+     "create"
+    ]
+   }
+  ],
+  "wildcardRules": []
+ },
+ {
+  "kind": "MutatingWebhookConfiguration",
+  "name": "fluid-pod-admission-webhook",
+  "webhooks": [
+   {
+    "name": "sidecar.fuse.fluid.io",
+    "failurePolicy": "Ignore",
+    "objectSelector": {
+     "matchLabels": {
+      "serverless.fluid.io/inject": "true"
+     }
+    }
+   },
+   {
+    "name": "fuse.serverful.fluid.io",
+    "failurePolicy": "Ignore",
+    "objectSelector": {
+     "matchLabels": {
+      "fuse.serverful.fluid.io/inject": "true"
+     }
+    }
+   }
+  ]
+ }
+]
