@@ -32,11 +32,26 @@ package transformer
 // F2: group-less apiVersion with the kind missing -> kind AND group recovered.
 // F3: core k8s type with a complete group-less TypeMeta (apiVersion "v1") ->
 //     output must be unchanged (recovery attempt fails, reference not corrupted).
+//
+// Round 2 (head 0daf2ba): the recovery-failure error log is now gated on the
+// emitted reference being actually incomplete (kind or version empty), so a
+// complete core-group TypeMeta no longer logs a misleading error.
+//
+// F2-log: complete core-group TypeMeta (apiVersion "v1") -> NO recovery-failure
+//     error log. Red on the previous head 0fa32294 (which logged it), green on
+//     this head and on the base (which never entered the branch).
+// F2-log-keep: genuinely incomplete TypeMeta (kind missing) -> the error log
+//     MUST still fire. Green on base, previous head and head.
 
 import (
+	"bytes"
+	"strings"
 	"testing"
 
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
+	"github.com/go-logr/zapr"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -84,5 +99,51 @@ func TestOwnerRefGroupRecoveryCoreTypeCompleteTypeMetaUnchanged(t *testing.T) {
 	}
 	if ref.Kind != "ConfigMap" {
 		t.Errorf("F3: Kind = %q, want %q", ref.Kind, "ConfigMap")
+	}
+}
+
+// withOwnerRefLogCapture swaps the package-level logger for one that writes
+// JSON entries into a buffer, runs fn, restores the logger and returns what
+// was logged. Tests in this package run sequentially (no t.Parallel), so the
+// swap cannot race another test.
+func withOwnerRefLogCapture(t *testing.T, fn func()) string {
+	t.Helper()
+	var buf bytes.Buffer
+	encoder := zapcore.NewJSONEncoder(zap.NewProductionEncoderConfig())
+	core := zapcore.NewCore(encoder, zapcore.AddSync(&buf), zapcore.DebugLevel)
+	saved := log
+	log = zapr.NewLogger(zap.New(core)).WithName("utils.transformer")
+	defer func() { log = saved }()
+	fn()
+	return buf.String()
+}
+
+const recoveryFailureMsg = "failed to recover the GroupVersionKind"
+
+func TestOwnerRefGroupRecoveryCoreTypeCompleteTypeMetaNoRecoveryErrorLog(t *testing.T) {
+	// F2 (round 2): a complete TypeMeta of a type outside the fluid scheme (an
+	// empty group is legitimate for core types) is emitted as-is, so the
+	// recovery failure must not be reported as an error for it.
+	out := withOwnerRefLogCapture(t, func() {
+		GenerateOwnerReferenceFromObject(&corev1.ConfigMap{
+			TypeMeta:   metav1.TypeMeta{Kind: "ConfigMap", APIVersion: "v1"},
+			ObjectMeta: metav1.ObjectMeta{Name: "harness-core-complete", Namespace: "default", UID: "uid-h4"},
+		})
+	})
+	if strings.Contains(out, recoveryFailureMsg) {
+		t.Errorf("F2: misleading recovery-failure error logged for a complete core-group TypeMeta:\n%s", out)
+	}
+}
+
+func TestOwnerRefGroupRecoveryIncompleteTypeMetaStillLogs(t *testing.T) {
+	// F2-keep: when the emitted reference is actually incomplete (kind empty),
+	// the recovery failure must still be reported through the log.
+	out := withOwnerRefLogCapture(t, func() {
+		GenerateOwnerReferenceFromObject(&corev1.ConfigMap{
+			ObjectMeta: metav1.ObjectMeta{Name: "harness-core-empty", Namespace: "default", UID: "uid-h5"},
+		})
+	})
+	if !strings.Contains(out, recoveryFailureMsg) {
+		t.Errorf("F2-keep: expected the recovery-failure error for an incomplete TypeMeta, logged:\n%s", out)
 	}
 }

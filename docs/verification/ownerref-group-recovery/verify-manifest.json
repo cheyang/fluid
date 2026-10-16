@@ -16,7 +16,9 @@
     "layer": "unit",
     "verdict": "confirmed",
     "evidence": "results/base-run.txt: on base e4a10bf, TestOwnerRefGroupRecoveryGrouplessAPIVersionWithKind fails with APIVersion = \"v1alpha1\", want \"data.fluid.io/v1alpha1\" (same for the consumer path, results/base-consumer-run.txt)",
-    "match": ["TestOwnerRefGroupRecoveryGrouplessAPIVersionWithKind"]
+    "match": [
+      "TestOwnerRefGroupRecoveryGrouplessAPIVersionWithKind"
+    ]
   },
   "layers": {
     "unit": {
@@ -29,10 +31,56 @@
     }
   },
   "findings": [
-    { "id": "P0", "polarity": "contract", "layer": "unit", "match": ["TestOwnerRefGroupRecoveryGrouplessAPIVersionWithKind"] },
-    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestOwnerRefGroupRecoveryGrouplessAPIVersionWithoutKind"] },
-    { "id": "F3", "polarity": "contract", "layer": "unit", "match": ["TestOwnerRefGroupRecoveryCoreTypeCompleteTypeMetaUnchanged"] },
-    { "id": "F4", "polarity": "contract", "layer": "integration", "match": ["TestDatasetControllerOwnerReferenceGrouplessAPIVersion"] }
+    {
+      "id": "P0",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestOwnerRefGroupRecoveryGrouplessAPIVersionWithKind"
+      ]
+    },
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestOwnerRefGroupRecoveryGrouplessAPIVersionWithoutKind"
+      ]
+    },
+    {
+      "id": "F3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestOwnerRefGroupRecoveryCoreTypeCompleteTypeMetaUnchanged"
+      ]
+    },
+    {
+      "id": "F4",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestDatasetControllerOwnerReferenceGrouplessAPIVersion"
+      ]
+    },
+    {
+      "id": "F2-log-fix",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestOwnerRefGroupRecoveryCoreTypeCompleteTypeMetaNoRecoveryErrorLog"
+      ],
+      "note": "round 2: recovery-failure error must NOT be logged for a complete core-group TypeMeta (apiVersion v1). Red on previous head 0fa32294, green on head 0daf2ba and base e4a10bf."
+    },
+    {
+      "id": "F2-log-keep",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestOwnerRefGroupRecoveryIncompleteTypeMetaStillLogs"
+      ],
+      "note": "round 2: the recovery-failure error MUST still fire when the emitted reference is actually incomplete (kind empty). Green on base, previous head and head."
+    }
   ],
   "liveNote": "L3 not run per debate policy (unit + integration only). If run later with a real cluster: create a Dataset whose dependent workload carries an ownerReference written with apiVersion \"v1alpha1\", upgrade the controller, and confirm the GC and the dataset controller's owner-based watch (resolveControllerRef in pkg/utils/kubeclient/metadata.go rejects controllerRefGV.Group != group) resolve the owner after the fix."
 }
