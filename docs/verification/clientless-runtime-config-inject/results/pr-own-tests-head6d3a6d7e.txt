@@ -1,0 +1,32 @@
+# go test -count=1 ./pkg/webhook/... ./pkg/common/... ./pkg/utils/... && go test -gcflags=all=-l ./pkg/ddc/cache/... @ head 6d3a6d7e
+# (PR-author-prescribed packages plus pkg/utils sweep)
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook	0.713s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/handler	0.047s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/handler/mutating	0.073s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins	0.054s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/datasetusageinjector	0.037s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/fileprefetcher	0.029s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/fusesidecar	0.026s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/mountpropagationinjector	0.029s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/nodeaffinitywithcache	0.024s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/prefernodeswithoutcache	0.025s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/requirenodewithfuse	0.031s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector	0.031s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/utils	0.040s
+ok  	github.com/fluid-cloudnative/fluid/pkg/common	0.023s
+ok  	github.com/fluid-cloudnative/fluid/pkg/common/features	0.009s
+--- FAIL: TestCheckMountPointBroken (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	112.089s
+--- FAIL: TestHelm (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/helm	0.024s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/webhook/writer	1.125s
+FAIL
+
+# pre-existing environment failures (fail identically on previous head c5ea086b, unrelated to the PR):
+FAIL pkg/utils TestCheckMountPointBroken (needs real mount points) — also fails on c5ea086b
+FAIL pkg/utils/helm TestHelm (env helm) — also fails on c5ea086b
+
+ok  github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component
+ok  github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine

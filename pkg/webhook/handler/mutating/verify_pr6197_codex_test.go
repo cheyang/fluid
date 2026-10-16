@@ -31,7 +31,6 @@ import (
 	"github.com/fluid-cloudnative/fluid/pkg/common"
 	"github.com/fluid-cloudnative/fluid/pkg/utils/fake"
 	"github.com/fluid-cloudnative/fluid/pkg/webhook/plugins"
-	webhookutils "github.com/fluid-cloudnative/fluid/pkg/webhook/utils"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	admissionv1 "k8s.io/api/admission/v1"
@@ -39,7 +38,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/kubernetes/scheme"
-	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 )
 
@@ -206,8 +204,8 @@ var _ = Describe("PR6197 verification: clientless runtime config injection", fun
 		})
 	})
 
-	Context("F1: helm upgrade keeps the legacy plugins profile (no clientless section)", func() {
-		It("[canary] the labeled pod is admitted silently unmutated although everything else is in place", func() {
+	Context("F1 (characterization): handler behavior when the loaded plugins profile has no clientless section", func() {
+		It("[characterization] the labeled pod is admitted silently unmutated although everything else is in place", func() {
 			currentProfile = verifyLegacyProfile
 
 			dataset, cacheRuntime := boundCacheDataset("demo", "big-data")
@@ -220,15 +218,17 @@ var _ = Describe("PR6197 verification: clientless runtime config injection", fun
 
 			resp := handler.Handle(context.TODO(), clientlessAdmissionRequest("big-data", "demo"))
 			Expect(resp.Allowed).To(BeTrue())
-			// The webhook matched the pod, ran zero plugins, and admitted it unchanged:
-			// on an upgraded cluster the feature silently does nothing.
+			// The webhook matched the pod, ran zero plugins, and admitted it unchanged.
+			// This is the handler-side consequence that F1 described; the fix lives in the
+			// chart (plugins-profile.yaml merges the clientless group into a preserved
+			// profile on upgrade), verified by the chartmerge package.
 			Expect(patchTouchesVolumes(resp)).To(BeFalse(),
 				"legacy profile has no clientless plugins, so nothing can be injected")
 		})
 	})
 
-	Context("F3: the runtime config ConfigMap is missing (e.g. not synced yet, or old controller)", func() {
-		It("[canary] the pod is admitted without injection (fail-open)...", func() {
+	Context("F3: the runtime config is not available at admission time", func() {
+		It("[contract] a missing runtime config ConfigMap rejects the pod (no more fail-open)", func() {
 			dataset, cacheRuntime := boundCacheDataset("demo", "big-data")
 			// note: no ConfigMap
 			fakeClient := fake.NewFakeClientWithScheme(s, dataset, cacheRuntime)
@@ -238,12 +238,28 @@ var _ = Describe("PR6197 verification: clientless runtime config injection", fun
 			handler.Setup(fakeClient, fakeClient, decoder)
 
 			resp := handler.Handle(context.TODO(), clientlessAdmissionRequest("big-data", "demo"))
-			Expect(resp.Allowed).To(BeTrue())
-			Expect(patchTouchesVolumes(resp)).To(BeFalse(),
-				"plugin error is swallowed by Handle, pod admitted unmutated")
+			Expect(resp.Allowed).To(BeFalse(),
+				"missing ConfigMap must reject the pod after the fix")
+			Expect(resp.Result.Code).To(Equal(int32(403)))
+			Expect(resp.Result.Message).To(ContainSubstring(common.GetCacheRuntimeConfigConfigMapName("demo")))
 		})
 
-		It("[canary] ...while a missing dataset fails closed and rejects the pod", func() {
+		It("[contract] a ConfigMap without runtime.sh rejects the pod too (old cacheruntime-controller)", func() {
+			dataset, cacheRuntime := boundCacheDataset("demo", "big-data")
+			cm := runtimeConfigConfigMap("demo", "big-data")
+			delete(cm.Data, common.RuntimeConfigShellFileName)
+			fakeClient := fake.NewFakeClientWithScheme(s, dataset, cacheRuntime, cm)
+			Expect(plugins.RegisterMutatingHandlers(fakeClient)).To(Succeed())
+
+			handler := &FluidMutatingHandler{}
+			handler.Setup(fakeClient, fakeClient, decoder)
+
+			resp := handler.Handle(context.TODO(), clientlessAdmissionRequest("big-data", "demo"))
+			Expect(resp.Allowed).To(BeFalse())
+			Expect(resp.Result.Message).To(ContainSubstring(common.RuntimeConfigShellFileName))
+		})
+
+		It("[contract] a missing dataset still rejects the pod", func() {
 			// no dataset object at all
 			fakeClient := fake.NewFakeClientWithScheme(s)
 			Expect(plugins.RegisterMutatingHandlers(fakeClient)).To(Succeed())
@@ -253,32 +269,151 @@ var _ = Describe("PR6197 verification: clientless runtime config injection", fun
 
 			resp := handler.Handle(context.TODO(), clientlessAdmissionRequest("big-data", "demo"))
 			Expect(resp.Allowed).To(BeFalse(),
-				"CollectRuntimeInfosFromAnnotations error becomes a 500 and, with failurePolicy=Fail, rejects the pod")
+				"CollectRuntimeInfosFromAnnotations error rejects the pod")
+			Expect(resp.Result.Message).To(ContainSubstring("demo"))
 		})
 	})
 
 	Context("F2: dataset names of 43-63 characters are accepted by the annotation but cannot be injected", func() {
-		It("[canary] a 50-char dataset passes collection yet the pod is admitted unmutated", func() {
+		It("[contract] a 50-char dataset is now rejected at admission instead of silently skipped", func() {
 			longName := strings.Repeat("a", 50)
 			dataset, cacheRuntime := boundCacheDataset(longName, "big-data")
 			cm := runtimeConfigConfigMap(longName, "big-data")
 			fakeClient := fake.NewFakeClientWithScheme(s, dataset, cacheRuntime, cm)
 			Expect(plugins.RegisterMutatingHandlers(fakeClient)).To(Succeed())
 
-			// the annotation collector accepts the name: it is a valid DNS-1035 label
-			runtimeInfos, err := webhookutils.CollectRuntimeInfosFromAnnotations(fakeClient,
-				map[string]string{common.LabelAnnotationDatasets: longName}, "big-data",
-				ctrl.Log.WithName("verify"), false)
-			Expect(err).NotTo(HaveOccurred())
-			Expect(runtimeInfos).To(HaveLen(1))
-
-			// but the plugin rejects it (volume name would exceed 63 chars) and Handle
-			// swallows that error, so the pod is admitted with no injection and no error.
 			handler := &FluidMutatingHandler{}
 			handler.Setup(fakeClient, fakeClient, decoder)
 			resp := handler.Handle(context.TODO(), clientlessAdmissionRequest("big-data", longName))
+			Expect(resp.Allowed).To(BeFalse(),
+				"the collector must reject the over-long name instead of letting the plugin fail")
+			Expect(resp.Result.Code).To(Equal(int32(403)))
+		})
+
+		It("[characterization] the rejection message names the dataset but not the name-length reason (F5)", func() {
+			longName := strings.Repeat("a", 50)
+			dataset, cacheRuntime := boundCacheDataset(longName, "big-data")
+			cm := runtimeConfigConfigMap(longName, "big-data")
+			fakeClient := fake.NewFakeClientWithScheme(s, dataset, cacheRuntime, cm)
+			Expect(plugins.RegisterMutatingHandlers(fakeClient)).To(Succeed())
+
+			handler := &FluidMutatingHandler{}
+			handler.Setup(fakeClient, fakeClient, decoder)
+			resp := handler.Handle(context.TODO(), clientlessAdmissionRequest("big-data", longName))
+			Expect(resp.Allowed).To(BeFalse())
+			Expect(resp.Result.Message).To(ContainSubstring(longName))
+			// F5 (minor): the "too long" reason only shows up in the webhook log; the API-facing
+			// message is the generic "failed to get the following datasets", indistinguishable
+			// from a not-found dataset, although the docs say the reason is in the error.
+			Expect(resp.Result.Message).NotTo(ContainSubstring("too long"))
+		})
+	})
+
+	Context("PVC-sourced datasets of a clientless-labeled pod (delta: mergeClientlessRuntimeInfos)", func() {
+		It("[contract] a cache-runtime dataset resolved from a mounted PVC is injected under its dataset name", func() {
+			// Pod mounts PVC "pvcsrc-demo" which is managed by dataset "pvcdemo"; no annotation.
+			dataset, cacheRuntime := boundCacheDataset("pvcdemo", "big-data")
+			cm := runtimeConfigConfigMap("pvcdemo", "big-data")
+			pvc := &corev1.PersistentVolumeClaim{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:      "pvcsrc-demo",
+					Namespace: "big-data",
+					Labels:    map[string]string{common.LabelAnnotationManagedBy: "pvcdemo"},
+				},
+			}
+			fakeClient := fake.NewFakeClientWithScheme(s, dataset, cacheRuntime, cm, pvc)
+			Expect(plugins.RegisterMutatingHandlers(fakeClient)).To(Succeed())
+
+			handler := &FluidMutatingHandler{}
+			handler.Setup(fakeClient, fakeClient, decoder)
+
+			pod := &corev1.Pod{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:      "app-pvc",
+					Namespace: "big-data",
+					Labels:    map[string]string{common.LabelAnnotationInject: common.True},
+				},
+				Spec: corev1.PodSpec{
+					Volumes: []corev1.Volume{{
+						Name: "data",
+						VolumeSource: corev1.VolumeSource{
+							PersistentVolumeClaim: &corev1.PersistentVolumeClaimVolumeSource{ClaimName: "pvcsrc-demo"},
+						},
+					}},
+					Containers: []corev1.Container{{Name: "app", Image: "app:v1"}},
+				},
+			}
+			raw, err := jsonMarshal(pod)
+			Expect(err).NotTo(HaveOccurred())
+			resp := handler.Handle(context.TODO(), admission.Request{
+				AdmissionRequest: admissionv1.AdmissionRequest{
+					Operation: admissionv1.Create,
+					Namespace: "big-data",
+					Object:    runtime.RawExtension{Raw: raw},
+				},
+			})
 			Expect(resp.Allowed).To(BeTrue())
-			Expect(patchTouchesVolumes(resp)).To(BeFalse())
+			Expect(patchTouchesVolumes(resp)).To(BeTrue(),
+				"the dataset behind the PVC must get its runtime config injected under the dataset name")
+		})
+
+		It("[contract] a mounted PVC of a fuse runtime is left alone (admitted without injection)", func() {
+			// Pod mounts a PVC of an Alluxio dataset: no cache runtime config exists for it,
+			// so the clientless plugins must see no runtime info rather than erroring on the
+			// PVC name.
+			alluxioDataset := &datav1alpha1.Dataset{
+				ObjectMeta: metav1.ObjectMeta{Name: "pvcalx", Namespace: "big-data"},
+				Status: datav1alpha1.DatasetStatus{
+					Phase: datav1alpha1.BoundDatasetPhase,
+					Runtimes: []datav1alpha1.Runtime{
+						{Name: "pvcalx", Namespace: "big-data", Type: common.AlluxioRuntime},
+					},
+				},
+			}
+			alluxioRuntime := &datav1alpha1.AlluxioRuntime{
+				ObjectMeta: metav1.ObjectMeta{Name: "pvcalx", Namespace: "big-data"},
+			}
+			pvc := &corev1.PersistentVolumeClaim{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:      "pvcsrc-alx",
+					Namespace: "big-data",
+					Labels:    map[string]string{common.LabelAnnotationManagedBy: "pvcalx"},
+				},
+			}
+			fakeClient := fake.NewFakeClientWithScheme(s, alluxioDataset, alluxioRuntime, pvc)
+			Expect(plugins.RegisterMutatingHandlers(fakeClient)).To(Succeed())
+
+			handler := &FluidMutatingHandler{}
+			handler.Setup(fakeClient, fakeClient, decoder)
+
+			pod := &corev1.Pod{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:      "app-pvc-alx",
+					Namespace: "big-data",
+					Labels:    map[string]string{common.LabelAnnotationInject: common.True},
+				},
+				Spec: corev1.PodSpec{
+					Volumes: []corev1.Volume{{
+						Name: "data",
+						VolumeSource: corev1.VolumeSource{
+							PersistentVolumeClaim: &corev1.PersistentVolumeClaimVolumeSource{ClaimName: "pvcsrc-alx"},
+						},
+					}},
+					Containers: []corev1.Container{{Name: "app", Image: "app:v1"}},
+				},
+			}
+			raw, err := jsonMarshal(pod)
+			Expect(err).NotTo(HaveOccurred())
+			resp := handler.Handle(context.TODO(), admission.Request{
+				AdmissionRequest: admissionv1.AdmissionRequest{
+					Operation: admissionv1.Create,
+					Namespace: "big-data",
+					Object:    runtime.RawExtension{Raw: raw},
+				},
+			})
+			Expect(resp.Allowed).To(BeTrue())
+			Expect(patchTouchesVolumes(resp)).To(BeFalse(),
+				"a fuse-runtime PVC has no runtime config to inject; the pod must pass through untouched")
 		})
 	})
 })

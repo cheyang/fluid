@@ -1,0 +1,38 @@
+2026/10/17 06:30:15 WARNING: env variable FILE_PREFETCHER_IMAGE is not set, file prefetcher image is required in Pod's annotation
+=== RUN   TestPluginsProfileMerge_UpgradeLegacyProfile
+--- PASS: TestPluginsProfileMerge_UpgradeLegacyProfile (0.00s)
+=== RUN   TestPluginsProfileMerge_PreservesUserCustomizations
+--- PASS: TestPluginsProfileMerge_PreservesUserCustomizations (0.00s)
+=== RUN   TestPluginsProfileMerge_KeepsProfileThatAlreadyHasClientless
+--- PASS: TestPluginsProfileMerge_KeepsProfileThatAlreadyHasClientless (0.00s)
+=== RUN   TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable
+=== RUN   TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable/invalid_yaml
+=== RUN   TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable/scalar_plugins
+=== RUN   TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable/no_plugins_key
+=== RUN   TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable/scalar_document
+--- PASS: TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable (0.00s)
+    --- PASS: TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable/invalid_yaml (0.00s)
+    --- PASS: TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable/scalar_plugins (0.00s)
+    --- PASS: TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable/no_plugins_key (0.00s)
+    --- PASS: TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable/scalar_document (0.00s)
+=== RUN   TestPluginsProfileMerge_SecondUpgradeIsStable
+--- PASS: TestPluginsProfileMerge_SecondUpgradeIsStable (0.00s)
+=== RUN   TestPluginsProfileMerge_FreshInstallAndForceReplace
+--- PASS: TestPluginsProfileMerge_FreshInstallAndForceReplace (0.00s)
+=== RUN   TestWebhookChecksumAnnotation
+--- PASS: TestWebhookChecksumAnnotation (0.00s)
+=== RUN   TestHelmTemplateFreshInstall
+--- PASS: TestHelmTemplateFreshInstall (0.10s)
+=== RUN   TestLegacyProfileFixtureMatchesBase
+--- PASS: TestLegacyProfileFixtureMatchesBase (0.02s)
+=== RUN   TestHelmUpgradeMergesClientlessProfileAgainstRealApiServer
+    envtest_merge_test.go:183: plain template did not resolve lookup (marker missing); trying upgrade --dry-run=server
+--- PASS: TestHelmUpgradeMergesClientlessProfileAgainstRealApiServer (2.34s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/docs/verification/clientless-runtime-config-inject/chartmerge	2.482s
+=== RUN   TestVerifyPR6197ClientlessPodNotWatched
+--- PASS: TestVerifyPR6197ClientlessPodNotWatched (0.00s)
+=== RUN   TestVerifyPR6197FuseSidecarPodStillWatched
+--- PASS: TestVerifyPR6197FuseSidecarPodStillWatched (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ctrl/watch	0.013s

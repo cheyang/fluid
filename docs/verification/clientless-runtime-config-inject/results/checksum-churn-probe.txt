@@ -1,0 +1,13 @@
+F6 probe (one-off, not manifest-bound): render webhook.yaml's checksum expression
+`{{ include ".../plugins-profile.yaml" . | sha256sum }}` the way the chart does, against
+the upgrade-time lookup state, with the harness's helm-equivalent renderer.
+
+  checksum at upgrade N   (lookup returns the legacy profile -> merge branch renders): fcc60620cfa6a65a9aaf7f585cad1c49944ede12e80abe095ce5f07b2e16ce42
+  checksum at upgrade N+1 (lookup returns the stored merged profile -> verbatim branch): 28d437d9a9033c1da8999e9b2c9e0a68f97f19518aaeee6fc96c4b23ffd6d93f
+  equal: false
+
+The stored profile carries the block scalar's trailing newline; indent then adds a
+whitespace-only trailing line in the verbatim branch, so the manifest bytes (and the
+checksum annotation) change once more on the second upgrade even though the parsed profile
+is identical (TestPluginsProfileMerge_SecondUpgradeIsStable passes). Effect: one spurious
+webhook Deployment rollout on the second upgrade. From then on the checksum is stable.

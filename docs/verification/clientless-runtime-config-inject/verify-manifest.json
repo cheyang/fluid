@@ -3,7 +3,8 @@
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6197",
   "harnessPaths": [
     "docs/verification/clientless-runtime-config-inject",
-    "pkg/webhook/handler/mutating/verify_pr6197_codex_test.go"
+    "pkg/webhook/handler/mutating/verify_pr6197_codex_test.go",
+    "pkg/ctrl/watch/verify_pr6197_watch_test.go"
   ],
   "premise": {
     "id": "P0",
@@ -15,23 +16,79 @@
     "layer": "unit",
     "verdict": "confirmed",
     "evidence": "merge-base e0fc4c1 already contains generateRuntimeSh (pkg/ddc/cache/engine/cm.go) i.e. stage 1 exists; base chart has 0 occurrences of 'clientless' in webhookconfiguration.yaml and 0 of 'cacheruntimes' in the webhook ClusterRole (results/helm-template-checks.txt); base.GetRuntimeInfo reads CacheRuntime through the webhook's cached client (pkg/ddc/base/runtime.go:633, handler registered with mgr.GetClient() in pkg/webhook/handler/register.go:52)",
-    "match": ["helm-template-checks.txt"]
+    "match": [
+      "helm-template-checks.txt"
+    ]
   },
   "layers": {
     "unit": {
-      "kind": "gotest",
-      "cmd": "go test -count=1 -gcflags=all=-l -v ./pkg/webhook/handler/mutating/ -run TestMutating -args -ginkgo.v"
+      "kind": "ginkgo",
+      "cmd": "go test -count=1 -gcflags=all=-l ./pkg/webhook/handler/mutating/ -run TestMutating -args -ginkgo.v -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
     },
     "integration": {
-      "kind": "helm-template",
-      "cmd": "helm template fluid charts/fluid/fluid --show-only templates/role/webhook/rabc.yaml; helm template fluid charts/fluid/fluid | grep clientless"
+      "kind": "gotest",
+      "cmd": "go test -count=1 -json -run 'TestPluginsProfileMerge|TestWebhookChecksumAnnotation|TestLegacyProfileFixtureMatchesBase|TestHelmTemplateFreshInstall|TestHelmUpgradeMerges|TestVerifyPR6197' ./docs/verification/clientless-runtime-config-inject/chartmerge/ ./pkg/ctrl/watch/"
     }
   },
   "findings": [
-    { "id": "F1", "polarity": "canary", "layer": "unit", "match": ["legacy plugins profile has no clientless"] },
-    { "id": "F2", "polarity": "canary", "layer": "unit", "match": ["43-63 characters are accepted by the annotation"] },
-    { "id": "F3", "polarity": "canary", "layer": "unit", "match": ["admitted without injection (fail-open)", "missing dataset fails closed"] },
-    { "id": "P0-ctrl", "polarity": "contract", "layer": "unit", "match": ["positive control: fresh install profile"] }
+    {
+      "id": "P0-ctrl",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "injects the runtime config volume, mount and env into the app pod"
+      ]
+    },
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestPluginsProfileMerge_UpgradeLegacyProfile",
+        "TestPluginsProfileMerge_PreservesUserCustomizations",
+        "TestPluginsProfileMerge_KeepsProfileThatAlreadyHasClientless",
+        "TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable",
+        "TestPluginsProfileMerge_SecondUpgradeIsStable",
+        "TestWebhookChecksumAnnotation",
+        "TestHelmUpgradeMergesClientlessProfileAgainstRealApiServer"
+      ]
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "a 50-char dataset is now rejected at admission instead of silently skipped"
+      ]
+    },
+    {
+      "id": "F3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "a missing runtime config ConfigMap rejects the pod",
+        "a ConfigMap without runtime.sh rejects the pod",
+        "a missing dataset still rejects the pod"
+      ]
+    },
+    {
+      "id": "F4",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestVerifyPR6197ClientlessPodNotWatched",
+        "TestVerifyPR6197FuseSidecarPodStillWatched"
+      ]
+    },
+    {
+      "id": "F5",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "the rejection message names the dataset but not the name-length reason"
+      ]
+    }
   ],
-  "liveNote": "No live layer in this round. If a cluster is available, the upgrade path (F1) can be shown end-to-end: helm install an old chart, helm upgrade to this PR's chart with default values, create a labeled+annotated pod against a Bound cache dataset and observe that nothing is injected while the webhook configuration does carry the clientless.fluid.io rule."
+  "liveNote": "No live layer in this round (debate setup skips KUBECONFIG). With a cluster, the upgrade path behind F1 can be shown end to end: helm install the base chart, helm upgrade to this PR's chart with default values, and confirm the webhook-plugins ConfigMap gains the clientless group and the webhook Deployment rolls (checksum/plugins-profile changes)."
 }

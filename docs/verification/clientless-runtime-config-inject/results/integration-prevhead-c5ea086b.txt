@@ -1,0 +1,89 @@
+2026/10/17 06:30:25 WARNING: env variable FILE_PREFETCHER_IMAGE is not set, file prefetcher image is required in Pod's annotation
+=== RUN   TestPluginsProfileMerge_UpgradeLegacyProfile
+    chart_merge_test.go:251: merged profile has no clientless group — F1 still present:
+        plugins:
+          serverful:
+            withDataset:
+            - FilePrefetcher
+            - RequireNodeWithFuse
+            - NodeAffinityWithCache
+            - MountPropagationInjector
+            - DatasetUsageInjector
+            withoutDataset:
+            - PreferNodesWithoutCache
+          serverless:
+            withDataset:
+            - FilePrefetcher
+            - FuseSidecar
+            - DatasetUsageInjector
+            withoutDataset: []
+        pluginConfig:
+        - name: NodeAffinityWithCache
+          args: |
+            preferred:
+              - name: fluid.io/node
+                weight: 100
+--- FAIL: TestPluginsProfileMerge_UpgradeLegacyProfile (0.00s)
+=== RUN   TestPluginsProfileMerge_PreservesUserCustomizations
+    chart_merge_test.go:291: clientless group not merged into a customized profile
+--- FAIL: TestPluginsProfileMerge_PreservesUserCustomizations (0.00s)
+=== RUN   TestPluginsProfileMerge_KeepsProfileThatAlreadyHasClientless
+--- PASS: TestPluginsProfileMerge_KeepsProfileThatAlreadyHasClientless (0.00s)
+=== RUN   TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable
+=== RUN   TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable/invalid_yaml
+=== RUN   TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable/scalar_plugins
+=== RUN   TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable/no_plugins_key
+=== RUN   TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable/scalar_document
+--- PASS: TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable (0.00s)
+    --- PASS: TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable/invalid_yaml (0.00s)
+    --- PASS: TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable/scalar_plugins (0.00s)
+    --- PASS: TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable/no_plugins_key (0.00s)
+    --- PASS: TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable/scalar_document (0.00s)
+=== RUN   TestPluginsProfileMerge_SecondUpgradeIsStable
+--- PASS: TestPluginsProfileMerge_SecondUpgradeIsStable (0.00s)
+=== RUN   TestPluginsProfileMerge_FreshInstallAndForceReplace
+--- PASS: TestPluginsProfileMerge_FreshInstallAndForceReplace (0.00s)
+=== RUN   TestWebhookChecksumAnnotation
+    chart_merge_test.go:364: webhook.yaml lost the checksum/plugins-profile annotation
+--- FAIL: TestWebhookChecksumAnnotation (0.00s)
+=== RUN   TestHelmTemplateFreshInstall
+    chart_merge_test.go:411: rendered webhook deployment has no checksum/plugins-profile annotation
+--- FAIL: TestHelmTemplateFreshInstall (0.03s)
+=== RUN   TestLegacyProfileFixtureMatchesBase
+--- PASS: TestLegacyProfileFixtureMatchesBase (0.00s)
+=== RUN   TestHelmUpgradeMergesClientlessProfileAgainstRealApiServer
+    envtest_merge_test.go:183: plain template did not resolve lookup (marker missing); trying upgrade --dry-run=server
+    envtest_merge_test.go:210: F1 STILL PRESENT against real helm+apiserver: merged profile lacks clientless:
+        plugins:
+          serverful:
+            withDataset:
+            - FilePrefetcher
+            - RequireNodeWithFuse
+            - NodeAffinityWithCache
+            - MountPropagationInjector
+            - DatasetUsageInjector
+            withoutDataset:
+            - PreferNodesWithoutCache
+            - LegacyOnlyMarker
+          serverless:
+            withDataset:
+            - FilePrefetcher
+            - FuseSidecar
+            - DatasetUsageInjector
+            withoutDataset: []
+        pluginConfig:
+        - name: NodeAffinityWithCache
+          args: |
+            preferred:
+              - name: fluid.io/node
+                weight: 100
+--- FAIL: TestHelmUpgradeMergesClientlessProfileAgainstRealApiServer (2.85s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/docs/verification/clientless-runtime-config-inject/chartmerge	2.908s
+=== RUN   TestVerifyPR6197ClientlessPodNotWatched
+--- PASS: TestVerifyPR6197ClientlessPodNotWatched (0.00s)
+=== RUN   TestVerifyPR6197FuseSidecarPodStillWatched
+--- PASS: TestVerifyPR6197FuseSidecarPodStillWatched (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ctrl/watch	0.012s
+FAIL

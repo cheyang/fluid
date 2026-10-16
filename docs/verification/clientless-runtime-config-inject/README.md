@@ -1,19 +1,27 @@
 # clientless-runtime-config-inject — bug verification
 
-Reproducible evidence for the findings raised while reviewing
-https://github.com/fluid-cloudnative/fluid/pull/6197 (reviewer B / Codex, first round).
+Reproducible evidence for the review of
+https://github.com/fluid-cloudnative/fluid/pull/6197 (reviewer B / Codex).
 
-Layers run against the **code under review** (`origin/pr/6197` = c5ea086bb1c9352fafd73daac27f2c2e2eafd4c5):
+Round 1 reviewed c5ea086b (findings F1–F3, premise P0 confirmed). Round 2 (this round)
+reviews the delta c5ea086b..6d3a6d7e ("fix(webhook): fail loudly when runtime config
+injection cannot happen") and re-verifies the whole PR at head 6d3a6d7e.
+
+Layers run against the **code under review** (`origin/pr/6197` = 6d3a6d7e7a038d72fc5480f44d8285993f82a551):
 
 | Layer | What it exercises | How to run |
 |-------|-------------------|------------|
-| 1. Unit | mutating handler routing + RuntimeConfigInjector behavior through `FluidMutatingHandler.Handle` with a fake client (pkg/webhook/handler/mutating/verify_pr6197_codex_test.go) | `go test -count=1 -gcflags=all=-l -v ./pkg/webhook/handler/mutating/ -run TestMutating -args -ginkgo.v` (gomonkey needs inlining off) |
-| 2. Integration (chart) | rendered webhook configuration, webhook ClusterRole, plugins profile | `helm template fluid charts/fluid/fluid` (see results/helm-template-checks.txt) |
-| 3. Live | not run in this round (debate setup skips KUBECONFIG layer) | — |
+| 1. Unit (ginkgo) | mutating handler routing + RuntimeConfigInjector behavior through `FluidMutatingHandler.Handle` with a fake client (`pkg/webhook/handler/mutating/verify_pr6197_codex_test.go`) | `go test -count=1 -gcflags=all=-l ./pkg/webhook/handler/mutating/ -run TestMutating -args -ginkgo.v` |
+| 2. Integration (chart, helm-equivalent render) | the real `templates/webhook/plugins-profile.yaml` text rendered with helm-identical function semantics and a stubbed `lookup`, asserting the upgrade merge (`chartmerge/chart_merge_test.go`) | `go test -count=1 ./docs/verification/clientless-runtime-config-inject/chartmerge/ -run 'TestPluginsProfileMerge|TestWebhookChecksumAnnotation|TestLegacyProfileFixtureMatchesBase|TestHelmTemplateFreshInstall'` |
+| 2b. Integration (real helm + real API server) | the same upgrade path rendered by the real `helm` CLI with `lookup` resolved by an envtest API server holding a legacy `webhook-plugins` ConfigMap (`chartmerge/envtest_merge_test.go`) | `go test -count=1 ./docs/verification/clientless-runtime-config-inject/chartmerge/ -run TestHelmUpgradeMerges` (skips without helm/envtest assets) |
+| 2c. Integration (watch contract) | the fluid-app controller's `ShouldInQueue` against a clientless-injected pod (`pkg/ctrl/watch/verify_pr6197_watch_test.go`) | `go test -count=1 ./pkg/ctrl/watch/ -run TestVerifyPR6197` |
+| 3. Live | not run (debate setup skips KUBECONFIG layer) | — |
 
-> Test polarity: the positive control is a **contract** test (must stay green). F1/F2/F3 are
-> **canaries**: they assert the currently observed behavior and FLIP to red once the behavior
-> changes — invert or promote them when a fix lands.
+> Test polarity: all manifest-bound tests are **contract** tests now. In round 1, F1/F2/F3
+> were **canaries** pinned to the buggy behavior; the delta flipped them (they went red),
+> so this round inverted them into contracts asserting the fixed behavior. The F1
+> handler-side spec stays as a `[characterization]` (documents what a legacy profile does
+> to the handler) and is no longer manifest-bound.
 
 ## Problem premise (P0)
 
@@ -24,60 +32,56 @@ Layers run against the **code under review** (`origin/pr/6197` = c5ea086bb1c9352
 | Reported component | webhook (pod admission) + cache runtime engine |
 | Patched component | pkg/webhook (handler routing + new plugin), charts (webhook rule, plugins profile, RBAC), pkg/ddc/cache/engine (constants) |
 | Component match | Yes |
-| **Verdict** | **Confirmed** |
-| Evidence | merge-base e0fc4c1 already has `generateRuntimeSh` (stage 1) but the base chart has no `clientless` webhook rule and no `cacheruntimes` in the webhook ClusterRole (results/helm-template-checks.txt); `base.GetRuntimeInfo` resolves cache datasets via `utils.GetCacheRuntime` through the webhook's cached client (pkg/ddc/base/runtime.go:633, wired in pkg/webhook/handler/register.go:52), so the missing list/watch grant explains the 15s informer stall the author observed on kind. |
+| **Verdict** | **Confirmed** (round 1; unchanged by the delta) |
+| Evidence | merge-base e0fc4c1 already has `generateRuntimeSh` (stage 1) but the base chart has no `clientless` webhook rule and no `cacheruntimes` in the webhook ClusterRole (results/helm-template-checks.txt); `base.GetRuntimeInfo` resolves cache datasets via `utils.GetCacheRuntime` through the webhook's cached client (pkg/ddc/base/runtime.go:633, wired in pkg/webhook/handler/register.go:52). |
 
-## Summary of results
+## Summary of results (round 2, head 6d3a6d7e)
 
-| ID | Claim | Layer | Verdict | Evidence |
-|----|-------|-------|---------|----------|
-| P0-ctrl | fresh install: labeled+annotated pod gets volume+mount+env injected | 1 | Confirmed (contract passes) | results/unit-handler-pr-head.txt |
-| F1 | after `helm upgrade` with default values the preserved `webhook-plugins` ConfigMap has no `clientless` section, so the (newly added) webhook rule routes pods to an empty plugin list: admitted silently unmutated | 1 + chart read | Confirmed | canary passes on PR head: results/unit-handler-pr-head.txt; template logic: charts/fluid/fluid/templates/webhook/plugins-profile.yaml keeps `$existing.data.pluginsProfile` when `forceReplacePluginsProfile: false` (the default) |
-| F2 | dataset names of 43–63 chars pass annotation validation (DNS-1033 label ≤63) but the plugin rejects them (>42, volume-name limit): admitted silently unmutated | 1 | Confirmed | canary passes: results/unit-handler-pr-head.txt |
-| F3 | failure modes are inconsistent: missing/unbound dataset → pod rejected (fail-closed); missing configmap / missing runtime.sh → pod admitted without injection (fail-open, plugin error swallowed by `Handle`) | 1 | Confirmed | both canaries pass: results/unit-handler-pr-head.txt |
-| bites | with `Handle` temporarily changed to fail closed, the F3 and F2 canaries flip to red | 1 | Harness bites | results/harness-bites-fail-closed.txt |
+| ID | Claim | Layer | Round-1 verdict | Round-2 verdict | Evidence |
+|----|-------|-------|-----------------|-----------------|----------|
+| P0-ctrl | fresh install: labeled+annotated pod gets volume+mount+env injected | 1 | Confirmed | still green (contract) | results/unit-head6d3a6d7e.txt |
+| F1 | after `helm upgrade` with default values the preserved `webhook-plugins` ConfigMap had no `clientless` section → rule matches, zero plugins run, silent no-op | 2, 2b | Confirmed (canary) | **Fixed**: plugins-profile.yaml merges the missing `clientless` group into a preserved profile (user edits and pluginConfig kept; unmergeable profiles kept verbatim; second upgrade stable), and a new `checksum/plugins-profile` pod annotation rolls the webhook so it reloads the profile. Verified with helm-equivalent rendering AND with the real helm CLI resolving `lookup` against an envtest API server seeded with a marked legacy profile (marker + clientless both present; on the previous head the same test fails with "merged profile lacks clientless"). | results/integration-head6d3a6d7e.txt, results/integration-prevhead-c5ea086b.txt |
+| F2 | 43–63-char dataset names passed annotation validation but the plugin rejected them → admitted silently unmutated | 1 | Confirmed (canary) | **Fixed**: `CollectRuntimeInfosFromAnnotations` rejects names > `common.MaxClientlessDatasetNameLength` (42) up front → collection error → retry → `Denied` (403). The plugin keeps a `RejectPodError` guard for the PVC-derived path. | results/unit-head6d3a6d7e.txt, results/unit-prevhead-c5ea086b.txt |
+| F3 | inconsistent failure modes: missing/unbound dataset rejected (fail-closed) but missing ConfigMap / missing `runtime.sh` admitted unmutated (fail-open) | 1 | Confirmed (canary) | **Fixed**: the plugin now returns `NeedRetryWithApiReaderError` for a missing ConfigMap/key (one API-reader retry, then `Denied` for inject-labeled pods) and `RejectPodError` for permanent spec problems (name length, volume/mount conflicts, fuse-label combination). Both deny the pod with a reason; the docs match. | results/unit-head6d3a6d7e.txt, results/unit-prevhead-c5ea086b.txt |
+| F4 | (author's open question) the injection completion marker reuses `done.sidecar.fluid.io/inject`, also consumed by the fluid-app controller | 2c | — (drafted in an abandoned round-0 harness; adopted this round) | **Refuted (no bug)**: `ShouldInQueue` requires a privileged fuse sidecar (label + fuse container), so a clientless-injected pod is never enqueued; the privileged-sidecar control still enqueues. Passes identically on both heads (code path untouched by the PR). | results/integration-head6d3a6d7e.txt |
+| F5 | (new, minor) for an over-long name given via the annotation, the denial message names the dataset but not the reason ("too long" is only in the webhook log), although the docs say the reason is in the error | 1 | — | Confirmed as current behavior (characterization test pins it) | results/unit-head6d3a6d7e.txt |
+| F6 | (new, nit) the checksum annotation render changes once more on the *second* upgrade (verbatim branch re-indents the stored profile, which carries a block-scalar trailing newline), causing one spurious webhook rollout with no profile change | probe | — | Confirmed (probe; not manifest-bound) | results/checksum-churn-probe.txt |
 
-## Per-finding detail
+### Harness-bites check (round 2 form)
 
-### F1 — upgrade keeps the legacy plugins profile
-`plugins-profile.yaml` does `lookup ... webhook-plugins` and, when it exists (any upgraded
-cluster), re-emits the **old** profile verbatim unless `forceReplacePluginsProfile: true`
-(default `false`). The PR adds the `clientless` plugin group only to values.yaml, and adds the
-`clientless.fluid.io` webhook rule unconditionally. So after an upgrade the rule matches
-labeled pods, the handler routes them to `GetClientlessPodWithDatasetHandler()` — which is an
-empty list built from the old profile — and zero plugins run. No mutation, no error, no log at
-default verbosity. Verified by registering handlers from the verbatim base-release profile and
-admitting a fully-prepared pod: `Allowed=true`, no volume patch (canary). The positive control
-(same pod, PR's profile → injected) shows the harness distinguishes the two profiles.
+Contract tests must be red on the code that had the bug. Grafted onto the previous head
+c5ea086b: the F2/F3 denial contracts fail (pods were admitted unmutated), the cache-PVC
+injection contract fails (plugin looked up the ConfigMap by PVC name and silently failed),
+the F1 chart contracts fail (no merge, no checksum annotation), and the envtest test fails
+with "F1 STILL PRESENT … merged profile lacks clientless". P0-ctrl, the F4 watch contracts
+and the F1 handler characterization pass on both heads, as they should (unchanged paths).
+Full matrix: results/unit-prevhead-c5ea086b.txt, results/integration-prevhead-c5ea086b.txt.
 
-### F2 — 43..63-char dataset names fall between two validators
-`CollectRuntimeInfosFromAnnotations` accepts any DNS-1035 label (≤63 chars);
-`RuntimeConfigInjector` rejects names longer than `63-len("fluid-runtime-config-")=42`
-because the volume name derives from the ConfigMap name. In between, collection succeeds
-(runtime info resolved), the plugin errors, `Handle` logs and admits the pod unmutated
-(F3's swallow). Canary: 50-char Bound cache dataset + existing ConfigMap → admitted, nothing
-injected, no user-facing error. Fix direction: length-check in the collector (fail closed) or
-a volume name that does not embed the full dataset name.
+### Delta observations beyond the findings (verified, no bug)
 
-### F3 — fail-open on plugin errors vs fail-closed on collection errors
-`Handle` only acts on `NeedRetryWithApiReaderError`; any other `MutatePod` error is logged and
-the (unmutated) pod is patched through. So: dataset missing/unbound → collection error →
-retry → 500 → rejected (fail-closed; documented). ConfigMap missing, `runtime.sh` key missing
-(old cacheruntime-controller), or name too long → plugin error → **admitted with no injection,
-no event, no retry** (fail-open; only a webhook log line). The fail-open window is permanent
-for that pod: nothing re-triggers admission when the ConfigMap appears. The author flagged
-this inconsistency in the PR body; the harness confirms both directions.
-
-### Harness-bites check
-A one-line temporary change making `Handle` fail closed on any mutation error flips the F3
-fail-open canary and the F2 canary to red (results/harness-bites-fail-closed.txt), while the
-positive control stays green. Reverted afterwards; production code is untouched
-(`git diff origin/pr/6197 -- pkg/` shows only the additive test file).
+- `mergeClientlessRuntimeInfos` re-keys PVC-resolved runtime infos by dataset name and
+  drops non-cache runtimes. This fixes a latent trap at c5ea086b: a pod with the inject
+  label that mounts a cache-runtime PVC made the plugin look up the ConfigMap by *PVC
+  name* and fail silently; at 6d3a6d7e it is injected correctly (contract test). A pod
+  with the inject label and a fuse-runtime PVC is now admitted untouched (contract test).
+- The new rejection of `fluid.io/inject` combined with fuse injection labels cannot break
+  existing pods: the label is introduced by this PR, so no running pod can carry the
+  combination.
+- `IsNeedRetryWithApiReaderError`/`IsRejectPodError` now use `errors.As`, so wrapped
+  instances are recognized; all plugin error paths in the clientless group are typed.
+- Residual, inherent: between the MutatingWebhookConfiguration update and the webhook
+  rollout finishing, a clientless-labeled pod can still be admitted by the old pod with
+  the old in-memory profile (seconds, self-heals by recreating the pod). Same window
+  exists for any webhook profile change.
 
 ## Proposed fixes (NOT applied to production here)
-- **F1**: document `forceReplacePluginsProfile: true` (or hand-editing `webhook-plugins`) as a required upgrade step in the new docs; better, have the chart merge the `clientless` section into a preserved profile, or warn at webhook startup when the loaded profile has no `clientless` section.
-- **F2**: move the length check into `CollectRuntimeInfosFromAnnotations` so the pod is rejected with a clear message, matching the other invalid-input behavior.
-- **F3**: consider failing closed for "dataset is Bound but its runtime config ConfigMap/key is missing" (e.g. wrap plugin errors that indicate a not-ready runtime in `NeedRetryWithApiReaderError`, giving one direct-reader retry then rejection), or at least emit a warning Event on the pod.
+
+- F5: include the per-dataset reason in the aggregated annotation error (e.g. collect
+  `name: reason` pairs), or reject over-long names with a dedicated message before the
+  aggregate.
+- F6: trim the stored profile before re-indenting in the verbatim branch
+  (`indent 4 (trimSuffix "\n" $existingProfile)`), so the checksum annotation is stable
+  from the first post-merge upgrade on.
 
 ## Continuing after the fix
 
@@ -87,7 +91,7 @@ git fetch https://github.com/cheyang/fluid.git verify/clientless-runtime-config-
 git checkout verify/clientless-runtime-config-inject-codex
 bash docs/verification/clientless-runtime-config-inject/scripts/re-verify.sh   # resolves the current PR head from manifest.pr
 ```
-Polarity table for re-runs: the positive control must stay **green**; F1/F2/F3 canaries are
-**fixed only when they flip to red** — then invert the assertion (or promote to a contract
-test). `.last-reviewed` records c5ea086bb1c9352fafd73daac27f2c2e2eafd4c5; advance it after
-each round.
+All manifest findings are contract tests: they must stay green. `.last-reviewed` records
+6d3a6d7e7a038d72fc5480f44d8285993f82a551; advance it after each round. Layer 2b needs a
+`helm` binary and envtest assets (`KUBEBUILDER_ASSETS` or a known local path) and skips
+cleanly without them.
