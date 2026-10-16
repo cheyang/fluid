@@ -1,0 +1,44 @@
+{
+  "topic": "security-model-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6211",
+  "harnessPaths": [
+    "docs/verification/security-model-codex"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Docs-only PR: 'Add a security model in English and Chinese that explains who may create, configure, and consume Fluid resources... This is a documentation-only change. It does not change permissions or runtime behavior and does not close an existing issue.' (PR body)",
+    "reportedComponent": "security/ documentation",
+    "patchedComponent": "security/ documentation",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Docs-only diff (2 new markdown files). Accuracy verified claim-by-claim against the PR head: 14 L1 claim guards + 4 L2 helm-render guards pass; see results/L1-unit.txt and results/L2-integration.txt. Premise validation of the 'why' is carve-out skipped per review rubric (docs-only).",
+    "match": ["TestL1_CodePathReferencesResolve", "TestL1_CitedFunctionsExist"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./docs/verification/security-model-codex/ -run 'TestL1' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./docs/verification/security-model-codex/ -run 'TestL2' -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestL1_FuseCommandClaimScoped"]
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestL1_ConfigRBACGlobPatternMatches"]
+    }
+  ],
+  "liveNote": "L3 not applicable: documentation-only PR with no runtime behavior change."
+}

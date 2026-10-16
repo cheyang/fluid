@@ -1,0 +1,13 @@
+=== RUN   TestL2_RBACHasNoWildcards
+    helm_render_test.go:89: helmDriver=configmap: no wildcard RBAC rules
+    helm_render_test.go:89: helmDriver=secret: no wildcard RBAC rules
+--- PASS: TestL2_RBACHasNoWildcards (0.07s)
+=== RUN   TestL2_ClusterWideSecretsOnlyWithSecretDriver
+    helm_render_test.go:121: helmDriver=secret: cluster-wide Secret grants on [alluxioruntime-controller dataset-controller efcruntime-controller jindoruntime-controller juicefsruntime-controller thinruntime-controller vineyardruntime-controller]
+--- PASS: TestL2_ClusterWideSecretsOnlyWithSecretDriver (0.07s)
+=== RUN   TestL2_WebhooksFailClosed
+--- PASS: TestL2_WebhooksFailClosed (0.07s)
+=== RUN   TestL2_ThinControllerLacksSecretRBACByDefault
+--- PASS: TestL2_ThinControllerLacksSecretRBACByDefault (0.07s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/docs/verification/security-model-codex	(cached)
