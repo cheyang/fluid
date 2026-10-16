@@ -1,0 +1,8 @@
+=== RUN   TestVerifyPR6206CoreTypeCompleteTypeMetaNoErrorLog
+    verify_pr6206_logguard_test.go:95: generated ownerReference: apiVersion="v1" kind="Pod"
+--- PASS: TestVerifyPR6206CoreTypeCompleteTypeMetaNoErrorLog (0.00s)
+=== RUN   TestVerifyPR6206KindlessUnregisteredStillLogs
+    verify_pr6206_logguard_test.go:119: generated ownerReference: apiVersion="v1" kind=""
+--- PASS: TestVerifyPR6206KindlessUnregisteredStillLogs (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/transformer	0.010s

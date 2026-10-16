@@ -4,7 +4,8 @@
   "harnessPaths": [
     "docs/verification/ownerref-groupless-group",
     "pkg/utils/transformer/verify_pr6206_groupless_ownerref_test.go",
-    "pkg/utils/transformer/verify_pr6206_envtest_test.go"
+    "pkg/utils/transformer/verify_pr6206_envtest_test.go",
+    "pkg/utils/transformer/verify_pr6206_logguard_test.go"
   ],
   "premise": {
     "id": "P0",
@@ -24,7 +25,7 @@
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "go test ./pkg/utils/transformer/ -run 'TestVerifyPR6206(GroupLessAPIVersionContract|GroupLessAPIVersionNoKindContract|WatchGroupMatchUnitContract|CoreTypeRegressionGuard|FullyPopulatedFluidTypeGuard)' -json"
+      "cmd": "go test ./pkg/utils/transformer/ -run 'TestVerifyPR6206(GroupLessAPIVersionContract|GroupLessAPIVersionNoKindContract|WatchGroupMatchUnitContract|CoreTypeRegressionGuard|FullyPopulatedFluidTypeGuard|CoreTypeCompleteTypeMetaNoErrorLog|KindlessUnregisteredStillLogs)' -json"
     },
     "integration": {
       "kind": "gotest",
@@ -79,6 +80,24 @@
       "match": [
         "TestVerifyPR6206FullyPopulatedFluidTypeGuard"
       ]
+    },
+    {
+      "id": "F5",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6206CoreTypeCompleteTypeMetaNoErrorLog"
+      ],
+      "note": "Round-2: verifies the fix for review finding F2-core-type-recovery-log-noise (head 0daf2ba0 gates the recovery-failure log on kind/version actually missing). Differential: base pass / 0fa32294 FAIL (noise reproduced) / 0daf2ba0 pass."
+    },
+    {
+      "id": "G3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6206KindlessUnregisteredStillLogs"
+      ],
+      "note": "Round-2 guard against over-suppression: lookup failure with kind still empty must keep logging. Passes on base, 0fa32294, and 0daf2ba0."
     }
   ],
   "liveNote": "L3 (real cluster GC behavior) intentionally skipped per round instructions; the GC half of the impact (unresolvable ownerReference => dependent never garbage-collected) is stock Kubernetes garbage-collector behavior over discovery and is not reproduced here."

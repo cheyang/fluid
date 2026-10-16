@@ -1,0 +1,10 @@
+=== RUN   TestVerifyPR6206CoreTypeCompleteTypeMetaNoErrorLog
+    verify_pr6206_logguard_test.go:95: generated ownerReference: apiVersion="v1" kind="Pod"
+    verify_pr6206_logguard_test.go:102: misleading error log emitted for a complete core-type TypeMeta: [failed to recover the GroupVersionKind of the owner from the scheme, the generated ownerReference stays incomplete]
+--- FAIL: TestVerifyPR6206CoreTypeCompleteTypeMetaNoErrorLog (0.00s)
+=== RUN   TestVerifyPR6206KindlessUnregisteredStillLogs
+    verify_pr6206_logguard_test.go:119: generated ownerReference: apiVersion="v1" kind=""
+--- PASS: TestVerifyPR6206KindlessUnregisteredStillLogs (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/transformer	0.010s
+FAIL

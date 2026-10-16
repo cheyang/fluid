@@ -5,7 +5,7 @@ https://github.com/fluid-cloudnative/fluid/pull/6206
 ("fix(utils): recover group for group-less apiVersion in owner reference",
 fixes https://github.com/fluid-cloudnative/fluid/issues/6205).
 
-- head under review: `0fa3229416df66784dcf5b853dd636449d265a02`
+- head under review: `0daf2ba051fc25aa05dc68b2c42ea083f4f3c593` (round 2; round 1 reviewed `0fa3229416df66784dcf5b853dd636449d265a02`)
 - base (merge-base): `e4a10bf49a1e8068d901e6f146ee4e435db7e785` (== merge of PR #6199)
 - production code: **untouched** — the harness is additive test files + this directory.
 
@@ -102,7 +102,8 @@ git checkout <fixed-ref>
 git checkout verify/ownerref-groupless-group-codex -- \
   docs/verification/ownerref-groupless-group \
   pkg/utils/transformer/verify_pr6206_groupless_ownerref_test.go \
-  pkg/utils/transformer/verify_pr6206_envtest_test.go
+  pkg/utils/transformer/verify_pr6206_envtest_test.go \
+  pkg/utils/transformer/verify_pr6206_logguard_test.go
 go test ./pkg/utils/transformer/ -run 'TestVerifyPR6206' -v
 ```
 
@@ -114,3 +115,39 @@ Kickoff prompt for a fresh agent: "Continue verifying
 https://github.com/fluid-cloudnative/fluid/pull/6206 using the harness on branch
 verify/ownerref-groupless-group-codex of https://github.com/cheyang/fluid.git; read
 docs/verification/ownerref-groupless-group/README.md and run scripts/re-verify.sh."
+
+## Round 2 — head 0daf2ba0 (delta 0fa32294..0daf2ba0)
+
+The revision adds two commits: `75851117` gates the recovery-failure log on the kind or
+version actually staying empty (fixing review finding F2) and adds the group-less +
+kind-missing ginkgo entry (F1 coverage gap, part 1); `0daf2ba0` adds the group-less case
+to the consumer-side `TestDatasetControllerOwnerReference` (F1 coverage gap, part 2) and
+updates the header comment to "The kind, the version and the group fall back on their own"
+(fixing nit F3). No production output path changes: the only behavioral delta vs 0fa32294
+is whether one `log.Error` fires in the scheme-lookup-failure branch.
+
+Re-verify on 0daf2ba0 (unit + integration): all round-1 contracts still FIXED
+(`results/reverify/`). Round-2 additions:
+
+| ID | Claim | Layer | Verdict | Evidence |
+|----|-------|-------|---------|----------|
+| F5 (= review finding F2 fix) | a complete core-type TypeMeta (`Pod`/`v1`) emits **no** "ownerReference stays incomplete" error log | 1 | Fixed on head; noise reproduced on 0fa32294 | results/round2-logguard-{base,prev,head}.txt: base PASS (noise never existed at base), 0fa32294 FAIL (log fires), 0daf2ba0 PASS (log gated) |
+| G3 (over-suppression guard) | lookup failure with kind still empty must keep logging | 1 | Holds on base, 0fa32294, 0daf2ba0 | same files |
+
+Round-2 polarity note: `TestVerifyPR6206CoreTypeCompleteTypeMetaNoErrorLog` PASSES on base
+(the narrow trigger never logged for complete core types), FAILS on 0fa32294, PASSES on
+0daf2ba0. "Fixed" for F5 means green on the current head; the base column is a control
+showing the noise was introduced and removed within this PR's lifetime.
+
+PR's own new tests lock the previously uncovered shapes (`results/round2-pr-own-tests-*.txt`):
+
+| ref | transformer group-less entries (2) | consumer group-less case |
+|-----|------------------------------------|--------------------------|
+| base e4a10bf (head test files grafted) | 2/2 FAIL (`apiVersion="v1alpha1"`) | FAIL (`got v1alpha1`) |
+| prev 0fa32294 (head test files grafted) | pass | pass |
+| head 0daf2ba0 (as shipped) | 2/2 pass (35/35 suite) | pass |
+
+Full-package sweep on head 0daf2ba0: `go build ./...` clean
+(`results/round2-head-build.txt`); `go test ./pkg/utils/...` green except the two known
+host-environment failures (`TestCheckMountPointBroken`, `TestHelm`) that fail identically
+on base (`results/round2-head-pkg-utils.txt`); gofmt clean (`results/round2-head-gofmt.txt`).
