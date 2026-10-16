@@ -1,0 +1,63 @@
+Claim check results (PR #6211 security model docs)
+==============================================================================
+D1   PASS both security model docs exist
+D2   PASS all 34 referenced file paths resolve
+D3   PASS symbol 'IsHostNetwork' in api/v1alpha1/container_network.go
+D3   PASS symbol 'topology' in api/v1alpha1/cacheruntimeclass_types.go
+D3   PASS symbol 'CacheRuntime' in api/v1alpha1/cacheruntime_types.go
+D3   PASS symbol 'PodSpec' in api/v1alpha1/dataprocess_types.go
+D3   PASS symbol 'VersionSpec' in api/v1alpha1/datamigrate_types.go
+D3   PASS symbol 'func GetWorkerImage' in pkg/utils/docker/image.go
+D3   PASS symbol 'genDataLoadValue' in pkg/ddc/juicefs/data_load.go
+D3   PASS symbol 'func .+genValue\\(' in pkg/ddc/juicefs/transform_fuse.go
+D3   PASS symbol 'Spec\\.BackupPath' in pkg/ddc/alluxio/backup_data.go
+D3   PASS symbol 'Spec\\.RunAs' in pkg/ddc/alluxio/backup_data.go
+D3   PASS symbol 'transformCommonPart' in pkg/ddc/alluxio/transform.go
+D3   PASS symbol '[Ee]ncryptOption' in pkg/ddc/alluxio/ufs_internal.go
+D3   PASS symbol '[Ee]ncryptOption' in pkg/ddc/thin/ufs_internal.go
+D3   PASS symbol 'extractMountOptions' in pkg/ddc/thin/transform_config.go
+D3   PASS symbol 'DatasetOptionFluidFuseHostVolume' in pkg/ddc/thin/transform_fuse.go
+D3   PASS symbol 'transfromSecretsForPersistentVolumeClaimMounts' in pkg/ddc/thin/transform_pvc_mounts.go
+D3   PASS symbol 'transformMaster' in pkg/ddc/jindo/transform.go
+D3   PASS symbol 'func CopySecretToNamespace' in pkg/utils/kubeclient/secret.go
+D3   PASS symbol 'checkDatasetMountSupport' in pkg/ddc/thin/referencedataset/engine.go
+D3   PASS symbol 'GetPhysicalDatasetSubPath' in pkg/ddc/base/dataset.go
+D3   PASS symbol 'func resolveMountSource' in pkg/csi/plugins/subpath_linux.go
+D3   PASS symbol 'O_NOFOLLOW' in pkg/csi/plugins/subpath_linux.go
+D3   PASS symbol 'NodePublishVolume' in pkg/csi/plugins/nodeserver.go
+D3   PASS symbol 'func \\(ns \\*nodeServer\\) getNode' in pkg/csi/plugins/nodeserver.go
+D3   PASS symbol 'func \\(ns \\*nodeServer\\) patchNodeWithLabel' in pkg/csi/plugins/nodeserver.go
+D3   PASS symbol 'cmdguard' in pkg/csi/plugins/nodeserver.go
+D3   PASS symbol '[Nn]amespace' in pkg/controllers/v1alpha1/dataload/implement.go
+D3   PASS symbol '[Nn]amespace' in pkg/controllers/v1alpha1/dataprocess/implement.go
+D3   PASS symbol 'transformTemplateWithUnprivilegedSidecarEnabled' in pkg/application/inject/fuse/mutator/mutator_unprivileged.go
+D3   PASS symbol 'func .*defaultMutateDatasetVolumes' in pkg/application/inject/fuse/mutator/mutator_default.go
+D3   PASS symbol 'accessModesForVirtualDataset' in pkg/ddc/thin/referencedataset/volume.go
+D3   PASS symbol 'copyFuseDaemonSetForRefDataset' in pkg/ddc/thin/referencedataset/cm.go
+D3   PASS symbol 'createConfigMapForRefDataset' in pkg/ddc/thin/referencedataset/cm.go
+D3   PASS symbol 'GetServerlessPlatform' in pkg/utils/annotations.go
+D3   PASS symbol 'InjectFuseSidecar' in pkg/utils/annotations.go
+D4   PASS 14 data.fluid.io CRDs + 1 workload.fluid.io CRD
+D5   PASS constant/label serverless.fluid.io/inject in pkg/common/constants.go
+D5   PASS constant/label unprivileged.sidecar.fluid.io/inject in pkg/common/constants.go
+D5   PASS constant/label fuse.serverful.fluid.io/inject in pkg/common/constants.go
+D5   PASS constant/label runtime.fluid.io/fuse.hostpid in pkg/common/constants.go
+D5   PASS constant/label fluid.fuse.hostvolume in pkg/common/dataset.go
+D5   PASS constant/label fuse-balloon nodeSelector in pkg/ddc/thin/referencedataset/cm.go
+D6   PASS EN and ZH carry the same number of YAML blocks (5)
+D6   PASS EN and ZH YAML blocks are byte-identical
+D6   PASS all EN YAML blocks parse
+D7   PASS EN (32) and ZH (32) heading counts match
+D8   PASS all 4 relative links resolve
+D9   PASS both injection webhooks render failurePolicy: Fail
+D9   PASS webhook objectSelectors are serverless.fuse.fluid.io / fuse.serverful.fluid.io only
+D9   PASS default helmDriver is configmap
+D9   PASS fluid.helmDriver.rbacs helper exists
+D9   PASS Secret rules gated on helmDriver=secret
+D9   PASS csi.useNodeAuthorization defaults to true
+D9   PASS csi.nodePublishMethod defaults to bindMount
+D9   PASS no validating webhook handler dir shipped
+D9   PASS no ValidatingWebhookConfiguration in chart
+D9   PASS kustomization.yaml does not reference editor/viewer roles
+------------------------------------------------------------------------------
+59 checks, 0 failed

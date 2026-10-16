@@ -1,0 +1,62 @@
+{
+  "topic": "security-model-docs",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6211",
+  "harnessPaths": [
+    "docs/verification/security-model-docs-claude"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Docs-only PR: 'Add a security model in English and Chinese that explains who may create, configure, and consume Fluid resources.' No linked issue, no runtime behavior change.",
+    "reportedComponent": "documentation / security",
+    "patchedComponent": "security/security-model.md + security/security-model_zh.md (new files)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "not-applicable",
+    "evidence": "Docs-only PR: premise validation is skipped per the review-pipeline carve-out. The documentation gap is real (security/ contained only self-assessment.md and images before this PR; no resource-tier/RBAC security model doc existed), and the files touched (security/) match the repo's established location for security docs."
+  },
+  "layers": {
+    "unit": {
+      "kind": "script",
+      "cmd": "python3 -I docs/verification/security-model-docs-claude/scripts/check_doc_claims.py",
+      "report": "docs/verification/security-model-docs-claude/results/claim-checks.txt"
+    },
+    "integration": {
+      "kind": "script",
+      "cmd": "bash docs/verification/security-model-docs-claude/scripts/render_chart_checks.sh",
+      "report": "docs/verification/security-model-docs-claude/results/chart-render-checks.txt",
+      "note": "helm template only; no cluster needed. This is the L2 layer for a docs PR: the doc's control-plane RBAC claims are checked against the rendered chart, not just the templates."
+    }
+  },
+  "findings": [
+    {
+      "id": "DOC-1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["D2", "D3"],
+      "claim": "The doc's cited code paths and symbols resolve in the repo (checks D2/D3). The 'local:// mountPoint becomes a hostPath on Jindo' claim (security/security-model.md Tier-1 Dataset row) is engine-specific: implemented by pkg/ddc/jindofsx and pkg/ddc/jindocache (the default JindoRuntime engine is jindocache), not by the legacy pkg/ddc/jindo engine."
+    },
+    {
+      "id": "DOC-2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["D8"],
+      "claim": "Relative links inside the two new docs resolve; however no existing repo entry point (README.md, SECURITY.md, security/self-assessment.md 'Security links' table) links TO the new security model docs."
+    },
+    {
+      "id": "DOC-3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["D9"],
+      "claim": "Doc claim 'csi.useNodeAuthorization: true (default) ... uses kubelet credentials for Node reads and patches' is accurate; the doc does not mention the silent fallback when the kubelet config file is missing (pkg/csi/plugins/register.go)."
+    },
+    {
+      "id": "DOC-4",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["D5", "D6", "D7", "D9"],
+      "claim": "All other factual claims verified: CRD inventory (14+1), chart RBAC wildcards/helmDriver/failurePolicy (L1+L2), unprivileged sidecar mutator behavior, reference-Dataset access modes, EN/ZH YAML identity, label constants."
+    }
+  ],
+  "liveNote": "No L3 live layer needed: the PR is documentation-only and does not change runtime behavior. The L2 helm-render layer covers the chart-claim verification the PR's own test plan describes."
+}

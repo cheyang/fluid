@@ -1,0 +1,7 @@
+rendered helmDriver=configmap -> 2904 lines
+PASS: no wildcard apiGroups/resources/verbs (helmDriver=configmap)
+rendered helmDriver=secret -> 2981 lines
+PASS: no wildcard apiGroups/resources/verbs (helmDriver=secret)
+PASS: helmDriver=configmap has 2 secrets-granting RBAC rules
+PASS: helmDriver=secret has 9 secrets-granting RBAC rules
+PASS: rendered webhookconfiguration has failurePolicy: Fail on both webhooks (2)
