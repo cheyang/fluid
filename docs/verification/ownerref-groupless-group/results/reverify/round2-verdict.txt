@@ -1,0 +1,28 @@
+re-verify: manifest = docs/verification/ownerref-groupless-group/verify-manifest.json
+re-verify: resolving PR head via 'git fetch https://github.com/fluid-cloudnative/fluid.git pull/6206/head' (machine-independent)
+re-verify: current head = 0daf2ba051fc25aa05dc68b2c42ea083f4f3c593
+re-verify: last-reviewed = 0daf2ba051fc25aa05dc68b2c42ea083f4f3c593  (review delta = 0daf2ba051fc25aa05dc68b2c42ea083f4f3c593..0daf2ba051fc25aa05dc68b2c42ea083f4f3c593)
+re-verify: fixed-ref=0daf2ba051fc25aa05dc68b2c42ea083f4f3c593  harness-from=verify/ownerref-groupless-group-codex
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'integration' (gotest)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+F1     contract  unit         FIXED          pass=1 fail=0 miss=0
+F2     contract  unit         FIXED          pass=1 fail=0 miss=0
+F3     contract  unit         FIXED          pass=1 fail=0 miss=0
+F4     contract  integration  FIXED          pass=1 fail=0 miss=0
+G1     contract  unit         FIXED          pass=1 fail=0 miss=0
+G2     contract  unit         FIXED          pass=1 fail=0 miss=0
+F5     contract  unit         FIXED          pass=1 fail=0 miss=0
+G3     contract  unit         FIXED          pass=1 fail=0 miss=0
+
+Live layer (manual): L3 (real cluster GC behavior) intentionally skipped per round instructions; the GC half of the impact (unresolvable ownerReference => dependent never garbage-collected) is stock Kubernetes garbage-collector behavior over discovery and is not reproduced here.
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/ownerref-groupless-group/results/reverify
+
+Review delta this round: 0daf2ba051fc25aa05dc68b2c42ea083f4f3c593..0daf2ba051fc25aa05dc68b2c42ea083f4f3c593
+After reviewing that delta, advance the marker for the next round:
+  echo 0daf2ba051fc25aa05dc68b2c42ea083f4f3c593 > docs/verification/ownerref-groupless-group/.last-reviewed && git add docs/verification/ownerref-groupless-group/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: all findings fixed.
