@@ -1,0 +1,43 @@
+{
+  "topic": "clientless-runtime-inject",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6197",
+  "prHeadFetch": { "remote": "origin", "ref": "pull/6197/head" },
+  "harnessPaths": [
+    "docs/verification/clientless-runtime-inject",
+    "pkg/webhook/plugins/runtimeconfiginjector/findings_claude_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "App pods of cache runtimes without a fuse client (e.g. Mooncake) must hardcode the master address, because nothing delivers the runtime config (runtime.sh, PR #6191) into the business pod; additionally the webhook ClusterRole lacks cacheruntimes, so base.GetRuntimeInfo on a CacheRuntime dataset blocks on the cache informer until timeout.",
+    "reportedComponent": "fluid mutating webhook + webhook chart RBAC",
+    "patchedComponent": "pkg/webhook (new RuntimeConfigInjector plugin, handler routing, annotation collection) + charts/fluid/fluid (webhook rule, plugin profile, cacheruntimes RBAC)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Base chart webhook ClusterRole lists every runtime except cacheruntimes while base.GetRuntimeInfo/GetCacheRuntime reads CacheRuntime via mgr.GetClient() (cached), and no fluid.io/inject label / clientless plugin / runtime-config delivery exists on base (git grep empty). See results/premise-rbac-diff.txt.",
+    "match": ["premise-rbac-diff.txt"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 ./pkg/webhook/... ./pkg/common/... && go test -count=1 -gcflags=all=-l ./pkg/ddc/cache/..."
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 ./pkg/webhook/handler/mutating/... -args -ginkgo.focus 'Handle - Clientless Runtime Config'",
+      "note": "fake-client admission.Handler-level tests exercise the full decode -> MutatePod -> retry-with-API-reader -> admit/deny chain without envtest; live/KUBECONFIG layer skipped per debate setup."
+    },
+    "chart": {
+      "kind": "script",
+      "cmd": "helm template fluid charts/fluid/fluid | grep -E 'clientless.fluid.io|RuntimeConfigInjector|cacheruntimes|checksum/plugins-profile' && python3 -I docs/verification/clientless-runtime-inject/scripts/chart_merge_check.py"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "canary", "layer": "unit", "match": ["Reviewer findings (PR 6197) F1"] },
+    { "id": "F2", "polarity": "canary", "layer": "unit", "match": ["Reviewer findings (PR 6197) F2"] },
+    { "id": "C-CHART", "polarity": "contract", "layer": "chart", "match": ["chart_merge_check.py", "helm-render.txt"] },
+    { "id": "C-SUITE", "polarity": "contract", "layer": "unit", "match": ["TestRuntimeconfiginjector", "TestMutatingHandler", "TestWebhookUtils"] }
+  ],
+  "liveNote": "L3 (kind cluster: label a pod, watch the injected volume/env, denial on missing runtime.sh) skipped per debate instructions; PR author reports a manual kind v1.30 run in the PR body."
+}

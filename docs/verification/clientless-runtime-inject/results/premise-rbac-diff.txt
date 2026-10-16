@@ -1,0 +1,33 @@
+== base chart webhook ClusterRole runtimes list (e0fc4c18) ==
+      - data.fluid.io
+    resources:
+      - datasets
+      - alluxioruntimes
+      - jindoruntimes
+      - juicefsruntimes
+      - thinruntimes
+      - efcruntimes
+      - vineyardruntimes
+    verbs:
+
+== head chart webhook ClusterRole runtimes list (PR head) ==
+      - data.fluid.io
+    resources:
+      - datasets
+      - alluxioruntimes
+      - jindoruntimes
+      - juicefsruntimes
+      - thinruntimes
+      - efcruntimes
+      - vineyardruntimes
+      - cacheruntimes
+    verbs:
+
+== base: does any clientless injection exist? ==
+e0fc4c189a6e45ee17a5e812abf3fcbecf566f09:charts/fluid/fluid/templates/webhook/webhookconfiguration.yaml
+e0fc4c189a6e45ee17a5e812abf3fcbecf566f09:pkg/common/constants.go
+e0fc4c189a6e45ee17a5e812abf3fcbecf566f09:pkg/common/label.go
+e0fc4c189a6e45ee17a5e812abf3fcbecf566f09:pkg/utils/annotations.go
+e0fc4c189a6e45ee17a5e812abf3fcbecf566f09:pkg/webhook/handler/mutating/mutating_handler_test.go
+e0fc4c189a6e45ee17a5e812abf3fcbecf566f09:pkg/webhook/plugins/fileprefetcher/labels.go
+(empty = nothing on base)

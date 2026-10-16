@@ -1,0 +1,15 @@
+PASS: merge adds clientless, preserves serverful/serverless/pluginConfig,
+      keeps an already-merged or unparseable profile untouched.
+--- merged profile head ---
+plugins:
+  serverful:
+    withDataset:
+    - FilePrefetcher
+    - RequireNodeWithFuse
+    - NodeAffinityWithCache
+    - MountPropagationInjector
+    - DatasetUsageInjector
+    withoutDataset:
+    - PreferNodesWithoutCache
+  serverless:
+    withDataset:

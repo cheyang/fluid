@@ -1,0 +1,12 @@
+        - RuntimeConfigInjector
+      - cacheruntimes
+      - cacheruntimes/status
+      - cacheruntimes/finalizers
+      - cacheruntimes
+      - cacheruntimes/status
+      - cacheruntimes
+      - cacheruntimes/status
+      - cacheruntimes
+      - cacheruntimes
+        checksum/plugins-profile: f3d8edf97844cd89c5e52f951b84c2cfe55e1ad046ed8dd152d6df594d98fbe0
+  - name: clientless.fluid.io
