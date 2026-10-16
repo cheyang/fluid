@@ -1,0 +1,17 @@
+== Round 2 (delta 0fa32294..0daf2ba) verification ==
+
+== [1] New harness log contracts on PREVIOUS HEAD 0fa32294 (bites check) ==
+TestOwnerRefGroupRecoveryCoreTypeCompleteTypeMetaNoRecoveryErrorLog: FAIL (red - misleading error logged there) <- reproduction
+TestOwnerRefGroupRecoveryIncompleteTypeMetaStillLogs: PASS
+
+== [2] All 6 harness contracts on HEAD 0daf2ba (re-verify.sh) ==
+P0/F1/F3/F4/F2-log-fix/F2-log-keep: all FIXED (pass)
+
+== [3] PR's own new tests on BASE e4a10bf (grafted head test files) ==
+transformer: 33 Passed | 2 Failed (both group-less entries: 'should recover the group...' and 'should recover the kind and the group...')
+dataset_runtime: FAIL dataset_with_group-less_APIVersion_in_TypeMeta: expected APIVersion data.fluid.io/v1alpha1, got v1alpha1
+
+== [4] PR's own suites on HEAD 0daf2ba ==
+go test ./pkg/utils/transformer/: ok (35 specs incl. new entry)
+go test ./pkg/utils/ -run TestDatasetControllerOwnerReference: PASS (7 subtests incl. new group-less)
+go build ./pkg/...: clean; gofmt: clean

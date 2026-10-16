@@ -1,0 +1,20 @@
+=== RUN   TestDatasetControllerOwnerReference
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_group-less_APIVersion_in_TypeMeta
+    dataset_runtime_test.go:367: expected APIVersion data.fluid.io/v1alpha1, got v1alpha1
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_custom_APIVersion_in_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_malformed_APIVersion_(group_only,_missing_version)
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_complete_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_empty_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_only_Kind_in_TypeMeta
+=== RUN   TestDatasetControllerOwnerReference/dataset_with_only_APIVersion_in_TypeMeta
+--- FAIL: TestDatasetControllerOwnerReference (0.00s)
+    --- FAIL: TestDatasetControllerOwnerReference/dataset_with_group-less_APIVersion_in_TypeMeta (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_custom_APIVersion_in_TypeMeta (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_malformed_APIVersion_(group_only,_missing_version) (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_complete_TypeMeta (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_empty_TypeMeta (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_only_Kind_in_TypeMeta (0.00s)
+    --- PASS: TestDatasetControllerOwnerReference/dataset_with_only_APIVersion_in_TypeMeta (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	0.012s
+FAIL

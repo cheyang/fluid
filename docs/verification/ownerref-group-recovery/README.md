@@ -2,7 +2,7 @@
 
 - **Reviewer:** Claude (Reviewer A, debate pipeline)
 - **PR:** https://github.com/fluid-cloudnative/fluid/pull/6206
-- **PR head:** `0fa3229416df66784dcf5b853dd636449d265a02`
+- **PR head:** `0daf2ba051fc25aa05dc68b2c42ea083f4f3c593` (round 2; round-1 head was `0fa3229416df66784dcf5b853dd636449d265a02`)
 - **Base:** `e4a10bf49a1e8068d901e6f146ee4e435db7e785` (= merged PR #6199)
 - **Branch:** `verify/ownerref-group-recovery-claude` (harness only; production code untouched)
 
@@ -68,13 +68,59 @@ clean. `gofmt` clean.
 envtest/live layers: not run (no kubebuilder-envtest assets on this machine;
 debate policy restricts stage ② to unit + integration).
 
+## Round 2 — delta `0fa3229..0daf2ba` (evidence: `results/round2/`)
+
+The author pushed two commits addressing all three round-1 SHOULD items:
+
+1. `75851117` — gate the recovery-failure error log on the emitted reference
+   being actually incomplete (`len(gvk.Kind) == 0 || len(gvk.Version) == 0`),
+   and update the function header comment (kind/version/**group** fall back).
+2. `0daf2ba0` — lift both missing tests into the PR's own suite: the
+   kind-missing + group-less table entry in
+   `owner_reference_test.go:259`, and the group-less case in
+   `TestDatasetControllerOwnerReference` (`dataset_runtime_test.go:316`).
+
+New harness contracts for the log-gating change (added this round,
+`pkg/utils/transformer/owner_reference_group_recovery_test.go`):
+
+| id | claim | test |
+| --- | --- | --- |
+| F2-log-fix | a complete core-group TypeMeta (`apiVersion: "v1"`) emits **no** recovery-failure error log | `TestOwnerRefGroupRecoveryCoreTypeCompleteTypeMetaNoRecoveryErrorLog` |
+| F2-log-keep | a genuinely incomplete TypeMeta (kind empty) **still** logs the recovery failure | `TestOwnerRefGroupRecoveryIncompleteTypeMetaStillLogs` |
+
+| contract | base e4a10bf | prev head 0fa32294 | head 0daf2ba | verdict |
+| --- | --- | --- | --- | --- |
+| F2-log-fix | PASS (branch never entered) | **FAIL** (misleading error logged) | PASS | log-noise fixed by `75851117` |
+| F2-log-keep | PASS | PASS | PASS | diagnostic preserved |
+| P0/F1/F3/F4 (round 1) | as above | PASS | PASS | no regression from the delta |
+
+Bites check for the new contract: on the round-1 head `0fa32294`
+(the verify-branch base) `F2-log-fix` goes red — the misleading
+`failed to recover the GroupVersionKind` error fires for `ConfigMap/v1` —
+which is the reproduction; green on `0daf2ba`.
+
+The PR's own new tests are genuine differential tests: grafted onto base
+`e4a10bf` (`results/round2/base-pr-tests-*.txt`), both new entries fail
+(transformer: 33 passed / 2 failed; consumer:
+`expected APIVersion data.fluid.io/v1alpha1, got v1alpha1`) and pass on the
+head (`results/round2/head-pr-tests-*.txt`). Full suites on head:
+`go test ./pkg/utils/transformer/` ok (35 specs), consumer suite PASS
+(7 subtests), `go build ./pkg/...` clean, `gofmt` clean.
+
+CI on head `0daf2ba` (GitHub statusCheckRollup, read at round start):
+unittest, lint, staticcheck, build (2 arch), kind-e2e across 6 k8s versions,
+backward-compat across 6 versions, CodeQL, SonarCloud, DCO, codecov, tide —
+all SUCCESS.
+
 ## Review verdict summary
 
-No blocker/major findings. The fix is minimal, correct, and consistent with
-the scheme-recovery design introduced by #6199; the PR's own table entry plus
-this harness cover the contract. Minor gaps: F1-style combined case and the
-F4 consumer case are not in the PR's tests (covered here), and the
-function-level comment still says only "kind and the apiVersion" fall back.
+No blocker/major findings in either round. The fix is minimal, correct, and
+consistent with the scheme-recovery design introduced by #6199. Round 2
+addressed every round-1 SHOULD item: both missing tests now live in the PR's
+own suite, the header comment names the group, and the misleading log for
+complete core-group types is gated (differentially verified here). The
+remaining round-1 question (no known production producer of the group-less
+shape) is pre-existing contract hardening, not a defect.
 
 ## Continuing after the fix
 
@@ -84,7 +130,7 @@ git checkout verify/ownerref-group-recovery-claude
 bash docs/verification/ownerref-group-recovery/scripts/re-verify.sh   # auto-resolves PR head
 ```
 
-Polarity table for future rounds: all four tests are contract tests — after a
+Polarity table for future rounds: all six tests are contract tests — after a
 developer fix they must PASS on the PR head. If any goes FAIL again, the
 finding is Still-broken. No canaries, nothing to invert.
 
