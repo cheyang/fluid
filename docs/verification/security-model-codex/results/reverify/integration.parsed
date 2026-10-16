@@ -1,0 +1,4 @@
+TestL2_RBACHasNoWildcards	pass
+TestL2_ClusterWideSecretsOnlyWithSecretDriver	pass
+TestL2_WebhooksFailClosed	pass
+TestL2_ThinControllerLacksSecretRBACByDefault	pass
