@@ -1,0 +1,24 @@
+re-verify: manifest = docs/verification/cache-partial-version/verify-manifest.json
+re-verify: last-reviewed = 382d926ae2d433506982896ea56c4d57bd747bb7  (review delta = 382d926ae2d433506982896ea56c4d57bd747bb7..382d926a)
+re-verify: fixed-ref=382d926a  harness-from=verify/cache-partial-version-claude
+re-verify: running layer 'unit' (ginkgo)
+re-verify: running layer 'integration' (ginkgo)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+FIX    contract  integration  FIXED          pass=3 fail=0 miss=0
+F1     contract  integration  FIXED          pass=2 fail=0 miss=0
+F2     contract  integration  FIXED          pass=2 fail=0 miss=0
+F3     contract  unit         FIXED          pass=5 fail=0 miss=0
+F4     contract  unit         FIXED          pass=2 fail=0 miss=0
+F6     contract  integration  PARTIAL        pass=1 fail=2 miss=0
+
+Live layer (manual): L3 (live cluster) was skipped by instruction for this debate round: the environment probe DID find a reachable cluster (2 aliyun v1.36.2 nodes via ~/.kube/config), but this round was scoped to unit + integration layers only, and no cluster state was touched. The PR author already recorded a kind-cluster run in the PR body. If run later: create a CacheRuntime against a class whose worker template pins an image, patch runtimeVersion.imageTag only, and check the ASTS generation + image and the controller log line 'image changed, will update'.
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/cache-partial-version/results/reverify
+
+Review delta this round: 382d926ae2d433506982896ea56c4d57bd747bb7..382d926a
+After reviewing that delta, advance the marker for the next round:
+  echo 382d926a > docs/verification/cache-partial-version/.last-reviewed && git add docs/verification/cache-partial-version/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: not all findings fixed.

@@ -165,3 +165,82 @@ Raw evidence:
 L3 (live) still skipped by instruction; the PR author's kind-cluster run in the PR
 body remains the live evidence, and CI is fully green at this head (see the round-2
 findings ledger).
+
+---
+
+# Round 3 — head 902625af (delta 382d926a..902625af)
+
+The PR gained 6 commits, all addressing the round-2 SHOULD items (F6 observability + N1 docs):
+
+- **8430488e** `fix(cache): surface an incomplete runtimeVersion without a verbosity flag` —
+  `logIncompleteVersion` → `reportIncompleteVersion`: V(0) log **plus** a
+  `RuntimeVersionIncomplete` Warning event on the CacheRuntime (`pkg/common/constants.go`).
+- **a1bf08bb** `fix(cache): emit RuntimeVersionIncomplete on creation, not only on sync` —
+  the report moved from `transformComponentPodTemplate` to its callers
+  (`transformMaster`/`transformWorker`/`transformClient`), so the creation path reports on its
+  own (Setup waits for readiness before the reconcile reaches Sync, so an image that never
+  becomes ready would otherwise hide the signal).
+- **022e319f** docs: the symmetric tag-only + template-repo-change hazard (round-2 N1).
+- **003cdadc** docs: drop the upgrade note — the CacheRuntime is unreleased
+  (verified: no git tag contains the merge base or the cache engine).
+- **3c392b29** tests pin the event type and count; **902625af** docs note the client reports
+  on creation only.
+
+## New harness contracts this round (F6)
+
+`version_completion_observability_verify_test.go` — written against paths that exist on BOTH
+rounds' heads (string literals, not the new constant, so it compiles at 382d926a):
+
+- `contract: an un-completable partial version emits a RuntimeVersionIncomplete Warning event`
+- `contract: the incomplete-version log line is emitted at the default verbosity` (funcr with
+  default options — the shipped controller's effective config: V(0) written, V(1) dropped)
+- `control: a partial version the template completes emits no event`
+
+## Re-verify outcome
+
+| id | polarity | on round-2 head 382d926a | on head 902625af | verdict |
+|----|----------|--------------------------|------------------|---------|
+| FIX | contract | green | green (3/3) | fix still holds |
+| F1 | contract | green | green (2/2) | still fixed (99659bf4) |
+| F2 | contract | green | green (2/2) | deliberate semantics still pinned |
+| F3 | contract | green | green (5/5) | corner cases hold |
+| F4 | contract | green | green (2/2) | still fixed (7c7abfbf) |
+| F6 | contract (new) | **red** (2 contracts fail) | **green** (3/3) | **FIXED** — the round-3 delta adds the event and the V(0) log |
+
+Raw evidence:
+
+- `results/reverify-previous-head-382d926a-f6/` — 310 Passed | 14 Failed = the 12
+  pre-existing mount/Execute specs **+ the 2 F6 contracts red** (the reproduction of the
+  round-2 F6: no event, no default-verbosity log).
+- `results/reverify-current-head-902625af/` — 316 Passed | 12 Failed; the 12 are the
+  byte-identical pre-existing set (11 `ufs_test.go` + 1 `sync_test.go` mount/Execute specs).
+  344 total specs = 340 at the round-2 head + 4 new PR specs (round-3 delta) + this round's
+  harness runs at both heads with the same 3 added F6 specs.
+- The red→green flip across the two heads is the harness-bites proof for the F6 contracts
+  (no production patch applied; the author's own 8430488e/a1bf08bb are the fix under test).
+- Full table transcripts: `results/reverify-previous-head-382d926a-f6/reverify-prev-head.txt`,
+  `results/reverify-current-head-902625af/reverify-cur-head.txt`.
+
+Note on the repo-side `results/reverify/` copies: the re-verify script's cleanup trap
+(`git checkout -f` back to the harness branch) restores the committed round-2 parsed
+artifacts after each run, so the per-round result directories above (with the `.out`
+transcripts and the table `.txt` captures) are the durable evidence for rounds 3+.
+
+## Delta review notes (blast radius)
+
+- The report call sites pass `componentTemplateImage(componentDefinition)` — the same image
+  `componentImage` uses inside `transformComponentPodTemplate` (the pod template is a deep
+  copy of the class template seeded by `initComponentValue`, and the report runs before the
+  image transform), and `syncRuntimeSpec` passes the same `componentTemplateImage(...)` it
+  feeds `desiredComponentVersion`. The report condition therefore matches the drop condition
+  exactly — no case reports "incomplete" while the completion actually succeeded, or vice
+  versa.
+- `e.Recorder` is wired in production (`engine.go:77`, `ctx.Recorder`), already used for
+  Warning events (`dataload.go`, `setup.go`).
+- The event repeats once per sync attempt for a persistently un-completable version
+  (`syncRuntimeSpec` is throttled by `permitSync`/`syncRetryDuration`; the k8s event
+  correlator aggregates identical events) — noise-level, filed as a nit, not a defect.
+
+L3 (live) still skipped by instruction; CI at 902625af is green across all check runs
+(unittest, build, lint, staticcheck, CodeQL, SonarCloud, codecov, DCO, backward-compat-test
+and kind-e2e-test on k8s v1.22–v1.33; only the `tide` merge-queue StatusContext is pending).
