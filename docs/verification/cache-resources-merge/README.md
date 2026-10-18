@@ -185,3 +185,52 @@ Compatibility: `git merge-tree --write-tree 3adc547d e4a10bf4` (current master) 
 cleanly.
 
 `.last-reviewed` advanced to `3adc547d`.
+
+## Round 5 — delta `3adc547d..ce4f0c4f`
+
+Six commits closing three carried ledger items plus a docs cleanup:
+
+- `4688a36c` drops the upgrade notes from `docs/{en,zh}/.../cacheruntime_spec_update.md`.
+  Validated: the CacheRuntime is genuinely unreleased — the commits introducing
+  `pkg/ddc/cache` (#5738/#5762) are contained in **no tag** (`git tag --contains` is
+  empty; `git ls-tree -r v1.0.8 | grep -c cacheruntime` = 0), so no released user can
+  hold a CacheRuntime workload to upgrade. The one-time repair roll still exists in
+  code, but it can only ever fire for pre-release/dev builds. The PR description still
+  carries the old upgrade paragraph — stale text, not a defect.
+- `71d94397` + `4a8668f9` (F10): the creation path routes validation through
+  `checkComponentResources`, which emits the same `RuntimeResourcesConflict` Warning
+  event the sync path emits; specs added for worker, master and client.
+- `94121e27` (F7): `syncRuntimeSpec` guards a topology-less class before the first
+  dereference; spec added.
+- `44e6c90a` + `ce4f0c4f` (F8): the resources equivalence table renders tiered-store
+  workloads (emptyDir-Memory and process-memory tiers) and pins the quota each row
+  charges, so a row can no longer pass with the quota silently dropped.
+
+New harness probes (`verify_delta_r5_6177_test.go`):
+
+| id | claim | polarity | verdict | evidence |
+| --- | --- | --- | --- | --- |
+| D9 | `syncRuntimeSpec` with a topology-less class is a no-op (no panic), workloads untouched (F7) | contract | **Fixed** — panics with a nil-pointer dereference on `3adc547d`, passes on `ce4f0c4f` | `results/round5/differential-prevhead-3adc547d.log` |
+| D10 | A tiered-store workload's memory agrees across the creation render and the sync resolution (quota charged on the merged baseline on both sides, F8) | contract | **Regression pin** — passes on both heads by design; the coverage fix is the PR's own new equivalence rows, D10 keeps the invariant pinned here | same logs + `results/round5/reverify-head-ce4f0c4f.log` |
+| D11 | The creation path emits a `RuntimeResourcesConflict` Warning event naming the conflicting pair when the merge conflicts (F10) | contract | **Fixed** — error but no event on `3adc547d`, error + event on `ce4f0c4f` | same logs |
+
+Full re-verify at head (`results/round5/reverify-head-ce4f0c4f.log`): every contract
+B1–B5, D1–D11, E2 and F7/F8/F9/F10 FIXED; F11 (E1) STILL-BROKEN as expected — the
+pre-existing class-claims wedge, unchanged by this delta (the delta does not touch
+`validDesiredResources`/claims), still non-blocking.
+
+Full engine suite: 12 failures at `ce4f0c4f`, the **same byte-identical set** as at
+`3adc547d` (fingerprint `c3e1929f…`, 11× `ufs_test.go` + 1× `sync_test.go`
+ReportSummary, pre-existing at base) — no revision regression.
+
+CI at the exact head `ce4f0c4f`: all 21 check-runs completed/success (DCO, unittest,
+lint, staticcheck, builds, CodeQL, SonarCloud, codecov, kind-e2e-test and
+backward-compat-test on v1.22.17/v1.24.17/v1.28.15/v1.30.13/v1.33.2) — the
+round-start "pending" rollup had settled to fully green.
+
+Maintainer ack (F1): still outstanding — latest reviews on the PR are
+copilot-pull-request-reviewer (10-12, 10-14) and the cheyang entry 5553719814
+(10-16), which is this pipeline's own round-4 summary; issue comments are bot-only;
+#6165 discussion_r3804862812 still has no human reply.
+
+`.last-reviewed` advanced to `ce4f0c4f`.

@@ -1,0 +1,37 @@
+re-verify: manifest = docs/verification/cache-resources-merge/verify-manifest.json
+re-verify: resolving PR head via 'git fetch https://github.com/fluid-cloudnative/fluid.git pull/6177/head' (machine-independent)
+re-verify: current head = ce4f0c4f966ff201d644a895eb4abbdc18c36d3a
+re-verify: last-reviewed = 3adc547d4da45c2da9540c94ab447ff0f4269c91  (review delta = 3adc547d4da45c2da9540c94ab447ff0f4269c91..ce4f0c4f966ff201d644a895eb4abbdc18c36d3a)
+re-verify: fixed-ref=ce4f0c4f966ff201d644a895eb4abbdc18c36d3a  harness-from=verify/cache-resources-merge-claude
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'integration' (ginkgo)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+B1     contract  unit         FIXED          pass=2 fail=0 miss=0
+B2     contract  unit         FIXED          pass=1 fail=0 miss=0
+B3     contract  unit         FIXED          pass=1 fail=0 miss=0
+B4     contract  integration  FIXED          pass=1 fail=0 miss=0
+B5     contract  integration  FIXED          pass=1 fail=0 miss=0
+D1     contract  unit         FIXED          pass=1 fail=0 miss=0
+D2     contract  unit         FIXED          pass=1 fail=0 miss=0
+D3     contract  unit         FIXED          pass=1 fail=0 miss=0
+D4     contract  unit         FIXED          pass=1 fail=0 miss=0
+D5     contract  unit         FIXED          pass=1 fail=0 miss=0
+D6     contract  unit         FIXED          pass=1 fail=0 miss=0
+F9     contract  unit         FIXED          pass=2 fail=0 miss=0
+F11    contract  unit         STILL-BROKEN   pass=0 fail=1 miss=0
+E2-empty-map-clear contract  unit         FIXED          pass=1 fail=0 miss=0
+F7     contract  unit         FIXED          pass=1 fail=0 miss=0
+F8     contract  unit         FIXED          pass=1 fail=0 miss=0
+F10    contract  unit         FIXED          pass=1 fail=0 miss=0
+
+Live layer (manual): L3 (live cluster) was skipped by the debate configuration (unit + integration layers mandated). A probe did find a reachable cluster (kubectl get no: 1 node, v1.36.2-aliyun.1); it was left untouched. If L3 is ever run: apply the #6173 manifests, kubectl patch the cacheruntime with limits.memory=8Gi only, then read .spec.template.spec.containers[0].resources from the advancedstatefulset — expect limits {cpu 2, memory 8Gi} and requests {cpu 1, memory 2Gi}, and expect requests to stay nil (not an empty map) on the limits-only template.
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/cache-resources-merge/results/reverify
+
+Review delta this round: 3adc547d4da45c2da9540c94ab447ff0f4269c91..ce4f0c4f966ff201d644a895eb4abbdc18c36d3a
+After reviewing that delta, advance the marker for the next round:
+  echo ce4f0c4f966ff201d644a895eb4abbdc18c36d3a > docs/verification/cache-resources-merge/.last-reviewed && git add docs/verification/cache-resources-merge/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: not all findings fixed.

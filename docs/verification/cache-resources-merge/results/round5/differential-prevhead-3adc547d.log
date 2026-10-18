@@ -1,0 +1,16 @@
+Round-5 differential: full harness grafted onto the previous head 3adc547d
+(manual worktree; same files re-verify.sh grafts). D9/D10/D11 outcomes:
+
+=== RUN   TestD9SyncWithTopologylessClassIsANoOp
+    verify_delta_r5_6177_test.go:121: syncRuntimeSpec panicked on a topology-less class: runtime error: invalid memory address or nil pointer dereference — the guard must return before the first dereference
+--- FAIL: TestD9SyncWithTopologylessClassIsANoOp (0.00s)
+=== RUN   TestD10TieredStoreQuotaAgreesAcrossPaths
+--- PASS: TestD10TieredStoreQuotaAgreesAcrossPaths (0.00s)
+=== RUN   TestD11CreationConflictEmitsRuntimeResourcesConflictEvent
+    verify_delta_r5_6177_test.go:288: no RuntimeResourcesConflict event was emitted on the creation path — the conflict is only visible in the generic setup failure
+--- FAIL: TestD11CreationConflictEmitsRuntimeResourcesConflictEvent (0.00s)
+
+At head ce4f0c4f (re-verify.sh round 5, results/round5/reverify-head-ce4f0c4f.log):
+F7 pass=1, F8 pass=1, F10 pass=1 — the flips prove the harness bites.
+D10 is a regression pin by design (passes on both heads); the coverage fix is
+the PR's own new tiered-store equivalence rows.
