@@ -1,0 +1,7 @@
+# integration layer at head 268012a5 (harness grafted):
+# go test -count=1 ./docs/verification/clientless-runtime-config-inject/chartmerge/
+ok  github.com/fluid-cloudnative/fluid/docs/verification/clientless-runtime-config-inject/chartmerge  (all merge/checksum/helm-envtest tests PASS)
+# incl. TestHelmUpgradeMergesClientlessProfileAgainstRealApiServer: real helm upgrade --dry-run=server against envtest;
+#   phase 2 stores merged+"\n" (block-scalar clip) and asserts byte-stable checksum (no second-upgrade churn).
+# go test -count=1 -gcflags=all=-l ./pkg/ctrl/watch/ -run TestVerifyPR6197
+ok  github.com/fluid-cloudnative/fluid/pkg/ctrl/watch (clientless pod not watched; privileged fuse pod still watched)

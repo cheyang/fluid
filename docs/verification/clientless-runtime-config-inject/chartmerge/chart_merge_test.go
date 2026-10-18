@@ -352,8 +352,17 @@ func TestPluginsProfileMerge_FreshInstallAndForceReplace(t *testing.T) {
 
 // TestWebhookChecksumAnnotation: webhook.yaml must carry a checksum/plugins-profile
 // annotation so the Deployment rolls (and reloads the profile) when the rendered profile
-// changes; rendering the checksum expression the same way webhook.yaml does must yield a
-// value that changes when the profile content changes and then stays stable.
+// changes. Two contracts, rendered the same way webhook.yaml computes the checksum:
+//
+//  1. no churn across the merge boundary (B-F6, fixed at 268012a5 by trimming the stored
+//     profile's trailing newline before indenting it): the render right after the first
+//     upgrade (merge branch over the legacy profile) must be byte-identical to the render
+//     of the second upgrade (keep branch over the now-merged stored profile), otherwise
+//     the checksum changes once more and the webhook rolls a second time for no reason.
+//     Red on 6d3a6d7e, where the keep branch re-indented the trailing newline into a
+//     whitespace-only line.
+//  2. a genuine profile edit still changes the checksum, so the webhook rolls when the
+//     user actually changes the profile.
 func TestWebhookChecksumAnnotation(t *testing.T) {
 	root := repoRoot(t)
 	webhookYAML, err := os.ReadFile(filepath.Join(root, "charts/fluid/fluid/templates/webhook/webhook.yaml"))
@@ -377,14 +386,25 @@ func TestWebhookChecksumAnnotation(t *testing.T) {
 		return buf.String()
 	}
 
-	legacy := checksumOf(legacyProfile)
+	firstUpgrade := checksumOf(legacyProfile)
 	mergedProfile := newChartRenderer(t, legacyProfile, false).renderProfile(t)
-	merged := checksumOf(mergedProfile)
-	if legacy == merged {
-		t.Fatalf("checksum does not change when the profile changes: webhook would not roll")
+	secondUpgrade := checksumOf(mergedProfile)
+	if firstUpgrade != secondUpgrade {
+		t.Fatalf("checksum churns on the second upgrade although the stored profile is already merged: " +
+			"the webhook would roll once more for no reason (B-F6)")
 	}
-	if again := checksumOf(mergedProfile); again != merged {
-		t.Fatalf("checksum not stable once the merged profile is stored: %s vs %s", again, merged)
+	if again := checksumOf(mergedProfile); again != secondUpgrade {
+		t.Fatalf("checksum not stable once the merged profile is stored: %s vs %s", again, secondUpgrade)
+	}
+
+	// A genuine user edit of the stored profile must change the checksum, or the webhook
+	// would keep serving the old profile from memory.
+	edited := strings.Replace(mergedProfile, "weight: 100", "weight: 50", 1)
+	if edited == mergedProfile {
+		t.Fatalf("fixture: could not apply the user edit to the merged profile")
+	}
+	if checksumOf(edited) == secondUpgrade {
+		t.Fatalf("checksum does not change when the user edits the profile: webhook would not roll")
 	}
 }
 

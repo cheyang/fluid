@@ -86,8 +86,46 @@
       "polarity": "contract",
       "layer": "unit",
       "match": [
-        "the rejection message names the dataset but not the name-length reason"
-      ]
+        "the rejection message names the dataset and the name-length reason"
+      ],
+      "note": "canary flipped at 268012a5 (commit c01cbcce carries per-dataset reasons into the aggregate denial); promoted from characterization to contract"
+    },
+    {
+      "id": "A-F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "is rejected with the runtime type named, not 'configmap may not be ready yet'"
+      ],
+      "note": "Reviewer A finding, independently contracted by reviewer B: non-cache dataset in fluid.io/datasets is denied naming the runtime type (fix 89d26fe2). Red on 6d3a6d7e, green on 268012a5."
+    },
+    {
+      "id": "A-F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "is rejected naming the invalid volume name instead of producing an API-server-invalid pod"
+      ],
+      "note": "Reviewer A finding, independently contracted by reviewer B: PVC-resolved dataset 'demo.v1' is denied naming the invalid volume name (fix c76c0a72). Red on 6d3a6d7e (pod admitted with an API-server-invalid volume), green on 268012a5."
+    },
+    {
+      "id": "A-N1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "an app container named fluid-fuse-proxy is injected while fluid-fuse-0 is skipped"
+      ],
+      "note": "Reviewer A finding, independently contracted by reviewer B: only fluid's own fuse sidecar names (fluid-fuse, fluid-fuse-<digits>) are skipped (fix 9d9bd872). Red on 6d3a6d7e, green on 268012a5."
+    },
+    {
+      "id": "B-F6",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestWebhookChecksumAnnotation",
+        "TestHelmUpgradeMergesClientlessProfileAgainstRealApiServer"
+      ],
+      "note": "checksum no longer churns on the second upgrade (fix 16c5509e+760f5369, trimSuffix before indent). TestWebhookChecksumAnnotation reframed to the no-churn contract; the envtest test now does a real-helm second upgrade storing the profile with its block-scalar trailing newline. Red on 6d3a6d7e, green on 268012a5."
     }
   ],
   "liveNote": "No live layer in this round (debate setup skips KUBECONFIG). With a cluster, the upgrade path behind F1 can be shown end to end: helm install the base chart, helm upgrade to this PR's chart with default values, and confirm the webhook-plugins ConfigMap gains the clientless group and the webhook Deployment rolls (checksum/plugins-profile changes)."

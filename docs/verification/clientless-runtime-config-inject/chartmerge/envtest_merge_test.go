@@ -175,24 +175,32 @@ func TestHelmUpgradeMergesClientlessProfileAgainstRealApiServer(t *testing.T) {
 
 	chartDir := filepath.Join(repoRoot(t), "charts/fluid/fluid")
 
-	// does this helm do lookups during template at all? If not, try upgrade --dry-run=server.
-	rendered := helmTemplate(t, chartDir, kubeconfig)
-	cmDoc := documentNamed(t, rendered, "ConfigMap", "webhook-plugins")
-	if !strings.Contains(cmDoc, "LegacyOnlyMarker") {
-		// fall back to the server dry-run path, which definitely performs lookups
-		t.Log("plain template did not resolve lookup (marker missing); trying upgrade --dry-run=server")
-		helmPath, _ := exec.LookPath("helm")
-		out, err := exec.Command(helmPath, "upgrade", "--install", "--dry-run=server", "fluid", chartDir,
-			"--namespace", "fluid-system", "--kubeconfig", kubeconfig).Output()
-		if err != nil {
-			if ee, ok := err.(*exec.ExitError); ok {
-				t.Fatalf("helm upgrade --dry-run=server failed: %v\n%s", err, ee.Stderr)
+	// renderWithLookup renders the chart with the real helm CLI against the envtest API
+	// server, so the chart's lookup sees the seeded ConfigMap exactly as `helm upgrade`
+	// would. Falls back to upgrade --dry-run=server when plain template does not resolve
+	// lookups with this helm version.
+	renderWithLookup := func() string {
+		out := helmTemplate(t, chartDir, kubeconfig)
+		cmDoc := documentNamed(t, out, "ConfigMap", "webhook-plugins")
+		if !strings.Contains(cmDoc, "LegacyOnlyMarker") {
+			// fall back to the server dry-run path, which definitely performs lookups
+			t.Log("plain template did not resolve lookup (marker missing); trying upgrade --dry-run=server")
+			helmPath, _ := exec.LookPath("helm")
+			upOut, err := exec.Command(helmPath, "upgrade", "--install", "--dry-run=server", "fluid", chartDir,
+				"--namespace", "fluid-system", "--kubeconfig", kubeconfig).Output()
+			if err != nil {
+				if ee, ok := err.(*exec.ExitError); ok {
+					t.Fatalf("helm upgrade --dry-run=server failed: %v\n%s", err, ee.Stderr)
+				}
+				t.Fatalf("helm upgrade --dry-run=server failed: %v", err)
 			}
-			t.Fatalf("helm upgrade --dry-run=server failed: %v", err)
+			out = string(upOut)
 		}
-		rendered = string(out)
-		cmDoc = documentNamed(t, rendered, "ConfigMap", "webhook-plugins")
+		return out
 	}
+
+	rendered := renderWithLookup()
+	cmDoc := documentNamed(t, rendered, "ConfigMap", "webhook-plugins")
 
 	// F1 contract against real helm + real lookup: the preserved legacy profile must gain
 	// the clientless group and keep its own entries.
@@ -219,5 +227,70 @@ func TestHelmUpgradeMergesClientlessProfileAgainstRealApiServer(t *testing.T) {
 	depDoc := documentNamed(t, rendered, "Deployment", "fluid-webhook")
 	if !strings.Contains(depDoc, "checksum/plugins-profile") {
 		t.Fatalf("webhook Deployment has no checksum/plugins-profile annotation:\n%s", depDoc)
+	}
+	var dep struct {
+		Spec struct {
+			Template struct {
+				Metadata struct {
+					Annotations map[string]string `yaml:"annotations"`
+				} `yaml:"metadata"`
+			} `yaml:"template"`
+		} `yaml:"spec"`
+	}
+	if err := sigsyaml.Unmarshal([]byte(depDoc), &dep); err != nil {
+		t.Fatalf("parse rendered fluid-webhook deployment: %v", err)
+	}
+	firstChecksum := dep.Spec.Template.Metadata.Annotations["checksum/plugins-profile"]
+	if firstChecksum == "" {
+		t.Fatalf("webhook Deployment lost the checksum/plugins-profile value:\n%s", depDoc)
+	}
+
+	// B-F6, with the real helm CLI and a real API server: simulate the second upgrade by
+	// storing the merged profile exactly as the API server persisted it after the first
+	// upgrade, then re-render. The keep branch must reproduce the first upgrade's render
+	// byte-for-byte — otherwise the checksum annotation changes and the webhook rolls a
+	// second time for no reason. Red on 6d3a6d7e (trailing newline re-indented into a
+	// whitespace-only line), green at 268012a5.
+	current, err := clientset.CoreV1().ConfigMaps("fluid-system").Get(ctx, "webhook-plugins", metav1.GetOptions{})
+	if err != nil {
+		t.Fatalf("get seeded webhook-plugins: %v", err)
+	}
+	// The profile the API server persists after the first upgrade ends with exactly one
+	// newline: the rendered manifest terminates every block-scalar line, and `|` clip
+	// chomping keeps the final line break. (merged itself lacks it only because this test
+	// splits helm's printed stream on the "---" separator, which eats the last newline.)
+	current.Data["pluginsProfile"] = merged + "\n"
+	if _, err := clientset.CoreV1().ConfigMaps("fluid-system").Update(ctx, current, metav1.UpdateOptions{}); err != nil {
+		t.Fatalf("store merged profile: %v", err)
+	}
+
+	second := renderWithLookup()
+	secondCmDoc := documentNamed(t, second, "ConfigMap", "webhook-plugins")
+	var secondCm struct {
+		Data map[string]string `yaml:"data"`
+	}
+	if err := sigsyaml.Unmarshal([]byte(secondCmDoc), &secondCm); err != nil {
+		t.Fatalf("parse second-render webhook-plugins: %v", err)
+	}
+	if secondCm.Data["pluginsProfile"] != merged {
+		t.Fatalf("second upgrade changed the stored profile content:\n%q\nvs\n%q",
+			secondCm.Data["pluginsProfile"], merged)
+	}
+	secondDepDoc := documentNamed(t, second, "Deployment", "fluid-webhook")
+	var secondDep struct {
+		Spec struct {
+			Template struct {
+				Metadata struct {
+					Annotations map[string]string `yaml:"annotations"`
+				} `yaml:"metadata"`
+			} `yaml:"template"`
+		} `yaml:"spec"`
+	}
+	if err := sigsyaml.Unmarshal([]byte(secondDepDoc), &secondDep); err != nil {
+		t.Fatalf("parse second-render fluid-webhook deployment: %v", err)
+	}
+	if got := secondDep.Spec.Template.Metadata.Annotations["checksum/plugins-profile"]; got != firstChecksum {
+		t.Fatalf("B-F6 PRESENT against real helm+apiserver: checksum churns on the second upgrade (%s -> %s), webhook would roll again for no reason",
+			firstChecksum, got)
 	}
 }

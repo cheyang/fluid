@@ -1,0 +1,7 @@
+# unit layer (ginkgo, handler suite incl. verify_pr6197_codex_test.go) at head 268012a5
+# cmd: go test -count=1 -gcflags=all=-l ./pkg/webhook/handler/mutating/ -run TestMutating
+passed   [contract] the rejection message names the dataset and the name-length reason (F5, fixed at 268012a5)
+passed   [contract] is rejected with the runtime type named, not 'configmap may not be ready yet'
+passed   [contract] is rejected naming the invalid volume name instead of producing an API-server-invalid pod
+passed   [contract] an app container named fluid-fuse-proxy is injected while fluid-fuse-0 is skipped
+# full suite: 42 passed, 0 failed (ginkgo report)

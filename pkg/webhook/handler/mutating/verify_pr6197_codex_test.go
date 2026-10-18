@@ -23,6 +23,7 @@ package mutating
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"os"
 	"strings"
 
@@ -290,7 +291,9 @@ var _ = Describe("PR6197 verification: clientless runtime config injection", fun
 			Expect(resp.Result.Code).To(Equal(int32(403)))
 		})
 
-		It("[characterization] the rejection message names the dataset but not the name-length reason (F5)", func() {
+		It("[contract] the rejection message names the dataset and the name-length reason (F5, fixed at 268012a5)", func() {
+			// F5 canary flipped at 268012a5 (commit c01cbcce carries the per-dataset reason
+			// into the aggregate denial); promoted to a contract. Red on 6d3a6d7e.
 			longName := strings.Repeat("a", 50)
 			dataset, cacheRuntime := boundCacheDataset(longName, "big-data")
 			cm := runtimeConfigConfigMap(longName, "big-data")
@@ -302,10 +305,8 @@ var _ = Describe("PR6197 verification: clientless runtime config injection", fun
 			resp := handler.Handle(context.TODO(), clientlessAdmissionRequest("big-data", longName))
 			Expect(resp.Allowed).To(BeFalse())
 			Expect(resp.Result.Message).To(ContainSubstring(longName))
-			// F5 (minor): the "too long" reason only shows up in the webhook log; the API-facing
-			// message is the generic "failed to get the following datasets", indistinguishable
-			// from a not-found dataset, although the docs say the reason is in the error.
-			Expect(resp.Result.Message).NotTo(ContainSubstring("too long"))
+			Expect(resp.Result.Message).To(ContainSubstring("too long"),
+				"the denial must state the reason, not only the dataset name")
 		})
 	})
 
@@ -414,6 +415,141 @@ var _ = Describe("PR6197 verification: clientless runtime config injection", fun
 			Expect(resp.Allowed).To(BeTrue())
 			Expect(patchTouchesVolumes(resp)).To(BeFalse(),
 				"a fuse-runtime PVC has no runtime config to inject; the pod must pass through untouched")
+		})
+	})
+	Context("A-F1: a non-cache dataset listed in fluid.io/datasets (fixed at 268012a5)", func() {
+		It("[contract] is rejected with the runtime type named, not 'configmap may not be ready yet'", func() {
+			// Before 89d26fe2 an alluxio dataset resolved fine and the pod was then denied
+			// with 'configmap ... may not be ready yet' — a state that can never occur for a
+			// fuse-served runtime. Red on 6d3a6d7e (message never names the runtime type).
+			alluxioDataset := &datav1alpha1.Dataset{
+				ObjectMeta: metav1.ObjectMeta{Name: "demo-alx", Namespace: "big-data"},
+				Status: datav1alpha1.DatasetStatus{
+					Phase: datav1alpha1.BoundDatasetPhase,
+					Runtimes: []datav1alpha1.Runtime{
+						{Name: "demo-alx", Namespace: "big-data", Type: common.AlluxioRuntime},
+					},
+				},
+			}
+			alluxioRuntime := &datav1alpha1.AlluxioRuntime{
+				ObjectMeta: metav1.ObjectMeta{Name: "demo-alx", Namespace: "big-data"},
+			}
+			fakeClient := fake.NewFakeClientWithScheme(s, alluxioDataset, alluxioRuntime)
+			Expect(plugins.RegisterMutatingHandlers(fakeClient)).To(Succeed())
+
+			handler := &FluidMutatingHandler{}
+			handler.Setup(fakeClient, fakeClient, decoder)
+
+			resp := handler.Handle(context.TODO(), clientlessAdmissionRequest("big-data", "demo-alx"))
+			Expect(resp.Allowed).To(BeFalse(), "a non-cache dataset in the annotation must reject the pod")
+			Expect(resp.Result.Code).To(Equal(int32(403)))
+			Expect(resp.Result.Message).To(ContainSubstring(`dataset "demo-alx" is served by a "alluxio" runtime`))
+			Expect(resp.Result.Message).NotTo(ContainSubstring("may not be ready yet"))
+		})
+	})
+
+	Context("A-F2: a PVC-resolved dataset whose name cannot form a volume name (fixed at 268012a5)", func() {
+		It("[contract] is rejected naming the invalid volume name instead of producing an API-server-invalid pod", func() {
+			// "demo.v1" is a legal k8s object name (DNS-1123 subdomain) but the derived volume
+			// name fails IsDNS1123Label; the annotation path rejects dots up front, the PVC
+			// path did not. Red on 6d3a6d7e (pod admitted carrying an invalid volume name).
+			dataset, cacheRuntime := boundCacheDataset("demo.v1", "big-data")
+			cm := runtimeConfigConfigMap("demo.v1", "big-data")
+			pvc := &corev1.PersistentVolumeClaim{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:      "pvcsrc-dot",
+					Namespace: "big-data",
+					Labels:    map[string]string{common.LabelAnnotationManagedBy: "demo.v1"},
+				},
+			}
+			fakeClient := fake.NewFakeClientWithScheme(s, dataset, cacheRuntime, cm, pvc)
+			Expect(plugins.RegisterMutatingHandlers(fakeClient)).To(Succeed())
+
+			handler := &FluidMutatingHandler{}
+			handler.Setup(fakeClient, fakeClient, decoder)
+
+			pod := &corev1.Pod{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:      "app-pvc-dot",
+					Namespace: "big-data",
+					Labels:    map[string]string{common.LabelAnnotationInject: common.True},
+				},
+				Spec: corev1.PodSpec{
+					Volumes: []corev1.Volume{{
+						Name: "data",
+						VolumeSource: corev1.VolumeSource{
+							PersistentVolumeClaim: &corev1.PersistentVolumeClaimVolumeSource{ClaimName: "pvcsrc-dot"},
+						},
+					}},
+					Containers: []corev1.Container{{Name: "app", Image: "app:v1"}},
+				},
+			}
+			raw, err := jsonMarshal(pod)
+			Expect(err).NotTo(HaveOccurred())
+			resp := handler.Handle(context.TODO(), admission.Request{
+				AdmissionRequest: admissionv1.AdmissionRequest{
+					Operation: admissionv1.Create,
+					Namespace: "big-data",
+					Object:    runtime.RawExtension{Raw: raw},
+				},
+			})
+			Expect(resp.Allowed).To(BeFalse(),
+				"a dataset name that cannot form a valid volume name must reject the pod")
+			Expect(resp.Result.Message).To(ContainSubstring("fluid-runtime-config-demo.v1"),
+				"the denial must name the invalid volume name")
+		})
+	})
+
+	Context("A-N1: only fluid's own fuse sidecars are skipped (fixed at 268012a5)", func() {
+		It("[contract] an app container named fluid-fuse-proxy is injected while fluid-fuse-0 is skipped", func() {
+			// Before 9d9bd872 the skip was a bare prefix match, so a user container named
+			// fluid-fuse-proxy was silently left without the env var. Red on 6d3a6d7e.
+			dataset, cacheRuntime := boundCacheDataset("demo", "big-data")
+			cm := runtimeConfigConfigMap("demo", "big-data")
+			fakeClient := fake.NewFakeClientWithScheme(s, dataset, cacheRuntime, cm)
+			Expect(plugins.RegisterMutatingHandlers(fakeClient)).To(Succeed())
+
+			handler := &FluidMutatingHandler{}
+			handler.Setup(fakeClient, fakeClient, decoder)
+
+			pod := &corev1.Pod{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:      "app-fusey",
+					Namespace: "big-data",
+					Labels:    map[string]string{common.LabelAnnotationInject: common.True},
+					Annotations: map[string]string{
+						common.LabelAnnotationDatasets: "demo",
+					},
+				},
+				Spec: corev1.PodSpec{
+					Containers: []corev1.Container{
+						{Name: "fluid-fuse-proxy", Image: "app:v1"},
+						{Name: "fluid-fuse-0", Image: "app:v1"},
+						{Name: "app", Image: "app:v1"},
+					},
+				},
+			}
+			raw, err := jsonMarshal(pod)
+			Expect(err).NotTo(HaveOccurred())
+			resp := handler.Handle(context.TODO(), admission.Request{
+				AdmissionRequest: admissionv1.AdmissionRequest{
+					Operation: admissionv1.Create,
+					Namespace: "big-data",
+					Object:    runtime.RawExtension{Raw: raw},
+				},
+			})
+			Expect(resp.Allowed).To(BeTrue())
+
+			injected := map[int]bool{}
+			for _, op := range resp.Patches {
+				var idx int
+				if n, _ := fmt.Sscanf(op.Path, "/spec/containers/%d/env", &idx); n == 1 {
+					injected[idx] = true
+				}
+			}
+			Expect(injected[0]).To(BeTrue(), "fluid-fuse-proxy is an app container and must be injected")
+			Expect(injected[1]).To(BeFalse(), "fluid-fuse-0 is fluid's own fuse sidecar and must be skipped")
+			Expect(injected[2]).To(BeTrue(), "the plain app container must be injected")
 		})
 	})
 })

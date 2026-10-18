@@ -1,0 +1,5 @@
+# integration layer at previous head 6d3a6d7e (round-3 differential):
+FAIL TestWebhookChecksumAnnotation: checksum churns on the second upgrade (B-F6 present)
+FAIL TestHelmUpgradeMergesClientlessProfileAgainstRealApiServer: B-F6 PRESENT against real helm+apiserver:
+     checksum churns on the second upgrade (0dc3306c... -> de5c7e9a...), webhook would roll again for no reason
+# both green at 268012a5

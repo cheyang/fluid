@@ -1,0 +1,5 @@
+# round-3 differential, PREVIOUS head 6d3a6d7e: the four fixed-finding contracts are RED
+failed   [contract] the rejection message names the dataset and the name-length reason (F5, fixed at 268012a5)
+failed   [contract] is rejected with the runtime type named, not 'configmap may not be ready yet'
+failed   [contract] is rejected naming the invalid volume name instead of producing an API-server-invalid pod
+failed   [contract] an app container named fluid-fuse-proxy is injected while fluid-fuse-0 is skipped
