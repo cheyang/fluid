@@ -33,6 +33,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/apimachinery/pkg/util/validation"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -101,6 +102,15 @@ func (injector *RuntimeConfigInjector) MutateWithReader(pod *corev1.Pod, runtime
 
 	mounts := make([]configMount, 0, len(datasetNames))
 	for _, ds := range datasetNames {
+		// Only a cache runtime renders the config this plugin mounts. A dataset of any other
+		// runtime listed in the annotation would otherwise be reported as a config map that
+		// is not there yet, which points the user at the wrong cause.
+		if runtimeType := runtimeInfos[ds].GetRuntimeType(); runtimeType != common.CacheRuntime {
+			return true, webhookutils.NewRejectPodError(fmt.Errorf(
+				"dataset %q is served by a %q runtime, while runtime config injection only supports cache runtimes; mount the dataset through its PVC instead",
+				ds, runtimeType))
+		}
+
 		// The dataset name is already known to be a valid object name, since the caller
 		// resolved a runtime info for it. What is not guaranteed for a dataset that comes
 		// from a PVC is that it still fits once "fluid-runtime-config-" is prepended to
@@ -112,6 +122,13 @@ func (injector *RuntimeConfigInjector) MutateWithReader(pod *corev1.Pod, runtime
 		}
 
 		mount := buildConfigMount(ds)
+		// A dataset object name may contain dots, which a volume name may not. The annotation
+		// path rejects such a name up front; a dataset resolved from a PVC has not been checked.
+		if nameErrs := validation.IsDNS1123Label(mount.volume.Name); len(nameErrs) > 0 {
+			return true, webhookutils.NewRejectPodError(fmt.Errorf(
+				"dataset name %q cannot form the volume name %q of its runtime config: %s",
+				ds, mount.volume.Name, strings.Join(nameErrs, "; ")))
+		}
 		if conflictErr := checkVolumeNameConflict(pod, mount); conflictErr != nil {
 			return true, webhookutils.NewRejectPodError(conflictErr)
 		}
@@ -207,7 +224,7 @@ func checkVolumeNameConflict(pod *corev1.Pod, mount configMount) error {
 
 	for _, containers := range [][]corev1.Container{pod.Spec.InitContainers, pod.Spec.Containers} {
 		for _, container := range containers {
-			if strings.HasPrefix(container.Name, common.FuseContainerName) {
+			if isFuseSidecar(container.Name) {
 				continue
 			}
 			for _, existing := range container.VolumeMounts {
@@ -231,7 +248,7 @@ func checkVolumeNameConflict(pod *corev1.Pod, mount configMount) error {
 func checkMountPathConflict(pod *corev1.Pod, volumeMount corev1.VolumeMount) error {
 	for _, containers := range [][]corev1.Container{pod.Spec.InitContainers, pod.Spec.Containers} {
 		for _, container := range containers {
-			if strings.HasPrefix(container.Name, common.FuseContainerName) {
+			if isFuseSidecar(container.Name) {
 				continue
 			}
 			for _, existing := range container.VolumeMounts {
@@ -245,16 +262,42 @@ func checkMountPathConflict(pod *corev1.Pod, volumeMount corev1.VolumeMount) err
 	return nil
 }
 
-// envSuffix turns a dataset name into a shell-safe variable name suffix. A dataset
-// name is a DNS-1035 label, which allows '-' but not '_', so mapping '-' to '_'
-// cannot make two different datasets share a suffix.
+// isFuseSidecar reports whether a container is a fuse sidecar fluid injects, which is named
+// fluid-fuse-<index>. Matching the prefix alone would also skip an app container whose name
+// merely starts with it.
+func isFuseSidecar(name string) bool {
+	suffix, ok := strings.CutPrefix(name, common.FuseContainerName)
+	if !ok {
+		return false
+	}
+	if suffix == "" {
+		return true
+	}
+	index, ok := strings.CutPrefix(suffix, "-")
+	if !ok || index == "" {
+		return false
+	}
+	for _, r := range index {
+		if r < '0' || r > '9' {
+			return false
+		}
+	}
+	return true
+}
+
+// envSuffix turns a dataset name into a shell-safe variable name suffix. A dataset is
+// only injected once its volume name passes the DNS-1123 label check, so an injected
+// name holds only lower case letters, digits and '-'. Mapping '-' to '_' therefore cannot
+// make two injected datasets share a suffix, and a leading digit is harmless behind the
+// fixed variable prefix. A name rejected by that check may still pass through here first,
+// but nothing built from it is injected.
 func envSuffix(ds string) string {
 	return strings.ToUpper(strings.ReplaceAll(ds, "-", "_"))
 }
 
 func injectToContainers(containers []corev1.Container, mounts []configMount) {
 	for i := range containers {
-		if strings.HasPrefix(containers[i].Name, common.FuseContainerName) {
+		if isFuseSidecar(containers[i].Name) {
 			continue
 		}
 		for _, m := range mounts {

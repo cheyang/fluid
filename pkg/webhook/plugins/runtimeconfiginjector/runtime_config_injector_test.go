@@ -50,7 +50,7 @@ func configMapFor(datasetName string) *corev1.ConfigMap {
 func runtimeInfosFor(datasetNames ...string) map[string]base.RuntimeInfoInterface {
 	runtimeInfos := map[string]base.RuntimeInfoInterface{}
 	for _, datasetName := range datasetNames {
-		runtimeInfo, err := base.BuildRuntimeInfo(datasetName, testNamespace, "")
+		runtimeInfo, err := base.BuildRuntimeInfo(datasetName, testNamespace, common.CacheRuntime)
 		Expect(err).NotTo(HaveOccurred())
 		runtimeInfos[datasetName] = runtimeInfo
 	}
@@ -296,6 +296,49 @@ var _ = Describe("RuntimeConfigInjector", func() {
 			})
 		})
 
+		Context("when a dataset is served by a runtime other than a cache runtime", func() {
+			It("should reject the pod naming the runtime type", func() {
+				runtimeInfo, err := base.BuildRuntimeInfo("demo", testNamespace, common.AlluxioRuntime)
+				Expect(err).NotTo(HaveOccurred())
+				injector := newInjector(configMapFor("demo"))
+				pod := podWithContainers("app")
+
+				shouldStop, err := injector.Mutate(pod, map[string]base.RuntimeInfoInterface{"demo": runtimeInfo})
+				Expect(err).To(MatchError(ContainSubstring(`served by a "alluxio" runtime`)))
+				Expect(webhookutils.IsRejectPodError(err)).To(BeTrue())
+				Expect(shouldStop).To(BeTrue())
+				Expect(pod.Spec.Volumes).To(BeEmpty())
+			})
+		})
+
+		Context("when the dataset name cannot form a volume name", func() {
+			It("should reject the pod before touching it", func() {
+				// A dataset object name may contain dots; one resolved from a PVC reaches the
+				// plugin without the annotation path's name check.
+				injector := newInjector(configMapFor("demo.v1"))
+				pod := podWithContainers("app")
+
+				shouldStop, err := injector.Mutate(pod, runtimeInfosFor("demo.v1"))
+				Expect(err).To(MatchError(ContainSubstring(`dataset name "demo.v1" cannot form the volume name`)))
+				Expect(webhookutils.IsRejectPodError(err)).To(BeTrue())
+				Expect(shouldStop).To(BeTrue())
+				Expect(pod.Spec.Volumes).To(BeEmpty())
+			})
+		})
+
+		Context("when an app container's name merely starts like a fuse sidecar's", func() {
+			It("should inject into it", func() {
+				injector := newInjector(configMapFor("demo"))
+				pod := podWithContainers(common.FuseContainerName+"-proxy", common.FuseContainerName+"-0")
+
+				_, err := injector.Mutate(pod, runtimeInfosFor("demo"))
+				Expect(err).NotTo(HaveOccurred())
+
+				Expect(pod.Spec.Containers[0].VolumeMounts).To(HaveLen(1))
+				Expect(pod.Spec.Containers[1].VolumeMounts).To(BeEmpty())
+			})
+		})
+
 		Context("when a container already mounts another volume at the config's path", func() {
 			conflictingMount := corev1.VolumeMount{Name: "own-config", MountPath: "/etc/fluid/config/demo/"}
 
@@ -446,12 +489,25 @@ var _ = Describe("RuntimeConfigInjector", func() {
 	})
 })
 
+var _ = Describe("isFuseSidecar", func() {
+	It("should match only the names fluid gives its fuse sidecars", func() {
+		Expect(isFuseSidecar(common.FuseContainerName)).To(BeTrue())
+		Expect(isFuseSidecar(common.FuseContainerName + "-0")).To(BeTrue())
+		Expect(isFuseSidecar(common.FuseContainerName + "-12")).To(BeTrue())
+
+		Expect(isFuseSidecar(common.FuseContainerName + "-")).To(BeFalse())
+		Expect(isFuseSidecar(common.FuseContainerName + "-proxy")).To(BeFalse())
+		Expect(isFuseSidecar(common.FuseContainerName + "x")).To(BeFalse())
+		Expect(isFuseSidecar("app")).To(BeFalse())
+	})
+})
+
 var _ = Describe("envSuffix", func() {
 	It("should upper-case the name and replace hyphens", func() {
-		// A dataset name is a DNS-1035 label: lower case, digits and hyphens, starting
-		// with a letter. Hyphens are the only character a shell variable name rejects,
-		// and since '_' is not a legal dataset name character the mapping cannot make
-		// two different datasets collide.
+		// A dataset name that reaches injection is a DNS-1123 label: lower case, digits
+		// and hyphens. Hyphens are the only character a shell variable name rejects, and
+		// since '_' is not a legal dataset name character the mapping cannot make two
+		// different datasets collide.
 		Expect(envSuffix("demo")).To(Equal("DEMO"))
 		Expect(envSuffix("mooncake-demo")).To(Equal("MOONCAKE_DEMO"))
 		Expect(envSuffix("ds-1-a")).To(Equal("DS_1_A"))

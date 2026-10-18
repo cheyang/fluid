@@ -1,0 +1,4 @@
+pre-fix model: second upgrade render CHURN (byte diff); block sha 9425000393eb -> f3ebb5551d63
+helm cross-check: fresh-install model matches the real render
+PASS: the second upgrade renders byte-identical bytes to the first,
+      so checksum/plugins-profile does not roll the webhook a second time.
