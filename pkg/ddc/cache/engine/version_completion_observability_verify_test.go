@@ -67,7 +67,7 @@ var _ = Describe("PR-6186 verification: partial runtime version observability", 
 
 		It("contract: the incomplete-version log line is emitted at the default verbosity [red on round-2 head]", func() {
 			var lines []string
-			engine, _, runtimeClass, ctx, _ := newPartialVersionFixture(digestTemplate, "verify/cache:v1")
+			engine, _, runtimeClass, ctx, client := newPartialVersionFixture(digestTemplate, "verify/cache:v1")
 			// funcr with default options: V(0) Info is written, V(1) is not — this is
 			// what the shipped controller's zap config effectively enables.
 			engine.Log = funcr.New(func(prefix, args string) {
