@@ -223,7 +223,7 @@ Full engine suite: 12 failures at `ce4f0c4f`, the **same byte-identical set** as
 `3adc547d` (fingerprint `c3e1929f…`, 11× `ufs_test.go` + 1× `sync_test.go`
 ReportSummary, pre-existing at base) — no revision regression.
 
-CI at the exact head `ce4f0c4f`: all 21 check-runs completed/success (DCO, unittest,
+CI at the exact head `ce4f0c4f`: all 22 check-runs completed/success (DCO, unittest,
 lint, staticcheck, builds, CodeQL, SonarCloud, codecov, kind-e2e-test and
 backward-compat-test on v1.22.17/v1.24.17/v1.28.15/v1.30.13/v1.33.2) — the
 round-start "pending" rollup had settled to fully green.
