@@ -127,7 +127,16 @@ export GINKGO_REPORT="$RESULTS_DIR/ginkgo-report.json"
 # capture current position (must hold the harness) and restore on exit
 ORIG_REF="$(git symbolic-ref --quiet --short HEAD || git rev-parse HEAD)"
 HARNESS_SRC="$(git rev-parse HEAD)"
-cleanup() { git checkout -f "$ORIG_REF" >/dev/null 2>&1 || true; rm -rf "$RUNTIME_DIR" 2>/dev/null || true; }
+cleanup() {
+  git checkout -f "$ORIG_REF" >/dev/null 2>&1 || true
+  # Persist AFTER restoring the tree: results/ is tracked in the harness branch, so
+  # the checkout above would otherwise clobber the just-written files with the
+  # committed (stale) versions.
+  if [ -n "${PERSIST:-}" ] && [ -d "${RESULTS_DIR:-/nonexistent}" ]; then
+    mkdir -p "$PERSIST" 2>/dev/null && cp -f "$RESULTS_DIR"/*.out "$RESULTS_DIR"/*.parsed "$RESULTS_DIR"/*.json "$PERSIST"/ 2>/dev/null || true
+  fi
+  rm -rf "$RUNTIME_DIR" 2>/dev/null || true
+}
 trap cleanup EXIT
 
 echo "re-verify: fixed-ref=$FIXED_REF  harness-from=$ORIG_REF"
@@ -220,9 +229,9 @@ done
 
 LIVE="$(jq -r '.liveNote // empty' "$MANIFEST")"
 [ -n "$LIVE" ] && printf '\nLive layer (manual): %s\n' "$LIVE"
-# persist raw output into the (restored-after-cleanup) in-repo results dir for inspection
+# persist raw output into the in-repo results dir for inspection; the actual copy
+# happens in cleanup() after the tree is restored (see there)
 PERSIST="$(dirname "$MANIFEST_ORIG")/results/reverify"
-mkdir -p "$PERSIST" 2>/dev/null && cp -f "$RESULTS_DIR"/*.out "$RESULTS_DIR"/*.parsed "$RESULTS_DIR"/*.json "$PERSIST"/ 2>/dev/null || true
 
 printf '\nReminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its\n'
 printf 'assertion (or promote the new behavior to a contract test). Raw output: %s\n' "$PERSIST"
