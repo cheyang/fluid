@@ -1,0 +1,6 @@
+# Round-3 bites check: fix reverted on 902625af (V(0)->V(1) log, event emission removed), harness grafted
+# command: go test ./pkg/ddc/cache/engine/ -run TestCacheEngine -args -ginkgo.label-filter=verify-pr6186
+failed	F3 [contract]: the shipped production config (--development=false) emits the discarded-edit signal in the log
+failed	F3 [contract]: a Warning event reports the discarded edit on the CacheRuntime
+passed	F3 [control]: a partial version the template completes emits neither signal
+# both F3 contracts FAIL with the fix reverted and the control passes -> the specs bite; production diff restored empty afterwards

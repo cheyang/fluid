@@ -155,3 +155,45 @@ doc hint.
 Polarity after this round: all findings are contract tests. F3 stays red until the signal
 becomes visible in the production config; everything else is green on `382d926a`.
 `.last-reviewed` advanced to `382d926ae2d433506982896ea56c4d57bd747bb7`.
+
+---
+
+## Round 3 — incremental review of `382d926a..902625af` (head `902625af3696`)
+
+Six commits: `8430488e` replaces the V(1) log with `reportIncompleteVersion` (V(0) log +
+`RuntimeVersionIncomplete` Warning event on the CacheRuntime), `a1bf08bb` extends the event
+to the creation path (transformMaster/Worker/Client; `transformComponentPodTemplate` no
+longer reports, so no per-reconcile double-fire), `3c392b29` pins event type and count in
+tests, `022e319f` adds the symmetric tag-only doc warning, `003cdadc` drops the upgrade note
+(verified: `05682681` "Init cacheruntime api" is contained in zero release tags — CacheRuntime
+is unreleased, so the removal is factually right), `902625af` documents that the client
+reports on creation only.
+
+The round-2 F3 harness referenced the removed `logIncompleteVersion` → HARNESS-UPDATE on
+first re-run (expected; not proof of a fix). The harness was updated additively to the new
+symbol (`verify_pr6186_visibility_test.go`, manifest `changeReason`), then re-run:
+
+| ID | Round-2 state | Round-3 verdict | Evidence |
+|----|---------------|-----------------|----------|
+| F1 | fixed | **still FIXED** | re-verify pass=3 fail=0 on `902625af` (`results/reverify/`) |
+| F2 | fixed (documented) | **still FIXED** | promoted contract green on `902625af`; propagation docs intact |
+| F3 | confirmed open | **FIXED** | contract "shipped production config emits the signal" now PASSES under `UseDevMode(false)` (V(0) log), plus a Warning event contract (`record.NewFakeRecorder`, exact reason+count) and a no-over-reporting control; bites check: reverting to V(1)+no-event turns both contracts red, control stays green (`results/f3-round3-bites-check.txt`) |
+
+Full suite on `902625af` with the harness grafted: 308 passed / 12 failed — the same 12
+pre-existing mount-handling failures (`results/full-suite-head-r3.txt`).
+
+Caller-chain checks on the new code: `transform()` runs only inside `Setup`, which the
+reconciler gates behind `!utils.IsSetupDone(dataset)` (`pkg/controllers/runtime_controller.go`),
+so creation-path reporting is bounded by readiness and cannot fire per-reconcile forever;
+the sync path reports only for enabled master/worker; disabled components return before the
+report in all three transform functions; `Recorder` is always non-nil in production
+(`engine.go:77` ← `ctx.Recorder` ← reconciler), the nil guard is for unit tests; the cache
+controller ClusterRole already carries `events` verbs. Emitted events are aggregated by the
+client-go correlator, matching existing engine patterns (`setup.go` RuntimeMountUfsFailed,
+`dataload.go`).
+
+Also fixed this round: the re-verify.sh copy now persists `results/reverify/` AFTER the
+tree restore — the results dir is tracked in this branch, so the previous order let the
+script's own `git checkout -f` clobber the fresh files with the committed round-1 ones.
+
+`.last-reviewed` advanced to `902625af3696ff6687d398c1699b6f2bba191e96`.

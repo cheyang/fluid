@@ -1,0 +1,14 @@
+# Round-3 full suite on head 902625af (harness grafted): 308 Passed | 12 Failed | 0 Pending | 16 Skipped
+# the 12 failures are the same pre-existing mount-handling set recorded in rounds 1-2:
+when MountUFS executes successfully / should return JSON parse error when Mount returns invalid JSON
+when MountUFS executes successfully / should return error when Mount command fails
+when MountUFS executes successfully / should return error when Mount returns empty output
+when MountUFS executes successfully / should return error when Mount returns whitespace-only output
+when MountUFS executes successfully / should return parsed CacheRuntimeMountUfsOutput with valid JSON output
+when PrepareUFS returns empty output / should return empty output error
+when PrepareUFS returns invalid JSON / should return JSON parse error
+when all mount points are correctly mounted / should successfully update mounts and set status to Bound
+when dataset has native scheme mounts / should skip native scheme mounts and succeed
+when runtime is ready with ReportSummary configured / should get cache states successfully with mocked Execute
+when syncDatasetMounts fails due to missing mount point / should return mount point not mounted error
+when syncDatasetMounts fails due to unexpected mounted paths / should return unexpected mounted paths error
