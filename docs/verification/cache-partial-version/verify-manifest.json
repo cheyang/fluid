@@ -4,7 +4,8 @@
   "harnessPaths": [
     "docs/verification/cache-partial-version",
     "pkg/ddc/cache/engine/version_completion_sync_verify_test.go",
-    "pkg/ddc/cache/engine/version_completion_unit_verify_test.go"
+    "pkg/ddc/cache/engine/version_completion_unit_verify_test.go",
+    "pkg/ddc/cache/engine/version_completion_observability_verify_test.go"
   ],
   "premise": {
     "id": "P0",
@@ -86,6 +87,17 @@
       "match": [
         "contract: a digest-pinned runtime image does not gain a tag",
         "contract: a digest-pinned template does not lend its (absent) tag to an image-only version"
+      ]
+    },
+    {
+      "id": "F6",
+      "_comment": "round 3: the dropped-edit signal must be operator-visible under the shipped config (V(0) log + RuntimeVersionIncomplete Warning event); was V(1)-only and invisible at 382d926a",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "contract: an un-completable partial version emits a RuntimeVersionIncomplete Warning event",
+        "contract: the incomplete-version log line is emitted at the default verbosity",
+        "control: a partial version the template completes emits no event"
       ]
     }
   ],
