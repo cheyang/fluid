@@ -55,9 +55,11 @@
       "polarity": "contract",
       "layer": "unit",
       "match": [
-        "F3 [contract]: the shipped production config (--development=false) emits the discarded-edit signal",
-        "F3 [control]: development mode emits the same record"
-      ]
+        "F3 [contract]: the shipped production config (--development=false) emits the discarded-edit signal in the log",
+        "F3 [contract]: a Warning event reports the discarded edit on the CacheRuntime",
+        "F3 [control]: a partial version the template completes emits neither signal"
+      ],
+      "changeReason": "round 3: production code replaced logIncompleteVersion (V(1) log) with reportIncompleteVersion (V(0) log + RuntimeVersionIncomplete Warning event, incl. creation path); harness updated additively to the new symbol, contracts unchanged in substance"
     }
   ],
   "liveNote": "L3 skipped this round (unit+integration scope). If run live: on a kind cluster, patch a healthy CacheRuntime's worker to runtimeVersion={imageTag:<new>}; expect the controller log 'image changed, will update' and the AdvancedStatefulSet image to move to <template-repo>:<new>. For F1, set runtimeVersion={image:<repo@sha256:...>} with no tag and observe the kubelet failing to parse the rendered reference."
