@@ -47,6 +47,30 @@ Layers run against the **code under review** (`origin/pr/6197` = 6d3a6d7e7a038d7
 | F5 | (new, minor) for an over-long name given via the annotation, the denial message names the dataset but not the reason ("too long" is only in the webhook log), although the docs say the reason is in the error | 1 | — | Confirmed as current behavior (characterization test pins it) | results/unit-head6d3a6d7e.txt |
 | F6 | (new, nit) the checksum annotation render changes once more on the *second* upgrade (verbatim branch re-indents the stored profile, which carries a block-scalar trailing newline), causing one spurious webhook rollout with no profile change | probe | — | Confirmed (probe; not manifest-bound) | results/checksum-churn-probe.txt |
 
+## Summary of results (round 3, head 268012a5; delta 6d3a6d7e..268012a5)
+
+The delta fixes the five open findings from round 2. Each fix is covered by a new or
+promoted contract test on this branch, run RED on the previous head 6d3a6d7e and GREEN on
+268012a5 (differential evidence, not assertion):
+
+| ID | Fix commit(s) | Contract (this branch) | 6d3a6d7e | 268012a5 |
+|----|---------------|------------------------|----------|----------|
+| A-F1 (non-cache dataset in `fluid.io/datasets` → misleading "may not be ready yet") | 89d26fe2 names the runtime type in a `RejectPodError` | handler: alluxio dataset in the annotation is denied with `dataset "demo-alx" is served by a "alluxio" runtime` | RED (denial said `configmap ... may not be ready yet`) | GREEN |
+| A-F2 (PVC path skipped the volume-name shape check) | c76c0a72 adds `validation.IsDNS1123Label` on the derived volume name | handler: cache dataset `demo.v1` resolved from a mounted PVC is denied naming `fluid-runtime-config-demo.v1` | RED (pod ADMITTED carrying an API-server-invalid volume name) | GREEN |
+| A-N1 (`fluid-fuse` prefix skip caught user containers) | 9d9bd872 skips only `fluid-fuse` / `fluid-fuse-<digits>` | handler: `fluid-fuse-proxy` is injected, `fluid-fuse-0` is skipped | RED (`fluid-fuse-proxy` silently skipped) | GREEN |
+| B-F5 (over-long-name denial hid the reason) | c01cbcce carries per-dataset reasons into the aggregate error | handler: denial now contains `too long` (canary flipped → promoted to contract) | RED | GREEN |
+| B-F6 (checksum churns once on the second upgrade) | 16c5509e + 760f5369 trim the stored profile's trailing newline before indenting | chartmerge renderer: `TestWebhookChecksumAnnotation` reframed to the no-churn contract (merge render == keep render; a genuine user edit still changes the checksum); envtest: `TestHelmUpgradeMergesClientlessProfileAgainstRealApiServer` now also does the SECOND upgrade with real helm against a real API server, storing the profile with its block-scalar trailing newline | RED (checksum `0dc3306c…` → `de5c7e9a…` with real helm) | GREEN |
+
+Fidelity note (round 3): the envtest second-upgrade phase must store the profile as the
+API server persists it, i.e. with the trailing newline kept by `|` clip chomping. Splitting
+helm's printed stream on `---` eats that newline; an early version of this test stored the
+profile without it and wrongly showed no churn even on 6d3a6d7e. Fixed by storing
+`merged + "\n"`, which reproduces the churn on the old head with real helm.
+
+Full-matrix re-verify at 268012a5: all manifest findings FIXED
+(`results/reverify/`). PR's own suites at head: `go test ./pkg/webhook/... ./pkg/common/...`
+and `go test -gcflags=all=-l ./pkg/ddc/cache/...` clean; full handler ginkgo suite 42/42.
+
 ### Harness-bites check (round 2 form)
 
 Contract tests must be red on the code that had the bug. Grafted onto the previous head
@@ -74,14 +98,11 @@ Full matrix: results/unit-prevhead-c5ea086b.txt, results/integration-prevhead-c5
   the old in-memory profile (seconds, self-heals by recreating the pod). Same window
   exists for any webhook profile change.
 
-## Proposed fixes (NOT applied to production here)
+## Proposed fixes (round-2 status; both landed by 268012a5)
 
-- F5: include the per-dataset reason in the aggregated annotation error (e.g. collect
-  `name: reason` pairs), or reject over-long names with a dedicated message before the
-  aggregate.
-- F6: trim the stored profile before re-indenting in the verbatim branch
-  (`indent 4 (trimSuffix "\n" $existingProfile)`), so the checksum annotation is stable
-  from the first post-merge upgrade on.
+- F5: landed as c01cbcce — the aggregate denial now carries each dataset's reason.
+- F6: landed as 16c5509e + 760f5369 — the keep branch trims exactly the stored profile's
+  trailing newline before indenting.
 
 ## Continuing after the fix
 
@@ -92,6 +113,6 @@ git checkout verify/clientless-runtime-config-inject-codex
 bash docs/verification/clientless-runtime-config-inject/scripts/re-verify.sh   # resolves the current PR head from manifest.pr
 ```
 All manifest findings are contract tests: they must stay green. `.last-reviewed` records
-6d3a6d7e7a038d72fc5480f44d8285993f82a551; advance it after each round. Layer 2b needs a
+268012a548c293ba8fc266faddd0f4a801b023c3; advance it after each round. Layer 2b needs a
 `helm` binary and envtest assets (`KUBEBUILDER_ASSETS` or a known local path) and skips
 cleanly without them.
