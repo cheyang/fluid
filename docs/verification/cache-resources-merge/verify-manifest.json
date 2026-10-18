@@ -6,18 +6,19 @@
     "pkg/ddc/cache/engine/verify_premise_6177_test.go",
     "pkg/ddc/cache/engine/verify_delta_6177_test.go",
     "pkg/ddc/cache/engine/verify_delta_r3_6177_test.go",
-    "pkg/ddc/cache/engine/verify_delta_r4_6177_test.go"
+    "pkg/ddc/cache/engine/verify_delta_r4_6177_test.go",
+    "pkg/ddc/cache/engine/verify_delta_r5_6177_test.go"
   ],
   "premise": {
     "id": "P0",
     "claim": "A CacheRuntime that names only limits.memory on a worker whose CacheRuntimeClass template declares a full set loses requests.cpu, requests.memory and limits.cpu from the workload on the next reconcile, with no error and no event; Claims is dropped the same way (issue #6173).",
-    "reportedComponent": "pkg/ddc/cache \u2014 CacheRuntime resource resolution feeding AdvancedStatefulSetManager.updateResources",
-    "patchedComponent": "pkg/ddc/cache/engine \u2014 sync.go desiredComponentResources + transform_common.go transformComponentPodTemplate/mergeResourceRequirements",
+    "reportedComponent": "pkg/ddc/cache — CacheRuntime resource resolution feeding AdvancedStatefulSetManager.updateResources",
+    "patchedComponent": "pkg/ddc/cache/engine — sync.go desiredComponentResources + transform_common.go transformComponentPodTemplate/mergeResourceRequirements",
     "componentMatch": true,
     "runsAgainst": "base",
     "layer": "unit",
     "verdict": "confirmed",
-    "evidence": "Canary at merge base e0fc4c18: 'limits.cpu dropped (got \"0\")', 'requests dropped: got map[]', claims dropped at both creation and sync layers \u2014 results/unit-base.log",
+    "evidence": "Canary at merge base e0fc4c18: 'limits.cpu dropped (got \"0\")', 'requests dropped: got map[]', claims dropped at both creation and sync layers — results/unit-base.log",
     "match": [
       "TestP0SyncDesiredKeepsUnstatedTemplateKeys",
       "TestP0CreationKeepsUnstatedTemplateKeys",
@@ -27,7 +28,7 @@
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -run 'TestP0|TestP1|TestP2|TestD1|TestD2|TestD3|TestD4|TestD5|TestD6|TestD7|TestD8|TestE1|TestE2' -json"
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -run 'TestP0|TestP1|TestP2|TestD1|TestD2|TestD3|TestD4|TestD5|TestD6|TestD7|TestD8|TestD9|TestD10|TestD11|TestE1|TestE2' -json"
     },
     "integration": {
       "kind": "ginkgo",
@@ -93,7 +94,7 @@
       "match": [
         "TestD2MergeSynthesizesRequestsAboveLimits"
       ],
-      "note": "F6 fixed by commit f02054bd (round 3): the canary flipped, so it was inverted into a contract test \u2014 the sync must refuse the conflicting merge, leave the workload's resources untouched and emit a RuntimeResourcesConflict Warning event."
+      "note": "F6 fixed by commit f02054bd (round 3): the canary flipped, so it was inverted into a contract test — the sync must refuse the conflicting merge, leave the workload's resources untouched and emit a RuntimeResourcesConflict Warning event."
     },
     {
       "id": "D3",
@@ -111,7 +112,7 @@
       "match": [
         "TestD4SyncConflictSkipsResourcesButSyncsReplicas"
       ],
-      "note": "round 3: the conflict must not abort the component sync \u2014 replicas still move while the resource patch is skipped and the Warning event names the memory pair."
+      "note": "round 3: the conflict must not abort the component sync — replicas still move while the resource patch is skipped and the Warning event names the memory pair."
     },
     {
       "id": "D5",
@@ -148,7 +149,7 @@
       "match": [
         "TestE1ClassClaimAdditionMustNotWedgeExistingWorkload"
       ],
-      "note": "NEW round 4, non-blocking, pre-existing: a CacheRuntimeClass edit that adds a pod-level resourceClaims entry + matching container claim propagates the container claim into an existing workload (mergeResourceClaims) while SyncComponentSpec never writes pod-level spec.resourceClaims; replacement Pods are rejected ('must be one of the names in pod.spec.resourceClaims', validation.go:6621) and the rollout stalls with no event on the CacheRuntime. Contract is red on head and on 497bbeaf; base probe (scripts/base_probe_f11_test.go.txt, results/round4/unit-base-probe-f11-e0fc4c18.log): the paired template shape (claim + requests/limits) reproduces on the merge base e0fc4c18 too \u2014 pre-existing; the claim-only template shape does not wedge at base (desiredComponentResources returned nil), so the PR broadens that subcase. Copilot discussion_r4276559859 flags the same mechanism. Out of the PR's strict scope; remedy if taken: guard claims in validDesiredResources against the workload's pod-level declarations (skip + event, mirroring the F6/F9 pattern) or document the class-edit limitation."
+      "note": "NEW round 4, non-blocking, pre-existing: a CacheRuntimeClass edit that adds a pod-level resourceClaims entry + matching container claim propagates the container claim into an existing workload (mergeResourceClaims) while SyncComponentSpec never writes pod-level spec.resourceClaims; replacement Pods are rejected ('must be one of the names in pod.spec.resourceClaims', validation.go:6621) and the rollout stalls with no event on the CacheRuntime. Contract is red on head and on 497bbeaf; base probe (scripts/base_probe_f11_test.go.txt, results/round4/unit-base-probe-f11-e0fc4c18.log): the paired template shape (claim + requests/limits) reproduces on the merge base e0fc4c18 too — pre-existing; the claim-only template shape does not wedge at base (desiredComponentResources returned nil), so the PR broadens that subcase. Copilot discussion_r4276559859 flags the same mechanism. Out of the PR's strict scope; remedy if taken: guard claims in validDesiredResources against the workload's pod-level declarations (skip + event, mirroring the F6/F9 pattern) or document the class-edit limitation."
     },
     {
       "id": "E2-empty-map-clear",
@@ -157,10 +158,37 @@
       "match": [
         "TestE2ExplicitEmptyMapStillClearsWorkload"
       ],
-      "note": "refutation record for Copilot discussion_r4212708077 ('empty resource maps fail to clear workload limits'): an explicit limits:{} still clears the workload's stale limit; the contract passes on base, 497bbeaf and 3adc547d. Copilot's claim that desiredComponentResources 'returns nil' does not match the code \u2014 it never returns nil."
+      "note": "refutation record for Copilot discussion_r4212708077 ('empty resource maps fail to clear workload limits'): an explicit limits:{} still clears the workload's stale limit; the contract passes on base, 497bbeaf and 3adc547d. Copilot's claim that desiredComponentResources 'returns nil' does not match the code — it never returns nil."
+    },
+    {
+      "id": "F7",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestD9SyncWithTopologylessClassIsANoOp"
+      ],
+      "note": "round 5 (3adc547d..ce4f0c4f): fixed by 94121e27 — syncRuntimeSpec guards a topology-less class before the first dereference. D9 FAILS (panic) on 3adc547d and PASSES on ce4f0c4f. getRuntimeClass still rejects such classes up front, so this stays defense in depth."
+    },
+    {
+      "id": "F8",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestD10TieredStoreQuotaAgreesAcrossPaths"
+      ],
+      "note": "round 5: coverage fixed by 44e6c90a + ce4f0c4f (the equivalence table renders tiered-store rows and pins the charged quota). D10 is a regression PIN, not a flip: it passes on both heads; the PR's own new specs are the coverage fix, D10 keeps the creation/sync quota agreement pinned in this harness."
+    },
+    {
+      "id": "F10",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestD11CreationConflictEmitsRuntimeResourcesConflictEvent"
+      ],
+      "note": "round 5: fixed by 71d94397 + 4a8668f9 — the creation path routes validation through checkComponentResources, which emits the RuntimeResourcesConflict Warning event. D11 FAILS on 3adc547d (error, no event) and PASSES on ce4f0c4f. Worker call site driven; master and client share the wrapper and are covered by the PR's own specs."
     }
   ],
-  "liveNote": "L3 (live cluster) was skipped by the debate configuration (unit + integration layers mandated). A probe did find a reachable cluster (kubectl get no: 1 node, v1.36.2-aliyun.1); it was left untouched. If L3 is ever run: apply the #6173 manifests, kubectl patch the cacheruntime with limits.memory=8Gi only, then read .spec.template.spec.containers[0].resources from the advancedstatefulset \u2014 expect limits {cpu 2, memory 8Gi} and requests {cpu 1, memory 2Gi}, and expect requests to stay nil (not an empty map) on the limits-only template.",
+  "liveNote": "L3 (live cluster) was skipped by the debate configuration (unit + integration layers mandated). A probe did find a reachable cluster (kubectl get no: 1 node, v1.36.2-aliyun.1); it was left untouched. If L3 is ever run: apply the #6173 manifests, kubectl patch the cacheruntime with limits.memory=8Gi only, then read .spec.template.spec.containers[0].resources from the advancedstatefulset — expect limits {cpu 2, memory 8Gi} and requests {cpu 1, memory 2Gi}, and expect requests to stay nil (not an empty map) on the limits-only template.",
   "rounds": {
     "2026-10-08": {
       "head": "c1c303e8b2dc0a237ab9abe289be4e64c4445970",
@@ -239,6 +267,22 @@
       "suite": "full engine suite at head with harness grafted: 298 passed / 12 failed; the 12 failing specs are the pre-existing ufs_test.go set, byte-identical to the pre-PR base e0fc4c18 and to round 2 - no revision regression.",
       "changedBase": "master moved e0fc4c18 -> 3e99063a; local test merge of 497bbeaf + 3e99063a compiles and passes the harness (unit ok, full suite 311/12, identical failure set). Overlapping files (sync.go, curvine test.sh, spec-update docs) merge without semantic conflict.",
       "ledger": "F6 fixed by f02054bd; DCO green; F1 maintainer ack still outstanding; F7/F8 nits unchanged."
+    },
+    "2026-10-19": {
+      "head": "ce4f0c4f966ff201d644a895eb4abbdc18c36d3a",
+      "delta": "3adc547d..ce4f0c4f (6 commits: drop unreleased-upgrade docs, creation-path conflict event, nil-topology guard, tiered-store equivalence rows + quota pins)",
+      "verification": {
+        "previous": {
+          "D9": "fail",
+          "D10": "pass",
+          "D11": "fail"
+        },
+        "head": {
+          "D9": "pass",
+          "D10": "pass",
+          "D11": "pass"
+        }
+      }
     }
   }
 }
