@@ -1,0 +1,29 @@
+re-verify: manifest = docs/verification/cacheruntime-resources-merge/verify-manifest.json
+re-verify: last-reviewed = 3adc547d4da45c2da9540c94ab447ff0f4269c91  (review delta = 3adc547d4da45c2da9540c94ab447ff0f4269c91..ce4f0c4f966ff201d644a895eb4abbdc18c36d3a)
+re-verify: fixed-ref=ce4f0c4f966ff201d644a895eb4abbdc18c36d3a  harness-from=verify/cacheruntime-resources-merge-codex
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'integration' (gotest)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+P0     contract  unit         FIXED          pass=2 fail=0 miss=0
+P0     contract  integration  FIXED          pass=1 fail=0 miss=0
+G1     contract  integration  FIXED          pass=1 fail=0 miss=0
+G2     contract  unit         FIXED          pass=1 fail=0 miss=0
+G3     contract  integration  FIXED          pass=1 fail=0 miss=0
+F6     contract  unit         FIXED          pass=1 fail=0 miss=0
+F6     contract  integration  FIXED          pass=1 fail=0 miss=0
+F9     contract  integration  FIXED          pass=2 fail=0 miss=0
+F11    canary    integration  STILL-PRESENT  pass=1 fail=0 miss=0
+F7     contract  integration  FIXED          pass=1 fail=0 miss=0
+F10    contract  unit         FIXED          pass=2 fail=0 miss=0
+
+Live layer (manual): L3 skipped per debate setup (no KUBECONFIG layer). If run live: on a kind cluster, create the CacheRuntimeClass + CacheRuntime from issue #6173, patch spec.worker.resources.limits.memory=8Gi, and check `kubectl get advancedstatefulset <name>-worker -o jsonpath='{.spec.template.spec.containers[0].resources}'` keeps cpu request/limit and memory request.
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/cacheruntime-resources-merge/results/reverify
+
+Review delta this round: 3adc547d4da45c2da9540c94ab447ff0f4269c91..ce4f0c4f966ff201d644a895eb4abbdc18c36d3a
+After reviewing that delta, advance the marker for the next round:
+  echo ce4f0c4f966ff201d644a895eb4abbdc18c36d3a > docs/verification/cacheruntime-resources-merge/.last-reviewed && git add docs/verification/cacheruntime-resources-merge/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: not all findings fixed.

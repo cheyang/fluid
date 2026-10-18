@@ -142,6 +142,49 @@ lands). Filed as a minor non-blocking risk; remedy direction: validate resolved 
 the workload's pod-level declarations and refuse with a Warning event (the F6/F9 pattern), or
 sync pod-level `resourceClaims`, or document the DRA limitation.
 
+## Round 5 (3adc547d -> ce4f0c4f): F7, F8 and F10 fixed
+
+Six commits, all carried nits from earlier rounds, no new merge/validator behavior:
+
+- `94121e27` guards `syncRuntimeSpec` against a class without a topology (F7, pre-existing
+  defense-in-depth: `getRuntimeClass` -> `validateRuntimeClassTopology` rejects such classes
+  before `syncRuntimeSpec` in production, so the guard protects direct callers only).
+- `71d94397` + `4a8668f9` route all three creation transforms through the new
+  `checkComponentResources`, which emits exactly one Warning event with the specific
+  `RuntimeResourcesConflict` reason (naming the conflict) when the merged resources are
+  rejected -- on top of the reconciler's generic `ErrorProcessRuntime` (F10). The client
+  component gains its first creation-rejection spec, closing the last per-component gap.
+- `44e6c90a` + `ce4f0c4f` render tiered-store workloads in the resources equivalence table
+  (F8): two new rows (Memory-medium emptyDir, process memory) pin the charged quota and the
+  exact memory request/limit, and the resolve check now charges the quota on the sync side
+  from the rendered workload, exactly as `syncRuntimeSpec` does. Both quota helpers and the
+  sync-side charge predate this PR (present on merge base e0fc4c18, #6167-era), so the remedy
+  is test-only and no behavior differential exists to flip; the rows are self-pinning
+  (`wantQuota` fails if the creation path stops charging).
+- `4688a36c` drops the upgrade notes from the en+zh docs. Premise verified: CacheRuntime is
+  unreleased -- `api/v1alpha1/cacheruntime_types.go` (05682681, 2026-01-07) is contained in no
+  release tag (latest v1.0.8) and absent from the v1.0.8 tree; no release branch newer than
+  release-1.0 exists. No upgrade path from a released version exists, so the note was moot.
+
+New contracts (`zz_verify_pr6177_f7f10_contract_test.go`), all contract polarity:
+
+| Test | base e0fc4c18 | prev 3adc547d | head ce4f0c4f |
+| --- | --- | --- | --- |
+| TestVerifyPR6177_F7_NilTopology_SyncIsNoop | FAIL (nil-pointer panic, recovered) | FAIL (same panic) | PASS (nil error, workloads untouched) |
+| TestVerifyPR6177_F10_WorkerCreationRefusal_EmitsConflictEvent | FAIL (no validation, no error) | FAIL (error, no event) | PASS (err + exactly one Warning RuntimeResourcesConflict naming the key) |
+| TestVerifyPR6177_F10_ClientCreationRefusal_EmitsConflictEvent | FAIL (no validation, no error) | FAIL (error, no event) | PASS (same) |
+
+All round 1-4 contracts stay green at head (P0/G1/G2/G3/F6/F9 FIXED); the F11 canary still
+passes, i.e. the claims half-propagation behavior is unchanged (delta does not touch claims).
+
+No-regression sweep: `FLUID_UNIT_TEST=true go test -count=1 ./pkg/ddc/cache/...` --
+previous head 312 passed / 12 failed, head 321 passed / 12 failed, the 12 failures
+byte-identical (pre-existing set from round 4); +9 new specs all passing (21/21 in a focused
+run of the tiered rows, the nil-topology spec and the three creation-event specs).
+
+Raw output: `results/round5/reverify-{base-e0fc4c18,prevhead-3adc547d,head-ce4f0c4f}-{unit,integration}.out`
+plus `reverify-head-ce4f0c4f-summary.txt`.
+
 ## How to run
 
 ```bash
@@ -157,7 +200,7 @@ FLUID_UNIT_TEST=true go test -gcflags="all=-N -l" ./pkg/ddc/cache/...
 `bash docs/verification/cacheruntime-resources-merge/scripts/re-verify.sh` from a checkout of
 this branch fetches the current PR head (from `manifest.pr`), grafts the harness onto it, runs
 the unit + integration layers, and prints Fixed / Still-broken per finding. All findings are
-contract polarity: green means good. All contracts, F9 included, are green at head 3adc547d; they
+contract polarity: green means good. All contracts, F9 included, are green at head ce4f0c4f; they
 now serve as the regression suite for the whole merge/validation behavior.
 
 Kickoff prompt for a fresh machine:
