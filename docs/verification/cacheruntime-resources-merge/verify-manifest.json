@@ -1,120 +1,140 @@
 {
-  "topic": "cacheruntime-resources-merge",
-  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6177",
-  "harnessPaths": [
-    "docs/verification/cacheruntime-resources-merge",
-    "pkg/ddc/cache/engine/zz_verify_pr6177_test.go",
-    "pkg/ddc/cache/engine/zz_verify_pr6177_f6_contract_test.go",
-    "pkg/ddc/cache/engine/zz_verify_pr6177_f9_contract_test.go",
-    "pkg/ddc/cache/engine/zz_verify_pr6177_f11_canary_test.go"
-  ],
-  "premise": {
-    "id": "P0",
-    "claim": "CacheRuntime: a partially specified `resources` silently drops the rest of the container's resource requirements (issue #6173): setting just limits.memory clears requests.cpu, limits.cpu, requests.memory and claims on the next reconcile.",
-    "reportedComponent": "pkg/ddc/cache/component/advanced_statefulset_manager.go updateResources (fed by pkg/ddc/cache/engine desiredComponentResources / transformComponentPodTemplate)",
-    "patchedComponent": "pkg/ddc/cache/engine/sync.go desiredComponentResources + pkg/ddc/cache/engine/transform_common.go (mergeResourceRequirements)",
-    "componentMatch": true,
-    "runsAgainst": "base",
-    "layer": "unit+integration",
-    "verdict": "confirmed",
-    "evidence": "On merge-base e0fc4c1 the three contract tests fail with requests.cpu=\"0\", requests.memory=\"0\", limits.cpu=\"0\" (values dropped), exactly the reported symptom; on the PR head they pass. See results/unit-base.txt vs results/unit-head.txt.",
-    "match": [
-      "TestVerifyPR6177_DesiredComponentResources_OverlaysOntoTemplate",
-      "TestVerifyPR6177_TransformComponentPodTemplate_OverlaysOntoTemplate",
-      "TestVerifyPR6177_SyncRuntimeSpec_KeepsUnnamedRequirements"
-    ]
+ "topic": "cacheruntime-resources-merge",
+ "pr": "https://github.com/fluid-cloudnative/fluid/pull/6177",
+ "harnessPaths": [
+  "docs/verification/cacheruntime-resources-merge",
+  "pkg/ddc/cache/engine/zz_verify_pr6177_test.go",
+  "pkg/ddc/cache/engine/zz_verify_pr6177_f6_contract_test.go",
+  "pkg/ddc/cache/engine/zz_verify_pr6177_f9_contract_test.go",
+  "pkg/ddc/cache/engine/zz_verify_pr6177_f11_canary_test.go",
+  "pkg/ddc/cache/engine/zz_verify_pr6177_f7f10_contract_test.go"
+ ],
+ "premise": {
+  "id": "P0",
+  "claim": "CacheRuntime: a partially specified `resources` silently drops the rest of the container's resource requirements (issue #6173): setting just limits.memory clears requests.cpu, limits.cpu, requests.memory and claims on the next reconcile.",
+  "reportedComponent": "pkg/ddc/cache/component/advanced_statefulset_manager.go updateResources (fed by pkg/ddc/cache/engine desiredComponentResources / transformComponentPodTemplate)",
+  "patchedComponent": "pkg/ddc/cache/engine/sync.go desiredComponentResources + pkg/ddc/cache/engine/transform_common.go (mergeResourceRequirements)",
+  "componentMatch": true,
+  "runsAgainst": "base",
+  "layer": "unit+integration",
+  "verdict": "confirmed",
+  "evidence": "On merge-base e0fc4c1 the three contract tests fail with requests.cpu=\"0\", requests.memory=\"0\", limits.cpu=\"0\" (values dropped), exactly the reported symptom; on the PR head they pass. See results/unit-base.txt vs results/unit-head.txt.",
+  "match": [
+   "TestVerifyPR6177_DesiredComponentResources_OverlaysOntoTemplate",
+   "TestVerifyPR6177_TransformComponentPodTemplate_OverlaysOntoTemplate",
+   "TestVerifyPR6177_SyncRuntimeSpec_KeepsUnnamedRequirements"
+  ]
+ },
+ "layers": {
+  "unit": {
+   "kind": "gotest",
+   "cmd": "FLUID_UNIT_TEST=true go test -gcflags=\"all=-N -l\" ./pkg/ddc/cache/engine/ -json -run 'TestVerifyPR6177_(DesiredComponentResources_OverlaysOntoTemplate|TransformComponentPodTemplate_OverlaysOntoTemplate|TemplateOnly_GuardResolvesToTemplate|F6_ConflictMerge_CreationRefuses|F10_WorkerCreationRefusal_EmitsConflictEvent|F10_ClientCreationRefusal_EmitsConflictEvent)'"
   },
-  "layers": {
-    "unit": {
-      "kind": "gotest",
-      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=\"all=-N -l\" ./pkg/ddc/cache/engine/ -json -run 'TestVerifyPR6177_(DesiredComponentResources_OverlaysOntoTemplate|TransformComponentPodTemplate_OverlaysOntoTemplate|TemplateOnly_GuardResolvesToTemplate|F6_ConflictMerge_CreationRefuses)'"
-    },
-    "integration": {
-      "kind": "gotest",
-      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=\"all=-N -l\" ./pkg/ddc/cache/engine/ -json -run 'TestVerifyPR6177_(SyncRuntimeSpec_KeepsUnnamedRequirements|NeitherSideDeclares_ContractClearsWorkload|DriftedWorkload_ContractRestoresTemplate|F6_ConflictMerge_SyncSkipsAndWarns|F9_NonOvercommittableMerge_SyncMustRefuse|F9_ExtendedRequestWithoutLimit_SyncMustRefuse|F11_TemplateClaimsPropagateWithoutPodLevelDeclaration_Canary)'"
-    }
+  "integration": {
+   "kind": "gotest",
+   "cmd": "FLUID_UNIT_TEST=true go test -gcflags=\"all=-N -l\" ./pkg/ddc/cache/engine/ -json -run 'TestVerifyPR6177_(SyncRuntimeSpec_KeepsUnnamedRequirements|NeitherSideDeclares_ContractClearsWorkload|DriftedWorkload_ContractRestoresTemplate|F6_ConflictMerge_SyncSkipsAndWarns|F9_NonOvercommittableMerge_SyncMustRefuse|F9_ExtendedRequestWithoutLimit_SyncMustRefuse|F11_TemplateClaimsPropagateWithoutPodLevelDeclaration_Canary|F7_NilTopology_SyncIsNoop)'"
+  }
+ },
+ "findings": [
+  {
+   "id": "P0",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestVerifyPR6177_DesiredComponentResources_OverlaysOntoTemplate",
+    "TestVerifyPR6177_TransformComponentPodTemplate_OverlaysOntoTemplate"
+   ]
   },
-  "findings": [
-    {
-      "id": "P0",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestVerifyPR6177_DesiredComponentResources_OverlaysOntoTemplate",
-        "TestVerifyPR6177_TransformComponentPodTemplate_OverlaysOntoTemplate"
-      ]
-    },
-    {
-      "id": "P0",
-      "polarity": "contract",
-      "layer": "integration",
-      "match": [
-        "TestVerifyPR6177_SyncRuntimeSpec_KeepsUnnamedRequirements"
-      ]
-    },
-    {
-      "id": "G1",
-      "polarity": "contract",
-      "layer": "integration",
-      "match": [
-        "TestVerifyPR6177_NeitherSideDeclares_ContractClearsWorkload"
-      ],
-      "note": "Contract intentionally redefined by the PR at ecd41afa (head e259d738): the #6165-era 'neither side declares -> workload untouched' guard was replaced by 'cleared'. Old guard removed; this pins the new contract. RED on base e0fc4c1 and previous head c1c303e8, GREEN on e259d738."
-    },
-    {
-      "id": "G2",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestVerifyPR6177_TemplateOnly_GuardResolvesToTemplate"
-      ]
-    },
-    {
-      "id": "G3",
-      "polarity": "contract",
-      "layer": "integration",
-      "match": [
-        "TestVerifyPR6177_DriftedWorkload_ContractRestoresTemplate"
-      ],
-      "note": "Guard added round 2: drifted workload + template-only config is restored to the template and converges. GREEN on base, previous head and head."
-    },
-    {
-      "id": "F6",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestVerifyPR6177_F6_ConflictMerge_CreationRefuses"
-      ],
-      "note": "Round-2 canary (zz_adhoc_f6_test.go, never committed) reproduced F6 on e259d738; the head fix f02054bd inverts it into these contract tests. RED on base e0fc4c18 and previous head e259d738, GREEN on 497bbeaf. Compile-safe on all three refs (pre-existing symbols only)."
-    },
-    {
-      "id": "F6",
-      "polarity": "contract",
-      "layer": "integration",
-      "match": [
-        "TestVerifyPR6177_F6_ConflictMerge_SyncSkipsAndWarns"
-      ],
-      "note": "Sync path must refuse a conflicting merge: workload resources untouched, Warning event RuntimeResourcesConflict naming the key, nil error, convergent. RED on base and previous head, GREEN on 497bbeaf."
-    },
-    {
-      "id": "F9",
-      "polarity": "contract",
-      "layer": "integration",
-      "match": [
-        "TestVerifyPR6177_F9_NonOvercommittableMerge_SyncMustRefuse",
-        "TestVerifyPR6177_F9_ExtendedRequestWithoutLimit_SyncMustRefuse"
-      ],
-      "note": "FIXED at head 3adc547d: validateResourceRequirements now mirrors the apiserver rule for non-overcommittable resources (hugepages-*, extended) -- request must equal limit, and a request needs a limit -- via a local isOvercommitAllowed mirror (the k8s.io/kubernetes helper package is genuinely not vendored; verified byte-equivalent logic against v1.29.15 helpers.go:127 + validation.go:6568-6579). Both contract tests flip RED->GREEN exactly at 3adc547d: RED on base e0fc4c18 and previous head 497bbeaf (invalid pair applied silently), GREEN on head (workload untouched, Warning event naming the key). The additive second test pins the request-without-limit sub-rule. The F9 remedy's third element (hugepages-require-cpu-or-memory cross-key check) was consciously scoped out by the author; adjudicated sound: merge is key-union per list, so a presence violation needs an already-invalid input, and no layer pod-validates the CRs -- a pre-existing gap outside the merge-synthesized class."
-    },
-    {
-      "id": "F11",
-      "polarity": "canary",
-      "layer": "integration",
-      "match": [
-        "TestVerifyPR6177_F11_TemplateClaimsPropagateWithoutPodLevelDeclaration_Canary"
-      ],
-      "note": "Round-4 finding (also Copilot discussion_r4276559859): sync propagates template container claims to existing workloads but never reconciles pod-level spec.resourceClaims; on DRA-enabled clusters replacement Pods are rejected by validateResourceClaimNames, stalling the rollout with no event. Differential ad-hoc probes (results/round4/f11-claims-{base-e0fc4c18,head-3adc547d}.txt): pre-existing when the CacheRuntime declares nothing (template fallback on base does the same); the PR widens exposure when the CacheRuntime declares a partial value (base dropped the claim, head merges it). origin=preexisting, introducedByPR=false. Canary asserts current behavior (propagated, nil error, no Warning); flips red when a guard lands."
-    }
-  ],
-  "liveNote": "L3 skipped per debate setup (no KUBECONFIG layer). If run live: on a kind cluster, create the CacheRuntimeClass + CacheRuntime from issue #6173, patch spec.worker.resources.limits.memory=8Gi, and check `kubectl get advancedstatefulset <name>-worker -o jsonpath='{.spec.template.spec.containers[0].resources}'` keeps cpu request/limit and memory request."
+  {
+   "id": "P0",
+   "polarity": "contract",
+   "layer": "integration",
+   "match": [
+    "TestVerifyPR6177_SyncRuntimeSpec_KeepsUnnamedRequirements"
+   ]
+  },
+  {
+   "id": "G1",
+   "polarity": "contract",
+   "layer": "integration",
+   "match": [
+    "TestVerifyPR6177_NeitherSideDeclares_ContractClearsWorkload"
+   ],
+   "note": "Contract intentionally redefined by the PR at ecd41afa (head e259d738): the #6165-era 'neither side declares -> workload untouched' guard was replaced by 'cleared'. Old guard removed; this pins the new contract. RED on base e0fc4c1 and previous head c1c303e8, GREEN on e259d738."
+  },
+  {
+   "id": "G2",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestVerifyPR6177_TemplateOnly_GuardResolvesToTemplate"
+   ]
+  },
+  {
+   "id": "G3",
+   "polarity": "contract",
+   "layer": "integration",
+   "match": [
+    "TestVerifyPR6177_DriftedWorkload_ContractRestoresTemplate"
+   ],
+   "note": "Guard added round 2: drifted workload + template-only config is restored to the template and converges. GREEN on base, previous head and head."
+  },
+  {
+   "id": "F6",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestVerifyPR6177_F6_ConflictMerge_CreationRefuses"
+   ],
+   "note": "Round-2 canary (zz_adhoc_f6_test.go, never committed) reproduced F6 on e259d738; the head fix f02054bd inverts it into these contract tests. RED on base e0fc4c18 and previous head e259d738, GREEN on 497bbeaf. Compile-safe on all three refs (pre-existing symbols only)."
+  },
+  {
+   "id": "F6",
+   "polarity": "contract",
+   "layer": "integration",
+   "match": [
+    "TestVerifyPR6177_F6_ConflictMerge_SyncSkipsAndWarns"
+   ],
+   "note": "Sync path must refuse a conflicting merge: workload resources untouched, Warning event RuntimeResourcesConflict naming the key, nil error, convergent. RED on base and previous head, GREEN on 497bbeaf."
+  },
+  {
+   "id": "F9",
+   "polarity": "contract",
+   "layer": "integration",
+   "match": [
+    "TestVerifyPR6177_F9_NonOvercommittableMerge_SyncMustRefuse",
+    "TestVerifyPR6177_F9_ExtendedRequestWithoutLimit_SyncMustRefuse"
+   ],
+   "note": "FIXED at head 3adc547d: validateResourceRequirements now mirrors the apiserver rule for non-overcommittable resources (hugepages-*, extended) -- request must equal limit, and a request needs a limit -- via a local isOvercommitAllowed mirror (the k8s.io/kubernetes helper package is genuinely not vendored; verified byte-equivalent logic against v1.29.15 helpers.go:127 + validation.go:6568-6579). Both contract tests flip RED->GREEN exactly at 3adc547d: RED on base e0fc4c18 and previous head 497bbeaf (invalid pair applied silently), GREEN on head (workload untouched, Warning event naming the key). The additive second test pins the request-without-limit sub-rule. The F9 remedy's third element (hugepages-require-cpu-or-memory cross-key check) was consciously scoped out by the author; adjudicated sound: merge is key-union per list, so a presence violation needs an already-invalid input, and no layer pod-validates the CRs -- a pre-existing gap outside the merge-synthesized class."
+  },
+  {
+   "id": "F11",
+   "polarity": "canary",
+   "layer": "integration",
+   "match": [
+    "TestVerifyPR6177_F11_TemplateClaimsPropagateWithoutPodLevelDeclaration_Canary"
+   ],
+   "note": "Round-4 finding (also Copilot discussion_r4276559859): sync propagates template container claims to existing workloads but never reconciles pod-level spec.resourceClaims; on DRA-enabled clusters replacement Pods are rejected by validateResourceClaimNames, stalling the rollout with no event. Differential ad-hoc probes (results/round4/f11-claims-{base-e0fc4c18,head-3adc547d}.txt): pre-existing when the CacheRuntime declares nothing (template fallback on base does the same); the PR widens exposure when the CacheRuntime declares a partial value (base dropped the claim, head merges it). origin=preexisting, introducedByPR=false. Canary asserts current behavior (propagated, nil error, no Warning); flips red when a guard lands."
+  },
+  {
+   "id": "F7",
+   "polarity": "contract",
+   "layer": "integration",
+   "match": [
+    "TestVerifyPR6177_F7_NilTopology_SyncIsNoop"
+   ],
+   "note": "Round-5 remedy 94121e27: syncRuntimeSpec returns nil for a class without a topology instead of panicking at runtimeClass.Topology.Master. Pre-existing gap (getRuntimeClass rejects such classes before syncRuntimeSpec in production; the guard protects direct callers). The test recovers the panic into a clean failure. RED on base e0fc4c18 and previous head 3adc547d (nil-pointer deref), GREEN at head ce4f0c4f (nil error, master and worker workloads untouched)."
+  },
+  {
+   "id": "F10",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestVerifyPR6177_F10_WorkerCreationRefusal_EmitsConflictEvent",
+    "TestVerifyPR6177_F10_ClientCreationRefusal_EmitsConflictEvent"
+   ],
+   "note": "Round-5 remedy 71d94397 (+4a8668f9 pinning event count): the creation path now emits exactly one Warning event with the specific RuntimeResourcesConflict reason (naming the conflict) when the merged resources are rejected, for worker, master and client -- on top of the reconciler's generic ErrorProcessRuntime. RED on base e0fc4c18 (no validation, no error) and previous head 3adc547d (error without any event), GREEN at head ce4f0c4f. Client variant closes the last component without a creation-rejection spec."
+  }
+ ],
+ "liveNote": "L3 skipped per debate setup (no KUBECONFIG layer). If run live: on a kind cluster, create the CacheRuntimeClass + CacheRuntime from issue #6173, patch spec.worker.resources.limits.memory=8Gi, and check `kubectl get advancedstatefulset <name>-worker -o jsonpath='{.spec.template.spec.containers[0].resources}'` keeps cpu request/limit and memory request."
 }
