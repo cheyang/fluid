@@ -32,9 +32,12 @@ import (
 )
 
 const (
-	syncRetryDurationEnv     string = "FLUID_SYNC_RETRY_DURATION"
-	defaultSyncRetryDuration        = 5 * time.Second
+	syncRetryDurationEnv              string = "FLUID_SYNC_RETRY_DURATION"
+	defaultSyncRetryDuration                 = 5 * time.Second
+	defaultTieredStoreWarningInterval        = 10 * time.Minute
 )
+
+var tieredStoreWarningInterval = defaultTieredStoreWarningInterval
 
 // Use compiler to check if the struct implements all the interface
 var _ base.Engine = (*CacheEngine)(nil)
@@ -52,10 +55,11 @@ type CacheEngine struct {
 	name      string
 	namespace string
 
-	syncRetryDuration      time.Duration
-	timeOfLastSync         time.Time
-	retryShutdown          int32
-	gracefulShutdownLimits int32
+	syncRetryDuration            time.Duration
+	timeOfLastSync               time.Time
+	timeOfLastTieredStoreWarning time.Time
+	retryShutdown                int32
+	gracefulShutdownLimits       int32
 
 	runtimeType string
 	engineImpl  string
