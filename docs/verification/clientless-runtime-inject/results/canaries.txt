@@ -1,2 +1,2 @@
 ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector	0.012s
-ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/utils	0.013s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/utils	0.012s
