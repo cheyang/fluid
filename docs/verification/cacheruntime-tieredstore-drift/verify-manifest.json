@@ -25,11 +25,11 @@
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "go test -count=1 -v ./pkg/ddc/cache/engine -run 'TestVerifyPR6219(Premise|Fix|Remediation|Medium|Client)'"
+      "cmd": "go test -count=1 ./pkg/ddc/cache/engine -run 'TestVerifyPR6219(Premise|Fix|Remediation|Medium|Client)' -json"
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "go test -count=1 -v ./pkg/ddc/cache/engine -run 'TestVerifyPR6219Envtest'"
+      "cmd": "go test -count=1 ./pkg/ddc/cache/engine -run 'TestVerifyPR6219Envtest' -json"
     }
   },
   "findings": [
