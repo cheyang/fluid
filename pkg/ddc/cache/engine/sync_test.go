@@ -1270,6 +1270,7 @@ var _ = Describe("CacheEngine Sync Tests", Label("pkg.ddc.cache.engine.sync_test
 				createWorkerWithTieredStore(datav1alpha1.RuntimeTieredStore{
 					Levels: []datav1alpha1.RuntimeTieredStoreLevel{
 						{ProcessMemory: &datav1alpha1.ProcessMemoryMediumSource{Quota: resource.MustParse("8Gi")}},
+						{EmptyDir: &datav1alpha1.EmptyDirMediumSource{Quota: resource.MustParse("50Gi"), Medium: corev1.StorageMediumMemory}},
 					},
 				})
 
@@ -1542,6 +1543,71 @@ var _ = Describe("CacheEngine Sync Tests", Label("pkg.ddc.cache.engine.sync_test
 				Expect(fakeRecorder.Events).To(Receive(&event))
 				Expect(event).To(ContainSubstring(corev1.EventTypeWarning))
 				Expect(event).To(ContainSubstring("level 0 path 0 (hostPath): volume tiered-store-level-0-index-0 not found in worker pod"))
+			})
+
+			It("should emit a Warning event when emptyDir medium is edited from disk to Memory", func() {
+				createWorkerWithTieredStore(datav1alpha1.RuntimeTieredStore{
+					Levels: []datav1alpha1.RuntimeTieredStoreLevel{
+						{EmptyDir: &datav1alpha1.EmptyDirMediumSource{
+							Quota:  resource.MustParse("50Gi"),
+							Medium: "",
+						}},
+					},
+				})
+
+				edited, err := engine.getRuntime()
+				Expect(err).NotTo(HaveOccurred())
+				edited.Spec.Worker.TieredStore.Levels[0].EmptyDir.Medium = corev1.StorageMediumMemory
+				Expect(fakeClient.Update(ctx.Context, edited)).To(Succeed())
+
+				syncRuntime, err := engine.getRuntime()
+				Expect(err).NotTo(HaveOccurred())
+				Expect(engine.syncRuntimeSpec(ctx, syncRuntime, runtimeClass)).To(Succeed())
+
+				var event string
+				Expect(fakeRecorder.Events).To(Receive(&event))
+				Expect(event).To(ContainSubstring(corev1.EventTypeWarning))
+				Expect(event).To(ContainSubstring(common.RuntimeTieredStoreConflict))
+				Expect(event).To(ContainSubstring(`level 0 (emptyDir): spec medium "Memory" does not match worker volume tiered-store-level-0-index-0 medium ""`))
+				Expect(event).To(ContainSubstring("Delete and recreate the CacheRuntime to apply changes."))
+			})
+
+			It("should emit a Warning event when emptyDir medium is edited from Memory to disk", func() {
+				createWorkerWithTieredStore(datav1alpha1.RuntimeTieredStore{
+					Levels: []datav1alpha1.RuntimeTieredStoreLevel{
+						{EmptyDir: &datav1alpha1.EmptyDirMediumSource{
+							Quota:  resource.MustParse("50Gi"),
+							Medium: corev1.StorageMediumMemory,
+						}},
+					},
+				})
+
+				edited, err := engine.getRuntime()
+				Expect(err).NotTo(HaveOccurred())
+				edited.Spec.Worker.TieredStore.Levels[0].EmptyDir.Medium = ""
+				Expect(fakeClient.Update(ctx.Context, edited)).To(Succeed())
+
+				syncRuntime, err := engine.getRuntime()
+				Expect(err).NotTo(HaveOccurred())
+				Expect(engine.syncRuntimeSpec(ctx, syncRuntime, runtimeClass)).To(Succeed())
+
+				var event string
+				Expect(fakeRecorder.Events).To(Receive(&event))
+				Expect(event).To(ContainSubstring(corev1.EventTypeWarning))
+				Expect(event).To(ContainSubstring(common.RuntimeTieredStoreConflict))
+				Expect(event).To(ContainSubstring(`level 0 (emptyDir): spec medium "" does not match worker volume tiered-store-level-0-index-0 medium "Memory"`))
+				Expect(event).To(ContainSubstring("Delete and recreate the CacheRuntime to apply changes."))
+			})
+
+			It("should return error when reading worker pod spec fails", func() {
+				key := types.NamespacedName{Name: workerSts, Namespace: "default"}
+				worker := &workloadv1alpha1.AdvancedStatefulSet{}
+				Expect(fakeClient.Get(ctx.Context, key, worker)).To(Succeed())
+				Expect(fakeClient.Delete(ctx.Context, worker)).To(Succeed())
+
+				err := engine.syncRuntimeSpec(ctx, runtimeObj, runtimeClass)
+				Expect(err).To(HaveOccurred())
+				Expect(err.Error()).To(ContainSubstring("not found"))
 			})
 		})
 	})
