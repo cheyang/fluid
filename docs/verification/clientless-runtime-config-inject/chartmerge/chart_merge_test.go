@@ -625,7 +625,11 @@ func TestHelmTemplateFreshInstallValuesFallback(t *testing.T) {
 	root := repoRoot(t)
 	chartDir := filepath.Join(root, "charts/fluid/fluid")
 
-	// webhook.pluginsProfile = the legacy profile (no clientless group)
+	// webhook.pluginsProfile = the legacy profile with the clientless key deleted. A
+	// plain -f override cannot REMOVE a key (helm deep-merges the chart's values.yaml,
+	// which carries clientless); setting it to null deletes it during coalescing, which
+	// is exactly what `helm upgrade --reuse-values` from a pre-clientless release hands
+	// to the template: the old release's values never had the key.
 	var b strings.Builder
 	b.WriteString("webhook:\n  pluginsProfile:\n")
 	for _, line := range strings.Split(strings.TrimPrefix(legacyProfile, "\n"), "\n") {
@@ -633,6 +637,9 @@ func TestHelmTemplateFreshInstallValuesFallback(t *testing.T) {
 			continue
 		}
 		b.WriteString("    " + line + "\n")
+		if strings.TrimSpace(line) == "plugins:" {
+			b.WriteString("      clientless: null\n")
+		}
 	}
 	override := filepath.Join(t.TempDir(), "values.yaml")
 	if err := os.WriteFile(override, []byte(b.String()), 0644); err != nil {

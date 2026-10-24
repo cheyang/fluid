@@ -605,8 +605,13 @@ var _ = Describe("PR6197 verification: clientless runtime config injection", fun
 				},
 			} {
 				resp := handleWithDemo(newCustomizedVolumeRequest(customize))
-				Expect(resp.Allowed).To(BeTrue(),
-					"the api-server-defaulted projection must keep being admitted: %s", resp.Result.Message)
+				if !resp.Allowed {
+					reason := ""
+					if resp.Result != nil {
+						reason = resp.Result.Message
+					}
+					Fail("the api-server-defaulted projection must keep being admitted, got denial: " + reason)
+				}
 				foundEnv := false
 				for _, op := range resp.Patches {
 					raw, _ := json.Marshal(op.Value)
