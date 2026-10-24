@@ -1,0 +1,4 @@
+TestPremiseTieredStoreSplitWorker	pass
+TestVerifyWorkerDriftWarnsThroughFullSync	pass
+TestVerifyClientTieredStoreDriftSilent	pass
+TestVerifyEmptyDirMediumFlipSilent	pass
