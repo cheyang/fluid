@@ -1,0 +1,6 @@
+MISSING finalizers subresource permission: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-24/pr-5674/wt-verify/charts/fluid/fluid/templates/role/alluxio/rbac.yaml
+MISSING finalizers subresource permission: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-24/pr-5674/wt-verify/charts/fluid/fluid/templates/role/efc/rbac.yaml
+MISSING finalizers subresource permission: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-24/pr-5674/wt-verify/charts/fluid/fluid/templates/role/jindo/rbac.yaml
+MISSING finalizers subresource permission: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-24/pr-5674/wt-verify/charts/fluid/fluid/templates/role/juicefs/rbac.yaml
+MISSING finalizers subresource permission: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-24/pr-5674/wt-verify/charts/fluid/fluid/templates/role/thin/rbac.yaml
+MISSING finalizers subresource permission: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-24/pr-5674/wt-verify/charts/fluid/fluid/templates/role/vineyard/rbac.yaml

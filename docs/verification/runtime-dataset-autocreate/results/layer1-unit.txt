@@ -1,0 +1,44 @@
+2026/10/25 00:20:52 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Package Controllers Suite - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-24/pr-5674/wt-verify/pkg/controllers
+==============================================================================================================================================
+Random Seed: [1m1792858852[0m
+
+Will run [1m73[0m of [1m73[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mPR5674 verification: dataset auto-create policy [38;5;9m[1m[It] [contract] terminating runtime with the annotation must not auto-create a dataset[0m
+[38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-24/pr-5674/wt-verify/pkg/controllers/zz_verify_pr5674_unit_test.go:77[0m
+
+  [38;5;9m[FAILED] no dataset may be created for a runtime that is already being deleted
+  Expected
+      <bool>: false
+  to be true[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-24/pr-5674/wt-verify/pkg/controllers/zz_verify_pr5674_unit_test.go:96[0m [38;5;243m@ 10/25/26 00:20:52.484[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mPR5674 verification: dataset auto-create policy [38;5;9m[1m[It] [contract] engine ClusterRoles with dataset access grant owner finalizers update[0m
+[38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-24/pr-5674/wt-verify/pkg/controllers/zz_verify_pr5674_unit_test.go:157[0m
+
+  [38;5;9m[FAILED] engine ClusterRoles missing <engine>runtimes/finalizers update: [alluxio efc jindo juicefs thin vineyard]
+  Expected
+      <[]string | len:6, cap:8>: ["alluxio", "efc", "jindo", "juicefs", "thin", "vineyard"]
+  to be empty[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-24/pr-5674/wt-verify/pkg/controllers/zz_verify_pr5674_unit_test.go:178[0m [38;5;243m@ 10/25/26 00:20:52.485[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;9m[1mSummarizing 2 Failures:[0m
+  [38;5;9m[FAIL][0m [0mPR5674 verification: dataset auto-create policy [38;5;9m[1m[It] [contract] terminating runtime with the annotation must not auto-create a dataset[0m
+  [38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-24/pr-5674/wt-verify/pkg/controllers/zz_verify_pr5674_unit_test.go:96[0m
+  [38;5;9m[FAIL][0m [0mPR5674 verification: dataset auto-create policy [38;5;9m[1m[It] [contract] engine ClusterRoles with dataset access grant owner finalizers update[0m
+  [38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-24/pr-5674/wt-verify/pkg/controllers/zz_verify_pr5674_unit_test.go:178[0m
+
+[38;5;9m[1mRan 71 of 73 Specs in 0.078 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m69 Passed[0m | [38;5;9m[1m2 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m2 Skipped[0m
+--- FAIL: TestControllers (0.08s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers	0.089s
+FAIL

@@ -1,0 +1,51 @@
+/*
+P0 premise check for PR #5674, run against the BASE branch (25531595).
+Claim under test (from issue #4518 / PR body): on base, a Runtime created without a
+pre-defined Dataset cannot proceed; the controller just waits. No auto-create exists.
+ADDITIVE ONLY — review harness, never part of the PR.
+*/
+
+package controllers
+
+import (
+	"context"
+	"time"
+
+	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
+	apierrors "k8s.io/apimachinery/pkg/api/errors"
+	"k8s.io/apimachinery/pkg/types"
+)
+
+var _ = Describe("PR5674 premise on BASE: runtime without dataset cannot proceed", func() {
+
+	It("[premise] runtime without a dataset waits and nothing is auto-created", func() {
+		runtimeObj := newTestAlluxioRuntime(defaultNamespace, demoRuntimeName)
+		impl := &testRuntimeReconcilerImplement{}
+		r := newTestRuntimeReconcilerWithImplement(impl, runtimeObj)
+
+		result, err := r.ReconcileInternal(newTestRequestContext(r.Client, runtimeObj, nil))
+
+		Expect(err).NotTo(HaveOccurred())
+		Expect(result.RequeueAfter).To(Equal(5 * time.Second))
+		ds := &datav1alpha1.Dataset{}
+		getErr := r.Get(context.Background(), types.NamespacedName{Namespace: defaultNamespace, Name: demoRuntimeName}, ds)
+		Expect(apierrors.IsNotFound(getErr)).To(BeTrue(), "base must not auto-create any dataset")
+	})
+
+	It("[premise] even with the annotation literal set, base creates nothing (feature absent)", func() {
+		runtimeObj := newTestAlluxioRuntime(defaultNamespace, demoRuntimeName)
+		runtimeObj.Annotations = map[string]string{"fluid.io/dataset-policy": "auto-create"}
+		impl := &testRuntimeReconcilerImplement{}
+		r := newTestRuntimeReconcilerWithImplement(impl, runtimeObj)
+
+		result, err := r.ReconcileInternal(newTestRequestContext(r.Client, runtimeObj, nil))
+
+		Expect(err).NotTo(HaveOccurred())
+		Expect(result.RequeueAfter).To(Equal(5 * time.Second))
+		ds := &datav1alpha1.Dataset{}
+		getErr := r.Get(context.Background(), types.NamespacedName{Namespace: defaultNamespace, Name: demoRuntimeName}, ds)
+		Expect(apierrors.IsNotFound(getErr)).To(BeTrue(), "base ignores the annotation entirely")
+	})
+})

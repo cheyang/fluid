@@ -1,0 +1,69 @@
+{
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/5674",
+  "topic": "runtime-dataset-autocreate",
+  "reviewer": "codex",
+  "headSha": "63f43e262a769691bb1458bef96aeb423d6aad63",
+  "baseSha": "25531595e9233cb9340a3c544eb284b400b82d50",
+  "harnessPaths": [
+    "pkg/controllers/zz_verify_pr5674_unit_test.go",
+    "pkg/controllers/zz_verify_pr5674_envtest_test.go",
+    "docs/verification/runtime-dataset-autocreate"
+  ],
+  "premise": {
+    "id": "P0",
+    "runsAgainst": "base",
+    "claim": "On base, a Runtime created without a pre-existing Dataset cannot proceed (strict Dataset-Runtime binding); no auto-create exists. Issue #4518 requests lifting this.",
+    "verdict": "confirmed",
+    "evidence": "results/layer0-base-premise.txt (base-only test file premise/zz_verify_pr5674_premise_test.go.base-only: runtime without dataset waits at 5s requeue, nothing created, annotation literal ignored on base)"
+  },
+  "layers": {
+    "unit": {
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/controllers/ -run TestControllers -count=1 -args -ginkgo.json-report=\"$GINKGO_REPORT.unit\"",
+      "report": "$GINKGO_REPORT.unit"
+    },
+    "integration": {
+      "kind": "ginkgo",
+      "cmd": "VERIFY_PR5674_ENVTEST=1 KUBEBUILDER_ASSETS=\"${KUBEBUILDER_ASSETS:-$(ls -d $HOME/.local/share/kubebuilder-envtest/k8s/* 2>/dev/null | sort -V | tail -1)}\" go test ./pkg/controllers/ -run TestControllers -count=1 -args -ginkgo.json-report=\"$GINKGO_REPORT.integration\"",
+      "report": "$GINKGO_REPORT.integration"
+    }
+  },
+  "findings": [
+    {
+      "id": "P0-compat",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["runtime without the annotation still waits and creates no dataset"],
+      "note": "backward-compat guard: unannotated runtimes unchanged (green on base AND head)"
+    },
+    {
+      "id": "F0-feature",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["annotated runtime auto-creates a stub dataset bound to itself"],
+      "note": "feature proof: green on head, absent on base"
+    },
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["terminating runtime with the annotation must not auto-create a dataset"],
+      "note": "RED on head 63f43e26: auto-create runs before the deletion branch; proposed fix: gate on objectMeta.GetDeletionTimestamp().IsZero() (verified flips green)"
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["engine ClusterRoles with dataset access grant owner finalizers update"],
+      "note": "RED on head: no engine ClusterRole holds <engine>runtimes/finalizers update while blockOwnerDeletion=true is set; breaks on clusters with OwnerReferencesPermissionEnforcement enabled (default-off upstream)"
+    },
+    {
+      "id": "F3",
+      "polarity": "canary",
+      "layer": "integration",
+      "match": ["I2 [canary]: first auto-create reconcile errors on empty-GVK ownerRef, second heals"],
+      "note": "GREEN while bug present (first reconcile errors with empty-GVK ownerRef rejection, second heals via cache). Fixed only when it FLIPS to fail (i.e. first reconcile becomes clean)."
+    }
+  ],
+  "liveNote": "L3 skipped per debate setup (no KUBECONFIG layer). If run live: watch controller logs for 'Failed to add ownerreference' on the first auto-create reconcile (F3) and for 403 'cannot set blockOwnerDeletion' on hardened clusters (F2)."
+}
