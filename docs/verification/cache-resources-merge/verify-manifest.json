@@ -149,7 +149,7 @@
       "match": [
         "TestE1ClassClaimAdditionMustNotWedgeExistingWorkload"
       ],
-      "note": "NEW round 4, non-blocking, pre-existing: a CacheRuntimeClass edit that adds a pod-level resourceClaims entry + matching container claim propagates the container claim into an existing workload (mergeResourceClaims) while SyncComponentSpec never writes pod-level spec.resourceClaims; replacement Pods are rejected ('must be one of the names in pod.spec.resourceClaims', validation.go:6621) and the rollout stalls with no event on the CacheRuntime. Contract is red on head and on 497bbeaf; base probe (scripts/base_probe_f11_test.go.txt, results/round4/unit-base-probe-f11-e0fc4c18.log): the paired template shape (claim + requests/limits) reproduces on the merge base e0fc4c18 too — pre-existing; the claim-only template shape does not wedge at base (desiredComponentResources returned nil), so the PR broadens that subcase. Copilot discussion_r4276559859 flags the same mechanism. Out of the PR's strict scope; remedy if taken: guard claims in validDesiredResources against the workload's pod-level declarations (skip + event, mirroring the F6/F9 pattern) or document the class-edit limitation."
+      "note": "round 6 (ce4f0c4f..a773dfa6): FIXED by a773dfa6 — splitDeclaredClaims + validDesiredResources(podSpec) drop container claims the workload does not declare (pod-level or already carried), emit a RuntimeResourcesConflict Warning naming them, and still sync the rest. E1 contract: fail at ce4f0c4f (round-5 log), pass at a773dfa6 (results/round6/). B3 stays green (no over-drop). Remedy matches the F6/F9 guard pattern proposed in round 4."
     },
     {
       "id": "E2-empty-map-clear",
@@ -283,6 +283,37 @@
           "D11": "pass"
         }
       }
+    },
+    "2026-10-24": {
+      "head": "a773dfa6a3ba5f6ead88e68d7223408bc4b75e69",
+      "delta": "ce4f0c4f..a773dfa6 (1 commit: a773dfa6 fix(cache): do not sync container claims the workload does not declare)",
+      "verification": {
+        "B1": "fixed",
+        "B2": "fixed",
+        "B3": "fixed",
+        "B4": "fixed",
+        "B5": "fixed",
+        "D1": "fixed",
+        "D2": "fixed",
+        "D3": "fixed",
+        "D4": "fixed",
+        "D5": "fixed",
+        "D6": "fixed",
+        "F9": "fixed",
+        "F11": "fixed",
+        "E2-empty-map-clear": "fixed",
+        "F7": "fixed",
+        "F8": "fixed",
+        "F10": "fixed"
+      },
+      "verdict": "all findings fixed, incl. F11 (E1 contract flipped fail at ce4f0c4f -> pass at a773dfa6); full engine suite 329 passed / 12 pre-existing failures (byte-identical set, 11x ufs_test + 1x sync_test ReportSummary); CI 22/22 check-runs SUCCESS at head (re-queried 2026-10-24); maintainer ack of the merge semantics recorded (cheyang personal comment 2026-10-20T12:38:43Z, F1 closed) with one doc change requested before merge (F14: neutralize live-template-propagation wording, see #6213) plus F13 (drop the stale upgrade paragraph from the PR body)",
+      "logs": [
+        "results/round6/reverify-head-a773dfa6.log",
+        "results/round6/suite-head-a773dfa6.log",
+        "results/round6/failures-head-a773dfa6.txt",
+        "results/round6/unit-head-a773dfa6.out",
+        "results/round6/integration-head-a773dfa6.out"
+      ]
     }
   }
 }

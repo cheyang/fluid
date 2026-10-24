@@ -234,3 +234,55 @@ copilot-pull-request-reviewer (10-12, 10-14) and the cheyang entry 5553719814
 #6165 discussion_r3804862812 still has no human reply.
 
 `.last-reviewed` advanced to `ce4f0c4f`.
+
+## Round 6 — delta `ce4f0c4f..a773dfa6`
+
+One commit, `a773dfa6` ("do not sync container claims the workload does not
+declare"): the F11 remedy. `splitDeclaredClaims` (transform_common.go) splits the
+merged container claims by what the workload's pod spec declares at pod level or
+its first container already carries; `validDesiredResources` (sync.go) now takes
+the workload's pod spec, drops any undeclared claim with a
+`RuntimeResourcesConflict` Warning naming it, and still syncs the rest — so a
+claim-only edit cannot hold back a requests/limits edit on non-DRA clusters.
+Both sync call sites (master, worker) read the pod spec up front; the read is
+unconditional now, but its error surface is identical to `SyncComponentSpec`'s
+own Get, so no new failure mode. Docs updated in both languages. Reviewed the
+full delta plus both callers of `validDesiredResources` and the
+`GetPodSpec`/`splitDeclaredClaims` call chain; no new defect found (event
+re-emission while an undeclared claim persists matches the accepted F6
+persistent-conflict pattern; recorder aggregation bounds it).
+
+Full re-verify at head (`results/round6/reverify-head-a773dfa6.log`): **every
+finding FIXED, including F11** — the E1 contract
+(`TestE1ClassClaimAdditionMustNotWedgeExistingWorkload`) failed at `ce4f0c4f`
+(round-5 log, STILL-BROKEN pass=0 fail=1) and passes at `a773dfa6` (pass=1
+fail=0): the template-added container claim is no longer synced onto a workload
+whose pod spec does not declare it, so no apiserver-rejected replacement Pod.
+B3 (claims survive when the workload declares them) stays green, so the guard
+does not over-drop. The PR's own new specs (2 DRA-edit contexts, master+worker
+DescribeTable, 4 `splitDeclaredClaims` units) all pass in the suite below.
+
+Full engine suite at head: **329 passed | 12 failed** (`results/round6/
+suite-head-a773dfa6.log`) — +8 specs vs round 5 (321) from the new claim
+specs, and the 12 failures are the same pre-existing family
+(`results/round6/failures-head-a773dfa6.txt`: 11× `ufs_test.go` + 1×
+`sync_test.go` ReportSummary), unchanged since round 1 — no revision
+regression.
+
+CI at the exact head `a773dfa6` (re-queried live 2026-10-24): all 22
+check-runs COMPLETED/SUCCESS — DCO (a773dfa6 Signed-off-by), unittest, lint,
+staticcheck, builds, CodeQL, SonarCloud, codecov, kind-e2e-test and
+backward-compat-test on v1.22.17/v1.24.17/v1.28.15/v1.30.13/v1.33.2.
+
+Maintainer decision (F1): **recorded** — cheyang's personal comment of
+2026-10-20T12:38:43Z (not the pipeline's summary) agrees with the per-key
+overlay and the "neither side declares → cleared" semantics, confirms no
+upgrade concern (CacheRuntime unreleased), and asks for one doc change before
+merge: neutralize the live-template-propagation wording in
+`docs/{en,zh}/.../cacheruntime_spec_update.md` and the PR body, pointing at
+#6213 (pin the class template at creation) instead. Those doc lines are still
+present at head (en 96–108, zh 96–105) — carried as F14 in the round-6
+ledger, along with F13 (stale upgrade paragraph in the PR body), which the
+same comment also asks the author to drop.
+
+`.last-reviewed` advanced to `a773dfa6`.
