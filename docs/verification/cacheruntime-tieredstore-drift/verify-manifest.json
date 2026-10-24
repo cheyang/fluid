@@ -1,0 +1,87 @@
+{
+  "topic": "cacheruntime-tieredstore-drift",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6219",
+  "harnessPaths": [
+    "docs/verification/cacheruntime-tieredstore-drift",
+    "pkg/ddc/cache/engine/verify_pr6219_premise_test.go",
+    "pkg/ddc/cache/engine/verify_pr6219_findings_test.go",
+    "pkg/ddc/cache/engine/verify_pr6219_envtest_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Changing spec.worker.tieredStore on an existing CacheRuntime updates the runtime ConfigMap but not the worker Pod. The quota ends up recorded as two different values, and no event, condition or log line says so. (issue #6192)",
+    "reportedComponent": "CacheRuntime controller (pkg/ddc/cache/engine)",
+    "patchedComponent": "pkg/ddc/cache/engine (sync.go, engine.go) + docs",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "results/base-premise-unit.txt: on base 86e3adf3 the ConfigMap quota follows the edited spec (16Gi) while the worker ASTS volume keeps 8Gi and zero events are emitted; the canary flips on head 58afa3a9 with the expected RuntimeTieredStoreConflict warning.",
+    "match": [
+      "TestVerifyPR6219Premise_ConfigMapFollowsSpecPodDoesNot",
+      "TestVerifyPR6219Premise_SilentOnBase"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 -v ./pkg/ddc/cache/engine -run 'TestVerifyPR6219(Premise|Fix|Remediation|Medium|Client)'"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 -v ./pkg/ddc/cache/engine -run 'TestVerifyPR6219Envtest'"
+    }
+  },
+  "findings": [
+    {
+      "id": "P0-silent",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6219Premise_SilentOnBase"
+      ]
+    },
+    {
+      "id": "FIX-worker-drift-event",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6219Fix_DriftEmitsWarningOnHead"
+      ]
+    },
+    {
+      "id": "FIX-worker-drift-event-envtest",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestVerifyPR6219Envtest_DriftRoundTrip"
+      ]
+    },
+    {
+      "id": "F1",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6219RemediationDeleteWorkerWorkloadDoesNotHeal"
+      ]
+    },
+    {
+      "id": "F2",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6219MediumOnlyEditInvisibleToDriftCheck"
+      ]
+    },
+    {
+      "id": "F3",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6219ClientTieredStoreEditSilent"
+      ]
+    }
+  ],
+  "liveNote": "L3 (skipped per debate setup): on a real cluster, edit spec.worker.tieredStore on an existing CacheRuntime and confirm `kubectl get events --field-selector reason=RuntimeTieredStoreConflict` shows the warning, re-emitted at >=10min intervals while drift persists. Note: verify_pr6219_envtest_test.go needs envtest binaries (KUBEBUILDER_ASSETS or ~/.local/share/kubebuilder-envtest) and self-skips without them.",
+  "polarityNotes": "P0-silent PASSES on base (premise reproduced) and FAILS on the fixed head (fix works). F1/F2/F3 are canaries that PASS while the documented gap exists and FLIP when it is closed. The PR's own ginkgo suite requires -gcflags='all=-N -l' (gomonkey); running without it fails 35 specs on base and head alike (pre-existing)."
+}

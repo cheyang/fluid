@@ -1,0 +1,8 @@
+2026/10/24 22:20:25 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6219Premise_ConfigMapFollowsSpecPodDoesNot
+--- PASS: TestVerifyPR6219Premise_ConfigMapFollowsSpecPodDoesNot (0.00s)
+=== RUN   TestVerifyPR6219Premise_SilentOnBase
+    verify_pr6219_premise_test.go:352: split stayed silent: 0 events, none about tieredStore (expected on base)
+--- PASS: TestVerifyPR6219Premise_SilentOnBase (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.013s

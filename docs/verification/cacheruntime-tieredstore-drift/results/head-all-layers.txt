@@ -1,0 +1,24 @@
+2026/10/24 22:20:26 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6219Envtest_DriftRoundTrip
+W1024 22:20:31.692776 1858721 reflector.go:462] sigs.k8s.io/controller-runtime/pkg/cache/internal/informers.go:105: watch of *v1.ConfigMap ended with: an error on the server ("unable to decode an event from the watch stream: context canceled") has prevented the request from succeeding
+--- PASS: TestVerifyPR6219Envtest_DriftRoundTrip (5.52s)
+=== RUN   TestVerifyPR6219Fix_DriftEmitsWarningOnHead
+--- PASS: TestVerifyPR6219Fix_DriftEmitsWarningOnHead (0.00s)
+=== RUN   TestVerifyPR6219RemediationDeleteWorkerWorkloadDoesNotHeal
+    verify_pr6219_findings_test.go:123: worker workload is never re-created after deletion; sync fails until the CacheRuntime itself is recreated
+--- PASS: TestVerifyPR6219RemediationDeleteWorkerWorkloadDoesNotHeal (0.00s)
+=== RUN   TestVerifyPR6219MediumOnlyEditInvisibleToDriftCheck
+    verify_pr6219_findings_test.go:252: medium-only edit changed configmap mediumType HDD->MEM with pod volume unchanged and no warning
+--- PASS: TestVerifyPR6219MediumOnlyEditInvisibleToDriftCheck (0.00s)
+=== RUN   TestVerifyPR6219ClientTieredStoreEditSilent
+    verify_pr6219_findings_test.go:313: client tieredStore edit updates the configmap with no warning event (worker-only coverage)
+--- PASS: TestVerifyPR6219ClientTieredStoreEditSilent (0.00s)
+=== RUN   TestVerifyPR6219Premise_ConfigMapFollowsSpecPodDoesNot
+--- PASS: TestVerifyPR6219Premise_ConfigMapFollowsSpecPodDoesNot (0.00s)
+=== RUN   TestVerifyPR6219Premise_SilentOnBase
+[premise-canary] observed event: Warning RuntimeTieredStoreConflict Worker tieredStore cannot be updated in-place after creation: level 0 (processMemory): spec quota 16Gi does not match worker volume tiered-store-level-0-memory sizeLimit 8Gi. Recreate the worker to apply changes.
+    verify_pr6219_premise_test.go:353: CANARY FLIPPED (this is the fix working on head): unexpected TieredStoreConflict event: Warning RuntimeTieredStoreConflict Worker tieredStore cannot be updated in-place after creation: level 0 (processMemory): spec quota 16Gi does not match worker volume tiered-store-level-0-memory sizeLimit 8Gi. Recreate the worker to apply changes.
+--- FAIL: TestVerifyPR6219Premise_SilentOnBase (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	5.533s
+FAIL
