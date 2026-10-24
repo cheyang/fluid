@@ -6,7 +6,8 @@
     "pkg/ddc/cache/engine/verify_pr6186_premise_test.go",
     "pkg/ddc/cache/engine/verify_pr6186_digest_test.go",
     "pkg/ddc/cache/engine/verify_pr6186_class_template_test.go",
-    "pkg/ddc/cache/engine/verify_pr6186_visibility_test.go"
+    "pkg/ddc/cache/engine/verify_pr6186_visibility_test.go",
+    "pkg/ddc/cache/engine/verify_pr6186_wording_test.go"
   ],
   "premise": {
     "id": "P0",
@@ -60,6 +61,16 @@
         "F3 [control]: a partial version the template completes emits neither signal"
       ],
       "changeReason": "round 3: production code replaced logIncompleteVersion (V(1) log) with reportIncompleteVersion (V(0) log + RuntimeVersionIncomplete Warning event, incl. creation path); harness updated additively to the new symbol, contracts unchanged in substance"
+    },
+    {
+      "id": "N2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "N2 [contract]: the discarded-edit log does not claim the image is left unchanged",
+        "N2 [contract]: the discarded-edit event does not claim the image is left unchanged"
+      ],
+      "changeReason": "round 4: head 12d9b900 rewords the reportIncompleteVersion log/event from 'the image is left unchanged' to 'the version is ignored'; additive contracts pin the neutral wording so a future edit cannot reintroduce the creation-path-inaccurate claim"
     }
   ],
   "liveNote": "L3 skipped this round (unit+integration scope). If run live: on a kind cluster, patch a healthy CacheRuntime's worker to runtimeVersion={imageTag:<new>}; expect the controller log 'image changed, will update' and the AdvancedStatefulSet image to move to <template-repo>:<new>. For F1, set runtimeVersion={image:<repo@sha256:...>} with no tag and observe the kubelet failing to parse the rendered reference."
