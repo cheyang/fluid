@@ -1,0 +1,3 @@
+TestPromhttpZstdRoundTrip	pass
+TestPromhttpZstdEmptyRegistry	pass
+TestPromhttpGzipControl	pass
