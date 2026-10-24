@@ -1,0 +1,75 @@
+{
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6061",
+  "reviewer": "codex",
+  "baseSha": "a6d461c721d43d602a4bd17ca998fa444040e069",
+  "headSha": "69ed16fdd6962bf13dc674dcb0ad617c60ccbe48",
+  "premise": {
+    "id": "P0",
+    "runsAgainst": "base",
+    "claim": "Graceful scale-down via alluxio fsadmin decommissionWorker lets the master migrate cached blocks to surviving workers, so cached data survives scale-in; the new e2e proves it with the UFS offline.",
+    "verdict": "partially-refuted",
+    "evidence": "results/evidence-summary.txt; upstream v2.9.4 sources show decommission removes block locations and marks last-copy blocks lost (no evacuation); default chart image alluxio/alluxio-dev:2.9.0 predates the command entirely (v2.9.4+)."
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "title": "default Alluxio image lacks decommissionWorker; graceful path degrades to a 10-minute stall + forced ungraceful proceed",
+      "polarity": "contract",
+      "layer": "unit-script",
+      "tests": ["docs/verification/alluxio-graceful-scaledown/scripts/check-default-alluxio-image.sh"],
+      "observedOnHead": "fail",
+      "evidence": "results/contract-checks-head.txt, results/evidence-summary.txt"
+    },
+    {
+      "id": "F2",
+      "title": "e2e cannot prove cached-data survival (single-block fixture, random placement, no drain-success assertion; victim placement must fail even with a perfect decommission)",
+      "polarity": "contract",
+      "layer": "unit-script",
+      "tests": ["docs/verification/alluxio-graceful-scaledown/scripts/check-e2e-fixture-coverage.sh"],
+      "observedOnHead": "fail",
+      "evidence": "results/contract-checks-head.txt, results/ReplicationChecker-v2.9.4.java, results/DefaultBlockMaster-v2.9.4.java"
+    },
+    {
+      "id": "F3",
+      "title": "--wait 0s does not return immediately: upstream TimeoutRetry misuses an absolute epoch as a duration, so the CLI blocks >=2min and until workers are quiet (up to the 1500s exec timeout)",
+      "polarity": "contract",
+      "layer": "unit-script",
+      "tests": ["docs/verification/alluxio-graceful-scaledown/scripts/check-decommission-wait-claim.sh"],
+      "observedOnHead": "fail",
+      "evidence": "results/contract-checks-head.txt, results/DecommissionWorkerCommand-v2.9.4.java, results/TimeoutRetry-branch-2.9.java"
+    },
+    {
+      "id": "F4",
+      "title": "decommission target matched by host only upstream; no worker anti-affinity in the chart, so co-located workers can drain the survivor instead of the victim",
+      "polarity": "contract",
+      "layer": "unit-script",
+      "tests": ["docs/verification/alluxio-graceful-scaledown/scripts/check-host-only-matching.sh"],
+      "observedOnHead": "fail",
+      "evidence": "results/contract-checks-head.txt, results/DecommissionWorkerCommand-v2.9.4.java"
+    },
+    {
+      "id": "F5",
+      "title": "drain-in-progress is reported as a reconcile error: Warning event spam every 20s and SyncRuntime/health/dataset-status skipped for the drain duration",
+      "polarity": "contract",
+      "layer": "reasoning",
+      "tests": [],
+      "observedOnHead": "not-run",
+      "evidence": "code path: pkg/ddc/base/syncs.go early return; pkg/controllers/runtime_controller.go emits Warning event on Sync error"
+    },
+    {
+      "id": "F6",
+      "title": "PR body claims a cmd/alluxio feature-gate flag fix that is not in the diff and was not needed (flag existed at base)",
+      "polarity": "evidence",
+      "layer": "git",
+      "tests": [],
+      "observedOnHead": "confirmed",
+      "evidence": "results/evidence-summary.txt"
+    }
+  ],
+  "unitRegression": {
+    "command": "go test -gcflags=\"all=-N -l\" ./pkg/ddc/alluxio/operations/ && go test -gcflags=\"all=-N -l\" ./pkg/ddc/alluxio/ -args -ginkgo.focus=\"drainScalingDownWorkers|getWorkerWebPort|workerWebPortFromPod|decommission deadline\"",
+    "observedOnHead": "pass",
+    "evidence": "results/unit-tests-head.txt"
+  },
+  "liveNote": "Decisive e2e evidence needs a real cluster: check master logs for unrecognized decommissionWorker (F1), fixture block locations across decommission (F2), and decommission timing vs the 10m deadline (F3). CI logs from July 2026 are expired (410)."
+}

@@ -1,0 +1,67 @@
+=== F6: PR body claims cmd/alluxio/app/alluxio.go needed a flag fix; check base ===
+--- base a6d461c7 cmd/alluxio/app/alluxio.go feature-gate wiring:
+38:	_ "github.com/fluid-cloudnative/fluid/pkg/common/features"
+101:	utilfeature.DefaultMutableFeatureGate.AddFlag(alluxioCmd.Flags())
+--- PR diff touching cmd/alluxio (empty means no change):
+0
+--- gate registration reaches the binary via import chain:
+cmd/alluxio/app/alluxio.go imports pkg/ddc/alluxio:
+41:	"github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio"
+pkg/ddc/alluxio/replicas.go imports pkg/features:
+30:	"github.com/fluid-cloudnative/fluid/pkg/features"
+
+=== F1: docker hub push date for alluxio/alluxio-dev:2.9.0 vs decommission merge date ===
+image last_pushed (docker hub API): 2023-01-11T01:35:23Z
+decommissionWorker first master commit 50c4c292 'Add worker decommission step 1': 2023-03-30T05:32:44Z
+v2.9.0 Admin-CLI.md mentions decommissionWorker: 0
+0
+v2.9.4 Admin-CLI.md mentions decommissionWorker: 11
+
+=== F2: upstream source evidence (v2.9.4) ===
+--- decommissioned workers' blocks are removed; last-copy blocks marked lost:
+1466:  private void processDecommissionedWorkerBlocks(MasterWorkerInfo workerInfo) {
+1497:    processDecommissionedWorkerBlocks(worker);
+1768:            mLostBlocks.add(removedBlockId);
+1925:    mLostBlocks.addAll(blockIds);
+  private void processDecommissionedWorkerBlocks(MasterWorkerInfo workerInfo) {
+    processWorkerRemovedBlocks(workerInfo, workerInfo.getBlocks(), false);
+  }
+
+--- replication checker: only re-replicates up to replicationMin (default 0), skips lost:
+355:                if (!file.isPersisted() && mBlockMaster.isBlockLost(blockId)) {
+
+=== F3: --wait handling upstream (v2.9.4) ===
+245:    RetryPolicy retry = new TimeoutRetry(startWaiting.toEpochMilli() + waitTimeMs, 1000);
+318:    long workerListLag = mConf.getMs(PropertyKey.USER_WORKER_LIST_REFRESH_INTERVAL);
+322:        PropertyKey.USER_WORKER_LIST_REFRESH_INTERVAL.getName(),
+323:        mConf.get(PropertyKey.USER_WORKER_LIST_REFRESH_INTERVAL));
+422:        + "the interval time defined by " + PropertyKey.USER_WORKER_LIST_REFRESH_INTERVAL + ".\n"
+  public boolean attempt() {
+    if (mAttemptCount == 0) {
+      // first attempt, set the start time
+      mStartMs = CommonUtils.getCurrentMs();
+      mAttemptCount++;
+      return true;
+    }
+    if (mSleepMs > 0) {
+      CommonUtils.sleepMs(mSleepMs);
+    }
+    if ((CommonUtils.getCurrentMs() - mStartMs) <= mRetryTimeoutMs) {
+      mAttemptCount++;
+      return true;
+    }
+    return false;
+
+=== F4: host-only matching (v2.9.4) ===
+  private BlockWorkerInfo findMatchingWorkerAddress(
+      WorkerNetAddress address, List<BlockWorkerInfo> cachedWorkers) {
+    for (BlockWorkerInfo worker : cachedWorkers) {
+      if (worker.getNetAddress().getHost().equals(address.getHost())) {
+        return worker;
+      }
+    }
+    throw new IllegalArgumentException("Worker " + address.getHost()
+        + " is not known by the master. Please check the hostname or retry later. "
+        + "Available workers are: " + printCachedWorkerAddresses(cachedWorkers));
+--- alluxio chart worker statefulset anti-affinity:
+0

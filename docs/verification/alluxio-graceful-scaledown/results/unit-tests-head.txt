@@ -1,0 +1,8 @@
+=== unit: pkg/ddc/alluxio/operations (decommission) ===
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	0.016s
+
+=== unit: pkg/ddc/alluxio ginkgo drain suites ===
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	4.065s
+
+=== go build all affected packages ===
+BUILD_OK

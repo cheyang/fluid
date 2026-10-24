@@ -1,0 +1,18 @@
+=== F1 check-default-alluxio-image.sh ===
+default alluxio runtime imageTag: 2.9.0
+FAIL: default image 2.9.0 < 2.9.4: 'alluxio fsadmin decommissionWorker' does not exist in this image
+exit=1
+
+=== F2 check-e2e-fixture-coverage.sh ===
+fixture generator: printf '%s' 'fluid-alluxio-scaledown-e2e-fixture'
+FAIL: fixture is a single small constant string (one block, random single-worker placement)
+FAIL: test.sh never asserts on the WorkerDecommissioning condition / DecommissionFailed, so a silently broken decommission (e.g. command missing on the default alluxio-dev:2.9.0 image) passes the test after a 10-minute stall
+exit=1
+
+=== F3 check-decommission-wait-claim.sh ===
+FAIL: decommission.go still invokes decommissionWorker with --wait 0s (comment claims immediate return; upstream ignores the wait bound and blocks until workers are quiet)
+exit=1
+
+=== F4 check-host-only-matching.sh ===
+FAIL: no guard or verification that decommission targeted the intended worker when workers share a node (Alluxio matches by host only)
+exit=1

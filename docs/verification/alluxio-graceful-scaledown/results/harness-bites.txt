@@ -1,0 +1,13 @@
+=== harness-bites F1: simulate imageTag bump in a temp copy ===
+default alluxio runtime imageTag: 2.9.4
+PASS: default image 2.9.4 >= 2.9.4 (decommissionWorker available)
+exit=0
+
+=== harness-bites F3: simulate --wait removal ===
+PASS: --wait 0s no longer used
+exit=0
+
+=== harness-bites F2: simulate multi-block fixture + condition assertion ===
+fixture generator: <none>
+OK: test.sh inspects the DecommissionFailed condition
+exit=0
