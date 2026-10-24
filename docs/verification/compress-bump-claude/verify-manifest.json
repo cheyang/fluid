@@ -1,0 +1,56 @@
+{
+  "topic": "compress-bump-claude",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6214",
+  "harnessPaths": [
+    "docs/verification/compress-bump-claude"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: \"Bumps github.com/klauspost/compress from 1.17.11 to 1.18.7\"; v1.18.7 is a security release (\"Fix s2.NewDict OOB read\"), so the base pin v1.17.11 is flagged as vulnerable.",
+    "reportedComponent": "github.com/klauspost/compress module version pinned in go.mod/go.sum (vendored)",
+    "patchedComponent": "go.mod, go.sum, vendor/github.com/klauspost/compress/** — the only in-build consumer is prometheus/client_golang promhttp -> zstd, reached via controller-runtime metrics servers in all Fluid controller binaries",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Base 86e3adf3 pins v1.17.11, inside GO-2026-5841 / GHSA-259r-337f-4rfw (CVE-2026-63209) range [1.16.0, 1.18.7); so the version-level alert is real. Reachability caveat: the advisory affects only the s2 package, which is NOT vendored on base or head (no vendor/github.com/klauspost/compress/s2, no importer in the graph) — the vulnerable code is never compiled into Fluid binaries. See results/premise-base.out and results/osv.json.",
+    "match": []
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 -json ./docs/verification/compress-bump-claude/harness/ -run 'TestZstdRoundTripContract|TestZstdStreamingContract|TestHarnessBitesZstdCorruption'"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 -json ./docs/verification/compress-bump-claude/harness/ -run 'TestPromhttp'"
+    }
+  },
+  "findings": [
+    {
+      "id": "P1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestZstdRoundTripContract"]
+    },
+    {
+      "id": "P1b",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestZstdStreamingContract"]
+    },
+    {
+      "id": "P2",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestPromhttpZstdNegotiationContract"]
+    },
+    {
+      "id": "P3",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestPromhttpZstdConcurrentScrapes"]
+    }
+  ],
+  "liveNote": "L3 not needed: the claim is decided by unit + integration layers (real HTTP negotiation via httptest). No cluster required. Optional live signal if desired: scrape a real Fluid controller metrics port with 'curl -H \"Accept-Encoding: zstd\" http://<metrics>/metrics | zstd -d' and compare with the identity response."
+}
