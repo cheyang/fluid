@@ -99,6 +99,15 @@
         "contract: the incomplete-version log line is emitted at the default verbosity",
         "control: a partial version the template completes emits no event"
       ]
+    },
+    {
+      "id": "N2",
+      "_comment": "round 4 (12d9b900): the event message claimed the image 'is left unchanged', which only holds on update; at creation the component is created from the template image. Reworded to 'is ignored', true on both paths.",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "contract: the RuntimeVersionIncomplete message makes no update-only claim"
+      ]
     }
   ],
   "liveNote": "L3 (live cluster) was skipped by instruction for this debate round: the environment probe DID find a reachable cluster (2 aliyun v1.36.2 nodes via ~/.kube/config), but this round was scoped to unit + integration layers only, and no cluster state was touched. The PR author already recorded a kind-cluster run in the PR body. If run later: create a CacheRuntime against a class whose worker template pins an image, patch runtimeVersion.imageTag only, and check the ASTS generation + image and the controller log line 'image changed, will update'."

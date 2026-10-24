@@ -90,4 +90,32 @@ var _ = Describe("PR-6186 verification: partial runtime version observability", 
 			Expect(recorder.Events).To(BeEmpty())
 		})
 	})
+
+	Context("N2 event wording is true on both the creation and the update path", func() {
+		// Round 4 (12d9b900) rewords the message. The spec asserts through the same
+		// syncRuntimeSpec chain as the F6 specs; reportIncompleteVersion is the single
+		// emission point shared by both paths (sync.go on update, transform_worker.go /
+		// transform_master.go / transform_client.go at creation), so a message that
+		// claims the image "is left unchanged" — true only on update — misdescribes the
+		// creation path, where the component is created from the template image.
+		// Red on the round-3 head 902625af, green on 12d9b900.
+		It("contract: the RuntimeVersionIncomplete message makes no update-only claim [red on round-3 head]", func() {
+			engine, _, runtimeClass, ctx, client := newPartialVersionFixture(digestTemplate, "verify/cache:v1")
+			recorder := record.NewFakeRecorder(10)
+			engine.Recorder = recorder
+			before := workerImageOf(client, ctx)
+
+			syncWorkerVersion(engine, client, ctx, runtimeClass, datav1alpha1.VersionSpec{ImageTag: "v2"})
+
+			// the drop itself is unchanged: the workload keeps its image
+			Expect(workerImageOf(client, ctx)).To(Equal(before))
+			var msg string
+			Expect(recorder.Events).To(Receive(&msg))
+			Expect(msg).To(HavePrefix(corev1.EventTypeWarning + " RuntimeVersionIncomplete "))
+			Expect(msg).NotTo(ContainSubstring("left unchanged"),
+				"the message is also emitted on the creation path, where the component is created from the template image")
+			Expect(msg).To(ContainSubstring("is ignored"))
+			Expect(recorder.Events).To(BeEmpty())
+		})
+	})
 })
