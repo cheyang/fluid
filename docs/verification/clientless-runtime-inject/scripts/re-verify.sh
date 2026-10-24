@@ -3,11 +3,14 @@
 # No arguments: fetches the PR head from the manifest's "pr" URL.
 # With a ref: grafts the harness onto that ref instead.
 #
-# Round 3 (head 268012a): the round-2 canaries (A-F1, A-F2) FLIPPED at this
-# head and were inverted into contract tests; B-F5, A-N1 and B-F6 got their
-# own contracts. The "canaries" run below now executes the full reviewer
-# findings suites (contract polarity): green means the fixes hold, red means
-# a regression re-opened a finding.
+# Round 4 (head 41b47141): the delta 268012a..41b47141 fixes A-F3 (values-side
+# clientless fallback, chart_clientless_fallback_check.py) and adds a webhook
+# rejection class for customized config-map projections (findings_claude_r4_test.go,
+# bite-verified red on 268012a). A-F5 (falsey clientless value overridden by the
+# chart default) and A-F6 (annotation path rejects digit-leading dataset names
+# that the plugin path accepts) are OPEN canaries: green = current behavior stands.
+# The "canaries" run below executes the reviewer findings suites (contract
+# polarity): green means the fixes hold, red means a regression re-opened one.
 #
 # Prints per finding: Fixed / Still-broken / Partial / Harness-update, and the
 # incremental review delta (last-reviewed..head). Exit 0 iff everything is green.
@@ -35,6 +38,7 @@ git -C "$REPO" checkout "$REF" -- . 2>/dev/null || true
 git -C "$REPO" checkout verify/clientless-runtime-inject-claude -- \
   docs/verification/clientless-runtime-inject \
   pkg/webhook/plugins/runtimeconfiginjector/findings_claude_test.go \
+  pkg/webhook/plugins/runtimeconfiginjector/findings_claude_r4_test.go \
   pkg/webhook/utils/findings_claude_runtime_info_test.go 2>/dev/null || \
   echo "WARN: could not graft harness paths (already on the verify branch?)"
 
@@ -64,6 +68,8 @@ python3 -I "$HERE/scripts/chart_merge_check.py" > "$HERE/results/chart-merge.txt
 CH2=$?
 python3 -I "$HERE/scripts/checksum_churn_check.py" --show-prefix > "$HERE/results/checksum-churn.txt" 2>&1
 CH3=$?
+python3 -I "$HERE/scripts/chart_clientless_fallback_check.py" > "$HERE/results/chart-values-fallback.txt" 2>&1
+CH4=$?
 
 echo
 echo "== reviewer findings contracts (A-F1, A-F2, A-N1, B-F5) =="
@@ -89,6 +95,15 @@ if [ $CH3 -eq 0 ]; then
 else
   report B-F6 broken "checksum churn on second upgrade — see results/checksum-churn.txt"
 fi
+if [ $CH4 -eq 0 ]; then
+  report A-F3 fixed "values without a clientless group get the chart's group; null/non-map render as before (results/chart-values-fallback.txt)"
+  report C-R4 fixed "customized config-map projection rejected, not replaced (results/canaries.txt round 4 + chart-values-fallback.txt)"
+  report A-F5 "canary ok" "falsey clientless value still overridden (open finding, current behavior — results/chart-values-fallback.txt)"
+else
+  report A-F3 "check chart-values-fallback.txt" "chart fallback contract or its guards failed"
+  report C-R4 "check chart-values-fallback.txt" "see above"
+  report A-F5 "flipped?" "the canary went red: an explicit empty list now sticks — invert it into a contract"
+fi
 if [ $CAN -eq 0 ]; then
   report A-F1 fixed "contract green: non-cache dataset rejected naming the runtime type (results/canaries.txt)"
   report A-F2 fixed "contract green: PVC-resolved name that cannot form a volume name rejected (results/canaries.txt)"
@@ -103,6 +118,6 @@ fi
 
 echo
 echo "findings contracts exit code: $CAN (0 = all fixed and holding; 1 = a fix regressed — see results/canaries.txt)"
-[ $L1 -eq 0 ] && [ $L1C -eq 0 ] && [ $L2 -eq 0 ] && [ $CH1 -eq 0 ] && [ $CH2 -eq 0 ] && [ $CH3 -eq 0 ] || exit 1
+[ $L1 -eq 0 ] && [ $L1C -eq 0 ] && [ $L2 -eq 0 ] && [ $CH1 -eq 0 ] && [ $CH2 -eq 0 ] && [ $CH3 -eq 0 ] && [ $CH4 -eq 0 ] || exit 1
 [ $CAN -eq 0 ] || exit 2
 exit 0

@@ -1,0 +1,14 @@
+# round-4 contract bite check: grafted onto previous head 268012a5
+# expectation: C-R4 rejection spec RED (the customized projection was silently replaced there)
+•SSSSSSSSSSSSSSSSSSSSSSSSSS
+
+Summarizing 1 Failure:
+  [FAIL] Reviewer findings (PR 6197), round 4 C-R4: the pod's own volume projects the runtime config ConfigMap non-defaultedly [It] is rejected instead of being replaced, so the app's projection survives
+  /tmp/pr6197-r4-bite/pkg/webhook/plugins/runtimeconfiginjector/findings_claude_r4_test.go:56
+
+Ran 2 of 28 Specs in 0.001 seconds
+FAIL! -- 1 Passed | 1 Failed | 0 Pending | 26 Skipped
+--- FAIL: TestRuntimeconfiginjector (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/runtimeconfiginjector	0.011s
+FAIL

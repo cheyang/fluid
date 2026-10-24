@@ -1,0 +1,10 @@
+PASS  A-F3 values fallback -- values without a clientless group still get the chart's RuntimeConfigInjector group
+PASS  default render has the clientless group -- chart defaults keep the group from values.yaml
+PASS  default checksum/plugins-profile is the recorded baseline -- default render byte-identical to 268012a5 -> no spurious webhook rollout
+PASS  A-F5 canary: explicit clientless: [] is overridden by the chart group -- canary of the current truthiness behavior; flips when an explicit empty sticks
+PASS  empty-group opt-out form is respected verbatim -- a 2-key empty map is truthy, so the explicit off switch survives
+PASS  null pluginsProfile renders null -- same render as 268012a5
+PASS  non-map pluginsProfile renders verbatim -- same render as 268012a5
+PASS  forceReplace also gains the fallback group -- the flag no longer renders the values verbatim; documented in the round-4 ledger
+
+all round-4 chart checks green (A-F5 canary holding)

@@ -1,11 +1,15 @@
 {
   "topic": "clientless-runtime-inject",
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6197",
-  "prHeadFetch": { "remote": "origin", "ref": "pull/6197/head" },
+  "prHeadFetch": {
+    "remote": "origin",
+    "ref": "pull/6197/head"
+  },
   "harnessPaths": [
     "docs/verification/clientless-runtime-inject",
     "pkg/webhook/plugins/runtimeconfiginjector/findings_claude_test.go",
-    "pkg/webhook/utils/findings_claude_runtime_info_test.go"
+    "pkg/webhook/utils/findings_claude_runtime_info_test.go",
+    "pkg/webhook/plugins/runtimeconfiginjector/findings_claude_r4_test.go"
   ],
   "premise": {
     "id": "P0",
@@ -17,7 +21,9 @@
     "layer": "unit",
     "verdict": "confirmed",
     "evidence": "Base chart webhook ClusterRole lists every runtime except cacheruntimes while base.GetRuntimeInfo/GetCacheRuntime reads CacheRuntime via mgr.GetClient() (cached), and no fluid.io/inject label / clientless plugin / runtime-config delivery exists on base (git grep empty). See results/premise-rbac-diff.txt.",
-    "match": ["premise-rbac-diff.txt"]
+    "match": [
+      "premise-rbac-diff.txt"
+    ]
   },
   "layers": {
     "unit": {
@@ -31,7 +37,7 @@
     },
     "chart": {
       "kind": "script",
-      "cmd": "helm template fluid charts/fluid/fluid | grep -E 'clientless.fluid.io|RuntimeConfigInjector|cacheruntimes|checksum/plugins-profile' && python3 -I docs/verification/clientless-runtime-inject/scripts/chart_merge_check.py && python3 -I docs/verification/clientless-runtime-inject/scripts/checksum_churn_check.py"
+      "cmd": "helm template fluid charts/fluid/fluid | grep -E 'clientless.fluid.io|RuntimeConfigInjector|cacheruntimes|checksum/plugins-profile' && python3 -I docs/verification/clientless-runtime-inject/scripts/chart_merge_check.py && python3 -I docs/verification/clientless-runtime-inject/scripts/checksum_churn_check.py && python3 -I docs/verification/clientless-runtime-inject/scripts/chart_clientless_fallback_check.py"
     }
   },
   "findings": [
@@ -41,7 +47,9 @@
       "layer": "unit",
       "status": "fixed",
       "history": "canary at 6d3a6d7 (green: misleading 'may not be ready yet' denial) -> flipped red at 268012a -> inverted into a contract test",
-      "match": ["Reviewer findings (PR 6197) A-F1"]
+      "match": [
+        "Reviewer findings (PR 6197) A-F1"
+      ]
     },
     {
       "id": "A-F2",
@@ -49,7 +57,9 @@
       "layer": "unit",
       "status": "fixed",
       "history": "canary at 6d3a6d7 (green: invalid volume name injected) -> flipped red at 268012a -> inverted into a contract test",
-      "match": ["Reviewer findings (PR 6197) A-F2"]
+      "match": [
+        "Reviewer findings (PR 6197) A-F2"
+      ]
     },
     {
       "id": "A-N1",
@@ -57,7 +67,9 @@
       "layer": "unit",
       "status": "fixed",
       "history": "nit at 6d3a6d7 (fluid-fuse prefix skip catches user containers) -> isFuseSidecar exact match at 268012a; contract added this round, red on 6d3a6d7 (bite check)",
-      "match": ["Reviewer findings (PR 6197) A-N1"]
+      "match": [
+        "Reviewer findings (PR 6197) A-N1"
+      ]
     },
     {
       "id": "B-F5",
@@ -65,7 +77,9 @@
       "layer": "unit",
       "status": "fixed",
       "history": "open at 6d3a6d7 (generic aggregate denial without reason) -> reasons carried at 268012a (commit c01cbcce); contract added this round, red on 6d3a6d7 (bite check)",
-      "match": ["Reviewer findings (PR 6197): annotation name denials"]
+      "match": [
+        "Reviewer findings (PR 6197): annotation name denials"
+      ]
     },
     {
       "id": "B-F6",
@@ -73,10 +87,72 @@
       "layer": "chart",
       "status": "fixed",
       "history": "nit at 6d3a6d7 (one-off checksum churn on second upgrade) -> trimSuffix fix at 268012a (commits 16c5509e + 760f5369); checksum_churn_check.py models the render, cross-checked against real helm",
-      "match": ["checksum_churn_check.py", "results/checksum-churn.txt"]
+      "match": [
+        "checksum_churn_check.py",
+        "results/checksum-churn.txt"
+      ]
     },
-    { "id": "C-CHART", "polarity": "contract", "layer": "chart", "match": ["chart_merge_check.py", "helm-render.txt"] },
-    { "id": "C-SUITE", "polarity": "contract", "layer": "unit", "match": ["TestRuntimeconfiginjector", "TestMutatingHandler", "TestWebhookUtils"] }
+    {
+      "id": "C-CHART",
+      "polarity": "contract",
+      "layer": "chart",
+      "match": [
+        "chart_merge_check.py",
+        "helm-render.txt"
+      ]
+    },
+    {
+      "id": "C-SUITE",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestRuntimeconfiginjector",
+        "TestMutatingHandler",
+        "TestWebhookUtils"
+      ]
+    },
+    {
+      "id": "A-F3",
+      "polarity": "contract",
+      "layer": "chart",
+      "status": "fixed",
+      "history": "open at 6d3a6d7/268012a5 (values without a clientless group render no group while the clientless.fluid.io webhook rule is unconditional) -> values-side fallback at 41b47141 (commit be4e30d3); chart_clientless_fallback_check.py contract red on 268012a5 (bite), green at 41b47141. forceReplacePluginsProfile also gains the group (no longer verbatim) - kept as a documented behavior change, not a regression",
+      "match": [
+        "chart_clientless_fallback_check.py",
+        "results/chart-values-fallback.txt"
+      ]
+    },
+    {
+      "id": "C-R4-VOLPROJ",
+      "polarity": "contract",
+      "layer": "unit",
+      "status": "fixed",
+      "history": "gap present at 268012a5 (a pod volume projecting the runtime-config ConfigMap with its own items/mode/optional was silently replaced by the injection) -> rejected at 41b47141 (author commit 7f5b625c); contract in findings_claude_r4_test.go, red on 268012a5 (bite), green at 41b47141",
+      "match": [
+        "Reviewer findings (PR 6197), round 4 C-R4"
+      ]
+    },
+    {
+      "id": "A-F5",
+      "polarity": "canary",
+      "layer": "chart",
+      "status": "open",
+      "history": "new in round 4: an explicit falsey plugins.clientless value (bare [], {} or null) is silently replaced by the chart's default group (Go-template truthiness in `if get`), so a user writing clientless: [] to mean 'off' gets injection on; the schema-valid empty group (withDataset: [], withoutDataset: []) IS respected. Canary asserts the current 41b47141 behavior; flips red if the author switches to hasKey semantics, then invert into a contract",
+      "match": [
+        "chart_clientless_fallback_check.py#A-F5",
+        "results/chart-values-fallback.txt"
+      ]
+    },
+    {
+      "id": "A-F6",
+      "polarity": "canary",
+      "layer": "unit",
+      "status": "open",
+      "history": "new in round 4 (also flagged by Copilot at this head, verified independently here): the annotation path validates dataset names with IsDNS1035Label, so a digit-leading name like '1demo' (a legal k8s object name) is rejected, while the plugin/PVC-merge path accepts it (only length and the DNS-1123 volume name are checked, and fluid-runtime-config-1demo is a valid label). Two canaries pin both sides of the inconsistency; flip and invert if the annotation check is relaxed to IsDNS1123Label",
+      "match": [
+        "Reviewer findings (PR 6197), round 4: digit-leading"
+      ]
+    }
   ],
   "liveNote": "L3 (kind cluster: label a pod, watch the injected volume/env, denial on missing runtime.sh) skipped per debate instructions; PR author reports a manual kind v1.30 run in the PR body; CI kind-e2e/backward-compat suites are green at head but do not exercise the new injection path (A-MT1 tracks the deferred e2e)."
 }

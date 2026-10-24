@@ -87,3 +87,25 @@ var _ = Describe("Reviewer findings (PR 6197): annotation name denials carry the
 		Expect(err.Error()).To(ContainSubstring("not bound"))
 	})
 })
+
+// Reviewer harness, round 4 (A-F6 canary): the annotation path validates dataset
+// names with IsDNS1035Label, so a digit-leading name like "1demo" — a legal k8s
+// object name, and one whose volume ("fluid-runtime-config-1demo", a valid
+// DNS-1123 label) and PVC-merge path are both accepted by the injector — is
+// rejected here. This asserts the CURRENT behavior; it flips (and must be
+// inverted into a contract) if the check is relaxed to IsDNS1123Label.
+var _ = Describe("Reviewer findings (PR 6197), round 4: digit-leading dataset names", func() {
+	const namespace = "default"
+
+	It("is rejected by the annotation path with a DNS-1035 reason (A-F6 canary)", func() {
+		fakeClient := fake.NewClientBuilder().WithScheme(setupScheme()).Build()
+		_, err := CollectRuntimeInfosFromAnnotations(fakeClient,
+			map[string]string{common.LabelAnnotationDatasets: "1demo"},
+			namespace, zap.New(zap.UseDevMode(true)), false)
+
+		Expect(err).To(HaveOccurred())
+		Expect(err.Error()).To(ContainSubstring("1demo"))
+		// the reason is the DNS-1035 shape, not a not-found
+		Expect(err.Error()).To(ContainSubstring("DNS-1035"))
+	})
+})
