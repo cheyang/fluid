@@ -28,6 +28,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"testing"
 
@@ -292,5 +293,141 @@ func TestHelmUpgradeMergesClientlessProfileAgainstRealApiServer(t *testing.T) {
 	if got := secondDep.Spec.Template.Metadata.Annotations["checksum/plugins-profile"]; got != firstChecksum {
 		t.Fatalf("B-F6 PRESENT against real helm+apiserver: checksum churns on the second upgrade (%s -> %s), webhook would roll again for no reason",
 			firstChecksum, got)
+	}
+}
+
+// TestHelmUpgradeMergesClientlessDefaultWhenValuesLackIt is the be4e30d3 contract against
+// the real helm CLI and a real API server. `helm upgrade --reuse-values` from a release
+// that predates the clientless group hands the OLD release's values to the NEW templates,
+// so `.Values.webhook.pluginsProfile.plugins.clientless` is nil; 268012a5 merged that nil
+// into the preserved ConfigMap (`clientless: null`, no plugin behind the always-rendered
+// rule). The fix falls back to the chart's own group. The template only ever sees .Values,
+// so `-f` carrying the legacy profile is the exact input --reuse-values reconstructs.
+// Red on 268012a5, green at 41b47141.
+func TestHelmUpgradeMergesClientlessDefaultWhenValuesLackIt(t *testing.T) {
+	assets := findEnvtestAssets()
+	if assets == "" {
+		t.Skip("no envtest assets available")
+	}
+	if _, err := exec.LookPath("helm"); err != nil {
+		t.Skip("helm binary not available")
+	}
+
+	env := &envtest.Environment{BinaryAssetsDirectory: assets}
+	cfg, err := env.Start()
+	if err != nil {
+		t.Skipf("envtest did not start: %v", err)
+	}
+	defer func() { _ = env.Stop() }()
+
+	clientset, err := kubernetes.NewForConfig(cfg)
+	if err != nil {
+		t.Fatalf("clientset: %v", err)
+	}
+	ctx := context.TODO()
+	if _, err := clientset.CoreV1().Namespaces().Create(ctx, &corev1.Namespace{
+		ObjectMeta: metav1.ObjectMeta{Name: "fluid-system"},
+	}, metav1.CreateOptions{}); err != nil {
+		t.Fatalf("create namespace: %v", err)
+	}
+
+	// pre-upgrade state: the ConfigMap a release without the clientless group leaves behind
+	legacyWithMarker := strings.Replace(legacyProfile, "- PreferNodesWithoutCache",
+		"- PreferNodesWithoutCache\n    - LegacyOnlyMarker", 1)
+	if _, err := clientset.CoreV1().ConfigMaps("fluid-system").Create(ctx, &corev1.ConfigMap{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      "webhook-plugins",
+			Namespace: "fluid-system",
+			Labels:    map[string]string{"app.kubernetes.io/managed-by": "Helm"},
+			Annotations: map[string]string{
+				"meta.helm.sh/release-name":      "fluid",
+				"meta.helm.sh/release-namespace": "fluid-system",
+			},
+		},
+		Data: map[string]string{"pluginsProfile": legacyWithMarker},
+	}, metav1.CreateOptions{}); err != nil {
+		t.Fatalf("seed webhook-plugins: %v", err)
+	}
+
+	kubeconfig := filepath.Join(t.TempDir(), "kubeconfig")
+	kc := clientcmdapi.Config{
+		Clusters: map[string]*clientcmdapi.Cluster{"envtest": {
+			Server:                   cfg.Host,
+			CertificateAuthorityData: cfg.CAData,
+		}},
+		AuthInfos: map[string]*clientcmdapi.AuthInfo{"envtest": {
+			ClientCertificateData: cfg.CertData,
+			ClientKeyData:         cfg.KeyData,
+		}},
+		Contexts: map[string]*clientcmdapi.Context{"envtest": {
+			Cluster: "envtest", AuthInfo: "envtest",
+		}},
+		CurrentContext: "envtest",
+	}
+	if err := clientcmd.WriteToFile(kc, kubeconfig); err != nil {
+		t.Fatalf("write kubeconfig: %v", err)
+	}
+
+	// values as --reuse-values from a pre-clientless release reconstructs them
+	var b strings.Builder
+	b.WriteString("webhook:\n  pluginsProfile:\n")
+	for _, line := range strings.Split(strings.TrimPrefix(legacyProfile, "\n"), "\n") {
+		if strings.TrimSpace(line) == "" {
+			continue
+		}
+		b.WriteString("    " + line + "\n")
+	}
+	override := filepath.Join(t.TempDir(), "values.yaml")
+	if err := os.WriteFile(override, []byte(b.String()), 0644); err != nil {
+		t.Fatalf("write override values: %v", err)
+	}
+
+	chartDir := filepath.Join(repoRoot(t), "charts/fluid/fluid")
+	helmPath, _ := exec.LookPath("helm")
+	render := func() string {
+		out, err := exec.Command(helmPath, "template", "fluid", chartDir,
+			"--namespace", "fluid-system", "--kubeconfig", kubeconfig, "-f", override).Output()
+		if err == nil && strings.Contains(string(out), "LegacyOnlyMarker") {
+			return string(out)
+		}
+		// fall back to the server dry-run path, which definitely performs lookups
+		upOut, upErr := exec.Command(helmPath, "upgrade", "--install", "--dry-run=server", "fluid", chartDir,
+			"--namespace", "fluid-system", "--kubeconfig", kubeconfig, "-f", override).Output()
+		if upErr != nil {
+			errStr := ""
+			if ee, ok := upErr.(*exec.ExitError); ok {
+				errStr = string(ee.Stderr)
+			}
+			t.Fatalf("helm render with lookup failed: template err=%v upgrade err=%v\n%s", err, upErr, errStr)
+		}
+		return string(upOut)
+	}
+
+	cmDoc := documentNamed(t, render(), "ConfigMap", "webhook-plugins")
+	var cm struct {
+		Data map[string]string `yaml:"data"`
+	}
+	if err := sigsyaml.Unmarshal([]byte(cmDoc), &cm); err != nil {
+		t.Fatalf("parse rendered webhook-plugins: %v", err)
+	}
+	merged := cm.Data["pluginsProfile"]
+	if !strings.Contains(merged, "LegacyOnlyMarker") {
+		t.Fatalf("lookup did not drive the merge: the stored profile's marker is gone:\n%s", merged)
+	}
+	if strings.Contains(merged, "clientless: null") {
+		t.Fatalf("268012a5 BEHAVIOR: merge wrote `clientless: null` — no plugin behind the clientless rule:\n%s", merged)
+	}
+	mergedMap := profileAsMap(t, merged)
+	clientless, ok := mergedMap["plugins"].(map[string]interface{})["clientless"].(map[string]interface{})
+	if !ok {
+		t.Fatalf("merged profile has no clientless group:\n%s", merged)
+	}
+	if !reflect.DeepEqual(clientless, valuesClientlessGroup(t)) {
+		t.Fatalf("merged clientless group is not the chart default:\n%v\nvs\n%v", clientless, valuesClientlessGroup(t))
+	}
+	for _, kept := range []string{"FilePrefetcher", "NodeAffinityWithCache", "FuseSidecar", "PreferNodesWithoutCache", "pluginConfig"} {
+		if !strings.Contains(merged, kept) {
+			t.Fatalf("merged profile lost %q:\n%s", kept, merged)
+		}
 	}
 }

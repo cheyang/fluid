@@ -126,6 +126,33 @@
         "TestHelmUpgradeMergesClientlessProfileAgainstRealApiServer"
       ],
       "note": "checksum no longer churns on the second upgrade (fix 16c5509e+760f5369, trimSuffix before indent). TestWebhookChecksumAnnotation reframed to the no-churn contract; the envtest test now does a real-helm second upgrade storing the profile with its block-scalar trailing newline. Red on 6d3a6d7e, green on 268012a5."
+    },
+    {
+      "id": "A-F3",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestPluginsProfileMerge_ValuesFallbackAddsClientless",
+        "TestPluginsProfileMerge_ValuesFallbackFeedsTheUpgradeMerge",
+        "TestPluginsProfileMerge_ValuesClientlessWinsOverFallback",
+        "TestPluginsProfileMerge_ForceReplaceValuesFallback",
+        "TestPluginsProfileMerge_NonMapValuesProfileRendersAsBefore",
+        "TestHelmTemplateFreshInstallValuesFallback",
+        "TestHelmUpgradeMergesClientlessDefaultWhenValuesLackIt"
+      ],
+      "note": "Reviewer A finding (chart: rule without plugin behind it when values lack a clientless group). Fixed at 41b47141 by be4e30d3 (chart-default clientless fallback merged into a values profile that lacks it, and into the upgrade merge which previously wrote clientless: null under --reuse-values) + 41b47141 (null/non-map values profiles render as before). Contracts red on 268012a5, green at 41b47141; the values-own-group and non-map guard cases are green on both."
+    },
+    {
+      "id": "B-F7",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "rejects a volume projecting the config ConfigMap with its own items",
+        "rejects a volume projecting the config ConfigMap with a non-default mode",
+        "rejects a volume projecting the config ConfigMap marked optional",
+        "still accepts the volume exactly as the api server defaults it"
+      ],
+      "note": "Found in the round-4 delta review: the injection silently replaced a same-named volume of the same ConfigMap, dropping the app's own items/mode/optional projection. Author-fixed in the same delta (7f5b625c) with a typed RejectPodError; reject contracts red on 268012a5, green at 41b47141; the api-server-defaulted acceptance control is green on both heads."
     }
   ],
   "liveNote": "No live layer in this round (debate setup skips KUBECONFIG). With a cluster, the upgrade path behind F1 can be shown end to end: helm install the base chart, helm upgrade to this PR's chart with default values, and confirm the webhook-plugins ConfigMap gains the clientless group and the webhook Deployment rolls (checksum/plugins-profile changes)."

@@ -25,6 +25,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/agiledragon/gomonkey/v2"
@@ -497,6 +498,124 @@ var _ = Describe("PR6197 verification: clientless runtime config injection", fun
 				"a dataset name that cannot form a valid volume name must reject the pod")
 			Expect(resp.Result.Message).To(ContainSubstring("fluid-runtime-config-demo.v1"),
 				"the denial must name the invalid volume name")
+		})
+	})
+
+	Context("B-F7: a pod that already projects the runtime config ConfigMap with its own settings (fixed at 41b47141)", func() {
+		// Before 7f5b625c the injection silently replaced a same-named volume of the same
+		// ConfigMap, dropping whatever the app projected there (items, mode, optional).
+		// The delta rejects such a pod instead, fail-closed with the reason. The
+		// API-server-defaulted shape (what a previously injected or GitOps-restored spec
+		// carries) must stay admitted. Red on 268012a5 (admitted, volume replaced),
+		// green at 41b47141; the defaulted control is green on both.
+		volumeNameForDemo := common.GetCacheRuntimeConfigConfigMapName("demo")
+
+		newCustomizedVolumeRequest := func(customize func(*corev1.ConfigMapVolumeSource)) admission.Request {
+			vol := corev1.Volume{
+				Name: volumeNameForDemo,
+				VolumeSource: corev1.VolumeSource{ConfigMap: &corev1.ConfigMapVolumeSource{
+					LocalObjectReference: corev1.LocalObjectReference{Name: volumeNameForDemo},
+				}},
+			}
+			customize(vol.ConfigMap)
+			pod := &corev1.Pod{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:      "app-custom-vol",
+					Namespace: "big-data",
+					Labels:    map[string]string{common.LabelAnnotationInject: common.True},
+					Annotations: map[string]string{
+						common.LabelAnnotationDatasets: "demo",
+					},
+				},
+				Spec: corev1.PodSpec{
+					Volumes: []corev1.Volume{vol},
+					Containers: []corev1.Container{{
+						Name:  "app",
+						Image: "app:v1",
+						VolumeMounts: []corev1.VolumeMount{{
+							Name:      volumeNameForDemo,
+							MountPath: filepath.Join(common.RuntimeConfigDir, "demo"),
+						}},
+					}},
+				},
+			}
+			raw, err := jsonMarshal(pod)
+			Expect(err).NotTo(HaveOccurred())
+			return admission.Request{AdmissionRequest: admissionv1.AdmissionRequest{
+				Operation: admissionv1.Create,
+				Namespace: "big-data",
+				Object:    runtime.RawExtension{Raw: raw},
+			}}
+		}
+
+		handleWithDemo := func(req admission.Request) admission.Response {
+			dataset, cacheRuntime := boundCacheDataset("demo", "big-data")
+			cm := runtimeConfigConfigMap("demo", "big-data")
+			fakeClient := fake.NewFakeClientWithScheme(s, dataset, cacheRuntime, cm)
+			Expect(plugins.RegisterMutatingHandlers(fakeClient)).To(Succeed())
+			handler := &FluidMutatingHandler{}
+			handler.Setup(fakeClient, fakeClient, decoder)
+			return handler.Handle(context.TODO(), req)
+		}
+
+		It("[contract] rejects a volume projecting the config ConfigMap with its own items", func() {
+			resp := handleWithDemo(newCustomizedVolumeRequest(func(source *corev1.ConfigMapVolumeSource) {
+				source.Items = []corev1.KeyToPath{{Key: common.RuntimeConfigShellFileName, Path: "config.sh"}}
+			}))
+			Expect(resp.Allowed).To(BeFalse(),
+				"a customized projection of the runtime config ConfigMap must be rejected, not silently replaced")
+			Expect(resp.Result.Code).To(Equal(int32(403)))
+			Expect(resp.Result.Message).To(ContainSubstring(volumeNameForDemo))
+			Expect(resp.Result.Message).To(ContainSubstring("which the runtime config injection would replace"))
+		})
+
+		It("[contract] rejects a volume projecting the config ConfigMap with a non-default mode", func() {
+			resp := handleWithDemo(newCustomizedVolumeRequest(func(source *corev1.ConfigMapVolumeSource) {
+				mode := int32(0400)
+				source.DefaultMode = &mode
+			}))
+			Expect(resp.Allowed).To(BeFalse())
+			Expect(resp.Result.Code).To(Equal(int32(403)))
+			Expect(resp.Result.Message).To(ContainSubstring("would replace"))
+		})
+
+		It("[contract] rejects a volume projecting the config ConfigMap marked optional", func() {
+			resp := handleWithDemo(newCustomizedVolumeRequest(func(source *corev1.ConfigMapVolumeSource) {
+				optional := true
+				source.Optional = &optional
+			}))
+			Expect(resp.Allowed).To(BeFalse())
+			Expect(resp.Result.Code).To(Equal(int32(403)))
+			Expect(resp.Result.Message).To(ContainSubstring("would replace"))
+		})
+
+		It("[contract] still accepts the volume exactly as the api server defaults it (idempotency)", func() {
+			// What a previously injected spec looks like after the api server filled in its
+			// defaults (only defaultMode=0644 is defaulted; optional stays nil): must be
+			// admitted and injected. An explicit optional:false is the same default and
+			// must be accepted too. Green on 268012a5 and at 41b47141.
+			for _, customize := range []func(*corev1.ConfigMapVolumeSource){
+				func(source *corev1.ConfigMapVolumeSource) {
+					mode := int32(corev1.ConfigMapVolumeSourceDefaultMode)
+					source.DefaultMode = &mode
+				},
+				func(source *corev1.ConfigMapVolumeSource) {
+					optional := false
+					source.Optional = &optional
+				},
+			} {
+				resp := handleWithDemo(newCustomizedVolumeRequest(customize))
+				Expect(resp.Allowed).To(BeTrue(),
+					"the api-server-defaulted projection must keep being admitted: %s", resp.Result.Message)
+				foundEnv := false
+				for _, op := range resp.Patches {
+					raw, _ := json.Marshal(op.Value)
+					if strings.Contains(string(raw), "FLUID_RUNTIME_CONFIG_PATH_DEMO") {
+						foundEnv = true
+					}
+				}
+				Expect(foundEnv).To(BeTrue(), "the env var must be injected for the defaulted volume")
+			}
 		})
 	})
 

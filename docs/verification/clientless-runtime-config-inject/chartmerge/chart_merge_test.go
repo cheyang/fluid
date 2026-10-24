@@ -107,6 +107,27 @@ func toYAML(v interface{}) string {
 	return strings.TrimSuffix(string(data), "\n")
 }
 
+// deepCopyValue mirrors sprig's deepCopy for values-shaped data (maps, slices, scalars):
+// the template's merge must mutate a copy, never .Values itself.
+func deepCopyValue(v interface{}) interface{} {
+	switch t := v.(type) {
+	case map[string]interface{}:
+		out := make(map[string]interface{}, len(t))
+		for k, val := range t {
+			out[k] = deepCopyValue(val)
+		}
+		return out
+	case []interface{}:
+		out := make([]interface{}, len(t))
+		for i, val := range t {
+			out[i] = deepCopyValue(val)
+		}
+		return out
+	default:
+		return v
+	}
+}
+
 // fromYAML matches helm's fromYAML: always returns a map, carrying an "Error" key when
 // the input does not parse into one.
 func fromYAML(str string) map[string]interface{} {
@@ -125,6 +146,15 @@ type chartRenderer struct {
 }
 
 func newChartRenderer(t *testing.T, existingProfile string, forceReplace bool) *chartRenderer {
+	return newChartRendererWithValuesProfile(t, existingProfile, forceReplace, "")
+}
+
+// newChartRendererWithValuesProfile additionally overrides the values'
+// webhook.pluginsProfile with the given YAML document ("" keeps the chart's values.yaml).
+// This is what the template sees on `helm upgrade --reuse-values` from a release whose
+// values predate the clientless group, or under a user's -f override: --reuse-values only
+// changes what lands in .Values, the template execution itself is identical.
+func newChartRendererWithValuesProfile(t *testing.T, existingProfile string, forceReplace bool, valuesProfileYAML string) *chartRenderer {
 	t.Helper()
 	root := repoRoot(t)
 
@@ -135,6 +165,13 @@ func newChartRenderer(t *testing.T, existingProfile string, forceReplace bool) *
 	values := map[string]interface{}{}
 	if err := sigsyaml.Unmarshal(valuesRaw, &values); err != nil {
 		t.Fatalf("parse values.yaml: %v", err)
+	}
+	if valuesProfileYAML != "" {
+		var override interface{}
+		if err := sigsyaml.Unmarshal([]byte(valuesProfileYAML), &override); err != nil {
+			t.Fatalf("parse values profile override: %v", err)
+		}
+		values["webhook"].(map[string]interface{})["pluginsProfile"] = override
 	}
 	if forceReplace {
 		webhook := values["webhook"].(map[string]interface{})
@@ -157,6 +194,10 @@ func newChartRenderer(t *testing.T, existingProfile string, forceReplace bool) *
 	funcMap := sprig.TxtFuncMap()
 	funcMap["toYaml"] = toYAML
 	funcMap["fromYaml"] = fromYAML
+	// slim-sprig drops deepCopy (it drags in a copy dependency); the round-4 template
+	// (be4e30d3) deep-copies the values profile before merging the clientless fallback
+	// into it. Re-implement it with sprig's semantics for values-shaped data.
+	funcMap["deepCopy"] = deepCopyValue
 	funcMap["include"] = func(name string, data interface{}) (string, error) {
 		var buf strings.Builder
 		err := r.tmpl.ExecuteTemplate(&buf, name, data)
@@ -350,6 +391,124 @@ func TestPluginsProfileMerge_FreshInstallAndForceReplace(t *testing.T) {
 	}
 }
 
+// --- Round-4 contracts: A-F3 fix (be4e30d3 + 41b47141) -------------------------------
+// The clientless.fluid.io webhook rule is rendered unconditionally, so the profile must
+// always carry a clientless group. The round-4 delta merges the chart's default group
+// into a values profile that lacks one (helm upgrade --reuse-values from a pre-clientless
+// release, or a user -f override), and feeds that fallback into the upgrade merge, which
+// previously merged `.Values.webhook.pluginsProfile.plugins.clientless` — nil under
+// --reuse-values — producing `clientless: null` and no plugin behind the rule.
+
+// TestPluginsProfileMerge_ValuesFallbackAddsClientless covers the values-rendered paths
+// (fresh install, forceReplace, lookup miss): a values profile without clientless gains
+// the chart's default group while keeping every user entry. Red on 268012a5 (values path
+// rendered as-is, no clientless), green at 41b47141.
+func TestPluginsProfileMerge_ValuesFallbackAddsClientless(t *testing.T) {
+	merged := profileAsMap(t, newChartRendererWithValuesProfile(t, "", false, legacyProfile).renderProfile(t))
+	pluginsMap, ok := merged["plugins"].(map[string]interface{})
+	if !ok {
+		t.Fatalf("merged profile plugins is not a map: %v", merged)
+	}
+	clientless, ok := pluginsMap["clientless"]
+	if !ok {
+		t.Fatalf("A-F3 STILL PRESENT: values profile without clientless rendered without the fallback group:\n%v", merged)
+	}
+	if !reflect.DeepEqual(clientless, valuesClientlessGroup(t)) {
+		t.Fatalf("fallback clientless group drifted from values.yaml:\n%v\nvs\n%v", clientless, valuesClientlessGroup(t))
+	}
+	legacyMap := profileAsMap(t, legacyProfile)
+	for _, group := range []string{"serverful", "serverless"} {
+		if !reflect.DeepEqual(pluginsMap[group], legacyMap["plugins"].(map[string]interface{})[group]) {
+			t.Fatalf("the user's %s group was not preserved:\ngot  %v\nwant %v", group, pluginsMap[group], legacyMap["plugins"].(map[string]interface{})[group])
+		}
+	}
+	if !reflect.DeepEqual(merged["pluginConfig"], legacyMap["pluginConfig"]) {
+		t.Fatalf("the user's pluginConfig was not preserved")
+	}
+	var parsed plugins.PluginsProfile
+	if err := yamlv2.Unmarshal([]byte(newChartRendererWithValuesProfile(t, "", false, legacyProfile).renderProfile(t)), &parsed); err != nil {
+		t.Fatalf("merged profile does not unmarshal into plugins.PluginsProfile: %v", err)
+	}
+	if len(parsed.Plugins.Clientless.WithDataset) != 1 || parsed.Plugins.Clientless.WithDataset[0] != "RuntimeConfigInjector" {
+		t.Fatalf("webhook would not register RuntimeConfigInjector from the merged profile: %+v", parsed.Plugins.Clientless)
+	}
+}
+
+// TestPluginsProfileMerge_ValuesFallbackFeedsTheUpgradeMerge covers the lookup-merge path
+// under --reuse-values-style values: the preserved legacy ConfigMap must be merged with
+// the chart's default clientless group, not with the values' (missing) one. Red on
+// 268012a5 (`clientless: null` in the stored profile), green at 41b47141.
+func TestPluginsProfileMerge_ValuesFallbackFeedsTheUpgradeMerge(t *testing.T) {
+	merged := profileAsMap(t, newChartRendererWithValuesProfile(t, legacyProfile, false, legacyProfile).renderProfile(t))
+	clientless, ok := merged["plugins"].(map[string]interface{})["clientless"]
+	if !ok {
+		t.Fatalf("merged profile lost the clientless key entirely:\n%v", merged)
+	}
+	clMap, ok := clientless.(map[string]interface{})
+	if !ok {
+		t.Fatalf("clientless merged as %T (%v) instead of the chart's default group — 268012a5 wrote null here", clientless, clientless)
+	}
+	if !reflect.DeepEqual(clMap, valuesClientlessGroup(t)) {
+		t.Fatalf("merged clientless group is not the chart default:\n%v\nvs\n%v", clMap, valuesClientlessGroup(t))
+	}
+	legacyMap := profileAsMap(t, legacyProfile)
+	for _, group := range []string{"serverful", "serverless"} {
+		if !reflect.DeepEqual(merged["plugins"].(map[string]interface{})[group], legacyMap["plugins"].(map[string]interface{})[group]) {
+			t.Fatalf("the preserved profile's %s group was not kept", group)
+		}
+	}
+}
+
+// TestPluginsProfileMerge_ValuesClientlessWinsOverFallback: a values profile that carries
+// its own (customized) clientless group must be kept as given, and the upgrade merge must
+// use the values' group rather than the chart default. Green on every head that has the
+// merge (the fallback must never override an explicit group).
+func TestPluginsProfileMerge_ValuesClientlessWinsOverFallback(t *testing.T) {
+	custom := strings.Replace(legacyProfile, "pluginConfig:",
+		"  clientless:\n    withDataset:\n    - MyOwnInjector\n    withoutDataset: []\npluginConfig:", 1)
+	fresh := profileAsMap(t, newChartRendererWithValuesProfile(t, "", false, custom).renderProfile(t))
+	got := fresh["plugins"].(map[string]interface{})["clientless"].(map[string]interface{})
+	if !reflect.DeepEqual(got["withDataset"], []interface{}{"MyOwnInjector"}) {
+		t.Fatalf("a values-provided clientless group must win over the fallback: %v", got)
+	}
+	merged := profileAsMap(t, newChartRendererWithValuesProfile(t, legacyProfile, false, custom).renderProfile(t))
+	gotMerged := merged["plugins"].(map[string]interface{})["clientless"].(map[string]interface{})
+	if !reflect.DeepEqual(gotMerged["withDataset"], []interface{}{"MyOwnInjector"}) {
+		t.Fatalf("the upgrade merge must use the values' clientless group, not the fallback: %v", gotMerged)
+	}
+}
+
+// TestPluginsProfileMerge_ForceReplaceValuesFallback: forceReplacePluginsProfile renders
+// the values profile; with the round-4 fallback a values profile lacking clientless gains
+// the chart default there too (the webhook rule is rendered regardless).
+func TestPluginsProfileMerge_ForceReplaceValuesFallback(t *testing.T) {
+	forced := profileAsMap(t, newChartRendererWithValuesProfile(t, legacyProfile, true, legacyProfile).renderProfile(t))
+	if _, ok := forced["plugins"].(map[string]interface{})["clientless"]; !ok {
+		t.Fatalf("forceReplace with a clientless-less values profile must still gain the fallback group")
+	}
+	if _, ok := forced["pluginConfig"]; !ok {
+		t.Fatalf("forceReplace must keep rendering the values profile's pluginConfig")
+	}
+}
+
+// TestPluginsProfileMerge_NonMapValuesProfileRendersAsBefore is the 41b47141 guard: a
+// null or non-map values profile is left for the pre-existing paths, rendering exactly as
+// before the fallback (no template error, no invented content). Green on every head.
+func TestPluginsProfileMerge_NonMapValuesProfileRendersAsBefore(t *testing.T) {
+	for name, vp := range map[string]string{
+		"null":   "null",
+		"string": "just-a-string",
+		"list":   "- a\n- b",
+	} {
+		t.Run(name, func(t *testing.T) {
+			got := newChartRendererWithValuesProfile(t, "", false, vp).renderProfile(t)
+			if strings.TrimSpace(got) != strings.TrimSpace(vp) {
+				t.Fatalf("non-map values profile must render as before:\ngot  %q\nwant %q", got, vp)
+			}
+		})
+	}
+}
+
 // TestWebhookChecksumAnnotation: webhook.yaml must carry a checksum/plugins-profile
 // annotation so the Deployment rolls (and reloads the profile) when the rendered profile
 // changes. Two contracts, rendered the same way webhook.yaml computes the checksum:
@@ -450,6 +609,89 @@ func TestHelmTemplateFreshInstall(t *testing.T) {
 	}
 	if helms := profileAsMap(t, helmCM.Data["pluginsProfile"]); !reflect.DeepEqual(helms, mine) {
 		t.Fatalf("harness fresh-install render differs from real helm:\nhelm: %v\nmine: %v", helms, mine)
+	}
+}
+
+// TestHelmTemplateFreshInstallValuesFallback anchors the A-F3 fallback to the real helm
+// binary: with a values override whose pluginsProfile lacks the clientless group (what
+// `helm upgrade --reuse-values` from a pre-clientless release hands to the template), the
+// rendered profile must gain the chart's default group. The null-profile guard (41b47141)
+// must render as before without a template error. Red on 268012a5, green at 41b47141.
+func TestHelmTemplateFreshInstallValuesFallback(t *testing.T) {
+	helmPath, err := exec.LookPath("helm")
+	if err != nil {
+		t.Skip("helm binary not available")
+	}
+	root := repoRoot(t)
+	chartDir := filepath.Join(root, "charts/fluid/fluid")
+
+	// webhook.pluginsProfile = the legacy profile (no clientless group)
+	var b strings.Builder
+	b.WriteString("webhook:\n  pluginsProfile:\n")
+	for _, line := range strings.Split(strings.TrimPrefix(legacyProfile, "\n"), "\n") {
+		if strings.TrimSpace(line) == "" {
+			continue
+		}
+		b.WriteString("    " + line + "\n")
+	}
+	override := filepath.Join(t.TempDir(), "values.yaml")
+	if err := os.WriteFile(override, []byte(b.String()), 0644); err != nil {
+		t.Fatalf("write override values: %v", err)
+	}
+
+	out, err := exec.Command(helmPath, "template", "fluid", chartDir, "-f", override).Output()
+	if err != nil {
+		if ee, ok := err.(*exec.ExitError); ok {
+			t.Fatalf("helm template with a clientless-less values profile failed: %v\n%s", err, ee.Stderr)
+		}
+		t.Fatalf("helm template failed: %v", err)
+	}
+	cmDoc := documentNamed(t, string(out), "ConfigMap", "webhook-plugins")
+	var cm struct {
+		Data map[string]string `yaml:"data"`
+	}
+	if err := sigsyaml.Unmarshal([]byte(cmDoc), &cm); err != nil {
+		t.Fatalf("parse rendered webhook-plugins: %v", err)
+	}
+	rendered := profileAsMap(t, cm.Data["pluginsProfile"])
+	clientless, ok := rendered["plugins"].(map[string]interface{})["clientless"]
+	if !ok {
+		t.Fatalf("A-F3 STILL PRESENT with real helm: values profile without clientless rendered without the fallback:\n%s", cm.Data["pluginsProfile"])
+	}
+	if !reflect.DeepEqual(clientless, valuesClientlessGroup(t)) {
+		t.Fatalf("real-helm fallback clientless group drifted from values.yaml:\n%v\nvs\n%v", clientless, valuesClientlessGroup(t))
+	}
+	for _, kept := range []string{"FilePrefetcher", "NodeAffinityWithCache", "FuseSidecar", "pluginConfig"} {
+		if !strings.Contains(cm.Data["pluginsProfile"], kept) {
+			t.Fatalf("the user's profile entry %q did not survive the fallback merge:\n%s", kept, cm.Data["pluginsProfile"])
+		}
+	}
+	// the rule that makes the fallback necessary must still be there
+	if !strings.Contains(string(out), "clientless.fluid.io") {
+		t.Fatalf("rendered webhook configuration lost the clientless.fluid.io rule")
+	}
+
+	// the null-profile guard: renders "null" exactly as before, no template error
+	nullOverride := filepath.Join(t.TempDir(), "null-values.yaml")
+	if err := os.WriteFile(nullOverride, []byte("webhook:\n  pluginsProfile: null\n"), 0644); err != nil {
+		t.Fatalf("write null override values: %v", err)
+	}
+	nullOut, err := exec.Command(helmPath, "template", "fluid", chartDir, "-f", nullOverride).Output()
+	if err != nil {
+		if ee, ok := err.(*exec.ExitError); ok {
+			t.Fatalf("helm template with a null pluginsProfile errored (41b47141 guard broken): %v\n%s", err, ee.Stderr)
+		}
+		t.Fatalf("helm template failed: %v", err)
+	}
+	nullCmDoc := documentNamed(t, string(nullOut), "ConfigMap", "webhook-plugins")
+	var nullCm struct {
+		Data map[string]string `yaml:"data"`
+	}
+	if err := sigsyaml.Unmarshal([]byte(nullCmDoc), &nullCm); err != nil {
+		t.Fatalf("parse null-profile webhook-plugins: %v", err)
+	}
+	if strings.TrimSpace(nullCm.Data["pluginsProfile"]) != "null" {
+		t.Fatalf("a null pluginsProfile must render as before (got %q)", nullCm.Data["pluginsProfile"])
 	}
 }
 
