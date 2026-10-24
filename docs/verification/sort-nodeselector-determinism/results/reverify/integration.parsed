@@ -1,3 +1,27 @@
+should not return an error	skipped
+should delete successfully without error	skipped
+should return false without error	skipped
+should return false without error	skipped
+should return true without error	skipped
+should return false when volume doesn't exist	skipped
+should return false when volume is not created by fluid	skipped
+should return true when volume is created by fluid	skipped
+should return false when volume is not created by fluid with different annotations	skipped
+should fail when BuildConfigFromFlags fails	skipped
+should fail when NewForConfig fails	skipped
+should succeed when everything is correct	skipped
+should fail when kubeconfig path does not exist	skipped
+should fail when NewForConfig fails (second path)	skipped
+should succeed when everything is correct (second path)	skipped
+should return correctly when command completes before timeout	skipped
+should return timeout error when command takes longer than timeout	skipped
+should propagate errors from underlying exec function	skipped
+should return context cancellation when parent context is canceled	skipped
+should not have data races	skipped
+should not leak goroutines on timeout	skipped
+should propagate context cancellation	skipped
+should not return an error	skipped
+should delete successfully without error	skipped
 should return the succeed pod successfully	skipped
 should not return the pod	skipped
 should return nil because it is not found	skipped
@@ -13,89 +37,6 @@ Should return nil	skipped
 Should return the JobComplete condition	skipped
 Should return the JobFailed condition	skipped
 Should return nil	skipped
-should not return an error	skipped
-should delete successfully without error	skipped
-should fail when BuildConfigFromFlags fails	skipped
-should fail when NewForConfig fails	skipped
-should succeed when everything is correct	skipped
-should fail when kubeconfig path does not exist	skipped
-should fail when NewForConfig fails (second path)	skipped
-should succeed when everything is correct (second path)	skipped
-should return correctly when command completes before timeout	skipped
-should return timeout error when command takes longer than timeout	skipped
-should propagate errors from underlying exec function	skipped
-should return context cancellation when parent context is canceled	skipped
-should not have data races	skipped
-should not leak goroutines on timeout	skipped
-should propagate context cancellation	skipped
-should not error when volume doesn't exist	skipped
-should not error when volume exists	skipped
-should return false when volume doesn't exist	skipped
-should return false when volume is not created by fluid	skipped
-should return true when volume is created by fluid	skipped
-should return false when volume is not created by fluid with different annotations	skipped
-should return nil	skipped
-should return the node	skipped
-should return the context error	skipped
-should return empty list when node list is empty	skipped
-should return 1 node when node list is 1	skipped
-should return 2 nodes when node list is 2	skipped
-should not return an error	skipped
-should delete successfully without error	skipped
-Should get the daemonset successfully	skipped
-Should fail to get the daemonset because of not found	skipped
-Should fail to get the daemonset when namespace does not match	skipped
-Should update to OnDelete strategy successfully	skipped
-Should update RollingUpdate parameters successfully	skipped
-Should fail to update non-existent DaemonSet	skipped
-Should update with same strategy (no actual change)	skipped
-should extract PVC names from pod volumes	skipped
-Pod doesn't exist	skipped
-Pod is running	skipped
-Pod is succeed	skipped
-Pod is failed	skipped
-Pod's deletion timestamp not nil	skipped
-should return nil for non-existent pod	skipped
-should return pod for existing pod	skipped
-should return false for nil pod	skipped
-running pod	skipped
-pending pod	skipped
-unknown pod	skipped
-succeeded pod	skipped
-failed pod	skipped
-running pod	skipped
-succeeded pod	skipped
-failed pod	skipped
-running pod	skipped
-succeeded pod	skipped
-failed pod	skipped
-running and ready pod	skipped
-succeeded pod	skipped
-failed pod	skipped
-pod affinity nil	pass
-node affinity in pod nil	pass
-node affinity in pod is empty	pass
-no exist node affinity with preferred scheduling	pass
-no exist node affinity simple	pass
-exist node affinity	pass
-multi-label node selector sorted deterministically	pass
-should produce byte-identical and order-identical match expressions across repeated calls	pass
-should error when volumeClaim doesn't exist	skipped
-should error when volumeClaim is not created by fluid	skipped
-should not error when volumeClaim has no finalizer	skipped
-should not error when volumeClaim has finalizer	skipped
-should get existing secret successfully	skipped
-should return error for non-existing secret	skipped
-should create new secret successfully	skipped
-should create new secret in different namespace	skipped
-should return error when creating existing secret	skipped
-should return error when updating non-existing secret	skipped
-should return error when updating non-existing secret in different namespace	skipped
-should update existing secret successfully	skipped
-should copy secret to target namespace successfully	skipped
-should copy secret with owner reference	skipped
-should return nil if target secret already exists	skipped
-should return error if source secret does not exist	skipped
 should successfully get statefulset	skipped
 should return not found error	skipped
 should successfully scale statefulset	skipped
@@ -115,8 +56,39 @@ should return true	skipped
 should return false	skipped
 should successfully update statefulset update strategy	skipped
 should return not found error	skipped
+should not return an error	skipped
+should delete successfully without error	skipped
 should return true	skipped
 should return false	skipped
+should return empty list when node list is empty	skipped
+should return 1 node when node list is 1	skipped
+should return 2 nodes when node list is 2	skipped
+should return true and no error	skipped
+should return false and no error	skipped
+should return false for ConfigMap in different namespace	skipped
+should return the ConfigMap successfully	skipped
+should return nil ConfigMap and no error	skipped
+should return correct ConfigMap for each name	skipped
+should return the context error	skipped
+should delete the ConfigMap successfully	skipped
+should not return an error	skipped
+should delete both ConfigMaps successfully	skipped
+should create a copy in destination namespace	skipped
+should add dataset ID label to copied ConfigMap	skipped
+should not return an error and skip copying	skipped
+should return an error	skipped
+should create ConfigMap successfully	skipped
+should set dataset ID label correctly	skipped
+should handle empty owner dataset ID	skipped
+should handle large text data	skipped
+should create all ConfigMaps successfully	skipped
+should return the context error without creating the ConfigMap	skipped
+should update ConfigMap data successfully	skipped
+should update ConfigMap labels successfully	skipped
+should update ConfigMap annotations successfully	skipped
+should create, read, update, and delete ConfigMap	skipped
+should handle ConfigMaps in different namespaces independently	skipped
+should return the context error without creating the ConfigMap	skipped
 should not return an error	skipped
 should not return an error	skipped
 should return the persistent volume successfully	skipped
@@ -157,36 +129,66 @@ should return false	skipped
 should return ok as true with name and namespace	skipped
 should return ok as false	skipped
 should update the global timeout value	skipped
-should return true and no error	skipped
-should return false and no error	skipped
-should return false for ConfigMap in different namespace	skipped
-should return the ConfigMap successfully	skipped
-should return nil ConfigMap and no error	skipped
-should return correct ConfigMap for each name	skipped
+should error when volumeClaim doesn't exist	skipped
+should error when volumeClaim is not created by fluid	skipped
+should not error when volumeClaim has no finalizer	skipped
+should not error when volumeClaim has finalizer	skipped
+should extract PVC names from pod volumes	skipped
+Pod doesn't exist	skipped
+Pod is running	skipped
+Pod is succeed	skipped
+Pod is failed	skipped
+Pod's deletion timestamp not nil	skipped
+should return nil for non-existent pod	skipped
+should return pod for existing pod	skipped
+should return false for nil pod	skipped
+running pod	skipped
+pending pod	skipped
+unknown pod	skipped
+succeeded pod	skipped
+failed pod	skipped
+running pod	skipped
+succeeded pod	skipped
+failed pod	skipped
+running pod	skipped
+succeeded pod	skipped
+failed pod	skipped
+running and ready pod	skipped
+succeeded pod	skipped
+failed pod	skipped
+pod affinity nil	pass
+node affinity in pod nil	pass
+node affinity in pod is empty	pass
+no exist node affinity with preferred scheduling	pass
+no exist node affinity simple	pass
+exist node affinity	pass
+multi-label node selector sorted deterministically	pass
+multi-label node selector appended to existing node affinity terms sorted deterministically	pass
+should produce byte-identical and order-identical match expressions across repeated calls	pass
+should produce byte-identical and order-identical match expressions when appending to existing terms across repeated calls	pass
+should not error when volume doesn't exist	skipped
+should not error when volume exists	skipped
+should get existing secret successfully	skipped
+should return error for non-existing secret	skipped
+should create new secret successfully	skipped
+should create new secret in different namespace	skipped
+should return error when creating existing secret	skipped
+should return error when updating non-existing secret	skipped
+should return error when updating non-existing secret in different namespace	skipped
+should update existing secret successfully	skipped
+should copy secret to target namespace successfully	skipped
+should copy secret with owner reference	skipped
+should return nil if target secret already exists	skipped
+should return error if source secret does not exist	skipped
+Should get the daemonset successfully	skipped
+Should fail to get the daemonset because of not found	skipped
+Should fail to get the daemonset when namespace does not match	skipped
+Should update to OnDelete strategy successfully	skipped
+Should update RollingUpdate parameters successfully	skipped
+Should fail to update non-existent DaemonSet	skipped
+Should update with same strategy (no actual change)	skipped
+should return nil	skipped
+should return the node	skipped
 should return the context error	skipped
-should delete the ConfigMap successfully	skipped
-should not return an error	skipped
-should delete both ConfigMaps successfully	skipped
-should create a copy in destination namespace	skipped
-should add dataset ID label to copied ConfigMap	skipped
-should not return an error and skip copying	skipped
-should return an error	skipped
-should create ConfigMap successfully	skipped
-should set dataset ID label correctly	skipped
-should handle empty owner dataset ID	skipped
-should handle large text data	skipped
-should create all ConfigMaps successfully	skipped
-should return the context error without creating the ConfigMap	skipped
-should update ConfigMap data successfully	skipped
-should update ConfigMap labels successfully	skipped
-should update ConfigMap annotations successfully	skipped
-should create, read, update, and delete ConfigMap	skipped
-should handle ConfigMaps in different namespaces independently	skipped
-should return the context error without creating the ConfigMap	skipped
-should not return an error	skipped
-should delete successfully without error	skipped
 should return the CronJob status successfully	skipped
 should return an error	skipped
-should return false without error	skipped
-should return false without error	skipped
-should return true without error	skipped

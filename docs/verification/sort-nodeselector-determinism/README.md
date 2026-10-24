@@ -122,3 +122,42 @@ Kickoff prompt for a fresh agent:
   selector terms, so multi-dataset pods can get terms in varying order across
   admissions. Out of scope for this PR (introducedByPR: false); see the
   findings document.
+
+## Round 2 (2026-10-25, head f5bb49a3) — incremental re-verification
+
+- **Delta `4fd9701c..f5bb49a` is test-only:** +84 lines in `pkg/utils/kubeclient/pod_test.go`;
+  `pod.go` (production) is byte-identical to the previous head. The author amended the
+  same commit to add the append-path coverage requested in round 1 (F1-coverage-append-path):
+  a `Entry("multi-label node selector appended to existing node affinity terms sorted
+  deterministically", …)` in the DescribeTable and a 100-invocation
+  `It("…when appending to existing terms across repeated calls", …)`.
+- **Base movement `86e3adf3 → e5251b39` is master-only** (dependabot bump of
+  codeql-action in `.github/workflows/codeql-analysis.yml` and
+  `.github/workflows/sonarcloud.yaml`); the PR branch was **not** rebased —
+  merge-base with master is still `86e3adf3`, so no contract re-baselining was needed.
+- **Re-verify on head f5bb49a3:** unit layer 5/5 contract tests PASS
+  (`results/reverify/unit.out`); integration layer 10/10 focused specs PASS — the
+  PR's own suite now runs **10** focused specs (was 8), including both new ones
+  (`results/reverify/ginkgo-report.json`, `results/reverify/integration.parsed`).
+  Verdict: F1-coverage-append-path **FIXED**.
+- **Differential — the new tests bite:** head's `pod_test.go` grafted onto the
+  merge-base `86e3adf3` production code → both new specs FAIL on base and PASS on
+  head (`results/r2-base-bite.out`, raw `results/r2-base-ginkgo-focus.json`):
+  `multi-label node selector appended to existing node affinity terms sorted
+  deterministically` and `…appending to existing terms across repeated calls` both
+  fail on base, alongside the round-1 specs.
+- **Full package + vet on head:** `go test ./pkg/utils/kubeclient/ -count=1` → ok;
+  `go vet` clean (worktree `/tmp/pr6217-recheck`).
+- **CI at head f5bb49a:** every concrete check SUCCESS (unittest, staticcheck, lint,
+  Analyze, CodeQL, SonarCloud, codecov, builds, kind-e2e-test and
+  backward-compat-test across k8s v1.22.17–v1.33.2); PR OPEN, not draft, MERGEABLE.
+- **Harness fix this round:** `scripts/re-verify.sh` persisted raw output into the
+  tree *before* the exit-trap `git checkout -f` restored the reviewer branch, which
+  reverted tracked result files to their stale committed versions. Persist now runs
+  inside cleanup after the restore (commit on this branch). This was an
+  evidence-persistence bug only — verdicts were always computed from the fresh
+  temp-dir output.
+- Round-1 follow-ups closed by the author: PR body no longer mentions the
+  nonexistent `status.WorkerNodeAffinity` (says `status.CacheAffinity`); the
+  pre-existing unsorted map-range sites are now tracked in issue #6220.
+- `.last-reviewed` advanced to `f5bb49a31169236b0817bcd9d989bc9567ff33a3`.
