@@ -1,0 +1,87 @@
+{
+  "topic": "alluxio-graceful-scaledown-claude",
+  "reviewer": "claude",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6061",
+  "description": "Reviewer-A (Claude) verification harness for PR #6061 (re-land AlluxioRuntime graceful worker scale-down + Kind e2e). Additive tests only; production code untouched. Gomonkey-free so it runs on any platform.",
+  "harnessPaths": [
+    "docs/verification/alluxio-graceful-scaledown-claude",
+    "pkg/ddc/alluxio/scaledown_claude_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "PR #5805 added graceful scale-down for AlluxioRuntime and was reverted in #6059 'because it had no e2e coverage of the actual scale-down -> drain -> decommission -> data-integrity path'; this PR re-lands the feature with that e2e coverage.",
+    "reportedComponent": "pkg/ddc/alluxio (AlluxioRuntime engine) + test/gha-e2e",
+    "patchedComponent": "pkg/ddc/alluxio/replicas.go, pkg/ddc/alluxio/operations/decommission.go, pkg/features, test/gha-e2e/alluxio-scaledown/",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "At merge-base a6d461c the engine has no decommission path at all: SyncReplicas (pkg/ddc/alluxio/replicas.go@base) calls Helper.SyncReplicas directly on scale-in, so worker pods are terminated with their cached blocks (ungraceful). The revert #6059 exists and is the direct parent of this re-land (commit 7362d7ef). results/gate-reachability-evidence.out, results/full-pkg-tests-head.out.",
+    "match": []
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/alluxio/ -run 'TestVerifyClaude' -count=1 -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1-e2e-graceful-path-not-asserted",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": ["TestVerifyClaudeG4E2eDoesNotAssertGracefulPathRan"],
+      "note": "MAJOR. The new e2e (the PR's entire justification for re-landing) never asserts the graceful path ran: it observes the WorkerDecommissioning condition only for logging. A drain that never succeeds still converges via the 10-minute defaultWorkerDecommissionDeadline fallback (mechanism proven by the PR's own unit test 'still forces the scale-down to proceed past the deadline instead of stalling forever', replicas_drain_test.go), and on the single-node Kind cluster the cached fixture can live on worker-0 regardless, so read_after passes either way. Canary PASSES while the gap is present; flips to red once the e2e enforces the decommission path, then invert."
+    },
+    {
+      "id": "F2-pr-body-cmd-flag-claim-inaccurate",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyClaudeG1GracefulWorkerScaleDownGateRegisteredAndFlagParseable"],
+      "note": "MINOR (description accuracy). The PR body claims the gate 'was registered as a feature gate but never exposed as a flag on the alluxioruntime-controller binary (cmd/alluxio/app/alluxio.go) ... Fixed that too', but this diff contains no cmd/ change. The gate was already reachable: cmd/alluxio has called DefaultMutableFeatureGate.AddFlag since b3c0e8ec (ancestor of the merge-base) and pkg/features reaches that binary via the import chain cmd/alluxio -> pkg/ddc/alluxio -> pkg/features (go list -deps evidence). Contract test proves registration + flag parsing; no functional impact."
+    },
+    {
+      "id": "F3-prior-web-port-mismatch-fix",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyClaudeG2WorkerWebPortComesFromPodContainerSpec"],
+      "note": "FIXED-AT-HEAD re-verification (independently found by the earlier harness on verify/alluxio-scaledown-e2e as blocking). Commit f2016204 resolved the decommission web port from the worker pod's own alluxio-worker container spec (workerWebPortFromPod), fixing 'decommission targets spec/default 30000 while host-network workers bind a dynamically allocated port'. Contract test passes at head; bites check confirms it fails under a regression to the old behavior."
+    },
+    {
+      "id": "F4-prior-e2e-ufs-fallback-fix",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyClaudeG3E2eTearsDownUFSAroundScaleDownReads"],
+      "note": "FIXED-AT-HEAD re-verification (earlier harness F1). Commit 69ed16fd tears minio down between the two read jobs so read_after can only be served from worker cache, not a transparent UFS re-fetch. Contract test asserts the step order read_before < teardown_minio < scale_down < read_after."
+    },
+    {
+      "id": "F5-live-worker-count-drain-signal",
+      "polarity": "none",
+      "layer": "live",
+      "match": [],
+      "note": "OPEN QUESTION (not decidable without a live Alluxio cluster, L3 skipped by policy). Drain completion is gated on 'alluxio fsadmin report capacity -live' worker count <= desired. If -live drops a decommissioning-but-still-migrating worker immediately (or conversely keeps it until heartbeat timeout), the signal is either too early (pod deleted before blocks migrate -> silent data loss) or too late (drain waits on heartbeat expiry rather than migration). Needs an Alluxio-semantics check on a real cluster; the e2e cannot distinguish (see F1)."
+    },
+    {
+      "id": "F6-managed-networkmode-address-reachability",
+      "polarity": "none",
+      "layer": "live",
+      "match": [],
+      "note": "HYPOTHESIS (minor). getDecommissionAddresses always uses pod.Status.HostIP. Fluid defaults to host network, where HostIP is the worker identity; in managed (non-host) network mode the worker web port is not reachable on HostIP and the address form may not match the worker's registered identity. Expected degradation: bounded 10-minute wait then ungraceful scale-down. Alpha gate + host-network default mitigate; no test."
+    },
+    {
+      "id": "F7-scaleup-mid-drain-decommissioned-worker",
+      "polarity": "none",
+      "layer": "live",
+      "match": [],
+      "note": "HYPOTHESIS (minor). Scaling back UP while a drain is in flight clears the tracking condition and scales the STS up, but a worker already told to decommission keeps running as a decommissioned (capacity-less) member until it restarts. Edge case, user-triggered, recoverable."
+    },
+    {
+      "id": "F8-metadata-test-preexisting-failure",
+      "polarity": "none",
+      "layer": "unit",
+      "match": [],
+      "note": "PRE-EXISTING, not introduced by this PR: pkg/ddc/alluxio metadata_test.go 'should successfully sync metadata and update dataset status' fails identically at merge-base a6d461c and at head (differential evidence in results/base-preexisting-metadata-failure.out and results/full-pkg-tests-head.out). All 28 new drain specs + 3 operations specs pass at head."
+    }
+  ],
+  "liveNote": "L3 (needs a real cluster; not run here): (F5) decommission a worker with a large dirty block set and watch 'fsadmin report capacity -live' + worker state to determine whether the -live count tracks migration completion; (F1) run the e2e with the gate silently broken (e.g. DecommissionWorkers stubbed to fail) and confirm it still passes via the deadline fallback; (F6) create a managed-network AlluxioRuntime, scale down, check whether decommissionWorker resolves the HostIP:webPort address."
+}
