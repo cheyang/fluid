@@ -1,0 +1,4 @@
+TestVerifyClaude_SecondOperationBlockedAtLimit	pass
+TestVerifyClaude_ReentrantSameOperationAllowed	pass
+TestVerifyClaude_ReleasedOperationFreesSlot	pass
+TestVerifyClaude_LimitGreaterThanOne	pass
