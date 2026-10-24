@@ -104,6 +104,45 @@ Full matrix: results/unit-prevhead-c5ea086b.txt, results/integration-prevhead-c5
 - F6: landed as 16c5509e + 760f5369 — the keep branch trims exactly the stored profile's
   trailing newline before indenting.
 
+## Summary of results (round 4, head 41b47141; delta 268012a5..41b47141)
+
+The delta is three commits: two chart fixes (be4e30d3 merges the chart's default
+clientless group into a values profile that lacks it — the `--reuse-values` / user-override
+case of A-F3 — and feeds that fallback into the upgrade merge, which previously wrote
+`clientless: null`; 41b47141 keeps null/non-map values profiles rendering as before) and
+one plugin fix (7f5b625c rejects a pod that already projects the runtime-config ConfigMap
+with its own items/mode/optional instead of silently replacing the volume).
+
+Harness note: the new template uses sprig `deepCopy`, which slim-sprig (used by the
+stub-lookup renderer) drops — the chart contracts initially came back Harness-update. The
+harness now registers a `deepCopyValue` with sprig's semantics for values-shaped data;
+production code untouched.
+
+New contracts, each run RED on the previous head 268012a5 and GREEN at 41b47141
+(differential, not assertion):
+
+| ID | Fix commit(s) | Contract (this branch) | 268012a5 | 41b47141 |
+|----|---------------|------------------------|----------|----------|
+| A-F3 (rule with no plugin behind it when values lack a clientless group) | be4e30d3 + 41b47141 | stub renderer: values fallback on fresh-install/forceReplace/lookup-miss paths and in the upgrade merge; real helm CLI with a null-deleted clientless key (helm's `-f` deep-merges chart defaults, so `clientless: null` is what models the old release's values); envtest: REAL `helm install` of the base chart + REAL `helm upgrade --reuse-values` of the PR chart against a real API server | RED (5 contracts: no fallback; the upgrade merge wrote `clientless: null` — observed in the stored ConfigMap via the real upgrade) | GREEN (7/7) |
+| B-F7 (new, minor: injection silently replaced a pod's own customized projection of the runtime-config ConfigMap, dropping items/mode/optional) | 7f5b625c rejects with a typed RejectPodError naming the volume | handler: pod with a same-named volume projecting the config ConfigMap with custom items / non-default mode / optional:true is denied 403 "…would replace"; control: the API-server-defaulted shape (defaultMode 0644, optional nil/false) stays admitted and injected | RED (3 reject contracts: admitted, volume silently replaced) / GREEN control | GREEN (4/4) |
+
+Guard contracts green on BOTH heads (no regression surface): a values-provided clientless
+group wins over the fallback; null/string/list values profiles render exactly as before;
+the pre-existing merge/no-churn/checksum contracts (F1, B-F6) are unaffected by the delta.
+
+Fidelity note (round 4): a first version of the real-helm fallback test passed `-f`
+values without clientless and PASSED on 268012a5 for the wrong reason — helm deep-merges
+`-f` files over the chart's values.yaml, so the clientless key survived. `--reuse-values`
+does not merge the new chart's values; the old release's stored values simply lack the
+key. Modeled faithfully two ways: `clientless: null` in the `-f` file (helm deletes the
+key during coalescing) for the template-level test, and a genuine install+`--reuse-values`
+upgrade for the envtest test. The fake-client handler tests cover the plugin rejection;
+the author's own plugin-level table covers the same three customizations directly.
+
+Full-matrix re-verify at 41b47141: all 12 manifest findings FIXED (exit 0)
+(`results/reverify-head-41b47141-round4/`; the previous-head RED run is in
+`results/reverify-prevhead-268012a5-round4/`). CI at 41b47141: all 22 checks SUCCESS.
+
 ## Continuing after the fix
 
 On any machine:

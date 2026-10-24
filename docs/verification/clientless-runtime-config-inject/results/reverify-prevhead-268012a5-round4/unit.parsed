@@ -1,0 +1,39 @@
+should return error when PVC collection fails	pass
+should register a handler under WebhookSchedulePodPath	pass
+should map WebhookSchedulePodPath to a *FluidMutatingHandler	pass
+should skip mutation when injection is disabled via label	pass
+should mutate pod and inject cache affinity	pass
+should return error when referenced pvc does not exist	pass
+should deny pod with mismatched namespace	pass
+should return error when both namespaces are empty	pass
+should key the PVC ones by dataset name	pass
+should leave out PVCs of runtimes other than cache runtimes	pass
+should let a dataset resolved from a PVC win over the annotation	pass
+[contract] injects the runtime config volume, mount and env into the app pod	pass
+[characterization] the labeled pod is admitted silently unmutated although everything else is in place	pass
+[contract] a missing runtime config ConfigMap rejects the pod (no more fail-open)	pass
+[contract] a ConfigMap without runtime.sh rejects the pod too (old cacheruntime-controller)	pass
+[contract] a missing dataset still rejects the pod	pass
+[contract] a 50-char dataset is now rejected at admission instead of silently skipped	pass
+[characterization] the rejection message names the dataset but not the name-length reason (F5)	pass
+[contract] a cache-runtime dataset resolved from a mounted PVC is injected under its dataset name	pass
+[contract] a mounted PVC of a fuse runtime is left alone (admitted without injection)	pass
+should return error when retry with API reader also fails	pass
+should return error when decoder fails	pass
+should handle pod without any special labels	pass
+should inject the config map that only the API reader sees yet	pass
+should reject the pod when the config map does not exist	pass
+should reject the pod when the config map has no shell rendering	pass
+should reject a pod that also asks for fuse injection	pass
+should reject a pod that also carries the deprecated serverless platform label	pass
+should reject a pod whose own volume takes the config's volume name	pass
+should allow pod with namespace in pod	pass
+should allow pod with namespace not in pod	pass
+should use direct reader when useDirectReader is true	pass
+should skip mutation when global injection is disabled	pass
+should return error when dataset does not exist	pass
+should mutate pod successfully	pass
+should skip mutation when sidecar already injected	pass
+should return error when runtime does not exist	pass
+should mutate pod successfully	pass
+should setup handler with client, reader and decoder	pass
