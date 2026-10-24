@@ -1,0 +1,23 @@
+# Harness-bites check (Step 4): each verification test reacts to a temporary proposed fix.
+# Production code was restored with 'git checkout -- pkg/ddc/cache/engine/sync.go' after each run.
+
+## 1. Contract test TestVerifyWorkerDriftWarnsThroughFullSync vs drift-check disabled
+--- FAIL: TestVerifyWorkerDriftWarnsThroughFullSync (0.00s)
+    verify_tieredstore_drift_test.go:262: expected a RuntimeTieredStoreConflict Warning event from full Sync, got []
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.013s
+FAIL
+
+## 2. Canary TestVerifyClientTieredStoreDriftSilent vs client-side detection added
+--- FAIL: TestVerifyClientTieredStoreDriftSilent (0.00s)
+    verify_tieredstore_drift_test.go:317: client tieredStore drift was reported ("Warning RuntimeTieredStoreConflict client tieredStore drift (bite-check)"); the canary must be inverted
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.014s
+FAIL
+
+## 3. Canary TestVerifyEmptyDirMediumFlipSilent vs Medium comparison added
+--- FAIL: TestVerifyEmptyDirMediumFlipSilent (0.00s)
+    verify_tieredstore_drift_test.go:364: emptyDir medium flip was reported ("Warning RuntimeTieredStoreConflict Worker tieredStore cannot be updated in-place after creation: level 0 (emptyDir): spec medium \"Memory\" does not match worker volume tiered-store-level-0-index-0 medium \"\". Recreate the worker to apply changes."); the canary must be inverted
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.013s
+FAIL

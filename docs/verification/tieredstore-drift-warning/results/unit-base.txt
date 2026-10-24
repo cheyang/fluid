@@ -1,0 +1,5 @@
+=== RUN   TestPremiseTieredStoreSplitWorker
+    premise_tieredstore_split_test.go:224: recorder saw no events during sync: the split is not reported by this revision
+--- PASS: TestPremiseTieredStoreSplitWorker (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.013s
