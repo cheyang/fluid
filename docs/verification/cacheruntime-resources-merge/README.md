@@ -185,6 +185,61 @@ run of the tiered rows, the nil-topology spec and the three creation-event specs
 Raw output: `results/round5/reverify-{base-e0fc4c18,prevhead-3adc547d,head-ce4f0c4f}-{unit,integration}.out`
 plus `reverify-head-ce4f0c4f-summary.txt`.
 
+## Round 6 (ce4f0c4f -> a773dfa6): F11 remedy lands; canary inverted into contracts
+
+The delta is a single commit, `a773dfa6` ("fix(cache): do not sync container claims the
+workload does not declare"), the F11 remedy carried open since round 4:
+
+- `sync.go`: `validDesiredResources` gains the workload's pod spec (read via
+  `GetPodSpec`, master included) and drops from the synced resources any container claim the
+  pod spec neither declares (pod-level `resourceClaims`) nor already carries on its first
+  container, emitting one `RuntimeResourcesConflict` Warning event naming the dropped claims;
+  the rest of `resources` still syncs (commit rationale: on clusters without DRA the API
+  server ignores claims, so a claim must not hold back a requests/limits edit).
+- `transform_common.go`: `splitDeclaredClaims` implements the classification (stable order
+  for the event message).
+- PR's own coverage: sync-level specs for drop+warn (template-edit scenario),
+  declare-then-syncs, and drop-only-the-claim for master+worker; unit specs for
+  `splitDeclaredClaims`. Docs (en+zh) updated to match.
+
+The round-4 F11 CANARY was observed flipped at head (its log line "CANARY FLIPPED: the
+template's container claim no longer propagates to the workload") but its log-and-return
+shape could never surface the flip as a failure (re-verify kept reporting STILL-PRESENT) --
+retired and replaced by contract tests (`zz_verify_pr6177_f11_contract_test.go`), all
+contract polarity, compile-safe on base, previous head and head:
+
+| Test | base e0fc4c18 | prev ce4f0c4f | head a773dfa6 |
+| --- | --- | --- | --- |
+| TestVerifyPR6177_F11_UndeclaredTemplateClaim_DroppedWarnedConverges | FAIL (wholesale apply: claim silently absent, cpu dropped 0/0, no warning) | FAIL (claim propagated with no pod-level backing, no warning) | PASS (claim dropped, limits.memory 4Gi + template cpu synced, Warning names gpu-claim, second sync converges) |
+| TestVerifyPR6177_F11_WorkloadDeclaresClaim_Syncs | PASS (pin) | PASS (pin) | PASS (claim the workload declares at pod level syncs, no event) |
+| TestVerifyPR6177_F11_ContainerAlreadyCarriesClaim_KeptNoRoll | PASS (pin) | PASS (pin) | PASS (already-carried claim kept; resourceVersion unchanged, no event) |
+
+Full re-verify at head a773dfa6: **all findings FIXED** (exit 0) -- P0/G1/G2/G3/F6/F9/F11/F7/F10
+green. Differential cells for F11: base=fail, previous=fail, head=pass.
+
+No-regression sweep at head (harness grafted): 341 ran, 329 passed / 12 failed / 16 skipped;
+the 12 failures are byte-identical to the round-5 head set (pre-existing gomonkey
+flag-sensitive ufs/sync specs, absent under the canonical `-gcflags="all=-N -l"` invocation
+that CI's unittest lane runs); +8 new PR specs all passing.
+
+CI at head a773dfa6 (queried 2026-10-24): all 21 check-runs COMPLETED/SUCCESS (DCO, unittest,
+lint, staticcheck, build x2, CodeQL, SonarCloud x2, codecov x2, kind-e2e and backward-compat
+on v1.22.17/v1.24.17/v1.28.15/v1.30.13/v1.33.2). tide pending = label/review gating only.
+
+Process events this round (read-only gh queries, 2026-10-24): the maintainer (cheyang)
+posted a personal decision on 2026-10-20 closing F1 (both semantics rules agreed) and gating
+merge on one docs change (neutralize the "edits to the template's resources reach existing
+instances" bullets en+zh + the matching PR-body line; follow-up #6213 pins the template at
+creation) plus F13 (drop the PR-body upgrade paragraph). Neither doc/body edit is present at
+head a773dfa6 (the commit predates the decision). Reviewer C's review of head a773dfa6
+(5638118646, 2026-10-24) marks the claims thread resolved and raises no new inline findings
+(its two "open" entries are the historical threads already implemented as F6/F9 and refuted
+as F12).
+
+Raw output: `results/round6/reverify-{base-e0fc4c18,prevhead-ce4f0c4f,head-a773dfa6}.txt`,
+`f11-contract-{base-e0fc4c18,prevhead-ce4f0c4f,head-a773dfa6}.txt`,
+`suite-head-a773dfa6.txt`, `failures-head-a773dfa6.txt`.
+
 ## How to run
 
 ```bash
@@ -200,7 +255,7 @@ FLUID_UNIT_TEST=true go test -gcflags="all=-N -l" ./pkg/ddc/cache/...
 `bash docs/verification/cacheruntime-resources-merge/scripts/re-verify.sh` from a checkout of
 this branch fetches the current PR head (from `manifest.pr`), grafts the harness onto it, runs
 the unit + integration layers, and prints Fixed / Still-broken per finding. All findings are
-contract polarity: green means good. All contracts, F9 included, are green at head ce4f0c4f; they
+contract polarity: green means good. All contracts, F9 and F11 included, are green at head a773dfa6; they
 now serve as the regression suite for the whole merge/validation behavior.
 
 Kickoff prompt for a fresh machine:

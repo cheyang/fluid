@@ -1,0 +1,12 @@
+2026/10/24 20:04:54 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6177_F11_UndeclaredTemplateClaim_DroppedWarnedConverges
+    zz_verify_pr6177_f11_contract_test.go:105: claim gpu-claim was synced onto a workload whose pod spec does not declare it; the API server rejects replacement Pods on DRA-enabled clusters (validateResourceClaimNames)
+    zz_verify_pr6177_f11_contract_test.go:127: no Warning event naming gpu-claim among []; the wedge must be signalled on the CacheRuntime
+--- FAIL: TestVerifyPR6177_F11_UndeclaredTemplateClaim_DroppedWarnedConverges (0.00s)
+=== RUN   TestVerifyPR6177_F11_WorkloadDeclaresClaim_Syncs
+--- PASS: TestVerifyPR6177_F11_WorkloadDeclaresClaim_Syncs (0.00s)
+=== RUN   TestVerifyPR6177_F11_ContainerAlreadyCarriesClaim_KeptNoRoll
+--- PASS: TestVerifyPR6177_F11_ContainerAlreadyCarriesClaim_KeptNoRoll (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.022s
+FAIL
