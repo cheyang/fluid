@@ -21,6 +21,7 @@ import (
 	"encoding/json"
 	"strings"
 	"testing"
+	"time"
 
 	workloadv1alpha1 "github.com/fluid-cloudnative/advanced-statefulset/api/workload/v1alpha1"
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
@@ -261,20 +262,96 @@ func TestVerifyWorkerDriftWarnsThroughFullSync(t *testing.T) {
 	if !found {
 		t.Fatalf("expected a %s Warning event from full Sync, got %v", common.RuntimeTieredStoreConflict, events)
 	}
+	// The remediation text must point at the remedy that actually converges:
+	// round 1 verified that deleting the worker workload wedges sync (NotFound
+	// every reconcile) while recreating the CacheRuntime converges, so the event
+	// must direct users at the CacheRuntime, not the worker workload.
+	for _, e := range events {
+		if strings.Contains(e, common.RuntimeTieredStoreConflict) && !strings.Contains(e, "Delete and recreate the CacheRuntime") {
+			t.Fatalf("drift event remediation text changed: %q", e)
+		}
+	}
 }
 
-// TestVerifyClientTieredStoreDriftSilent is a BUG-CANARY for the coverage gap
-// in PR #6219: the new docs (docs/en/samples/cacheruntime/
-// cacheruntime_spec_update.md section 4.1) present the drift warning for
-// `spec.{worker,client}.tieredStore`, but detection is implemented for the
-// worker only. Editing spec.client.tieredStore rebuilds the client's
-// ConfigMap levels while the client DaemonSet keeps its creation-time volume,
-// and no RuntimeTieredStoreConflict event is emitted.
+// TestVerifyDriftThrottleAcrossSyncs is a CONTRACT test for the throttle the
+// controller relies on: while worker tieredStore drift persists, consecutive
+// Sync calls on the same engine (what GetOrCreateEngine's per-runtime engine
+// cache gives the real Reconcile loop) must emit exactly one
+// RuntimeTieredStoreConflict event; the event must re-appear once the interval
+// expires; and the cooldown must reset when the drift is resolved so a fresh
+// drift warns immediately.
+func TestVerifyDriftThrottleAcrossSyncs(t *testing.T) {
+	h := newTieredStoreDriftHarness(t, []datav1alpha1.RuntimeTieredStoreLevel{
+		{ProcessMemory: &datav1alpha1.ProcessMemoryMediumSource{Quota: resource.MustParse("8Gi")}},
+	}, nil)
+
+	h.editRuntime(t, func(spec *datav1alpha1.CacheRuntimeSpec) {
+		spec.Worker.TieredStore.Levels[0].ProcessMemory.Quota = resource.MustParse("16Gi")
+	})
+	h.drainEvents()
+
+	countDriftEvents := func() int {
+		n := 0
+		for _, e := range h.drainEvents() {
+			if strings.Contains(e, common.RuntimeTieredStoreConflict) {
+				n++
+			}
+		}
+		return n
+	}
+
+	// Three consecutive syncs while the drift persists: exactly one event.
+	for i := 0; i < 3; i++ {
+		if err := h.engine.Sync(h.ctx); err != nil {
+			t.Fatalf("Sync #%d: %v", i, err)
+		}
+	}
+	if got := countDriftEvents(); got != 1 {
+		t.Fatalf("got %d drift events across 3 consecutive Sync calls, want 1 (throttled)", got)
+	}
+
+	// After the interval expires the warning is re-emitted.
+	h.engine.timeOfLastTieredStoreWarning = time.Now().Add(-defaultTieredStoreWarningInterval - time.Minute)
+	if err := h.engine.Sync(h.ctx); err != nil {
+		t.Fatalf("Sync after interval: %v", err)
+	}
+	if got := countDriftEvents(); got != 1 {
+		t.Fatalf("got %d drift events after the interval expired, want 1 (re-emitted)", got)
+	}
+
+	// Resolving the drift resets the cooldown: the next fresh drift warns
+	// immediately instead of waiting out the interval.
+	h.editRuntime(t, func(spec *datav1alpha1.CacheRuntimeSpec) {
+		spec.Worker.TieredStore.Levels[0].ProcessMemory.Quota = resource.MustParse("8Gi")
+	})
+	if err := h.engine.Sync(h.ctx); err != nil {
+		t.Fatalf("Sync resolve: %v", err)
+	}
+	if got := countDriftEvents(); got != 0 {
+		t.Fatalf("got %d drift events after resolving the drift, want 0", got)
+	}
+	h.editRuntime(t, func(spec *datav1alpha1.CacheRuntimeSpec) {
+		spec.Worker.TieredStore.Levels[0].ProcessMemory.Quota = resource.MustParse("16Gi")
+	})
+	if err := h.engine.Sync(h.ctx); err != nil {
+		t.Fatalf("Sync re-drift: %v", err)
+	}
+	if got := countDriftEvents(); got != 1 {
+		t.Fatalf("got %d drift events for a fresh drift right after resolution, want 1 (cooldown was reset)", got)
+	}
+}
+
+// TestVerifyClientTieredStoreDriftSilent is a BUG-CANARY pinned to follow-up
+// issue #6221: client-side tieredStore drift detection. As of head b56db670
+// the docs are scoped to spec.worker.tieredStore (matching the implementation)
+// and #6221 tracks the client gap, so the documented scope is honest — but the
+// underlying silence remains: editing spec.client.tieredStore rebuilds the
+// client's ConfigMap levels while the client DaemonSet keeps its
+// creation-time volume, and no RuntimeTieredStoreConflict event is emitted.
 //
-// Polarity: canary — it passes while the gap exists and FLIPS TO RED once
-// client drift detection (or a doc scope fix that stops claiming it) lands.
-// If the fix is to detect client drift, invert the last assertion; if the fix
-// is to scope the docs to the worker, this test should be deleted with it.
+// Polarity: canary — it passes while client drift stays undetected and FLIPS
+// TO RED once #6221 lands (extend detection to the client DaemonSet pod
+// spec). Then invert the last assertion into a contract test.
 func TestVerifyClientTieredStoreDriftSilent(t *testing.T) {
 	h := newTieredStoreDriftHarness(t,
 		// worker levels stay consistent so they cannot be the event source
@@ -319,49 +396,53 @@ func TestVerifyClientTieredStoreDriftSilent(t *testing.T) {
 	}
 }
 
-// TestVerifyEmptyDirMediumFlipSilent is a BUG-CANARY for a detection blind
-// spot in checkWorkerTieredStoreDrift: flipping an emptyDir level's `medium`
-// between disk ("") and "Memory" changes both the ConfigMap's mediumType and
-// the container memory accounting of the creation path, but the drift check
-// compares only the volume name and quota, so the edit goes unreported.
-//
-// Polarity: canary — passes while the blind spot exists, flips to red when
-// medium comparison is added.
-func TestVerifyEmptyDirMediumFlipSilent(t *testing.T) {
-	h := newTieredStoreDriftHarness(t, []datav1alpha1.RuntimeTieredStoreLevel{
-		{EmptyDir: &datav1alpha1.EmptyDirMediumSource{Quota: resource.MustParse("10Gi"), Medium: ""}},
-	}, nil)
+// TestVerifyEmptyDirMediumFlipDetected is a CONTRACT test (inverted from the
+// round-1 canary TestVerifyEmptyDirMediumFlipSilent, which flipped to red on
+// head b56db670 when the Medium comparison landed in checkEmptyDirDrift):
+// flipping an emptyDir level's `medium` between disk ("") and "Memory" is a
+// real split (the ConfigMap's mediumType and the creation path's memory
+// accounting follow the spec while the worker volume stays as created), and
+// the drift check must report it in BOTH directions.
+func TestVerifyEmptyDirMediumFlipDetected(t *testing.T) {
+	drive := func(t *testing.T, from, to corev1.StorageMedium) {
+		h := newTieredStoreDriftHarness(t, []datav1alpha1.RuntimeTieredStoreLevel{
+			{EmptyDir: &datav1alpha1.EmptyDirMediumSource{Quota: resource.MustParse("10Gi"), Medium: from}},
+		}, nil)
 
-	// Creation-time sanity: disk-backed emptyDir volume.
-	vol := volumeBySpec(t, h.workerASTS(t).Spec.Template.Spec.Volumes, getTieredStoreVolumeName(0, 0))
-	if vol.EmptyDir == nil || vol.EmptyDir.Medium != corev1.StorageMedium("") || vol.EmptyDir.SizeLimit == nil || vol.EmptyDir.SizeLimit.Cmp(resource.MustParse("10Gi")) != 0 {
-		t.Fatalf("creation-time worker volume = %+v, want disk emptyDir 10Gi", vol)
-	}
+		// Creation-time sanity: the volume carries the spec medium verbatim.
+		vol := volumeBySpec(t, h.workerASTS(t).Spec.Template.Spec.Volumes, getTieredStoreVolumeName(0, 0))
+		if vol.EmptyDir == nil || vol.EmptyDir.Medium != from || vol.EmptyDir.SizeLimit == nil || vol.EmptyDir.SizeLimit.Cmp(resource.MustParse("10Gi")) != 0 {
+			t.Fatalf("creation-time worker volume = %+v, want emptyDir 10Gi medium %q", vol, from)
+		}
 
-	h.editRuntime(t, func(spec *datav1alpha1.CacheRuntimeSpec) {
-		spec.Worker.TieredStore.Levels[0].EmptyDir.Medium = corev1.StorageMediumMemory
-	})
+		h.editRuntime(t, func(spec *datav1alpha1.CacheRuntimeSpec) {
+			spec.Worker.TieredStore.Levels[0].EmptyDir.Medium = to
+		})
 
-	h.drainEvents()
-	if err := h.engine.Sync(h.ctx); err != nil {
-		t.Fatalf("Sync: %v", err)
-	}
+		h.drainEvents()
+		if err := h.engine.Sync(h.ctx); err != nil {
+			t.Fatalf("Sync: %v", err)
+		}
 
-	// The ConfigMap now reports a MEM level...
-	if got := h.configQuota(t, "worker"); got != "10Gi" {
-		t.Fatalf("ConfigMap worker quota = %q, want 10Gi", got)
-	}
-	// ...while the worker volume is still disk-backed with the same quota.
-	vol = volumeBySpec(t, h.workerASTS(t).Spec.Template.Spec.Volumes, getTieredStoreVolumeName(0, 0))
-	if vol.EmptyDir.Medium != corev1.StorageMedium("") {
-		t.Fatalf("worker volume medium after sync = %q, want %q (unchanged)", vol.EmptyDir.Medium, "")
-	}
+		// The worker volume keeps its creation-time medium (not patched in place).
+		vol = volumeBySpec(t, h.workerASTS(t).Spec.Template.Spec.Volumes, getTieredStoreVolumeName(0, 0))
+		if vol.EmptyDir.Medium != from {
+			t.Fatalf("worker volume medium after sync = %q, want %q (unchanged)", vol.EmptyDir.Medium, from)
+		}
 
-	// Canary assertion: the medium flip is not reported.
-	events := h.drainEvents()
-	for _, e := range events {
-		if strings.Contains(e, common.RuntimeTieredStoreConflict) {
-			t.Fatalf("emptyDir medium flip was reported (%q); the canary must be inverted", e)
+		// Contract assertion: the medium flip is reported.
+		events := h.drainEvents()
+		found := false
+		for _, e := range events {
+			if strings.Contains(e, common.RuntimeTieredStoreConflict) && strings.Contains(e, corev1.EventTypeWarning) {
+				found = true
+			}
+		}
+		if !found {
+			t.Fatalf("emptyDir medium flip %q -> %q was not reported, got %v", from, to, events)
 		}
 	}
+
+	t.Run("disk-to-memory", func(t *testing.T) { drive(t, corev1.StorageMedium(""), corev1.StorageMediumMemory) })
+	t.Run("memory-to-disk", func(t *testing.T) { drive(t, corev1.StorageMediumMemory, corev1.StorageMedium("")) })
 }

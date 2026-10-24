@@ -16,18 +16,49 @@
     "layer": "unit",
     "verdict": "confirmed",
     "evidence": "TestPremiseTieredStoreSplitWorker on base 86e3adf3: after editing the quota 8Gi->16Gi the ConfigMap runtime.json carries 16Gi while the worker ASTS volume tiered-store-level-0-memory keeps sizeLimit 8Gi, and the recorder saw zero events. See results/unit-base.txt.",
-    "match": ["TestPremiseTieredStoreSplitWorker"]
+    "match": [
+      "TestPremiseTieredStoreSplitWorker"
+    ]
   },
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "go test ./pkg/ddc/cache/engine -run 'TestPremiseTieredStoreSplitWorker|TestVerifyWorkerDriftWarnsThroughFullSync|TestVerifyClientTieredStoreDriftSilent|TestVerifyEmptyDirMediumFlipSilent' -json -count=1"
+      "cmd": "go test ./pkg/ddc/cache/engine -run 'TestPremiseTieredStoreSplitWorker|TestVerifyWorkerDriftWarnsThroughFullSync|TestVerifyDriftThrottleAcrossSyncs|TestVerifyClientTieredStoreDriftSilent|TestVerifyEmptyDirMediumFlipDetected' -json -count=1"
     }
   },
   "findings": [
-    { "id": "TS1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyWorkerDriftWarnsThroughFullSync"] },
-    { "id": "TS2", "polarity": "canary", "layer": "unit", "match": ["TestVerifyClientTieredStoreDriftSilent"] },
-    { "id": "TS3", "polarity": "canary", "layer": "unit", "match": ["TestVerifyEmptyDirMediumFlipSilent"] }
+    {
+      "id": "TS1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyWorkerDriftWarnsThroughFullSync"
+      ]
+    },
+    {
+      "id": "TS2",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": [
+        "TestVerifyClientTieredStoreDriftSilent"
+      ]
+    },
+    {
+      "id": "TS3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyEmptyDirMediumFlipDetected"
+      ]
+    },
+    {
+      "id": "TS4",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyDriftThrottleAcrossSyncs"
+      ]
+    }
   ],
   "liveNote": "L3 (skipped per round policy: unit + integration only): patch spec.worker.tieredStore quota on a live CacheRuntime (mooncake/curvine gha-e2e fixture) and check 'kubectl get events --field-selector reason=RuntimeTieredStoreConflict' re-emits within 10 minutes while the split persists."
 }
