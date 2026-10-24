@@ -1,0 +1,37 @@
+{
+  "topic": "pr6214-compress-bump-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6214",
+  "harnessPaths": [
+    "docs/verification/pr6214-compress-bump-codex",
+    "test/verification/pr6214compress"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "\"Bumps github.com/klauspost/compress from 1.17.11 to 1.18.7\" — upstream releases in that range carry security/correctness fixes (s2.NewDict OOB read v1.18.7; s2 amd64 stack frame corruption v1.18.6; zstd crash on dictionary change with same ID and full-zero-frames default v1.18.5; downstream CVE-2025-61728 v1.18.3) that the vendored v1.17.11 lacks.",
+    "reportedComponent": "github.com/klauspost/compress (indirect dependency, vendored)",
+    "patchedComponent": "go.mod, go.sum, vendor/github.com/klauspost/compress/{fse,huff0,internal/cpuinfo,internal/le,internal/snapref,zstd}",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "results/premise-p0.txt — base vendors v1.17.11 (no dict-same-ID fix, no fullZero default); head vendors v1.18.7 with both. Scope nuance: s2/gzhttp/flate are NOT in fluid's compiled package set at base or head, so the s2 security fixes do not change fluid binaries; the compiled delta is zstd/fse/huff0, reached only via promhttp metrics compression (which uses no dictionaries).",
+    "match": ["premise-p0.txt"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./test/verification/pr6214compress/ -run 'TestVendoredCompressVersion|TestZstdSpeedFastestResetReuse' -count=1 -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./test/verification/pr6214compress/ -run 'TestPromhttp' -count=1 -json"
+    }
+  },
+  "findings": [
+    { "id": "C5-version-guard", "polarity": "contract", "layer": "unit", "match": ["TestVendoredCompressVersion"] },
+    { "id": "C3-encoder-contract", "polarity": "contract", "layer": "unit", "match": ["TestZstdSpeedFastestResetReuse"] },
+    { "id": "C3-promhttp-zstd", "polarity": "contract", "layer": "integration", "match": ["TestPromhttpZstdRoundTrip", "TestPromhttpZstdEmptyRegistry"] },
+    { "id": "C4-gzip-control", "polarity": "contract", "layer": "integration", "match": ["TestPromhttpGzipControl"] }
+  ],
+  "liveNote": "L3 intentionally skipped this round (debate scope). The PR's own kind-e2e CI (k8s v1.22.17/v1.24.17/v1.28.15/v1.30.13/v1.33.2) is green on the reviewed head; metrics endpoints are exercised there."
+}

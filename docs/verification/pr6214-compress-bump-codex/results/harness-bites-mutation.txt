@@ -1,0 +1,13 @@
+Harness-bites check (review-finding-verifier step 4)
+====================================================
+Mutation applied to PR head (then reverted): in
+vendor/github.com/prometheus/client_golang/prometheus/promhttp/http.go,
+defaultCompressionFormats = {Identity, Gzip, Zstd}  ->  {Identity, Gzip}
+(simulates "zstd path silently dead" regression).
+
+Observed:
+  --- FAIL: TestPromhttpZstdRoundTrip (0.00s)
+      metrics_zstd_contract_test.go:73: Content-Encoding = "", want "zstd" (zstd must be negotiated by default)
+
+=> The contract test genuinely exercises the vendored zstd path (non-vacuous).
+Mutation reverted; `git diff` on production/vendor tree is empty again.

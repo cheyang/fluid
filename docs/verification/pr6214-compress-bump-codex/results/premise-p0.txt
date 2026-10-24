@@ -1,0 +1,51 @@
+== base vendored version:
+github.com/jtolds/gls
+# github.com/klauspost/compress v1.17.11
+## explicit; go 1.21
+github.com/klauspost/compress
+github.com/klauspost/compress/fse
+github.com/klauspost/compress/huff0
+github.com/klauspost/compress/internal/cpuinfo
+github.com/klauspost/compress/internal/snapref
+github.com/klauspost/compress/zstd
+github.com/klauspost/compress/zstd/internal/xxhash
+
+== head vendored version:
+github.com/jtolds/gls
+# github.com/klauspost/compress v1.18.7
+## explicit; go 1.24
+github.com/klauspost/compress
+github.com/klauspost/compress/fse
+github.com/klauspost/compress/huff0
+github.com/klauspost/compress/internal/cpuinfo
+github.com/klauspost/compress/internal/le
+github.com/klauspost/compress/internal/snapref
+github.com/klauspost/compress/zstd
+github.com/klauspost/compress/zstd/internal/xxhash
+
+== compiled klauspost packages at head (s2/gzhttp/flate absent?):
+github.com/klauspost/compress
+github.com/klauspost/compress/fse
+github.com/klauspost/compress/huff0
+github.com/klauspost/compress/internal/cpuinfo
+github.com/klauspost/compress/internal/le
+github.com/klauspost/compress/internal/snapref
+github.com/klauspost/compress/zstd
+github.com/klauspost/compress/zstd/internal/xxhash
+
+== s2 present anywhere in fluid's vendor tree?
+LICENSE README.md SECURITY.md compressible.go fse gen.sh huff0 internal s2sx.mod s2sx.sum zstd 
+
+== zstd dict-same-ID crash fix (v1.18.5) present at head, absent at base:
+-- base:
+0
+0 (fix absent)
+-- head:
+1
+
+== fullZero default (v1.18.5 'Default to full zero frames'):
+-- base default:
+0
+0 (not defaulted)
+-- head default:
+		fullZero:      true,

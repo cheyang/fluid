@@ -1,0 +1,13 @@
+=== RUN   TestPromhttpZstdRoundTrip
+--- PASS: TestPromhttpZstdRoundTrip (0.00s)
+=== RUN   TestPromhttpZstdEmptyRegistry
+--- PASS: TestPromhttpZstdEmptyRegistry (0.00s)
+=== RUN   TestZstdSpeedFastestResetReuse
+--- PASS: TestZstdSpeedFastestResetReuse (0.00s)
+=== RUN   TestPromhttpGzipControl
+--- PASS: TestPromhttpGzipControl (0.00s)
+=== RUN   TestVendoredCompressVersion
+    vendor_version_guard_test.go:35: vendored klauspost/compress = v1.18.7 (>= v1.18.7)
+--- PASS: TestVendoredCompressVersion (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/test/verification/pr6214compress	0.007s

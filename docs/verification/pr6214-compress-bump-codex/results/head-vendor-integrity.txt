@@ -1,0 +1,5 @@
+== go mod download of the bumped module (verifies go.sum hashes against upstream)
+all modules verified
+
+== vendor integrity: regenerate and diff
+VENDOR-INTEGRITY: OK (regenerated tree identical to committed)
