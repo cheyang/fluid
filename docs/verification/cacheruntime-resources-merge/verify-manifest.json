@@ -6,7 +6,7 @@
   "pkg/ddc/cache/engine/zz_verify_pr6177_test.go",
   "pkg/ddc/cache/engine/zz_verify_pr6177_f6_contract_test.go",
   "pkg/ddc/cache/engine/zz_verify_pr6177_f9_contract_test.go",
-  "pkg/ddc/cache/engine/zz_verify_pr6177_f11_canary_test.go",
+  "pkg/ddc/cache/engine/zz_verify_pr6177_f11_contract_test.go",
   "pkg/ddc/cache/engine/zz_verify_pr6177_f7f10_contract_test.go"
  ],
  "premise": {
@@ -109,12 +109,14 @@
   },
   {
    "id": "F11",
-   "polarity": "canary",
+   "polarity": "contract",
    "layer": "integration",
    "match": [
-    "TestVerifyPR6177_F11_TemplateClaimsPropagateWithoutPodLevelDeclaration_Canary"
+    "TestVerifyPR6177_F11_UndeclaredTemplateClaim_DroppedWarnedConverges",
+    "TestVerifyPR6177_F11_WorkloadDeclaresClaim_Syncs",
+    "TestVerifyPR6177_F11_ContainerAlreadyCarriesClaim_KeptNoRoll"
    ],
-   "note": "Round-4 finding (also Copilot discussion_r4276559859): sync propagates template container claims to existing workloads but never reconciles pod-level spec.resourceClaims; on DRA-enabled clusters replacement Pods are rejected by validateResourceClaimNames, stalling the rollout with no event. Differential ad-hoc probes (results/round4/f11-claims-{base-e0fc4c18,head-3adc547d}.txt): pre-existing when the CacheRuntime declares nothing (template fallback on base does the same); the PR widens exposure when the CacheRuntime declares a partial value (base dropped the claim, head merges it). origin=preexisting, introducedByPR=false. Canary asserts current behavior (propagated, nil error, no Warning); flips red when a guard lands."
+   "note": "FIXED at head a773dfa6 (round-6 remedy): validDesiredResources drops a container claim the workload's pod spec neither declares nor already carries, emits a RuntimeResourcesConflict Warning naming the claim, and still syncs the rest of resources (splitDeclaredClaims, transform_common.go). Round-4 canary retired: it was observed FLIPPED at head (log line 'CANARY FLIPPED: the template's container claim no longer propagates') but its log-and-return shape could never report the flip as a failure -- inverted into these contract tests per the polarity rule. Differential cells: test 1 RED on base e0fc4c18 (claim silently absent under wholesale apply, no warning) and previous head ce4f0c4f (claim propagated, no warning), GREEN at head; tests 2-3 are pass-through pins green on every ref (no over-block, no spurious roll). Creation-side gap (CacheRuntime claim undeclared by the template) remains a documented limitation, unchanged by this remedy."
   },
   {
    "id": "F7",
