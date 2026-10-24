@@ -1,0 +1,73 @@
+should return an error for unsupported runtime type	pass
+should return an error when alluxio runtime is not found	pass
+should return the runtime object and engine impl for an existing alluxio runtime	pass
+should return ThinEngineImpl for thin runtime type	pass
+alluxio	pass
+jindo	pass
+juicefs	pass
+efc	pass
+thin	pass
+vineyard	pass
+jindo	pass
+juicefs	pass
+efc	pass
+vineyard	pass
+should create an OperationReconciler with the provided parameters	pass
+should add a finalizer to the data operation object and requeue	pass
+returns the runtime metadata	pass
+returns an error when runtime is nil	pass
+returns an existing dataset	pass
+returns a not found error when the dataset is missing	pass
+allows a normal dataset for cache runtimes	pass
+allows a reference dataset for thin runtimes	pass
+rejects a reference dataset for non-thin runtimes	pass
+allows a reference dataset when physical runtime is AlluxioRuntime	pass
+not reject a reference dataset when physical dataset is not bound (Runtimes is empty)	pass
+auto-creates the dataset with a controller reference and filtered annotations	pass
+returns the existing dataset when creation races with another writer that already carries the auto-create policy	pass
+returns an error when creation races with an unrelated pre-existing dataset	pass
+returns an error when the runtime is nil	pass
+returns an error when the controller reference cannot be set	pass
+adds the dataset as an owner reference and requeues	pass
+adds the finalizer and requeues	pass
+reports the dataset not ready condition	pass
+stores the provided dependencies	pass
+forgets dataset and runtime metrics	pass
+returns an error when the runtime is missing	pass
+requeues when the dataset is not found	pass
+auto-creates the dataset and requeues to add the owner reference when the policy is auto-create	pass
+delegates runtime deletion and removes the engine on error	pass
+requeues when reference datasets are not supported by the runtime	pass
+delegates runtime reconciliation when setup prerequisites are satisfied	pass
+requeues when validation temporarily fails	pass
+reports the dataset not ready when setup is not ready	pass
+creates the volume, syncs the engine, and requeues on success	pass
+requeues when deleting the volume fails	pass
+resets the dataset state and removes the runtime finalizer	pass
+returns error on secret driver path with nil rest config	pass
+returns error on cache-bypass path with nil rest config	pass
+returns error with nil rest config	pass
+sets qps and burst when both are positive	pass
+[contract] runtime without the annotation still waits and creates no dataset	pass
+[contract] annotated runtime auto-creates a stub dataset bound to itself	pass
+[contract] terminating runtime with the annotation must not auto-create a dataset	fail
+[characterization] auto-created dataset sets controller=true blockOwnerDeletion=true	pass
+[characterization] same-named foreign dataset is adopted via the normal bind path	pass
+[contract] engine ClusterRoles with dataset access grant owner finalizers update	fail
+should add an owner reference and requeue	pass
+I1: an empty-mounts stub Dataset is accepted by the real API server	pass
+I2 [canary]: first auto-create reconcile errors on empty-GVK ownerRef, second heals	pass
+should remove an engine from the cache by namespaced name	pass
+should not panic when removing a non-existent engine	pass
+should only remove the targeted engine and leave others intact	pass
+should handle concurrent RemoveEngine calls safely	pass
+should return cached engine when it already exists	pass
+should create a rate limiter with valid parameters	pass
+should return increasing delays for repeated failures on the same item	pass
+should return different delays for different items	pass
+should respect the max delay parameter	pass
+should reset delay after forgetting an item	pass
+returns error when building operation interface fails	pass
+requeues when target dataset is not found	pass
+requeues when no accelerate runtime is bound on target dataset	pass
+returns without requeue when bound runtime is not found	pass
