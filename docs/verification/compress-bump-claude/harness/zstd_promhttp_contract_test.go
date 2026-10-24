@@ -113,6 +113,49 @@ func TestZstdRoundTripContract(t *testing.T) {
 	}
 }
 
+// TestZstdStreamingContract — P1b: the streaming Write+Close path (exactly what
+// promhttp does: NewWriter + Reset + Write + Close) must emit a well-formed
+// zstd frame for every payload, INCLUDING the empty payload. This is a
+// base-vs-head behavioral delta: vendored v1.17.11 emits 0 bytes for an empty
+// stream (an empty body under "Content-Encoding: zstd", which a scraper cannot
+// decode); v1.18.7 emits a valid 13-byte empty frame. Upstream #1134 fixed this,
+// so this subtest is RED on the base and GREEN on the head — the delta is
+// intentional and in the fix direction.
+func TestZstdStreamingContract(t *testing.T) {
+	cases := []struct {
+		name    string
+		payload []byte
+	}{
+		{"empty", []byte{}},
+		{"all-zero-1MiB", make([]byte, 1024*1024)},
+		{"metrics-text", realisticExposition()},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			var buf bytes.Buffer
+			w, err := zstd.NewWriter(&buf, zstd.WithEncoderLevel(zstd.SpeedFastest))
+			if err != nil {
+				t.Fatal(err)
+			}
+			if len(c.payload) > 0 {
+				if _, err := w.Write(c.payload); err != nil {
+					t.Fatal(err)
+				}
+			}
+			if err := w.Close(); err != nil {
+				t.Fatalf("Close: %v", err)
+			}
+			if len(buf.Bytes()) < 4 || !bytes.Equal(buf.Bytes()[:4], zstdFrameMagic) {
+				t.Fatalf("stream is not a zstd frame: len=%d first-bytes=%v", buf.Len(), buf.Bytes()[:min(4, buf.Len())])
+			}
+			got := decodeAll(t, buf.Bytes())
+			if !bytes.Equal(got, c.payload) {
+				t.Fatalf("round-trip mismatch: got %d bytes, want %d", len(got), len(c.payload))
+			}
+		})
+	}
+}
+
 // newMetricsHandler mirrors how controller-runtime's metrics server builds the
 // handler (sigs.k8s.io/controller-runtime/pkg/metrics/server/server.go:218:
 // promhttp.HandlerFor(registry, promhttp.HandlerOpts{ErrorHandling: HTTPErrorOnError})).
