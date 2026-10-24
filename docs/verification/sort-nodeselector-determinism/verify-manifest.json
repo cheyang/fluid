@@ -1,0 +1,41 @@
+{
+  "topic": "sort-nodeselector-determinism",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6217",
+  "reviewer": "claude",
+  "harnessPaths": [
+    "docs/verification/sort-nodeselector-determinism",
+    "pkg/utils/kubeclient/pod_pr6217_determinism_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #6216: \"expressions are appended in arbitrary order across reconciliation cycles ... When status.CacheAffinity is constructed or updated from MergeNodeSelectorAndNodeAffinity, the resulting NodeAffinity slice order varies on each reconcile cycle. This causes reflect.DeepEqual or Kubernetes controller status comparators to detect a spurious difference between the in-memory status and the persisted status, resulting in an unnecessary status update write to the API server and triggering a subsequent re-reconcile on every cycle for multi-label workers.\"",
+    "reportedComponent": "pkg/utils/kubeclient/pod.go MergeNodeSelectorAndNodeAffinity -> status.CacheAffinity / status.WorkerNodeAffinity (alluxio/jindo/jindofsx/jindocache/juicefs/thin/vineyard status.go, cache component managers)",
+    "patchedComponent": "pkg/utils/kubeclient/pod.go (MergeNodeSelectorAndNodeAffinity sorts nodeSelector keys before building MatchExpressions)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "results/base-premise-p0.out: on merge-base 86e3adf3 all 4 contract tests FAIL; TestPR6217StatusComparisonStableContract reproduces the exact reflect.DeepEqual gate used by pkg/ddc/alluxio/status.go:120 failing on cycle 0; diagnostic TestPR6217ObserveOrderVariance observed 6 distinct key orderings across 1000 invocations (vs exactly 1 on the fixed head, results/head-contract.out).",
+    "match": ["TestPR6217StatusComparisonStableContract", "TestPR6217ObserveOrderVariance"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/kubeclient/ -run 'TestPR6217' -json -count=1"
+    },
+    "integration": {
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/utils/kubeclient/ -run TestKubeclient -ginkgo.focus 'MergeNodeSelectorAndNodeAffinity' -ginkgo.json-report=$GINKGO_REPORT -count=1",
+      "report": "$GINKGO_REPORT"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1-coverage-append-path",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestPR6217AppendPathDeterministicContract"]
+    }
+  ],
+  "liveNote": "L3 (live) not run per this round's policy (unit + integration only). The contract is pure-function determinism plus the controller's DeepEqual status gate, both proven at L1/L2. Live signal, if ever wanted: on a multi-label worker runtime, the runtime object's resourceVersion/status stops churning every reconcile cycle (kubectl get <runtime> -w)."
+}
