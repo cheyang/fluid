@@ -1,0 +1,38 @@
+{
+  "topic": "dataset-auto-create",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/5674",
+  "harnessPaths": [
+    "docs/verification/dataset-auto-create",
+    "pkg/controllers/runtime_controller_autocreate_verify_test.go",
+    "pkg/controllers/ensure_dataset_rbac_verify_test.go",
+    "pkg/ddc/juicefs/transform_empty_mounts_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #4518 / PR body: users need to create a Runtime without pre-defining a Dataset; today strict Dataset-Runtime binding means a runtime without a dataset just waits.",
+    "reportedComponent": "runtime controllers (shared RuntimeReconciler, pkg/controllers/runtime_controller.go)",
+    "patchedComponent": "pkg/controllers/runtime_controller.go (shared RuntimeReconciler) + pkg/common annotation constants",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Differential: scripts/premise_base_test.go (compile-on-base copy) fails on base 25531595 (no Dataset created; runtime waits in the 'No dataset can be bound to the runtime, waiting.' 5s loop) and the equivalent behavior exists on head 63f43e2. See results/base-premise-p0.out and results/unit-f4-deletion-churn-head.out (65 pre-existing specs pass).",
+    "match": ["auto-creates the Dataset for an annotated Runtime with no Dataset"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/juicefs/ ./pkg/controllers/ -run 'TestTransformWithEmptyMountsDataset|TestControllers' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "KUBEBUILDER_ASSETS=${KUBEBUILDER_ASSETS:-/tmp/envtest-bin/k8s/1.29.0-linux-amd64} FLUID_UNIT_TEST=true go test ./pkg/controllers/ -run 'TestAutoCreateDatasetCreateRBACContract' -json"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestTransformWithEmptyMountsDataset"] },
+    { "id": "F4", "polarity": "contract", "layer": "unit", "match": ["must not auto-create a Dataset for a Runtime that is being deleted"] },
+    { "id": "F5", "polarity": "contract", "layer": "integration", "match": ["TestAutoCreateDatasetCreateRBACContract"] }
+  ],
+  "liveNote": "L3 (needs a real cluster with GC and a real Fluid install): create a JuiceFSRuntime with fluid.io/dataset-policy=auto-create, no Dataset; expect the juicefs controller pod to crash-loop with 'index out of range' in the reconcile stack (transform -> genEdition). Deleting the auto-created Dataset should show the GC cascade to the runtime (ownership cycle). Not run in this round."
+}
