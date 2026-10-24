@@ -127,7 +127,19 @@ export GINKGO_REPORT="$RESULTS_DIR/ginkgo-report.json"
 # capture current position (must hold the harness) and restore on exit
 ORIG_REF="$(git symbolic-ref --quiet --short HEAD || git rev-parse HEAD)"
 HARNESS_SRC="$(git rev-parse HEAD)"
-cleanup() { git checkout -f "$ORIG_REF" >/dev/null 2>&1 || true; rm -rf "$RUNTIME_DIR" 2>/dev/null || true; }
+# Persist raw results into the in-repo results dir. Must run AFTER the tree is
+# restored to ORIG_REF: persisting while the tree sits on FIXED_REF + graft makes
+# the exit-trap `git checkout -f ORIG_REF` revert tracked result files back to
+# their committed (stale) versions, so persisted evidence never advanced.
+# (Round-2 fix: observed on pr-6217 where the ginkgo report kept showing the
+# previous round's run.)
+persist_results() {
+  local persist
+  persist="$(dirname "$MANIFEST_ORIG")/results/reverify"
+  mkdir -p "$persist" 2>/dev/null || return 0
+  cp -f "$RESULTS_DIR"/*.out "$RESULTS_DIR"/*.parsed "$RESULTS_DIR"/*.json "$persist"/ 2>/dev/null || true
+}
+cleanup() { git checkout -f "$ORIG_REF" >/dev/null 2>&1 || true; persist_results; rm -rf "$RUNTIME_DIR" 2>/dev/null || true; }
 trap cleanup EXIT
 
 echo "re-verify: fixed-ref=$FIXED_REF  harness-from=$ORIG_REF"
@@ -220,9 +232,9 @@ done
 
 LIVE="$(jq -r '.liveNote // empty' "$MANIFEST")"
 [ -n "$LIVE" ] && printf '\nLive layer (manual): %s\n' "$LIVE"
-# persist raw output into the (restored-after-cleanup) in-repo results dir for inspection
+# Raw output is persisted by the exit-trap cleanup (after the tree is restored),
+# so tracked result files keep the fresh content instead of being reverted.
 PERSIST="$(dirname "$MANIFEST_ORIG")/results/reverify"
-mkdir -p "$PERSIST" 2>/dev/null && cp -f "$RESULTS_DIR"/*.out "$RESULTS_DIR"/*.parsed "$RESULTS_DIR"/*.json "$PERSIST"/ 2>/dev/null || true
 
 printf '\nReminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its\n'
 printf 'assertion (or promote the new behavior to a contract test). Raw output: %s\n' "$PERSIST"
