@@ -1,0 +1,1 @@
+ok  	github.com/fluid-cloudnative/fluid/test/verification/nodeselectororder	6.282s

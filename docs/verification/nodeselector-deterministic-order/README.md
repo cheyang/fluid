@@ -72,3 +72,36 @@ code was modified at any point.
 2. `bash docs/verification/nodeselector-deterministic-order/scripts/re-verify.sh`
    resolves the current PR head from `manifest.pr` and grafts the harness onto it.
 3. Keep these tests as the regression suite for future rounds; advance `.last-reviewed`.
+
+## Round 2 (incremental, head f5bb49a3, base moved 86e3adf3 -> e5251b39)
+
+PR was force-pushed 4fd9701c -> f5bb49a3 (squash/rebase). Delta is test-only:
+`pkg/utils/kubeclient/pod_test.go` +84 lines adding the previously-requested
+append-path coverage (one multi-label + existing-NodeSelectorTerms DescribeTable
+entry and one 100-invocation determinism `It` on the append path). Production
+`pod.go` is byte-identical between the two heads. Master advanced by a single
+CI-only commit (codeql-action bump #6218); `pkg/`, `api/`, `cmd/` identical
+between the two bases.
+
+Re-verification (2026-10-25, unit + integration layers):
+
+| id | new base (e5251b39) | new head (f5bb49a3) | evidence |
+|----|--------------------|---------------------|----------|
+| P0 | FAIL — reproduced (unit 169/200 flapped; envtest 20/30 status updates) | PASS — fixed (0 flap; 1 update/30 cycles) | results/{unit,integration}-base-e5251b39.txt, results/{unit,integration}-head-f5bb49a3.txt |
+| C1 | FAIL | PASS | same |
+| C2 | FAIL (169/200) | PASS (0/200) | same |
+| C3 | FAIL | PASS | same |
+| C4 | FAIL (20/30 updated) | PASS (1/30) | same |
+
+`scripts/re-verify.sh` against head f5bb49a3: C1–C4 all FIXED, exit 0
+(results/reverify/{unit,integration}.{out,parsed}).
+
+PR's own suite, harness-bites check: the head's `pod_test.go` (incl. the two new
+append-path specs) grafted onto base e5251b39 fails 4/10 focused specs — both new
+append-path specs red on unfixed code — and passes 10/10 on head f5bb49a3
+(`go test ./pkg/utils/kubeclient/ -ginkgo.focus=MergeNodeSelectorAndNodeAffinity`,
+results/prsuite-head-f5bb49a3.txt). The new tests genuinely pin the fix.
+
+Round-1 finding F1 (PR's suite lacked a multi-label append-path case): FIXED at
+f5bb49a3 — the author added exactly that coverage and it is red-on-base /
+green-on-head.

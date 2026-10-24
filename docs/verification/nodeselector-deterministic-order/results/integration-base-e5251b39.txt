@@ -1,0 +1,5 @@
+--- FAIL: TestCacheAffinityStatusChurn (5.25s)
+    nodeselector_status_churn_test.go:98: expected exactly 1 status update (initial write) over 30 reconcile cycles, got 23 (status churn)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/test/verification/nodeselectororder	5.257s
+FAIL
