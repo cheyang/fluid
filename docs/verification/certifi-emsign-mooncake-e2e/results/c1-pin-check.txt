@@ -1,0 +1,6 @@
+parsed 17 pinned entries from test/gha-e2e/mooncake/image/requirements.txt
+certifi entry: version=2026.10.19 hashes=2
+PASS: version 2026.10.19 is >= first patched 2026.10.19 (GHSA-6q48-6c7w-9gw2)
+PASS: all 2 listed hashes match official PyPI artifacts; wheel hash present (['certifi-2026.10.19.tar.gz', 'certifi-2026.10.19-py3-none-any.whl'])
+PASS: certifi==2026.10.19 satisfies '>=2023.5.7' required by requests
+C1 OK

@@ -1,0 +1,20 @@
+=== P0 premise: bundle delta base pin vs head pin ===
+--- base (86e3adf): certifi 2026.7.22 ---
+pinned certifi: 2026.7.22
+wheel certifi-2026.7.22-py3-none-any.whl sha256=62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775 matches pin
+bundle contains 121 certificates
+  emSign-family root present: subject=C = IN, OU = emSign PKI, O = eMudhra Technologies Limited, CN = emSign Root CA - G1
+  emSign-family root present: subject=C = IN, OU = emSign PKI, O = eMudhra Technologies Limited, CN = emSign ECC Root CA - G3
+  emSign-family root present: subject=C = US, OU = emSign PKI, O = eMudhra Inc, CN = emSign Root CA - C1
+  emSign-family root present: subject=C = US, OU = emSign PKI, O = eMudhra Inc, CN = emSign ECC Root CA - C3
+P0: CN = emSign ECC Root CA - G3 IS present -> GHSA-6q48-6c7w-9gw2 exposure (premise holds on this pin)
+exit=1
+--- head (e0f01cc): certifi 2026.10.19 ---
+pinned certifi: 2026.10.19
+wheel certifi-2026.10.19-py3-none-any.whl sha256=42d35340cc5b9ba78e818ddbff0c5b1c2b779de448a340fd1b989f5fa8670e1b matches pin
+bundle contains 120 certificates
+  emSign-family root present: subject=C = IN, OU = emSign PKI, O = eMudhra Technologies Limited, CN = emSign Root CA - G1
+  emSign-family root present: subject=C = US, OU = emSign PKI, O = eMudhra Inc, CN = emSign Root CA - C1
+  emSign-family root present: subject=C = US, OU = emSign PKI, O = eMudhra Inc, CN = emSign ECC Root CA - C3
+P0: CN = emSign ECC Root CA - G3 is absent from the pinned bundle
+exit=0

@@ -1,0 +1,14 @@
+--- entry under test ---
+certifi==2026.10.19 \
+    --hash=sha256:035c1e85572b141bf1c3a3eff0e33a8eb74917522f2559075ff8d2fea780a1ae \
+    --hash=sha256:42d35340cc5b9ba78e818ddbff0c5b1c2b779de448a340fd1b989f5fa8670e1b
+--- positive: exact entry must be accepted ---
+certifi-2026.10.19-py3-none-any.whl
+PASS: pip accepted the entry under --only-binary=:all: --require-hashes
+--- control 1: corrupted wheel hash must be rejected ---
+PASS: corrupted hash rejected
+--- control 2: sdist-only hash must be rejected under --only-binary ---
+PASS: sdist-hash-only entry rejected under --only-binary=:all:
+--- control 3: same hashes, different version must be rejected ---
+PASS: version+hash mismatch rejected
+C2 OK

@@ -1,0 +1,24 @@
+CI statusCheckRollup for PR #6215 head e0f01cc527f4a0fdbefb51babb25575b5931146e (fetched 2026-10-24T13:21:23Z):
+COMPLETED	SUCCESS	Analyze (go)	CodeQL
+COMPLETED	SUCCESS	CodeQL	
+COMPLETED	SUCCESS	DCO	
+COMPLETED	SUCCESS	SonarCloud	
+COMPLETED	SUCCESS	SonarCloud Code Analysis	
+COMPLETED	SUCCESS	backward-compat-test (v1.22.17)	E2E Backward Compatibility Check
+COMPLETED	SUCCESS	backward-compat-test (v1.24.17)	E2E Backward Compatibility Check
+COMPLETED	SUCCESS	backward-compat-test (v1.28.15)	E2E Backward Compatibility Check
+COMPLETED	SUCCESS	backward-compat-test (v1.30.13)	E2E Backward Compatibility Check
+COMPLETED	SUCCESS	backward-compat-test (v1.33.2)	E2E Backward Compatibility Check
+COMPLETED	SUCCESS	build (ubuntu-24.04-arm)	Project Check
+COMPLETED	SUCCESS	build (ubuntu-latest)	Project Check
+COMPLETED	SUCCESS	check-pr-quota	PR Quota Limit
+COMPLETED	SUCCESS	kind-e2e-test (v1.22.17)	E2E Functionality Check
+COMPLETED	SUCCESS	kind-e2e-test (v1.24.17)	E2E Functionality Check
+COMPLETED	SUCCESS	kind-e2e-test (v1.28.15)	E2E Functionality Check
+COMPLETED	SUCCESS	kind-e2e-test (v1.30.13)	E2E Functionality Check
+COMPLETED	SUCCESS	kind-e2e-test (v1.33.2)	E2E Functionality Check
+COMPLETED	SUCCESS	lint	Project Check
+COMPLETED	SUCCESS	staticcheck	Project Check
+COMPLETED	SUCCESS	unittest	Project Check
+PENDING	-	tide	
+SUCCESS	-	ci/circleci: build	

@@ -1,0 +1,33 @@
+re-verify: target ref = e0f01cc527f4a0fdbefb51babb25575b5931146e
+re-verify: last-reviewed = e0f01cc527f4a0fdbefb51babb25575b5931146e (review delta: e0f01cc527f4a0fdbefb51babb25575b5931146e..e0f01cc527f4a0fdbefb51babb25575b5931146e)
+== P0 premise (emSign ECC Root CA - G3 must be ABSENT on the target pin) ==
+pinned certifi: 2026.10.19
+wheel certifi-2026.10.19-py3-none-any.whl sha256=42d35340cc5b9ba78e818ddbff0c5b1c2b779de448a340fd1b989f5fa8670e1b matches pin
+bundle contains 120 certificates
+  emSign-family root present: subject=C = IN, OU = emSign PKI, O = eMudhra Technologies Limited, CN = emSign Root CA - G1
+  emSign-family root present: subject=C = US, OU = emSign PKI, O = eMudhra Inc, CN = emSign Root CA - C1
+  emSign-family root present: subject=C = US, OU = emSign PKI, O = eMudhra Inc, CN = emSign ECC Root CA - C3
+P0: CN = emSign ECC Root CA - G3 is absent from the pinned bundle
+== C1 pin/hash/GHSA-range/dependency-constraint check ==
+parsed 17 pinned entries from /tmp/tmp.Kli8K0TmtP/requirements.txt
+certifi entry: version=2026.10.19 hashes=2
+PASS: version 2026.10.19 is >= first patched 2026.10.19 (GHSA-6q48-6c7w-9gw2)
+PASS: all 2 listed hashes match official PyPI artifacts; wheel hash present (['certifi-2026.10.19.tar.gz', 'certifi-2026.10.19-py3-none-any.whl'])
+PASS: certifi==2026.10.19 satisfies '>=2023.5.7' required by requests
+C1 OK
+== C2 pip --require-hashes acceptance + negative controls ==
+--- entry under test ---
+certifi==2026.10.19 \
+    --hash=sha256:035c1e85572b141bf1c3a3eff0e33a8eb74917522f2559075ff8d2fea780a1ae \
+    --hash=sha256:42d35340cc5b9ba78e818ddbff0c5b1c2b779de448a340fd1b989f5fa8670e1b
+--- positive: exact entry must be accepted ---
+certifi-2026.10.19-py3-none-any.whl
+PASS: pip accepted the entry under --only-binary=:all: --require-hashes
+--- control 1: corrupted wheel hash must be rejected ---
+PASS: corrupted hash rejected
+--- control 2: sdist-only hash must be rejected under --only-binary ---
+PASS: sdist-hash-only entry rejected under --only-binary=:all:
+--- control 3: same hashes, different version must be rejected ---
+PASS: version+hash mismatch rejected
+C2 OK
+RE-VERIFY: all checks passed on e0f01cc527f4a0fdbefb51babb25575b5931146e

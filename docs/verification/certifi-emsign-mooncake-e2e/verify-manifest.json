@@ -1,0 +1,42 @@
+{
+  "topic": "certifi-emsign-mooncake-e2e",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6215",
+  "harnessPaths": [
+    "docs/verification/certifi-emsign-mooncake-e2e"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "GHSA-6q48-6c7w-9gw2 (critical): certifi < 2026.10.19 bundles emSign ECC Root CA - G3; eight eMudhra intermediate CAs chaining to it have compromised private keys. The mooncake e2e image pins certifi 2026.7.22, i.e. trusts the compromised root.",
+    "reportedComponent": "test/gha-e2e/mooncake/image/requirements.txt (certifi pin, via requests/mooncake-transfer-engine-non-cuda)",
+    "patchedComponent": "test/gha-e2e/mooncake/image/requirements.txt",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "results/p0-bundle-delta.txt — base pin 2026.7.22 bundle (121 certs) contains 'CN = emSign ECC Root CA - G3'; head pin 2026.10.19 bundle (120 certs) removes exactly that one cert; nothing else changed.",
+    "match": ["check_bundle_delta.py"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "shell",
+      "cmd": "docs/verification/certifi-emsign-mooncake-e2e/scripts/re-verify.sh"
+    }
+  },
+  "findings": [
+    {
+      "id": "C1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["check_certifi_pin.py"],
+      "claim": "The certifi entry pins a version >= 2026.10.19 (GHSA-6q48-6c7w-9gw2 patched range), all listed hashes equal official PyPI artifact hashes, the py3-none-any wheel hash is present (load-bearing under --only-binary=:all:), and the pin satisfies every certifi constraint declared by the other pinned distributions."
+    },
+    {
+      "id": "C2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["pip_hash_gate.sh"],
+      "claim": "pip accepts the shipped certifi entry under the Dockerfile's flags (--only-binary=:all: --require-hashes); mutated entries (corrupted hash, sdist-only hash, version/hash mismatch) are rejected."
+    }
+  ],
+  "liveNote": "L3 intentionally skipped: the artifact is an e2e-only image; the integration evidence is the PR's own kind-e2e-test workflow (5/5 k8s versions green at e0f01cc), which builds this image with --require-hashes and runs the mooncake client-less topology e2e. See results/ci-status.txt."
+}
