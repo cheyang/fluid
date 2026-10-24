@@ -1,0 +1,9 @@
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple/
+Collecting certifi==2026.10.19 (from -r /tmp/tmp.B6EHJeUD01/certifi-tampered.txt (line 1))
+  Downloading certifi-2026.10.19-py3-none-any.whl (136 kB)
+ERROR: THESE PACKAGES DO NOT MATCH THE HASHES FROM THE REQUIREMENTS FILE. If you have updated the package versions, please update the hashes. Otherwise, examine the package contents carefully; someone may have tampered with them.
+    certifi==2026.10.19 from https://mirrors.aliyun.com/pypi/packages/c4/51/29046e48f693c54e5b7412216d447a1d8362c9653148d98c02cdf65fa733/certifi-2026.10.19-py3-none-any.whl#sha256=42d35340cc5b9ba78e818ddbff0c5b1c2b779de448a340fd1b989f5fa8670e1b (from -r /tmp/tmp.B6EHJeUD01/certifi-tampered.txt (line 1)):
+        Expected sha256 0000000000000000000000000000000000000000000000000000000000000000
+        Expected     or 035c1e85572b141bf1c3a3eff0e33a8eb74917522f2559075ff8d2fea780a1ae
+             Got        42d35340cc5b9ba78e818ddbff0c5b1c2b779de448a340fd1b989f5fa8670e1b
+

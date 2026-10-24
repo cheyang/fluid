@@ -1,0 +1,6 @@
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple/
+Collecting certifi==2026.10.19 (from -r /tmp/tmp.B6EHJeUD01/certifi-stanza.txt (line 1))
+  Downloading certifi-2026.10.19-py3-none-any.whl (136 kB)
+Installing collected packages: certifi
+Successfully installed certifi-2026.10.19
+  certifi 2026.10.19 bundle certs: 120

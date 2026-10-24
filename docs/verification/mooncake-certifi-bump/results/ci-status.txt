@@ -1,0 +1,26 @@
+# CI statusCheckRollup for PR #6215, captured 2026-10-24 via:
+# gh pr view 6215 --repo fluid-cloudnative/fluid --json state,isDraft,mergeable,statusCheckRollup
+OPEN
+false
+MERGEABLE
+Analyze (go)	SUCCESS
+backward-compat-test (v1.33.2)	SUCCESS
+kind-e2e-test (v1.33.2)	SUCCESS
+check-pr-quota	SUCCESS
+staticcheck	SUCCESS
+backward-compat-test (v1.30.13)	SUCCESS
+kind-e2e-test (v1.30.13)	SUCCESS
+backward-compat-test (v1.28.15)	SUCCESS
+kind-e2e-test (v1.28.15)	SUCCESS
+backward-compat-test (v1.24.17)	SUCCESS
+kind-e2e-test (v1.24.17)	SUCCESS
+backward-compat-test (v1.22.17)	SUCCESS
+kind-e2e-test (v1.22.17)	SUCCESS
+lint	SUCCESS
+build (ubuntu-latest)	SUCCESS
+build (ubuntu-24.04-arm)	SUCCESS
+unittest	SUCCESS
+CodeQL	SUCCESS
+SonarCloud	SUCCESS
+DCO	SUCCESS
+SonarCloud Code Analysis	SUCCESS

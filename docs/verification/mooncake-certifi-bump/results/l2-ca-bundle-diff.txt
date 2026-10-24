@@ -1,0 +1,5 @@
+certifi 2026.7.22: 121 roots
+certifi 2026.10.19: 120 roots
+removed roots: 1
+  - 86a1ecba089c4a8d  (['emSign ECC Root CA - G30', 'emSign ECC Root CA - G30v0'])
+added roots:   0

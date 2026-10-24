@@ -1,0 +1,60 @@
+{
+  "topic": "mooncake-certifi-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6215",
+  "harnessPaths": [
+    "docs/verification/mooncake-certifi-bump"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot PR: \"Bumps certifi from 2026.7.22 to 2026.10.19\" in the mooncake e2e helper image lockfile — the pinned CA-bundle package is outdated relative to upstream security releases (emSign root removal/restoration, Python 3.15 support).",
+    "reportedComponent": "test/gha-e2e/mooncake/image/requirements.txt (hash-locked deps of the in-repo mooncake e2e image, built by kind-e2e on every PR)",
+    "patchedComponent": "test/gha-e2e/mooncake/image/requirements.txt (certifi stanza only)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Base lockfile resolves and hash-verifies end-to-end (certifi 2026.7.22 is a real PyPI release, wheel sha256 62f22742.. matches the base pin) — see results/control-base-resolve.log; upstream 2026.10.19 exists, is not yanked, and its cacert.pem differs from 2026.7.22 by exactly one root removed (emSign ECC Root CA - G3, 121->120 certs) — see results/l2-ca-bundle-diff.txt. The premise (outdated pin, newer security release exists) is confirmed.",
+    "match": ["certifi==2026.7.22"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "shell",
+      "cmd": "python3 docs/verification/mooncake-certifi-bump/scripts/check_lockfile_integrity.py test/gha-e2e/mooncake/image/requirements.txt"
+    },
+    "integration": {
+      "kind": "shell",
+      "cmd": "RESULTS_DIR=$PWD/docs/verification/mooncake-certifi-bump/results bash docs/verification/mooncake-certifi-bump/scripts/check_pip_resolve.sh"
+    }
+  },
+  "findings": [
+    {
+      "id": "C1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["L1-LOCKFILE-INTEGRITY"],
+      "note": "Every lockfile entry (incl. the new certifi==2026.10.19 with its two hashes) pins a real PyPI version, every pinned sha256 matches a real artifact of that version, and an installable py3.12/manylinux-x86_64 wheel exists."
+    },
+    {
+      "id": "C2",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["L2-FULL-RESOLVE"],
+      "note": "pip resolves the whole PR-head lockfile with --require-hashes --only-binary=:all: for the image's target interpreter/platform (py3.12, cp312, manylinux x86_64): the exact Dockerfile RUN-step contract, all 17 wheels hash-verified."
+    },
+    {
+      "id": "C3",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["L2-CERTIFI-INSTALL"],
+      "note": "pip installs the changed certifi stanza under --require-hashes and the installed 2026.10.19 CA bundle loads with a sane cert count."
+    },
+    {
+      "id": "C4",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["L2-HARNESS-BITES"],
+      "note": "Harness-bites self-test: the same install with a tampered certifi wheel hash is rejected by pip (--require-hashes actually enforced), so a green C2/C3 is meaningful."
+    }
+  ],
+  "liveNote": "L3 (live) skipped per debate policy (no cluster layer). The real-world equivalent is the kind-e2e CI job, which builds this image and runs the mooncake e2e suite; on this head all 6 kind-e2e-test matrix entries are SUCCESS (checked 2026-10-24 via gh pr view 6215 statusCheckRollup)."
+}

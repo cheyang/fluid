@@ -1,0 +1,11 @@
+== L2: full lockfile resolution for python:3.12.13-slim (linux/amd64)
+  venv pip unhealthy; bootstrapping via get-pip.py
+pip 26.2.2 from /tmp/tmp.zUt53z5JLb/venv/lib64/python3.11/site-packages/pip (python 3.11)
+  resolved and hash-verified 17/17 wheels
+L2-FULL-RESOLVE	pass
+== L2: install the changed certifi stanza exactly as the Dockerfile does
+L2-CERTIFI-INSTALL	pass
+== L2: harness-bites self-test (tampered hash must be rejected)
+  tampered hash rejected as expected
+L2-HARNESS-BITES	pass
+results in /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/docs/verification/mooncake-certifi-bump/results
