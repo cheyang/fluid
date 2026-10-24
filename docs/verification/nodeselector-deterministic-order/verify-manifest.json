@@ -1,0 +1,38 @@
+{
+  "topic": "nodeselector-deterministic-order",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6217",
+  "harnessPaths": [
+    "docs/verification/nodeselector-deterministic-order",
+    "pkg/utils/kubeclient/pod_determinism_verify_test.go",
+    "test/verification/nodeselectororder"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "MergeNodeSelectorAndNodeAffinity iterates nodeSelector in randomized Go map order, so MatchExpressions order varies across reconciles; reflect.DeepEqual on runtime status then detects spurious diffs, causing unnecessary status update writes and re-reconciliation every cycle for multi-label workers (issue #6216)",
+    "reportedComponent": "pkg/utils/kubeclient/pod.go MergeNodeSelectorAndNodeAffinity",
+    "patchedComponent": "pkg/utils/kubeclient/pod.go MergeNodeSelectorAndNodeAffinity",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "base: 172/200 simulated reconcile cycles flapped (unit), 26/30 real-API-server cycles updated status (envtest); head: 0/200 and 1/30. See results/{unit,integration}-{base,head}.txt",
+    "match": ["TestVerifyStatusCompareStability", "TestCacheAffinityStatusChurn"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/kubeclient/ -run 'TestVerify' -count=1 -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "KUBEBUILDER_ASSETS=${KUBEBUILDER_ASSETS:-$HOME/.local/share/kubebuilder-envtest/k8s/1.34.1-linux-amd64} go test ./test/verification/nodeselectororder/ -count=1 -json"
+    }
+  },
+  "findings": [
+    { "id": "C1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyMergeNodeSelectorDeterministic"] },
+    { "id": "C2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyStatusCompareStability"] },
+    { "id": "C3", "polarity": "contract", "layer": "unit", "match": ["TestVerifyMergeIntoExistingTermsDeterministic"] },
+    { "id": "C4", "polarity": "contract", "layer": "integration", "match": ["TestCacheAffinityStatusChurn"] }
+  ],
+  "liveNote": "L3 skipped per debate setup (no KUBECONFIG layer). In a live cluster the signal would be: dataset controller stops logging 'Do nothing because the runtime status is not changed' every cycle / runtime resourceVersion stops advancing for multi-label workers."
+}

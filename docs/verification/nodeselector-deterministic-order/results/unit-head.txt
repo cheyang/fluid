@@ -1,0 +1,8 @@
+=== RUN   TestVerifyMergeNodeSelectorDeterministic
+--- PASS: TestVerifyMergeNodeSelectorDeterministic (0.00s)
+=== RUN   TestVerifyStatusCompareStability
+--- PASS: TestVerifyStatusCompareStability (0.00s)
+=== RUN   TestVerifyMergeIntoExistingTermsDeterministic
+--- PASS: TestVerifyMergeIntoExistingTermsDeterministic (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient	0.013s

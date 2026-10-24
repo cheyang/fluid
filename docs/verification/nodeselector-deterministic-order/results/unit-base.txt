@@ -1,0 +1,14 @@
+=== RUN   TestVerifyMergeNodeSelectorDeterministic
+    pod_determinism_verify_test.go:58: match expressions are not sorted by key: [{node.kubernetes.io/instance-type In [m5.large]} {beta.kubernetes.io/arch In [amd64]} {app.kubernetes.io/name In [worker]} {kubernetes.io/hostname In [node-1]} {topology.kubernetes.io/zone In [zone-a]} {fluid.io/dataset In [my-dataset]}]
+--- FAIL: TestVerifyMergeNodeSelectorDeterministic (0.00s)
+=== RUN   TestVerifyStatusCompareStability
+    pod_determinism_verify_test.go:83: status comparison flapped: 172/200 reconcile cycles would issue a spurious status update
+--- FAIL: TestVerifyStatusCompareStability (0.00s)
+=== RUN   TestVerifyMergeIntoExistingTermsDeterministic
+    pod_determinism_verify_test.go:106: iteration 0: merged affinity changed between calls
+        first: &NodeAffinity{RequiredDuringSchedulingIgnoredDuringExecution:&NodeSelector{NodeSelectorTerms:[]NodeSelectorTerm{NodeSelectorTerm{MatchExpressions:[]NodeSelectorRequirement{NodeSelectorRequirement{Key:preset,Operator:In,Values:[x],},NodeSelectorRequirement{Key:kubernetes.io/hostname,Operator:In,Values:[node-1],},NodeSelectorRequirement{Key:topology.kubernetes.io/zone,Operator:In,Values:[zone-a],},NodeSelectorRequirement{Key:fluid.io/dataset,Operator:In,Values:[my-dataset],},NodeSelectorRequirement{Key:node.kubernetes.io/instance-type,Operator:In,Values:[m5.large],},NodeSelectorRequirement{Key:beta.kubernetes.io/arch,Operator:In,Values:[amd64],},NodeSelectorRequirement{Key:app.kubernetes.io/name,Operator:In,Values:[worker],},},MatchFields:[]NodeSelectorRequirement{},},},},PreferredDuringSchedulingIgnoredDuringExecution:[]PreferredSchedulingTerm{},}
+        cur:   &NodeAffinity{RequiredDuringSchedulingIgnoredDuringExecution:&NodeSelector{NodeSelectorTerms:[]NodeSelectorTerm{NodeSelectorTerm{MatchExpressions:[]NodeSelectorRequirement{NodeSelectorRequirement{Key:preset,Operator:In,Values:[x],},NodeSelectorRequirement{Key:fluid.io/dataset,Operator:In,Values:[my-dataset],},NodeSelectorRequirement{Key:node.kubernetes.io/instance-type,Operator:In,Values:[m5.large],},NodeSelectorRequirement{Key:beta.kubernetes.io/arch,Operator:In,Values:[amd64],},NodeSelectorRequirement{Key:app.kubernetes.io/name,Operator:In,Values:[worker],},NodeSelectorRequirement{Key:kubernetes.io/hostname,Operator:In,Values:[node-1],},NodeSelectorRequirement{Key:topology.kubernetes.io/zone,Operator:In,Values:[zone-a],},},MatchFields:[]NodeSelectorRequirement{},},},},PreferredDuringSchedulingIgnoredDuringExecution:[]PreferredSchedulingTerm{},}
+--- FAIL: TestVerifyMergeIntoExistingTermsDeterministic (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient	0.010s
+FAIL
