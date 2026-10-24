@@ -1,0 +1,35 @@
+{
+  "topic": "mooncake-aiohttp-yarl",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6212",
+  "harnessPaths": [
+    "docs/verification/mooncake-aiohttp-yarl"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "aiohttp should be bumped from 3.14.3 to 3.14.4 in the hash-locked Mooncake e2e image requirements (Dependabot version update; 3.14.4 ships real bug fixes, incl. a C-parser segfault fix on Python 3.12+)",
+    "reportedComponent": "test/gha-e2e/mooncake/image/requirements.txt",
+    "patchedComponent": "test/gha-e2e/mooncake/image/requirements.txt",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "aiohttp 3.14.4 exists on PyPI (161 files) with genuine bug fixes; base lock file resolves cleanly (results/base-dryrun.log, exit 0). The bump itself is legitimate; F1 is about the bump being internally incomplete.",
+    "match": ["MooncakeRequirementsResolve"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "script",
+      "cmd": "bash docs/verification/mooncake-aiohttp-yarl/scripts/check-requirements-resolution.sh",
+      "_note": "stock re-verify.sh only knows gotest/ginkgo; this layer is a pip-resolution contract test driven by scripts/re-verify.sh in this directory"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["MooncakeRequirementsResolve"]
+    }
+  ],
+  "liveNote": "L3 (skipped per round policy): the real gate is the kind-e2e-test GHA job, which docker-builds test/gha-e2e/mooncake/image; on head ee80ce6 all five jobs failed at the pip install step with ResolutionImpossible (results/ci-failure-excerpt.log)."
+}

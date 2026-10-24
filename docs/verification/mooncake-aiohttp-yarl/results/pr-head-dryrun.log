@@ -1,0 +1,62 @@
+Defaulting to user installation because normal site-packages is not writeable
+Collecting aiohappyeyeballs==2.7.1 (from -r /tmp/requirements-pr.txt (line 23))
+  Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
+Collecting aiohttp==3.14.4 (from -r /tmp/requirements-pr.txt (line 26))
+  Downloading aiohttp-3.14.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 1.6 MB/s eta 0:00:00
+Collecting aiosignal==1.4.0 (from -r /tmp/requirements-pr.txt (line 189))
+  Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Collecting attrs==26.1.0 (from -r /tmp/requirements-pr.txt (line 192))
+  Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 67.5/67.5 kB 3.0 MB/s eta 0:00:00
+Collecting certifi==2026.7.22 (from -r /tmp/requirements-pr.txt (line 195))
+  Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 137.0/137.0 kB 2.5 MB/s eta 0:00:00
+Collecting charset-normalizer==3.5.1 (from -r /tmp/requirements-pr.txt (line 198))
+  Downloading charset_normalizer-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (248 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 248.8/248.8 kB 2.4 MB/s eta 0:00:00
+Collecting frozenlist==1.8.0 (from -r /tmp/requirements-pr.txt (line 201))
+  Downloading frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (242 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 242.4/242.4 kB 2.5 MB/s eta 0:00:00
+Collecting idna==3.19 (from -r /tmp/requirements-pr.txt (line 204))
+  Downloading idna-3.19-py3-none-any.whl (68 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 68.5/68.5 kB 3.3 MB/s eta 0:00:00
+Collecting mooncake-transfer-engine-non-cuda==0.3.12.post1 (from -r /tmp/requirements-pr.txt (line 207))
+  Downloading mooncake_transfer_engine_non_cuda-0.3.12.post1-cp312-cp312-manylinux_2_28_x86_64.whl (44.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.5/44.5 MB 1.2 MB/s eta 0:00:00
+Collecting msgpack==1.2.2 (from -r /tmp/requirements-pr.txt (line 209))
+  Downloading msgpack-1.2.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (420 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 420.6/420.6 kB 1.2 MB/s eta 0:00:00
+Collecting multidict==6.9.1 (from -r /tmp/requirements-pr.txt (line 212))
+  Downloading multidict-6.9.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (336 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 336.9/336.9 kB 1.5 MB/s eta 0:00:00
+Collecting nvidia-cuda-runtime-cu12==12.8.90 (from -r /tmp/requirements-pr.txt (line 385))
+  Downloading nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (954 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 954.8/954.8 kB 1.7 MB/s eta 0:00:00
+Collecting propcache==0.5.2 (from -r /tmp/requirements-pr.txt (line 387))
+  Downloading propcache-0.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (61 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.6/61.6 kB 2.5 MB/s eta 0:00:00
+Collecting requests==2.34.2 (from -r /tmp/requirements-pr.txt (line 390))
+  Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.1/73.1 kB 2.1 MB/s eta 0:00:00
+Collecting typing_extensions==4.16.0 (from -r /tmp/requirements-pr.txt (line 393))
+  Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 45.6/45.6 kB 2.6 MB/s eta 0:00:00
+Collecting urllib3==2.8.0 (from -r /tmp/requirements-pr.txt (line 396))
+  Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 135.7/135.7 kB 2.0 MB/s eta 0:00:00
+Collecting yarl==1.24.5 (from -r /tmp/requirements-pr.txt (line 400))
+  Downloading yarl-1.24.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (109 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 109.8/109.8 kB 2.2 MB/s eta 0:00:00
+INFO: pip is looking at multiple versions of aiohttp to determine which version is compatible with other requirements. This could take a while.
+ERROR: Cannot install -r /tmp/requirements-pr.txt (line 26) and yarl==1.24.5 because these package versions have conflicting dependencies.
+
+The conflict is caused by:
+    The user requested yarl==1.24.5
+    aiohttp 3.14.4 depends on yarl<2.0 and >=1.25.1
+
+To fix this you could try to:
+1. loosen the range of package versions you've specified
+2. remove package versions to allow pip attempt to solve the dependency conflict
+
+ERROR: ResolutionImpossible: for help visit https://pip.pypa.io/en/latest/topics/dependency-resolution/#dealing-with-dependency-conflicts

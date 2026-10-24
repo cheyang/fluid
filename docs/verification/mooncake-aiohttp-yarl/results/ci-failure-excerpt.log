@@ -1,0 +1,8 @@
+#9 3.203 ERROR: Cannot install -r /tmp/requirements.txt (line 26) and yarl==1.24.5 because these package versions have conflicting dependencies.
+#9 3.204     The user requested yarl==1.24.5
+#9 3.204     aiohttp 3.14.4 depends on yarl<2.0 and >=1.25.1
+#9 3.248 ERROR: ResolutionImpossible: for help visit https://pip.pypa.io/en/latest/topics/dependency-resolution/#dealing-with-dependency-conflicts
+#9 ERROR: process "/bin/sh -c pip install --no-cache-dir --only-binary=:all: --require-hashes         -r /tmp/requirements.txt     && rm /tmp/requirements.txt" did not complete successfully: exit code: 1
+3.204     aiohttp 3.14.4 depends on yarl<2.0 and >=1.25.1
+3.248 ERROR: ResolutionImpossible: for help visit https://pip.pypa.io/en/latest/topics/dependency-resolution/#dealing-with-dependency-conflicts
+ERROR: failed to build: failed to solve: process "/bin/sh -c pip install --no-cache-dir --only-binary=:all: --require-hashes         -r /tmp/requirements.txt     && rm /tmp/requirements.txt" did not complete successfully: exit code: 1
