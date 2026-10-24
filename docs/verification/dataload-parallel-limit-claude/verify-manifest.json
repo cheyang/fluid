@@ -1,0 +1,39 @@
+{
+  "topic": "dataload-parallel-limit-claude",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/5754",
+  "harnessPaths": [
+    "docs/verification/dataload-parallel-limit-claude",
+    "pkg/ddc/base/operation_lock_verify_claude_test.go",
+    "pkg/controllers/v1alpha1/datamigrate/implement_verify_claude_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "PR body: \"Previously, SetDataOperationInProgress would always append new operation names to a comma-separated string, effectively allowing multiple tasks to run on the same dataset simultaneously.\" / issue #1138: \"what would happen if multiple same DataLoad task start running?\"",
+    "reportedComponent": "Dataset OperationRef lock (dataset status) used by data operation controllers",
+    "patchedComponent": "api/v1alpha1/dataset_types.go CanStartDataOperation + pkg/ddc/base/operation_lock.go updateDatasetDataOperation",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base 82e490e4, SetDataOperationInProgress('DataLoad','load-2') appends unconditionally -> 'load-1,load-2' with no limit check anywhere (CanStartDataOperation absent on base). See results/base-premise.out (re-run: scripts/base-premise.sh).",
+    "match": ["TestVerifyBasePremise_SecondOperationRegistersUnconditionally"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/controllers/v1alpha1/datamigrate/ -run 'TestVerifyClaude' -count=1 -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/base/ -run 'TestVerifyClaude' -count=1 -json"
+    }
+  },
+  "findings": [
+    { "id": "V1", "polarity": "contract", "layer": "integration", "match": ["TestVerifyClaude_SecondOperationBlockedAtLimit"] },
+    { "id": "V2", "polarity": "contract", "layer": "integration", "match": ["TestVerifyClaude_ReentrantSameOperationAllowed"] },
+    { "id": "V3", "polarity": "contract", "layer": "integration", "match": ["TestVerifyClaude_ReleasedOperationFreesSlot"] },
+    { "id": "V4", "polarity": "contract", "layer": "integration", "match": ["TestVerifyClaude_LimitGreaterThanOne"] },
+    { "id": "F1", "polarity": "canary", "layer": "unit", "match": ["TestVerifyClaude_DataMigrateDatasetLimitUsesJobParallelism"] }
+  ],
+  "liveNote": "L3 not run this round (per debate setup, live/KUBECONFIG layer skipped). Manual check if desired: two DataLoads on one dataset; second stays Pending with 20s requeue and controller log 'reached the maximum number of parallel'."
+}
