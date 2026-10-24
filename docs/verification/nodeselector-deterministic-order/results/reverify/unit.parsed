@@ -1,0 +1,3 @@
+TestVerifyMergeNodeSelectorDeterministic	pass
+TestVerifyStatusCompareStability	pass
+TestVerifyMergeIntoExistingTermsDeterministic	pass
