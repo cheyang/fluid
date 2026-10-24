@@ -1,7 +1,15 @@
 # tieredstore-drift-warning — bug verification
 
 Reproducible evidence for the findings raised while reviewing
-https://github.com/fluid-cloudnative/fluid/pull/6219 (head `58afa3a9651bef192bf5457bb552aed3656d95dc`, base `86e3adf35a7c26875e818edad3e01dfac15f0290`).
+https://github.com/fluid-cloudnative/fluid/pull/6219.
+
+**Round 2** (head `b56db670bfd45383cf8cdf237125fd82b90a1e13`, reviewed 2026-10-25): the
+revision fixed the round-1 findings. TS3 flipped to red exactly as predicted and is now the
+inverted contract test `TestVerifyEmptyDirMediumFlipDetected`; TS4 is a new contract for the
+throttle-across-Syncs property; TS1 additionally pins the reworded remediation text; TS2
+stays a canary pinned to follow-up issue #6221. Round-2 bite-checks in
+`results/bite-check-round2.txt`. Round 1 (head `58afa3a9651bef192bf5457bb552aed3656d95dc`,
+base `86e3adf35a7c26875e818edad3e01dfac15f0290`) is preserved below.
 
 Production code is untouched on this branch — the diff is the harness only
 (`pkg/ddc/cache/engine/premise_tieredstore_split_test.go`,
@@ -30,6 +38,21 @@ Answered against the **base** branch, without the patch.
 | Evidence | `results/unit-base.txt` — on base `86e3adf3`, after editing the quota 8Gi→16Gi the ConfigMap `runtime.json` worker level carries `16Gi` while the worker ASTS volume `tiered-store-level-0-memory` keeps `sizeLimit 8Gi`, and the recorder attached to the engine saw **zero** events. The mechanism matches the issue's analysis: `generateRuntimeConfigData` recomputes from spec on every sync, `SyncComponentSpec` patches only replicas/image/resources, and `TransformRuntimeTieredStore` runs only at Setup. On the PR head the same test run (`results/unit-head.txt`) shows the split still present — by design, the PR warns about it — plus the new `RuntimeTieredStoreConflict` Warning. |
 
 ## Summary of results
+
+### Round 2 — head b56db670 (re-verify run `results/reverify/`)
+
+| ID | Claim | Layer | Polarity | Verdict | Evidence |
+|----|-------|-------|----------|---------|----------|
+| TS1 | Worker tieredStore quota drift emits a `RuntimeTieredStoreConflict` Warning through the **full `engine.Sync`** entry point, and the remediation text says "Delete and recreate the CacheRuntime" (the remedy that converges) | 1 | contract | **FIXED / working** (PASS on head) | `results/reverify/unit.out` |
+| TS2 | `spec.client.tieredStore` drift stays silent — now an honestly-documented scope decision tracked in #6221; the canary flips red when #6221 lands | 1 | canary | **STILL-PRESENT** (PASS = gap present, as documented) | `results/reverify/unit.out` |
+| TS3 | Flipping an emptyDir level's `medium` (disk `""` ↔ `Memory`) is detected in **both** directions (inverted from the round-1 canary, which flipped when the `Medium` comparison landed in `checkEmptyDirDrift`) | 1 | contract | **FIXED** (PASS on head) | `results/reverify/unit.out`, `results/bite-check-round2.txt` §1 |
+| TS4 | Throttle across consecutive Syncs on the same engine: exactly 1 event per 3 syncs while drift persists, re-emission after the interval, immediate re-warn after resolution (cooldown reset) | 1 | contract | **FIXED / working** (PASS on head) | `results/reverify/unit.out`, `results/bite-check-round2.txt` §2 |
+
+Round-2 deltas vs the round-1 table: TS3 polarity inverted (canary → contract) per policy;
+TS2's gap is no longer a doc mismatch (docs are worker-scoped on head) and is pinned to
+follow-up issue #6221.
+
+### Round 1 — head 58afa3a9 (preserved)
 
 | ID | Claim | Layer | Polarity | Verdict | Evidence |
 |----|-------|-------|----------|---------|----------|
@@ -71,8 +94,12 @@ reports. Bite check: comparing `Medium` temporarily makes the canary FAIL (`resu
 
 ## Harness-bites check (Step 4)
 
-All three checks recorded in `results/bite-check.txt`; production code restored with
-`git checkout -- pkg/ddc/cache/engine/sync.go` after each run (the branch diff stays harness-only):
+Round 2 (`results/bite-check-round2.txt`, on head b56db670): removing the `Medium`
+comparison fails TS3 in both subtests; disabling the throttle gate fails TS4. Production
+code restored with `git checkout -- pkg/ddc/cache/engine/sync.go` after each run.
+
+Round 1 (`results/bite-check.txt`, on head 58afa3a9): all three checks recorded;
+production code restored the same way:
 
 1. contract test FAILS with the drift check disabled → it really tests the PR's fix;
 2. client canary FLIPS TO RED when client-side detection is added;
@@ -80,12 +107,10 @@ All three checks recorded in `results/bite-check.txt`; production code restored 
 
 ## Proposed fixes (NOT applied here)
 
-- **TS2**: either extend drift detection to the client DaemonSet pod spec (the issue's stated
-  preference: "`spec.client.tieredStore` should behave the same way"), or scope the docs to the
-  worker only — field path `spec.worker.tieredStore`, and reword `cache_runtime_tieredstore.md`
-  item 8 to say worker.
-- **TS3**: in the emptyDir branch, also compare `vol.EmptyDir.Medium != level.EmptyDir.Medium`
-  and report a drift message (the PR's `expectedVolumes`/orphan logic already handles the rest).
+- **TS2** (round 1): fixed by the author via doc scoping + follow-up issue #6221; the canary
+  stays as #6221's regression test and must be inverted when #6221 lands.
+- **TS3** (round 1): fixed by the author in `checkEmptyDirDrift` (Medium compared); the
+  canary is now the inverted contract test.
 
 ## Continuing after the fix (possibly on another machine)
 
@@ -105,10 +130,10 @@ so it grafts onto whatever the fixed code is.
    bash docs/verification/tieredstore-drift-warning/scripts/re-verify.sh
    ```
    (no ref: it resolves the current PR head from the manifest's `pr` URL). Expected outcomes:
-   - TS1 stays `FIXED` (contract, keeps passing);
-   - TS2/TS3 are canaries: `FIXED(flipped)` when the gaps are closed — then invert their
-     assertions (see the polarity notes in the test file headers) or delete them if the fix is
-     a docs scope change;
+   - TS1/TS3/TS4 are contracts on head b56db670: they stay green; a red result is a
+     regression (event text, medium detection, or throttle);
+   - TS2 is a canary: it passes while client drift stays undetected and flips to red when
+     #6221 lands — then invert it into a contract test;
    - `TestPremiseTieredStoreSplitWorker` is the premise demo, not a finding: it asserts the
      ConfigMap/volume split itself, which stays until someone changes the update semantics.
 3. Unit layer prerequisites: go ≥ 1.24 (repo `go.mod`), module cache network access on first run.

@@ -1,0 +1,27 @@
+# Harness-bites check (Step 4), round 2 — head b56db670bfd45383cf8cdf237125fd82b90a1e13
+# Each verification test reacts to a temporary revert of the fix it pins.
+# Production code was restored with 'git checkout -- pkg/ddc/cache/engine/sync.go' after each run.
+
+## 1. Contract TestVerifyEmptyDirMediumFlipDetected vs Medium comparison removed
+--- FAIL: TestVerifyEmptyDirMediumFlipDetected (0.00s)
+    --- FAIL: TestVerifyEmptyDirMediumFlipDetected/disk-to-memory (0.00s)
+        verify_tieredstore_drift_test.go:442: emptyDir medium flip "" -> "Memory" was not reported, got []
+    --- FAIL: TestVerifyEmptyDirMediumFlipDetected/memory-to-disk (0.00s)
+        verify_tieredstore_drift_test.go:442: emptyDir medium flip "Memory" -> "" was not reported, got []
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine
+
+## 2. Contract TestVerifyDriftThrottleAcrossSyncs vs throttle gate disabled
+--- FAIL: TestVerifyDriftThrottleAcrossSyncs (0.00s)
+    verify_tieredstore_drift_test.go:310: got 3 drift events across 3 consecutive Sync calls, want 1 (throttled)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine
+
+## 3. Contract TestVerifyWorkerDriftWarnsThroughFullSync remediation-wording assertion
+The TS1 test asserts every RuntimeTieredStoreConflict event contains
+"Delete and recreate the CacheRuntime"; the re-verify run on head b56db670
+observed exactly that message (results/reverify/unit.out, and the CI kind-e2e
+log for job 120965605882 shows the same text on a live cluster). A revert of
+the wording fails the assertion by string comparison.
+
+Baseline: all four harness tests PASS on unmodified head b56db670 (results/reverify/unit.out).
