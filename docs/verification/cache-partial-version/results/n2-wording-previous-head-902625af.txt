@@ -1,0 +1,32 @@
+2026/10/24 18:47:58 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Cache Engine Suite - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine
+[cache_engine] 
+=================================================================================================================================================
+Random Seed: 1792838878
+
+Will run 4 of 345 specs
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS•••
+------------------------------
+• [FAILED] [0.000 seconds]
+PR-6186 verification: partial runtime version observability N2 event wording is true on both the creation and the update path [It] contract: the RuntimeVersionIncomplete message makes no update-only claim [red on round-3 head] [pkg.ddc.cache.engine.version_completion_observability_verify_test.go]
+/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/version_completion_observability_verify_test.go:102
+
+  [FAILED] the message is also emitted on the creation path, where the component is created from the template image
+  Expected
+      <string>: Warning RuntimeVersionIncomplete worker runtimeVersion (image "", imageTag "v2") cannot be completed from the CacheRuntimeClass template image "verify/cache@sha256:067614b70d25b496e3edc3480747d558ee8a364ef47a67f669f5d96ca5098552", so the image is left unchanged; set both image and imageTag
+  not to contain substring
+      <string>: left unchanged
+  In [It] at: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/version_completion_observability_verify_test.go:115 @ 10/24/26 18:47:58.094
+------------------------------
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+Summarizing 1 Failure:
+  [FAIL] PR-6186 verification: partial runtime version observability N2 event wording is true on both the creation and the update path [It] contract: the RuntimeVersionIncomplete message makes no update-only claim [red on round-3 head] [pkg.ddc.cache.engine.version_completion_observability_verify_test.go]
+  /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-08/pr-6186/wt-6186-claude/pkg/ddc/cache/engine/version_completion_observability_verify_test.go:115
+
+Ran 4 of 345 Specs in 0.004 seconds
+FAIL! -- 3 Passed | 1 Failed | 0 Pending | 341 Skipped
+--- FAIL: TestCacheEngine (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.029s
+FAIL

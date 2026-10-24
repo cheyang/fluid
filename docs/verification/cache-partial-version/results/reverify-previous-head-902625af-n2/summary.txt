@@ -1,0 +1,8 @@
+# re-verify.sh run against PR head 0361cc03 (self-test, first round)
+
+ID     POLARITY  LAYER        VERDICT        DETAIL
+FIX    contract  integration  FIXED          pass=3 fail=0 miss=0
+F1     canary    integration  STILL-PRESENT  pass=2 fail=0 miss=0
+F2     contract  integration  FIXED          pass=2 fail=0 miss=0
+F3     contract  unit         FIXED          pass=5 fail=0 miss=0
+RESULT: not all findings fixed. (expected: F1 is an open finding)

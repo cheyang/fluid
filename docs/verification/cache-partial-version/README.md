@@ -244,3 +244,71 @@ transcripts and the table `.txt` captures) are the durable evidence for rounds 3
 L3 (live) still skipped by instruction; CI at 902625af is green across all check runs
 (unittest, build, lint, staticcheck, CodeQL, SonarCloud, codecov, DCO, backward-compat-test
 and kind-e2e-test on k8s v1.22–v1.33; only the `tide` merge-queue StatusContext is pending).
+
+---
+
+# Round 4 — head 12d9b900 (delta 902625af..12d9b900)
+
+The PR gained a single commit:
+
+- **12d9b900** `fix(cache): word the RuntimeVersionIncomplete event for both creation and update`
+  — the event message and the log line no longer say "so the image is left unchanged" (true only
+  on update); both now say the version "is ignored", which is accurate on the creation path too
+  (the component is created from the template image) and on update (the workload keeps its
+  image). This closes **N2**, the round-3 wording nit.
+
+`git diff 902625af..12d9b900` touches only `pkg/ddc/cache/engine/transform_common.go` (5
+insertions, 4 deletions — two format strings and their doc comment). No caller, signature, or
+control-flow change; F1/F4/F6 fix sites are untouched.
+
+## New contract and re-verify outcome
+
+A new N2 contract was added to
+`version_completion_observability_verify_test.go` ("the RuntimeVersionIncomplete message makes
+no update-only claim"): it drives the same `syncRuntimeSpec` chain as the F6 specs and asserts
+the emitted event does not claim the image "is left unchanged" — a claim that misdescribes the
+creation path, where the component is *created from* the template image.
+`reportIncompleteVersion` is the single emission point shared by both paths (sync.go on
+update; transform_worker.go / transform_master.go / transform_client.go at creation), so one
+message must be true on both. Polarity: contract — red on the round-3 head, green on this one.
+
+| id | polarity | on round-3 head 902625af | on head 12d9b900 | verdict |
+|----|----------|--------------------------|------------------|---------|
+| FIX | contract | green (3/3) | green (3/3) | fix still holds |
+| F1 | contract | green (2/2) | green (2/2) | still fixed (99659bf4, untouched) |
+| F2 | contract | green (2/2) | green (2/2) | deliberate semantics still pinned |
+| F3 | contract | green (5/5) | green (5/5) | corner cases hold |
+| F4 | contract | green (2/2) | green (2/2) | still fixed (7c7abfbf, untouched) |
+| F6 | contract | green (3/3) | green (3/3) | still fixed (event + V(0) log) |
+| N2 | contract (new) | **red** (message says "left unchanged") | **green** | **FIXED** by the round-4 rewording |
+
+Raw evidence:
+
+- `results/reverify-previous-head-902625af-n2/` — 316 Passed | 13 Failed = the 12 pre-existing
+  mount/Execute specs + the N2 contract red; the failure text quotes the old message
+  ("...template image %q, so the image is left unchanged; set both image and imageTag").
+- `results/reverify-current-head-12d9b900/` — 317 Passed | 12 Failed; the 12 are the
+  byte-identical pre-existing set; 345 total specs = 344 at the round-3 head + the new N2 spec.
+- Focused runs (unambiguous per-spec evidence, `-ginkgo.focus` on the observability container):
+  `results/n2-wording-previous-head-902625af.txt` (3 Passed | 1 Failed) vs
+  `results/n2-wording-current-head-12d9b900.txt` (`ok` — all 4 green). This red→green flip
+  across the two heads is the harness-bites proof; no production patch was applied.
+
+## Delta review notes (blast radius)
+
+- Only two format strings and a comment changed inside `reportIncompleteVersion`. The guard
+  logic (`return` on empty version / completable version) is untouched, so the emission
+  condition still matches the drop condition exactly.
+- The PR's own tests pin the event *prefix* (`Warning RuntimeVersionIncomplete `), not the
+  message body (`sync_test.go:951`, `transform_common_test.go:296`, `transform_worker_test.go:210`),
+  so the rewording breaks no test — confirmed by the green unittest check at this head.
+- Residual cosmetic note (not filed): when the template declares no image at all, the message
+  renders `template image ""`. Accurate, slightly odd to read; not worth a round on its own.
+- N3 remains open (unchanged by this delta): the event still re-fires on each sync attempt for
+  a persistently un-completable version; the k8s event correlator aggregates it.
+- CI at 12d9b900 is green across all check runs (unittest, build, lint, staticcheck, CodeQL,
+  SonarCloud, codecov, DCO, backward-compat-test and kind-e2e-test on k8s
+  v1.22.17/v1.24.17/v1.28.15/v1.30.13/v1.33.2; `tide` is the merge-queue StatusContext, DONE).
+  Fetched 2026-10-24 this round.
+
+L3 (live) still skipped by instruction (unit + integration only).
