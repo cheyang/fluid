@@ -1,0 +1,26 @@
+re-verify: manifest = docs/verification/cacheruntime-tieredstore-drift/verify-manifest.json
+re-verify: resolving PR head via 'git fetch https://github.com/fluid-cloudnative/fluid.git pull/6219/head' (machine-independent)
+re-verify: current head = 58afa3a9651bef192bf5457bb552aed3656d95dc
+re-verify: last-reviewed = 58afa3a9651bef192bf5457bb552aed3656d95dc  (review delta = 58afa3a9651bef192bf5457bb552aed3656d95dc..58afa3a9651bef192bf5457bb552aed3656d95dc)
+re-verify: fixed-ref=58afa3a9651bef192bf5457bb552aed3656d95dc  harness-from=verify/cacheruntime-tieredstore-drift-codex
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'integration' (gotest)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+P0-silent canary    unit         FIXED(flipped) pass=0 fail=1 miss=0
+FIX-worker-drift-event contract  unit         FIXED          pass=1 fail=0 miss=0
+FIX-worker-drift-event-envtest contract  integration  FIXED          pass=1 fail=0 miss=0
+F1     canary    unit         STILL-PRESENT  pass=1 fail=0 miss=0
+F2     canary    unit         STILL-PRESENT  pass=1 fail=0 miss=0
+F3     canary    unit         STILL-PRESENT  pass=1 fail=0 miss=0
+
+Live layer (manual): L3 (skipped per debate setup): on a real cluster, edit spec.worker.tieredStore on an existing CacheRuntime and confirm `kubectl get events --field-selector reason=RuntimeTieredStoreConflict` shows the warning, re-emitted at >=10min intervals while drift persists. Note: verify_pr6219_envtest_test.go needs envtest binaries (KUBEBUILDER_ASSETS or ~/.local/share/kubebuilder-envtest) and self-skips without them.
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/cacheruntime-tieredstore-drift/results/reverify
+
+Review delta this round: 58afa3a9651bef192bf5457bb552aed3656d95dc..58afa3a9651bef192bf5457bb552aed3656d95dc
+After reviewing that delta, advance the marker for the next round:
+  echo 58afa3a9651bef192bf5457bb552aed3656d95dc > docs/verification/cacheruntime-tieredstore-drift/.last-reviewed && git add docs/verification/cacheruntime-tieredstore-drift/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: not all findings fixed.
