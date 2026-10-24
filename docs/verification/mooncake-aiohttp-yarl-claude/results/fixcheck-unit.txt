@@ -1,0 +1,6 @@
+parsed 17 pins from test/gha-e2e/mooncake/image/requirements.txt
+
+wheel-coverage: pass
+deps-consistent: pass
+
+no violations: lock is consistent for cp312/manylinux-x86_64

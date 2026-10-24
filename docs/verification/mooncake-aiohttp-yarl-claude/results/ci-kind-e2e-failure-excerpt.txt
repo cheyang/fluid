@@ -1,0 +1,95 @@
+# CI evidence: kind-e2e-test (v1.33.2) job on PR #6212 head ee80ce66
+# run: https://github.com/fluid-cloudnative/fluid/actions/runs/39403532072/job/118563836344
+# fetched read-only via the GitHub Actions logs API on 2026-10-24 (reviewer A)
+
+#7 5.022 Processing triggers for libc-bin (2.41-12+deb13u3) ...
+#7 DONE 5.3s
+
+#8 [3/8] COPY requirements.txt /tmp/requirements.txt
+#8 DONE 0.0s
+
+#9 [4/8] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes         -r /tmp/requirements.txt     && rm /tmp/requirements.txt
+#9 1.341 Collecting aiohappyeyeballs==2.7.1 (from -r /tmp/requirements.txt (line 23))
+#9 1.379   Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
+#9 1.700 Collecting aiohttp==3.14.4 (from -r /tmp/requirements.txt (line 26))
+#9 1.711   Downloading aiohttp-3.14.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.9 MB)
+#9 1.781      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 39.9 MB/s eta 0:00:00
+#9 1.791 Collecting aiosignal==1.4.0 (from -r /tmp/requirements.txt (line 189))
+#9 1.801   Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+#9 1.808 Collecting attrs==26.1.0 (from -r /tmp/requirements.txt (line 192))
+#9 1.818   Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+#9 1.828 Collecting certifi==2026.7.22 (from -r /tmp/requirements.txt (line 195))
+#9 1.838   Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+#9 1.910 Collecting charset-normalizer==3.5.1 (from -r /tmp/requirements.txt (line 198))
+#9 1.920   Downloading charset_normalizer-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (248 kB)
+#9 1.958 Collecting frozenlist==1.8.0 (from -r /tmp/requirements.txt (line 201))
+#9 1.968   Downloading frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (242 kB)
+#9 1.977 Collecting idna==3.19 (from -r /tmp/requirements.txt (line 204))
+#9 1.987   Downloading idna-3.19-py3-none-any.whl (68 kB)
+#9 2.049 Collecting mooncake-transfer-engine-non-cuda==0.3.12.post1 (from -r /tmp/requirements.txt (line 207))
+#9 2.060   Downloading mooncake_transfer_engine_non_cuda-0.3.12.post1-cp312-cp312-manylinux_2_28_x86_64.whl (44.5 MB)
+#9 2.638      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.5/44.5 MB 76.8 MB/s eta 0:00:00
+#9 2.709 Collecting msgpack==1.2.2 (from -r /tmp/requirements.txt (line 209))
+#9 2.720   Downloading msgpack-1.2.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (420 kB)
+#9 2.882 Collecting multidict==6.9.1 (from -r /tmp/requirements.txt (line 212))
+#9 2.893   Downloading multidict-6.9.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (336 kB)
+#9 2.900 Collecting nvidia-cuda-runtime-cu12==12.8.90 (from -r /tmp/requirements.txt (line 385))
+#9 2.910   Downloading nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (954 kB)
+#9 2.913      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 954.8/954.8 kB 708.8 MB/s eta 0:00:00
+#9 2.953 Collecting propcache==0.5.2 (from -r /tmp/requirements.txt (line 387))
+#9 2.963   Downloading propcache-0.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (61 kB)
+#9 2.976 Collecting requests==2.34.2 (from -r /tmp/requirements.txt (line 390))
+#9 2.985   Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+#9 2.995 Collecting typing_extensions==4.16.0 (from -r /tmp/requirements.txt (line 393))
+#9 3.004   Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+#9 3.016 Collecting urllib3==2.8.0 (from -r /tmp/requirements.txt (line 396))
+#9 3.026   Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+#9 3.175 Collecting yarl==1.24.5 (from -r /tmp/requirements.txt (line 400))
+#9 3.185   Downloading yarl-1.24.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (109 kB)
+#9 3.203 INFO: pip is looking at multiple versions of aiohttp to determine which version is compatible with other requirements. This could take a while.
+#9 3.203 ERROR: Cannot install -r /tmp/requirements.txt (line 26) and yarl==1.24.5 because these package versions have conflicting dependencies.
+#9 3.204 
+#9 3.204 The conflict is caused by:
+#9 3.204     The user requested yarl==1.24.5
+#9 3.204     aiohttp 3.14.4 depends on yarl<2.0 and >=1.25.1
+#9 3.204 
+#9 3.204 To fix this you could try to:
+#9 3.204 1. loosen the range of package versions you've specified
+#9 3.204 2. remove package versions to allow pip to attempt to solve the dependency conflict
+#9 3.204 
+#9 3.248 
+#9 3.248 [notice] A new release of pip is available: 25.0.1 -> 26.2.1
+#9 3.248 [notice] To update, run: pip install --upgrade pip
+#9 3.248 ERROR: ResolutionImpossible: for help visit https://pip.pypa.io/en/latest/topics/dependency-resolution/#dealing-with-dependency-conflicts
+#9 ERROR: process "/bin/sh -c pip install --no-cache-dir --only-binary=:all: --require-hashes         -r /tmp/requirements.txt     && rm /tmp/requirements.txt" did not complete successfully: exit code: 1
+------
+ > [4/8] RUN pip install --no-cache-dir --only-binary=:all: --require-hashes         -r /tmp/requirements.txt     && rm /tmp/requirements.txt:
+3.204     aiohttp 3.14.4 depends on yarl<2.0 and >=1.25.1
+3.204 
+3.204 To fix this you could try to:
+3.204 1. loosen the range of package versions you've specified
+3.204 2. remove package versions to allow pip to attempt to solve the dependency conflict
+3.204 
+3.248 
+3.248 [notice] A new release of pip is available: 25.0.1 -> 26.2.1
+3.248 [notice] To update, run: pip install --upgrade pip
+3.248 ERROR: ResolutionImpossible: for help visit https://pip.pypa.io/en/latest/topics/dependency-resolution/#dealing-with-dependency-conflicts
+------
+
+ [33m1 warning found (use docker --debug to expand):
+[0m - UndefinedVar: Usage of undefined variable '$LD_LIBRARY_PATH' (line 38)
+Dockerfile:34
+--------------------
+  33 |     COPY requirements.txt /tmp/requirements.txt
+  34 | >>> RUN pip install --no-cache-dir --only-binary=:all: --require-hashes \
+  35 | >>>         -r /tmp/requirements.txt \
+  36 | >>>     && rm /tmp/requirements.txt
+  37 |     
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c pip install --no-cache-dir --only-binary=:all: --require-hashes         -r /tmp/requirements.txt     && rm /tmp/requirements.txt" did not complete successfully: exit code: 1
+##[error]Process completed with exit code 1.
+##[group]Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+with:
+  name: gha-e2e-logs-kind-e2e-test-v1.33.2
+  path: src/github.com/fluid-cloudnative/fluid/e2e-tmp/testcase-*.tgz
+  retention-days: 14

@@ -1,0 +1,6 @@
+lockfile-resolves: fail (pip exit 1)
+INFO: pip is looking at multiple versions of aiohttp to determine which version is compatible with other requirements. This could take a while.
+ERROR: Cannot install -r test/gha-e2e/mooncake/image/requirements.txt (line 26) and yarl==1.24.5 because these package versions have conflicting dependencies.
+The conflict is caused by:
+    aiohttp 3.14.4 depends on yarl<2.0 and >=1.25.1
+ERROR: ResolutionImpossible: for help visit https://pip.pypa.io/en/latest/topics/dependency-resolution/#dealing-with-dependency-conflicts

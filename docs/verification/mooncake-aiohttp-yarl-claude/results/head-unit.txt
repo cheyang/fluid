@@ -1,0 +1,7 @@
+parsed 17 pins from test/gha-e2e/mooncake/image/requirements.txt
+
+wheel-coverage: pass
+deps-consistent: fail
+
+violations:
+  [deps-consistent] aiohttp: aiohttp==3.14.4 requires yarl<2.0,>=1.25.1 but the lock pins yarl==1.24.5

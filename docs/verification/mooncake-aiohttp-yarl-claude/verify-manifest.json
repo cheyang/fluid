@@ -1,0 +1,42 @@
+{
+  "topic": "mooncake-aiohttp-yarl",
+  "reviewer": "claude",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6212",
+  "prHeadSha": "ee80ce664e22d34ba62cad95c245eaa351f24f5f",
+  "baseSha": "86e3adf35a7c26875e818edad3e01dfac15f0290",
+  "harnessPaths": [
+    "docs/verification/mooncake-aiohttp-yarl-claude"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: the mooncake e2e image's pinned aiohttp 3.14.3 is superseded by aiohttp 3.14.4 (features + ~20 bug fixes, incl. HTTP/WebSocket parser hardening).",
+    "reportedComponent": "test/gha-e2e/mooncake/image/requirements.txt (hash-locked pip deps of the mooncake e2e helper image)",
+    "patchedComponent": "test/gha-e2e/mooncake/image/requirements.txt",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "base requirements.txt pins aiohttp==3.14.3; 3.14.4 exists on PyPI (release notes fetched from github.com/aio-libs/aiohttp tag v3.14.4). See results/base-control-unit.status.",
+    "match": ["wheel-coverage", "deps-consistent"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "shell",
+      "cmd": "python3 -I docs/verification/mooncake-aiohttp-yarl-claude/scripts/check-lockfile-consistency.py test/gha-e2e/mooncake/image/requirements.txt --status-file \"$STATUS_FILE\""
+    },
+    "integration": {
+      "kind": "shell",
+      "cmd": "bash docs/verification/mooncake-aiohttp-yarl-claude/scripts/check-lockfile-resolves.sh test/gha-e2e/mooncake/image/requirements.txt"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "title": "aiohttp 3.14.4 requires yarl>=1.25.1 but the lock still pins yarl==1.24.5, so the mooncake e2e image build fails (all 5 kind-e2e matrix jobs red)",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["lockfile-resolves"]
+    }
+  ],
+  "liveNote": "No live/KUBECONFIG layer for this PR: the change is a pip lock file for a test image, not controller code. The integration layer (pip download with the Dockerfile's exact flags for cp312/manylinux x86_64) is the closest faithful replica of the docker build; the authoritative end-to-end signal is the kind-e2e workflow itself, whose failure log is captured in results/ci-kind-e2e-failure-excerpt.txt."
+}
