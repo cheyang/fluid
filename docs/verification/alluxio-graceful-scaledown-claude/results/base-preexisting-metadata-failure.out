@@ -1,0 +1,4 @@
+  [38;5;9m[FAIL][0m [0mAlluxioEngine Metadata Synchronization Tests [38;5;243mTest AlluxioEngine.syncMetadataInternal() [0mwhen given AlluxioEngine works as expected [38;5;9m[1m[It] should successfully sync metadata and update dataset status[0m [38;5;204m[pkg.ddc.alluxio.metadata_test.go][0m
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	6.067s
+FAIL

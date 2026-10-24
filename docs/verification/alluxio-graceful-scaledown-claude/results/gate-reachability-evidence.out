@@ -1,0 +1,10 @@
+=== go list -deps ./cmd/alluxio (gate registration reaches the controller binary) ===
+github.com/fluid-cloudnative/fluid/pkg/features
+github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio
+
+=== cmd/alluxio AddFlag (pre-existing at merge-base a6d461c) ===
+101:	utilfeature.DefaultMutableFeatureGate.AddFlag(alluxioCmd.Flags())
+
+=== files this PR touches under cmd/ or charts/ (none) ===
+0
+0 (no cmd/ or charts/ changes in this PR)

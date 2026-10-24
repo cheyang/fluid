@@ -1,0 +1,12 @@
+=== Bites check 1: G4 canary flips when the e2e gains a decommission assertion ===
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	0.010s
+FAIL
+test.sh restored
+
+=== Bites check 2: G2 contract fails when workerWebPortFromPod ignores the pod spec ===
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	0.011s
+FAIL
+replicas.go restored (production diff empty)
+
+=== Post-restore: full harness green ===
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	0.011s
