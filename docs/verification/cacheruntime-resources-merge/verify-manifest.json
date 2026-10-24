@@ -32,7 +32,7 @@
   },
   "integration": {
    "kind": "gotest",
-   "cmd": "FLUID_UNIT_TEST=true go test -gcflags=\"all=-N -l\" ./pkg/ddc/cache/engine/ -json -run 'TestVerifyPR6177_(SyncRuntimeSpec_KeepsUnnamedRequirements|NeitherSideDeclares_ContractClearsWorkload|DriftedWorkload_ContractRestoresTemplate|F6_ConflictMerge_SyncSkipsAndWarns|F9_NonOvercommittableMerge_SyncMustRefuse|F9_ExtendedRequestWithoutLimit_SyncMustRefuse|F11_TemplateClaimsPropagateWithoutPodLevelDeclaration_Canary|F7_NilTopology_SyncIsNoop)'"
+   "cmd": "FLUID_UNIT_TEST=true go test -gcflags=\"all=-N -l\" ./pkg/ddc/cache/engine/ -json -run 'TestVerifyPR6177_(SyncRuntimeSpec_KeepsUnnamedRequirements|NeitherSideDeclares_ContractClearsWorkload|DriftedWorkload_ContractRestoresTemplate|F6_ConflictMerge_SyncSkipsAndWarns|F9_NonOvercommittableMerge_SyncMustRefuse|F9_ExtendedRequestWithoutLimit_SyncMustRefuse|F11_UndeclaredTemplateClaim_DroppedWarnedConverges|F11_WorkloadDeclaresClaim_Syncs|F11_ContainerAlreadyCarriesClaim_KeptNoRoll|F7_NilTopology_SyncIsNoop)'"
   }
  },
  "findings": [
