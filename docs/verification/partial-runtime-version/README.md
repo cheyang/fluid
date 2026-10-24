@@ -197,3 +197,34 @@ tree restore — the results dir is tracked in this branch, so the previous orde
 script's own `git checkout -f` clobber the fresh files with the committed round-1 ones.
 
 `.last-reviewed` advanced to `902625af3696ff6687d398c1699b6f2bba191e96`.
+
+## Round 4 — incremental review of `902625af..12d9b900` (head `12d9b900660c`)
+
+One commit: `12d9b900` rewords the `reportIncompleteVersion` log and event — "leaving the
+image unchanged" / "so the image is left unchanged" becomes "ignoring it" / "and is
+ignored". That is exactly the round-3 N2 nit: the message is shared by the creation path
+(where there is no prior image — the component is created from the template image) and the
+update path (where the current image is kept), and "unchanged" only read true on update.
+The doc comment now says the same. No call sites, conditions, or event reason change; the
+PR's own specs and this harness assert type+reason, not message text, so nothing else moves.
+
+The harness gains additive N2 contracts (`verify_pr6186_wording_test.go`): the discarded-edit
+log/event must not claim the image is left "unchanged", and must say the version is ignored.
+Differential run, both directions:
+
+| ID | Round-3 state | Round-4 verdict | Evidence |
+|----|---------------|-----------------|----------|
+| F1 | fixed | **still FIXED** | re-verify pass=3 fail=0 on `12d9b900` (`results/reverify/`) |
+| F2 | fixed (documented) | **still FIXED** | promoted contract green on `12d9b900` |
+| F3 | fixed | **still FIXED** | re-verify pass=3 fail=0 on `12d9b900` |
+| N2 | open (nit) | **FIXED** | contracts GREEN on `12d9b900` (pass=2), RED on the previous head `902625af` (both specs fail on "unchanged") — `results/reverify-previous-head-902625af-n2/`; the flip is the bites proof |
+
+Full suite on `12d9b900` with the harness grafted: 310 passed / 12 failed / 16 skipped —
+the same 12 pre-existing mount-handling failures as round 3, byte-identical spec set
+(`results/full-suite-head-r4.txt`, `results/full-suite-head-r4-failures.txt`); the +2 passes
+are the new N2 contracts. Repo-wide grep at head: the old wording survives only in a vendored
+grpc comment; docs never quoted the message. CI at head: 22 check runs SUCCESS (unittest,
+build x2, lint, staticcheck, CodeQL, SonarCloud, codecov patch+project, DCO, backward-compat
+and kind-e2e on k8s v1.22.17–v1.33.2); only tide pending (merge queue).
+
+`.last-reviewed` advanced to `12d9b900660c4a96e742c7fb4985546ad766584a`.

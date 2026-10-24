@@ -1,0 +1,12 @@
+should get cache states successfully with mocked Execute
+should return JSON parse error
+should return JSON parse error when Mount returns invalid JSON
+should return empty output error
+should return error when Mount command fails
+should return error when Mount returns empty output
+should return error when Mount returns whitespace-only output
+should return mount point not mounted error
+should return parsed CacheRuntimeMountUfsOutput with valid JSON output
+should return unexpected mounted paths error
+should skip native scheme mounts and succeed
+should successfully update mounts and set status to Bound
