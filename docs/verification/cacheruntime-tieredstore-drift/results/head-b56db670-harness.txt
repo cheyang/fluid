@@ -1,0 +1,26 @@
+=== RUN   TestVerifyPR6219Envtest_DriftRoundTrip
+--- PASS: TestVerifyPR6219Envtest_DriftRoundTrip (5.53s)
+=== RUN   TestVerifyPR6219Fix_DriftEmitsWarningOnHead
+--- PASS: TestVerifyPR6219Fix_DriftEmitsWarningOnHead (0.00s)
+=== RUN   TestVerifyPR6219RemediationDeleteWorkerWorkloadDoesNotHeal
+--- PASS: TestVerifyPR6219RemediationDeleteWorkerWorkloadDoesNotHeal (0.00s)
+=== RUN   TestVerifyPR6219MediumOnlyEditInvisibleToDriftCheck
+    verify_pr6219_findings_test.go:249: CANARY FLIPPED (blind spot fixed): Warning RuntimeTieredStoreConflict Worker tieredStore cannot be updated in-place after creation: level 0 (emptyDir): spec medium "Memory" does not match worker volume tiered-store-level-0-index-0 medium "". Delete and recreate the CacheRuntime to apply changes.
+--- FAIL: TestVerifyPR6219MediumOnlyEditInvisibleToDriftCheck (0.00s)
+=== RUN   TestVerifyPR6219ClientTieredStoreEditSilent
+--- PASS: TestVerifyPR6219ClientTieredStoreEditSilent (0.00s)
+=== RUN   TestVerifyPR6219Premise_ConfigMapFollowsSpecPodDoesNot
+--- PASS: TestVerifyPR6219Premise_ConfigMapFollowsSpecPodDoesNot (0.00s)
+=== RUN   TestVerifyPR6219Premise_SilentOnBase
+[premise-canary] observed event: Warning RuntimeTieredStoreConflict Worker tieredStore cannot be updated in-place after creation: level 0 (processMemory): spec quota 16Gi does not match worker volume tiered-store-level-0-memory sizeLimit 8Gi. Delete and recreate the CacheRuntime to apply changes.
+    verify_pr6219_premise_test.go:353: CANARY FLIPPED (this is the fix working on head): unexpected TieredStoreConflict event: Warning RuntimeTieredStoreConflict Worker tieredStore cannot be updated in-place after creation: level 0 (processMemory): spec quota 16Gi does not match worker volume tiered-store-level-0-memory sizeLimit 8Gi. Delete and recreate the CacheRuntime to apply changes.
+--- FAIL: TestVerifyPR6219Premise_SilentOnBase (0.00s)
+=== RUN   TestVerifyPR6219RemediationGuidanceRecreateCacheRuntime
+--- PASS: TestVerifyPR6219RemediationGuidanceRecreateCacheRuntime (0.00s)
+=== RUN   TestVerifyPR6219MediumDriftNowDetected
+--- PASS: TestVerifyPR6219MediumDriftNowDetected (0.00s)
+=== RUN   TestVerifyPR6219DocsGuidanceAndScope
+--- PASS: TestVerifyPR6219DocsGuidanceAndScope (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	5.544s
+FAIL
