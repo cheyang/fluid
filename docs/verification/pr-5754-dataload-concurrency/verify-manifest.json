@@ -1,0 +1,42 @@
+{
+  "topic": "pr-5754-dataload-concurrency",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/5754",
+  "harnessPaths": [
+    "docs/verification/pr-5754-dataload-concurrency",
+    "pkg/ddc/base/operation_lock_verify_test.go",
+    "pkg/ddc/base/operation_lock_verify_envtest_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Previously, SetDataOperationInProgress would always append new operation names to a comma-separated string, effectively allowing multiple tasks to run on the same dataset simultaneously (issue #1138: 'what would happen if multiple same DataLoad task start running? ... is there a lock?')",
+    "reportedComponent": "DataLoad / dataset operation locking",
+    "patchedComponent": "pkg/ddc/base/operation_lock.go + api/v1alpha1/dataset_types.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On merge-base 965f661b the contract test fails with 'P0 reproduced: second DataLoad admitted while load-1 in progress; OperationRef[DataLoad]=\"load-1,load-2\"' — both at the fake-client layer (results/base-unit.txt) and against a real API server via envtest (results/base-envtest.txt).",
+    "match": ["TestVerifyContractSecondDataLoadBlocked"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/base/ -run 'TestVerifyContract' -count=1 -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "export KUBEBUILDER_ASSETS=${KUBEBUILDER_ASSETS:-$(ls -d $HOME/envtest-assets/k8s/*-linux-amd64 2>/dev/null | sort -V | tail -1)}; go test ./pkg/ddc/base/ -run 'TestVerifyEnvtestOperationLock' -count=1 -json"
+    }
+  },
+  "findings": [
+    { "id": "FIX-MAIN", "polarity": "contract", "layer": "unit",        "match": ["TestVerifyContractSecondDataLoadBlocked"] },
+    { "id": "F1",       "polarity": "contract", "layer": "unit",        "match": ["TestVerifyContractDataMigrateParallelismNotWorkerCap"] },
+    { "id": "F1",       "polarity": "contract", "layer": "integration", "match": ["TestVerifyEnvtestOperationLock/F1DataMigrateWorkerCap"] },
+    { "id": "F3",       "polarity": "contract", "layer": "unit",        "match": ["TestVerifyContractCrossNamespaceSameNameBlocked"] },
+    { "id": "REENT",    "polarity": "contract", "layer": "unit",        "match": ["TestVerifyContractReentrantSelfAdmission"] },
+    { "id": "LIFE",     "polarity": "contract", "layer": "unit",        "match": ["TestVerifyContractReleaseUnblocksNextOperation"] },
+    { "id": "FIX-MAIN", "polarity": "contract", "layer": "integration", "match": ["TestVerifyEnvtestOperationLock/SecondDataLoadBlocked"] },
+    { "id": "LIFE",     "polarity": "contract", "layer": "integration", "match": ["TestVerifyEnvtestOperationLock/ReleaseUnblocks"] }
+  ],
+  "liveNote": "L3 (live cluster) skipped per debate setup. Observable signal if run live: a second DataLoad on a busy dataset stays Pending; controller logs 'reached the maximum number of parallel DataLoad operations' every 20s; after the first completes, the second proceeds to Executing."
+}

@@ -1,0 +1,7 @@
+2026/10/24 23:01:40 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyContractSecondDataLoadBlocked
+    operation_lock_verify_test.go:99: P0 reproduced: second DataLoad admitted while load-1 in progress; OperationRef[DataLoad]="load-1,load-2"
+--- FAIL: TestVerifyContractSecondDataLoadBlocked (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/base	0.011s
+FAIL

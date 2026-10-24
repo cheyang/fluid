@@ -1,0 +1,14 @@
+2026/10/24 23:05:46 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyEnvtestOperationLock
+=== RUN   TestVerifyEnvtestOperationLock/SecondDataLoadBlocked
+    operation_lock_verify_envtest_test.go:110: P0 reproduced against real API server: second DataLoad admitted; OperationRef[DataLoad]="load-1,load-2"
+=== RUN   TestVerifyEnvtestOperationLock/F1DataMigrateWorkerCap
+    operation_lock_verify_envtest_test.go:124: F1 confirmed against real API server: second DataMigrate admitted; OperationRef[DataMigrate]="mig-1,mig-2"
+=== RUN   TestVerifyEnvtestOperationLock/ReleaseUnblocks
+--- FAIL: TestVerifyEnvtestOperationLock (6.09s)
+    --- FAIL: TestVerifyEnvtestOperationLock/SecondDataLoadBlocked (0.00s)
+    --- FAIL: TestVerifyEnvtestOperationLock/F1DataMigrateWorkerCap (0.00s)
+    --- PASS: TestVerifyEnvtestOperationLock/ReleaseUnblocks (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/base	6.100s
+FAIL

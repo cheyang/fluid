@@ -1,0 +1,17 @@
+2026/10/24 23:01:55 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyContractSecondDataLoadBlocked
+    operation_lock_verify_test.go:104: second DataLoad rejected as intended: the dataset ds has reached the maximum number of parallel DataLoad operations (limit: 1), please wait
+--- PASS: TestVerifyContractSecondDataLoadBlocked (0.00s)
+=== RUN   TestVerifyContractDataMigrateParallelismNotWorkerCap
+    operation_lock_verify_test.go:144: F1 confirmed: 2nd DataMigrate admitted because GetParallelTaskNumber()=spec.parallelism=4 is reused as the inter-op cap; OperationRef[DataMigrate]="mig-1,mig-2"
+--- FAIL: TestVerifyContractDataMigrateParallelismNotWorkerCap (0.00s)
+=== RUN   TestVerifyContractCrossNamespaceSameNameBlocked
+    operation_lock_verify_test.go:177: F3 confirmed: same-named DataLoad from another namespace bypassed the limit via the name-only operation key
+--- FAIL: TestVerifyContractCrossNamespaceSameNameBlocked (0.00s)
+=== RUN   TestVerifyContractReentrantSelfAdmission
+--- PASS: TestVerifyContractReentrantSelfAdmission (0.00s)
+=== RUN   TestVerifyContractReleaseUnblocksNextOperation
+--- PASS: TestVerifyContractReleaseUnblocksNextOperation (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/base	0.011s
+FAIL
