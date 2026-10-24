@@ -76,3 +76,37 @@ Read docs/verification/cacheruntime-tieredstore-drift/{README.md,verify-manifest
 verify/cacheruntime-tieredstore-drift-codex of https://github.com/cheyang/fluid.git, then run
 bash docs/verification/cacheruntime-tieredstore-drift/scripts/re-verify.sh
 ```
+
+---
+
+## Round 2 — head `b56db670bfd45383cf8cdf237125fd82b90a1e13` (2026-10-25)
+
+The author addressed all round-1 findings in a force-pushed single commit
+(`58afa3a9..b56db670`). `scripts/re-verify.sh` on the new head:
+**RESULT: all findings fixed** (`results/reverify-summary.txt`).
+
+| id | round-1 state | round-2 verdict | evidence |
+| --- | --- | --- | --- |
+| P0 premise | confirmed on base | fix canary flipped on head | `results/head-b56db670-harness.txt` |
+| FIX contracts | green | still green (unit + envtest) | `results/head-b56db670-harness.txt` |
+| F1 remediation wedge | open (major) | **fixed** — event message (sync.go:302) and all en+zh doc sites now say "delete and recreate the CacheRuntime"; zero "recreate the worker" references remain | new contract `TestVerifyPR6219RemediationGuidanceRecreateCacheRuntime` + `TestVerifyPR6219DocsGuidanceAndScope` |
+| F2 medium blind spot | open (minor) | **fixed** — `checkEmptyDirDrift` compares `Medium`; canary flipped red with the new medium drift message | `TestVerifyPR6219MediumDriftNowDetected` (contract); PR's own 2 medium specs green |
+| F3 client doc scope | open (minor) | **fixed** — docs scoped to `spec.worker.tieredStore`; client detection deferred to issue #6221 (OPEN, author-filed) | `TestVerifyPR6219DocsGuidanceAndScope`; client-silence canary stays green as the pre-existing-behavior record |
+| TS-E2E-GAP | open (major) | **fixed** — `verify_tieredstore_drift_warning` in test/gha-e2e/curvine/test.sh runs in the required kind-e2e checks; all 5 k8s versions green on b56db670 | `gh pr checks 6219` 2026-10-25; .github/scripts/gha-e2e.sh:117 |
+| TS-VAR-SCOPE | open (nit) | **fixed** — per-engine `tieredStoreWarningInterval` field with 0-fallback getter; engine_test.go covers it | engine.go:58,71-76,95 |
+
+Harness changes this round (additive): F1/F2/F3 re-polarized from canaries to
+contracts because the fixes landed as text/comparison/docs changes the round-1
+canaries could not observe. The round-1 canary tests stay in the tree:
+`TestVerifyPR6219MediumOnlyEditInvisibleToDriftCheck` flipped red (= blind spot
+closed, superseded by the F2 contract); `...RemediationDeleteWorkerWorkloadDoesNotHeal`
+and `...ClientTieredStoreEditSilent` stay green, pinning pre-existing behavior the
+PR deliberately did not change (now unreferenced by guidance / tracked in #6221).
+`results/head-b56db670-pr-specs.txt`: the PR's 15 focused drift specs all pass
+(`-gcflags="all=-N -l"` required, pre-existing gomonkey constraint).
+
+New nit this round (non-blocking): `verify_tieredstore_drift_warning`'s revert
+patch restores `quota: 1Gi` but drops the level's original `high`/`low` fields
+(JSON merge replaces the array), and the "resets upon reversal" step is not
+asserted (no check that the warning stops) — harmless today because the drift
+check ignores high/low and the dataset is deleted right after.
