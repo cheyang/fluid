@@ -287,8 +287,13 @@ Raw evidence:
 - `results/reverify-previous-head-902625af-n2/` — 316 Passed | 13 Failed = the 12 pre-existing
   mount/Execute specs + the N2 contract red; the failure text quotes the old message
   ("...template image %q, so the image is left unchanged; set both image and imageTag").
+  Transcript: `integration-transcript.txt`; re-verify table: `reverify-prev-head.txt`.
 - `results/reverify-current-head-12d9b900/` — 317 Passed | 12 Failed; the 12 are the
   byte-identical pre-existing set; 345 total specs = 344 at the round-3 head + the new N2 spec.
+  Transcript: `integration-transcript.txt`; re-verify table: `reverify-cur-head.txt`.
+  (As in round 3, the repo-side `results/reverify/` copies are restored by the cleanup trap;
+  the per-round directories above — transcripts, parsed files, table captures — are the
+  durable evidence.)
 - Focused runs (unambiguous per-spec evidence, `-ginkgo.focus` on the observability container):
   `results/n2-wording-previous-head-902625af.txt` (3 Passed | 1 Failed) vs
   `results/n2-wording-current-head-12d9b900.txt` (`ok` — all 4 green). This red→green flip
