@@ -910,6 +910,58 @@ var _ = Describe("CacheEngine Sync Tests", Label("pkg.ddc.cache.engine.sync_test
 			seedTemplateResources(workerSts, &runtimeClass.Topology.Worker.Template)
 		})
 
+		Context("when the CacheRuntime drops a runtimeVersion it had set", func() {
+			imageOfWorker := func() string {
+				sts := &workloadv1alpha1.AdvancedStatefulSet{}
+				key := types.NamespacedName{Name: workerSts, Namespace: "default"}
+				Expect(fakeClient.Get(ctx.Context, key, sts)).To(Succeed())
+				return sts.Spec.Template.Spec.Containers[0].Image
+			}
+
+			syncWorkerVersion := func(version datav1alpha1.VersionSpec) {
+				edited, err := engine.getRuntime()
+				Expect(err).NotTo(HaveOccurred())
+				edited.Spec.Worker.RuntimeVersion = version
+				Expect(fakeClient.Update(ctx.Context, edited)).To(Succeed())
+
+				syncRuntime, err := engine.getRuntime()
+				Expect(err).NotTo(HaveOccurred())
+				Expect(engine.syncRuntimeSpec(ctx, syncRuntime, runtimeClass)).To(Succeed())
+			}
+
+			It("should roll the worker back to the template image", func() {
+				syncWorkerVersion(datav1alpha1.VersionSpec{ImageTag: "v2"})
+				Expect(imageOfWorker()).To(Equal("test-worker:v2"))
+
+				syncWorkerVersion(datav1alpha1.VersionSpec{})
+				Expect(imageOfWorker()).To(Equal("test-worker:latest"))
+			})
+
+			It("should keep the image and emit a Warning event when the template cannot complete the version", func() {
+				recorder := record.NewFakeRecorder(10)
+				engine.Recorder = recorder
+				runtimeClass.Topology.Worker.Template.Spec.Containers[0].Image =
+					"test-worker@sha256:067614b70d25b496e3edc3480747d558ee8a364ef47a67f669f5d96ca5098552"
+				before := imageOfWorker()
+
+				syncWorkerVersion(datav1alpha1.VersionSpec{ImageTag: "v2"})
+
+				Expect(imageOfWorker()).To(Equal(before))
+				Expect(recorder.Events).To(Receive(And(
+					HavePrefix(corev1.EventTypeWarning+" "+common.RuntimeVersionIncomplete+" "),
+					ContainSubstring(`imageTag "v2"`))))
+				Expect(recorder.Events).To(BeEmpty())
+			})
+
+			It("should keep the template tag when only the image is set", func() {
+				syncWorkerVersion(datav1alpha1.VersionSpec{Image: "other-worker"})
+				Expect(imageOfWorker()).To(Equal("other-worker:latest"))
+
+				syncWorkerVersion(datav1alpha1.VersionSpec{})
+				Expect(imageOfWorker()).To(Equal("test-worker:latest"))
+			})
+		})
+
 		// The client component runs on a DaemonSet. Neither reconcile path carries a
 		// client spec edit to that workload: syncRuntimeSpec skips the client outright,
 		// and reconcileDaemonSet returns early once the DaemonSet exists. The edit is
@@ -1597,6 +1649,36 @@ var _ = Describe("CacheEngine Sync Tests", Label("pkg.ddc.cache.engine.sync_test
 				Expect(event).To(ContainSubstring(common.RuntimeTieredStoreConflict))
 				Expect(event).To(ContainSubstring(`level 0 (emptyDir): spec medium "" does not match worker volume tiered-store-level-0-index-0 medium "Memory"`))
 				Expect(event).To(ContainSubstring("Delete and recreate the CacheRuntime to apply changes."))
+			})
+
+			It("should give precedence to hostPath over emptyDir when both are configured on a level matching ConfigMap extraction", func() {
+				createWorkerWithTieredStore(datav1alpha1.RuntimeTieredStore{
+					Levels: []datav1alpha1.RuntimeTieredStoreLevel{
+						{EmptyDir: &datav1alpha1.EmptyDirMediumSource{
+							Quota:  resource.MustParse("2Gi"),
+							Medium: corev1.StorageMediumMemory,
+						}},
+					},
+				})
+
+				edited, err := engine.getRuntime()
+				Expect(err).NotTo(HaveOccurred())
+				edited.Spec.Worker.TieredStore.Levels[0].HostPath = &datav1alpha1.HostPathMediumSource{
+					Paths:  []string{"/mnt/cache"},
+					Quotas: []resource.Quantity{resource.MustParse("2Gi")},
+				}
+				Expect(fakeClient.Update(ctx.Context, edited)).To(Succeed())
+
+				syncRuntime, err := engine.getRuntime()
+				Expect(err).NotTo(HaveOccurred())
+				Expect(engine.syncRuntimeSpec(ctx, syncRuntime, runtimeClass)).To(Succeed())
+
+				var event string
+				Expect(fakeRecorder.Events).To(Receive(&event))
+				Expect(event).To(ContainSubstring(corev1.EventTypeWarning))
+				Expect(event).To(ContainSubstring(common.RuntimeTieredStoreConflict))
+				Expect(event).To(ContainSubstring("hostPath"))
+				Expect(event).To(ContainSubstring("volume tiered-store-level-0-index-0 not found in worker pod"))
 			})
 
 			It("should return error when reading worker pod spec fails", func() {

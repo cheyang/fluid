@@ -193,8 +193,10 @@ func (e *CacheEngine) syncRuntimeSpec(ctx cruntime.ReconcileRequestContext, runt
 			Namespace: e.namespace,
 		}
 		manager := component.NewComponentHelper(common.ComponentTypeMaster, e.Client)
+		masterTemplateImage := componentTemplateImage(runtimeClass.Topology.Master)
+		e.reportIncompleteVersion(runtime, common.ComponentTypeMaster, runtime.Spec.Master.RuntimeVersion, masterTemplateImage)
 		masterSpec := component.ComponentSpec{
-			Version:   runtime.Spec.Master.RuntimeVersion,
+			Version:   desiredComponentVersion(runtime.Spec.Master.RuntimeVersion, masterTemplateImage),
 			Resources: desiredComponentResources(runtime.Spec.Master.Resources, runtimeClass.Topology.Master),
 			Replicas:  &runtime.Spec.Master.Replicas,
 		}
@@ -231,10 +233,13 @@ func (e *CacheEngine) syncRuntimeSpec(ctx cruntime.ReconcileRequestContext, runt
 			workerResources = &resources
 		}
 
+		workerTemplateImage := componentTemplateImage(runtimeClass.Topology.Worker)
+		e.reportIncompleteVersion(runtime, common.ComponentTypeWorker, runtime.Spec.Worker.RuntimeVersion, workerTemplateImage)
+
 		e.checkWorkerTieredStoreDrift(runtime, podSpec)
 
 		workerSpec := component.ComponentSpec{
-			Version:   runtime.Spec.Worker.RuntimeVersion,
+			Version:   desiredComponentVersion(runtime.Spec.Worker.RuntimeVersion, workerTemplateImage),
 			Resources: workerResources,
 			Replicas:  &runtime.Spec.Worker.Replicas,
 		}
@@ -270,18 +275,18 @@ func (e *CacheEngine) checkWorkerTieredStoreDrift(runtime *datav1alpha1.CacheRun
 			if msg != "" {
 				driftMsgs = append(driftMsgs, msg)
 			}
-		case level.EmptyDir != nil:
-			volName, msg := checkEmptyDirDrift(levelIndex, level, podSpec.Volumes)
-			expectedVolumes[volName] = true
-			if msg != "" {
-				driftMsgs = append(driftMsgs, msg)
-			}
 		case level.HostPath != nil:
 			volNames, msgs := checkHostPathDrift(levelIndex, level, podSpec.Volumes)
 			for _, vn := range volNames {
 				expectedVolumes[vn] = true
 			}
 			driftMsgs = append(driftMsgs, msgs...)
+		case level.EmptyDir != nil:
+			volName, msg := checkEmptyDirDrift(levelIndex, level, podSpec.Volumes)
+			expectedVolumes[volName] = true
+			if msg != "" {
+				driftMsgs = append(driftMsgs, msg)
+			}
 		}
 	}
 
