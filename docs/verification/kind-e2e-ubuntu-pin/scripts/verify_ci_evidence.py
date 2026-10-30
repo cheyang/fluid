@@ -117,7 +117,7 @@ def main():
     failed = [r for r in _results if r["Action"] == "fail"]
     if args.json:
         for line in _results:
-            print(json.dumps(line))
+            print(json.dumps(line, separators=(",", ":")))
     print("%d passed, %d failed (go-test style)" % (
         len([r for r in _results if r["Action"] == "pass"]), len(failed)))
     return 1 if failed else 0
