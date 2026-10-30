@@ -1,0 +1,10 @@
+{"Action":"start","Test":"TestWorkflowYamlParses"}
+{"Action":"pass","Test":"TestWorkflowYamlParses"}
+{"Action":"output","Output":"[ok] TestWorkflowYamlParses: 6 workflow files parse as YAML\n","Test":"TestWorkflowYamlParses"}
+{"Action":"start","Test":"TestCodeqlPinsConsistent"}
+{"Action":"pass","Test":"TestCodeqlPinsConsistent"}
+{"Action":"output","Output":"[ok] TestCodeqlPinsConsistent: all 3 codeql-action steps pin 9b3254085494 (analyze, init, upload-sarif)\n","Test":"TestCodeqlPinsConsistent"}
+{"Action":"start","Test":"TestPinsAreFullCommitShas"}
+{"Action":"pass","Test":"TestPinsAreFullCommitShas"}
+{"Action":"output","Output":"[ok] TestPinsAreFullCommitShas: 3 pins are full commit SHAs\n","Test":"TestPinsAreFullCommitShas"}
+{"Action":"pass"}

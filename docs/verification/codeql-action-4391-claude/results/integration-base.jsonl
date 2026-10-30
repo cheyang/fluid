@@ -1,0 +1,14 @@
+{"Action":"output","Output":"resolved 411 release tags from https://github.com/github/codeql-action.git; releases/v4 tip=9b3254085494\n"}
+{"Action":"start","Test":"TestPinMatchesReleaseTag"}
+{"Action":"pass","Test":"TestPinMatchesReleaseTag"}
+{"Action":"output","Output":"[ok] TestPinMatchesReleaseTag: pinned 6f2ac81f5cd8 == tag v4.39.0\n","Test":"TestPinMatchesReleaseTag"}
+{"Action":"start","Test":"TestPinnedIsLatestV4Release"}
+{"Action":"fail","Test":"TestPinnedIsLatestV4Release"}
+{"Action":"output","Output":"[FAIL] TestPinnedIsLatestV4Release: pinned codeql-action v4.39.0 is not the tip of the v4 release line (v4.39.1); the bump is behind the current release\n","Test":"TestPinnedIsLatestV4Release"}
+{"Action":"start","Test":"TestVersionCommentsMatchPins"}
+{"Action":"pass","Test":"TestVersionCommentsMatchPins"}
+{"Action":"output","Output":"[ok] TestVersionCommentsMatchPins: comments still stale: codeql-analysis.yml: init comment says v3.29.5, pin is v4.39.0; codeql-analysis.yml: analyze comment says v3.29.5, pin is v4.39.0; sonarcloud.yaml: upload-sarif comment says v2.22.11, pin is v4.39.0\n","Test":"TestVersionCommentsMatchPins"}
+{"Action":"start","Test":"TestSonarcloudCodeqlNotOnPRs"}
+{"Action":"pass","Test":"TestSonarcloudCodeqlNotOnPRs"}
+{"Action":"output","Output":"[ok] TestSonarcloudCodeqlNotOnPRs: triggers=['push', 'schedule']; upload-sarif not exercised by PR CI\n","Test":"TestSonarcloudCodeqlNotOnPRs"}
+{"Action":"pass"}
