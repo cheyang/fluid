@@ -1,0 +1,5 @@
+TestKindE2eWorkflowParsesAsYaml	pass
+TestKindE2eRunnerPinnedToUbuntu2404	pass
+TestKindE2eTodoReferencesTrackingIssue6224	pass
+TestBackwardCompatWorkflowLeftUnpinned	pass
+TestPremiseEvidenceRecorded	pass

@@ -1,0 +1,3 @@
+TestPRHeadKindE2eRunGreenOnPinnedImage	pass
+TestFailingRunOnUbuntu2604IsFailure	pass
+TestBackwardCompatPassesOnUbuntu2604	pass
