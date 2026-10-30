@@ -1,0 +1,38 @@
+{
+  "topic": "cacheruntime-hpa-scale",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6223",
+  "harnessPaths": [
+    "docs/verification/cacheruntime-hpa-scale-claude",
+    "pkg/ddc/cache/engine/status_selector_harness_test.go",
+    "pkg/ddc/cache/engine/selector_workload_consistency_harness_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "issue #6063: \"CacheEngine does not populate Status.Selector, breaking HPA and worker pod discovery\" — status.selector stays empty and the CacheRuntime CRD has no scale subresource, so HPA cannot target CacheRuntime",
+    "reportedComponent": "pkg/ddc/cache/engine (status.go CheckAndUpdateRuntimeStatus, master.go)",
+    "patchedComponent": "pkg/ddc/cache/engine (status.go, worker.go, master.go) + api/v1alpha1/cacheruntime_types.go + CRD yamls",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "results/base-selector.out: TestHarnessStatusSelectorPopulated fails on merge-base fe074af38434 (Status.Selector=\"\") and passes on head 3f39501e (results/head-selector.out); base CRD subresources has status only, no scale",
+    "match": ["TestHarnessStatusSelectorPopulated"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run 'TestHarness' -json"
+    },
+    "integration": {
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run TestCacheEngine -ginkgo.focus 'Status.Selector|MatchLabels' -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    }
+  },
+  "findings": [
+    { "id": "F1-selector-populated", "polarity": "contract", "layer": "unit", "match": ["TestHarnessStatusSelectorPopulated"] },
+    { "id": "F1b-selector-matches-workload", "polarity": "contract", "layer": "unit", "match": ["TestHarnessSelectorMatchesWorkerWorkload"] },
+    { "id": "F2-selector-set-when-worker-disabled", "polarity": "canary", "layer": "unit", "match": ["TestHarnessSelectorSetEvenWhenWorkerDisabled"] }
+  ],
+  "liveNote": "L3 (skipped in this debate phase): kind e2e curvine case already covers the API-server scale subresource contract in CI (run 40716621753, curvine testcase SUCCEEDED on all 5 k8s versions). Manual re-check: kubectl get --raw /apis/data.fluid.io/v1alpha1/namespaces/<ns>/cacheruntimes/<name>/scale must report spec.replicas, status.replicas and the string selector; kubectl scale cacheruntime/<name> must flow to the worker AdvancedStatefulSet."
+}
