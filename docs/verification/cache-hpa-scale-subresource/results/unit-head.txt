@@ -1,0 +1,13 @@
+## HEAD unit layer (go test ./pkg/ddc/cache/engine/ -run TestVerifyHPA -v)
+2026/10/30 14:02:11 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyHPAPremiseSelectorPopulated
+--- PASS: TestVerifyHPAPremiseSelectorPopulated (0.00s)
+=== RUN   TestVerifyHPASelectorMatchesCreatedWorkerPods
+--- PASS: TestVerifyHPASelectorMatchesCreatedWorkerPods (0.00s)
+=== RUN   TestVerifyHPASelectorBehaviorWhenWorkerDisabled
+    hpa_scale_verify_test.go:140: observed status.selector with disabled worker: "cacheruntime.fluid.io/component-name=curvine-demo-worker,cacheruntime.fluid.io/name=curvine-demo"
+--- PASS: TestVerifyHPASelectorBehaviorWhenWorkerDisabled (0.00s)
+=== RUN   TestVerifyHPAStatusReplicasPathPopulated
+--- PASS: TestVerifyHPAStatusReplicasPathPopulated (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.014s

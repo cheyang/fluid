@@ -1,0 +1,102 @@
+{
+  "topic": "cache-hpa-scale-subresource",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6223",
+  "harnessPaths": [
+    "docs/verification/cache-hpa-scale-subresource",
+    "pkg/ddc/cache/engine/hpa_premise_verify_test.go",
+    "pkg/ddc/cache/engine/hpa_scale_verify_test.go",
+    "test/verification/codexhpa/scale_subresource_envtest_test.go",
+    "test/verification/codexhpa/scale_premise_base_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "CacheEngine never populates CacheRuntime.Status.Selector (issue #6063), so HPA / worker pod discovery see an empty selector; the CacheRuntime CRD has no scale subresource",
+    "reportedComponent": "pkg/ddc/cache/engine (CacheEngine), CacheRuntime CRD",
+    "patchedComponent": "pkg/ddc/cache/engine, api/v1alpha1/cacheruntime_types.go, CRD YAMLs",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "TestVerifyHPAPremiseSelectorPopulated FAILS on base (status.selector empty) and PASSES on head; GET /scale NotFound on base CRD vs 200 on head CRD. See results/unit-base-premise.txt, results/integration-base-premise.txt",
+    "match": [
+      "TestVerifyHPAPremiseSelectorPopulated"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run 'TestVerifyHPA' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "KUBEBUILDER_ASSETS=\"${KUBEBUILDER_ASSETS:-$(ls -d \"$HOME\"/.local/share/kubebuilder-envtest/k8s/*/ 2>/dev/null | sort -V | tail -1)}\" go test ./test/verification/codexhpa/ -run 'TestCacheRuntime' -json",
+      "env": {
+        "KUBEBUILDER_ASSETS": "path to envtest binaries (etcd, kube-apiserver, kubectl); e.g. $(setup-envtest use 1.31.0 -p path)"
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestCacheRuntimeScaleSubresource/worker_runtime:_GET_scale_serves_spec+status+selector"
+      ]
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestCacheRuntimeScaleSubresource/worker_runtime:_kubectl_scale_writes_through_the_subresource",
+        "TestVerifyHPAStatusReplicasPathPopulated"
+      ]
+    },
+    {
+      "id": "F3",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestCacheRuntimeScaleSubresource"
+      ],
+      "note": "coverage-gap finding: these envtest assertions are the executed coverage the single-node CI e2e skips"
+    },
+    {
+      "id": "F4",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestCacheRuntimeScaleSubresource/worker-less_runtime:_defaulting_+_GET_scale_behavior_(pins_PR_body_claim)"
+      ],
+      "note": "pins observed behavior (GET/PUT scale succeed as silent no-ops on worker-less runtimes); if the PR is changed to make GET /scale fail there, invert this subtest's expectations"
+    },
+    {
+      "id": "F5",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyHPASelectorMatchesCreatedWorkerPods"
+      ]
+    },
+    {
+      "id": "F6",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyHPASelectorBehaviorWhenWorkerDisabled"
+      ],
+      "note": "pins current behavior (selector stamped even with worker disabled); a deliberate behavior change must update this test"
+    },
+    {
+      "id": "F7",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestCacheRuntimeScalePathsMatchGoTags"
+      ],
+      "note": "json-tag guard for statusReplicasPath; CRD regen check evidence in results/crd-regen.txt"
+    }
+  ],
+  "liveNote": "L3 skipped per debate setup. PR's own curvine e2e on GHA kind verified the GET-side scale contract + status.selector pod matching on k8s 1.22-1.33; the scale-WRITE e2e step is skipped on single-node kind clusters."
+}

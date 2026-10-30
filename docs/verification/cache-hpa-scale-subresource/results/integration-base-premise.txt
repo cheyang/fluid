@@ -1,0 +1,8 @@
+## BASE CRD premise probe (CODEX_CRD_DIR=base CRDs, EXPECT_SCALE=absent)
+=== RUN   TestCacheRuntimeScalePremiseAgainstCRDDir
+    scale_subresource_envtest_test.go:104: $ kubectl --kubeconfig /tmp/TestCacheRuntimeScalePremiseAgainstCRDDir3383283189/001/kubeconfig get --raw /apis/data.fluid.io/v1alpha1/namespaces/verify-ns/cacheruntimes/hpa-demo/scale
+        Error from server (NotFound): cacheruntimes.data.fluid.io "hpa-demo" not found
+    scale_premise_base_test.go:59: PREMISE REPRODUCED (base CRD): GET /scale fails: Error from server (NotFound): cacheruntimes.data.fluid.io "hpa-demo" not found
+--- PASS: TestCacheRuntimeScalePremiseAgainstCRDDir (4.02s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/test/verification/codexhpa	4.030s

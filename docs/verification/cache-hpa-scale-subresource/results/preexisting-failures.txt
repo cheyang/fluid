@@ -1,0 +1,4 @@
+## pre-existing env-noise check: base vs head engine suite failures
+base failures:
+head failures:
+(identical list, diff empty)

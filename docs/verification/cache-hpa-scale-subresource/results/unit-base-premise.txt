@@ -1,0 +1,8 @@
+## BASE unit layer (premise canary grafted onto base $ (git -C base rev-parse HEAD))
+2026/10/30 14:02:12 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyHPAPremiseSelectorPopulated
+    hpa_premise_verify_test.go:62: PREMISE REPRODUCED: status.selector is empty after status sync; HPA cannot discover worker pods
+--- FAIL: TestVerifyHPAPremiseSelectorPopulated (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.013s
+FAIL
