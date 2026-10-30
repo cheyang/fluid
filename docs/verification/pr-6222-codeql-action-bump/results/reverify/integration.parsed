@@ -1,0 +1,6 @@
+PinResolvesToUpstreamTag/.github/workflows/sonarcloud.yaml:54	pass
+VersionCommentMatchesPinnedTag/.github/workflows/sonarcloud.yaml:54	fail
+PinResolvesToUpstreamTag/.github/workflows/codeql-analysis.yml:49	pass
+VersionCommentMatchesPinnedTag/.github/workflows/codeql-analysis.yml:49	fail
+PinResolvesToUpstreamTag/.github/workflows/codeql-analysis.yml:69	pass
+VersionCommentMatchesPinnedTag/.github/workflows/codeql-analysis.yml:69	fail
