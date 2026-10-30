@@ -142,8 +142,9 @@ def main():
     if args.json:
         for line in _results:
             print(json.dumps(line, separators=(",", ":")))
+    # Summary goes to stderr: stdout must stay pure JSON lines for `jq -s`.
     print("%d passed, %d failed (go-test style)" % (
-        len([r for r in _results if r["Action"] == "pass"]), len(failed)))
+        len([r for r in _results if r["Action"] == "pass"]), len(failed)), file=sys.stderr)
     return 1 if failed else 0
 
 
