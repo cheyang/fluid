@@ -49,9 +49,9 @@
       "polarity": "contract",
       "layer": "integration",
       "match": [
-        "TestCacheRuntimeScaleSubresource/worker_runtime:_kubectl_scale_writes_through_the_subresource",
-        "TestVerifyHPAStatusReplicasPathPopulated"
-      ]
+        "TestCacheRuntimeScaleSubresource/worker_runtime:_kubectl_scale_writes_through_the_subresource"
+      ],
+      "note": "controller-side propagation (.spec.worker.replicas -> AdvancedStatefulSet) is the pre-existing syncRuntimeSpec/SyncComponentSpec path; the unit-layer half is tracked by F2-unit"
     },
     {
       "id": "F3",
@@ -61,6 +61,15 @@
         "TestCacheRuntimeScaleSubresource"
       ],
       "note": "coverage-gap finding: these envtest assertions are the executed coverage the single-node CI e2e skips"
+    },
+    {
+      "id": "F2-unit",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyHPAStatusReplicasPathPopulated"
+      ],
+      "note": "unit half of F2: status sync populates .status.worker.currentReplicas, which the scale subresource serves as status.replicas"
     },
     {
       "id": "F4",
