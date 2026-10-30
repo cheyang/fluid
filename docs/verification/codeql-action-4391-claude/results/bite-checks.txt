@@ -1,0 +1,27 @@
+# Harness-bites check (PR #6222, head 9fe48f12) — each test proven able to go red.
+Method: copy .github/ to /tmp/bite-6222, apply the named corruption, re-run the layer.
+(diagnostics appear as go-test output events in the jsonl streams; grep shows [ok]/[FAIL])
+
+## bite 1 — pins inconsistent (analyze left at 4.39.0 while init/upload-sarif at 4.39.1)
+$ sed -i "s|...analyze@9b325408...|...analyze@6f2ac81f...|" ; run unit layer
+[FAIL] TestCodeqlPinsConsistent: codeql-action steps pin different versions (6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee, 9b3254085494b55a0f7c4c2b3d2d52cc712ce370); the dependabot.yml group requires all init/analyze/upload-sarif steps on the same version
+
+## bite 2 — stale comments corrected to v4.39.1 (the proposed fix for the comment finding)
+$ sed -i "s/# v3.29.5/# v4.39.1/g; s/# v2.22.11/# v4.39.1/g" ; run integration layer
+[FAIL] TestVersionCommentsMatchPins: stale-version-comment canary: expected the `# vX.Y.Z` comments to disagree with the pinned version (they are stale today); they now match -> the comments were fixed, invert this canary into a contract test
+
+## bite 3 — pin by short sha (9b325408) instead of full 40-hex
+[FAIL] TestCodeqlPinsConsistent: codeql-action steps pin different versions (9b325408, 9b3254085494b55a0f7c4c2b3d2d52cc712ce370); the dependabot.yml group requires all init/analyze/upload-sarif steps on the same version
+[FAIL] TestPinsAreFullCommitShas: /tmp/bite-6222/.github/workflows/codeql-analysis.yml: init pinned by '9b325408', expected a full 40-hex commit SHA (supply-chain pinning discipline used by this repo)
+
+## bite 4 — sonarcloud.yaml gains a pull_request trigger (PR coverage added)
+[FAIL] TestSonarcloudCodeqlNotOnPRs: sonarcloud PR-coverage canary: sonarcloud.yaml now triggers on pull_request -> the upload-sarif step is exercised by PR CI, invert this canary into a contract test
+
+## bite 5 — all steps pinned to a non-release commit (b5e1ed957, a changelog commit)
+[FAIL] TestPinMatchesReleaseTag: pinned codeql-action SHA b5e1ed9574dcfa81c88c318140f3b3e5c199bfb3 does not resolve to any release tag of github/codeql-action (bump points at a non-release commit?)
+[FAIL] TestPinnedIsLatestV4Release: pinned codeql-action b5e1ed9574dc is not the tip of the v4 release line (v4.39.1); the bump is behind the current release\n","Test":"TestPinnedIsLatestV4Release"}
+[FAIL] TestVersionCommentsMatchPins: stale-version-comment canary: expected the `# vX.Y.Z` comments to disagree with the pinned version (they are stale today); they now match -> the comments were fixed, invert this canary into a contract test
+
+## control — restored head state: all checks green
+unit pass events: 3
+integration pass events: 4

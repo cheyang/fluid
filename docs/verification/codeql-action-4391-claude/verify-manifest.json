@@ -1,0 +1,37 @@
+{
+  "topic": "codeql-action-4391-claude",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6222",
+  "harnessPaths": [
+    "docs/verification/codeql-action-4391-claude"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot bump: the repository pins github/codeql-action v4.39.0 (SHA 6f2ac81f) while v4.39.1 is the latest release of the v4 line, so the pinned CodeQL action is out of date.",
+    "reportedComponent": ".github/workflows/codeql-analysis.yml and .github/workflows/sonarcloud.yaml (the codeql-action pins)",
+    "patchedComponent": ".github/workflows/codeql-analysis.yml and .github/workflows/sonarcloud.yaml (the codeql-action pins)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "integration",
+    "verdict": "confirmed",
+    "evidence": "On base fe074af3 the pinned SHA 6f2ac81f peels to tag v4.39.0, while refs/heads/releases/v4 (and refs/tags/v4) point at 9b325408 = v4.39.1, so TestPinnedIsLatestV4Release FAILS on base and PASSES on head — results/integration-base.jsonl vs results/integration-head.jsonl"
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "python3 docs/verification/codeql-action-4391-claude/scripts/run_checks.py --layer unit"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "python3 docs/verification/codeql-action-4391-claude/scripts/run_checks.py --layer integration"
+    }
+  },
+  "findings": [
+    { "id": "P0-pin-current", "polarity": "contract", "layer": "integration", "match": ["TestPinnedIsLatestV4Release"] },
+    { "id": "F1-stale-version-comments", "polarity": "canary", "layer": "integration", "match": ["TestVersionCommentsMatchPins"] },
+    { "id": "F2-upload-sarif-not-on-prs", "polarity": "canary", "layer": "integration", "match": ["TestSonarcloudCodeqlNotOnPRs"] },
+    { "id": "AC1-pin-integrity", "polarity": "contract", "layer": "integration", "match": ["TestPinMatchesReleaseTag"] },
+    { "id": "AC2-group-consistency", "polarity": "contract", "layer": "unit", "match": ["TestCodeqlPinsConsistent"] },
+    { "id": "AC3-pinning-discipline", "polarity": "contract", "layer": "unit", "match": ["TestPinsAreFullCommitShas", "TestWorkflowYamlParses"] }
+  ],
+  "liveNote": "L3 not applicable per review instructions (no live/KUBECONFIG layer). The real-environment signal for this PR is GitHub CI itself: the CodeQL workflow ran on the PR head and 'Analyze (go)' finished SUCCESS (run 40644839222, job 122671119289, 2026-10-28), exercising init+analyze at the pinned v4.39.1. The sonarcloud upload-sarif step only runs on schedule/master push and remains unexercised (F2)."
+}
