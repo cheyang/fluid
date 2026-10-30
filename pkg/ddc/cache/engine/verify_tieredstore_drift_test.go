@@ -446,3 +446,88 @@ func TestVerifyEmptyDirMediumFlipDetected(t *testing.T) {
 	t.Run("disk-to-memory", func(t *testing.T) { drive(t, corev1.StorageMedium(""), corev1.StorageMediumMemory) })
 	t.Run("memory-to-disk", func(t *testing.T) { drive(t, corev1.StorageMediumMemory, corev1.StorageMedium("")) })
 }
+
+// TestVerifyDispatchPrecedenceMatchesConfigMap is a CONTRACT test for the
+// round-3 precedence fix (ledger TS-DISPATCH-PRECEDENCE, Copilot C4368713436):
+// the CRD has no one-of validation on a tieredStore level, so a level can carry
+// both hostPath and emptyDir. extractTieredStoreLevels (cm.go) reports such a
+// level as hostPath (HostPath is checked before EmptyDir), so the drift check
+// must dispatch the same way — otherwise a both-fields edit is validated
+// against the stale emptyDir volume and the real split (spec now demands a
+// hostPath volume the pod does not have) stays silent.
+func TestVerifyDispatchPrecedenceMatchesConfigMap(t *testing.T) {
+	h := newTieredStoreDriftHarness(t, []datav1alpha1.RuntimeTieredStoreLevel{
+		{EmptyDir: &datav1alpha1.EmptyDirMediumSource{Quota: resource.MustParse("2Gi"), Medium: corev1.StorageMediumMemory}},
+	}, nil)
+
+	// Creation-time sanity: the level renders as an emptyDir volume.
+	vol := volumeBySpec(t, h.workerASTS(t).Spec.Template.Spec.Volumes, getTieredStoreVolumeName(0, 0))
+	if vol.EmptyDir == nil || vol.EmptyDir.Medium != corev1.StorageMediumMemory {
+		t.Fatalf("creation-time worker volume = %+v, want Memory emptyDir", vol)
+	}
+
+	// Edit the level so it carries BOTH hostPath and emptyDir. The emptyDir
+	// fields are left exactly as created, so an emptyDir-first drift dispatch
+	// would find no drift at all — this is the silence the fix removes.
+	h.editRuntime(t, func(spec *datav1alpha1.CacheRuntimeSpec) {
+		spec.Worker.TieredStore.Levels[0].HostPath = &datav1alpha1.HostPathMediumSource{
+			Paths:  []string{"/mnt/cache"},
+			Quotas: []resource.Quantity{resource.MustParse("2Gi")},
+		}
+	})
+
+	h.drainEvents()
+	if err := h.engine.Sync(h.ctx); err != nil {
+		t.Fatalf("Sync: %v", err)
+	}
+
+	// Ground truth the drift check must match: the regenerated ConfigMap
+	// reports the level as hostPath (MediumType HDD, hostPath-shaped mount
+	// path). If the ConfigMap precedence ever changes, this premise changes
+	// and the contract must be revisited, not silently kept.
+	cm := &corev1.ConfigMap{}
+	if err := h.engine.Client.Get(h.ctx.Context, types.NamespacedName{Name: "fluid-runtime-config-test-runtime", Namespace: "default"}, cm); err != nil {
+		t.Fatalf("get configmap: %v", err)
+	}
+	raw, ok := cm.Data["runtime.json"]
+	if !ok {
+		t.Fatalf("runtime.json missing from configmap: %v", cm.Data)
+	}
+	var cfg map[string]interface{}
+	if err := json.Unmarshal([]byte(raw), &cfg); err != nil {
+		t.Fatalf("unmarshal runtime.json: %v", err)
+	}
+	worker, _ := cfg["worker"].(map[string]interface{})
+	levels, _ := worker["tieredStoreLevels"].([]interface{})
+	if len(levels) == 0 {
+		t.Fatalf("no worker tieredStoreLevels in runtime.json: %s", raw)
+	}
+	level, _ := levels[0].(map[string]interface{})
+	if medium, _ := level["mediumType"].(string); medium != string(common.HDD) {
+		t.Fatalf("config mediumType for both-fields level = %q, want %q (hostPath precedence in extractTieredStoreLevels)", medium, common.HDD)
+	}
+	if mp, _ := level["mountPaths"].([]interface{}); len(mp) != 1 {
+		t.Fatalf("config mountPaths for both-fields level = %v, want the single hostPath path", mp)
+	} else if s, _ := mp[0].(string); s != GetHostPathTieredStoreMountPath(0, 0) {
+		t.Fatalf("config mountPath[0] = %q, want %q (hostPath), raw: %s", s, GetHostPathTieredStoreMountPath(0, 0), raw)
+	}
+
+	// Contract: the drift warning validates the hostPath volume the ConfigMap
+	// now reports, not the stale emptyDir values.
+	events := h.drainEvents()
+	var driftEvent string
+	for _, e := range events {
+		if strings.Contains(e, common.RuntimeTieredStoreConflict) && strings.Contains(e, corev1.EventTypeWarning) {
+			driftEvent = e
+		}
+	}
+	if driftEvent == "" {
+		t.Fatalf("both-fields level edit was not reported, got %v", events)
+	}
+	if !strings.Contains(driftEvent, "hostPath") || !strings.Contains(driftEvent, getTieredStoreVolumeName(0, 0)) {
+		t.Fatalf("drift event does not validate the hostPath volume: %q", driftEvent)
+	}
+	if strings.Contains(driftEvent, "spec medium") {
+		t.Fatalf("drift event dispatched to the emptyDir branch instead of hostPath: %q", driftEvent)
+	}
+}

@@ -3,6 +3,16 @@
 Reproducible evidence for the findings raised while reviewing
 https://github.com/fluid-cloudnative/fluid/pull/6219.
 
+**Round 3** (head `6809f62f98f70182595a644979bfe430d22cb0ff`, reviewed 2026-10-30, rebased onto
+base `fe074af38434fc4b618686de6459a9173570b48b`): all round-2 contracts survive the rebase (the
+base move brought #6186's `reportIncompleteVersion`/`desiredComponentVersion` into the same
+`syncRuntimeSpec` region), TS2 stays the expected client-silence record, and the new **TS5**
+contract pins the round-3 precedence fix (ledger TS-DISPATCH-PRECEDENCE) with a bite-check in
+`results/bite-check-round3.txt`. The e2e-side round-2 SHOULD items (throttle assertion, full-level
+revert, no-new-events assertion, cooldown-reset assertion, `-n`/UID/Warning-type event scoping)
+are verified from the CI kind-e2e logs on this head, not from this harness — see the round-3
+ledger.
+
 **Round 2** (head `b56db670bfd45383cf8cdf237125fd82b90a1e13`, reviewed 2026-10-25): the
 revision fixed the round-1 findings. TS3 flipped to red exactly as predicted and is now the
 inverted contract test `TestVerifyEmptyDirMediumFlipDetected`; TS4 is a new contract for the
@@ -38,6 +48,22 @@ Answered against the **base** branch, without the patch.
 | Evidence | `results/unit-base.txt` — on base `86e3adf3`, after editing the quota 8Gi→16Gi the ConfigMap `runtime.json` worker level carries `16Gi` while the worker ASTS volume `tiered-store-level-0-memory` keeps `sizeLimit 8Gi`, and the recorder attached to the engine saw **zero** events. The mechanism matches the issue's analysis: `generateRuntimeConfigData` recomputes from spec on every sync, `SyncComponentSpec` patches only replicas/image/resources, and `TransformRuntimeTieredStore` runs only at Setup. On the PR head the same test run (`results/unit-head.txt`) shows the split still present — by design, the PR warns about it — plus the new `RuntimeTieredStoreConflict` Warning. |
 
 ## Summary of results
+
+### Round 3 — head 6809f62 (re-verify run `results/reverify/`, focused run `results/unit-head-6809f62.txt`)
+
+| ID | Claim | Layer | Polarity | Verdict | Evidence |
+|----|-------|-------|----------|---------|----------|
+| TS1 | Worker tieredStore quota drift emits a `RuntimeTieredStoreConflict` Warning through the **full `engine.Sync`** entry point, remediation text "Delete and recreate the CacheRuntime" | 1 | contract | **FIXED / working** (PASS on rebased head) | `results/unit-head-6809f62.txt` |
+| TS2 | `spec.client.tieredStore` drift stays silent — documented scope decision tracked in #6221 (still OPEN); the canary flips red when #6221 lands | 1 | canary | **STILL-PRESENT** (PASS = gap present, as documented) | `results/unit-head-6809f62.txt` |
+| TS3 | emptyDir `medium` flips (disk `""` ↔ `Memory`) detected in both directions | 1 | contract | **FIXED** (PASS on rebased head) | `results/unit-head-6809f62.txt` |
+| TS4 | Throttle across consecutive Syncs: 1 event per 3 syncs, re-emission after interval, cooldown reset on resolution | 1 | contract | **FIXED / working** (PASS on rebased head) | `results/unit-head-6809f62.txt` |
+| TS5 | **New this round:** a level carrying **both** `hostPath` and `emptyDir` (no CRD one-of validation) is dispatched by the drift check the same way `extractTieredStoreLevels` reports it — hostPath first; the ConfigMap ground truth is asserted in the same test | 1 | contract | **FIXED** (PASS on head; FAILS with the pre-fix EmptyDir-first order) | `results/unit-head-6809f62.txt`, `results/bite-check-round3.txt` |
+
+Round-3 delta: TS5 added (ledger TS-DISPATCH-PRECEDENCE, Copilot C4368713436 — fixed by the
+head's HostPath-before-EmptyDir reordering); full `./pkg/ddc/cache/engine/...` package also run
+green on the rebased head (composition/image/transform specs from the base's #6186 coexist with
+the PR's 51 sync specs). The live e2e leg was verified from CI evidence (kind-e2e v1.22.17 job
+122342754629 log shows all four new assertion lines) rather than a local cluster, per round policy.
 
 ### Round 2 — head b56db670 (re-verify run `results/reverify/`)
 
@@ -92,7 +118,24 @@ branch compares only `sizeLimit`, never `Medium` — yet the medium decides whet
 path charges the quota to container memory (`handleEmptyDir`) and what `mediumType` the ConfigMap
 reports. Bite check: comparing `Medium` temporarily makes the canary FAIL (`results/bite-check.txt` §3).
 
+### TS5 — contract (round 3): drift dispatch matches ConfigMap extraction precedence
+
+`TestVerifyDispatchPrecedenceMatchesConfigMap` creates a worker with a Memory `emptyDir` level,
+edits the level to carry **both** `hostPath` (`/mnt/cache`) and `emptyDir` (left exactly as
+created — so an emptyDir-first dispatch would find no drift at all), runs `engine.Sync`, then
+asserts two things: the ConfigMap's `runtime.json` reports the level as hostPath (`mediumType:
+"HDD"`, hostPath-shaped `mountPaths`) — the ground truth the drift check must match — and the
+`RuntimeTieredStoreConflict` warning validates the hostPath volume (`tiered-store-level-0-index-0`)
+rather than dispatching to the emptyDir branch. Bite check: swapping the dispatch back to
+EmptyDir-first makes it FAIL with "both-fields level edit was not reported"
+(`results/bite-check-round3.txt`) — that silence is exactly the pre-fix behavior Copilot
+C4368713436 predicted for a malformed-but-accepted level.
+
 ## Harness-bites check (Step 4)
+
+Round 3 (`results/bite-check-round3.txt`, on head 6809f62): reverting the dispatch order to
+EmptyDir-first fails TS5. Production code restored with
+`git checkout -- pkg/ddc/cache/engine/sync.go` after the run.
 
 Round 2 (`results/bite-check-round2.txt`, on head b56db670): removing the `Medium`
 comparison fails TS3 in both subtests; disabling the throttle gate fails TS4. Production

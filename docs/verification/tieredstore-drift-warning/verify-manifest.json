@@ -1,64 +1,73 @@
 {
-  "topic": "tieredstore-drift-warning",
-  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6219",
-  "harnessPaths": [
-    "docs/verification/tieredstore-drift-warning",
-    "pkg/ddc/cache/engine/premise_tieredstore_split_test.go",
-    "pkg/ddc/cache/engine/verify_tieredstore_drift_test.go"
-  ],
-  "premise": {
-    "id": "P0",
-    "claim": "Editing spec.worker.tieredStore on an existing CacheRuntime updates the runtime ConfigMap but not the worker Pod (tmpfs sizeLimit / memory limits stay at creation-time values), and no event, condition or log line reports the split (issue #6192).",
-    "reportedComponent": "pkg/ddc/cache/engine (CacheRuntime sync: cm.go generateRuntimeConfigData, sync.go syncRuntimeSpec)",
-    "patchedComponent": "pkg/ddc/cache/engine/sync.go + engine.go (drift detection and warning event)",
-    "componentMatch": true,
-    "runsAgainst": "base",
-    "layer": "unit",
-    "verdict": "confirmed",
-    "evidence": "TestPremiseTieredStoreSplitWorker on base 86e3adf3: after editing the quota 8Gi->16Gi the ConfigMap runtime.json carries 16Gi while the worker ASTS volume tiered-store-level-0-memory keeps sizeLimit 8Gi, and the recorder saw zero events. See results/unit-base.txt.",
-    "match": [
-      "TestPremiseTieredStoreSplitWorker"
-    ]
+ "topic": "tieredstore-drift-warning",
+ "pr": "https://github.com/fluid-cloudnative/fluid/pull/6219",
+ "harnessPaths": [
+  "docs/verification/tieredstore-drift-warning",
+  "pkg/ddc/cache/engine/premise_tieredstore_split_test.go",
+  "pkg/ddc/cache/engine/verify_tieredstore_drift_test.go"
+ ],
+ "premise": {
+  "id": "P0",
+  "claim": "Editing spec.worker.tieredStore on an existing CacheRuntime updates the runtime ConfigMap but not the worker Pod (tmpfs sizeLimit / memory limits stay at creation-time values), and no event, condition or log line reports the split (issue #6192).",
+  "reportedComponent": "pkg/ddc/cache/engine (CacheRuntime sync: cm.go generateRuntimeConfigData, sync.go syncRuntimeSpec)",
+  "patchedComponent": "pkg/ddc/cache/engine/sync.go + engine.go (drift detection and warning event)",
+  "componentMatch": true,
+  "runsAgainst": "base",
+  "layer": "unit",
+  "verdict": "confirmed",
+  "evidence": "TestPremiseTieredStoreSplitWorker on base 86e3adf3: after editing the quota 8Gi->16Gi the ConfigMap runtime.json carries 16Gi while the worker ASTS volume tiered-store-level-0-memory keeps sizeLimit 8Gi, and the recorder saw zero events. See results/unit-base.txt.",
+  "match": [
+   "TestPremiseTieredStoreSplitWorker"
+  ]
+ },
+ "layers": {
+  "unit": {
+   "kind": "gotest",
+   "cmd": "go test ./pkg/ddc/cache/engine -run 'TestPremiseTieredStoreSplitWorker|TestVerifyWorkerDriftWarnsThroughFullSync|TestVerifyDriftThrottleAcrossSyncs|TestVerifyClientTieredStoreDriftSilent|TestVerifyEmptyDirMediumFlipDetected|TestVerifyDispatchPrecedenceMatchesConfigMap' -json -count=1"
+  }
+ },
+ "findings": [
+  {
+   "id": "TS1",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestVerifyWorkerDriftWarnsThroughFullSync"
+   ]
   },
-  "layers": {
-    "unit": {
-      "kind": "gotest",
-      "cmd": "go test ./pkg/ddc/cache/engine -run 'TestPremiseTieredStoreSplitWorker|TestVerifyWorkerDriftWarnsThroughFullSync|TestVerifyDriftThrottleAcrossSyncs|TestVerifyClientTieredStoreDriftSilent|TestVerifyEmptyDirMediumFlipDetected' -json -count=1"
-    }
+  {
+   "id": "TS2",
+   "polarity": "canary",
+   "layer": "unit",
+   "match": [
+    "TestVerifyClientTieredStoreDriftSilent"
+   ]
   },
-  "findings": [
-    {
-      "id": "TS1",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestVerifyWorkerDriftWarnsThroughFullSync"
-      ]
-    },
-    {
-      "id": "TS2",
-      "polarity": "canary",
-      "layer": "unit",
-      "match": [
-        "TestVerifyClientTieredStoreDriftSilent"
-      ]
-    },
-    {
-      "id": "TS3",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestVerifyEmptyDirMediumFlipDetected"
-      ]
-    },
-    {
-      "id": "TS4",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestVerifyDriftThrottleAcrossSyncs"
-      ]
-    }
-  ],
-  "liveNote": "L3 (skipped per round policy: unit + integration only): patch spec.worker.tieredStore quota on a live CacheRuntime (mooncake/curvine gha-e2e fixture) and check 'kubectl get events --field-selector reason=RuntimeTieredStoreConflict' re-emits within 10 minutes while the split persists."
+  {
+   "id": "TS3",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestVerifyEmptyDirMediumFlipDetected"
+   ]
+  },
+  {
+   "id": "TS4",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestVerifyDriftThrottleAcrossSyncs"
+   ]
+  },
+  {
+   "id": "TS5",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestVerifyDispatchPrecedenceMatchesConfigMap"
+   ],
+   "note": "Round 3 (head 6809f62): ledger TS-DISPATCH-PRECEDENCE / Copilot C4368713436. The CRD has no one-of validation on a tieredStore level, so a level can carry both hostPath and emptyDir; extractTieredStoreLevels (cm.go) reports such a level as hostPath, so the drift dispatch must agree. Fixed this round by reordering checkWorkerTieredStoreDrift to HostPath-before-EmptyDir. Bite-checked: with the pre-fix order (EmptyDir first) this test fails with 'both-fields level edit was not reported' (the emptyDir values are unchanged, so the emptyDir branch finds no drift and the missing hostPath volume is never checked)."
+  }
+ ],
+ "liveNote": "L3 (skipped per round policy: unit + integration only): patch spec.worker.tieredStore quota on a live CacheRuntime (mooncake/curvine gha-e2e fixture) and check 'kubectl get events --field-selector reason=RuntimeTieredStoreConflict' re-emits within 10 minutes while the split persists."
 }

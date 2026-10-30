@@ -1,0 +1,20 @@
+Round 3 bite-check (head 6809f62) — TS5 TestVerifyDispatchPrecedenceMatchesConfigMap
+=====================================================================================
+
+Temporarily swapped checkWorkerTieredStoreDrift's dispatch back to the pre-fix
+order (EmptyDir case before HostPath case) in pkg/ddc/cache/engine/sync.go:
+
+  $ go test ./pkg/ddc/cache/engine -run TestVerifyDispatchPrecedenceMatchesConfigMap
+  --- FAIL: TestVerifyDispatchPrecedenceMatchesConfigMap (0.01s)
+      verify_tieredstore_drift_test.go:525: both-fields level edit was not reported, got []
+
+This is the round-1/2 silence Copilot C4368713436 predicted: with emptyDir-first
+dispatch, a level edited to carry both hostPath and emptyDir keeps its (unchanged)
+emptyDir values, so the emptyDir branch finds no drift, the missing hostPath
+volume is never checked, and no warning fires — while the ConfigMap reports the
+level as hostPath.
+
+Production code restored afterwards (git checkout -- pkg/ddc/cache/engine/sync.go);
+harness re-run green:
+  $ go test ./pkg/ddc/cache/engine -run 'TestPremiseTieredStoreSplitWorker|TestVerifyWorkerDriftWarnsThroughFullSync|TestVerifyDriftThrottleAcrossSyncs|TestVerifyClientTieredStoreDriftSilent|TestVerifyEmptyDirMediumFlipDetected|TestVerifyDispatchPrecedenceMatchesConfigMap'
+  --- PASS: all 6 (see unit-head-6809f62.txt)
