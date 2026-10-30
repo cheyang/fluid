@@ -1,0 +1,40 @@
+{
+  "topic": "pr-6222-codeql-action-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6222",
+  "harnessPaths": [
+    "docs/verification/pr-6222-codeql-action-bump"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "github/codeql-action v4.39.1 is a genuine upstream release, the new pinned SHA 9b3254085494b55a0f7c4c2b3d2d52cc712ce370 is that release's commit, and the whole codeql-action group is bumped together (required by .github/dependabot.yml: 'They must run on the same version').",
+    "reportedComponent": "CI workflows: .github/workflows/codeql-analysis.yml, .github/workflows/sonarcloud.yaml",
+    "patchedComponent": "same two workflow files (pinned SHA bump only)",
+    "componentMatch": true,
+    "runsAgainst": "head (deps-bump premise: verified against upstream tags + PR-head CI, not the base branch)",
+    "layer": "integration",
+    "verdict": "confirmed",
+    "evidence": "gh api tag dereference: v4.39.1 -> tag obj 8498dc4c -> commit 9b325408 (new pin); v4.39.0 -> tag obj 48870fdd -> commit 6f2ac81f (old pin). PR-head checks: Analyze (go) [CodeQL workflow with new pins] pass in 8m24s; SonarCloud pass. results/ci-and-tag-evidence.txt",
+    "match": ["GroupUsesSingleSHA", "PinnedToFullLengthSHA", "PinResolvesToUpstreamTag"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/pr-6222-codeql-action-bump/scripts/check-codeql-pin-consistency.sh"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/pr-6222-codeql-action-bump/scripts/check-codeql-tags.sh"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["VersionCommentMatchesPinnedTag"],
+      "note": "Trailing '# vX.Y.Z' comments (v3.29.5 / v2.22.11) do not match the pinned SHA's tag (v4.39.1). Preexisting: the same contract FAILS on merge-base fe074af3 (comments said v3.29.5/v2.22.11 while the pin was already v4.39.0). Dependabot preserves the stale comment. Contract test is RED on base and head alike; flips GREEN once comments match the pinned tag. Non-blocking, introducedByPR=false.",
+      "verification": { "base": "fail", "previous": "not-run", "head": "fail" }
+    }
+  ],
+  "liveNote": "No live layer: CI-config-only change. The upload-sarif path in sonarcloud.yaml is not exercised by PR CI (triggers: push to master/release-* + weekly schedule); watch the first post-merge scheduled run."
+}

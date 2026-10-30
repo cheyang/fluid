@@ -1,0 +1,4 @@
+kind-e2e-test (v1.22.17)	UNKNOWN STEP	2026-10-28T07:01:34.6483703Z error: timed out waiting for the condition on pods/jindo-demo-warmup
+kind-e2e-test (v1.22.17)	UNKNOWN STEP	2026-10-28T07:01:37.0177834Z 41s         Warning   FailedMount               pod/jindo-demo-warmup                   MountVolume.SetUp failed for volume "default-jindo-demo" : rpc error: code = Internal desc = timeout waiting for FUSE mount point to be ready
+kind-e2e-test (v1.22.17)	UNKNOWN STEP	2026-10-28T07:01:37.0179504Z 22s         Warning   FailedMount               pod/jindo-demo-warmup                   Unable to attach or mount volumes: unmounted volumes=[fluid-vol], unattached volumes=[fluid-vol]: timed out waiting for the condition
+kind-e2e-test (v1.22.17)	UNKNOWN STEP	2026-10-28T07:23:26.0173775Z ##[error]The action 'Fluid basic e2e tests' has timed out after 30 minutes.

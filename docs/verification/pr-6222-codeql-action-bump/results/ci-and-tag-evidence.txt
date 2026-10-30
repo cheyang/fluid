@@ -1,0 +1,31 @@
+=== PR #6222 head 9fe48f12 statusCheckRollup (gh pr checks, 2026-10-30) ===
+kind-e2e-test (v1.22.17)	fail	47m35s	https://github.com/fluid-cloudnative/fluid/actions/runs/40644839213/job/122671119893	
+kind-e2e-test (v1.24.17)	fail	45m42s	https://github.com/fluid-cloudnative/fluid/actions/runs/40644839213/job/122671119820	
+kind-e2e-test (v1.28.15)	fail	43m7s	https://github.com/fluid-cloudnative/fluid/actions/runs/40644839213/job/122671119780	
+kind-e2e-test (v1.30.13)	fail	46m29s	https://github.com/fluid-cloudnative/fluid/actions/runs/40644839213/job/122671119774	
+kind-e2e-test (v1.33.2)	fail	47m33s	https://github.com/fluid-cloudnative/fluid/actions/runs/40644839213/job/122671119447	
+Analyze (go)	pass	8m24s	https://github.com/fluid-cloudnative/fluid/actions/runs/40644839222/job/122671119289	
+CodeQL	pass	4s	https://github.com/fluid-cloudnative/fluid/runs/122673805509	
+DCO	pass	0	https://probot.github.io/apps/dco/	
+SonarCloud	pass	2s	https://github.com/fluid-cloudnative/fluid/runs/122671339692	
+SonarCloud Code Analysis	pass	30s	https://sonarcloud.io/dashboard?id=fluid-cloudnative_fluid&pullRequest=6222	
+backward-compat-test (v1.22.17)	pass	12m47s	https://github.com/fluid-cloudnative/fluid/actions/runs/40644839236/job/122671119437	
+backward-compat-test (v1.24.17)	pass	17m41s	https://github.com/fluid-cloudnative/fluid/actions/runs/40644839236/job/122671119658	
+backward-compat-test (v1.28.15)	pass	14m28s	https://github.com/fluid-cloudnative/fluid/actions/runs/40644839236/job/122671119753	
+backward-compat-test (v1.30.13)	pass	16m32s	https://github.com/fluid-cloudnative/fluid/actions/runs/40644839236/job/122671119738	
+backward-compat-test (v1.33.2)	pass	17m34s	https://github.com/fluid-cloudnative/fluid/actions/runs/40644839236/job/122671119683	
+build (ubuntu-24.04-arm)	pass	6m8s	https://github.com/fluid-cloudnative/fluid/actions/runs/40644839220/job/122671119553	
+build (ubuntu-latest)	pass	7m2s	https://github.com/fluid-cloudnative/fluid/actions/runs/40644839220/job/122671119549	
+check-pr-quota	pass	5s	https://github.com/fluid-cloudnative/fluid/actions/runs/40644839280/job/122671119312	
+lint	pass	2m8s	https://github.com/fluid-cloudnative/fluid/actions/runs/40644839220/job/122671119527	
+staticcheck	pass	2m37s	https://github.com/fluid-cloudnative/fluid/actions/runs/40644839220/job/122671119179	
+unittest	pass	7m19s	https://github.com/fluid-cloudnative/fluid/actions/runs/40644839220/job/122671119554	
+tide	pending	0		Not mergeable. Needs approved, lgtm labels.
+ci/circleci: build	pass	0	https://circleci.com/gh/fluid-cloudnative/fluid/4189	Your tests passed on CircleCI!
+
+=== tag dereference (gh api repos/github/codeql-action) ===
+v4.39.1 tag object -> 8498dc4c2b27cdd99baf0f87955b29ebbf30c78d
+v4.39.1 commit    -> 9b3254085494b55a0f7c4c2b3d2d52cc712ce370
+v4.39.0 tag object -> 48870fdd6b42ee6474ec4207209ff87609271a5e
+v4.39.0 commit    -> 6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee
+old pin (base): 6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee ; new pin (head): 9b3254085494b55a0f7c4c2b3d2d52cc712ce370
