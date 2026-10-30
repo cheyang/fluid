@@ -1,0 +1,3 @@
+TestHarnessSelectorMatchesWorkerWorkload	pass
+TestHarnessSelectorSetEvenWhenWorkerDisabled	pass
+TestHarnessStatusSelectorPopulated	pass
