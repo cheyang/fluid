@@ -1,0 +1,5 @@
+# run 40474966878 job 'kind-e2e-test (v1.33.2)' (label: ubuntu-latest)
+2026-10-27T08:38:59.7993090Z ##[group]Runner Image Provisioner
+2026-10-27T08:38:59.7994534Z Version: 20261021.618
+2026-10-27T08:38:59.8002808Z ##[group]Runner Image
+2026-10-27T08:38:59.8003370Z Image: ubuntu-26.04

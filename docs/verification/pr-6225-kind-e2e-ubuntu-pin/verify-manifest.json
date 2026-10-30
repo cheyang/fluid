@@ -1,0 +1,32 @@
+{
+  "topic": "pr-6225-kind-e2e-ubuntu-pin",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6225",
+  "harnessPaths": [
+    "docs/verification/pr-6225-kind-e2e-ubuntu-pin"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Since ubuntu-latest started resolving to the ubuntu-26.04 runner image, the E2E Functionality Check workflow fails on all 5 Kubernetes versions: the JindoRuntime FUSE container cannot mount (fusermount3: mount failed: Permission denied). Pinning kind-e2e-test to ubuntu-24.04 restores green CI.",
+    "reportedComponent": "CI workflow .github/workflows/kind-e2e.yml (job kind-e2e-test); failure surfaces in test/gha-e2e/jindo (JindoRuntime FUSE pod)",
+    "patchedComponent": ".github/workflows/kind-e2e.yml (job kind-e2e-test runs-on label)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "integration",
+    "verdict": "confirmed",
+    "evidence": "Run 40474966878 (PR #6219, label ubuntu-latest) ran on image ubuntu-26.04 v20261012.163.1 and failed all 5 matrix jobs: jindo-demo-jindofs-fuse pod CrashLoopBackOff, diagnostic artifact log shows 'fusermount3: mount failed: Permission denied' for FLUID_FUSE_MOUNTPOINT=/jfs/jindofs-fuse. The same PR's earlier run 40125302787 ran on image ubuntu-24.04 v20261012.334.1 and passed all 5. This PR's own run 40885813005 (head fa06ee36) passes all 5 kind-e2e-test jobs on label ubuntu-24.04. See results/.",
+    "match": ["kind-e2e-test.runs-on-is-pinned"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "script",
+      "cmd": "bash docs/verification/pr-6225-kind-e2e-ubuntu-pin/scripts/check-pin.sh .github/workflows/kind-e2e.yml"
+    }
+  },
+  "findings": [
+    { "id": "C1", "polarity": "contract", "layer": "unit", "match": ["kind-e2e-test.runs-on-is-pinned"] },
+    { "id": "C2", "polarity": "contract", "layer": "unit", "match": ["no-other-job-floats-on-ubuntu-latest"] },
+    { "id": "C3", "polarity": "contract", "layer": "unit", "match": ["pin-carries-todo-6224"] },
+    { "id": "C4", "polarity": "contract", "layer": "unit", "match": ["tracking-issue-6224-open"] }
+  ],
+  "liveNote": "Live layer intentionally skipped for this review (CI-workflow-only change; the PR's own GitHub Actions run 40885813005 is the live evidence). To re-check the underlying runner problem after the real fix for #6224 lands: run the E2E Functionality Check workflow on an ubuntu-26.04 runner and confirm the jindo suite passes (no fusermount3 EACCES in the jindofs-fuse pod log)."
+}

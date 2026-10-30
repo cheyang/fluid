@@ -1,0 +1,2 @@
+13:FLUID_FUSE_MOUNTPOINT = /jfs/jindofs-fuse
+22:fusermount3: mount failed: Permission denied

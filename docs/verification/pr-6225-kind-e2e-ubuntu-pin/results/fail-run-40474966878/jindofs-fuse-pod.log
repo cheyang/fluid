@@ -1,0 +1,22 @@
+jindofs-fuse start
+not fuseOnly mode start
+jindo-demo-jindofs-master-0.default
+PING jindo-demo-jindofs-master-0.default.svc.cluster.local (172.18.0.2) 56(84) bytes of data.
+64 bytes from fluid-cluster-control-plane (172.18.0.2): icmp_seq=1 ttl=64 time=0.030 ms
+64 bytes from fluid-cluster-control-plane (172.18.0.2): icmp_seq=2 ttl=64 time=0.043 ms
+64 bytes from fluid-cluster-control-plane (172.18.0.2): icmp_seq=3 ttl=64 time=0.036 ms
+
+--- jindo-demo-jindofs-master-0.default.svc.cluster.local ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2040ms
+rtt min/avg/max/mdev = 0.030/0.036/0.043/0.005 ms
+ping jindo-demo-jindofs-master-0.default successfully
+FLUID_FUSE_MOUNTPOINT = /jfs/jindofs-fuse
+umount: /jfs/jindofs-fuse: not mounted.
+Adding FUSE arg -oauto_unmount
+Adding FUSE arg -oro
+Adding FUSE arg -okernel_cache
+Adding FUSE arg -oallow_other
+Adding FUSE arg -oattr_timeout=7200
+Adding FUSE arg -oentry_timeout=7200
+Adding FUSE arg -onegative_timeout=7200
+fusermount3: mount failed: Permission denied

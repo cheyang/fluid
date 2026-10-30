@@ -1,0 +1,5 @@
+kind-e2e-test (v1.30.13)	success	ubuntu-24.04
+kind-e2e-test (v1.22.17)	success	ubuntu-24.04
+kind-e2e-test (v1.24.17)	success	ubuntu-24.04
+kind-e2e-test (v1.28.15)	success	ubuntu-24.04
+kind-e2e-test (v1.33.2)	success	ubuntu-24.04
