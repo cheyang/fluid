@@ -1,0 +1,16 @@
+# PR's own drift specs on head 6809f62f (ginkgo focus 'tiered store drift', -gcflags=all=-N -l for gomonkey)
+Ran 16 of 357 Specs in 0.025 seconds
+SUCCESS! -- 16 Passed | 0 Failed | 0 Pending | 341 Skipped
+
+# engine_test.go (ginkgo focus 'CacheEngine Tests')
+Ran 1 of 357 Specs in 0.004 seconds
+SUCCESS! -- 1 Passed | 0 Failed | 0 Pending | 356 Skipped
+
+# full package (PR suite + harness TestVerifyPR6219*; the 2 FAILs are the intentionally flipped round-1 canaries, see manifest polarityNotes)
+Ran 341 of 357 Specs in 0.189 seconds
+SUCCESS! -- 341 Passed | 0 Failed | 0 Pending | 16 Skipped
+--- FAIL: TestVerifyPR6219MediumOnlyEditInvisibleToDriftCheck (0.00s)
+--- FAIL: TestVerifyPR6219Premise_SilentOnBase (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	6.875s
+FAIL

@@ -110,3 +110,25 @@ patch restores `quota: 1Gi` but drops the level's original `high`/`low` fields
 (JSON merge replaces the array), and the "resets upon reversal" step is not
 asserted (no check that the warning stops) — harmless today because the drift
 check ignores high/low and the dataset is deleted right after.
+
+## Round 3 — head `6809f62f98f70182595a644979bfe430d22cb0ff` (2026-10-30)
+
+Force-pushed rebase onto the moved base (`e5251b3` → `fe074af`, which is #6215/#6214/#6217/#6186 — no CacheRuntime drift-path overlap beyond `sync.go` context lines) plus one production-code behavior change and a much stronger e2e. `git range-diff e5251b3..b56db670 fe074af..6809f62f` isolates the author's delta to:
+
+1. `sync.go`: drift-check dispatch flipped to HostPath-before-EmptyDir, matching `extractTieredStoreLevels` (cm.go). Fixes round-2 question TS-DISPATCH-PRECEDENCE.
+2. `sync_test.go`: new spec pinning that precedence ("should give precedence to hostPath over emptyDir …").
+3. `test/gha-e2e/curvine/test.sh`: `verify_tieredstore_drift_warning` extended — UID+namespace+Warning-type scoped event queries (fixes TS-E2E-NS-FLAG), annotation-triggered reconcile cycles asserting the aggregated event `count` stays 1 under persistent drift (fixes TS-E2E-THROTTLE-ASSERT), revert of the full original level incl. `high`/`low`, and a cooldown-reset leg that re-introduces drift and asserts immediate re-emission within 60 s (fixes the TS-E2E-REVERT-ASSERT core).
+4. `.github/workflows/kind-e2e.yml`: runner pinned `ubuntu-latest` → `ubuntu-24.04` (CI hygiene; all 5 kind-e2e jobs green on head).
+
+`scripts/re-verify.sh` on the new head: **RESULT: all findings fixed** — the six round-2 entries plus the two new round-3 contracts below (fresh raw output in `results/reverify/`, now actually persisted: the script previously copied results before the trap's `git checkout -f` restore, which wiped them; fixed this round).
+
+| id | round-2 state | round-3 verdict | evidence |
+| --- | --- | --- | --- |
+| TS-DISPATCH-PRECEDENCE | open question (Copilot-only, harness-unverified) | **fixed + harness-verified** | contract `TestVerifyPR6219DispatchMatchesConfigMapExtraction`: a both-fields level (creation rejects multi-medium levels, CRD has no one-of — reachable only via edit) warns as hostPath AND `extractTieredStoreLevels` reports the hostPath mount path for the same level. Bite-check: restoring the round-2 order makes the warning vanish (`expected a RuntimeTieredStoreConflict warning event, got events: []`) — the contract fails on the old code. |
+| R3-HOSTPATH-STEADY (new guard) | n/a | green | `TestVerifyPR6219HostPathSteadyStateNoWarning`: hostPath level with matching pod volume emits no warning under the hostPath-first dispatch (no-false-positive guard). |
+| TS-E2E-THROTTLE-ASSERT | open (minor) | **fixed** | e2e now annotates the CacheRuntime twice under persistent drift and asserts `items[0].count == 1`. Mechanism verified by code read: the runtime watch predicate enqueues on any resourceVersion change (pkg/ctrl/watch/runtime.go onUpdateFunc), `engine.Sync` runs `syncRuntimeSpec` on every reconcile, and client-go's default event correlator (record.NewBroadcaster via controller-runtime) aggregates repeats into one object with count++ (events_cache.go: maxEvents=10 / 600 s window) — so a broken per-reconcile throttle would grow `count` and fail the assertion. All 5 kind-e2e versions green on head (gh pr checks 6219, 2026-10-30). |
+| TS-E2E-REVERT-ASSERT | open (minor) | **fixed** | revert now restores the full original level (`high:"0.8",low:"0.5"` included), and the new cooldown-reset leg (re-patch → expect count≥2 or a second item within 60 s) genuinely proves resolution was observed — the throttle alone would block re-emission for 10 min. Residual nit: the intermediate "count stays 1 after revert" assertion is vacuous w.r.t. resolution (the throttle guarantees it); the reset leg is the real teeth. |
+| TS-E2E-NS-FLAG | open (nit) | **fixed** | every events query in the new function carries `-n default` + `involvedObject.uid=<uid>,type=Warning,reason=…`. |
+| TS-REQUEUE-REEMISSION | open (Copilot advisory) | still open, non-blocking | PR does not touch requeue behavior (pre-existing infra); consequence unverified; not claimed by the author. |
+
+PR's own suites on head: 16/16 focused drift specs and the full ginkgo package (341 passed, 0 failed) green (`results/head-6809f62f-pr-specs.txt`; `-gcflags="all=-N -l"` required, pre-existing gomonkey constraint). The only red tests in the package are the two intentionally flipped round-1 canaries (see manifest polarityNotes).
