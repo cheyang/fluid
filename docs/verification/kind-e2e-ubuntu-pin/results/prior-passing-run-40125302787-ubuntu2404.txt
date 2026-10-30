@@ -1,0 +1,13 @@
+# Run 40125302787 (PR #6219 head b56db670) - kind-e2e-test (v1.33.2) - E2E Functionality Check
+# Event: pull_request  Conclusion: SUCCESS  Runner label: ubuntu-latest
+## Runner image
+##[group]Runner Image
+Image: ubuntu-24.04
+Version: 20261012.334.1
+Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+## jindo testcase result
+>>> [TESTCASE alluxioruntime basic e2e SUCCEEDED AT Sat Oct 24 19:46:36 UTC 2026
+>>> [TESTCASE jindoruntime secret e2e SUCCEEDED AT Sat Oct 24 19:52:57 UTC 2026
+>>> [TESTCASE juicefsruntime basic e2e SUCCEEDED AT Sat Oct 24 19:53:41 UTC 2026
+>>> [TESTCASE curvine cache runtime basic e2e SUCCEEDED AT Sat Oct 24 19:55:52 UTC 2026
+>>> [TESTCASE mooncake cache runtime (client-less topology) e2e SUCCEEDED AT Sat Oct 24 19:58:19 UTC 2026

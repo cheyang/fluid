@@ -1,0 +1,25 @@
+# Run 40474966878 (PR #6219 head b11fb6e4) - kind-e2e-test (v1.33.2) - E2E Functionality Check
+# Event: pull_request  Conclusion: FAILURE  Runner label: ubuntu-latest
+## Runner image
+##[group]Runner Image
+Image: ubuntu-26.04
+Version: 20261012.163.1
+Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261012.163/images/ubuntu/Ubuntu2604-Readme.md
+## e2e step outcome + jindo failure signal
+error: timed out waiting for the condition on pods/jindo-demo-warmup
+>>> test "jindoruntime secret e2e" failed: warmup pod jindo-demo-warmup is not ready
+8s          Warning   FailedMount               pod/jindo-demo-warmup                   MountVolume.SetUp failed for volume "default-jindo-demo" : rpc error: code = Internal desc = timeout waiting for FUSE mount point to be ready
+7s          Warning   BackOff                   pod/jindo-demo-jindofs-fuse-ttzqf       Back-off restarting failed container jindofs-fuse in pod jindo-demo-jindofs-fuse-ttzqf_default(3efd0f4a-d91f-4e22-acb8-489e67b14a54)
+## jindo-fuse container log tail (from artifact gha-e2e-logs-kind-e2e-test-v1.33.2)
+rtt min/avg/max/mdev = 0.030/0.036/0.043/0.005 ms
+ping jindo-demo-jindofs-master-0.default successfully
+FLUID_FUSE_MOUNTPOINT = /jfs/jindofs-fuse
+umount: /jfs/jindofs-fuse: not mounted.
+Adding FUSE arg -oauto_unmount
+Adding FUSE arg -oro
+Adding FUSE arg -okernel_cache
+Adding FUSE arg -oallow_other
+Adding FUSE arg -oattr_timeout=7200
+Adding FUSE arg -oentry_timeout=7200
+Adding FUSE arg -onegative_timeout=7200
+fusermount3: mount failed: Permission denied

@@ -1,0 +1,65 @@
+{
+  "topic": "kind-e2e-ubuntu-pin",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6225",
+  "harnessPaths": [
+    "docs/verification/kind-e2e-ubuntu-pin"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "ubuntu-latest started resolving to the ubuntu-26.04 runner image, where all 5 kind-e2e-test matrix jobs fail because the JindoRuntime FUSE container cannot mount: 'fusermount3: mount failed: Permission denied' at /jfs/jindofs-fuse, warmup pod never ready, job hangs to the 30-minute step timeout.",
+    "reportedComponent": ".github/workflows/kind-e2e.yml (E2E Functionality Check) as executed on ubuntu-latest runners; underlying mechanism in the jindo-fuse image + host AppArmor fusermount3 profile",
+    "patchedComponent": ".github/workflows/kind-e2e.yml (runs-on pin to ubuntu-24.04) — CI-only, no production code",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Differential on the same workflow and same triggering PR #6219: run 40125302787 (image ubuntu-24.04, 20261012.334.1) all 5 jobs green incl. jindoruntime secret e2e; run 40474966878 (image ubuntu-26.04, 20261012.163.1) all 5 jobs fail with the fusermount3 denial in the fuse container log. See results/ci-evidence.json and results/failing-run-40474966878-ubuntu2604.txt.",
+    "match": ["TestPremiseEvidenceRecorded"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "python3 -I docs/verification/kind-e2e-ubuntu-pin/scripts/verify_contract.py --json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "python3 -I docs/verification/kind-e2e-ubuntu-pin/scripts/verify_ci_evidence.py --json",
+      "_note": "Re-queries the read-only GitHub Actions API (needs gh auth + network): the PR head's own kind-e2e run must be green on the ubuntu-24.04 label, the recorded ubuntu-26.04 run must be a failure, and backward-compat must stay green on ubuntu-latest."
+    }
+  },
+  "findings": [
+    {
+      "id": "pin-contract",
+      "polarity": "contract",
+      "layer": "unit",
+      "claim": "jobs.kind-e2e-test.runs-on is 'ubuntu-24.04' and the pin carries a TODO(#6224) marker so it is revertible; the workflow still parses.",
+      "match": [
+        "TestKindE2eWorkflowParsesAsYaml",
+        "TestKindE2eRunnerPinnedToUbuntu2404",
+        "TestKindE2eTodoReferencesTrackingIssue6224"
+      ]
+    },
+    {
+      "id": "scope-guard",
+      "polarity": "contract",
+      "layer": "unit",
+      "claim": "Only kind-e2e.yml is pinned; backward-compatibility-e2e.yml still runs on ubuntu-latest so the ubuntu-26.04 image keeps CI coverage.",
+      "match": [
+        "TestBackwardCompatWorkflowLeftUnpinned"
+      ]
+    },
+    {
+      "id": "ci-differential",
+      "polarity": "contract",
+      "layer": "integration",
+      "claim": "The PR head's own E2E Functionality Check run is green with all 5 kind-e2e-test jobs on the ubuntu-24.04 runner label, and the recorded failing (ubuntu-26.04) / passing control runs are still in the state the premise claims.",
+      "match": [
+        "TestPRHeadKindE2eRunGreenOnPinnedImage",
+        "TestFailingRunOnUbuntu2604IsFailure",
+        "TestBackwardCompatPassesOnUbuntu2604"
+      ]
+    }
+  ],
+  "liveNote": "L3 is out of scope for this harness by instruction (no live/KUBECONFIG layer). The closest thing to a live run — actually executing kind-e2e on ubuntu-26.04 with the AppArmor profile unloaded, per #6224 follow-up 'sudo apparmor_parser -R /etc/apparmor.d/fusermount3' — belongs to the tracking issue's root-cause confirmation, not to this CI mitigation PR.",
+  "harnessBites": "Confirmed 2026-10-30: on merge base fe074af38 TestKindE2eRunnerPinnedToUbuntu2404 and TestKindE2eTodoReferencesTrackingIssue6224 FAIL (runs-on='ubuntu-latest', no TODO); on PR head fa06ee36 all 5 unit tests PASS. Production diff untouched."
+}

@@ -1,0 +1,83 @@
+{
+  "_comment": "Differential CI evidence for PR #6225 (kind-e2e runner pin). Collected 2026-10-30 from the GitHub Actions API (read-only). Raw log excerpts live next to this file. Every claim below is machine-recheckable via scripts/fetch_ci_evidence.sh.",
+  "repository": "fluid-cloudnative/fluid",
+  "pr": 6225,
+  "prHead": "fa06ee36533c8da2b68023c6bcea436e530fb540",
+  "base": "fe074af38434fc4b618686de6459a9173570b48b",
+  "runs": [
+    {
+      "id": 40125302787,
+      "role": "control-passing",
+      "workflow": "E2E Functionality Check",
+      "workflowPath": ".github/workflows/kind-e2e.yml",
+      "triggeringPr": 6219,
+      "headSha": "b56db670bfd45383cf8cdf237125fd82b90a1e13",
+      "runnerLabel": "ubuntu-latest",
+      "runnerImage": "ubuntu-24.04",
+      "runnerImageVersion": "20261012.334.1",
+      "conclusion": "success",
+      "allKindE2eJobsSuccess": true,
+      "jindoruntimeSecretE2e": "SUCCEEDED",
+      "exemplarJob": "kind-e2e-test (v1.33.2)",
+      "exemplarJobId": null,
+      "observedAt": "2026-10-24T19:27:45Z",
+      "excerpt": "prior-passing-run-40125302787-ubuntu2404.txt"
+    },
+    {
+      "id": 40474966878,
+      "role": "case-failing",
+      "workflow": "E2E Functionality Check",
+      "workflowPath": ".github/workflows/kind-e2e.yml",
+      "triggeringPr": 6219,
+      "headSha": "b11fb6e4a89404a43d53f5c1cbe3fe4f5228f748",
+      "runnerLabel": "ubuntu-latest",
+      "runnerImage": "ubuntu-26.04",
+      "runnerImageVersion": "20261012.163.1",
+      "conclusion": "failure",
+      "allKindE2eJobsSuccess": false,
+      "failedJobs": ["kind-e2e-test (v1.22.17)", "kind-e2e-test (v1.24.17)", "kind-e2e-test (v1.28.15)", "kind-e2e-test (v1.30.13)", "kind-e2e-test (v1.33.2)"],
+      "failedStep": "Fluid basic e2e tests",
+      "jindoruntimeSecretE2e": "FAILED: warmup pod jindo-demo-warmup is not ready",
+      "fuseContainerError": "fusermount3: mount failed: Permission denied",
+      "fuseMountpoint": "/jfs/jindofs-fuse",
+      "evidenceSource": "job log 122090832846 + artifact gha-e2e-logs-kind-e2e-test-v1.33.2 (diagnose_fluid_1793091589/pods-default/jindo-demo-jindofs-fuse-ttzqf-jindofs-fuse.log)",
+      "exemplarJob": "kind-e2e-test (v1.33.2)",
+      "exemplarJobId": 122090832846,
+      "observedAt": "2026-10-27T08:38:58Z",
+      "excerpt": "failing-run-40474966878-ubuntu2604.txt"
+    },
+    {
+      "id": 40885813005,
+      "role": "after-pin",
+      "workflow": "E2E Functionality Check",
+      "workflowPath": ".github/workflows/kind-e2e.yml",
+      "triggeringPr": 6225,
+      "headSha": "fa06ee36533c8da2b68023c6bcea436e530fb540",
+      "runnerLabel": "ubuntu-24.04",
+      "runnerImage": "ubuntu-24.04",
+      "runnerImageVersion": "20261025.353.1",
+      "conclusion": "success",
+      "allKindE2eJobsSuccess": true,
+      "jindoruntimeSecretE2e": "SUCCEEDED",
+      "allSuites": ["alluxioruntime basic e2e", "jindoruntime secret e2e", "juicefsruntime basic e2e", "curvine cache runtime basic e2e", "mooncake cache runtime (client-less topology) e2e"],
+      "exemplarJob": "kind-e2e-test (v1.33.2)",
+      "exemplarJobId": 123489088854,
+      "observedAt": "2026-10-29T13:51:32Z",
+      "excerpt": "pr6225-run-40885813005-ubuntu2404.txt"
+    }
+  ],
+  "controlRunsUnaffectedByUbuntu2604": [
+    {
+      "id": 40885813116,
+      "workflow": "E2E Backward Compatibility Check",
+      "runnerImage": "ubuntu-26.04",
+      "runnerImageVersion": "20261025.179.1",
+      "conclusion": "success",
+      "note": "all 5 backward-compat-test jobs success on ubuntu-latest->26.04; workflow intentionally left unpinned by this PR"
+    }
+  ],
+  "premiseConclusion": {
+    "verdict": "confirmed",
+    "reasoning": "Same workflow, same triggering PR #6219: run 40125302787 (image ubuntu-24.04, 20261012.334.1) all 5 kind-e2e jobs green incl. jindo; run 40474966878 (image ubuntu-26.04, 20261012.163.1) all 5 fail with jindofs-fuse CrashLoopBackOff and 'fusermount3: mount failed: Permission denied' at /jfs/jindofs-fuse. ubuntu-latest flipped from 24.04 to 26.04 between 2026-10-24 and 2026-10-27. Pinning to ubuntu-24.04 (PR #6225 head run 40885813005) restores green on all 5 versions and all 5 suites."
+  }
+}
