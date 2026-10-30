@@ -1,0 +1,16 @@
+re-verify.sh run on 2026-10-30, harness branch verify/tieredstore-drift-warning-claude @ 22ee2456
+fixed-ref resolved from manifest.pr -> PR #6219 head 6809f62f98f70182595a644979bfe430d22cb0ff
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+TS1    contract  unit         FIXED          pass=1 fail=0 miss=0
+TS2    canary    unit         STILL-PRESENT  pass=1 fail=0 miss=0
+TS3    contract  unit         FIXED          pass=1 fail=0 miss=0
+TS4    contract  unit         FIXED          pass=1 fail=0 miss=0
+TS5    contract  unit         FIXED          pass=1 fail=0 miss=0
+
+RESULT: not all findings fixed.  <- exit is driven solely by TS2, which is the
+canary recording the pre-existing client-side silence deferred to #6221 (OPEN).
+It is a behavior record, not an open PR defect: it stays green until #6221 lands.
+Full raw output of the same run (focused, verbose): results/unit-head-6809f62.txt
+Full package run on the rebased head: PASS ./pkg/ddc/cache/engine (1.26s).
