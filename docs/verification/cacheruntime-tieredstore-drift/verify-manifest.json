@@ -6,7 +6,8 @@
     "pkg/ddc/cache/engine/verify_pr6219_premise_test.go",
     "pkg/ddc/cache/engine/verify_pr6219_findings_test.go",
     "pkg/ddc/cache/engine/verify_pr6219_envtest_test.go",
-    "pkg/ddc/cache/engine/verify_pr6219_r2_contracts_test.go"
+    "pkg/ddc/cache/engine/verify_pr6219_r2_contracts_test.go",
+    "pkg/ddc/cache/engine/verify_pr6219_r3_contracts_test.go"
   ],
   "premise": {
     "id": "P0",
@@ -82,8 +83,24 @@
       "match": [
         "TestVerifyPR6219DocsGuidanceAndScope"
       ]
+    },
+    {
+      "id": "TS-DISPATCH-PRECEDENCE",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6219DispatchMatchesConfigMapExtraction"
+      ]
+    },
+    {
+      "id": "R3-HOSTPATH-STEADY",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6219HostPathSteadyStateNoWarning"
+      ]
     }
   ],
   "liveNote": "L3 (skipped per debate setup): on a real cluster, edit spec.worker.tieredStore on an existing CacheRuntime and confirm `kubectl get events --field-selector reason=RuntimeTieredStoreConflict` shows the warning, re-emitted at >=10min intervals while drift persists. Note: verify_pr6219_envtest_test.go needs envtest binaries (KUBEBUILDER_ASSETS or ~/.local/share/kubebuilder-envtest) and self-skips without them.",
-  "polarityNotes": "P0-silent is the premise canary: PASSES on base (premise reproduced) and FAILS on the fixed head (fix works); keep as differential record. Round 2 (head b56db670): F1/F2/F3 were re-polarized from canaries to CONTRACTS because the fixes landed as text/comparison/docs changes the round-1 canaries could not observe: F1 pins the remediation wording (event message + en/zh docs must say 'delete and recreate the CacheRuntime', never 'recreate the worker'), F2 pins medium-only detection, F3 pins the docs' worker-only scope. Retired round-1 canaries (still in the tree, intentionally NOT in findings): TestVerifyPR6219MediumOnlyEditInvisibleToDriftCheck (FLIPPED red on b56db670 = blind spot closed, superseded by the F2 contract), TestVerifyPR6219RemediationDeleteWorkerWorkloadDoesNotHeal (stays green: pins the pre-existing no-self-heal behavior, now unreferenced by any guidance), TestVerifyPR6219ClientTieredStoreEditSilent (stays green: pins pre-existing client silence, detection deferred to issue #6221). The PR's own ginkgo suite requires -gcflags='all=-N -l' (gomonkey); without it 35 specs fail on base and head alike (pre-existing)."
+  "polarityNotes": "P0-silent is the premise canary: PASSES on base (premise reproduced) and FAILS on the fixed head (fix works); keep as differential record. Round 2 (head b56db670): F1/F2/F3 were re-polarized from canaries to CONTRACTS because the fixes landed as text/comparison/docs changes the round-1 canaries could not observe: F1 pins the remediation wording (event message + en/zh docs must say 'delete and recreate the CacheRuntime', never 'recreate the worker'), F2 pins medium-only detection, F3 pins the docs' worker-only scope. Retired round-1 canaries (still in the tree, intentionally NOT in findings): TestVerifyPR6219MediumOnlyEditInvisibleToDriftCheck (FLIPPED red on b56db670 = blind spot closed, superseded by the F2 contract), TestVerifyPR6219RemediationDeleteWorkerWorkloadDoesNotHeal (stays green: pins the pre-existing no-self-heal behavior, now unreferenced by any guidance), TestVerifyPR6219ClientTieredStoreEditSilent (stays green: pins pre-existing client silence, detection deferred to issue #6221). The PR's own ginkgo suite requires -gcflags='all=-N -l' (gomonkey); without it 35 specs fail on base and head alike (pre-existing). Round 3 (head 6809f62f): TS-DISPATCH-PRECEDENCE (round-2 question, Copilot C4368713436) is FIXED by the dispatch-order flip in checkWorkerTieredStoreDrift (HostPath now precedes EmptyDir, matching cm.go extractTieredStoreLevels); pinned by contract TestVerifyPR6219DispatchMatchesConfigMapExtraction \u2014 bite-checked by restoring the round-2 order, which silences the warning on a both-fields level ('expected a RuntimeTieredStoreConflict warning event, got events: []'). R3-HOSTPATH-STEADY is a new no-false-positive guard for hostPath levels under the hostPath-first dispatch (creation rejects multi-medium levels, so hostPath volumes at steady state must never warn)."
 }
