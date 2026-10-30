@@ -47,8 +47,6 @@ def record(name, ok, detail=""):
     _results.append({"Test": name, "Action": "run"})
     _results.append({"Test": name, "Action": "pass" if ok else "fail",
                      "Output": detail, "Elapsed": 0.0})
-    if not ok:
-        print("FAIL: %s: %s" % (name, detail), file=sys.stderr)
     return ok
 
 
@@ -118,9 +116,11 @@ def main():
     if args.json:
         for line in _results:
             print(json.dumps(line, separators=(",", ":")))
-    # Summary goes to stderr: stdout must stay pure JSON lines for `jq -s`.
-    print("%d passed, %d failed (go-test style)" % (
-        len([r for r in _results if r["Action"] == "pass"]), len(failed)), file=sys.stderr)
+    # With --json the process output is parsed with `jq -s` (and re-verify.sh
+    # merges stderr into the captured file), so emit nothing but JSON lines.
+    if not args.json:
+        print("%d passed, %d failed (go-test style)" % (
+            len([r for r in _results if r["Action"] == "pass"]), len(failed)))
     return 1 if failed else 0
 
 
