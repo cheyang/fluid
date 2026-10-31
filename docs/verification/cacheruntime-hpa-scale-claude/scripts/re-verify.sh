@@ -13,8 +13,9 @@
 #   <fixed-ref>   ref/branch/sha of the developer's updated code to test against.
 #   --manifest    path to verify-manifest.json (default: auto-discover under
 #                 docs/verification/*/verify-manifest.json, else next to this script).
-#   --layers      comma list to run (default: unit,integration). Live layer (L3)
-#                 needs a real environment and is only reminded about, not run.
+#   --layers      comma list to run (default: unit,integration,envtest for this
+#                 harness). Live layer (L3) needs a real environment and is only
+#                 reminded about, not run.
 #
 # Requires: git, go, jq. Exit code 0 iff every finding is Fixed.
 #
@@ -33,7 +34,7 @@
 # }
 set -euo pipefail
 
-FIXED_REF=""; MANIFEST=""; LAYERS="unit,integration"
+FIXED_REF=""; MANIFEST=""; LAYERS="unit,integration,envtest"
 while [ $# -gt 0 ]; do
   case "$1" in
     --manifest) MANIFEST="$2"; shift 2;;

@@ -1,0 +1,14 @@
+=== RUN   TestCritiqueProbe
+    envtest_probe_test.go:75: T1 no-worker-key: spec.worker=<nil>, spec.worker.replicas=<nil> (found=false)
+    envtest_probe_test.go:84: T5 empty-worker-block: spec.worker.replicas=1 (found=true)
+    envtest_probe_test.go:86: T1 GET /scale FAILED: Internal error occurred: the spec replicas field ".spec.worker.replicas" does not exist
+    envtest_probe_test.go:96: T2 worker-disabled: spec.worker=map[disabled:true replicas:1]
+    envtest_probe_test.go:100: T2 GET /scale SUCCEEDED: spec.replicas/status/sel = {"apiVersion":"autoscaling/v1","kind":"Scale","metadata":{"creationTimestamp":"2026-10-30T06:20:11Z","name":"probe-disabled","namespace":"default","resourceVersion":"242","uid":"c4779686-f18c-4f15-a4e1-a711893d966c"},"spec":{"replicas":1},"status":{"replicas":0}}
+    envtest_probe_test.go:112: T3 after worker:null merge patch: spec.worker=<nil>
+    envtest_probe_test.go:114: T3 GET /scale FAILED: Internal error occurred: the spec replicas field ".spec.worker.replicas" does not exist
+    envtest_probe_test.go:121: T1 GET /scale FAILED: Internal error occurred: the spec replicas field ".spec.worker.replicas" does not exist
+    envtest_probe_test.go:128: T5 GET /scale SUCCEEDED: {"apiVersion":"autoscaling/v1","kind":"Scale","metadata":{"creationTimestamp":"2026-10-30T06:20:11Z","name":"probe-emptyworker","namespace":"default","resourceVersion":"241","uid":"cbc686bf-9b1b-462e-b3a9-f1d32de68692"},"spec":{"replicas":1},"status":{"replicas":0}}
+    envtest_probe_test.go:143: T4 scale PUT ok; spec.worker.replicas=4 (found=true)
+--- PASS: TestCritiqueProbe (5.37s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/zz-critique-probe	5.379s

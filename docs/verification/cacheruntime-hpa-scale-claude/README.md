@@ -3,12 +3,20 @@
 Reproducible evidence for the review of PR #6223
 ("feat(cache): support HPA on CacheRuntime via scale subresource and status selector").
 
-Layers run against the **code under review** (`3f39501e7b99c1e4fd925f332ee7e34faec45171`):
+Round 2 (incremental, 2026-10-31): the PR head moved `3f39501e → 9a265eb3` by merging
+master (`96a3765ea`, "ci: pin kind-e2e runner to ubuntu-24.04" — CI-only, **all PR code
+files byte-identical**, verified with `git diff 3f39501 9a265eb -- . ':(exclude).github'` →
+empty). The merge-base moved `fe074af → 96a3765e`. The whole harness was re-run against the
+new head and the premise re-attested against the new base; the envtest probe (previously an
+untracked phase-2 scratch dir) is now committed here so it travels with the branch.
+
+Layers run against the **code under review** (`9a265eb349b6fc0dd8bc91aec57beea41001c232`):
 
 | Layer | What it exercises | How to run |
 |-------|-------------------|------------|
 | 1. Unit | `CacheEngine.getWorkerSelectors`, `CheckAndUpdateRuntimeStatus` selector population, component label derivation | `go test ./pkg/ddc/cache/engine/ -run 'TestHarness' -v` |
 | 2. Integration (fake-client) | the selector string vs. the real worker workload creation path (`component.NewComponentHelper(...).Reconciler`), and the worker-disabled lifecycle | same command (ginkgo specs of the PR itself: `go test ./pkg/ddc/cache/engine/ ./pkg/ddc/cache/component/`) |
+| 2b. envtest | real API server + the PR CRD: `/scale` behavior for worker-less payloads (findings F-workerless-scale-docs, Q-blockless-worker-scale-target) | `KUBEBUILDER_ASSETS=$HOME/.local/share/kubebuilder-envtest/k8s/1.31.0-linux-amd64 go test ./zz-critique-probe/ -run TestCritiqueProbe -v` |
 | 3. Live | real API server scale subresource — covered by the repo's kind e2e in CI (curvine case), **not** run here (debate setup skips the live layer) | see "Live run notes" |
 
 > Test polarity: contract tests (assert intended behavior) FAIL on buggy code / PASS when
@@ -16,7 +24,9 @@ Layers run against the **code under review** (`3f39501e7b99c1e4fd925f332ee7e34fa
 
 ## Problem premise (P0)
 
-Run against the **base** branch (`fe074af38434fc4b618686de6459a9173570b48b`) without the patch.
+Run against the **base** branch (`fe074af38434fc4b618686de6459a9173570b48b`, round 1; round 2
+re-attested against the new merge-base `96a3765eaae0f23140aef9b30152538396ed7ec2` — the two
+bases differ only in `.github/workflows/kind-e2e.yml`) without the patch.
 
 | | |
 |---|---|
@@ -30,6 +40,21 @@ Run against the **base** branch (`fe074af38434fc4b618686de6459a9173570b48b`) wit
 
 ## Summary of results
 
+### Round 2 (head `9a265eb3`, re-verify via `scripts/re-verify.sh`)
+
+| ID (ledger) | Claim | Layer | Verdict | Evidence |
+|----|-------|-------|---------|----------|
+| P0 | base leaves `Status.Selector` empty (issue #6063 symptom) | 1 | Confirmed on the **new** base too | `results/head-9a265eb/base-96a3765-premise.out` (red on 96a3765e) |
+| F1-selector-populated (AC-selector-populated) | PR populates `Status.Selector` with the exact worker label selector | 1 | FIXED (contract passes on head) | `results/reverify/unit.parsed` |
+| F1b-selector-matches-workload (AC-selector-matches-pods) | the selector string matches the worker workload's `spec.selector` and pod labels (HPA pod discovery works) | 1+2 | FIXED (contract passes on head) | `results/reverify/unit.parsed` |
+| F-selector-when-worker-disabled | `Status.Selector` is populated even when the worker component is disabled (canary, minor open finding) | 1 | STILL-PRESENT (canary green = behavior persists, code unchanged) | `results/reverify/unit.parsed` |
+| F-workerless-scale-docs | `/scale` for worker-less payloads is payload-dependent: block-absent → GET fails; block-present/disabled → GET/PUT succeed against a phantom target (canary, minor open finding) | 2b | STILL-PRESENT (probe re-run on head, byte-identical outcome) | `results/head-9a265eb/envtest-probe.out` |
+| Q-blockless-worker-scale-target | no defaulting/backfill materializes `.spec.worker.replicas` when the worker block is absent; scale PUT creates the path (canary, open question) | 2b | STILL-PRESENT (T1/T3/T4 of the probe) | `results/head-9a265eb/envtest-probe.out` |
+
+No `Harness-update` outcomes: every test compiled and ran against the new head unchanged.
+
+### Round 1 (head `3f39501e`) — carried forward
+
 | ID | Claim | Layer | Verdict | Evidence |
 |----|-------|-------|---------|----------|
 | P0 | base leaves `Status.Selector` empty (issue #6063 symptom) | 1 | Confirmed (fails on base, passes on head) | `results/base-selector.out`, `results/head-selector.out` |
@@ -38,13 +63,20 @@ Run against the **base** branch (`fe074af38434fc4b618686de6459a9173570b48b`) wit
 | F2 | `Status.Selector` is populated even when the worker component is disabled (canary) | 1 | Confirmed (documented behavior) | `results/head-selector.out` (`TestHarnessSelectorSetEvenWhenWorkerDisabled`) |
 
 Additional evidence used by the review but produced by CI (not this harness):
-- kind e2e (curvine) in CI run 40716621753 **passed on all 5 k8s versions** for the PR's own
-  testcase: `status.selector` set and matching worker pods, scale subresource GET reporting
-  `spec.replicas` / `status.replicas` / string `selector`, scale-up through the scale
-  subresource and scale-down via spec patch, pod counts verified both ways.
-- The kind-e2e workflow overall is red on this PR, but the same `jindoruntime secret e2e`
-  warmup failure occurs on an unrelated dependabot branch (run 40644839213) — pre-existing
-  flake, not this PR.
+- **Round 2 (run 41179758839, head `9a265eb3`, all checks green):** kind e2e (curvine)
+  **SUCCEEDED on all five k8s versions** (v1.22.17–v1.33.2) for the PR's own testcase:
+  `status.selector` set, matching worker pods, and the scale-subresource GET reporting
+  `spec.replicas=1, status.replicas=1, selector=<worker selector>` — logs captured in
+  `results/head-9a265eb/v1.33.2.log` and `v1.22.17.log`. The `jindoruntime secret e2e`
+  warmup flake that made round 1's kind-e2e red is gone (the PR merged master's runner pin,
+  #6225); the jindo testcase now succeeds. All other checks green (unittest, lint, build ×2,
+  staticcheck, CodeQL, backward-compat on all five versions, DCO, codecov, SonarCloud).
+- Round 1 (run 40716621753): curvine testcase passed on all five versions while the overall
+  kind-e2e workflow was red on the `jindoruntime secret e2e` warmup — pre-existing flake
+  (same failure on unrelated dependabot run 40644839213), now resolved by the runner pin.
+- Both rounds: `>>> Skipping scale test: single-node cluster (1 node)` appears in every
+  kind-e2e job, so the scale-**write** path (the HPA write path) remains unexercised in CI —
+  finding `F-scale-write-e2e-skipped` (minor, open).
 
 ## Per-finding detail
 
@@ -86,8 +118,8 @@ curvine demo, then `kubectl get --raw .../cacheruntimes/<name>/scale` and
 ## Continuing after the fix (possibly on another machine)
 
 The harness is on branch `verify/cacheruntime-hpa-scale-claude` (production code untouched:
-the diff vs the PR head is only the harness test files + this directory), so it grafts onto
-whatever the fixed code is.
+the diff vs the PR head is only the harness test files, the `zz-critique-probe/` package and
+this directory), so it grafts onto whatever the fixed code is.
 
 1. Get it onto the fixed code:
    ```bash
@@ -95,19 +127,25 @@ whatever the fixed code is.
    git checkout <fixed-branch>
    git checkout FETCH_HEAD -- pkg/ddc/cache/engine/status_selector_harness_test.go \
      pkg/ddc/cache/engine/selector_workload_consistency_harness_test.go \
+     zz-critique-probe \
      docs/verification/cacheruntime-hpa-scale-claude
    ```
-2. Prereqs: Layer 1/2 = Go toolchain only (fake client, no cluster). Layer 3 = a kind
+2. Prereqs: Layer 1/2 = Go toolchain only (fake client, no cluster). Layer 2b (envtest) =
+   Go toolchain plus kubebuilder envtest assets
+   (`$HOME/.local/share/kubebuilder-envtest/k8s/1.31.0-linux-amd64`; the CRD path in the
+   probe is relative, `../config/crd/bases`). Layer 3 = a kind
    cluster with the fluid CRDs applied.
 3. Re-run: `bash docs/verification/cacheruntime-hpa-scale-claude/scripts/re-verify.sh`
-   (no argument — it resolves the current PR head from the manifest's `pr` URL).
+   (no argument — it resolves the current PR head from the manifest's `pr` URL; default
+   layers are unit,integration,envtest).
 4. Read results via the polarity table: contract tests (`TestHarnessStatusSelectorPopulated`,
-   `TestHarnessSelectorMatchesWorkerWorkload`) should be GREEN; the bug-canary
-   (`TestHarnessSelectorSetEvenWhenWorkerDisabled`) will be RED and must be inverted if its
-   behavior is deliberately changed.
+   `TestHarnessSelectorMatchesWorkerWorkload`) should be GREEN; the bug-canaries
+   (`TestHarnessSelectorSetEvenWhenWorkerDisabled`, `TestCritiqueProbe`) will be RED and must
+   be inverted if their behavior is deliberately changed.
 5. Harness-bites: re-graft `status_selector_harness_test.go` onto the merge-base
-   `fe074af38434` and confirm it goes red (empty selector) — already recorded in
-   `results/base-selector.out`.
+   (`fe074af38434` round 1; `96a3765eaae0` since round 2) and confirm it goes red (empty
+   selector) — recorded in `results/base-selector.out` and
+   `results/head-9a265eb/base-96a3765-premise.out`.
 
 ### Kickoff prompt for a fresh agent
 ```text

@@ -4,7 +4,8 @@
   "harnessPaths": [
     "docs/verification/cacheruntime-hpa-scale-claude",
     "pkg/ddc/cache/engine/status_selector_harness_test.go",
-    "pkg/ddc/cache/engine/selector_workload_consistency_harness_test.go"
+    "pkg/ddc/cache/engine/selector_workload_consistency_harness_test.go",
+    "zz-critique-probe"
   ],
   "premise": {
     "id": "P0",
@@ -15,7 +16,7 @@
     "runsAgainst": "base",
     "layer": "unit",
     "verdict": "confirmed",
-    "evidence": "results/base-selector.out: TestHarnessStatusSelectorPopulated fails on merge-base fe074af38434 (Status.Selector=\"\") and passes on head 3f39501e (results/head-selector.out); base CRD subresources has status only, no scale",
+    "evidence": "results/base-selector.out: TestHarnessStatusSelectorPopulated fails on merge-base fe074af38434 (Status.Selector=\"\") and passes on head 3f39501e (results/head-selector.out); base CRD subresources has status only, no scale. Round 2 (base moved to 96a3765e, PR merged master): re-run on the new merge-base in results/head-9a265eb/base-96a3765-premise.out — still red (Status.Selector=\"\"), so the premise holds against the new base too.",
     "match": ["TestHarnessStatusSelectorPopulated"]
   },
   "layers": {
@@ -27,12 +28,18 @@
       "kind": "ginkgo",
       "cmd": "go test ./pkg/ddc/cache/engine/ -run TestCacheEngine -ginkgo.focus 'Status.Selector|MatchLabels' -ginkgo.json-report=$GINKGO_REPORT",
       "report": "$GINKGO_REPORT"
+    },
+    "envtest": {
+      "kind": "gotest",
+      "cmd": "KUBEBUILDER_ASSETS=$HOME/.local/share/kubebuilder-envtest/k8s/1.31.0-linux-amd64 go test ./zz-critique-probe/ -run TestCritiqueProbe -json"
     }
   },
   "findings": [
-    { "id": "F1-selector-populated", "polarity": "contract", "layer": "unit", "match": ["TestHarnessStatusSelectorPopulated"] },
-    { "id": "F1b-selector-matches-workload", "polarity": "contract", "layer": "unit", "match": ["TestHarnessSelectorMatchesWorkerWorkload"] },
-    { "id": "F2-selector-set-when-worker-disabled", "polarity": "canary", "layer": "unit", "match": ["TestHarnessSelectorSetEvenWhenWorkerDisabled"] }
+    { "id": "F1-selector-populated", "aliases": ["AC-selector-populated"], "polarity": "contract", "layer": "unit", "match": ["TestHarnessStatusSelectorPopulated"] },
+    { "id": "F1b-selector-matches-workload", "aliases": ["AC-selector-matches-pods"], "polarity": "contract", "layer": "unit", "match": ["TestHarnessSelectorMatchesWorkerWorkload"] },
+    { "id": "F-selector-when-worker-disabled", "aliases": ["F2-selector-set-when-worker-disabled"], "polarity": "canary", "layer": "unit", "match": ["TestHarnessSelectorSetEvenWhenWorkerDisabled"] },
+    { "id": "F-workerless-scale-docs", "polarity": "canary", "layer": "envtest", "match": ["TestCritiqueProbe"] },
+    { "id": "Q-blockless-worker-scale-target", "polarity": "canary", "layer": "envtest", "match": ["TestCritiqueProbe"] }
   ],
-  "liveNote": "L3 (skipped in this debate phase): kind e2e curvine case already covers the API-server scale subresource contract in CI (run 40716621753, curvine testcase SUCCEEDED on all 5 k8s versions). Manual re-check: kubectl get --raw /apis/data.fluid.io/v1alpha1/namespaces/<ns>/cacheruntimes/<name>/scale must report spec.replicas, status.replicas and the string selector; kubectl scale cacheruntime/<name> must flow to the worker AdvancedStatefulSet."
+  "liveNote": "L3 (skipped in this debate phase): kind e2e curvine case covers the API-server scale subresource contract in CI. Round 2: run 41179758839 on head 9a265eb — curvine testcase SUCCEEDED on all five k8s versions (logs captured in results/head-9a265eb/v1.33.2.log and v1.22.17.log: 'Verified cacheruntime curvine-demo status.selector=... (matches worker pods: pod/curvine-demo-worker-0)' and 'Verified scale subresource ... (spec.replicas=1, status.replicas=1, selector=...)'), and 'Skipping scale test: single-node cluster (1 node)' still appears — the scale-WRITE path remains unexercised in CI (finding F-scale-write-e2e-skipped)."
 }
