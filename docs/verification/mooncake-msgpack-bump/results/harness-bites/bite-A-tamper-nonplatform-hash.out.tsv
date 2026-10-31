@@ -1,0 +1,2 @@
+C1	fail
+C2	pass (via provisioned modern pip: host pip had the transport bug)

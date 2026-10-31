@@ -1,0 +1,5 @@
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple/
+Collecting msgpack==1.2.3 (from -r msgpack-req.txt (line 1))
+  Using cached msgpack-1.2.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (472 kB)
+Saved ./wheels3/msgpack-1.2.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded msgpack

@@ -1,0 +1,2 @@
+C1	fail
+C2	fail (curl fallback: artifact+digest verified, pip's own verifier not exercised this run)

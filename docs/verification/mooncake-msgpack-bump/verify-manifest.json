@@ -1,0 +1,37 @@
+{
+  "_comment": "Verification harness for PR fluid-cloudnative/fluid#6226 (dependabot: bump msgpack 1.2.2 -> 1.2.3 in the mooncake e2e image's hash-locked requirements.txt). All claims are CONTRACT polarity: they assert the intended correct lock and go red on a tampered one. Run scripts/re-verify.sh (no args) to re-run against the current PR head.",
+  "topic": "mooncake-msgpack-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6226",
+  "harnessPaths": [
+    "docs/verification/mooncake-msgpack-bump"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "msgpack 1.2.2 (pinned on base in test/gha-e2e/mooncake/image/requirements.txt) is affected by GHSA-j586-36cw-2gc2 / CVE-2026-114613 (HIGH): unbounded memory leak in the C extension on strict_map_key validation failure, plus a use-after-free in Unpacker.skip().",
+    "reportedComponent": "msgpack-python C extension, as shipped transitively via mooncake-transfer-engine-non-cuda in the mooncake e2e test image",
+    "patchedComponent": "test/gha-e2e/mooncake/image/requirements.txt (the only msgpack pin in the repo)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "OSV query for msgpack 1.2.2 returns GHSA-j586-36cw-2gc2 (CVE-2026-114613, HIGH), range introduced:0 fixed:1.2.3; base requirements.txt pins msgpack==1.2.2. See results/osv-msgpack-1.2.2.json and results/base-msgpack-entry.txt. Exposure note: this pin is used only by the e2e test image on a kind cluster, so the practical impact of the old version here is low; the bump is nonetheless correct security hygiene and dependabot's premise is real.",
+    "match": []
+  },
+  "layers": {
+    "unit": {
+      "kind": "shell",
+      "cmd": "bash docs/verification/mooncake-msgpack-bump/scripts/verify_msgpack_lock.sh test/gha-e2e/mooncake/image/requirements.txt docs/verification/mooncake-msgpack-bump/results",
+      "report": "docs/verification/mooncake-msgpack-bump/results/verdicts.tsv"
+    },
+    "integration": {
+      "kind": "shell",
+      "cmd": "same script; C2 drives pip's real --require-hashes resolution+hash-verification path for python 3.12 / manylinux2014_x86_64 (the Dockerfile's constraint set)",
+      "report": "docs/verification/mooncake-msgpack-bump/results/c2-pip-download.log"
+    }
+  },
+  "findings": [
+    { "id": "C1", "polarity": "contract", "layer": "unit",        "match": ["C1"] },
+    { "id": "C2", "polarity": "contract", "layer": "integration", "match": ["C2"] }
+  ],
+  "liveNote": "L3 (not run per round policy): the full docker build + mooncake e2e is exercised by the PR's own CI — kind-e2e.yml builds test/gha-e2e/mooncake/image with WITH_E2E_TEST_IMAGES=true and gha-e2e.sh runs mooncake_e2e unconditionally; green on the PR head across k8s v1.33.2/v1.30.13/v1.28.15/v1.24.17/v1.22.17."
+}

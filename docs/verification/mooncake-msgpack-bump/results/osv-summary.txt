@@ -1,0 +1,2 @@
+id: GHSA-j586-36cw-2gc2 aliases: ['CVE-2026-114613'] severity: HIGH
+range events: [{'introduced': '0'}, {'fixed': '1.2.3'}]

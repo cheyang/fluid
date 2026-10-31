@@ -1,0 +1,3 @@
+msgpack==1.2.2 \
+    --hash=sha256:77c2e018417dc1d66f235e383877ee885b60ade9d29e494dd581e08af2cb1923
+base-entry hash resolves to: ['msgpack-1.2.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl']

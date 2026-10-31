@@ -1,0 +1,4 @@
+EXTRA 1 hash(es) not on PyPI: ['aa0000000ad1b176c3dd2f7fa268452f9d5d784d076473499d754a58e8d1fbbb']
+MISSING 1 PyPI digest(s): ['07c9733089d1b176c3dd2f7fa268452f9d5d784d076473499d754a58e8d1fbbb']
+ENTRY version=1.2.3 hashes=91 pypi-files=91 needed-wheels=msgpack-1.2.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl,msgpack-1.2.3-cp312-cp312-musllinux_1_2_x86_64.whl
+C1_RESULT fail
