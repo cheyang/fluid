@@ -93,8 +93,7 @@ pin from #6225, TODO referencing open issue #6224). The PR's effective diff
 `base..head` is **byte-identical** to round 2's (verified via `git diff` comparison),
 so no new code review surface; the runner-pin file is not part of the PR's own diff.
 
-- `re-verify.sh` against head `9a265eb3`: all 9 harness entries green (unit +
-  integration, envtest k8s 1.33.0), including the newly hardened
+- `re-verify.sh` against head `9a265eb3`: all 9 harness entries green (unit + integration; envtest bundle k8s 1.36.2, the newest installed), including the newly hardened
   `TestCacheRuntimeAbsentWorkerBlockScaleFails` (round-2 log-only probe promoted to a
   contract test pinning: truly-absent `spec.worker` → block stays absent, GET /scale
   fails with the missing `.spec.worker.replicas` path error).
