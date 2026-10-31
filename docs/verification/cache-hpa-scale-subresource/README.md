@@ -3,8 +3,8 @@
 Reproducible evidence for the review of PR fluid-cloudnative/fluid#6223
 ("feat(cache): support HPA on CacheRuntime via scale subresource and status selector").
 
-- Reviewed head: `3f39501e7b99c1e4fd925f332ee7e34faec45171`
-- Base (merge-base): `fe074af38434fc4b618686de6459a9173570b48b`
+- Reviewed head: `9a265eb349b6fc0dd8bc91aec57beea41001c232` (round 3)
+- Base (merge-base): `96a3765eaae0f23140aef9b30152538396ed7ec2` (round 3; round 2 base was `fe074af38434fc4b618686de6459a9173570b48b`)
 - Production code is **untouched** by this harness (additive test files + docs only).
 
 | Layer | What it exercises | How to run |
@@ -84,3 +84,31 @@ consistently. (Note: F6 shows the selector is stamped regardless, so even
    `go install sigs.k8s.io/controller-runtime/tools/setup-envtest@latest` can fetch one.
 3. All tests are contract tests: green = good. If F4 is "fixed" by making worker-less
    GET /scale fail, update the `worker-less runtime` subtest expectations accordingly.
+
+## Round 3 (incremental, 2026-10-31) — head 9a265eb3, base 96a3765e
+
+Delta `3f39501e..9a265eb3` is a single merge commit pulling master into the PR branch;
+the only file it touches is `.github/workflows/kind-e2e.yml` (the `ubuntu-24.04` runner
+pin from #6225, TODO referencing open issue #6224). The PR's effective diff
+`base..head` is **byte-identical** to round 2's (verified via `git diff` comparison),
+so no new code review surface; the runner-pin file is not part of the PR's own diff.
+
+- `re-verify.sh` against head `9a265eb3`: all 9 harness entries green (unit +
+  integration, envtest k8s 1.33.0), including the newly hardened
+  `TestCacheRuntimeAbsentWorkerBlockScaleFails` (round-2 log-only probe promoted to a
+  contract test pinning: truly-absent `spec.worker` → block stays absent, GET /scale
+  fails with the missing `.spec.worker.replicas` path error).
+- Premise P0 re-verified against the NEW base `96a3765e` (base moved):
+  `TestVerifyHPAPremiseSelectorPopulated` still FAILS on base (status.selector empty),
+  base CRD still has no scale subresource (GET /scale NotFound). Evidence:
+  `results/premise-new-base-96a3765.txt`. The base movement `fe074af..96a3765` is one
+  commit touching only the workflow file, so no base-side code drift.
+- CI on head `9a265eb3` is fully green (run 41179758839): all five kind-e2e jobs pass
+  with the runner pin (the round-2 jindo flake is gone — confirming the infra
+  attribution), and the curvine testcase still asserts `status.selector` pod matching +
+  GET /scale on all five k8s versions. The scale-WRITE step is still skipped
+  (`>>> Skipping scale test: single-node cluster (1 node)` in all five jobs) —
+  finding F-scale-write-e2e-skipped stays OPEN.
+- New Copilot review (2026-10-31, discussion_r4431023991) re-raises the already-tracked
+  CurrentReplicas-under-during-rollout issue (C4420756561) with a second anchor on the
+  CRD YAML; no new substance.

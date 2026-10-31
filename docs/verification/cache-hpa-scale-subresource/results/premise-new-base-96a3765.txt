@@ -1,0 +1,17 @@
+# premise re-run against NEW base 96a3765eaae0f23140aef9b30152538396ed7ec2 (round 3)
+# old base fe074af.. new base 96a3765 delta = .github/workflows/kind-e2e.yml only (runner pin #6225); no code/CRD changes
+
+## unit: TestVerifyHPAPremiseSelectorPopulated (expect FAIL on base = premise reproduced)
+--- FAIL: TestVerifyHPAPremiseSelectorPopulated (0.00s)
+    hpa_premise_verify_test.go:62: PREMISE REPRODUCED: status.selector is empty after status sync; HPA cannot discover worker pods
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.014s
+FAIL
+
+## integration: TestCacheRuntimeScalePremiseAgainstCRDDir with CODEX_CRD_DIR=<new base config/crd/bases>, EXPECT_SCALE=absent
+    scale_subresource_envtest_test.go:104: $ kubectl --kubeconfig /tmp/TestCacheRuntimeScalePremiseAgainstCRDDir771397260/001/kubeconfig get --raw /apis/data.fluid.io/v1alpha1/namespaces/verify-ns/cacheruntimes/hpa-demo/scale
+        Error from server (NotFound): cacheruntimes.data.fluid.io "hpa-demo" not found
+    scale_premise_base_test.go:59: PREMISE REPRODUCED (base CRD): GET /scale fails: Error from server (NotFound): cacheruntimes.data.fluid.io "hpa-demo" not found
+--- PASS: TestCacheRuntimeScalePremiseAgainstCRDDir (4.85s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/test/verification/codexhpa	4.862s
