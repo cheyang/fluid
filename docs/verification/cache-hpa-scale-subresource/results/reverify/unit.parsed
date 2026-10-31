@@ -1,0 +1,4 @@
+TestVerifyHPAPremiseSelectorPopulated	pass
+TestVerifyHPASelectorMatchesCreatedWorkerPods	pass
+TestVerifyHPASelectorBehaviorWhenWorkerDisabled	pass
+TestVerifyHPAStatusReplicasPathPopulated	pass

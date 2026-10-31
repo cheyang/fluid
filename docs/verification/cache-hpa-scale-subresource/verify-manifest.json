@@ -6,7 +6,8 @@
     "pkg/ddc/cache/engine/hpa_premise_verify_test.go",
     "pkg/ddc/cache/engine/hpa_scale_verify_test.go",
     "test/verification/codexhpa/scale_subresource_envtest_test.go",
-    "test/verification/codexhpa/scale_premise_base_test.go"
+    "test/verification/codexhpa/scale_premise_base_test.go",
+    "test/verification/codexhpa/zz_absent_worker_probe_test.go"
   ],
   "premise": {
     "id": "P0",
@@ -105,6 +106,15 @@
         "TestCacheRuntimeScalePathsMatchGoTags"
       ],
       "note": "json-tag guard for statusReplicasPath; CRD regen check evidence in results/crd-regen.txt"
+    },
+    {
+      "id": "F-workerless-scale-docs-absent-block",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestCacheRuntimeAbsentWorkerBlockScaleFails"
+      ],
+      "note": "pins the narrowed consensus behavior for a truly-absent spec.worker block: defaulting does not materialize it and GET /scale fails with the missing .spec.worker.replicas path error (hardened this round from the round-2 log-only probe; evidence for F-workerless-scale-docs / Q-blockless-worker-scale-target)"
     }
   ],
   "liveNote": "L3 skipped per debate setup. PR's own curvine e2e on GHA kind verified the GET-side scale contract + status.selector pod matching on k8s 1.22-1.33; the scale-WRITE e2e step is skipped on single-node kind clusters."
