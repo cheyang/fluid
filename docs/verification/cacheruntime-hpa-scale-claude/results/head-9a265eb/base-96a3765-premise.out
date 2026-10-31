@@ -1,0 +1,7 @@
+2026/10/31 15:59:21 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+--- FAIL: TestHarnessStatusSelectorPopulated (0.00s)
+    status_selector_harness_test.go:68: F1/P0: Status.Selector is empty after CheckAndUpdateRuntimeStatus; want "cacheruntime.fluid.io/component-name=curvine-demo-worker,cacheruntime.fluid.io/name=curvine-demo"
+    status_selector_harness_test.go:71: F1/P0: Status.Selector = "", want "cacheruntime.fluid.io/component-name=curvine-demo-worker,cacheruntime.fluid.io/name=curvine-demo"
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.013s
+FAIL
