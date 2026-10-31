@@ -1,0 +1,40 @@
+{
+  "topic": "msgpack-1-2-3-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6226",
+  "harnessPaths": ["docs/verification/msgpack-1-2-3-bump"],
+  "premise": {
+    "id": "P0",
+    "claim": "msgpack 1.2.2 (the base pin) leaks the decoded map value in its C extension when strict_map_key rejects a key (GHSA-j586-36cw-2gc2 / CVE-2026-114613, severity high, 'affected: < 1.2.3, patched: 1.2.3'); 1.2.3 fixes it.",
+    "reportedComponent": "msgpack runtime dependency of mooncake-transfer-engine-non-cuda in the mooncake e2e image (test/gha-e2e/mooncake/image)",
+    "patchedComponent": "test/gha-e2e/mooncake/image/requirements.txt (msgpack==1.2.2 -> 1.2.3)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "integration",
+    "verdict": "confirmed",
+    "evidence": "25 failed strict_map_key parses: msgpack 1.2.2 +102404 KiB RSS (4096 KiB/parse = full 4 MiB value per parse); msgpack 1.2.3 +0 KiB. results/leak-1.2.2.json vs results/leak-1.2.3.json",
+    "match": ["TestPremiseLeakReproducesOn122", "TestPinnedMsgpackDoesNotLeak"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/msgpack-1-2-3-bump/scripts/run_unit.sh"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/msgpack-1-2-3-bump/scripts/run_integration.sh"
+    }
+  },
+  "findings": [
+    { "id": "P0", "polarity": "contract", "layer": "integration",
+      "match": ["TestPremiseLeakReproducesOn122", "TestPinnedMsgpackDoesNotLeak"] },
+    { "id": "V1-hash-integrity", "polarity": "contract", "layer": "unit",
+      "match": ["TestMsgpackHashesGenuine", "TestCriticalImageWheelHashPresent", "TestAllEntriesHashLocked"] },
+    { "id": "V2-image-platform-resolvable", "polarity": "contract", "layer": "integration",
+      "match": ["TestRequirementsResolveForImagePlatform"] },
+    { "id": "V3-mooncake-constraint", "polarity": "contract", "layer": "unit",
+      "match": ["TestMooncakeConstraintAdmitsPinnedMsgpack"] },
+    { "id": "V4-behavior-preserved", "polarity": "contract", "layer": "integration",
+      "match": ["TestStrictMapKeyGuardIntactOnPinned", "TestMsgpackSmokeRoundTripOnPinned"] }
+  ],
+  "liveNote": "No separate live layer: the change is a test-image dependency pin. The PR's own kind-e2e-test jobs (5 k8s versions) build test/gha-e2e/mooncake/image from this exact requirements.txt with --require-hashes and run the mooncake e2e suite; all passed on head 0960c0d (results/ci-status.txt)."
+}

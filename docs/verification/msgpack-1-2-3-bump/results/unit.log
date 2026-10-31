@@ -1,0 +1,10 @@
+[info] requirements file: /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/test/gha-e2e/mooncake/image/requirements.txt
+[PASS] TestAllEntriesHashLocked: 17 pinned entries; entries without hashes: none
+[PASS] TestMsgpackHashesMatchPyPI: msgpack==1.2.3 (live-pypi): entry has 91 hashes, PyPI has 91 files; extra=0 missing=0
+[PASS] TestCriticalImageWheelHashPresent: image wheel msgpack-1.2.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl hash present in entry
+[PASS] TestMooncakeConstraintAdmitsPinnedMsgpack: mooncake==0.3.12.post1 requires msgpack spec '<unbounded>'; pinned 1.2.3
+[info] requirements file: /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/test/gha-e2e/mooncake/image/requirements.txt
+[PASS] TestAllEntriesHashLocked: 17 pinned entries; entries without hashes: none
+[PASS] TestMsgpackHashesGenuine: msgpack==1.2.3 (live-pypi): entry has 91 hashes, PyPI has 91 files; unknown-to-PyPI=0, PyPI-not-listed=0 (informational)
+[PASS] TestCriticalImageWheelHashPresent: image wheel msgpack-1.2.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl hash present in entry
+[PASS] TestMooncakeConstraintAdmitsPinnedMsgpack: mooncake==0.3.12.post1 requires msgpack spec '<unbounded>'; pinned 1.2.3

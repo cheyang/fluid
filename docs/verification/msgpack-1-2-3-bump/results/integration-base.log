@@ -1,0 +1,7 @@
+[info] requirements=/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/docs/verification/msgpack-1-2-3-bump/results/base-requirements.txt pinned msgpack=1.2.2
+[PASS] TestPremiseLeakReproducesOn122: msgpack 1.2.2: 25 failed parses grew RSS by 102404 KiB (4096 KiB/parse; advisory: ~4096 KiB/parse)
+[FAIL] TestPinnedMsgpackDoesNotLeak: msgpack 1.2.2: 25 failed parses grew RSS by 102404 KiB
+[PASS] TestStrictMapKeyGuardIntactOnPinned: msgpack 1.2.2: invalid-key unpack outcome = value-error (want value-error)
+[PASS] TestMsgpackSmokeRoundTripOnPinned: msgpack 1.2.2: basic pack/unpack round-trips
+[info] downloading 18 pins for cp312/manylinux_x86_64 from https://pypi.org/simple
+[PASS] TestRequirementsResolveForImagePlatform: 17 wheels downloaded and hash-verified

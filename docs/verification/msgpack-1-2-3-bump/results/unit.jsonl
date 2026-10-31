@@ -1,0 +1,4 @@
+{"Test":"TestAllEntriesHashLocked","Action":"pass"}
+{"Test":"TestMsgpackHashesGenuine","Action":"pass"}
+{"Test":"TestCriticalImageWheelHashPresent","Action":"pass"}
+{"Test":"TestMooncakeConstraintAdmitsPinnedMsgpack","Action":"pass"}

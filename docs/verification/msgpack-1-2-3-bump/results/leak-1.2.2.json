@@ -1,0 +1,10 @@
+{
+ "msgpack": "1.2.2",
+ "c_ext": true,
+ "guard": "value-error",
+ "iters": 25,
+ "rss_before_kb": 18980,
+ "rss_after_kb": 121384,
+ "delta_kb": 102404,
+ "roundtrip_ok": true
+}

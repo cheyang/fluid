@@ -1,0 +1,4 @@
+{"Test":"TestPremiseLeakReproducesOn122","Action":"pass"}
+{"Test":"TestPinnedMsgpackDoesNotLeak","Action":"pass"}
+{"Test":"TestStrictMapKeyGuardIntactOnPinned","Action":"pass"}
+{"Test":"TestMsgpackSmokeRoundTripOnPinned","Action":"pass"}

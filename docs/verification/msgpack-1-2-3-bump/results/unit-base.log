@@ -1,0 +1,5 @@
+[info] requirements file: /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/docs/verification/msgpack-1-2-3-bump/results/base-requirements.txt
+[PASS] TestAllEntriesHashLocked: 17 pinned entries; entries without hashes: none
+[FAIL] TestMsgpackHashesMatchPyPI: msgpack==1.2.2 (live-pypi): entry has 1 hashes, PyPI has 88 files; extra=0 missing=87
+[PASS] TestCriticalImageWheelHashPresent: image wheel msgpack-1.2.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl hash present in entry
+[PASS] TestMooncakeConstraintAdmitsPinnedMsgpack: mooncake==0.3.12.post1 requires msgpack spec '<unbounded>'; pinned 1.2.2
