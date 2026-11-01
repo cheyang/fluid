@@ -220,6 +220,7 @@ var _ = Describe("AdvancedStatefulSetManager", func() {
 					Replicas: &replicas,
 				},
 				Status: workloadv1alpha1.AdvancedStatefulSetStatus{
+					Replicas:          3,
 					ReadyReplicas:     3,
 					CurrentReplicas:   3,
 					AvailableReplicas: 3,
@@ -251,6 +252,7 @@ var _ = Describe("AdvancedStatefulSetManager", func() {
 					Replicas: &replicas,
 				},
 				Status: workloadv1alpha1.AdvancedStatefulSetStatus{
+					Replicas:          3,
 					ReadyReplicas:     2,
 					CurrentReplicas:   3,
 					AvailableReplicas: 2,
@@ -267,6 +269,41 @@ var _ = Describe("AdvancedStatefulSetManager", func() {
 			Expect(status.ReadyReplicas).To(Equal(int32(2)))
 			Expect(status.UnavailableReplicas).To(Equal(int32(1)))
 			Expect(status.Phase).To(Equal(datav1alpha1.RuntimePhaseNotReady))
+		})
+
+		It("should count all observed pods when the statefulset has mixed revisions", func() {
+			replicas := int32(3)
+			asts := &workloadv1alpha1.AdvancedStatefulSet{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:      "test-runtime-master",
+					Namespace: "fluid",
+				},
+				Spec: workloadv1alpha1.AdvancedStatefulSetSpec{
+					Replicas: &replicas,
+				},
+				Status: workloadv1alpha1.AdvancedStatefulSetStatus{
+					Replicas:          3,
+					ReadyReplicas:     3,
+					CurrentReplicas:   2,
+					UpdatedReplicas:   1,
+					AvailableReplicas: 3,
+					CurrentRevision:   "rev-1",
+					UpdateRevision:    "rev-2",
+				},
+			}
+			Expect(manager.client.Create(ctx, asts)).To(Succeed())
+
+			status, err := manager.ConstructComponentStatus(ctx, &common.ComponentIdentity{
+				Name:      component.Name,
+				Namespace: component.Namespace,
+			})
+			Expect(err).NotTo(HaveOccurred())
+			// Status.CurrentReplicas is revision-scoped (2 here) and misses the pod
+			// on the update revision; the exposed count must be all observed pods
+			Expect(status.CurrentReplicas).To(Equal(int32(3)))
+			Expect(status.UnavailableReplicas).To(Equal(int32(0)))
+			Expect(status.ReadyReplicas).To(Equal(int32(3)))
+			Expect(status.Phase).To(Equal(datav1alpha1.RuntimePhaseReady))
 		})
 
 		It("should return NotReady phase when no replicas are ready", func() {

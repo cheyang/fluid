@@ -292,16 +292,36 @@ function wait_dataload_completed() {
 function scale_worker_and_verify() {
     local target_replicas=$1
     local method=${2:-patch}
+    local verify_pods=${3:-true}
     local worker_component_name="${dataset_name}-worker"
     local deadline=180
     local counter=0
 
-    syslog "Scaling worker to $target_replicas replicas (method=$method)"
+    syslog "Scaling worker to $target_replicas replicas (method=$method, verify_pods=$verify_pods)"
     if [[ "$method" == "scale" ]]; then
         # write through the scale subresource, the same path an HPA takes
         kubectl scale cacheruntime/${dataset_name} --replicas=$target_replicas
     else
         kubectl patch cacheruntime $dataset_name --type merge -p "{\"spec\":{\"worker\":{\"replicas\":$target_replicas}}}"
+    fi
+
+    # the write lands on the CR synchronously and needs no schedulable node, so the
+    # write-path assertions run even on single-node clusters
+    local spec_replicas=""
+    spec_replicas=$(kubectl get cacheruntime $dataset_name -ojsonpath='{@.spec.worker.replicas}' 2>/dev/null)
+    if [[ "$spec_replicas" != "$target_replicas" ]]; then
+        panic "cacheruntime spec.worker.replicas mismatch: expected $target_replicas, got ${spec_replicas:-<empty>}"
+    fi
+
+    local scale_spec_replicas=""
+    scale_spec_replicas=$(kubectl get --raw "/apis/data.fluid.io/v1alpha1/namespaces/default/cacheruntimes/${dataset_name}/scale" 2>/dev/null | grep -o '"spec":{"replicas":[0-9]*' | grep -o '[0-9]*$')
+    if [[ "$scale_spec_replicas" != "$target_replicas" ]]; then
+        panic "scale subresource spec.replicas mismatch: expected $target_replicas, got ${scale_spec_replicas:-<empty>}"
+    fi
+
+    if [[ "$verify_pods" != "true" ]]; then
+        syslog "Worker scale write to $target_replicas verified on the CR (pod-count checks skipped: no spare node to schedule extra workers)"
+        return 0
     fi
 
     while true; do
@@ -334,14 +354,7 @@ function scale_worker_and_verify() {
         panic "AdvancedStatefulSet readyReplicas mismatch: expected $target_replicas, got $asts_ready"
     fi
 
-    # read back through the scale subresource to confirm the write is visible the way an HPA reads it
-    local scale_spec_replicas=""
-    scale_spec_replicas=$(kubectl get --raw "/apis/data.fluid.io/v1alpha1/namespaces/default/cacheruntimes/${dataset_name}/scale" 2>/dev/null | grep -o '"spec":{"replicas":[0-9]*' | grep -o '[0-9]*$')
-    if [[ "$scale_spec_replicas" != "$target_replicas" ]]; then
-        panic "scale subresource spec.replicas mismatch: expected $target_replicas, got ${scale_spec_replicas:-<empty>}"
-    fi
-
-    syslog "Worker scaled to $target_replicas replicas successfully (asts replicas=$asts_replicas, ready=$asts_ready, scale subresource spec.replicas=$scale_spec_replicas)"
+    syslog "Worker scaled to $target_replicas replicas successfully (asts replicas=$asts_replicas, ready=$asts_ready)"
 }
 
 function delete_dataset_and_runtime() {
@@ -474,15 +487,18 @@ function main() {
     wait_job_completed $read_ref_job_name
 
     # verify scale-up and scale-down: scale up writes through the scale subresource (the same
-    # path an HPA takes), scale down writes spec directly via patch; both exercise delete on pods
-    # skip on single-node clusters where anti-affinity prevents scheduling the second pod
+    # path an HPA takes), scale down writes spec directly via patch. The write assertions run
+    # unconditionally - landing the write needs no spare node - while the pod-count checks are
+    # skipped on single-node clusters where anti-affinity prevents scheduling the second pod
     local node_count=""
     node_count=$(kubectl get nodes --no-headers 2>/dev/null | wc -l | tr -d ' ')
     if [[ "$node_count" -ge 2 ]]; then
-        scale_worker_and_verify 2 scale
-        scale_worker_and_verify 1 patch
+        scale_worker_and_verify 2 scale true
+        scale_worker_and_verify 1 patch true
     else
-        syslog "Skipping scale test: single-node cluster ($node_count node)"
+        syslog "single-node cluster ($node_count node): verifying scale writes only, pod-count checks skipped"
+        scale_worker_and_verify 2 scale false
+        scale_worker_and_verify 1 patch false
     fi
 
     # verify deletion and cleanup
