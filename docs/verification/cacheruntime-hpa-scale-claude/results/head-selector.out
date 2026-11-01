@@ -1,0 +1,9 @@
+2026/10/30 13:41:44 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestHarnessSelectorMatchesWorkerWorkload
+--- PASS: TestHarnessSelectorMatchesWorkerWorkload (0.00s)
+=== RUN   TestHarnessSelectorSetEvenWhenWorkerDisabled
+--- PASS: TestHarnessSelectorSetEvenWhenWorkerDisabled (0.00s)
+=== RUN   TestHarnessStatusSelectorPopulated
+--- PASS: TestHarnessStatusSelectorPopulated (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	(cached)

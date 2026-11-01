@@ -1,0 +1,10 @@
+=== RUN   TestHarnessConstructStatusCountsAllObservedPods
+    asts_status_mixed_revision_harness_test.go:89: CurrentReplicas = 2, want 3 (all observed pods, not the revision-scoped count 2)
+--- FAIL: TestHarnessConstructStatusCountsAllObservedPods (0.00s)
+=== RUN   TestHarnessConstructStatusUnavailableFromObserved
+    asts_status_mixed_revision_harness_test.go:144: CurrentReplicas = 2, want 4
+    asts_status_mixed_revision_harness_test.go:147: UnavailableReplicas = 0, want 2 (observed 4 - available 2)
+--- FAIL: TestHarnessConstructStatusUnavailableFromObserved (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	0.012s
+FAIL

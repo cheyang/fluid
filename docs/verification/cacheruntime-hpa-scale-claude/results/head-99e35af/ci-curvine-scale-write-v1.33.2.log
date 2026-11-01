@@ -1,0 +1,8 @@
+kind-e2e-test (v1.33.2)	UNKNOWN STEP	2026-11-01T10:48:12.1218434Z >>> Verified cacheruntime curvine-demo status.selector="cacheruntime.fluid.io/component-name=curvine-demo-worker,cacheruntime.fluid.io/name=curvine-demo" (matches worker pods: pod/curvine-demo-worker-0 )
+kind-e2e-test (v1.33.2)	UNKNOWN STEP	2026-11-01T10:48:12.3493093Z >>> Verified scale subresource of cacheruntime curvine-demo (spec.replicas=1, status.replicas=1, selector=cacheruntime.fluid.io/component-name=curvine-demo-worker,cacheruntime.fluid.io/name=curvine-demo)
+kind-e2e-test (v1.33.2)	UNKNOWN STEP	2026-11-01T10:48:39.2981211Z >>> single-node cluster (1 node): verifying scale writes only, pod-count checks skipped
+kind-e2e-test (v1.33.2)	UNKNOWN STEP	2026-11-01T10:48:39.2983575Z >>> Scaling worker to 2 replicas (method=scale, verify_pods=false)
+kind-e2e-test (v1.33.2)	UNKNOWN STEP	2026-11-01T10:48:39.3597521Z cacheruntime.data.fluid.io/curvine-demo scaled
+kind-e2e-test (v1.33.2)	UNKNOWN STEP	2026-11-01T10:48:39.5184953Z >>> Worker scale write to 2 verified on the CR (pod-count checks skipped: no spare node to schedule extra workers)
+kind-e2e-test (v1.33.2)	UNKNOWN STEP	2026-11-01T10:48:39.5186313Z >>> Scaling worker to 1 replicas (method=patch, verify_pods=false)
+kind-e2e-test (v1.33.2)	UNKNOWN STEP	2026-11-01T10:48:39.7157103Z >>> Worker scale write to 1 verified on the CR (pod-count checks skipped: no spare node to schedule extra workers)

@@ -3,6 +3,18 @@
 Reproducible evidence for the review of PR #6223
 ("feat(cache): support HPA on CacheRuntime via scale subresource and status selector").
 
+Round 3 (incremental, 2026-11-02): the PR head moved `9a265eb3 → 99e35af0` with one PR
+commit, `99e35af0e fix(cache): count all pods in component status during mixed-revision
+rollouts` — it addresses two ledger findings: `C4420756561-currentreplicas-undercount`
+(`constructStatus` now exposes `asts.Status.Replicas`, all observed pods, instead of the
+revision-scoped `asts.Status.CurrentReplicas`) and `F-scale-write-e2e-skipped` (the e2e
+scale-write assertions now run unconditionally on single-node clusters; only the pod-count
+checks stay gated). The merge-base is unchanged (`96a3765e`). A **new contract test**
+(`pkg/ddc/cache/component/asts_status_mixed_revision_harness_test.go`) was added to pin the
+mixed-revision behavior; it is red on the previous head and green on this head, and the
+whole harness was re-run via `scripts/re-verify.sh` (all layers). The harness branch was
+rebased onto the new head, so the branch diff vs the PR head is again harness-only.
+
 Round 2 (incremental, 2026-10-31): the PR head moved `3f39501e → 9a265eb3` by merging
 master (`96a3765ea`, "ci: pin kind-e2e runner to ubuntu-24.04" — CI-only, **all PR code
 files byte-identical**, verified with `git diff 3f39501 9a265eb -- . ':(exclude).github'` →
@@ -39,6 +51,34 @@ bases differ only in `.github/workflows/kind-e2e.yml`) without the patch.
 | Evidence | `results/base-selector.out`: the contract test grafted onto base fails — `Status.Selector = ""` where the head populates the worker selector; base CRD `subresources:` has only `status: {}` (no scale). Both fixed by the PR. |
 
 ## Summary of results
+
+### Round 3 (head `99e35af0`, re-verify via `scripts/re-verify.sh`)
+
+| ID (ledger) | Claim | Layer | Verdict | Evidence |
+|----|-------|-------|---------|----------|
+| P0 | base leaves `Status.Selector` empty (issue #6063 symptom) | 1 | Confirmed (unchanged; round-2 attestation carries, base and engine code untouched by the delta) | `results/head-9a265eb/base-96a3765-premise.out` |
+| F1-selector-populated (AC-selector-populated) | PR populates `Status.Selector` with the exact worker label selector | 1 | FIXED (contract passes on head) | `results/head-99e35af/unit.parsed` |
+| F1b-selector-matches-workload (AC-selector-matches-pods) | the selector matches the worker workload's `spec.selector` and pod labels | 1+2 | FIXED (contract passes on head) | `results/head-99e35af/unit.parsed`, `results/head-99e35af/integration.parsed` |
+| F-selector-when-worker-disabled | selector populated even when the worker component is disabled (canary, minor open finding) | 1 | STILL-PRESENT (canary green; `status.go` untouched by the delta) | `results/head-99e35af/unit.parsed` |
+| F-workerless-scale-docs | `/scale` worker-less behavior payload-dependent (canary, minor open finding) | 2b | STILL-PRESENT (probe re-run on head) | `results/head-99e35af/envtest.parsed` |
+| Q-blockless-worker-scale-target | no defaulting of `.spec.worker.replicas` when block absent (canary, open question) | 2b | STILL-PRESENT | `results/head-99e35af/envtest.parsed` |
+| C4420756561-currentreplicas-undercount | during a rolling update `status.worker.currentReplicas` (scale `status.replicas`, the HPA's observed metric) undercounts, reporting only current-revision pods | 1 | **FIXED** by `99e35af0e`: new contract test red on previous head `9a265eb3`, green on head `99e35af0` | `results/prev-9a265eb/mixed-revision-contract.out` (red) vs `results/head-99e35af/mixed-revision-contract.out` (green) |
+
+No `Harness-update` outcomes; every test compiled and ran against the new head. The
+harness-bites check for the new contract test is the red-on-previous-head run above (the
+round-1/2 harness-bites check for the selector tests is unchanged).
+
+CI (run 41297697216, head `99e35af0`, all 22 checks SUCCESS — kind-e2e on all five k8s
+versions, backward-compat ×5, unittest, lint, build ×2, staticcheck, CodeQL, DCO, codecov,
+SonarCloud): the curvine testcase now **executes the scale-WRITE path on single-node
+clusters** — `>>> Scaling worker to 2 replicas (method=scale, verify_pods=false)` →
+`cacheruntime.data.fluid.io/curvine-demo scaled` → `>>> Worker scale write to 2 verified on
+the CR`, and back down to 1 via patch. This closes `F-scale-write-e2e-skipped` (the write
+assertions — CR readback + scale-subresource GET readback — run in every job); the
+pod-count checks remain gated on node_count≥2, which is a scheduling constraint, not a
+coverage hole for the write path. Excerpts captured in
+`results/head-99e35af/ci-curvine-scale-write-v1.33.2.log` and
+`ci-curvine-scale-write-v1.22.17.log`.
 
 ### Round 2 (head `9a265eb3`, re-verify via `scripts/re-verify.sh`)
 
@@ -103,6 +143,20 @@ Mechanism: `CheckAndUpdateRuntimeStatus` sets `Status.Selector` unconditionally
 pods, yet (with the CRD change) `GET .../scale` succeeds and reports it. Minor review
 finding; the canary records the current behavior and flips if it is changed.
 
+### C4420756561 — mixed-revision undercount (round 3, fixed by the PR)
+Mechanism: `AdvancedStatefulSetManager.constructStatus` mapped
+`RuntimeComponentStatus.CurrentReplicas` from `asts.Status.CurrentReplicas`, which counts
+only pods on the **current** revision; mid-rolling-update the fleet is split across
+revisions, so `.status.worker.currentReplicas` — the scale subresource's `statusReplicasPath`
+and therefore the HPA's observed-replicas metric — undercounts. `99e35af0e` switches it to
+`asts.Status.Replicas` (all observed pods) and derives `UnavailableReplicas` from the same
+base, matching `pkg/ctrl/worker.go:128` (`CurrentWorkerNumberScheduled =
+workers.Status.Replicas`) for the pre-existing runtimes; `pkg/ddc/thin/referencedataset/sync.go`
+maps the same field to `CurrentWorkerNumberScheduled`, so the fix also aligns that surface.
+Consumers checked: nothing gates logic on this field (status reporting only).
+Contract test: `go test ./pkg/ddc/cache/component/ -run TestHarnessConstructStatus -v` —
+red on `9a265eb3` (`CurrentReplicas = 2, want 3`), green on `99e35af0`.
+
 ## Live run notes
 Not run in this debate phase (no cluster layer). CI kind e2e covers the API-server-side
 contract (see above). If re-run manually: apply the CRD from `config/crd/bases`, create the
@@ -127,6 +181,7 @@ this directory), so it grafts onto whatever the fixed code is.
    git checkout <fixed-branch>
    git checkout FETCH_HEAD -- pkg/ddc/cache/engine/status_selector_harness_test.go \
      pkg/ddc/cache/engine/selector_workload_consistency_harness_test.go \
+     pkg/ddc/cache/component/asts_status_mixed_revision_harness_test.go \
      zz-critique-probe \
      docs/verification/cacheruntime-hpa-scale-claude
    ```
