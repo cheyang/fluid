@@ -1,0 +1,14 @@
+2026/11/02 05:49:40 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyHPAMixedRevisionReplicasCount
+=== RUN   TestVerifyHPAMixedRevisionReplicasCount/mixed_revisions_count_all_pods
+    hpa_scale_verify_test.go:238: status.worker.currentReplicas = 2, want 3 (all observed pods, revision-agnostic)
+=== RUN   TestVerifyHPAMixedRevisionReplicasCount/terminating_pod_counted_while_draining
+    hpa_scale_verify_test.go:238: status.worker.currentReplicas = 3, want 4 (all observed pods, revision-agnostic)
+=== RUN   TestVerifyHPAMixedRevisionReplicasCount/not-yet-available_pod_counted
+--- FAIL: TestVerifyHPAMixedRevisionReplicasCount (0.00s)
+    --- FAIL: TestVerifyHPAMixedRevisionReplicasCount/mixed_revisions_count_all_pods (0.00s)
+    --- FAIL: TestVerifyHPAMixedRevisionReplicasCount/terminating_pod_counted_while_draining (0.00s)
+    --- PASS: TestVerifyHPAMixedRevisionReplicasCount/not-yet-available_pod_counted (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.012s
+FAIL

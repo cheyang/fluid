@@ -1,0 +1,6 @@
+PASS: scale write asserted on CR, pods skipped
+PASS: patch write asserted on CR, pods skipped
+PASS: full pod-verify path converges
+PASS: scale-GET mismatch panics
+PASS: spec write mismatch panics
+stub-harness: 5 passed, 0 failed

@@ -3,7 +3,7 @@
 Reproducible evidence for the review of PR fluid-cloudnative/fluid#6223
 ("feat(cache): support HPA on CacheRuntime via scale subresource and status selector").
 
-- Reviewed head: `9a265eb349b6fc0dd8bc91aec57beea41001c232` (round 3)
+- Reviewed head: `99e35af0eef60f077bfefc519e328d1e31252401` (round 4; round 3 reviewed `9a265eb3`)
 - Base (merge-base): `96a3765eaae0f23140aef9b30152538396ed7ec2` (round 3; round 2 base was `fe074af38434fc4b618686de6459a9173570b48b`)
 - Production code is **untouched** by this harness (additive test files + docs only).
 
@@ -111,3 +111,19 @@ so no new code review surface; the runner-pin file is not part of the PR's own d
 - New Copilot review (2026-10-31, discussion_r4431023991) re-raises the already-tracked
   CurrentReplicas-under-during-rollout issue (C4420756561) with a second anchor on the
   CRD YAML; no new substance.
+
+## Round 4 (incremental, 2026-11-02) — head 99e35af0, delta 9a265eb3..99e35af0
+
+Delta: one commit, `fix(cache): count all pods in component status during mixed-revision rollouts`
+(`advanced_statefulset_manager.go` constructStatus now reads `asts.Status.Replicas`;
+new mixed-revision ginkgo spec; `test.sh` now asserts the scale WRITE unconditionally and
+node-gates only the pod-count checks — the exact F3 fix).
+
+| Item | Verdict | Evidence |
+|------|---------|----------|
+| C4420756561 mid-rollout undercount fix | **Fixed, differentially verified** | `TestVerifyHPAMixedRevisionReplicasCount` FAILS on previous head 9a265eb3 (`currentReplicas = 2, want 3`; `3, want 4`) and PASSES on 99e35af0 (`results/mixed-revision-prevhead-9a265eb3.txt`, `results/reverify/unit.out`). ASTS controller semantics confirmed from source: `status.Replicas` accumulates every created pod (`computeReplicaStatus`, stateful_set_control.go:876-878), so `Replicas >= CurrentReplicas` always; matches native StatefulSet scale and `pkg/ctrl/worker.go:128`. Downstream consumer `pkg/ddc/thin/referencedataset/sync.go:212-225` inherits the same convention. |
+| F2-unit harness | **Harness-update** (fixture predated the new semantics) | `newAdvancedStatefulSetComponent` (PR's own engine-level helper) sets only `Status.CurrentReplicas`, which is now unread → test failed with `got 0, want 3`. Corrected locally to set the invariant-realistic `Status.Replicas`; re-run green. Note: the PR's engine fixture is left semantically impossible at head (nit, reported). |
+| F3 scale-write-in-CI | **Fixed in CI** | Run 41297697216 (head 99e35af0): all five kind-e2e jobs (v1.22.17..v1.33.2) log `Scaling worker to 2 replicas (method=scale, verify_pods=false)` → `cacheruntime scaled` → `Worker scale write to 2 verified on the CR` and back to 1 (pulled v1.22.17 job 124821932907, v1.33.2 job 124821933065). |
+| `scale_worker_and_verify` shell logic | Verified by stub harness | `scripts/e2e-shell-stub/run-e2e-shell-stub.sh` (5/5 pass: both write methods asserted with pods skipped; full pod-verify converges; scale-GET mismatch and spec-write mismatch both panic) — `results/e2e-shell-stub-head.txt`. |
+
+Full re-verify on 99e35af0: all 10 manifest entries green (`results/reverify/`).
