@@ -149,12 +149,25 @@ func TestVerifyHPASelectorBehaviorWhenWorkerDisabled(t *testing.T) {
 // F-A4 (contract): the scale subresource's statusReplicasPath is
 // .status.worker.currentReplicas; prove that a status sync populates that path
 // from the worker workload, so the API server can serve it through /scale.
+//
+// Harness-update (round 4, head 99e35af0): constructStatus now sources
+// CurrentReplicas from asts.Status.Replicas (all created pods) instead of
+// asts.Status.CurrentReplicas (current revision only). The PR's engine-level
+// fixture newAdvancedStatefulSetComponent was NOT updated and still only sets
+// Status.CurrentReplicas, leaving Status.Replicas=0 - a status combination the
+// real ASTS controller can never produce (updateStatus accumulates Replicas
+// over every created pod, so Replicas >= CurrentReplicas always). The fixture
+// is therefore corrected here locally instead of reusing the stale helper.
 func TestVerifyHPAStatusReplicasPathPopulated(t *testing.T) {
+	worker := newAdvancedStatefulSetComponent(testStatusWorker, testStatusNamespace, 3, 2)
+	worker.Status.Replicas = 3 // total created pods; real ASTS invariant Replicas >= CurrentReplicas
+	master := newAdvancedStatefulSetComponent(testStatusMaster, testStatusNamespace, 1, 1)
+	master.Status.Replicas = 1
 	client := fake.NewFakeClientWithScheme(
 		CacheEngineTestScheme,
 		newStatusTestRuntime(),
-		newAdvancedStatefulSetComponent(testStatusMaster, testStatusNamespace, 1, 1),
-		newAdvancedStatefulSetComponent(testStatusWorker, testStatusNamespace, 3, 2),
+		master,
+		worker,
 	)
 	engine, _ := newStatusTestEngineWithClient(client)
 
@@ -169,5 +182,64 @@ func TestVerifyHPAStatusReplicasPathPopulated(t *testing.T) {
 	}
 	if runtime.Status.Worker.DesiredReplicas != 3 {
 		t.Fatalf("status.worker.desiredReplicas mismatch: got %d, want 3", runtime.Status.Worker.DesiredReplicas)
+	}
+}
+
+// C4420756561 fix verification (contract, differential): during a mixed-
+// revision rolling update, asts.Status.CurrentReplicas counts only the
+// current-revision pods and underreports the workers; the scale subresource's
+// statusReplicasPath must expose ALL observed pods (asts.Status.Replicas),
+// matching native StatefulSet scale semantics and pkg/ctrl/worker.go:128
+// (CurrentWorkerNumberScheduled = workers.Status.Replicas) for the existing
+// runtimes. FAILS on the previous head 9a265eb3 (which read CurrentReplicas),
+// PASSES on 99e35af0.
+func TestVerifyHPAMixedRevisionReplicasCount(t *testing.T) {
+	newWorker := func(replicas, current, available, ready int32) *workloadv1alpha1.AdvancedStatefulSet {
+		w := newAdvancedStatefulSetComponent(testStatusWorker, testStatusNamespace, 3, ready)
+		w.Status.Replicas = replicas
+		w.Status.CurrentReplicas = current
+		w.Status.UpdatedReplicas = replicas - current
+		w.Status.AvailableReplicas = available
+		return w
+	}
+
+	cases := []struct {
+		name                string
+		replicas, current   int32
+		available, ready    int32
+		wantCurrentReplicas int32
+		wantUnavailable     int32
+	}{
+		// mid-rollout: 2 pods on currentRevision, 1 on updateRevision
+		{name: "mixed revisions count all pods", replicas: 3, current: 2, available: 3, ready: 3, wantCurrentReplicas: 3, wantUnavailable: 0},
+		// scale-down in flight: one terminating pod still counted in Replicas,
+		// unavailable = replicas - available (matches pkg/ctrl/worker.go:131)
+		{name: "terminating pod counted while draining", replicas: 4, current: 3, available: 3, ready: 3, wantCurrentReplicas: 4, wantUnavailable: 1},
+		// pod created but not yet available: counted, and shows as unavailable
+		{name: "not-yet-available pod counted", replicas: 3, current: 3, available: 2, ready: 2, wantCurrentReplicas: 3, wantUnavailable: 1},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			master := newAdvancedStatefulSetComponent(testStatusMaster, testStatusNamespace, 1, 1)
+			master.Status.Replicas = 1
+			client := fake.NewFakeClientWithScheme(
+				CacheEngineTestScheme,
+				newStatusTestRuntime(),
+				master,
+				newWorker(tc.replicas, tc.current, tc.available, tc.ready),
+			)
+			engine, _ := newStatusTestEngineWithClient(client)
+
+			if _, err := engine.CheckAndUpdateRuntimeStatus(newStatusTestRuntimeValue(false)); err != nil {
+				t.Fatalf("CheckAndUpdateRuntimeStatus returned error: %v", err)
+			}
+			runtime := verifyHPAGetRuntime(t, engine)
+			if runtime.Status.Worker.CurrentReplicas != tc.wantCurrentReplicas {
+				t.Fatalf("status.worker.currentReplicas = %d, want %d (all observed pods, revision-agnostic)", runtime.Status.Worker.CurrentReplicas, tc.wantCurrentReplicas)
+			}
+			if runtime.Status.Worker.UnavailableReplicas != tc.wantUnavailable {
+				t.Fatalf("status.worker.unavailableReplicas = %d, want %d", runtime.Status.Worker.UnavailableReplicas, tc.wantUnavailable)
+			}
+		})
 	}
 }

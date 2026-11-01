@@ -115,6 +115,15 @@
         "TestCacheRuntimeAbsentWorkerBlockScaleFails"
       ],
       "note": "pins the narrowed consensus behavior for a truly-absent spec.worker block: defaulting does not materialize it and GET /scale fails with the missing .spec.worker.replicas path error (hardened this round from the round-2 log-only probe; evidence for F-workerless-scale-docs / Q-blockless-worker-scale-target)"
+    },
+    {
+      "id": "C4420756561-mixed-revision-fix",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyHPAMixedRevisionReplicasCount"
+      ],
+      "note": "round-4 differential contract for the C4420756561 fix (constructStatus now reads asts.Status.Replicas): FAILS on previous head 9a265eb3, PASSES on 99e35af0. Also pins UnavailableReplicas = Replicas - AvailableReplicas."
     }
   ],
   "liveNote": "L3 skipped per debate setup. PR's own curvine e2e on GHA kind verified the GET-side scale contract + status.selector pod matching on k8s 1.22-1.33; the scale-WRITE e2e step is skipped on single-node kind clusters."
