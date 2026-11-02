@@ -52,3 +52,33 @@ The harness is self-contained under `docs/verification/pr-6222-codeql-action-bum
 On another machine: fetch this branch, check it out, run the two scripts above
 (or `re-verify.sh` with no args to auto-resolve the current PR head). L2 needs
 network access to github.com only; no cluster, no Go toolchain required.
+
+## Round 2 (2026-11-03) — incremental, head `c805f164bbc511d7544db66ca2a3e5bfecebd395`
+
+Delta since round 1: a pure rebase. Previous base `fe074af3` -> new base
+`96a3765e` ("ci: pin kind-e2e runner to ubuntu-24.04 (#6225)"); the dependabot
+bump commit was re-created with byte-identical content
+(`git diff 9fe48f12..c805f164 -- .github/workflows/codeql-analysis.yml .github/workflows/sonarcloud.yaml`
+is empty). The only file differing between the heads is
+`.github/workflows/kind-e2e.yml`, arriving from upstream master, not from this PR.
+
+Re-run (`scripts/re-verify.sh`, grafted onto c805f164) plus explicit per-ref runs
+of both layers on new base `96a3765e`, previous head `9fe48f12`, head `c805f164`:
+
+| claim | layer | base 96a3765e | previous 9fe48f12 | head c805f164 | verdict |
+| --- | --- | --- | --- | --- | --- |
+| Pins are full 40-hex SHAs, one SHA across the group | unit (L1) | pass | pass | pass | confirmed |
+| Pins resolve to upstream release tags | integration (L2) | pass | pass (v4.39.1) | pass (v4.39.1) | confirmed |
+| Pinned version is tip of upstream v4 line | integration (ls-remote) | n/a | pass | pass (releases/v4 == v4.39.1^{} == 9b325408; no v4.39.2/v4.40 tags) | confirmed |
+| F1 trailing `# vX.Y.Z` comment matches pinned tag | integration (L2) | **fail** | **fail** | **fail** (comment v3.29.5/v2.22.11 vs actual v4.39.1) | still open, pre-existing, non-blocking |
+
+Raw outputs: `results/r2-layer1.{96a3765e,9fe48f12,c805f164}.txt`,
+`results/r2-layer2.{96a3765e,9fe48f12,c805f164}.txt`, `results/reverify/`.
+
+CI on the new head is **fully green** (see `results/r2-ci-and-tag-evidence.txt`):
+all 5 `kind-e2e-test` entries pass (28-34 min, run 41406062075) now that the
+ubuntu-24.04 runner pin from #6225 is in the base — the round-1 infrastructure
+failure is resolved. `Analyze (go)` pass 11m54s (run 41406062036) exercises the
+new pins. `tide` pending is label-gating (approved/lgtm), not a check failure.
+F2 (upload-sarif not exercised by PR CI) re-confirmed: sonarcloud.yaml triggers
+remain schedule + push master/release-* only.

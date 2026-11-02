@@ -1,0 +1,40 @@
+# Round 2 (2026-11-03): incremental re-verification
+# previous head 9fe48f12b6be95bda15628bcde448c17c53a12d3 (base fe074af3)
+# current  head c805f164bbc511d7544db66ca2a3e5bfecebd395 (base 96a3765e = 'ci: pin kind-e2e runner to ubuntu-24.04 (#6225)')
+
+## PR content equivalence: diff prevHead..head on the two pinned workflow files is EMPTY (rebase only)
+## prevHead..head touches exactly one file: .github/workflows/kind-e2e.yml (upstream #6225 runner pin arriving via new base)
+
+## upstream codeql-action refs (git ls-remote, 2026-11-03):
+9b3254085494b55a0f7c4c2b3d2d52cc712ce370	refs/heads/releases/v4
+9b3254085494b55a0f7c4c2b3d2d52cc712ce370	refs/tags/v4^{}
+48870fdd6b42ee6474ec4207209ff87609271a5e	refs/tags/v4.39.0
+6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee	refs/tags/v4.39.0^{}
+8498dc4c2b27cdd99baf0f87955b29ebbf30c78d	refs/tags/v4.39.1
+9b3254085494b55a0f7c4c2b3d2d52cc712ce370	refs/tags/v4.39.1^{}
+
+## v4.39.1 remains tip of the v4 line: refs/heads/releases/v4 == refs/tags/v4.39.1^{} == refs/tags/v4^{} == 9b3254085494b55a0f7c4c2b3d2d52cc712ce370 (no v4.39.2/v4.40 tags)
+
+## CI rollup on head c805f164 (gh pr checks 6222):
+Analyze (go)	pass	11m54s	https://github.com/fluid-cloudnative/fluid/actions/runs/41406062036/job/125148234355	
+CodeQL	pass	3s	https://github.com/fluid-cloudnative/fluid/runs/125152204814	
+DCO	pass	1s	https://probot.github.io/apps/dco/	
+SonarCloud	pass	4s	https://github.com/fluid-cloudnative/fluid/runs/125148461991	
+SonarCloud Code Analysis	pass	31s	https://sonarcloud.io/dashboard?id=fluid-cloudnative_fluid&pullRequest=6222	
+backward-compat-test (v1.22.17)	pass	18m19s	https://github.com/fluid-cloudnative/fluid/actions/runs/41406061909/job/125148234218	
+backward-compat-test (v1.24.17)	pass	13m22s	https://github.com/fluid-cloudnative/fluid/actions/runs/41406061909/job/125148234253	
+backward-compat-test (v1.28.15)	pass	17m28s	https://github.com/fluid-cloudnative/fluid/actions/runs/41406061909/job/125148234008	
+backward-compat-test (v1.30.13)	pass	17m46s	https://github.com/fluid-cloudnative/fluid/actions/runs/41406061909/job/125148234163	
+backward-compat-test (v1.33.2)	pass	17m10s	https://github.com/fluid-cloudnative/fluid/actions/runs/41406061909/job/125148234319	
+build (ubuntu-24.04-arm)	pass	6m52s	https://github.com/fluid-cloudnative/fluid/actions/runs/41406062128/job/125148235571	
+build (ubuntu-latest)	pass	10m48s	https://github.com/fluid-cloudnative/fluid/actions/runs/41406062128/job/125148235559	
+ci/circleci: build	pass	0	https://circleci.com/gh/fluid-cloudnative/fluid/4193	Your tests passed on CircleCI!
+kind-e2e-test (v1.22.17)	pass	32m56s	https://github.com/fluid-cloudnative/fluid/actions/runs/41406062075/job/125148235464	
+kind-e2e-test (v1.24.17)	pass	33m0s	https://github.com/fluid-cloudnative/fluid/actions/runs/41406062075/job/125148235014	
+kind-e2e-test (v1.28.15)	pass	28m5s	https://github.com/fluid-cloudnative/fluid/actions/runs/41406062075/job/125148235302	
+kind-e2e-test (v1.30.13)	pass	33m46s	https://github.com/fluid-cloudnative/fluid/actions/runs/41406062075/job/125148235374	
+kind-e2e-test (v1.33.2)	pass	30m6s	https://github.com/fluid-cloudnative/fluid/actions/runs/41406062075/job/125148235533	
+lint	pass	3m5s	https://github.com/fluid-cloudnative/fluid/actions/runs/41406062128/job/125148235167	
+staticcheck	pass	1m21s	https://github.com/fluid-cloudnative/fluid/actions/runs/41406062128/job/125148235601	
+tide	pending	0		Not mergeable. Needs approved, lgtm labels.
+unittest	pass	7m40s	https://github.com/fluid-cloudnative/fluid/actions/runs/41406062128/job/125148235507	

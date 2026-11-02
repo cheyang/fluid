@@ -13,8 +13,12 @@
     "runsAgainst": "head (deps-bump premise: verified against upstream tags + PR-head CI, not the base branch)",
     "layer": "integration",
     "verdict": "confirmed",
-    "evidence": "gh api tag dereference: v4.39.1 -> tag obj 8498dc4c -> commit 9b325408 (new pin); v4.39.0 -> tag obj 48870fdd -> commit 6f2ac81f (old pin). PR-head checks: Analyze (go) [CodeQL workflow with new pins] pass in 8m24s; SonarCloud pass. results/ci-and-tag-evidence.txt",
-    "match": ["GroupUsesSingleSHA", "PinnedToFullLengthSHA", "PinResolvesToUpstreamTag"]
+    "evidence": "Round 1: gh api tag dereference v4.39.1 -> tag obj 8498dc4c -> commit 9b325408 (new pin); v4.39.0 -> tag obj 48870fdd -> commit 6f2ac81f (old pin). Analyze (go) pass 8m24s on 9fe48f12. Round 2 (head c805f164, pure rebase of the same 3-line bump onto 96a3765e): ls-remote refs/tags/v4.39.1^{} == refs/heads/releases/v4 == refs/tags/v4^{} == 9b325408 (still v4 tip; no v4.39.2/v4.40 tags); Analyze (go) pass 11m54s (run 41406062036); full CI green incl. all 5 kind-e2e-test entries. results/r2-ci-and-tag-evidence.txt",
+    "match": [
+      "GroupUsesSingleSHA",
+      "PinnedToFullLengthSHA",
+      "PinResolvesToUpstreamTag"
+    ]
   },
   "layers": {
     "unit": {
@@ -31,9 +35,15 @@
       "id": "F1",
       "polarity": "contract",
       "layer": "integration",
-      "match": ["VersionCommentMatchesPinnedTag"],
-      "note": "Trailing '# vX.Y.Z' comments (v3.29.5 / v2.22.11) do not match the pinned SHA's tag (v4.39.1). Preexisting: the same contract FAILS on merge-base fe074af3 (comments said v3.29.5/v2.22.11 while the pin was already v4.39.0). Dependabot preserves the stale comment. Contract test is RED on base and head alike; flips GREEN once comments match the pinned tag. Non-blocking, introducedByPR=false.",
-      "verification": { "base": "fail", "previous": "not-run", "head": "fail" }
+      "match": [
+        "VersionCommentMatchesPinnedTag"
+      ],
+      "note": "Trailing '# vX.Y.Z' comments (v3.29.5 / v2.22.11) do not match the pinned SHA's tag (v4.39.1). Preexisting: the same contract FAILS on merge-base fe074af3 (comments said v3.29.5/v2.22.11 while the pin was already v4.39.0). Dependabot preserves the stale comment. Contract test is RED on base and head alike; flips GREEN once comments match the pinned tag. Non-blocking, introducedByPR=false. Round 2: re-run on new base 96a3765e, previous head 9fe48f12, head c805f164 \u2014 contract FAILS on all three (results/r2-layer2.*.txt). Rebase did not touch the comments.",
+      "verification": {
+        "base": "fail",
+        "previous": "fail",
+        "head": "fail"
+      }
     }
   ],
   "liveNote": "No live layer: CI-config-only change. The upload-sarif path in sonarcloud.yaml is not exercised by PR CI (triggers: push to master/release-* + weekly schedule); watch the first post-merge scheduled run."
