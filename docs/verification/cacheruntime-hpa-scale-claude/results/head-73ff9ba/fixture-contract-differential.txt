@@ -1,0 +1,6 @@
+TestHarnessEngineStatusCurrentReplicasFromFixture differential (round 5):
+  base 96a3765e  : PASS (ok, grafted onto /tmp worktree; constructStatus on base reads asts.Status.CurrentReplicas=3, Unavailable=3-2=1)
+  prev  99e35af0 : FAIL ("status.worker.currentReplicas = 0, want 3"; "unavailableReplicas = 0, want 1" - observed by running the test in the verify-branch worktree, which sits on 99e35af0; constructStatus reads asts.Status.Replicas which the stale fixture never sets)
+  head  73ff9ba3 : PASS (re-verify on grafted head, results/reverify/unit.parsed)
+Arc: the round-4 commit 99e35af0 introduced the fixture staleness (changed constructStatus
+without updating the engine fixture); 73ff9ba3 fixes it by setting Status.Replicas.
