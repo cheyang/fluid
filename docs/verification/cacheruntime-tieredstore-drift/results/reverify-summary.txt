@@ -1,8 +1,6 @@
 re-verify: manifest = docs/verification/cacheruntime-tieredstore-drift/verify-manifest.json
-re-verify: resolving PR head via 'git fetch https://github.com/fluid-cloudnative/fluid.git pull/6219/head' (machine-independent)
-re-verify: current head = b56db670bfd45383cf8cdf237125fd82b90a1e13
-re-verify: last-reviewed = 58afa3a9651bef192bf5457bb552aed3656d95dc  (review delta = 58afa3a9651bef192bf5457bb552aed3656d95dc..b56db670bfd45383cf8cdf237125fd82b90a1e13)
-re-verify: fixed-ref=b56db670bfd45383cf8cdf237125fd82b90a1e13  harness-from=verify/cacheruntime-tieredstore-drift-codex
+re-verify: last-reviewed = 6809f62f98f70182595a644979bfe430d22cb0ff  (review delta = 6809f62f98f70182595a644979bfe430d22cb0ff..133accac3a7cea53280ada93393b28433e71a6d7)
+re-verify: fixed-ref=133accac3a7cea53280ada93393b28433e71a6d7  harness-from=verify/cacheruntime-tieredstore-drift-codex
 re-verify: running layer 'unit' (gotest)
 re-verify: running layer 'integration' (gotest)
 
@@ -14,13 +12,16 @@ FIX-worker-drift-event-envtest contract  integration  FIXED          pass=1 fail
 F1     contract  unit         FIXED          pass=2 fail=0 miss=0
 F2     contract  unit         FIXED          pass=1 fail=0 miss=0
 F3     contract  unit         FIXED          pass=1 fail=0 miss=0
+TS-DISPATCH-PRECEDENCE contract  unit         FIXED          pass=1 fail=0 miss=0
+R3-HOSTPATH-STEADY contract  unit         FIXED          pass=1 fail=0 miss=0
 
 Live layer (manual): L3 (skipped per debate setup): on a real cluster, edit spec.worker.tieredStore on an existing CacheRuntime and confirm `kubectl get events --field-selector reason=RuntimeTieredStoreConflict` shows the warning, re-emitted at >=10min intervals while drift persists. Note: verify_pr6219_envtest_test.go needs envtest binaries (KUBEBUILDER_ASSETS or ~/.local/share/kubebuilder-envtest) and self-skips without them.
 
 Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
-assertion (or promote the new behavior to a contract test). Raw output: docs/verification/cacheruntime-tieredstore-drift/results/reverify
+assertion (or promote the new behavior to a contract test). Raw output: /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-10-30/pr-6219/wt-verify/docs/verification/cacheruntime-tieredstore-drift/results/reverify
 
-Review delta this round: 58afa3a9651bef192bf5457bb552aed3656d95dc..b56db670bfd45383cf8cdf237125fd82b90a1e13
+Review delta this round: 6809f62f98f70182595a644979bfe430d22cb0ff..133accac3a7cea53280ada93393b28433e71a6d7
 After reviewing that delta, advance the marker for the next round:
-  echo b56db670bfd45383cf8cdf237125fd82b90a1e13 > docs/verification/cacheruntime-tieredstore-drift/.last-reviewed && git add docs/verification/cacheruntime-tieredstore-drift/.last-reviewed && git commit -m "review: advance last-reviewed"
+  echo 133accac3a7cea53280ada93393b28433e71a6d7 > docs/verification/cacheruntime-tieredstore-drift/.last-reviewed && git add docs/verification/cacheruntime-tieredstore-drift/.last-reviewed && git commit -m "review: advance last-reviewed"
 RESULT: all findings fixed.
+EXIT=0
