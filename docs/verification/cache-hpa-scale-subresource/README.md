@@ -127,3 +127,25 @@ node-gates only the pod-count checks — the exact F3 fix).
 | `scale_worker_and_verify` shell logic | Verified by stub harness | `scripts/e2e-shell-stub/run-e2e-shell-stub.sh` (5/5 pass: both write methods asserted with pods skipped; full pod-verify converges; scale-GET mismatch and spec-write mismatch both panic) — `results/e2e-shell-stub-head.txt`. |
 
 Full re-verify on 99e35af0: all 10 manifest entries green (`results/reverify/`).
+
+## Round 5 (incremental, 2026-11-03) — head 73ff9ba3, delta 99e35af0..73ff9ba3
+
+Delta: one commit, `test(cache): populate Status.Replicas in engine ASTS fixture`
+(+15/-3): `status_test.go` fixture gains `Replicas: desiredReplicas` (the round-4
+fixture nit fix), and `verify_scale_subresource` in `test.sh` now asserts
+`.status.worker.currentReplicas` and the scale payload's `status.replicas`
+against the **selector-matched pod count** instead of the CR's own field (the
+round-1 anti-circularity ask, sharpened in round 4). The PR body was also
+rewritten to state the payload-dependent worker-less scale behavior exactly as
+pinned here (F-workerless-scale-docs fixed).
+
+| Item | Verdict | Evidence |
+|------|---------|----------|
+| F-engine-fixture-stale-replicas | **Fixed, differentially verified** | new `TestVerifyHPAEngineFixtureModelsASTSInvariant` uses `newAdvancedStatefulSetComponent` with NO status override: FAILS on previous head 99e35af0 (`fixture ... violates the real ASTS invariant Replicas >= CurrentReplicas: replicas=0 currentReplicas=3`), PASSES on 73ff9ba3 (`results/fixture-invariant-prevhead-99e35af0.txt`, `results/fixture-invariant-head-73ff9ba3.txt`). |
+| F-circular-status-replicas-assertion | **Fixed, differentially verified** | stub harness extended to extract + exercise `verify_scale_subresource` (9/9 on head, `results/e2e-shell-stub-head.txt`). Key differential: with a controller publishing a wrong-but-stable count (CR currentReplicas=3, 1 selector-matched pod) the OLD function passed silently and the NEW function panics (`results/e2e-shell-stub-prevhead-99e35af0.txt`, case "stale currentReplicas caught (non-circular)"). CI: run 41453620383 jobs 125304682910 (v1.22.17) + 125304682902 (v1.33.2) log `status.replicas=1 selector-matched pods` (`results/ci-curvine-head-73ff9ba3-job*.log`). Semantics note: the assertion counts ALL selector-matched pods (not just Ready), consistent with the round-4 count-all-observed-pods semantics. |
+| F-workerless-scale-docs | **Fixed (PR body)** | body re-fetched 2026-11-03: the categorical "GET /scale fails" claim replaced by the payload-dependent description, verbatim matching the behavior pinned by `TestCacheRuntimeAbsentWorkerBlockScaleFails` + the worker-less subtest. |
+| All 11 manifest entries | **green on head** | `re-verify.sh` against 73ff9ba3 (unit + envtest integration), `results/reverify/`. Premise P0 re-attested on base 96a3765e (`results/unit-base-premise.txt`: status.selector still empty on base). |
+
+Pre-existing local-env noise check: 12 UFS-mount-mock ginkgo specs fail identically
+on 99e35af0 and 73ff9ba3 in this sandbox (ufs_test.go/sync_test.go, no status/scale
+surface; CI unittest green on both heads) — not PR-caused.

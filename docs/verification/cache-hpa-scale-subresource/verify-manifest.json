@@ -70,7 +70,7 @@
       "match": [
         "TestVerifyHPAStatusReplicasPathPopulated"
       ],
-      "note": "unit half of F2: status sync populates .status.worker.currentReplicas, which the scale subresource serves as status.replicas"
+      "note": "unit half of F2: status sync populates .status.worker.currentReplicas, which the scale subresource serves as status.replicas. Round 5: the PR fixed the fixture itself (73ff9ba3 adds Status.Replicas=desiredReplicas); the explicit Status.Replicas overrides in this test stay as belt-and-braces, and the unmodified-fixture contract is pinned by F-engine-fixture-stale-replicas."
     },
     {
       "id": "F4",
@@ -124,6 +124,15 @@
         "TestVerifyHPAMixedRevisionReplicasCount"
       ],
       "note": "round-4 differential contract for the C4420756561 fix (constructStatus now reads asts.Status.Replicas): FAILS on previous head 9a265eb3, PASSES on 99e35af0. Also pins UnavailableReplicas = Replicas - AvailableReplicas."
+    },
+    {
+      "id": "F-engine-fixture-stale-replicas",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyHPAEngineFixtureModelsASTSInvariant"
+      ],
+      "note": "round-5 differential for the PR's engine fixture fix (73ff9ba3): uses newAdvancedStatefulSetComponent WITHOUT overriding Status. FAILS on previous head 99e35af0 (fixture violated Replicas >= CurrentReplicas, currentReplicas published as 0), PASSES on head 73ff9ba3 (fixture now sets Status.Replicas=desiredReplicas)."
     }
   ],
   "liveNote": "L3 skipped per debate setup. PR's own curvine e2e on GHA kind verified the GET-side scale contract + status.selector pod matching on k8s 1.22-1.33; the scale-WRITE e2e step is skipped on single-node kind clusters."

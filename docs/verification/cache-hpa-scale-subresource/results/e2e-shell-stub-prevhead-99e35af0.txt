@@ -1,0 +1,8 @@
+>>> Verified scale subresource of cacheruntime curvine-demo (spec.replicas=1, status.replicas=1, selector=cacheruntime.fluid.io/component-name=curvine-demo-worker,cacheruntime.fluid.io/name=curvine-demo)
+FAIL: stale currentReplicas caught (non-circular) (rc=0 want=1)
+>>> Verified scale subresource of cacheruntime curvine-demo (spec.replicas=1, status.replicas=3, selector=cacheruntime.fluid.io/component-name=curvine-demo-worker,cacheruntime.fluid.io/name=curvine-demo)
+FAIL: scale-GET status.replicas mismatch panics (rc=1 want=1)
+>>> test "stub" failed: scale subresource status.replicas mismatch: expected 1, got scale: {"kind":"Scale","spec":{"replicas":1},"status":{"replicas":7,"selector":"cacheruntime.fluid.io/component-name=curvine-demo-worker,cacheruntime.fluid.io/name=curvine-demo"}}
+FAIL: zero selector-matched pods handled (rc=0 want=0)
+>>> Verified scale subresource of cacheruntime curvine-demo (spec.replicas=1, status.replicas=0, selector=cacheruntime.fluid.io/component-name=curvine-demo-worker,cacheruntime.fluid.io/name=curvine-demo)
+stub-harness: 5 passed, 4 failed

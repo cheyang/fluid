@@ -1,0 +1,5 @@
+--- FAIL: TestVerifyHPAEngineFixtureModelsASTSInvariant (0.00s)
+    hpa_scale_verify_test.go:261: fixture newAdvancedStatefulSetComponent violates the real ASTS invariant Replicas >= CurrentReplicas: replicas=0 currentReplicas=3
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.014s
+FAIL

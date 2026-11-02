@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Extracts scale_worker_and_verify from the PR-head test.sh and runs it against
+# Extracts scale_worker_and_verify and verify_scale_subresource from the PR-head
+# test.sh and runs them against
 # the stubbed kubectl. Validates: (1) write assertions pass when the write lands,
 # for both methods, with pod checks off; (2) a missing write panics; (3) a wrong
 # scale-GET spec.replicas panics; (4) the full pod-verify path still converges.
@@ -14,6 +15,7 @@ WORK="$(mktemp -d)"; trap 'rm -rf "$WORK"' EXIT
   sed -n '/^function syslog()/,/^}/p' "$SRC"
   sed -n '/^function panic()/,/^}/p' "$SRC"
   sed -n '/^function scale_worker_and_verify()/,/^}/p' "$SRC"
+  sed -n '/^function verify_scale_subresource()/,/^}/p' "$SRC"
 } > "$WORK/fn.sh"
 
 mkdir -p "$WORK/bin" "$WORK/state"
@@ -46,5 +48,19 @@ check "scale-GET mismatch panics" 1 "scale subresource spec.replicas mismatch: e
 # fault injection: write never lands (state frozen at 9) -> panic
 check "spec write mismatch panics" 1 "cacheruntime spec.worker.replicas mismatch: expected 3, got 9" \
   'kubectl(){ if [[ "$*" == get* ]]; then echo 9; fi; }; scale_worker_and_verify 3 patch false'
-echo "stub-harness: $pass passed, $((5-pass)) failed"
+# --- verify_scale_subresource (round-5 delta: status.replicas asserted against
+# --- selector-matched pod count instead of the CR's own field) ---------------
+# happy path: CR currentReplicas, selector-matched pods, and scale status all agree
+echo 1 > "$STUB_STATE/spec_replicas"; echo 1 > "$STUB_STATE/current_replicas"; echo 1 > "$STUB_STATE/pod_count"
+check "GET-side contract agrees with selector-matched pods" 0 "status.replicas=1 selector-matched pods"   'verify_scale_subresource'
+# anti-circularity: a controller publishing a wrong-but-stable count must be caught
+echo 3 > "$STUB_STATE/current_replicas"
+check "stale currentReplicas caught (non-circular)" 1 "status.worker.currentReplicas (3) != selector-matched pod count (1)"   'verify_scale_subresource'
+# plumbing break: API server serves a status.replicas that matches neither pods nor CR
+echo 1 > "$STUB_STATE/current_replicas"
+check "scale-GET status.replicas mismatch panics" 1 "scale subresource status.replicas != selector-matched pod count 1"   'STUB_SCALE_STATUS_REPLICAS=7; export STUB_SCALE_STATUS_REPLICAS; verify_scale_subresource'
+# zero-pod edge: pod_count falls back to 0 and a consistent 0 passes
+echo 0 > "$STUB_STATE/current_replicas"; echo 0 > "$STUB_STATE/pod_count"
+check "zero selector-matched pods handled" 0 "status.replicas=0 selector-matched pods"   'verify_scale_subresource'
+echo "stub-harness: $pass passed, $((9-pass)) failed"
 [[ $fail == 0 ]]

@@ -243,3 +243,41 @@ func TestVerifyHPAMixedRevisionReplicasCount(t *testing.T) {
 		})
 	}
 }
+
+// F-engine-fixture-stale-replicas fix verification (contract, differential):
+// the engine-level fixture newAdvancedStatefulSetComponent must model a status
+// the real ASTS controller can produce (updateStatus accumulates Replicas over
+// every created pod, so Replicas >= CurrentReplicas always). On the previous
+// head 99e35af0 the fixture set only Status.CurrentReplicas, leaving
+// Status.Replicas=0, so a status sync published currentReplicas=0 for a
+// 3-replica worker; on head 73ff9ba3 the fixture sets
+// Status.Replicas=desiredReplicas. Unlike TestVerifyHPAStatusReplicasPathPopulated,
+// this test deliberately does NOT override the fixture's Status so it pins the
+// fixture itself. FAILS on 99e35af0 ("currentReplicas = 0, want 3"), PASSES on
+// 73ff9ba3.
+func TestVerifyHPAEngineFixtureModelsASTSInvariant(t *testing.T) {
+	worker := newAdvancedStatefulSetComponent(testStatusWorker, testStatusNamespace, 3, 2)
+	if worker.Status.Replicas < worker.Status.CurrentReplicas {
+		t.Fatalf("fixture newAdvancedStatefulSetComponent violates the real ASTS invariant Replicas >= CurrentReplicas: replicas=%d currentReplicas=%d",
+			worker.Status.Replicas, worker.Status.CurrentReplicas)
+	}
+	master := newAdvancedStatefulSetComponent(testStatusMaster, testStatusNamespace, 1, 1)
+	client := fake.NewFakeClientWithScheme(
+		CacheEngineTestScheme,
+		newStatusTestRuntime(),
+		master,
+		worker,
+	)
+	engine, _ := newStatusTestEngineWithClient(client)
+
+	if _, err := engine.CheckAndUpdateRuntimeStatus(newStatusTestRuntimeValue(false)); err != nil {
+		t.Fatalf("CheckAndUpdateRuntimeStatus returned error: %v", err)
+	}
+	runtime := verifyHPAGetRuntime(t, engine)
+	if runtime.Status.Worker.CurrentReplicas != 3 {
+		t.Fatalf("status.worker.currentReplicas from the unmodified fixture = %d, want 3 (fixture must populate Status.Replicas)", runtime.Status.Worker.CurrentReplicas)
+	}
+	if runtime.Status.Worker.UnavailableReplicas != 1 {
+		t.Fatalf("status.worker.unavailableReplicas from the unmodified fixture = %d, want 1 (desired 3 - ready 2)", runtime.Status.Worker.UnavailableReplicas)
+	}
+}

@@ -3,4 +3,8 @@ PASS: patch write asserted on CR, pods skipped
 PASS: full pod-verify path converges
 PASS: scale-GET mismatch panics
 PASS: spec write mismatch panics
-stub-harness: 5 passed, 0 failed
+PASS: GET-side contract agrees with selector-matched pods
+PASS: stale currentReplicas caught (non-circular)
+PASS: scale-GET status.replicas mismatch panics
+PASS: zero selector-matched pods handled
+stub-harness: 9 passed, 0 failed
