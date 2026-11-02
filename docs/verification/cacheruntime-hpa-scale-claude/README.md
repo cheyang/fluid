@@ -52,6 +52,57 @@ bases differ only in `.github/workflows/kind-e2e.yml`) without the patch.
 
 ## Summary of results
 
+### Round 4 (head `73ff9ba3`, re-verify via `scripts/re-verify.sh`)
+
+The PR head moved `99e35af0 → 73ff9ba3` with one PR commit, `73ff9ba3f test(cache):
+populate Status.Replicas in engine ASTS fixture`, and the author edited the PR body at
+2026-11-02T13:37:22Z (after this commit's CI started). Three ledger asks landed:
+
+1. **F-engine-fixture-stale-replicas (FIXED)** — the engine fixture
+   `newAdvancedStatefulSetComponent` now sets `Status.Replicas: desiredReplicas`
+   (status_test.go:410), so the engine-level status path reports a reachable ASTS state.
+   Pinned by a NEW contract test, `TestHarnessEngineStatusCurrentReplicasFromFixture`
+   (`pkg/ddc/cache/engine/status_currentreplicas_engine_harness_test.go`): it asserts
+   `status.worker.currentReplicas == 3` / `unavailableReplicas == 1` through the real
+   `CheckAndUpdateRuntimeStatus → setWorkerComponentStatus → constructStatus` path with a
+   desired=3/ready=2 fixture. **Differential**: it FAILS on the previous head `99e35af0`
+   ("got 0, want 3" — observed by running it in the verify-branch worktree, which sits on
+   `99e35af0`) and PASSES on `73ff9ba3` (re-verify, `results/reverify/unit.parsed`).
+2. **F-circular-status-replicas-assertion (FIXED)** — `verify_scale_subresource`
+   (test/gha-e2e/curvine/test.sh) now derives `status.replicas` from the
+   selector-matched pod count (`kubectl get pod -l <selector> | wc -l`) and asserts both
+   the CR's `currentReplicas` and the scale payload against it, instead of grepping the
+   CR's own field back out of the payload. Pinned by a NEW stub-kubectl layer
+   (`scripts/e2e-scale-assert-stub/run-stub.sh`), which extracts the real function
+   verbatim from `test.sh` and serves canned cluster states: S1 green path passes,
+   S2 "controller reports a wrong-but-STABLE currentReplicas (2) with 1 real pod, scale
+   payload mirrors the lying CR field" panics on the fixed function and **PASSES on the
+   round-4 function extracted from `99e35af0`** — the differential that demonstrates the
+   masked bug class is now caught; S3 (scale payload disagrees with pods) panics.
+   `results/head-73ff9ba/stub-harness.out`, 4/4. CI run 41453620383 executed the new
+   assertion in all five kind jobs ("status.replicas=1 selector-matched pods",
+   `results/head-73ff9ba/ci-curvine-*.log`).
+3. **F-workerless-scale-docs (docs ask satisfied)** — the PR body now states the
+   payload-dependent worker-less behavior verbatim ("with no spec.worker key at all ...
+   a GET on .../scale fails — which is expected; with a worker block present but the
+   component disabled, defaulting materializes replicas: 1, and GET/PUT on .../scale
+   silently succeed against a selector that can never match pods ..."). The envtest
+   canary (`TestCritiqueProbe`) stays green — the API behavior is retained by design and
+   now documented; the ask was the body correction, which landed.
+
+Full re-verify table on `73ff9ba3` (all layers incl. the new stub-e2e):
+`results/head-73ff9ba/reverify-summary.out` — F1, F1b, C4420756561 (regression),
+F-engine-fixture-stale-replicas, F-circular-status-replicas-assertion all FIXED;
+F-selector-when-worker-disabled, F-workerless-scale-docs, Q-blockless-worker-scale-target
+canaries STILL-PRESENT (behavior retained; the delta touches no engine/component code —
+`git diff --stat 99e35af0..73ff9ba3 -- pkg/ddc/cache/engine/status.go ...` is empty).
+
+Full-suite note: `go test ./pkg/ddc/cache/...` on `73ff9ba3` locally shows 12 failing
+engine specs — the **byte-identical set** that fails on the base `96a3765e`
+(`results/head-73ff9ba/engine-suite-summary.txt`, diff of the failing spec names is
+clean), i.e. pre-existing and environment-dependent, not PR-caused; CI `unittest` is
+green on this head (run 41453620384). The component package is green locally.
+
 ### Round 3 (head `99e35af0`, re-verify via `scripts/re-verify.sh`)
 
 | ID (ledger) | Claim | Layer | Verdict | Evidence |
