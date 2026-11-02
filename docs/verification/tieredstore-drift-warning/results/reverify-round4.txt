@@ -1,0 +1,35 @@
+# Round 4 re-verify: head 133accac3a7cea53280ada93393b28433e71a6d7 (base 96a3765, run 2026-11-03)
+
+Captured from `scripts/re-verify.sh` (no ref — PR head auto-resolved from manifest.pr)
+before the round-4 docs commit; raw go-test output in `results/reverify/unit.out`
+(identical test set to `results/unit-head-133accac.txt`).
+
+```
+re-verify: manifest = docs/verification/tieredstore-drift-warning/verify-manifest.json
+re-verify: resolving PR head via 'git fetch https://github.com/fluid-cloudnative/fluid.git pull/6219/head' (machine-independent)
+re-verify: current head = 133accac3a7cea53280ada93393b28433e71a6d7
+re-verify: last-reviewed = 6809f62f98f70182595a644979bfe430d22cb0ff  (review delta = 6809f62f98f70182595a644979bfe430d22cb0ff..133accac3a7cea53280ada93393b28433e71a6d7)
+re-verify: fixed-ref=133accac3a7cea53280ada93393b28433e71a6d7  harness-from=verify/tieredstore-drift-warning-claude
+re-verify: running layer 'unit' (gotest)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+TS1    contract  unit         FIXED          pass=1 fail=0 miss=0
+TS2    canary    unit         STILL-PRESENT  pass=1 fail=0 miss=0
+TS3    contract  unit         FIXED          pass=1 fail=0 miss=0
+TS4    contract  unit         FIXED          pass=1 fail=0 miss=0
+TS5    contract  unit         FIXED          pass=1 fail=0 miss=0
+
+Live layer (manual): L3 (skipped per round policy: unit + integration only): patch spec.worker.tieredStore quota on a live CacheRuntime (mooncake/curvine gha-e2e fixture) and check 'kubectl get events --field-selector reason=RuntimeTieredStoreConflict' re-emits within 10 minutes while the split persists.
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/tieredstore-drift-warning/results/reverify
+
+Review delta this round: 6809f62f98f70182595a644979bfe430d22cb0ff..133accac3a7cea53280ada93393b28433e71a6d7
+RESULT: not all findings fixed.   <- expected: TS2 is the client-silence canary, still-present
+                                      by design until #6221 lands (issue OPEN, re-checked 2026-11-03)
+```
+
+P0 premise (`TestPremiseTieredStoreSplitWorker`) also ran in the same invocation and
+passed (see `results/unit-head-133accac.txt`, `"Action":"pass"`); it asserts the split
+the PR warns about, not a fix.

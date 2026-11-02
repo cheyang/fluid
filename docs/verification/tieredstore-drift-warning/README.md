@@ -3,6 +3,20 @@
 Reproducible evidence for the findings raised while reviewing
 https://github.com/fluid-cloudnative/fluid/pull/6219.
 
+**Round 4** (head `133accac3a7cea53280ada93393b28433e71a6d7`, reviewed 2026-11-03, rebased onto
+base `96a3765eaae0f23140aef9b30152538396ed7ec2`): the PR content is **byte-identical** to round 3
+for every file except `.github/workflows/kind-e2e.yml` — the author dropped the PR's own
+`ubuntu-24.04` runner-pin hunk, because the pin (with its rationale and the tracking issue
+#6224) now lands in the **base** via maintainer PR #6225. That closes ledger TS-E2E-RUNNER-PIN
+exactly as suggested (separate CI PR with one-sentence rationale). All five harness contracts
+re-run green on the new head (`results/unit-head-133accac.txt`); the required CI gate is fully
+green on 133accac (build x2, unittest, lint, staticcheck, Analyze(go)/CodeQL, SonarCloud,
+codecov, backward-compat v1.22–v1.33, kind-e2e v1.22–v1.33 — runs 41392006282/41392006360/
+41392006503/41392006576, 2026-11-02), with all four `verify_tieredstore_drift_warning`
+assertion phases confirmed in the kind-e2e v1.22.17 job log (job 125105233485) carrying the
+"Delete and recreate the CacheRuntime" remediation text. #6221 (client-side detection) and
+#6224 (runner un-pin) remain OPEN.
+
 **Round 3** (head `6809f62f98f70182595a644979bfe430d22cb0ff`, reviewed 2026-10-30, rebased onto
 base `fe074af38434fc4b618686de6459a9173570b48b`): all round-2 contracts survive the rebase (the
 base move brought #6186's `reportIncompleteVersion`/`desiredComponentVersion` into the same
@@ -48,6 +62,21 @@ Answered against the **base** branch, without the patch.
 | Evidence | `results/unit-base.txt` — on base `86e3adf3`, after editing the quota 8Gi→16Gi the ConfigMap `runtime.json` worker level carries `16Gi` while the worker ASTS volume `tiered-store-level-0-memory` keeps `sizeLimit 8Gi`, and the recorder attached to the engine saw **zero** events. The mechanism matches the issue's analysis: `generateRuntimeConfigData` recomputes from spec on every sync, `SyncComponentSpec` patches only replicas/image/resources, and `TransformRuntimeTieredStore` runs only at Setup. On the PR head the same test run (`results/unit-head.txt`) shows the split still present — by design, the PR warns about it — plus the new `RuntimeTieredStoreConflict` Warning. |
 
 ## Summary of results
+
+### Round 4 — head 133accac (re-verify run `results/reverify/`, focused run `results/unit-head-133accac.txt`)
+
+| ID | Claim | Layer | Polarity | Verdict | Evidence |
+|----|-------|-------|----------|---------|----------|
+| TS1 | Worker tieredStore quota drift emits a `RuntimeTieredStoreConflict` Warning through the **full `engine.Sync`** entry point, remediation text "Delete and recreate the CacheRuntime" | 1 | contract | **FIXED / working** (PASS on new head) | `results/unit-head-133accac.txt` |
+| TS2 | `spec.client.tieredStore` drift stays silent — documented scope decision tracked in #6221 (still OPEN, re-checked 2026-11-03); the canary flips red when #6221 lands | 1 | canary | **STILL-PRESENT** (PASS = gap present, as documented) | `results/unit-head-133accac.txt` |
+| TS3 | emptyDir `medium` flips (disk `""` ↔ `Memory`) detected in both directions | 1 | contract | **FIXED** (PASS on new head) | `results/unit-head-133accac.txt` |
+| TS4 | Throttle across consecutive Syncs: 1 event per 3 syncs, re-emission after interval, cooldown reset on resolution | 1 | contract | **FIXED / working** (PASS on new head) | `results/unit-head-133accac.txt` |
+| TS5 | A level carrying **both** `hostPath` and `emptyDir` is dispatched by the drift check the same way `extractTieredStoreLevels` reports it — hostPath first; the ConfigMap ground truth is asserted in the same test | 1 | contract | **FIXED** (PASS on new head) | `results/unit-head-133accac.txt` |
+
+Round-4 delta: PR content unchanged (only the runner-pin hunk was dropped, its rationale moved
+to base #6225); no new findings; no harness changes needed — the harness ran unmodified against
+the new head, so no `Harness-update` verdicts. P0 premise evidence (base run) is unchanged from
+round 1.
 
 ### Round 3 — head 6809f62 (re-verify run `results/reverify/`, focused run `results/unit-head-6809f62.txt`)
 
