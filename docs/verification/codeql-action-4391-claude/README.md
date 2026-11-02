@@ -4,9 +4,14 @@ Reproducible evidence for the review of https://github.com/fluid-cloudnative/flu
 (`chore(deps): bump the codeql-action group with 3 updates` — github/codeql-action
 4.39.0 → 4.39.1, three steps across two workflow files).
 
-Layers run against the **code under review** (head `9fe48f12b6be95bda15628bcde448c17c53a12d3`,
-base/merge-base `fe074af38434fc4b618686de6459a9173570b48b`). The harness is additive: production
-code is untouched on this branch (`git diff 9fe48f12 -- . ':!docs/verification'` is empty).
+Layers run against the **code under review**. **Round 2 (2026-11-03):** the PR was rebased —
+head is now `c805f164bbc511d7544db66ca2a3e5bfecebd395`, base/merge-base
+`96a3765eaae0f23140aef9b30152538396ed7ec2` (master advanced by exactly one commit,
+`ci: pin kind-e2e runner to ubuntu-24.04 (#6225)`). The PR's own diff is byte-identical to
+round 1: the same three `uses:` pin lines, `6f2ac81f` → `9b325408`. This branch was rebased onto
+the new head, so production code is untouched (`git diff c805f164 -- . ':!docs/verification'`
+is empty). Round 1 reviewed head `9fe48f12b6be95bda15628bcde448c17c53a12d3` against base
+`fe074af38434fc4b618686de6459a9173570b48b`.
 
 | Layer | What it exercises | How to run |
 |-------|-------------------|------------|
@@ -45,6 +50,35 @@ Run against the **base** branch (`fe074af3`) without the patch.
 | F1-stale-version-comments | trailing comments say `# v3.29.5` / `# v2.22.11` while the pin is v4.39.1 | 2 | Still-present (canary passes = stale) — pre-existing, not introduced by this PR | canary output lists all three mismatches; `results/integration-head.jsonl (output events)` |
 | F2-upload-sarif-not-on-prs | sonarcloud.yaml's upload-sarif step (schedule + push-to-master only) is never exercised by PR CI, so the bumped upload-sarif lands on master untested | 2 | Still-present (canary passes = gap exists) — pre-existing | triggers = `push`, `schedule`; `results/integration-head.jsonl (output events)` |
 
+## Round 2 re-verification (2026-11-03, head `c805f164`, base `96a3765e`)
+
+Re-ran `scripts/re-verify.sh` (auto-resolved the PR head from the manifest's `pr` URL) after the
+PR was rebased onto the advanced master. Full verdict table from that run:
+
+| ID | Polarity | Layer | Round-2 verdict | Evidence |
+|----|----------|-------|-----------------|----------|
+| P0-pin-current | contract | integration | FIXED (pass) | `results/r2-integration-head-c805f16.jsonl`; 411 release tags resolved, `releases/v4` tip = `9b325408` = `v4.39.1` (no newer release since round 1) |
+| AC1-pin-integrity | contract | integration | FIXED (pass) | pinned `9b325408` == peeled `refs/tags/v4.39.1` |
+| AC2-group-consistency | contract | unit | FIXED (pass) | 3 refs, single SHA `9b325408` |
+| AC3-pinning-discipline | contract | unit | FIXED (pass) | full 40-hex pins; YAML parses |
+| F1-stale-version-comments | canary | integration | STILL-PRESENT | comments still `# v3.29.5` / `# v2.22.11` vs pin v4.39.1 |
+| F2-upload-sarif-not-on-prs | canary | integration | STILL-PRESENT | sonarcloud.yaml still has no `pull_request` trigger |
+
+**Changed-base differential** (required for an incremental round): ran the integration layer
+against the new base `96a3765e` — `results/r2-integration-base-96a3765.jsonl` shows
+`TestPinnedIsLatestV4Release` FAIL there (master still pins `6f2ac81f` = v4.39.0 ≠ tip v4.39.1),
+so the premise still holds on the new base and the PR is still needed. Both canaries also pass
+on the new base (F1/F2 pre-existing there, unchanged by the rebase). Blast radius of the base
+change: #6225 touches only `kind-e2e.yml` (runner pin `ubuntu-latest` → `ubuntu-24.04`), a file
+with zero `codeql-action` references — no interaction with this PR's two files.
+
+**Required-CI gate resolved:** on the new head all 22 checks are green, including the previously
+red kind-e2e-test matrix (run 41406062075, all 5 k8s versions, 2026-11-02) — the
+infrastructure-attributed failure from round 1 was fixed by #6225 landing on master (the rebase
+picked it up). `Analyze (go)` SUCCESS on run 41406062036 (11m54s) re-exercises init+analyze at
+the pinned v4.39.1 on the new head. `tide` is pending only for human `approved`/`lgtm` labels
+(Prow merge gate), not a test failure.
+
 ## Per-finding detail
 
 - **P0 / AC1 / AC2 / AC3** (contract tests): all green on the PR head. The differential run on
@@ -76,12 +110,16 @@ Run against the **base** branch (`fe074af3`) without the patch.
 ## Live run notes
 
 Skipped per review instructions. The observable real-env signal for this change is GitHub CI:
-the modified workflow itself ran on this PR head and `Analyze (go)` finished SUCCESS
-(run 40644839222, 2026-10-28), which exercises `init` + `analyze` at the pinned v4.39.1.
-The PR's red checks are `kind-e2e-test` matrix entries that timed out after 30 minutes in
-`kind-e2e.yml` — a workflow with no codeql-action reference — and the same failures hit
-unrelated PRs the same day; a separate PR (`ci: pin kind-e2e runner to ubuntu-24.04`, green)
-addresses the runner. Not attributable to this PR.
+
+- Round 1 (head `9fe48f12`, 2026-10-28): `Analyze (go)` SUCCESS (run 40644839222) — init+analyze
+  exercised at v4.39.1. The kind-e2e-test matrix was red with 30-minute FUSE-mount timeouts
+  (infrastructure; fixed separately by #6225).
+- Round 2 (head `c805f164`, 2026-11-02): `Analyze (go)` SUCCESS (run 41406062036, job
+  125148234355, 11m54s) — init+analyze re-exercised at v4.39.1 on the rebased head; all 5
+  kind-e2e-test entries green (run 41406062075); all 5 backward-compat entries green (run
+  41406061909); lint/staticcheck/unittest/build green (run 41406062128); DCO, CodeQL,
+  SonarCloud decorations, CircleCI build green. Only `tide` is pending (needs human
+  approved/lgtm labels).
 
 ## Proposed fixes (NOT applied to production here)
 

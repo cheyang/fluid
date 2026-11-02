@@ -1,0 +1,4 @@
+TestPinMatchesReleaseTag	pass
+TestPinnedIsLatestV4Release	pass
+TestVersionCommentsMatchPins	pass
+TestSonarcloudCodeqlNotOnPRs	pass

@@ -13,7 +13,7 @@
     "runsAgainst": "base",
     "layer": "integration",
     "verdict": "confirmed",
-    "evidence": "On base fe074af3 the pinned SHA 6f2ac81f peels to tag v4.39.0, while refs/heads/releases/v4 (and refs/tags/v4) point at 9b325408 = v4.39.1, so TestPinnedIsLatestV4Release FAILS on base and PASSES on head — results/integration-base.jsonl vs results/integration-head.jsonl"
+    "evidence": "On base fe074af3 the pinned SHA 6f2ac81f peels to tag v4.39.0, while refs/heads/releases/v4 (and refs/tags/v4) point at 9b325408 = v4.39.1, so TestPinnedIsLatestV4Release FAILS on base and PASSES on head \u2014 results/integration-base.jsonl vs results/integration-head.jsonl"
   },
   "layers": {
     "unit": {
@@ -26,12 +26,55 @@
     }
   },
   "findings": [
-    { "id": "P0-pin-current", "polarity": "contract", "layer": "integration", "match": ["TestPinnedIsLatestV4Release"] },
-    { "id": "F1-stale-version-comments", "polarity": "canary", "layer": "integration", "match": ["TestVersionCommentsMatchPins"] },
-    { "id": "F2-upload-sarif-not-on-prs", "polarity": "canary", "layer": "integration", "match": ["TestSonarcloudCodeqlNotOnPRs"] },
-    { "id": "AC1-pin-integrity", "polarity": "contract", "layer": "integration", "match": ["TestPinMatchesReleaseTag"] },
-    { "id": "AC2-group-consistency", "polarity": "contract", "layer": "unit", "match": ["TestCodeqlPinsConsistent"] },
-    { "id": "AC3-pinning-discipline", "polarity": "contract", "layer": "unit", "match": ["TestPinsAreFullCommitShas", "TestWorkflowYamlParses"] }
+    {
+      "id": "P0-pin-current",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestPinnedIsLatestV4Release"
+      ]
+    },
+    {
+      "id": "F1-stale-version-comments",
+      "polarity": "canary",
+      "layer": "integration",
+      "match": [
+        "TestVersionCommentsMatchPins"
+      ]
+    },
+    {
+      "id": "F2-upload-sarif-not-on-prs",
+      "polarity": "canary",
+      "layer": "integration",
+      "match": [
+        "TestSonarcloudCodeqlNotOnPRs"
+      ]
+    },
+    {
+      "id": "AC1-pin-integrity",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestPinMatchesReleaseTag"
+      ]
+    },
+    {
+      "id": "AC2-group-consistency",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestCodeqlPinsConsistent"
+      ]
+    },
+    {
+      "id": "AC3-pinning-discipline",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestPinsAreFullCommitShas",
+        "TestWorkflowYamlParses"
+      ]
+    }
   ],
-  "liveNote": "L3 not applicable per review instructions (no live/KUBECONFIG layer). The real-environment signal for this PR is GitHub CI itself: the CodeQL workflow ran on the PR head and 'Analyze (go)' finished SUCCESS (run 40644839222, job 122671119289, 2026-10-28), exercising init+analyze at the pinned v4.39.1. The sonarcloud upload-sarif step only runs on schedule/master push and remains unexercised (F2)."
+  "liveNote": "L3 not applicable per review instructions (no live/KUBECONFIG layer). Round 2 (head c805f164, 2026-11-02): CodeQL workflow ran on the PR head and 'Analyze (go)' finished SUCCESS (run 41406062036, job 125148234355, 11m54s), exercising init+analyze at the pinned v4.39.1. All 22 checks green on this head incl. the previously red kind-e2e matrix (run 41406062075; fixed by base commit #6225). Only 'tide' is pending (Prow merge gate, needs human approved/lgtm labels). The sonarcloud upload-sarif step still only runs on schedule/master push and remains unexercised (F2)."
 }
