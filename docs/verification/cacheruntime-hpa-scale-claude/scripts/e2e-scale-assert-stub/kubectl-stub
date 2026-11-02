@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# kubectl-stub — stand-in for kubectl that serves a canned "cluster state" from
+# $STUB_STATE (a directory) so the e2e shell assertions can be exercised without
+# a cluster. Only the verbs verify_scale_subresource uses are implemented.
+set -uo pipefail
+STATE="${STUB_STATE:?STUB_STATE must point at the stub state dir}"
+
+log() { printf '[kubectl-stub] %s\n' "$*" >&2; }
+
+cmd="$1"; shift
+case "$cmd" in
+  get)
+    # kubectl get --raw <path>
+    if [[ "$1" == "--raw" ]]; then
+      path="$2"
+      if [[ "$path" == */cacheruntimes/*/scale ]]; then
+        cat "$STATE/scale.json"
+        exit 0
+      fi
+      log "unhandled --raw path: $path"; exit 1
+    fi
+    # kubectl get cacheruntime <name> -ojsonpath=<path>
+    resource="$1"; name="$2"; jsonpath="$3"
+    if [[ "$resource" == "cacheruntime" && "$name" == "${SCALE_NAME:?}" ]]; then
+      case "$jsonpath" in
+        *status.worker.currentReplicas*) cat "$STATE/current_replicas"; echo; exit 0;;
+        *status.selector*)               cat "$STATE/selector"; echo; exit 0;;
+        *spec.worker.replicas*)          cat "$STATE/spec_replicas"; echo; exit 0;;
+        *) log "unhandled jsonpath: $jsonpath"; exit 1;;
+      esac
+    fi
+    if [[ "$resource" == "pod" ]]; then
+      # kubectl get pod -l <selector> --no-headers
+      # find the -l argument
+      sel=""
+      args=("$@")
+      for ((i=0; i<${#args[@]}; i++)); do
+        if [[ "${args[$i]}" == "-l" || "${args[$i]}" == "--selector" ]]; then sel="${args[$((i+1))]}"; fi
+      done
+      want="$(cat "$STATE/selector")"
+      if [[ "$sel" == "$want" ]]; then
+        cat "$STATE/pods" 2>/dev/null || true
+        exit 0
+      fi
+      log "pod query selector '$sel' does not match stub state selector '$want'"
+      exit 1
+    fi
+    log "unhandled get: $resource $name $jsonpath"; exit 1
+    ;;
+  *)
+    log "unhandled command: $cmd"; exit 1
+    ;;
+esac

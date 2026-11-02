@@ -1,0 +1,9 @@
+Full engine suite on PR head 73ff9ba3 (local, 2026-11-03):
+Ran 326 of 342 Specs in 0.296 seconds
+
+Differential vs base 96a3765e (results/base-engine-full.out, round 2):
+base: Ran 342 specs, 312 Passed | 12 Failed (same 12 spec names, see /tmp diffs recorded in round-2 adjudication)
+head: Ran 342 specs (326 selected), 314 Passed | 12 Failed
+The 12 failing spec names are byte-identical to the base set (diff clean) -> pre-existing, environment-dependent, not PR-caused. CI unittest green on head (run 41453620384).
+component package: ok (cached)
+FAIL! -- 314 Passed | 12 Failed | 0 Pending | 16 Skipped

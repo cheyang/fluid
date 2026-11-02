@@ -34,7 +34,7 @@
 # }
 set -euo pipefail
 
-FIXED_REF=""; MANIFEST=""; LAYERS="unit,integration,envtest"
+FIXED_REF=""; MANIFEST=""; LAYERS="unit,integration,envtest,stub-e2e"
 while [ $# -gt 0 ]; do
   case "$1" in
     --manifest) MANIFEST="$2"; shift 2;;
@@ -159,6 +159,13 @@ run_layer() {
     fi
     jq -rs '[.[]|select(.Test!=null and (.Action=="pass" or .Action=="fail"))]
             | .[] | "\(.Test)\t\(.Action)"' "$out" 2>/dev/null || echo "__PARSE_ERROR__"
+  elif [ "$kind" = "stub" ]; then
+    # a plain script that judges its own scenarios and prints
+    #   STUB<TAB><scenario-label><TAB>ok|bad
+    # (used for shell-level e2e assertions exercised against a stubbed kubectl)
+    bash -c "$cmd" >"$out" 2>&1 || true
+    if ! grep -q $'^STUB\t' "$out"; then echo "__BUILD_OR_NO_TESTS__"; return 0; fi
+    grep $'^STUB\t' "$out" | awk -F'\t' '{print $2 "\t" ($3=="ok" ? "pass" : "fail")}' || echo "__PARSE_ERROR__"
   elif [ "$kind" = "ginkgo" ]; then
     report="$(jq -r --arg l "$layer" '.layers[$l].report // empty' "$MANIFEST")"
     report="$(eval echo "$report")"; [ -n "$report" ] || report="$GINKGO_REPORT"

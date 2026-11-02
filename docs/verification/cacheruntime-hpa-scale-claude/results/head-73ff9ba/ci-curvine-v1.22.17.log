@@ -1,0 +1,12 @@
+kind-e2e-test (v1.22.17)	UNKNOWN STEP	2026-11-02T13:46:21.1088247Z >>> [TESTCASE curvine cache runtime basic e2e STARTS AT Mon Nov  2 13:46:21 UTC 2026]
+kind-e2e-test (v1.22.17)	UNKNOWN STEP	2026-11-02T13:47:49.1031504Z >>> Verified scale subresource of cacheruntime curvine-demo (spec.replicas=1, status.replicas=1 selector-matched pods, selector=cacheruntime.fluid.io/component-name=curvine-demo-worker,cacheruntime.fluid.io/name=curvine-demo)
+kind-e2e-test (v1.22.17)	UNKNOWN STEP	2026-11-02T13:48:15.5728121Z >>> single-node cluster (1 node): verifying scale writes only, pod-count checks skipped
+kind-e2e-test (v1.22.17)	UNKNOWN STEP	2026-11-02T13:48:15.5728661Z >>> Scaling worker to 2 replicas (method=scale, verify_pods=false)
+kind-e2e-test (v1.22.17)	UNKNOWN STEP	2026-11-02T13:48:15.7053588Z >>> Worker scale write to 2 verified on the CR (pod-count checks skipped: no spare node to schedule extra workers)
+kind-e2e-test (v1.22.17)	UNKNOWN STEP	2026-11-02T13:48:15.7057502Z >>> Scaling worker to 1 replicas (method=patch, verify_pods=false)
+kind-e2e-test (v1.22.17)	UNKNOWN STEP	2026-11-02T13:48:15.8202636Z >>> Worker scale write to 1 verified on the CR (pod-count checks skipped: no spare node to schedule extra workers)
+kind-e2e-test (v1.22.17)	UNKNOWN STEP	2026-11-02T13:48:48.5146398Z >>> [TESTCASE curvine cache runtime basic e2e SUCCEEDED AT Mon Nov  2 13:48:48 UTC 2026]
+kind-e2e-test (v1.22.17)	UNKNOWN STEP	2026-11-02T13:51:34.9914394Z >>> [TESTCASE mooncake cache runtime (client-less topology) e2e SUCCEEDED AT Mon Nov  2 13:51:34 UTC 2026]
+kind-e2e-test (v1.22.17)	UNKNOWN STEP	2026-11-02T13:52:56.7252163Z >>> [TESTCASE alluxioruntime basic e2e SUCCEEDED AT Mon Nov  2 13:52:56 UTC 2026]
+kind-e2e-test (v1.22.17)	UNKNOWN STEP	2026-11-02T13:59:41.7421208Z >>> [TESTCASE jindoruntime secret e2e SUCCEEDED AT Mon Nov  2 13:59:41 UTC 2026]
+kind-e2e-test (v1.22.17)	UNKNOWN STEP	2026-11-02T14:00:25.0538104Z >>> [TESTCASE juicefsruntime basic e2e SUCCEEDED AT Mon Nov  2 14:00:25 UTC 2026]
