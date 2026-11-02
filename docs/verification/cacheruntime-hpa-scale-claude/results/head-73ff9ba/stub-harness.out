@@ -1,0 +1,18 @@
+== extracted verify_scale_subresource from git:HEAD ==
+(function body sourced verbatim: 43 lines)
+>>> Verified scale subresource of cacheruntime curvine-demo (spec.replicas=1, status.replicas=1 selector-matched pods, selector=cacheruntime.fluid.io/component-name=curvine-demo-worker,cacheruntime.fluid.io/name=curvine-demo)
+scenario S1-green (1 pod, CR=1, scale=1) -> exit 0
+STUB	S1-green	ok
+>>> test "stub" failed: cacheruntime status.worker.currentReplicas (2) != selector-matched pod count (1)
+scenario S2-controller-lies (CR=2, scale=2, pods=1) -> exit 1
+STUB	S2-controller-lies	ok
+>>> test "stub" failed: scale subresource status.replicas != selector-matched pod count 1, got scale: {"kind":"Scale","apiVersion":"autoscaling/v1","metadata":{"name":"curvine-demo","namespace":"default"},"spec":{"replicas":1},"status":{"replicas":3,"selector":"cacheruntime.fluid.io/component-name=curvine-demo-worker,cacheruntime.fluid.io/name=curvine-demo"}}
+scenario S3-scale-payload-lies (scale status=3, pods=1) -> exit 1
+STUB	S3-scale-payload-lies	ok
+== differential control: previous head 99e35af0eef60f077bfefc519e328d1e31252401 (circular assertion) ==
+>>> Verified scale subresource of cacheruntime curvine-demo (spec.replicas=1, status.replicas=2, selector=cacheruntime.fluid.io/component-name=curvine-demo-worker,cacheruntime.fluid.io/name=curvine-demo)
+scenario S2-controller-lies on PREVIOUS head -> exit 0
+  (as expected: the round-4 circular assertion passed a lying controller — that is the masked bug class)
+STUB	S2-on-previous-head-99e35af0	ok
+
+RESULT: pass=4 fail=0

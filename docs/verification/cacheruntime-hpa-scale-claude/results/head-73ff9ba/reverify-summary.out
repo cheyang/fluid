@@ -1,0 +1,28 @@
+re-verify: manifest = docs/verification/cacheruntime-hpa-scale-claude/verify-manifest.json
+re-verify: last-reviewed = 99e35af0eef60f077bfefc519e328d1e31252401  (review delta = 99e35af0eef60f077bfefc519e328d1e31252401..73ff9ba3fc7004f8747edafd763459fd1a73009d)
+re-verify: fixed-ref=73ff9ba3fc7004f8747edafd763459fd1a73009d  harness-from=verify/cacheruntime-hpa-scale-claude
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'integration' (ginkgo)
+re-verify: running layer 'envtest' (gotest)
+re-verify: running layer 'stub-e2e' (stub)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+F1-selector-populated contract  unit         FIXED          pass=1 fail=0 miss=0
+F1b-selector-matches-workload contract  unit         FIXED          pass=1 fail=0 miss=0
+F-selector-when-worker-disabled canary    unit         STILL-PRESENT  pass=1 fail=0 miss=0
+F-workerless-scale-docs canary    envtest      STILL-PRESENT  pass=1 fail=0 miss=0
+Q-blockless-worker-scale-target canary    envtest      STILL-PRESENT  pass=1 fail=0 miss=0
+C4420756561-currentreplicas-undercount contract  unit         FIXED          pass=2 fail=0 miss=0
+F-engine-fixture-stale-replicas contract  unit         FIXED          pass=1 fail=0 miss=0
+F-circular-status-replicas-assertion contract  stub-e2e     FIXED          pass=4 fail=0 miss=0
+
+Live layer (manual): L3 (skipped in this debate phase): kind e2e curvine case covers the API-server scale subresource contract in CI. Round 5: run 41453620383 on head 73ff9ba3 - curvine testcase SUCCEEDED on all five k8s versions (v1.22.17 and v1.33.2 job logs captured in results/head-73ff9ba/ci-curvine-*.log): 'Verified scale subresource of cacheruntime curvine-demo (spec.replicas=1, status.replicas=1 selector-matched pods, selector=...)' - the NEW non-circular assertion executed in every job; scale-write path still executed and verified ('Scaling worker to 2 replicas (method=scale, verify_pods=false)' -> 'Worker scale write to 2 verified on the CR').
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/cacheruntime-hpa-scale-claude/results/reverify
+
+Review delta this round: 99e35af0eef60f077bfefc519e328d1e31252401..73ff9ba3fc7004f8747edafd763459fd1a73009d
+After reviewing that delta, advance the marker for the next round:
+  echo 73ff9ba3fc7004f8747edafd763459fd1a73009d > docs/verification/cacheruntime-hpa-scale-claude/.last-reviewed && git add docs/verification/cacheruntime-hpa-scale-claude/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: not all findings fixed.
