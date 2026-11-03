@@ -1,0 +1,22 @@
+# round-5 nit-fix verification evidence, 2026-11-03T21:53:40Z
+
+## TS-E2E-COUNT-QUERY-MASK: new assertion semantics (test.sh throttle leg + revert leg @ a8f4e558)
+shell demo: old=${c:-1} vs new=(-z $c || $c != 1)
+OLD: pass (got '')
+NEW: panic (got '')
+OLD: pass (got '1')
+NEW: pass (got '1')
+OLD: panic (got '2')
+NEW: panic (got '2')
+
+## TS-E2E-LEN-JSONPATH: cooldown-reset leg now -o go-template={{len .items}} @ a8f4e558
+old form on kubectl v1.37.0 (read-only get): -o jsonpath={len(.items)}:
+error: error executing jsonpath "{len(.items)}": Error executing template: unrecognized identifier len(. Printing more information for debugging the template:
+new form: -o go-template={{len .items}} renders real length (0 on empty list):
+0
+## live CI: kind-e2e v1.22.17 job 125777363705 (head_sha a8f4e558, conclusion success)
+2026-11-03T07:25:17.5034454  verify tieredStore drift warning event on CacheRuntime
+2026-11-03T07:25:17.6584874  Found expected RuntimeTieredStoreConflict event: Worker tieredStore cannot be updated in-place after creation: level 0 (emptyDir): spec quota 2Gi does not match worker volume tiered-store-level-0-index-0 sizeLimit 1Gi. Delete and recreate the CacheRuntime to apply changes.
+2026-11-03T07:25:27.8297364  Throttling verified: event count remained 1 across reconcile cycles under persistent drift
+2026-11-03T07:25:38.0033644  Revert stability verified: event count remained 1 (no new conflict events emitted after drift resolved)
+2026-11-03T07:25:38.1625049  Cooldown reset verified: fresh drift re-warned immediately without waiting 10m
