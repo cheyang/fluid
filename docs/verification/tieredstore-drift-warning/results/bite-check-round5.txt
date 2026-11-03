@@ -1,0 +1,54 @@
+Bite-check round 5 — e2e hygiene fixes on head a8f4e558 (test/gha-e2e/curvine/test.sh)
+========================================================================================
+
+§1 TS-E2E-COUNT-QUERY-MASK: the new assertion form fails safe (shell-level mechanism demo)
+------------------------------------------------------------------------------------------
+Old form:  if [[ "${initial_count:-1}" != "1" ]]   — a failed kubectl query (2>/dev/null || true)
+yields empty, which defaults to 1 = the PASSING value -> vacuous pass.
+New form:  if [[ -z "$initial_count" || "$initial_count" != "1" ]]  (both count==1 legs:
+throttle leg test.sh:514 and revert leg test.sh:530 at head).
+
+  simulated failed query (empty result):
+    initial_count=$(false 2>/dev/null || true)   # ""
+    [[ -z "" || "" != "1" ]]  -> true  -> panic  FAILS SAFE  (was: vacuous pass)
+  good query (count=1):
+    -> no panic, "Throttling verified"/"Revert stability verified"  OK
+  broken throttle (count=2):
+    -> panic "expected ... count to remain 1 ..., but got: '2'"  teeth preserved  OK
+
+§2 TS-E2E-LEN-JSONPATH: kubectl go-template len works; jsonpath len never did (empirical)
+------------------------------------------------------------------------------------------
+$ kubectl create configmap test-cm --dry-run=client -o go-template='{{len .}}'
+  3
+$ kubectl create configmap test-cm --dry-run=client -o jsonpath='{len(.)}'
+  error: error executing jsonpath "{len(.)}": Error executing template: unrecognized identifier len
+(kubectl v1.37.0 client; same engine family as the pinned CI kubectl. `len` is a text/template
+builtin used verbatim by -o go-template; it has never been a k8s.io/client-go jsonpath function.)
+At head, the cooldown-reset poll uses `-o go-template='{{len .items}}'` (test.sh:548), so the
+items_len >= 2 disjunct is live for the first time. Both branches remain fail-safe on an empty
+result (|| true -> "" -> ${items_len:-0} = 0 -> keeps polling -> panic at 60 s).
+
+§3 TS-E2E-REVERT-VACUOUS-LEG: log line no longer overclaims
+------------------------------------------------------------------------------------------
+Old: syslog "Revert verified: no new conflict events emitted after drift resolved"
+New: syslog "Revert stability verified: event count remained 1 (no new conflict events emitted
+     after drift resolved)"
+The middle assertion is now labeled a count-stability check, not the resolution proof; the
+cooldown-reset leg one step later remains the actual proof of resolution (unchanged).
+Residual (accepted, cosmetic): the inline comment "assert no further conflict events while
+resolved" still reads resolution-flavored, and the count==1 form remains throttle-dominated
+(structurally: within the 10-minute window an emission is impossible either way).
+
+§4 Live confirmation on head (required CI gate)
+------------------------------------------------------------------------------------------
+kind-e2e v1.22.17 job 125777363705 (run 41594120871, head_sha a8f4e558, 2026-11-03, 31m29s):
+  >>> verify tieredStore drift warning event on CacheRuntime
+  >>> Found expected RuntimeTieredStoreConflict event: Worker tieredStore cannot be updated
+      in-place after creation: level 0 (emptyDir): spec quota 2Gi does not match worker volume
+      tiered-store-level-0-index-0 sizeLimit 1Gi. Delete and recreate the CacheRuntime to apply changes.
+  >>> Throttling verified: event count remained 1 across reconcile cycles under persistent drift
+  >>> Revert stability verified: event count remained 1 (no new conflict events emitted after drift resolved)
+  >>> Cooldown reset verified: fresh drift re-warned immediately without waiting 10m
+All four phases present with the NEW log wording (Revert stability / fresh re-warn), i.e. the
+rebased e2e with the fail-safe assertions executed and passed on a live controller loop.
+kind-e2e green on all five k8s versions (v1.22.17/v1.24.17/v1.28.15/v1.30.13/v1.33.2).

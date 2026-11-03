@@ -1,0 +1,33 @@
+Round 5 re-verify — PR #6219 head a8f4e5584730987740bd0b81aaab18a33c2c74a4 (base 7f27b7e2a9cc6343e8905abd37a236e4c735dc24)
+Run: 2026-11-04, re-verify.sh (auto-resolved head from manifest.pr = pull/6219/head), unit layer,
+harness from verify/tieredstore-drift-warning-claude @ 727ba2647.
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+TS1    contract  unit         FIXED          pass=1 fail=0 miss=0   (TestVerifyWorkerDriftWarnsThroughFullSync)
+TS2    canary    unit         STILL-PRESENT  pass=1 fail=0 miss=0   (TestVerifyClientTieredStoreDriftSilent — EXPECTED: client silence is the tracked #6221 gap; flips red when #6221 lands)
+TS3    contract  unit         FIXED          pass=1 fail=0 miss=0   (TestVerifyEmptyDirMediumFlipDetected)
+TS4    contract  unit         FIXED          pass=1 fail=0 miss=0   (TestVerifyDriftThrottleAcrossSyncs)
+TS5    contract  unit         FIXED          pass=1 fail=0 miss=0   (TestVerifyDispatchPrecedenceMatchesConfigMap)
+
+P0 premise test: TestPremiseTieredStoreSplitWorker  pass (on head; verdict vs base recorded in manifest premise).
+
+Full engine package on head a8f4e558 (ginkgo, -gcflags="all=-N -l", count=1):
+  Ran 343 of 359 Specs — SUCCESS! 343 Passed | 0 Failed | 0 Pending | 16 Skipped
+  (round 4: 341 passed; the +2 are #6223's own new specs in status_test.go / component_test.go;
+   the 16 skips are the pre-existing env-dependent specs from #6186's base files, none in sync_test.go)
+
+Round-5 PR-content delta (previous reviewed head 133accac3a -> a8f4e558):
+  per-file diff of (96a3765..133accac) vs (7f27b7e..a8f4e558) is IDENTICAL for all 10 PR files
+  except test/gha-e2e/curvine/test.sh. Diff of verify_tieredstore_drift_warning between the two
+  heads is exactly three hunks — the round-4 SHOULDs:
+   1. TS-E2E-COUNT-QUERY-MASK fixed: both count==1 legs now `[[ -z "$count" || "$count" != "1" ]]`
+      -> an empty/failed kubectl query panics instead of defaulting to the passing value.
+   2. TS-E2E-REVERT-VACUOUS-LEG fixed: log reworded to "Revert stability verified: event count
+      remained 1 (no new conflict events emitted after drift resolved)" — the middle assertion is
+      no longer presented as the resolution check; the reset leg still carries the real proof.
+   3. TS-E2E-LEN-JSONPATH fixed: `jsonpath='{len(.items)}'` -> `-o go-template='{{len .items}}'`.
+  Base moved 96a3765 -> 7f27b7e (#6223, HPA scale subresource): touches the same package's
+  status.go/worker.go/master.go/component_manager.go/advanced_statefulset_manager.go but NOT
+  sync.go/cm.go/GetPodSpec — no overlap with the drift-check path; re-verified by the contracts
+  above and the full-package run on the rebased head.

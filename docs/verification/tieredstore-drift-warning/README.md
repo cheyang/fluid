@@ -3,6 +3,25 @@
 Reproducible evidence for the findings raised while reviewing
 https://github.com/fluid-cloudnative/fluid/pull/6219.
 
+**Round 5** (head `a8f4e5584730987740bd0b81aaab18a33c2c74a4`, reviewed 2026-11-04, rebased onto
+base `7f27b7e2a9cc6343e8905abd37a236e4c735dc24` = #6223 HPA scale subresource): the PR content is
+**byte-identical** to round 4 for every file except `test/gha-e2e/curvine/test.sh`, whose entire
+delta inside `verify_tieredstore_drift_warning` is the three round-4 SHOULDs: (1) both `count == 1`
+legs now fail safe on an empty/failed kubectl query (`[[ -z "$count" || "$count" != "1" ]]`, closing
+TS-E2E-COUNT-QUERY-MASK), (2) the revert leg log now reads "Revert stability verified: event count
+remained 1" instead of overclaiming resolution (closing TS-E2E-REVERT-VACUOUS-LEG; the cooldown-reset
+leg remains the real proof), (3) the dead `jsonpath='{len(.items)}'` fallback is now
+`-o go-template='{{len .items}}'` (closing TS-E2E-LEN-JSONPATH — empirically, kubectl go-template
+renders `len` while jsonpath errors "unrecognized identifier len"). Base movement #6223 touches the
+same package (status/worker/master/component-manager/statefulset status) but not
+`sync.go`/`cm.go`/`GetPodSpec` — no overlap with the drift-check path. All five harness contracts
+plus the P0 premise test re-run green on the new head (`results/unit-head-a8f4e55.txt`,
+`results/reverify-round5.txt`); full engine package 343 passed / 0 failed / 16 pre-existing env skips
+(+2 vs round 4 = #6223's own new specs). Required CI fully green on a8f4e558 with all four drift
+phases confirmed in the kind-e2e v1.22.17 job log (job 125777363705) carrying the new
+"Revert stability verified" wording. Shell-level bite-checks for the three e2e hygiene fixes in
+`results/bite-check-round5.txt`. #6221 (client-side detection) remains OPEN.
+
 **Round 4** (head `133accac3a7cea53280ada93393b28433e71a6d7`, reviewed 2026-11-03, rebased onto
 base `96a3765eaae0f23140aef9b30152538396ed7ec2`): the PR content is **byte-identical** to round 3
 for every file except `.github/workflows/kind-e2e.yml` — the author dropped the PR's own
@@ -215,3 +234,17 @@ Kickoff prompt for a fresh agent: "Checkout the fixed ref of fluid PR #6219, gra
 `verify/tieredstore-drift-warning-claude` of https://github.com/cheyang/fluid.git, run
 `bash docs/verification/tieredstore-drift-warning/scripts/re-verify.sh`, and report the
 per-finding verdicts honoring canary polarity."
+
+## Round 5 verdict table
+
+| finding | round-4 status | round-5 status | evidence |
+|---|---|---|---|
+| TS1 drift-warning contract | FIXED | still FIXED | unit-head-a8f4e55.txt |
+| TS2 client-silence canary | pass (expected) | still pass (expected; #6221 OPEN) | unit-head-a8f4e55.txt |
+| TS3 medium-flip contract | FIXED | still FIXED | unit-head-a8f4e55.txt |
+| TS4 throttle contract | FIXED | still FIXED | unit-head-a8f4e55.txt |
+| TS5 dispatch-precedence contract | FIXED | still FIXED | unit-head-a8f4e55.txt |
+| TS-E2E-COUNT-QUERY-MASK (nit) | open | FIXED this round | bite-check-round5.txt S1 + CI log |
+| TS-E2E-REVERT-VACUOUS-LEG (nit) | open | FIXED this round | bite-check-round5.txt S3 + CI log |
+| TS-E2E-LEN-JSONPATH (nit) | open | FIXED this round | bite-check-round5.txt S2 + CI log |
+| TS-REQUEUE-REEMISSION (advisory) | open | still open (unchanged code; maintainer decision) | code read |
