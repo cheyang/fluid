@@ -13,7 +13,7 @@
     "runsAgainst": "head (deps-bump premise: verified against upstream tags + PR-head CI, not the base branch)",
     "layer": "integration",
     "verdict": "confirmed",
-    "evidence": "Round 1: gh api tag dereference v4.39.1 -> tag obj 8498dc4c -> commit 9b325408 (new pin); v4.39.0 -> tag obj 48870fdd -> commit 6f2ac81f (old pin). Analyze (go) pass 8m24s on 9fe48f12. Round 2 (head c805f164, pure rebase of the same 3-line bump onto 96a3765e): ls-remote refs/tags/v4.39.1^{} == refs/heads/releases/v4 == refs/tags/v4^{} == 9b325408 (still v4 tip; no v4.39.2/v4.40 tags); Analyze (go) pass 11m54s (run 41406062036); full CI green incl. all 5 kind-e2e-test entries. results/r2-ci-and-tag-evidence.txt",
+    "evidence": "Round 1: gh api tag dereference v4.39.1 -> tag obj 8498dc4c -> commit 9b325408 (new pin); v4.39.0 -> tag obj 48870fdd -> commit 6f2ac81f (old pin). Analyze (go) pass 8m24s on 9fe48f12. Round 2 (head c805f164, pure rebase onto 96a3765e): v4.39.1^{} == releases/v4 == 9b325408 (then v4 tip); Analyze (go) pass 11m54s (run 41406062036); full CI green. Round 3 (head b67885cd, pure rebase onto 7f27b7e2, bump content byte-identical): pin authenticity unchanged (v4.39.1^{} == 9b325408), group still one SHA, CI fully green incl. Analyze (go) pass 11m59s (run 41786476442); BUT upstream released v4.39.2 (2026-11-03T10:46Z) and v4.39.3 (2026-11-04T16:49Z) after round 2: releases/v4 == v4^{} == v4.39.3^{} == 33d7b85d, so the pinned version is no longer the v4 tip (see finding F3). results/r3-ci-and-tag-evidence.txt",
     "match": [
       "GroupUsesSingleSHA",
       "PinnedToFullLengthSHA",
@@ -38,7 +38,21 @@
       "match": [
         "VersionCommentMatchesPinnedTag"
       ],
-      "note": "Trailing '# vX.Y.Z' comments (v3.29.5 / v2.22.11) do not match the pinned SHA's tag (v4.39.1). Preexisting: the same contract FAILS on merge-base fe074af3 (comments said v3.29.5/v2.22.11 while the pin was already v4.39.0). Dependabot preserves the stale comment. Contract test is RED on base and head alike; flips GREEN once comments match the pinned tag. Non-blocking, introducedByPR=false. Round 2: re-run on new base 96a3765e, previous head 9fe48f12, head c805f164 \u2014 contract FAILS on all three (results/r2-layer2.*.txt). Rebase did not touch the comments.",
+      "note": "Trailing '# vX.Y.Z' comments (v3.29.5 / v2.22.11) do not match the pinned SHA's tag (v4.39.1). Preexisting: the same contract FAILS on merge-base fe074af3 (comments said v3.29.5/v2.22.11 while the pin was already v4.39.0). Dependabot preserves the stale comment. Contract test is RED on base and head alike; flips GREEN once comments match the pinned tag. Non-blocking, introducedByPR=false. Round 2: re-run on new base 96a3765e, previous head 9fe48f12, head c805f164 — contract FAILS on all three (results/r2-layer2.*.txt). Rebase did not touch the comments. Round 3: re-run via re-verify.sh on head b67885cd (STILL-BROKEN, pass=0 fail=1; results/reverify) and explicit L2 on base 7f27b7e2 / previous head c805f164 / head b67885cd — contract FAILS on all three (results/r3-layer2.*.txt). Rebase again did not touch the comments.",
+      "verification": {
+        "base": "fail",
+        "previous": "fail",
+        "head": "fail"
+      }
+    },
+    {
+      "id": "F3",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "PinnedIsV4Tip"
+      ],
+      "note": "New round-3 finding: the pinned v4.39.1 is no longer the tip of the upstream v4 line. v4.39.2 (2026-11-03) and v4.39.3 (2026-11-04) were released after round 2; releases/v4 == v4.39.3^{} == 33d7b85d. Contract FAILS on base 7f27b7e2 (v4.39.0), previous head c805f164, and head b67885cd alike (results/r3-v4tip.*.txt) — the gap is upstream-release-driven, not introduced by any PR revision (introducedByPR=false), and the PR still narrows it (4.39.0 -> 4.39.1). Neither missed release affects these workflows: TRAP-cache env removal (unused here), macOS-27 warning (ubuntu runners only), v4.39.3 diff-informed filtering fix (repo has 0 paths with space/non-ASCII chars). Non-blocking: maintainer may merge as-is (next dependabot cycle catches up) or '@dependabot recreate' to retarget v4.39.3.",
       "verification": {
         "base": "fail",
         "previous": "fail",

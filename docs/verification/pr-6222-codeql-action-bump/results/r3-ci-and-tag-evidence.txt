@@ -1,0 +1,48 @@
+# Round 3 (2026-11-05) CI + upstream tag evidence for head b67885cd9e9f9910d1b80df5a8cba679914c23af
+
+## gh pr checks 6222 --repo fluid-cloudnative/fluid
+Analyze (go)	pass	11m59s	https://github.com/fluid-cloudnative/fluid/actions/runs/41786476442/job/126429663570	
+CodeQL	pass	3s	https://github.com/fluid-cloudnative/fluid/runs/126433834923	
+DCO	pass	0	https://probot.github.io/apps/dco/	
+SonarCloud	pass	2s	https://github.com/fluid-cloudnative/fluid/runs/126430008957	
+SonarCloud Code Analysis	pass	45s	https://sonarcloud.io/dashboard?id=fluid-cloudnative_fluid&pullRequest=6222	
+backward-compat-test (v1.22.17)	pass	17m58s	https://github.com/fluid-cloudnative/fluid/actions/runs/41786476401/job/126429663786	
+backward-compat-test (v1.24.17)	pass	15m24s	https://github.com/fluid-cloudnative/fluid/actions/runs/41786476401/job/126429663962	
+backward-compat-test (v1.28.15)	pass	16m15s	https://github.com/fluid-cloudnative/fluid/actions/runs/41786476401/job/126429663970	
+backward-compat-test (v1.30.13)	pass	13m25s	https://github.com/fluid-cloudnative/fluid/actions/runs/41786476401/job/126429664128	
+backward-compat-test (v1.33.2)	pass	16m26s	https://github.com/fluid-cloudnative/fluid/actions/runs/41786476401/job/126429663986	
+build (ubuntu-24.04-arm)	pass	6m14s	https://github.com/fluid-cloudnative/fluid/actions/runs/41786476363/job/126429663771	
+build (ubuntu-latest)	pass	7m21s	https://github.com/fluid-cloudnative/fluid/actions/runs/41786476363/job/126429663643	
+ci/circleci: build	pass	0	https://circleci.com/gh/fluid-cloudnative/fluid/4195	Your tests passed on CircleCI!
+kind-e2e-test (v1.22.17)	pass	27m42s	https://github.com/fluid-cloudnative/fluid/actions/runs/41786476406/job/126429663867	
+kind-e2e-test (v1.24.17)	pass	32m7s	https://github.com/fluid-cloudnative/fluid/actions/runs/41786476406/job/126429663866	
+kind-e2e-test (v1.28.15)	pass	29m20s	https://github.com/fluid-cloudnative/fluid/actions/runs/41786476406/job/126429663919	
+kind-e2e-test (v1.30.13)	pass	31m33s	https://github.com/fluid-cloudnative/fluid/actions/runs/41786476406/job/126429663675	
+kind-e2e-test (v1.33.2)	pass	30m5s	https://github.com/fluid-cloudnative/fluid/actions/runs/41786476406/job/126429663933	
+lint	pass	2m46s	https://github.com/fluid-cloudnative/fluid/actions/runs/41786476363/job/126429663619	
+staticcheck	pass	1m39s	https://github.com/fluid-cloudnative/fluid/actions/runs/41786476363/job/126429663514	
+tide	pass	0		In merge pool.
+unittest	pass	5m52s	https://github.com/fluid-cloudnative/fluid/actions/runs/41786476363/job/126429663809	
+
+## upstream github/codeql-action refs (git ls-remote)
+33d7b85da1a04171e211befe2c739303b9a4c066	refs/heads/releases/v4
+5895b2c9be147bc7f1c75ce72c5cb577febb1907	refs/tags/v4
+33d7b85da1a04171e211befe2c739303b9a4c066	refs/tags/v4^{}
+48870fdd6b42ee6474ec4207209ff87609271a5e	refs/tags/v4.39.0
+6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee	refs/tags/v4.39.0^{}
+8498dc4c2b27cdd99baf0f87955b29ebbf30c78d	refs/tags/v4.39.1
+9b3254085494b55a0f7c4c2b3d2d52cc712ce370	refs/tags/v4.39.1^{}
+bd01fe9e80db3cb1eb1368bd8f61d3eb5f43d1f4	refs/tags/v4.39.2
+1fc58d04a4d4374f921bdac573c3811c240f9c26	refs/tags/v4.39.2^{}
+f3bbb05694c2f74569081c28664c0866d64dec21	refs/tags/v4.39.3
+33d7b85da1a04171e211befe2c739303b9a4c066	refs/tags/v4.39.3^{}
+
+## release publication timestamps (gh api repos/github/codeql-action/releases)
+v4.39.3 published 2026-11-04T16:49:20Z
+v4.39.2 published 2026-11-03T10:46:38Z
+v4.39.1 published 2026-10-21T15:48:42Z
+
+## repo path scan for the v4.39.3 diff-informed-filtering fix relevance
+paths with space or non-ASCII chars at head b67885cd: 0 of 6783
+CODEQL_ACTION_CLEANUP_TRAP_CACHES / trap-caching references at head: none (git grep, .github/)
+codeql-analysis.yml runs-on: ubuntu-latest; sonarcloud.yaml runs-on: ubuntu-22.04 (no macOS; v4.39.2 macOS-27 warning irrelevant)

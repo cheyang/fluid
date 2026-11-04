@@ -1,0 +1,6 @@
+{"Test":"PinnedIsV4Tip/.github/workflows/sonarcloud.yaml:54","Action":"fail"}
+{"Test":"PinnedIsV4Tip/.github/workflows/sonarcloud.yaml:54","Action":"output","Output":"pinned 9b3254085494b55a0f7c4c2b3d2d52cc712ce370 is behind v4 tip 33d7b85da1a04171e211befe2c739303b9a4c066 (v4.39.3)"}
+{"Test":"PinnedIsV4Tip/.github/workflows/codeql-analysis.yml:49","Action":"fail"}
+{"Test":"PinnedIsV4Tip/.github/workflows/codeql-analysis.yml:49","Action":"output","Output":"pinned 9b3254085494b55a0f7c4c2b3d2d52cc712ce370 is behind v4 tip 33d7b85da1a04171e211befe2c739303b9a4c066 (v4.39.3)"}
+{"Test":"PinnedIsV4Tip/.github/workflows/codeql-analysis.yml:69","Action":"fail"}
+{"Test":"PinnedIsV4Tip/.github/workflows/codeql-analysis.yml:69","Action":"output","Output":"pinned 9b3254085494b55a0f7c4c2b3d2d52cc712ce370 is behind v4 tip 33d7b85da1a04171e211befe2c739303b9a4c066 (v4.39.3)"}
