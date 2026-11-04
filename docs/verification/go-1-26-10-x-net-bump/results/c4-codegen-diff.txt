@@ -1,0 +1,11 @@
+# make update-crd (controller-gen v0.19.0, go1.26.10)
+mkdir -p /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-05/pr-6227/wt-verify/bin
+Downloading sigs.k8s.io/controller-tools/cmd/controller-gen@v0.19.0
+GO111MODULE=on /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-05/pr-6227/wt-verify/bin/controller-gen "crd:maxDescLen=0" webhook paths="./..." output:crd:artifacts:config=config/crd/bases
+cp config/crd/bases/* charts/fluid/fluid/crds
+UPDATE_CRD_EXIT=0
+STATUS_END
+
+# make gen-openapi
+GEN_OPENAPI_EXIT=0
+0

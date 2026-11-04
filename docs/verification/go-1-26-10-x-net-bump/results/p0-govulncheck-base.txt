@@ -1,0 +1,4 @@
+using GOTOOLCHAIN=go1.25.12 govulncheck=/home/ecs-user/go/bin/govulncheck (mode=base)
+reachable modules: crypto/tls crypto/x509 encoding/asn1 golang.org/x/net html/template k8s.io/kubernetes mime/multipart net/http net/url 
+PASS (canary): premise reproduces — reachable stdlib/x-net findings present
+P0_CANARY_EXIT=0

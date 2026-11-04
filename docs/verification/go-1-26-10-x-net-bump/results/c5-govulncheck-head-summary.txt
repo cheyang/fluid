@@ -1,0 +1,12 @@
+# govulncheck -mode=source ./... on HEAD 6e97fc15 (GOTOOLCHAIN=go1.26.10, vuln DB 2026-11-05)
+Vulnerability #1: GO-2025-4240
+    Found in: k8s.io/kubernetes@v1.29.15
+Vulnerability #2: GO-2025-3915
+    Found in: k8s.io/kubernetes@v1.29.15
+Vulnerability #3: GO-2025-3547
+    Found in: k8s.io/kubernetes@v1.29.15
+Vulnerability #4: GO-2025-3521
+    Found in: k8s.io/kubernetes@v1.29.15
+Your code is affected by 4 vulnerabilities from 1 module.
+Use '-show verbose' for more details.
+GOVULN_HEAD_EXIT=3

@@ -1,0 +1,4 @@
+using GOTOOLCHAIN=go1.26.10 govulncheck=/home/ecs-user/go/bin/govulncheck (mode=head)
+reachable modules: k8s.io/kubernetes 
+PASS: no reachable stdlib/x-net findings (out-of-scope k8s.io/kubernetes findings may remain)
+C5_HEAD_EXIT=0

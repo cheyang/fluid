@@ -1,0 +1,12 @@
+PASS  docker/Dockerfile.cacheruntime  golang:1.26.10-bookworm -> sha256:23ce71337b726608afb1bc00986e630a05034a87a87ea1fc2cd1ae5cf33387eb
+PASS  docker/Dockerfile.efcruntime  golang:1.26.10-bookworm -> sha256:23ce71337b726608afb1bc00986e630a05034a87a87ea1fc2cd1ae5cf33387eb
+PASS  docker/Dockerfile.application  golang:1.26.10-bookworm -> sha256:23ce71337b726608afb1bc00986e630a05034a87a87ea1fc2cd1ae5cf33387eb
+PASS  docker/Dockerfile.alluxioruntime  golang:1.26.10-bookworm -> sha256:23ce71337b726608afb1bc00986e630a05034a87a87ea1fc2cd1ae5cf33387eb
+PASS  docker/Dockerfile.dataset  golang:1.26.10-bookworm -> sha256:23ce71337b726608afb1bc00986e630a05034a87a87ea1fc2cd1ae5cf33387eb
+PASS  docker/Dockerfile.thinruntime  golang:1.26.10-bookworm -> sha256:23ce71337b726608afb1bc00986e630a05034a87a87ea1fc2cd1ae5cf33387eb
+PASS  docker/Dockerfile.juicefsruntime  golang:1.26.10-bookworm -> sha256:23ce71337b726608afb1bc00986e630a05034a87a87ea1fc2cd1ae5cf33387eb
+PASS  docker/Dockerfile.csi  golang:1.26.10-bookworm -> sha256:23ce71337b726608afb1bc00986e630a05034a87a87ea1fc2cd1ae5cf33387eb
+PASS  docker/Dockerfile.vineyardruntime  golang:1.26.10-bookworm -> sha256:23ce71337b726608afb1bc00986e630a05034a87a87ea1fc2cd1ae5cf33387eb
+PASS  docker/Dockerfile.webhook  golang:1.26.10-bookworm -> sha256:23ce71337b726608afb1bc00986e630a05034a87a87ea1fc2cd1ae5cf33387eb
+PASS  docker/Dockerfile.jindoruntime  golang:1.26.10-bookworm -> sha256:23ce71337b726608afb1bc00986e630a05034a87a87ea1fc2cd1ae5cf33387eb
+PASS  test/gha-e2e/jindo/oss-emulator/Dockerfile  golang:1.26.10-bookworm -> sha256:23ce71337b726608afb1bc00986e630a05034a87a87ea1fc2cd1ae5cf33387eb

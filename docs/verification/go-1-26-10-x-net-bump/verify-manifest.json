@@ -1,0 +1,38 @@
+{
+  "topic": "go-1-26-10-x-net-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6227",
+  "harnessPaths": [
+    "docs/verification/go-1-26-10-x-net-bump"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "go1.25.12 + golang.org/x/net v0.58.0 carry reachable govulncheck findings (18 stdlib, 5 x/net; incl. GO-2026-6617 HTTP/2 HPACK encoder race and GO-2026-6809 crypto/x509 distrust), fixed by Go 1.26.10 + x/net v0.62.0",
+    "reportedComponent": "Go toolchain (go.mod toolchain directive, Dockerfiles, CI) and golang.org/x/net indirect dependency",
+    "patchedComponent": "go.mod/go.sum, vendor/, 12 Dockerfiles, .github/workflows (GO_VERSION), .circleci/config.yml, .travis.yml",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "govulncheck -mode=source ./... on base 7f27b7e2: 22 reachable findings (18 affecting stdlib packages @go1.25.12, 5 golang.org/x/net@v0.58.0 fixed in v0.60.0, 4 k8s.io/kubernetes@v1.29.15); on head 6e97fc15: only the 4 out-of-scope k8s.io/kubernetes findings remain. See results/p0-govulncheck-base-summary.txt and results/c5-govulncheck-head-summary.txt.",
+    "match": ["check-govulncheck.sh base"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 -json -run 'TestVerify(ImageDigest|BuildVet|GovulncheckHead|URLStrictColons)' ./docs/verification/go-1-26-10-x-net-bump/"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 -json -timeout 60m -run 'TestVerify(UnitTests|CodegenDiff)' ./docs/verification/go-1-26-10-x-net-bump/"
+    }
+  },
+  "findings": [
+    { "id": "C1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyImageDigest"] },
+    { "id": "C2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyBuildVet"] },
+    { "id": "C5", "polarity": "contract", "layer": "unit", "match": ["TestVerifyGovulncheckHead"] },
+    { "id": "C6", "polarity": "contract", "layer": "unit", "match": ["TestVerifyURLStrictColons"] },
+    { "id": "C3", "polarity": "contract", "layer": "integration", "match": ["TestVerifyUnitTests"] },
+    { "id": "C4", "polarity": "contract", "layer": "integration", "match": ["TestVerifyCodegenDiff"] }
+  ],
+  "liveNote": "L3 skipped per round policy (no KUBECONFIG layer). The observable live signal for this PR is CI: kind-e2e/backward-compatibility-e2e build every image from the pinned golang:1.26.10-bookworm digest and run the suites on it."
+}

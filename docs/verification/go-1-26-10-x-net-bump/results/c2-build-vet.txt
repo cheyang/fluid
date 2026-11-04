@@ -1,0 +1,3 @@
+# head: go build ./... (GOTOOLCHAIN=go1.26.10, -mod=vendor) exit 0
+# head: go vet ./pkg/... ./cmd/... ./api/... exit 0
+# head: go mod verify -> all modules verified

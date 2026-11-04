@@ -1,0 +1,3 @@
+err=parse "http://localhost:80:80/": invalid port ":80:80" after host
+PASS(a): url.Parse rejects multi-colon host under go 1.26.0
+PASS(b): url.Parse call sites confined to pkg/ddc/juicefs/data_migrate.go

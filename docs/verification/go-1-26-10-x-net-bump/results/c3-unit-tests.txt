@@ -1,0 +1,18 @@
+# unit suite at head: go list ./... | grep -v controller | grep -v e2etest | FLUID_UNIT_TEST=true xargs go test -race -covermode=atomic -gcflags="all=-N -l"
+# packages ok: 70
+UNIT_GC_EXIT=0
+
+# control: same suite WITHOUT gomonkey's required -gcflags fails on BOTH base and head (harness sanity; not PR-attributable):
+--- FAIL: TestAlluxio (6.22s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	10.343s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	1.066s
+--- FAIL: TestCacheEngine (0.53s)
+FAIL
+...
+# control 2: 4 affected packages on BASE with correct flags: alluxio/cache-engine/helm pass; pkg/utils failed only due to a :6060 port collision with a concurrent run (environment), re-run serially is clean
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	11.434s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	2.684s
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	0.114s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/helm	1.078s
+FAIL

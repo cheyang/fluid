@@ -1,0 +1,83 @@
+# govulncheck -mode=source ./... on BASE 7f27b7e2 (GOTOOLCHAIN=go1.25.12, vuln DB 2026-11-05)
+# summary: 22 reachable (18 stdlib-affecting, 5 golang.org/x/net@v0.58.0, 4 k8s.io/kubernetes@v1.29.15) + 5 imported-not-called
+Vulnerability #1: GO-2026-6809
+    Found in: crypto/x509@go1.25.12
+    Fixed in: crypto/x509@go1.26.10
+Vulnerability #2: GO-2026-6617
+    Found in: golang.org/x/net@v0.58.0
+    Fixed in: golang.org/x/net@v0.60.0
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.26.9
+Vulnerability #3: GO-2026-6613
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.26.9
+Vulnerability #4: GO-2026-6612
+    Found in: golang.org/x/net@v0.58.0
+    Fixed in: golang.org/x/net@v0.60.0
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.26.9
+Vulnerability #5: GO-2026-6611
+    Found in: golang.org/x/net@v0.58.0
+    Fixed in: golang.org/x/net@v0.60.0
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.26.9
+Vulnerability #6: GO-2026-6610
+    Found in: golang.org/x/net@v0.58.0
+    Fixed in: golang.org/x/net@v0.60.0
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.26.9
+Vulnerability #7: GO-2026-6608
+    Found in: net/textproto@go1.25.12
+    Fixed in: net/textproto@go1.26.9
+Vulnerability #8: GO-2026-6607
+    Found in: crypto/tls@go1.25.12
+    Fixed in: crypto/tls@go1.26.9
+Vulnerability #9: GO-2026-6605
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.26.9
+Vulnerability #10: GO-2026-6603
+    Found in: golang.org/x/net@v0.58.0
+    Fixed in: golang.org/x/net@v0.60.0
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.26.9
+Vulnerability #11: GO-2026-6600
+    Found in: html/template@go1.25.12
+    Fixed in: html/template@go1.26.9
+Vulnerability #12: GO-2026-6599
+    Found in: html/template@go1.25.12
+    Fixed in: html/template@go1.26.9
+Vulnerability #13: GO-2026-6218
+    Found in: net/url@go1.25.12
+    Fixed in: net/url@go1.25.13
+Vulnerability #14: GO-2026-6091
+    Found in: html/template@go1.25.12
+    Fixed in: html/template@go1.25.13
+Vulnerability #15: GO-2026-6090
+    Found in: crypto/tls@go1.25.12
+    Fixed in: crypto/tls@go1.25.13
+Vulnerability #16: GO-2026-6089
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.25.13
+Vulnerability #17: GO-2026-5972
+    Found in: encoding/asn1@go1.25.12
+    Fixed in: encoding/asn1@go1.25.13
+Vulnerability #18: GO-2026-5026
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.25.13
+Vulnerability #19: GO-2025-4240
+    Found in: k8s.io/kubernetes@v1.29.15
+    Fixed in: k8s.io/kubernetes@v1.32.10
+Vulnerability #20: GO-2025-3915
+    Found in: k8s.io/kubernetes@v1.29.15
+    Fixed in: k8s.io/kubernetes@v1.31.12
+Vulnerability #21: GO-2025-3547
+    Found in: k8s.io/kubernetes@v1.29.15
+    Fixed in: N/A
+Vulnerability #22: GO-2025-3521
+    Found in: k8s.io/kubernetes@v1.29.15
+    Fixed in: N/A
+
+vulnerabilities in modules you require, but your code doesn't appear to call
+these vulnerabilities.
+Use '-show verbose' for more details.
+GOVULN_BASE_EXIT=3
