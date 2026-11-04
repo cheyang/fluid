@@ -1,0 +1,116 @@
+?   	github.com/fluid-cloudnative/fluid	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/api/v1alpha1	0.047s
+?   	github.com/fluid-cloudnative/fluid/cmd/alluxio	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/alluxio/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/cache	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/cache/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/csi	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/csi/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/dataset	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/dataset/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/efc	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/efc/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/fluidapp	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/fluidapp/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/jindo	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/jindo/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/juicefs	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/juicefs/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/thin	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/thin/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/vineyard	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/vineyard/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/webhook	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/webhook/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/hack/sdk	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/application/inject	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse	0.051s
+ok  	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse/mutator	0.047s
+ok  	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse/poststart	0.025s
+ok  	github.com/fluid-cloudnative/fluid/pkg/common	0.026s
+ok  	github.com/fluid-cloudnative/fluid/pkg/common/features	0.009s
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi	0.032s
+?   	github.com/fluid-cloudnative/fluid/pkg/csi/config	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/features	0.007s
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/plugins	3.598s
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/recover	0.393s
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/updatedbconf	0.026s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ctrl	0.049s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ctrl/watch	0.027s
+?   	github.com/fluid-cloudnative/fluid/pkg/databackup	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataflow	0.024s
+?   	github.com/fluid-cloudnative/fluid/pkg/dataload	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/datamigrate	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataoperation	0.022s
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataoperation/mock	0.022s
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataprocess	0.028s
+?   	github.com/fluid-cloudnative/fluid/pkg/ddc	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	10.130s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	0.019s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/base	0.049s
+?   	github.com/fluid-cloudnative/fluid/pkg/ddc/base/mock	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/base/portallocator	0.020s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	0.044s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.230s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/efc	10.076s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations	0.039s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindo	12.093s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindo/operations	30.041s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	47.122s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache/operations	30.054s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	15.115s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx/operations	30.039s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	12.230s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs/operations	0.044s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	12.079s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin/operations	0.051s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin/referencedataset	1.069s
+?   	github.com/fluid-cloudnative/fluid/pkg/ddc/types	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/vineyard	25.082s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/vineyard/operations	0.006s
+ok  	github.com/fluid-cloudnative/fluid/pkg/dump	2.789s
+ok  	github.com/fluid-cloudnative/fluid/pkg/errors	0.015s
+?   	github.com/fluid-cloudnative/fluid/pkg/metrics	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/runtime	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	112.127s
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/applications/defaultapp	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/applications/pod	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/applications/unstructured	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/cmdguard	0.046s
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/compatibility	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.070s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/volume	29.135s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/discovery	0.067s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/docker	0.049s
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/fake	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/feature	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/helm	0.053s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/jindo	0.042s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient	0.258s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubelet	0.033s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/mountinfo	0.054s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/runtimes/options	0.033s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/security	0.010s
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/testutil	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/tieredstore	0.045s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/transformer	0.045s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/validation	0.012s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/version	0.010s
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/webhook/generator	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/webhook/writer	2.473s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook	1.127s
+?   	github.com/fluid-cloudnative/fluid/pkg/webhook/cache	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/handler	0.051s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/handler/mutating	0.067s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins	0.048s
+?   	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/api	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/datasetusageinjector	0.043s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/fileprefetcher	0.048s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/fusesidecar	0.048s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/mountpropagationinjector	0.041s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/nodeaffinitywithcache	0.040s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/prefernodeswithoutcache	0.044s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/requirenodewithfuse	0.040s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/utils	0.043s
+?   	github.com/fluid-cloudnative/fluid/test/gha-e2e/jindo/oss-emulator	[no test files]
+EXIT=0

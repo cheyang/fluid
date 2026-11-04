@@ -1,0 +1,45 @@
+{
+  "topic": "go126-xnet-upgrade",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6227",
+  "harnessPaths": [
+    "docs/verification/go126-xnet-upgrade"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Reachable vulnerabilities exist on base (go1.25.12 + x/net v0.58.0), notably GO-2026-6617 (HTTP/2 HPACK encoder race, reachable from the webhook and CSI gRPC servers) and GO-2026-6809 (crypto/x509, fixed only in 1.26.10); upgrading to go1.26.10 + x/net v0.62.0 removes them.",
+    "reportedComponent": "Go stdlib and golang.org/x/net as consumed by fluid's webhook, CSI gRPC server, build images and CI",
+    "patchedComponent": "go.mod (go 1.26.0 / toolchain go1.26.10, x/net v0.62.0 + MVS bumps), vendor/, 12 Dockerfiles, CI configs",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "govulncheck v1.9.0: base = 22 reachable vulns (13 stdlib + 5 x/net + 4 k8s.io/kubernetes) incl. GO-2026-6617 and GO-2026-6809; head = 0 stdlib/x/net, 4 k8s remain (out of scope). results/vulncheck-base.log, results/vulncheck-head.log",
+    "match": ["scripts/20-premise-vulncheck.sh"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "shell",
+      "cmd": "bash scripts/10-f1-plain-gotest.sh <head-wt> <base-wt> && bash scripts/30-acceptance.sh <head-wt>"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["scripts/10-f1-plain-gotest.sh"],
+      "note": "Plain `go test ./pkg/utils/helm/` (default build flags): head FAIL / base PASS / head + -gcflags=all=-N -l PASS. Contract = package unit tests pass under default flags; currently failing on the PR head only. Canonical make-test path (CI) unaffected."
+    }
+  ],
+  "acceptance": [
+    { "id": "A1", "contract": "go build ./... with toolchain go1.26.10", "status": "passed", "evidence": "results/acceptance-misc.log" },
+    { "id": "A2", "contract": "go mod verify / tidy / vendor are no-ops", "status": "passed", "evidence": "results/acceptance-misc.log" },
+    { "id": "A3", "contract": "single valid multi-arch digest pin equal to golang:1.26.10-bookworm tag digest", "status": "passed", "evidence": "results/docker-digest-check.txt" },
+    { "id": "A4", "contract": "full unit suite passes in canonical make-test mode (-gcflags=all=-N -l)", "status": "passed", "evidence": "results/unit-tests-head-makestyle.log (70 ok, 0 FAIL)" }
+  ],
+  "ci": {
+    "status": "passed",
+    "evidence": "GitHub statusCheckRollup on head sha 6e97fc15205a29df5de03dcd6358d6f2441ceb39: unittest, lint, staticcheck, build (ubuntu amd64 + arm), kind-e2e x6 k8s versions, backward-compat x6, CodeQL, SonarCloud, DCO all SUCCESS"
+  },
+  "liveNote": "L3 skipped per round policy (no KUBECONFIG). CI kind-e2e + backward-compatibility workflows on the head sha provide the cluster-level evidence: images built from the bumped Dockerfiles run the controllers across k8s v1.22–v1.33."
+}

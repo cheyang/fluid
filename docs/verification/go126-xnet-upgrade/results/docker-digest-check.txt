@@ -1,0 +1,5 @@
+pinned digest: sha256:23ce71337b726608afb1bc00986e630a05034a87a87ea1fc2cd1ae5cf33387eb
+tag golang:1.26.10-bookworm resolves to the same digest (queried 2026-11-04)
+mediaType: application/vnd.oci.image.index.v1+json
+linux platforms: 386, amd64, arm/v7, arm64/v8, ppc64le
+12 Dockerfiles use this single digest consistently (docker/* + test/gha-e2e/jindo/oss-emulator)

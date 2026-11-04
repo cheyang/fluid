@@ -1,0 +1,1366 @@
+=== Symbol Results ===
+
+Vulnerability #1: GO-2026-6809
+    Distrust compromised intermediate certificates in crypto/x509
+  More info: https://pkg.go.dev/vuln/GO-2026-6809
+  Standard library
+    Found in: crypto/x509@go1.25.12
+    Fixed in: crypto/x509@go1.26.10
+    Example traces found:
+      #1: pkg/utils/webhook/generator/util.go:59:19: generator.ValidCACert calls x509.Certificate.Verify
+
+Vulnerability #2: GO-2026-6617
+    HTTP/2 server crash due to HPACK encoder race in net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6617
+  Module: golang.org/x/net
+    Found in: golang.org/x/net@v0.58.0
+    Fixed in: golang.org/x/net@v0.60.0
+    Example traces found:
+      #1: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.ClientConn.Close
+      #2: pkg/utils/kubelet/node_auth_client.go:18:40: kubelet.InitNodeAuthorizedClient calls kubernetes.NewForConfig, which eventually calls http2.ConfigureTransports
+      #3: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.ConnectionError.Error
+      #4: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.ErrCode.String
+      #5: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.FrameHeader.String
+      #6: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.FrameType.String
+      #7: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.ReadFrame
+      #8: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.ReadFrameForHeader
+      #9: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.ReadFrameHeader
+      #10: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteContinuation
+      #11: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteGoAway
+      #12: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteHeaders
+      #13: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WritePing
+      #14: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteRSTStream
+      #15: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteSettings
+      #16: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteSettingsAck
+      #17: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteWindowUpdate
+      #18: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.GoAwayError.Error
+      #19: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.Setting.String
+      #20: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.SettingID.String
+      #21: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.SettingsFrame.ForeachSetting
+      #22: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.StreamError.Error
+      #23: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.Transport.NewClientConn
+      #24: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.Transport.RoundTrip
+      #25: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http2.bufferedWriterTimeoutWriter.Write
+      #26: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http2.chunkWriter.Write
+      #27: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.connError.Error
+      #28: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.duplicatePseudoHeaderError.Error
+      #29: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http2.gzipReader.Close
+      #30: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.gzipReader.Read
+      #31: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.headerFieldNameError.Error
+      #32: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.headerFieldValueError.Error
+      #33: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.noDialH2RoundTripper.RoundTrip
+      #34: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.pseudoHeaderError.Error
+      #35: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http2.stickyErrWriter.Write
+      #36: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http2.transportResponseBody.Close
+      #37: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read
+      #38: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.unencryptedTransport.RoundTrip
+      #39: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.writeData.String
+
+  Standard library
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.26.9
+    Example traces found:
+      #1: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.CanonicalHeaderKey
+      #2: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.CanonicalHeaderKey
+      #3: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Client.Do
+      #4: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Client.Do
+      #5: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get
+      #6: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get
+      #7: pkg/utils/pprof.go:23:2: utils.init calls pprof.init, which eventually calls http.HandleFunc
+      #8: pkg/utils/pprof.go:23:2: utils.init calls pprof.init, which eventually calls http.HandleFunc
+      #9: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Add
+      #10: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Add
+      #11: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Del
+      #12: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Del
+      #13: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Get
+      #14: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Get
+      #15: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Set
+      #16: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Set
+      #17: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe
+      #18: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe
+      #19: pkg/utils/kubelet/node_auth_client.go:18:40: kubelet.InitNodeAuthorizedClient calls kubernetes.NewForConfig, which eventually calls http.NewRequest
+      #20: pkg/utils/kubelet/node_auth_client.go:18:40: kubelet.InitNodeAuthorizedClient calls kubernetes.NewForConfig, which eventually calls http.NewRequest
+      #21: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.NewRequestWithContext
+      #22: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.NewRequestWithContext
+      #23: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.ReadResponse
+      #24: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.ReadResponse
+      #25: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Request.Write
+      #26: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Request.Write
+      #27: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Response.Write
+      #28: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Response.Write
+      #29: pkg/utils/pprof.go:41:14: utils.NewPprofServer calls http.ServeMux.Handle
+      #30: pkg/utils/pprof.go:41:14: utils.NewPprofServer calls http.ServeMux.Handle
+      #31: pkg/utils/pprof.go:35:17: utils.NewPprofServer calls http.ServeMux.HandleFunc
+      #32: pkg/utils/pprof.go:35:17: utils.NewPprofServer calls http.ServeMux.HandleFunc
+      #33: pkg/utils/pprof.go:63:40: utils.NewPprofServer calls http.Server.ListenAndServe
+      #34: pkg/utils/pprof.go:63:40: utils.NewPprofServer calls http.Server.ListenAndServe
+      #35: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Server.Serve
+      #36: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Server.Serve
+      #37: pkg/utils/pprof.go:58:35: utils.NewPprofServer calls http.Server.Shutdown
+      #38: pkg/utils/pprof.go:58:35: utils.NewPprofServer calls http.Server.Shutdown
+      #39: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.body.Close
+      #40: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.body.Close
+      #41: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.body.Read
+      #42: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.body.Read
+      #43: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.bodyEOFSignal.Close
+      #44: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.bodyEOFSignal.Close
+      #45: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.bodyEOFSignal.Read
+      #46: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.bodyEOFSignal.Read
+      #47: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.bodyLocked.Read
+      #48: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.bodyLocked.Read
+      #49: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.bufioFlushWriter.Write
+      #50: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.bufioFlushWriter.Write
+      #51: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.cancelTimerBody.Close
+      #52: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.cancelTimerBody.Close
+      #53: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.cancelTimerBody.Read
+      #54: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.cancelTimerBody.Read
+      #55: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
+      #56: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
+      #57: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
+      #58: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
+      #59: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.connReader.Read
+      #60: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.connReader.Read
+      #61: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.expectContinueReader.Close
+      #62: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.expectContinueReader.Close
+      #63: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.expectContinueReader.Read
+      #64: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.expectContinueReader.Read
+      #65: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.gzipReader.Close
+      #66: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.gzipReader.Close
+      #67: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.gzipReader.Read
+      #68: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.gzipReader.Read
+      #69: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2ConnectionError.Error
+      #70: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2ConnectionError.Error
+      #71: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2ErrCode.String
+      #72: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2ErrCode.String
+      #73: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameHeader.String
+      #74: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameHeader.String
+      #75: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameType.String
+      #76: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameType.String
+      #77: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameWriteRequest.String
+      #78: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameWriteRequest.String
+      #79: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2GoAwayError.Error
+      #80: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2GoAwayError.Error
+      #81: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2Setting.String
+      #82: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2Setting.String
+      #83: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2SettingID.String
+      #84: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2SettingID.String
+      #85: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2StreamError.Error
+      #86: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2StreamError.Error
+      #87: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2bufferedWriterTimeoutWriter.Write
+      #88: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2bufferedWriterTimeoutWriter.Write
+      #89: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2chunkWriter.Write
+      #90: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2chunkWriter.Write
+      #91: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2connError.Error
+      #92: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2connError.Error
+      #93: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2duplicatePseudoHeaderError.Error
+      #94: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2duplicatePseudoHeaderError.Error
+      #95: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.http2gzipReader.Close
+      #96: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.http2gzipReader.Close
+      #97: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2gzipReader.Read
+      #98: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2gzipReader.Read
+      #99: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2headerFieldNameError.Error
+      #100: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2headerFieldNameError.Error
+      #101: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2headerFieldValueError.Error
+      #102: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2headerFieldValueError.Error
+      #103: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2pseudoHeaderError.Error
+      #104: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2pseudoHeaderError.Error
+      #105: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.http2requestBody.Close
+      #106: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.http2requestBody.Close
+      #107: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2requestBody.Read
+      #108: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2requestBody.Read
+      #109: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.http2responseWriter.Write
+      #110: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.http2responseWriter.Write
+      #111: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2responseWriter.WriteHeader
+      #112: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2responseWriter.WriteHeader
+      #113: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.http2responseWriter.WriteString
+      #114: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.http2responseWriter.WriteString
+      #115: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2stickyErrWriter.Write
+      #116: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2stickyErrWriter.Write
+      #117: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.http2transportResponseBody.Close
+      #118: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.http2transportResponseBody.Close
+      #119: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2transportResponseBody.Read
+      #120: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2transportResponseBody.Read
+      #121: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2writeData.String
+      #122: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2writeData.String
+      #123: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.loggingConn.Read
+      #124: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.loggingConn.Read
+      #125: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.loggingConn.Write
+      #126: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.loggingConn.Write
+      #127: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.maxBytesReader.Read
+      #128: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.maxBytesReader.Read
+      #129: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.onceCloseListener.Close
+      #130: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.onceCloseListener.Close
+      #131: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.persistConn.Read
+      #132: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.persistConn.Read
+      #133: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.persistConnWriter.ReadFrom
+      #134: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.persistConnWriter.ReadFrom
+      #135: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
+      #136: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
+      #137: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.readTrackingBody.Close
+      #138: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.readTrackingBody.Close
+      #139: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readTrackingBody.Read
+      #140: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readTrackingBody.Read
+      #141: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readWriteCloserBody.Read
+      #142: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readWriteCloserBody.Read
+      #143: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.response.ReadFrom
+      #144: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.response.ReadFrom
+      #145: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.response.Write
+      #146: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.response.Write
+      #147: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.response.WriteHeader
+      #148: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.response.WriteHeader
+      #149: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.response.WriteString
+      #150: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.response.WriteString
+      #151: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.timeoutWriter.Write
+      #152: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.timeoutWriter.Write
+      #153: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.timeoutWriter.WriteHeader
+      #154: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.timeoutWriter.WriteHeader
+      #155: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.transportReadFromServerError.Error
+      #156: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.transportReadFromServerError.Error
+
+Vulnerability #3: GO-2026-6613
+    HTTP/1 server connection desynchronization after 2xx CONNECT response in
+    net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6613
+  Standard library
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.26.9
+    Example traces found:
+      #1: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.CanonicalHeaderKey
+      #2: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Client.Do
+      #3: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get
+      #4: pkg/utils/pprof.go:23:2: utils.init calls pprof.init, which eventually calls http.HandleFunc
+      #5: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Add
+      #6: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Del
+      #7: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Get
+      #8: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Set
+      #9: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe
+      #10: pkg/utils/kubelet/node_auth_client.go:18:40: kubelet.InitNodeAuthorizedClient calls kubernetes.NewForConfig, which eventually calls http.NewRequest
+      #11: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.NewRequestWithContext
+      #12: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.ReadResponse
+      #13: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Request.Write
+      #14: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Response.Write
+      #15: pkg/utils/pprof.go:41:14: utils.NewPprofServer calls http.ServeMux.Handle
+      #16: pkg/utils/pprof.go:35:17: utils.NewPprofServer calls http.ServeMux.HandleFunc
+      #17: pkg/utils/pprof.go:63:40: utils.NewPprofServer calls http.Server.ListenAndServe
+      #18: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Server.Serve
+      #19: pkg/utils/pprof.go:58:35: utils.NewPprofServer calls http.Server.Shutdown
+      #20: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.body.Close
+      #21: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.body.Read
+      #22: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.bodyEOFSignal.Close
+      #23: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.bodyEOFSignal.Read
+      #24: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.bodyLocked.Read
+      #25: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.bufioFlushWriter.Write
+      #26: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.cancelTimerBody.Close
+      #27: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.cancelTimerBody.Read
+      #28: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
+      #29: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
+      #30: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.connReader.Read
+      #31: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2transportResponseBody.Read, which eventually calls http.expectContinueReader.Close
+      #32: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.expectContinueReader.Read
+      #33: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.gzipReader.Close
+      #34: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.gzipReader.Read
+      #35: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.loggingConn.Read
+      #36: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.loggingConn.Write
+      #37: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.maxBytesReader.Read
+      #38: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.onceCloseListener.Close
+      #39: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.persistConn.Read
+      #40: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.persistConnWriter.ReadFrom
+      #41: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
+      #42: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2transportResponseBody.Read, which eventually calls http.readTrackingBody.Close
+      #43: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readTrackingBody.Read
+      #44: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readWriteCloserBody.Read
+      #45: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.response.ReadFrom
+      #46: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.response.Write
+      #47: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.response.WriteHeader
+      #48: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.response.WriteString
+      #49: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.timeoutWriter.Write
+      #50: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.timeoutWriter.WriteHeader
+      #51: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.transportReadFromServerError.Error
+
+Vulnerability #4: GO-2026-6612
+    Double flow control refund on HTTP/2 server streams in net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6612
+  Module: golang.org/x/net
+    Found in: golang.org/x/net@v0.58.0
+    Fixed in: golang.org/x/net@v0.60.0
+    Example traces found:
+      #1: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.ClientConn.Close
+      #2: pkg/utils/kubelet/node_auth_client.go:18:40: kubelet.InitNodeAuthorizedClient calls kubernetes.NewForConfig, which eventually calls http2.ConfigureTransports
+      #3: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.ConnectionError.Error
+      #4: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.ErrCode.String
+      #5: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.FrameHeader.String
+      #6: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.FrameType.String
+      #7: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.ReadFrame
+      #8: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.ReadFrameForHeader
+      #9: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.ReadFrameHeader
+      #10: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteContinuation
+      #11: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteGoAway
+      #12: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteHeaders
+      #13: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WritePing
+      #14: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteRSTStream
+      #15: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteSettings
+      #16: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteSettingsAck
+      #17: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteWindowUpdate
+      #18: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.GoAwayError.Error
+      #19: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.Setting.String
+      #20: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.SettingID.String
+      #21: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.SettingsFrame.ForeachSetting
+      #22: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.StreamError.Error
+      #23: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.Transport.NewClientConn
+      #24: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.Transport.RoundTrip
+      #25: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http2.bufferedWriterTimeoutWriter.Write
+      #26: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http2.chunkWriter.Write
+      #27: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.connError.Error
+      #28: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.duplicatePseudoHeaderError.Error
+      #29: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http2.gzipReader.Close
+      #30: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.gzipReader.Read
+      #31: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.headerFieldNameError.Error
+      #32: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.headerFieldValueError.Error
+      #33: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.noDialH2RoundTripper.RoundTrip
+      #34: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.pseudoHeaderError.Error
+      #35: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http2.stickyErrWriter.Write
+      #36: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http2.transportResponseBody.Close
+      #37: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read
+      #38: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.unencryptedTransport.RoundTrip
+      #39: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.writeData.String
+
+  Standard library
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.26.9
+    Example traces found:
+      #1: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.CanonicalHeaderKey
+      #2: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.CanonicalHeaderKey
+      #3: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Client.Do
+      #4: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Client.Do
+      #5: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get
+      #6: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get
+      #7: pkg/utils/pprof.go:23:2: utils.init calls pprof.init, which eventually calls http.HandleFunc
+      #8: pkg/utils/pprof.go:23:2: utils.init calls pprof.init, which eventually calls http.HandleFunc
+      #9: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Add
+      #10: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Add
+      #11: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Del
+      #12: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Del
+      #13: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Get
+      #14: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Get
+      #15: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Set
+      #16: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Set
+      #17: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe
+      #18: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe
+      #19: pkg/utils/kubelet/node_auth_client.go:18:40: kubelet.InitNodeAuthorizedClient calls kubernetes.NewForConfig, which eventually calls http.NewRequest
+      #20: pkg/utils/kubelet/node_auth_client.go:18:40: kubelet.InitNodeAuthorizedClient calls kubernetes.NewForConfig, which eventually calls http.NewRequest
+      #21: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.NewRequestWithContext
+      #22: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.NewRequestWithContext
+      #23: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.ReadResponse
+      #24: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.ReadResponse
+      #25: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Request.Write
+      #26: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Request.Write
+      #27: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Response.Write
+      #28: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Response.Write
+      #29: pkg/utils/pprof.go:41:14: utils.NewPprofServer calls http.ServeMux.Handle
+      #30: pkg/utils/pprof.go:41:14: utils.NewPprofServer calls http.ServeMux.Handle
+      #31: pkg/utils/pprof.go:35:17: utils.NewPprofServer calls http.ServeMux.HandleFunc
+      #32: pkg/utils/pprof.go:35:17: utils.NewPprofServer calls http.ServeMux.HandleFunc
+      #33: pkg/utils/pprof.go:63:40: utils.NewPprofServer calls http.Server.ListenAndServe
+      #34: pkg/utils/pprof.go:63:40: utils.NewPprofServer calls http.Server.ListenAndServe
+      #35: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Server.Serve
+      #36: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Server.Serve
+      #37: pkg/utils/pprof.go:58:35: utils.NewPprofServer calls http.Server.Shutdown
+      #38: pkg/utils/pprof.go:58:35: utils.NewPprofServer calls http.Server.Shutdown
+      #39: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.body.Close
+      #40: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.body.Close
+      #41: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.body.Read
+      #42: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.body.Read
+      #43: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.bodyEOFSignal.Close
+      #44: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.bodyEOFSignal.Close
+      #45: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.bodyEOFSignal.Read
+      #46: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.bodyEOFSignal.Read
+      #47: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.bodyLocked.Read
+      #48: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.bodyLocked.Read
+      #49: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.bufioFlushWriter.Write
+      #50: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.bufioFlushWriter.Write
+      #51: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.cancelTimerBody.Close
+      #52: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.cancelTimerBody.Close
+      #53: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.cancelTimerBody.Read
+      #54: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.cancelTimerBody.Read
+      #55: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
+      #56: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
+      #57: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
+      #58: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
+      #59: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.connReader.Read
+      #60: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.connReader.Read
+      #61: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.expectContinueReader.Close
+      #62: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.expectContinueReader.Close
+      #63: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.expectContinueReader.Read
+      #64: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.expectContinueReader.Read
+      #65: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.gzipReader.Close
+      #66: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.gzipReader.Close
+      #67: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.gzipReader.Read
+      #68: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.gzipReader.Read
+      #69: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2ConnectionError.Error
+      #70: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2ConnectionError.Error
+      #71: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2ErrCode.String
+      #72: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2ErrCode.String
+      #73: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameHeader.String
+      #74: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameHeader.String
+      #75: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameType.String
+      #76: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameType.String
+      #77: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameWriteRequest.String
+      #78: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameWriteRequest.String
+      #79: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2GoAwayError.Error
+      #80: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2GoAwayError.Error
+      #81: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2Setting.String
+      #82: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2Setting.String
+      #83: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2SettingID.String
+      #84: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2SettingID.String
+      #85: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2StreamError.Error
+      #86: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2StreamError.Error
+      #87: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2bufferedWriterTimeoutWriter.Write
+      #88: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2bufferedWriterTimeoutWriter.Write
+      #89: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2chunkWriter.Write
+      #90: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2chunkWriter.Write
+      #91: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2connError.Error
+      #92: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2connError.Error
+      #93: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2duplicatePseudoHeaderError.Error
+      #94: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2duplicatePseudoHeaderError.Error
+      #95: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.http2gzipReader.Close
+      #96: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.http2gzipReader.Close
+      #97: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2gzipReader.Read
+      #98: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2gzipReader.Read
+      #99: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2headerFieldNameError.Error
+      #100: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2headerFieldNameError.Error
+      #101: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2headerFieldValueError.Error
+      #102: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2headerFieldValueError.Error
+      #103: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2pseudoHeaderError.Error
+      #104: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2pseudoHeaderError.Error
+      #105: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.http2requestBody.Close
+      #106: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.http2requestBody.Close
+      #107: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2requestBody.Read
+      #108: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2requestBody.Read
+      #109: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.http2responseWriter.Write
+      #110: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.http2responseWriter.Write
+      #111: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2responseWriter.WriteHeader
+      #112: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2responseWriter.WriteHeader
+      #113: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.http2responseWriter.WriteString
+      #114: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.http2responseWriter.WriteString
+      #115: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2stickyErrWriter.Write
+      #116: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2stickyErrWriter.Write
+      #117: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.http2transportResponseBody.Close
+      #118: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.http2transportResponseBody.Close
+      #119: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2transportResponseBody.Read
+      #120: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2transportResponseBody.Read
+      #121: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2writeData.String
+      #122: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2writeData.String
+      #123: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.loggingConn.Read
+      #124: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.loggingConn.Read
+      #125: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.loggingConn.Write
+      #126: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.loggingConn.Write
+      #127: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.maxBytesReader.Read
+      #128: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.maxBytesReader.Read
+      #129: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.onceCloseListener.Close
+      #130: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.onceCloseListener.Close
+      #131: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.persistConn.Read
+      #132: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.persistConn.Read
+      #133: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.persistConnWriter.ReadFrom
+      #134: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.persistConnWriter.ReadFrom
+      #135: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
+      #136: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
+      #137: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.readTrackingBody.Close
+      #138: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.readTrackingBody.Close
+      #139: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readTrackingBody.Read
+      #140: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readTrackingBody.Read
+      #141: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readWriteCloserBody.Read
+      #142: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readWriteCloserBody.Read
+      #143: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.response.ReadFrom
+      #144: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.response.ReadFrom
+      #145: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.response.Write
+      #146: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.response.Write
+      #147: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.response.WriteHeader
+      #148: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.response.WriteHeader
+      #149: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.response.WriteString
+      #150: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.response.WriteString
+      #151: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.timeoutWriter.Write
+      #152: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.timeoutWriter.Write
+      #153: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.timeoutWriter.WriteHeader
+      #154: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.timeoutWriter.WriteHeader
+      #155: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.transportReadFromServerError.Error
+      #156: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.transportReadFromServerError.Error
+
+Vulnerability #5: GO-2026-6611
+    Excessive CPU consumption from repeated initial window changes in net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6611
+  Module: golang.org/x/net
+    Found in: golang.org/x/net@v0.58.0
+    Fixed in: golang.org/x/net@v0.60.0
+    Example traces found:
+      #1: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.ClientConn.Close
+      #2: pkg/utils/kubelet/node_auth_client.go:18:40: kubelet.InitNodeAuthorizedClient calls kubernetes.NewForConfig, which eventually calls http2.ConfigureTransports
+      #3: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.ConnectionError.Error
+      #4: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.ErrCode.String
+      #5: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.FrameHeader.String
+      #6: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.FrameType.String
+      #7: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.ReadFrame
+      #8: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.ReadFrameForHeader
+      #9: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.ReadFrameHeader
+      #10: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteContinuation
+      #11: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteGoAway
+      #12: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteHeaders
+      #13: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WritePing
+      #14: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteRSTStream
+      #15: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteSettings
+      #16: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteSettingsAck
+      #17: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteWindowUpdate
+      #18: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.GoAwayError.Error
+      #19: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.Setting.String
+      #20: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.SettingID.String
+      #21: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.SettingsFrame.ForeachSetting
+      #22: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.StreamError.Error
+      #23: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.Transport.NewClientConn
+      #24: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.Transport.RoundTrip
+      #25: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http2.bufferedWriterTimeoutWriter.Write
+      #26: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http2.chunkWriter.Write
+      #27: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.connError.Error
+      #28: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.duplicatePseudoHeaderError.Error
+      #29: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http2.gzipReader.Close
+      #30: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.gzipReader.Read
+      #31: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.headerFieldNameError.Error
+      #32: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.headerFieldValueError.Error
+      #33: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.noDialH2RoundTripper.RoundTrip
+      #34: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.pseudoHeaderError.Error
+      #35: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http2.stickyErrWriter.Write
+      #36: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http2.transportResponseBody.Close
+      #37: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read
+      #38: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.unencryptedTransport.RoundTrip
+      #39: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.writeData.String
+
+  Standard library
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.26.9
+    Example traces found:
+      #1: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.CanonicalHeaderKey
+      #2: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.CanonicalHeaderKey
+      #3: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Client.Do
+      #4: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Client.Do
+      #5: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get
+      #6: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get
+      #7: pkg/utils/pprof.go:23:2: utils.init calls pprof.init, which eventually calls http.HandleFunc
+      #8: pkg/utils/pprof.go:23:2: utils.init calls pprof.init, which eventually calls http.HandleFunc
+      #9: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Add
+      #10: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Add
+      #11: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Del
+      #12: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Del
+      #13: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Get
+      #14: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Get
+      #15: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Set
+      #16: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Set
+      #17: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe
+      #18: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe
+      #19: pkg/utils/kubelet/node_auth_client.go:18:40: kubelet.InitNodeAuthorizedClient calls kubernetes.NewForConfig, which eventually calls http.NewRequest
+      #20: pkg/utils/kubelet/node_auth_client.go:18:40: kubelet.InitNodeAuthorizedClient calls kubernetes.NewForConfig, which eventually calls http.NewRequest
+      #21: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.NewRequestWithContext
+      #22: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.NewRequestWithContext
+      #23: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.ReadResponse
+      #24: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.ReadResponse
+      #25: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Request.Write
+      #26: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Request.Write
+      #27: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Response.Write
+      #28: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Response.Write
+      #29: pkg/utils/pprof.go:41:14: utils.NewPprofServer calls http.ServeMux.Handle
+      #30: pkg/utils/pprof.go:41:14: utils.NewPprofServer calls http.ServeMux.Handle
+      #31: pkg/utils/pprof.go:35:17: utils.NewPprofServer calls http.ServeMux.HandleFunc
+      #32: pkg/utils/pprof.go:35:17: utils.NewPprofServer calls http.ServeMux.HandleFunc
+      #33: pkg/utils/pprof.go:63:40: utils.NewPprofServer calls http.Server.ListenAndServe
+      #34: pkg/utils/pprof.go:63:40: utils.NewPprofServer calls http.Server.ListenAndServe
+      #35: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Server.Serve
+      #36: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Server.Serve
+      #37: pkg/utils/pprof.go:58:35: utils.NewPprofServer calls http.Server.Shutdown
+      #38: pkg/utils/pprof.go:58:35: utils.NewPprofServer calls http.Server.Shutdown
+      #39: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.body.Close
+      #40: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.body.Close
+      #41: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.body.Read
+      #42: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.body.Read
+      #43: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.bodyEOFSignal.Close
+      #44: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.bodyEOFSignal.Close
+      #45: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.bodyEOFSignal.Read
+      #46: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.bodyEOFSignal.Read
+      #47: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.bodyLocked.Read
+      #48: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.bodyLocked.Read
+      #49: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.bufioFlushWriter.Write
+      #50: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.bufioFlushWriter.Write
+      #51: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.cancelTimerBody.Close
+      #52: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.cancelTimerBody.Close
+      #53: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.cancelTimerBody.Read
+      #54: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.cancelTimerBody.Read
+      #55: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
+      #56: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
+      #57: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
+      #58: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
+      #59: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.connReader.Read
+      #60: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.connReader.Read
+      #61: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.expectContinueReader.Close
+      #62: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.expectContinueReader.Close
+      #63: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.expectContinueReader.Read
+      #64: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.expectContinueReader.Read
+      #65: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.gzipReader.Close
+      #66: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.gzipReader.Close
+      #67: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.gzipReader.Read
+      #68: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.gzipReader.Read
+      #69: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2ConnectionError.Error
+      #70: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2ConnectionError.Error
+      #71: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2ErrCode.String
+      #72: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2ErrCode.String
+      #73: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameHeader.String
+      #74: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameHeader.String
+      #75: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameType.String
+      #76: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameType.String
+      #77: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameWriteRequest.String
+      #78: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameWriteRequest.String
+      #79: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2GoAwayError.Error
+      #80: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2GoAwayError.Error
+      #81: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2Setting.String
+      #82: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2Setting.String
+      #83: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2SettingID.String
+      #84: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2SettingID.String
+      #85: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2StreamError.Error
+      #86: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2StreamError.Error
+      #87: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2bufferedWriterTimeoutWriter.Write
+      #88: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2bufferedWriterTimeoutWriter.Write
+      #89: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2chunkWriter.Write
+      #90: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2chunkWriter.Write
+      #91: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2connError.Error
+      #92: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2connError.Error
+      #93: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2duplicatePseudoHeaderError.Error
+      #94: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2duplicatePseudoHeaderError.Error
+      #95: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.http2gzipReader.Close
+      #96: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.http2gzipReader.Close
+      #97: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2gzipReader.Read
+      #98: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2gzipReader.Read
+      #99: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2headerFieldNameError.Error
+      #100: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2headerFieldNameError.Error
+      #101: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2headerFieldValueError.Error
+      #102: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2headerFieldValueError.Error
+      #103: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2pseudoHeaderError.Error
+      #104: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2pseudoHeaderError.Error
+      #105: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.http2requestBody.Close
+      #106: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.http2requestBody.Close
+      #107: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2requestBody.Read
+      #108: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2requestBody.Read
+      #109: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.http2responseWriter.Write
+      #110: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.http2responseWriter.Write
+      #111: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2responseWriter.WriteHeader
+      #112: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2responseWriter.WriteHeader
+      #113: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.http2responseWriter.WriteString
+      #114: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.http2responseWriter.WriteString
+      #115: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2stickyErrWriter.Write
+      #116: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2stickyErrWriter.Write
+      #117: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.http2transportResponseBody.Close
+      #118: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.http2transportResponseBody.Close
+      #119: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2transportResponseBody.Read
+      #120: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2transportResponseBody.Read
+      #121: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2writeData.String
+      #122: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2writeData.String
+      #123: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.loggingConn.Read
+      #124: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.loggingConn.Read
+      #125: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.loggingConn.Write
+      #126: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.loggingConn.Write
+      #127: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.maxBytesReader.Read
+      #128: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.maxBytesReader.Read
+      #129: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.onceCloseListener.Close
+      #130: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.onceCloseListener.Close
+      #131: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.persistConn.Read
+      #132: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.persistConn.Read
+      #133: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.persistConnWriter.ReadFrom
+      #134: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.persistConnWriter.ReadFrom
+      #135: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
+      #136: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
+      #137: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.readTrackingBody.Close
+      #138: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.readTrackingBody.Close
+      #139: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readTrackingBody.Read
+      #140: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readTrackingBody.Read
+      #141: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readWriteCloserBody.Read
+      #142: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readWriteCloserBody.Read
+      #143: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.response.ReadFrom
+      #144: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.response.ReadFrom
+      #145: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.response.Write
+      #146: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.response.Write
+      #147: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.response.WriteHeader
+      #148: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.response.WriteHeader
+      #149: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.response.WriteString
+      #150: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.response.WriteString
+      #151: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.timeoutWriter.Write
+      #152: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.timeoutWriter.Write
+      #153: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.timeoutWriter.WriteHeader
+      #154: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.timeoutWriter.WriteHeader
+      #155: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.transportReadFromServerError.Error
+      #156: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.transportReadFromServerError.Error
+
+Vulnerability #6: GO-2026-6610
+    HTTP/2 transport accepts malformed framing-related headers in net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6610
+  Module: golang.org/x/net
+    Found in: golang.org/x/net@v0.58.0
+    Fixed in: golang.org/x/net@v0.60.0
+    Example traces found:
+      #1: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.Transport.NewClientConn
+      #2: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.Transport.RoundTrip
+      #3: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.noDialH2RoundTripper.RoundTrip
+      #4: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.unencryptedTransport.RoundTrip
+
+  Standard library
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.26.9
+    Example traces found:
+      #1: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Client.Do
+      #2: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Client.Do
+      #3: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get
+      #4: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get
+
+Vulnerability #7: GO-2026-6608
+    Memory limit bypass when parsing MIME headers in net/textproto,
+    mime/multipart
+  More info: https://pkg.go.dev/vuln/GO-2026-6608
+  Standard library
+    Found in: net/textproto@go1.25.12
+    Fixed in: net/textproto@go1.26.9
+    Example traces found:
+      #1: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe, which eventually calls multipart.Reader.ReadForm
+      #2: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.body.Read, which eventually calls textproto.Reader.ReadMIMEHeader
+
+Vulnerability #8: GO-2026-6607
+    Reject malformed ECH outer extension references in crypto/tls
+  More info: https://pkg.go.dev/vuln/GO-2026-6607
+  Standard library
+    Found in: crypto/tls@go1.25.12
+    Fixed in: crypto/tls@go1.26.9
+    Example traces found:
+      #1: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe, which eventually calls tls.Conn.HandshakeContext
+      #2: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readWriteCloserBody.Read, which calls tls.Conn.Read
+      #3: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls tls.Conn.Write
+      #4: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls tls.Dialer.DialContext
+
+Vulnerability #9: GO-2026-6605
+    HTTP/1 client connection desynchronization after CONNECT rejection in
+    net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6605
+  Standard library
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.26.9
+    Example traces found:
+      #1: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Client.Do
+      #2: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get
+
+Vulnerability #10: GO-2026-6603
+    HTTP/2 server memory exhaustion due to Trailer headers in net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6603
+  Module: golang.org/x/net
+    Found in: golang.org/x/net@v0.58.0
+    Fixed in: golang.org/x/net@v0.60.0
+    Example traces found:
+      #1: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.ClientConn.Close
+      #2: pkg/utils/kubelet/node_auth_client.go:18:40: kubelet.InitNodeAuthorizedClient calls kubernetes.NewForConfig, which eventually calls http2.ConfigureTransports
+      #3: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.ConnectionError.Error
+      #4: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.ErrCode.String
+      #5: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.FrameHeader.String
+      #6: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.FrameType.String
+      #7: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.ReadFrame
+      #8: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.ReadFrameForHeader
+      #9: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.ReadFrameHeader
+      #10: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteContinuation
+      #11: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteGoAway
+      #12: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteHeaders
+      #13: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WritePing
+      #14: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteRSTStream
+      #15: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteSettings
+      #16: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteSettingsAck
+      #17: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.Framer.WriteWindowUpdate
+      #18: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.GoAwayError.Error
+      #19: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.Setting.String
+      #20: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.SettingID.String
+      #21: pkg/csi/plugins/driver.go:104:9: plugins.driver.run calls csi.nonBlockingGRPCServer.Start, which eventually calls http2.SettingsFrame.ForeachSetting
+      #22: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.StreamError.Error
+      #23: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.Transport.NewClientConn
+      #24: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.Transport.RoundTrip
+      #25: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http2.bufferedWriterTimeoutWriter.Write
+      #26: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http2.chunkWriter.Write
+      #27: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.connError.Error
+      #28: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.duplicatePseudoHeaderError.Error
+      #29: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http2.gzipReader.Close
+      #30: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.gzipReader.Read
+      #31: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.headerFieldNameError.Error
+      #32: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.headerFieldValueError.Error
+      #33: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.noDialH2RoundTripper.RoundTrip
+      #34: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http2.pseudoHeaderError.Error
+      #35: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http2.stickyErrWriter.Write
+      #36: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http2.transportResponseBody.Close
+      #37: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read
+      #38: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls http2.unencryptedTransport.RoundTrip
+      #39: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http2.writeData.String
+
+  Standard library
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.26.9
+    Example traces found:
+      #1: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.CanonicalHeaderKey
+      #2: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.CanonicalHeaderKey
+      #3: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Client.Do
+      #4: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Client.Do
+      #5: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get
+      #6: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get
+      #7: pkg/utils/pprof.go:23:2: utils.init calls pprof.init, which eventually calls http.HandleFunc
+      #8: pkg/utils/pprof.go:23:2: utils.init calls pprof.init, which eventually calls http.HandleFunc
+      #9: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Add
+      #10: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Add
+      #11: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Del
+      #12: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Del
+      #13: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Get
+      #14: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Get
+      #15: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Set
+      #16: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Set
+      #17: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe
+      #18: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe
+      #19: pkg/utils/kubelet/node_auth_client.go:18:40: kubelet.InitNodeAuthorizedClient calls kubernetes.NewForConfig, which eventually calls http.NewRequest
+      #20: pkg/utils/kubelet/node_auth_client.go:18:40: kubelet.InitNodeAuthorizedClient calls kubernetes.NewForConfig, which eventually calls http.NewRequest
+      #21: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.NewRequestWithContext
+      #22: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.NewRequestWithContext
+      #23: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.ReadResponse
+      #24: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.ReadResponse
+      #25: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Request.Write
+      #26: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Request.Write
+      #27: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Response.Write
+      #28: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Response.Write
+      #29: pkg/utils/pprof.go:41:14: utils.NewPprofServer calls http.ServeMux.Handle
+      #30: pkg/utils/pprof.go:41:14: utils.NewPprofServer calls http.ServeMux.Handle
+      #31: pkg/utils/pprof.go:35:17: utils.NewPprofServer calls http.ServeMux.HandleFunc
+      #32: pkg/utils/pprof.go:35:17: utils.NewPprofServer calls http.ServeMux.HandleFunc
+      #33: pkg/utils/pprof.go:63:40: utils.NewPprofServer calls http.Server.ListenAndServe
+      #34: pkg/utils/pprof.go:63:40: utils.NewPprofServer calls http.Server.ListenAndServe
+      #35: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Server.Serve
+      #36: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Server.Serve
+      #37: pkg/utils/pprof.go:58:35: utils.NewPprofServer calls http.Server.Shutdown
+      #38: pkg/utils/pprof.go:58:35: utils.NewPprofServer calls http.Server.Shutdown
+      #39: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.body.Close
+      #40: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.body.Close
+      #41: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.body.Read
+      #42: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.body.Read
+      #43: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.bodyEOFSignal.Close
+      #44: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.bodyEOFSignal.Close
+      #45: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.bodyEOFSignal.Read
+      #46: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.bodyEOFSignal.Read
+      #47: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.bodyLocked.Read
+      #48: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.bodyLocked.Read
+      #49: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.bufioFlushWriter.Write
+      #50: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.bufioFlushWriter.Write
+      #51: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.cancelTimerBody.Close
+      #52: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.cancelTimerBody.Close
+      #53: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.cancelTimerBody.Read
+      #54: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.cancelTimerBody.Read
+      #55: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
+      #56: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
+      #57: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
+      #58: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
+      #59: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.connReader.Read
+      #60: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.connReader.Read
+      #61: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.expectContinueReader.Close
+      #62: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.expectContinueReader.Close
+      #63: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.expectContinueReader.Read
+      #64: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.expectContinueReader.Read
+      #65: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.gzipReader.Close
+      #66: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.gzipReader.Close
+      #67: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.gzipReader.Read
+      #68: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.gzipReader.Read
+      #69: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2ConnectionError.Error
+      #70: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2ConnectionError.Error
+      #71: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2ErrCode.String
+      #72: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2ErrCode.String
+      #73: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameHeader.String
+      #74: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameHeader.String
+      #75: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameType.String
+      #76: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameType.String
+      #77: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameWriteRequest.String
+      #78: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2FrameWriteRequest.String
+      #79: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2GoAwayError.Error
+      #80: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2GoAwayError.Error
+      #81: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2Setting.String
+      #82: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2Setting.String
+      #83: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2SettingID.String
+      #84: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2SettingID.String
+      #85: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2StreamError.Error
+      #86: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2StreamError.Error
+      #87: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2bufferedWriterTimeoutWriter.Write
+      #88: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2bufferedWriterTimeoutWriter.Write
+      #89: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2chunkWriter.Write
+      #90: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2chunkWriter.Write
+      #91: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2connError.Error
+      #92: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2connError.Error
+      #93: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2duplicatePseudoHeaderError.Error
+      #94: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2duplicatePseudoHeaderError.Error
+      #95: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.http2gzipReader.Close
+      #96: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.http2gzipReader.Close
+      #97: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2gzipReader.Read
+      #98: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2gzipReader.Read
+      #99: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2headerFieldNameError.Error
+      #100: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2headerFieldNameError.Error
+      #101: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2headerFieldValueError.Error
+      #102: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2headerFieldValueError.Error
+      #103: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2pseudoHeaderError.Error
+      #104: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.http2pseudoHeaderError.Error
+      #105: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.http2requestBody.Close
+      #106: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.http2requestBody.Close
+      #107: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2requestBody.Read
+      #108: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2requestBody.Read
+      #109: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.http2responseWriter.Write
+      #110: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.http2responseWriter.Write
+      #111: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2responseWriter.WriteHeader
+      #112: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2responseWriter.WriteHeader
+      #113: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.http2responseWriter.WriteString
+      #114: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.http2responseWriter.WriteString
+      #115: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2stickyErrWriter.Write
+      #116: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.http2stickyErrWriter.Write
+      #117: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.http2transportResponseBody.Close
+      #118: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.http2transportResponseBody.Close
+      #119: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2transportResponseBody.Read
+      #120: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2transportResponseBody.Read
+      #121: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2writeData.String
+      #122: pkg/utils/docker/image.go:40:49: docker.ParseDockerImage calls fmt.Sprint, which eventually calls http.http2writeData.String
+      #123: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.loggingConn.Read
+      #124: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.loggingConn.Read
+      #125: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.loggingConn.Write
+      #126: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.loggingConn.Write
+      #127: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.maxBytesReader.Read
+      #128: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.maxBytesReader.Read
+      #129: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.onceCloseListener.Close
+      #130: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.onceCloseListener.Close
+      #131: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.persistConn.Read
+      #132: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.persistConn.Read
+      #133: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.persistConnWriter.ReadFrom
+      #134: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.persistConnWriter.ReadFrom
+      #135: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
+      #136: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
+      #137: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.readTrackingBody.Close
+      #138: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http2.transportResponseBody.Read, which eventually calls http.readTrackingBody.Close
+      #139: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readTrackingBody.Read
+      #140: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readTrackingBody.Read
+      #141: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readWriteCloserBody.Read
+      #142: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readWriteCloserBody.Read
+      #143: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.response.ReadFrom
+      #144: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.response.ReadFrom
+      #145: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.response.Write
+      #146: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.response.Write
+      #147: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.response.WriteHeader
+      #148: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.response.WriteHeader
+      #149: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.response.WriteString
+      #150: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.response.WriteString
+      #151: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.timeoutWriter.Write
+      #152: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.timeoutWriter.Write
+      #153: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.timeoutWriter.WriteHeader
+      #154: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.timeoutWriter.WriteHeader
+      #155: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.transportReadFromServerError.Error
+      #156: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.transportReadFromServerError.Error
+
+Vulnerability #11: GO-2026-6600
+    Recognize yield as regexp preceder keyword in html/template
+  More info: https://pkg.go.dev/vuln/GO-2026-6600
+  Standard library
+    Found in: html/template@go1.25.12
+    Fixed in: html/template@go1.26.9
+    Example traces found:
+      #1: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe, which eventually calls template.Template.Execute
+      #2: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe, which eventually calls template.Template.ExecuteTemplate
+
+Vulnerability #12: GO-2026-6599
+    Reset context tracking on consecutive template expressions in html/template
+  More info: https://pkg.go.dev/vuln/GO-2026-6599
+  Standard library
+    Found in: html/template@go1.25.12
+    Fixed in: html/template@go1.26.9
+    Example traces found:
+      #1: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe, which eventually calls template.Template.Execute
+      #2: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe, which eventually calls template.Template.ExecuteTemplate
+
+Vulnerability #13: GO-2026-6218
+    Avoid quadratic complexity in resolvePath in net/url
+  More info: https://pkg.go.dev/vuln/GO-2026-6218
+  Standard library
+    Found in: net/url@go1.25.12
+    Fixed in: net/url@go1.25.13
+    Example traces found:
+      #1: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls url.URL.Parse
+
+Vulnerability #14: GO-2026-6091
+    Fix Javascript regexp context tracking in html/template
+  More info: https://pkg.go.dev/vuln/GO-2026-6091
+  Standard library
+    Found in: html/template@go1.25.12
+    Fixed in: html/template@go1.25.13
+    Example traces found:
+      #1: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe, which eventually calls template.Template.Execute
+      #2: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe, which eventually calls template.Template.ExecuteTemplate
+
+Vulnerability #15: GO-2026-6090
+    Limit handshake messages we are willing to accept post-handshake in
+    crypto/tls
+  More info: https://pkg.go.dev/vuln/GO-2026-6090
+  Standard library
+    Found in: crypto/tls@go1.25.12
+    Fixed in: crypto/tls@go1.25.13
+    Example traces found:
+      #1: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe, which eventually calls tls.Conn.HandshakeContext
+      #2: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readWriteCloserBody.Read, which calls tls.Conn.Read
+      #3: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls tls.Conn.Write
+      #4: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get, which eventually calls tls.Dialer.DialContext
+
+Vulnerability #16: GO-2026-6089
+    Apply ReadHeaderTimeout when doing unencrypted HTTP/2 check in net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6089
+  Standard library
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.25.13
+    Example traces found:
+      #1: test/gha-e2e/jindo/oss-emulator/main.go:166:31: oss.main calls http.ListenAndServe
+      #2: pkg/utils/pprof.go:63:40: utils.NewPprofServer calls http.Server.ListenAndServe
+      #3: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Server.Serve
+
+Vulnerability #17: GO-2026-5972
+    Enforce maximum recursion depth in encoding/asn1
+  More info: https://pkg.go.dev/vuln/GO-2026-5972
+  Standard library
+    Found in: encoding/asn1@go1.25.12
+    Fixed in: encoding/asn1@go1.25.13
+    Example traces found:
+      #1: pkg/utils/webhook/generator/selfsigned.go:177:30: generator.NewSignedCert calls x509.ParseCertificate, which eventually calls asn1.Unmarshal
+
+Vulnerability #18: GO-2026-5026
+    Invoking failure to reject ASCII-only Punycode-encoded labels in
+    golang.org/x/net/idna
+  More info: https://pkg.go.dev/vuln/GO-2026-5026
+  Standard library
+    Found in: net/http@go1.25.12
+    Fixed in: net/http@go1.25.13
+    Example traces found:
+      #1: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Client.Do
+      #2: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get
+
+Vulnerability #19: GO-2025-4240
+    Half-blind Server Side Request Forgery in kube-controller-manager through
+    in-tree Portworx StorageClass in k8s.io/kubernetes
+  More info: https://pkg.go.dev/vuln/GO-2025-4240
+  Module: k8s.io/kubernetes
+    Found in: k8s.io/kubernetes@v1.29.15
+    Fixed in: k8s.io/kubernetes@v1.32.10
+    Example traces found:
+      #1: pkg/ddc/base/portallocator/bitmap_allocator.go:58:25: portallocator.BitMapAllocator.Allocate calls portallocator.PortAllocator.Allocate, which calls allocator.AllocationBitmap.Allocate
+      #2: pkg/ddc/base/portallocator/bitmap_allocator.go:81:43: portallocator.BitMapAllocator.AllocateBatch calls portallocator.PortAllocator.AllocateNext, which calls allocator.AllocationBitmap.AllocateNext
+      #3: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release, which eventually calls allocator.AllocationBitmap.Free
+      #4: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release, which calls allocator.AllocationBitmap.Release
+      #5: pkg/ddc/base/portallocator/bitmap_allocator.go:44:36: portallocator.newBitMapAllocator calls allocator.NewAllocationMap
+      #6: pkg/ddc/base/portallocator/bitmap_allocator.go:25:2: portallocator.init calls allocator.init
+      #7: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Binding.DeepCopyObject
+      #8: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ComponentStatus.DeepCopyObject
+      #9: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ComponentStatusList.DeepCopyObject
+      #10: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ConfigMap.DeepCopyObject
+      #11: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ConfigMapList.DeepCopyObject
+      #12: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Endpoints.DeepCopyObject
+      #13: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.EndpointsList.DeepCopyObject
+      #14: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Event.DeepCopyObject
+      #15: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.EventList.DeepCopyObject
+      #16: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.LimitRange.DeepCopyObject
+      #17: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.LimitRangeList.DeepCopyObject
+      #18: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.List.DeepCopyObject
+      #19: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Namespace.DeepCopyObject
+      #20: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NamespaceList.DeepCopyObject
+      #21: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Node.DeepCopyObject
+      #22: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NodeList.DeepCopyObject
+      #23: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NodeProxyOptions.DeepCopyObject
+      #24: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ObjectReference.DeepCopyObject
+      #25: pkg/utils/transformer/owner_reference.go:46:40: transformer.GenerateOwnerReferenceFromObject calls apiutil.GVKForObject, which calls core.ObjectReference.GetObjectKind
+      #26: pkg/utils/transformer/owner_reference.go:46:40: transformer.GenerateOwnerReferenceFromObject calls apiutil.GVKForObject, which calls core.ObjectReference.GroupVersionKind
+      #27: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls core.ObjectReference.SetGroupVersionKind
+      #28: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolume.DeepCopyObject
+      #29: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeClaim.DeepCopyObject
+      #30: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeClaimList.DeepCopyObject
+      #31: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeList.DeepCopyObject
+      #32: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Pod.DeepCopyObject
+      #33: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodAttachOptions.DeepCopyObject
+      #34: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodExecOptions.DeepCopyObject
+      #35: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodList.DeepCopyObject
+      #36: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodLogOptions.DeepCopyObject
+      #37: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodPortForwardOptions.DeepCopyObject
+      #38: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodProxyOptions.DeepCopyObject
+      #39: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodStatusResult.DeepCopyObject
+      #40: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodTemplate.DeepCopyObject
+      #41: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodTemplateList.DeepCopyObject
+      #42: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.RangeAllocation.DeepCopyObject
+      #43: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ReplicationController.DeepCopyObject
+      #44: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ReplicationControllerList.DeepCopyObject
+      #45: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ResourceQuota.DeepCopyObject
+      #46: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ResourceQuotaList.DeepCopyObject
+      #47: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Secret.DeepCopyObject
+      #48: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.SecretList.DeepCopyObject
+      #49: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.SerializedReference.DeepCopyObject
+      #50: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Service.DeepCopyObject
+      #51: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceAccount.DeepCopyObject
+      #52: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceAccountList.DeepCopyObject
+      #53: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceList.DeepCopyObject
+      #54: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceProxyOptions.DeepCopyObject
+      #55: cmd/dataset/app/dataset.go:90:32: app.init#1 calls runtime.SchemeBuilder.AddToScheme, which calls core.addKnownTypes
+      #56: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init, which calls core.init
+      #57: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init, which calls features.init
+      #58: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls fieldpath.SplitMaybeSubscriptedPath
+      #59: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls fieldpath.init
+      #60: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls hash.DeepHashObject
+      #61: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls hash.init
+      #62: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls pod.GetPodReadyCondition
+      #63: pkg/ddc/juicefs/utils.go:137:25: juicefs.JuiceFSEngine.GetRunningPodsOfStatefulSet calls pod.IsPodReady
+      #64: pkg/utils/kubeclient/pod.go:28:2: kubeclient.init calls pod.init
+      #65: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls portallocator.ErrNotInRange.Error
+      #66: pkg/ddc/base/portallocator/bitmap_allocator.go:43:33: portallocator.newBitMapAllocator calls portallocator.New
+      #67: pkg/ddc/base/portallocator/bitmap_allocator.go:58:25: portallocator.BitMapAllocator.Allocate calls portallocator.PortAllocator.Allocate
+      #68: pkg/ddc/base/portallocator/bitmap_allocator.go:81:43: portallocator.BitMapAllocator.AllocateBatch calls portallocator.PortAllocator.AllocateNext
+      #69: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release
+      #70: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init
+      #71: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls slice.init
+
+Vulnerability #20: GO-2025-3915
+    Kubernetes Nodes can delete themselves by adding an OwnerReference in
+    k8s.io/kubernetes
+  More info: https://pkg.go.dev/vuln/GO-2025-3915
+  Module: k8s.io/kubernetes
+    Found in: k8s.io/kubernetes@v1.29.15
+    Fixed in: k8s.io/kubernetes@v1.31.12
+    Example traces found:
+      #1: pkg/ddc/base/portallocator/bitmap_allocator.go:58:25: portallocator.BitMapAllocator.Allocate calls portallocator.PortAllocator.Allocate, which calls allocator.AllocationBitmap.Allocate
+      #2: pkg/ddc/base/portallocator/bitmap_allocator.go:81:43: portallocator.BitMapAllocator.AllocateBatch calls portallocator.PortAllocator.AllocateNext, which calls allocator.AllocationBitmap.AllocateNext
+      #3: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release, which eventually calls allocator.AllocationBitmap.Free
+      #4: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release, which calls allocator.AllocationBitmap.Release
+      #5: pkg/ddc/base/portallocator/bitmap_allocator.go:44:36: portallocator.newBitMapAllocator calls allocator.NewAllocationMap
+      #6: pkg/ddc/base/portallocator/bitmap_allocator.go:25:2: portallocator.init calls allocator.init
+      #7: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Binding.DeepCopyObject
+      #8: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ComponentStatus.DeepCopyObject
+      #9: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ComponentStatusList.DeepCopyObject
+      #10: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ConfigMap.DeepCopyObject
+      #11: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ConfigMapList.DeepCopyObject
+      #12: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Endpoints.DeepCopyObject
+      #13: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.EndpointsList.DeepCopyObject
+      #14: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Event.DeepCopyObject
+      #15: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.EventList.DeepCopyObject
+      #16: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.LimitRange.DeepCopyObject
+      #17: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.LimitRangeList.DeepCopyObject
+      #18: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.List.DeepCopyObject
+      #19: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Namespace.DeepCopyObject
+      #20: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NamespaceList.DeepCopyObject
+      #21: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Node.DeepCopyObject
+      #22: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NodeList.DeepCopyObject
+      #23: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NodeProxyOptions.DeepCopyObject
+      #24: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ObjectReference.DeepCopyObject
+      #25: pkg/utils/transformer/owner_reference.go:46:40: transformer.GenerateOwnerReferenceFromObject calls apiutil.GVKForObject, which calls core.ObjectReference.GetObjectKind
+      #26: pkg/utils/transformer/owner_reference.go:46:40: transformer.GenerateOwnerReferenceFromObject calls apiutil.GVKForObject, which calls core.ObjectReference.GroupVersionKind
+      #27: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls core.ObjectReference.SetGroupVersionKind
+      #28: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolume.DeepCopyObject
+      #29: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeClaim.DeepCopyObject
+      #30: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeClaimList.DeepCopyObject
+      #31: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeList.DeepCopyObject
+      #32: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Pod.DeepCopyObject
+      #33: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodAttachOptions.DeepCopyObject
+      #34: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodExecOptions.DeepCopyObject
+      #35: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodList.DeepCopyObject
+      #36: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodLogOptions.DeepCopyObject
+      #37: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodPortForwardOptions.DeepCopyObject
+      #38: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodProxyOptions.DeepCopyObject
+      #39: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodStatusResult.DeepCopyObject
+      #40: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodTemplate.DeepCopyObject
+      #41: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodTemplateList.DeepCopyObject
+      #42: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.RangeAllocation.DeepCopyObject
+      #43: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ReplicationController.DeepCopyObject
+      #44: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ReplicationControllerList.DeepCopyObject
+      #45: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ResourceQuota.DeepCopyObject
+      #46: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ResourceQuotaList.DeepCopyObject
+      #47: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Secret.DeepCopyObject
+      #48: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.SecretList.DeepCopyObject
+      #49: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.SerializedReference.DeepCopyObject
+      #50: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Service.DeepCopyObject
+      #51: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceAccount.DeepCopyObject
+      #52: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceAccountList.DeepCopyObject
+      #53: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceList.DeepCopyObject
+      #54: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceProxyOptions.DeepCopyObject
+      #55: cmd/dataset/app/dataset.go:90:32: app.init#1 calls runtime.SchemeBuilder.AddToScheme, which calls core.addKnownTypes
+      #56: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init, which calls core.init
+      #57: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init, which calls features.init
+      #58: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls fieldpath.SplitMaybeSubscriptedPath
+      #59: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls fieldpath.init
+      #60: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls hash.DeepHashObject
+      #61: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls hash.init
+      #62: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls pod.GetPodReadyCondition
+      #63: pkg/ddc/juicefs/utils.go:137:25: juicefs.JuiceFSEngine.GetRunningPodsOfStatefulSet calls pod.IsPodReady
+      #64: pkg/utils/kubeclient/pod.go:28:2: kubeclient.init calls pod.init
+      #65: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls portallocator.ErrNotInRange.Error
+      #66: pkg/ddc/base/portallocator/bitmap_allocator.go:43:33: portallocator.newBitMapAllocator calls portallocator.New
+      #67: pkg/ddc/base/portallocator/bitmap_allocator.go:58:25: portallocator.BitMapAllocator.Allocate calls portallocator.PortAllocator.Allocate
+      #68: pkg/ddc/base/portallocator/bitmap_allocator.go:81:43: portallocator.BitMapAllocator.AllocateBatch calls portallocator.PortAllocator.AllocateNext
+      #69: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release
+      #70: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init
+      #71: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls slice.init
+
+Vulnerability #21: GO-2025-3547
+    Kubernetes kube-apiserver Vulnerable to Race Condition in k8s.io/kubernetes
+  More info: https://pkg.go.dev/vuln/GO-2025-3547
+  Module: k8s.io/kubernetes
+    Found in: k8s.io/kubernetes@v1.29.15
+    Fixed in: N/A
+    Example traces found:
+      #1: pkg/ddc/base/portallocator/bitmap_allocator.go:58:25: portallocator.BitMapAllocator.Allocate calls portallocator.PortAllocator.Allocate, which calls allocator.AllocationBitmap.Allocate
+      #2: pkg/ddc/base/portallocator/bitmap_allocator.go:81:43: portallocator.BitMapAllocator.AllocateBatch calls portallocator.PortAllocator.AllocateNext, which calls allocator.AllocationBitmap.AllocateNext
+      #3: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release, which eventually calls allocator.AllocationBitmap.Free
+      #4: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release, which calls allocator.AllocationBitmap.Release
+      #5: pkg/ddc/base/portallocator/bitmap_allocator.go:44:36: portallocator.newBitMapAllocator calls allocator.NewAllocationMap
+      #6: pkg/ddc/base/portallocator/bitmap_allocator.go:25:2: portallocator.init calls allocator.init
+      #7: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Binding.DeepCopyObject
+      #8: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ComponentStatus.DeepCopyObject
+      #9: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ComponentStatusList.DeepCopyObject
+      #10: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ConfigMap.DeepCopyObject
+      #11: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ConfigMapList.DeepCopyObject
+      #12: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Endpoints.DeepCopyObject
+      #13: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.EndpointsList.DeepCopyObject
+      #14: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Event.DeepCopyObject
+      #15: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.EventList.DeepCopyObject
+      #16: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.LimitRange.DeepCopyObject
+      #17: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.LimitRangeList.DeepCopyObject
+      #18: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.List.DeepCopyObject
+      #19: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Namespace.DeepCopyObject
+      #20: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NamespaceList.DeepCopyObject
+      #21: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Node.DeepCopyObject
+      #22: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NodeList.DeepCopyObject
+      #23: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NodeProxyOptions.DeepCopyObject
+      #24: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ObjectReference.DeepCopyObject
+      #25: pkg/utils/transformer/owner_reference.go:46:40: transformer.GenerateOwnerReferenceFromObject calls apiutil.GVKForObject, which calls core.ObjectReference.GetObjectKind
+      #26: pkg/utils/transformer/owner_reference.go:46:40: transformer.GenerateOwnerReferenceFromObject calls apiutil.GVKForObject, which calls core.ObjectReference.GroupVersionKind
+      #27: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls core.ObjectReference.SetGroupVersionKind
+      #28: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolume.DeepCopyObject
+      #29: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeClaim.DeepCopyObject
+      #30: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeClaimList.DeepCopyObject
+      #31: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeList.DeepCopyObject
+      #32: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Pod.DeepCopyObject
+      #33: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodAttachOptions.DeepCopyObject
+      #34: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodExecOptions.DeepCopyObject
+      #35: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodList.DeepCopyObject
+      #36: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodLogOptions.DeepCopyObject
+      #37: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodPortForwardOptions.DeepCopyObject
+      #38: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodProxyOptions.DeepCopyObject
+      #39: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodStatusResult.DeepCopyObject
+      #40: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodTemplate.DeepCopyObject
+      #41: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodTemplateList.DeepCopyObject
+      #42: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.RangeAllocation.DeepCopyObject
+      #43: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ReplicationController.DeepCopyObject
+      #44: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ReplicationControllerList.DeepCopyObject
+      #45: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ResourceQuota.DeepCopyObject
+      #46: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ResourceQuotaList.DeepCopyObject
+      #47: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Secret.DeepCopyObject
+      #48: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.SecretList.DeepCopyObject
+      #49: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.SerializedReference.DeepCopyObject
+      #50: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Service.DeepCopyObject
+      #51: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceAccount.DeepCopyObject
+      #52: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceAccountList.DeepCopyObject
+      #53: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceList.DeepCopyObject
+      #54: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceProxyOptions.DeepCopyObject
+      #55: cmd/dataset/app/dataset.go:90:32: app.init#1 calls runtime.SchemeBuilder.AddToScheme, which calls core.addKnownTypes
+      #56: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init, which calls core.init
+      #57: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init, which calls features.init
+      #58: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls fieldpath.SplitMaybeSubscriptedPath
+      #59: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls fieldpath.init
+      #60: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls hash.DeepHashObject
+      #61: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls hash.init
+      #62: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls pod.GetPodReadyCondition
+      #63: pkg/ddc/juicefs/utils.go:137:25: juicefs.JuiceFSEngine.GetRunningPodsOfStatefulSet calls pod.IsPodReady
+      #64: pkg/utils/kubeclient/pod.go:28:2: kubeclient.init calls pod.init
+      #65: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls portallocator.ErrNotInRange.Error
+      #66: pkg/ddc/base/portallocator/bitmap_allocator.go:43:33: portallocator.newBitMapAllocator calls portallocator.New
+      #67: pkg/ddc/base/portallocator/bitmap_allocator.go:58:25: portallocator.BitMapAllocator.Allocate calls portallocator.PortAllocator.Allocate
+      #68: pkg/ddc/base/portallocator/bitmap_allocator.go:81:43: portallocator.BitMapAllocator.AllocateBatch calls portallocator.PortAllocator.AllocateNext
+      #69: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release
+      #70: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init
+      #71: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls slice.init
+
+Vulnerability #22: GO-2025-3521
+    Kubernetes GitRepo Volume Inadvertent Local Repository Access in
+    k8s.io/kubernetes
+  More info: https://pkg.go.dev/vuln/GO-2025-3521
+  Module: k8s.io/kubernetes
+    Found in: k8s.io/kubernetes@v1.29.15
+    Fixed in: N/A
+    Example traces found:
+      #1: pkg/ddc/base/portallocator/bitmap_allocator.go:58:25: portallocator.BitMapAllocator.Allocate calls portallocator.PortAllocator.Allocate, which calls allocator.AllocationBitmap.Allocate
+      #2: pkg/ddc/base/portallocator/bitmap_allocator.go:81:43: portallocator.BitMapAllocator.AllocateBatch calls portallocator.PortAllocator.AllocateNext, which calls allocator.AllocationBitmap.AllocateNext
+      #3: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release, which eventually calls allocator.AllocationBitmap.Free
+      #4: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release, which calls allocator.AllocationBitmap.Release
+      #5: pkg/ddc/base/portallocator/bitmap_allocator.go:44:36: portallocator.newBitMapAllocator calls allocator.NewAllocationMap
+      #6: pkg/ddc/base/portallocator/bitmap_allocator.go:25:2: portallocator.init calls allocator.init
+      #7: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Binding.DeepCopyObject
+      #8: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ComponentStatus.DeepCopyObject
+      #9: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ComponentStatusList.DeepCopyObject
+      #10: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ConfigMap.DeepCopyObject
+      #11: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ConfigMapList.DeepCopyObject
+      #12: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Endpoints.DeepCopyObject
+      #13: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.EndpointsList.DeepCopyObject
+      #14: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Event.DeepCopyObject
+      #15: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.EventList.DeepCopyObject
+      #16: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.LimitRange.DeepCopyObject
+      #17: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.LimitRangeList.DeepCopyObject
+      #18: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.List.DeepCopyObject
+      #19: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Namespace.DeepCopyObject
+      #20: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NamespaceList.DeepCopyObject
+      #21: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Node.DeepCopyObject
+      #22: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NodeList.DeepCopyObject
+      #23: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NodeProxyOptions.DeepCopyObject
+      #24: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ObjectReference.DeepCopyObject
+      #25: pkg/utils/transformer/owner_reference.go:46:40: transformer.GenerateOwnerReferenceFromObject calls apiutil.GVKForObject, which calls core.ObjectReference.GetObjectKind
+      #26: pkg/utils/transformer/owner_reference.go:46:40: transformer.GenerateOwnerReferenceFromObject calls apiutil.GVKForObject, which calls core.ObjectReference.GroupVersionKind
+      #27: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls core.ObjectReference.SetGroupVersionKind
+      #28: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolume.DeepCopyObject
+      #29: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeClaim.DeepCopyObject
+      #30: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeClaimList.DeepCopyObject
+      #31: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeList.DeepCopyObject
+      #32: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Pod.DeepCopyObject
+      #33: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodAttachOptions.DeepCopyObject
+      #34: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodExecOptions.DeepCopyObject
+      #35: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodList.DeepCopyObject
+      #36: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodLogOptions.DeepCopyObject
+      #37: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodPortForwardOptions.DeepCopyObject
+      #38: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodProxyOptions.DeepCopyObject
+      #39: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodStatusResult.DeepCopyObject
+      #40: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodTemplate.DeepCopyObject
+      #41: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodTemplateList.DeepCopyObject
+      #42: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.RangeAllocation.DeepCopyObject
+      #43: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ReplicationController.DeepCopyObject
+      #44: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ReplicationControllerList.DeepCopyObject
+      #45: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ResourceQuota.DeepCopyObject
+      #46: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ResourceQuotaList.DeepCopyObject
+      #47: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Secret.DeepCopyObject
+      #48: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.SecretList.DeepCopyObject
+      #49: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.SerializedReference.DeepCopyObject
+      #50: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Service.DeepCopyObject
+      #51: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceAccount.DeepCopyObject
+      #52: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceAccountList.DeepCopyObject
+      #53: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceList.DeepCopyObject
+      #54: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceProxyOptions.DeepCopyObject
+      #55: cmd/dataset/app/dataset.go:90:32: app.init#1 calls runtime.SchemeBuilder.AddToScheme, which calls core.addKnownTypes
+      #56: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init, which calls core.init
+      #57: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init, which calls features.init
+      #58: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls fieldpath.SplitMaybeSubscriptedPath
+      #59: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls fieldpath.init
+      #60: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls hash.DeepHashObject
+      #61: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls hash.init
+      #62: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls pod.GetPodReadyCondition
+      #63: pkg/ddc/juicefs/utils.go:137:25: juicefs.JuiceFSEngine.GetRunningPodsOfStatefulSet calls pod.IsPodReady
+      #64: pkg/utils/kubeclient/pod.go:28:2: kubeclient.init calls pod.init
+      #65: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls portallocator.ErrNotInRange.Error
+      #66: pkg/ddc/base/portallocator/bitmap_allocator.go:43:33: portallocator.newBitMapAllocator calls portallocator.New
+      #67: pkg/ddc/base/portallocator/bitmap_allocator.go:58:25: portallocator.BitMapAllocator.Allocate calls portallocator.PortAllocator.Allocate
+      #68: pkg/ddc/base/portallocator/bitmap_allocator.go:81:43: portallocator.BitMapAllocator.AllocateBatch calls portallocator.PortAllocator.AllocateNext
+      #69: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release
+      #70: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init
+      #71: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls slice.init
+
+Your code is affected by 22 vulnerabilities from 1 module and the Go standard library.
+This scan also found 5 vulnerabilities in packages you import and 0
+vulnerabilities in modules you require, but your code doesn't appear to call
+these vulnerabilities.
+Use '-show verbose' for more details.
+EXIT=3

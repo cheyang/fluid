@@ -1,0 +1,11 @@
+=== go build ./... with GOTOOLCHAIN=go1.26.10 ===
+PASS (exit 0), toolchain: go1.26.10
+
+=== go mod verify ===
+all modules verified
+
+=== go mod tidy / go mod vendor ===
+no diff (go.mod, go.sum, vendor unchanged)
+
+=== gomonkey v2.13.0 (base code) + go1.26.10, canonical -N -l flags ===
+pkg/utils/helm ok, pkg/utils/cmdguard ok, pkg/csi/plugins ok  -> v2.13.0 works on linux/amd64 in canonical test mode; the v2.14.4 bump is justified by darwin/arm64 claims (not testable here)
