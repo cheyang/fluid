@@ -1,0 +1,5 @@
+Round 3 harness-bites check for the new PinnedIsV4Tip contract (2026-11-05):
+Synthetic tree with all three pins replaced by the actual v4 tip 33d7b85d (v4.39.3):
+  PinnedIsV4Tip/sonarcloud.yaml:54 pass; PinnedIsV4Tip/codeql-analysis.yml:49 pass; PinnedIsV4Tip/codeql-analysis.yml:69 pass (exit 0)
+At the real pinned SHA 9b325408 (v4.39.1) the same three tests fail (results/r3-v4tip.b67885cd.txt).
+=> the check flips green exactly when the pin catches up with the upstream v4 tip.
