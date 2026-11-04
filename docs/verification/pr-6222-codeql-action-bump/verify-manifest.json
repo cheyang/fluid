@@ -27,7 +27,7 @@
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "bash docs/verification/pr-6222-codeql-action-bump/scripts/check-codeql-tags.sh"
+      "cmd": "bash docs/verification/pr-6222-codeql-action-bump/scripts/check-codeql-tags.sh; bash docs/verification/pr-6222-codeql-action-bump/scripts/check-codeql-pin-is-v4-tip.sh"
     }
   },
   "findings": [
