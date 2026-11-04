@@ -79,6 +79,47 @@ picked it up). `Analyze (go)` SUCCESS on run 41406062036 (11m54s) re-exercises i
 the pinned v4.39.1 on the new head. `tide` is pending only for human `approved`/`lgtm` labels
 (Prow merge gate), not a test failure.
 
+## Round 3 re-verification (2026-11-05, head `b67885cd`, base `7f27b7e`)
+
+Another pure-rebase round: the PR was rebased from master `96a3765e` onto master `7f27b7e2a`
+(`feat(cache): support HPA on CacheRuntime via scale subresource and status selector (#6223)`).
+`git diff c805f164..b67885cd` on the two workflow files is **empty** — the PR's own diff
+(3 pin lines, `6f2ac81f` → `9b325408`) is byte-identical for the third round. The full
+`c805f164..b67885cd` delta is exactly the upstream #6223 content (Go/CRD/e2e-script files;
+**zero** `.github/workflows` files), so there is no interaction with this PR's change.
+`git diff 7f27b7e...b67885cd` = 2 files, 3 insertions, 3 deletions, every changed line a
+`github/codeql-action` `uses:` pin; the new head's parent is `7f27b7e` (clean rebase).
+
+Re-ran `scripts/re-verify.sh` (auto-resolved head `b67885cd`) and the changed-base
+differential against `7f27b7e`:
+
+| ID | Polarity | Layer | Round-3 verdict (head) | Round-3 verdict (new base) | Evidence |
+|----|----------|-------|------------------------|---------------------------|----------|
+| P0-pin-current | contract | integration | **FAILS — upstream moved**: pinned v4.39.1 is no longer the v4 tip; `v4.39.2` (`1fc58d04`) and `v4.39.3` (`33d7b85d` = `releases/v4` tip) were released after round 2 | FAILS (base pins v4.39.0, 3 releases behind) | `results/r3-integration-{head-b67885c,base-7f27b7e}.jsonl` |
+| AC1-pin-integrity | contract | integration | pass: `9b325408` == peeled `refs/tags/v4.39.1` | pass: `6f2ac81f` == peeled `refs/tags/v4.39.0` | same files |
+| AC2-group-consistency | contract | unit | pass: 3 refs, single SHA `9b325408` | pass | `results/r3-unit-{head,base}*.jsonl` |
+| AC3-pinning-discipline | contract | unit | pass: full 40-hex SHAs; 6 workflow files parse | pass | same files |
+| F1-stale-version-comments | canary | integration | STILL-PRESENT (comments `# v3.29.5` / `# v2.22.11` vs pin v4.39.1) | STILL-PRESENT (vs v4.39.0 — pre-existing there) | same files |
+| F2-upload-sarif-not-on-prs | canary | integration | STILL-PRESENT (triggers `push`, `schedule`) | STILL-PRESENT | same files |
+
+**Interpretation of the P0/AC3 "is-tip" failure on head — upstream treadmill, not a PR defect.**
+At round 2 (2026-11-03) `v4.39.1` *was* the `releases/v4` tip; `v4.39.2` and `v4.39.3` were
+released upstream since then. The differential the PR exists to close still holds: base and
+even current master (`30d488bb7`) still pin `6f2ac81f` = v4.39.0, so the head's `9b325408`
+remains a strict, authentic improvement (3 releases behind → 2 behind). Any dependabot bump
+is a snapshot and can be stale by merge time; the remedy is the next dependabot bump (or
+rebasing this PR onto a fresh one), not changes to this PR's content. Recorded in the round-3
+ledger as non-blocking finding **F3** (pin behind current upstream tip at merge time).
+
+**CI on the new head (live, 2026-11-05):** all checks green — `Analyze (go)` pass 11m59s
+(run 41786476442, job 126429663570) re-exercising init+analyze at v4.39.1; kind-e2e-test ×5
+(run 41786476406), backward-compat ×5 (run 41786476401), build ×2 (run 41786476363),
+unittest/lint/staticcheck, DCO, CircleCI, both SonarCloud decorations. `tide` now reports
+**pass / "In merge pool"** (the human approved/lgtm gate is satisfied). PR state:
+OPEN, mergeable CLEAN, 1 commit. Harness-bites evidence from round 1
+(`results/bite-checks.txt`) carries unchanged — the production diff is byte-identical to
+round 2 and the harness is unmodified.
+
 ## Per-finding detail
 
 - **P0 / AC1 / AC2 / AC3** (contract tests): all green on the PR head. The differential run on
