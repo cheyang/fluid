@@ -1,0 +1,4 @@
+=== CI toolchain go1.25.12, head ===
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/gomonkeycompat	1.114s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	0.019s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient	0.228s

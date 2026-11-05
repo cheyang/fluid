@@ -1,0 +1,4 @@
+=== race, head (PR a6aa6afd, gomonkey 2.14.4) ===
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/gomonkeycompat	2.024s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient	1.382s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	1.067s

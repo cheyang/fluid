@@ -1,0 +1,57 @@
+{
+  "topic": "gomonkey-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6228",
+  "harnessPaths": [
+    "docs/verification/gomonkey-bump",
+    "pkg/utils/gomonkeycompat"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Upstream gomonkey release notes for v2.14.x claim v2.13.0 crashes when CPU profiling or stack unwinding samples a patched function entry on amd64 ('invalid runtime symbol table') and clobbers R10 (11th ARM64 argument slot) / SIGBUSes on darwin/arm64.",
+    "reportedComponent": "github.com/agiledragon/gomonkey/v2 (test-only dependency of fluid, used by 88 test files: ApplyFunc 162x, ApplyPrivateMethod 86x, ApplyMethodFunc 71x, ApplyMethod 32x, ApplyMethodSeq 2x, NewPatches 2x)",
+    "patchedComponent": "go.mod/go.sum + vendored github.com/agiledragon/gomonkey/v2 v2.13.0 -> v2.14.4; no fluid source changes",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "not-reproduced",
+    "evidence": "On linux/amd64 (go1.27.0 and go1.25.12), 1s of 100Hz CPU profiling over a 2.13.0-patched function completes cleanly with a parseable profile (results/unit-harness-base.log, TestCPUProfileOverPatchedEntry) — no 'invalid runtime symbol table'. Not positive evidence of absence (Go-version/unwind dependent), so not a blocker; the arm64 claims were not runnable on this x86 host. The important direction for THIS PR is the reverse: no 2.13.0->2.14.4 regression anywhere (see findings).",
+    "match": ["TestCPUProfileOverPatchedEntry"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -json -count=1 -gcflags=\"all=-N -l\" ./pkg/utils/gomonkeycompat/"
+    }
+  },
+  "findings": [
+    {
+      "id": "GOMKEY-SEMANTICS",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestApplyFuncPatchAndReset",
+        "TestApplyFuncTinyFunction",
+        "TestApplyFuncRepeatedCycles",
+        "TestRepatchSameTargetSamePatches",
+        "TestApplyMethodVariants",
+        "TestApplyPrivateMethod",
+        "TestApplySeqAndReturn",
+        "TestOriginRunsOriginal",
+        "TestTwoHundredFiftySixLivePatches"
+      ]
+    },
+    {
+      "id": "GOMKEY-POOL-CAP",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": ["TestTrampolinePoolLimitCanary"]
+    },
+    {
+      "id": "GOMKEY-PROFILING",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestCPUProfileOverPatchedEntry"]
+    }
+  ],
+  "liveNote": "L3 not applicable: this PR changes a test-only vendored library. The closest 'live' signal is CI itself (project-check: staticcheck, lint, build matrix incl. ubuntu-24.04-arm, unittest with -race) — watch the arm64 build job and the unittest job."
+}

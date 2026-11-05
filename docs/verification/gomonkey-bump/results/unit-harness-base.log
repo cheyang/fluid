@@ -1,0 +1,23 @@
+=== RUN   TestApplyFuncPatchAndReset
+--- PASS: TestApplyFuncPatchAndReset (0.00s)
+=== RUN   TestApplyFuncTinyFunction
+--- PASS: TestApplyFuncTinyFunction (0.00s)
+=== RUN   TestApplyFuncRepeatedCycles
+--- PASS: TestApplyFuncRepeatedCycles (0.00s)
+=== RUN   TestRepatchSameTargetSamePatches
+--- PASS: TestRepatchSameTargetSamePatches (0.00s)
+=== RUN   TestApplyMethodVariants
+--- PASS: TestApplyMethodVariants (0.00s)
+=== RUN   TestApplyPrivateMethod
+--- PASS: TestApplyPrivateMethod (0.00s)
+=== RUN   TestApplySeqAndReturn
+--- PASS: TestApplySeqAndReturn (0.00s)
+=== RUN   TestOriginRunsOriginal
+--- PASS: TestOriginRunsOriginal (0.00s)
+=== RUN   TestTwoHundredFiftySixLivePatches
+--- PASS: TestTwoHundredFiftySixLivePatches (0.00s)
+=== RUN   TestTrampolinePoolLimitCanary
+    gomonkey_compat_test.go:248: pool limit behavior: last successful live-patch index = 299 (256 => v2.14.4 trampoline pool cap, 299 => uncapped)
+--- PASS: TestTrampolinePoolLimitCanary (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/gomonkeycompat	0.008s
