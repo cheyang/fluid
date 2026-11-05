@@ -1,0 +1,152 @@
+should return false when worker is not ready	skipped
+should return true when worker is ready	skipped
+should return true when worker is partially ready	skipped
+should update cache status of dataset	skipped
+should update dataset's phase to Bound	skipped
+should update dataset's phase to Failed	skipped
+should update dataset's phase to NotBound phase	skipped
+should update dataset's phase to Bound	skipped
+should set default jnifuse property to true	skipped
+should preserve the existing value	skipped
+should set block size property for HTTP	skipped
+should set the default value in alluxioValue	skipped
+should NOT set the default value in alluxioValue (leave it empty)	skipped
+should set default JVM options including UnlockExperimentalVMOptions	skipped
+should use the runtime JVM options	skipped
+should set default JVM options including UnlockExperimentalVMOptions	skipped
+should use the runtime JVM options	skipped
+should set default JVM options and append mount path to args	skipped
+should set default JVM options without mount path in args	skipped
+should use the runtime JVM options	skipped
+should append mount path and root to args	skipped
+should not append mount path to args	skipped
+should set all port properties correctly	skipped
+should not install helm release	skipped
+should install helm release	skipped
+value file should be created and no error should be returned	skipped
+should delete the old configmap and create a new one	skipped
+should delete volume successfully	skipped
+don't need to do anything	skipped
+should delete fuse PV successfully	skipped
+don't need to do anything	skipped
+should not delete the PV	skipped
+should delete the fuse PVC successfully	skipped
+don't need to do anything	skipped
+should not delete the pvc	skipped
+should always return true for AlluxioEngine	skipped
+should exec mount script defined in the configmap	skipped
+should skip executing mount script	skipped
+should mount ufs onto Alluxio with kube-exec	skipped
+should override the key-value pair in shared options with the one in mount options	skipped
+should extract encrypt options directly from secrets	skipped
+should transform encrypt options to secret mount path	skipped
+shouldn't try to remount	skipped
+should try to remount	skipped
+should update the mount time in runtime's status	skipped
+should add RuntimeWorkerScaledOut condition	skipped
+should add RuntimeWorkerScaledIn condition	skipped
+should not add any scaling condition	skipped
+should update runtime and dataset status to reflect failure	skipped
+should return the correct HCFSStatus	skipped
+should return the correct endpoint	skipped
+should return an empty endpoint	skipped
+should ignore the error and return empty endpoint	skipped
+should return the compatible UFS version	skipped
+should return error	skipped
+Should return ready as true	skipped
+Should return ready as true because it's partially ready	skipped
+should return ready as false	skipped
+Should return ready as true	skipped
+Should return ready as true	skipped
+F1: update succeeds (nil error) but updateReady=false: no UfsTotal reset, no SyncMetadata	pass
+F2: updateReady=true with paths to add but SyncMetadata failing: mount time NOT updated, returns (true, nil)	pass
+should successfully query cache status and cached percentage should be 0%	skipped
+should successfully query cache status and cached percentage should be 50%	skipped
+should successfully query cache status and cached percentage is empty	skipped
+should successfully query cache status and cached percentage is empty	skipped
+should parse the cache hit states and store it into lastCacheHitStates	skipped
+should return lastCacheHitStates	skipped
+should calculate cache hit states	skipped
+Should update runtime and dataset status to healthy	skipped
+Should return error but dataset status will not changed	skipped
+Should return error but dataset status will not changed	skipped
+should return error and update dataset status to Failed	skipped
+should return error and update dataset status to Failed	skipped
+should return error and update dataset status to Failed	skipped
+should sync metadata	skipped
+should not call AlluxioEngine.syncMetadataInternal()	skipped
+should not call AlluxioEngine.syncMetadataInternal()	skipped
+should restore metadata from the specified path	skipped
+should return error	skipped
+should return false	skipped
+should return true	skipped
+should return false	skipped
+should return true	skipped
+should successfully sync metadata and update dataset status	skipped
+should return false	skipped
+should return true	skipped
+should restore metadata successfully	skipped
+should restore metadata from pvc	skipped
+should return zero value	skipped
+should return zero value	skipped
+should return the total bytes from Count	skipped
+should return error	skipped
+should return the file count	skipped
+should return error	skipped
+should return error	skipped
+should return error indicating UFS not ready	skipped
+should skip Fluid native mounts and return false	skipped
+should return true when path is not mounted	skipped
+should return false when path is already mounted	skipped
+should return error	skipped
+should return error	skipped
+should return error	skipped
+should skip mounting and return nil	skipped
+should skip mounting	skipped
+should mount successfully	skipped
+should return error	skipped
+should return error	skipped
+should return original options unchanged	skipped
+should return error	skipped
+should return error	skipped
+should extract secret values into options	skipped
+should call updateUFSWithMountConfigMapScript	skipped
+should call updatingUFSWithMountCommand	skipped
+should update mount time	skipped
+should return error	skipped
+should mount the new paths	skipped
+should unmount the removed paths	skipped
+should return error	skipped
+should return error	skipped
+should execute mount scripts and verify paths	skipped
+should return error	skipped
+should return updateReady as false	skipped
+should return ready and successfully update runtime status	skipped
+should return ready and runtime.status.workerPhase should be set to partial ready	skipped
+should update node affinity info to runtime status	skipped
+should return the configured path	skipped
+should return the default shm path	skipped
+should correctly transform volumes for master	skipped
+should return an error	skipped
+should correctly transform volumes for worker	skipped
+should return an error	skipped
+should correctly transform volumes for fuse	skipped
+should return an error	skipped
+should sync when runtime enabled and value disabled	skipped
+should sync when runtime disabled and value enabled	skipped
+should return error when runtime is nil	skipped
+should return error when value is nil	skipped
+should create volumes successfully	skipped
+should create fuse PV successfully	skipped
+should not create PersistentVolumle and no error should return	skipped
+should create PersistentVolumle with ReadWriteMany access mode	skipped
+should create PV with the storage capacity specified in Dataset	skipped
+should create PV with extra labels and annotations	skipped
+should create fuse pv with specific node publish method	skipped
+should create fuse PVC successfully	skipped
+should not create PVC	skipped
+should create PVC with extra labels and annotations	skipped
+should merge all options correctly	skipped
+should use mount file paths instead of secret values	skipped
+should return error	skipped
+should use mount option value	skipped
