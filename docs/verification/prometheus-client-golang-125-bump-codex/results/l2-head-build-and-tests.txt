@@ -1,0 +1,9 @@
+l2: host toolchain go1.27 (GOTOOLCHAIN=local)
+== go build ./... ==
+BUILD OK
+== go vet (metrics-adjacent) ==
+VET OK
+== go test (metrics-adjacent; excludes known env-flaky gomonkey mount test) ==
+ok  	github.com/fluid-cloudnative/fluid/pkg/common	0.013s
+ok  	github.com/fluid-cloudnative/fluid/pkg/common/features	0.005s
+L2 done

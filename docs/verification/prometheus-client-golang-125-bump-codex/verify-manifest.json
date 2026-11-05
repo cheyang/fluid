@@ -1,0 +1,34 @@
+{
+  "topic": "prometheus-client-golang-125-bump-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6230",
+  "harnessPaths": [
+    "docs/verification/prometheus-client-golang-125-bump-codex"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Bumping github.com/prometheus/client_golang 1.20.5 -> 1.25.0 is a safe drop-in maintenance update for fluid (dependabot PR, no linked issue).",
+    "reportedComponent": "go.mod / vendor (github.com/prometheus/client_golang)",
+    "patchedComponent": "go.mod, go.sum, vendor/",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "script",
+    "verdict": "refuted",
+    "evidence": "client_golang v1.25.0 requires Go >= 1.26; fluid pins Go 1.25.12 in 3 GH workflows, .circleci and 11 Dockerfiles; all CI/image builds fail: 'go.mod requires go >= 1.26.0 (running go 1.25.12; GOTOOLCHAIN=local)'. See results/l1-head.txt, results/ci-failures.txt.",
+    "match": ["TestToolchainConsistencyWithPinnedToolchains"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "GOTOOLCHAIN=local go test ./docs/verification/prometheus-client-golang-125-bump-codex/ -run 'TestToolchainConsistency' -count=1 -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestToolchainConsistencyWithPinnedToolchains"]
+    }
+  ],
+  "liveNote": "No live layer: the failure happens at the Go toolchain gate before any binary runs. Direct CI-faithful repro: scripts/l1-toolchain-gate.sh <ref> fail."
+}

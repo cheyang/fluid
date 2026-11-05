@@ -1,0 +1,18 @@
+# CI evidence, PR #6230 head af817d9 (queried 2026-11-06)
+
+## Failing checks (all: 'go.mod requires go >= 1.26.0 (running go 1.25.12; GOTOOLCHAIN=local)')
+- Project Check / lint            FAIL  (run 41981310741 job 127091788335)
+- Project Check / staticcheck     FAIL  (job 127091788689)
+- Project Check / build (ubuntu-latest, ubuntu-24.04-arm) FAIL (jobs 127091788718, 127091788855)
+- Project Check / unittest        FAIL  (job 127091788786)
+- E2E Functionality / kind-e2e-test (v1.22.17, v1.24.17, v1.28.15, v1.30.13, v1.33.2) FAIL
+- E2E Backward Compatibility (same 5 k8s versions) FAIL
+- CircleCI ci/circleci: build     FAIL  (docker build, Dockerfile.dataset builder step)
+
+## Passing checks
+- CodeQL Analyze (go) PASS (CodeQL autobuild allows toolchain download; not version-pinned)
+- SonarCloud, DCO, check-pr-quota PASS (do not compile the module)
+
+## Key log lines
+build job: 'Error: load packages in root ...: go: go.mod requires go >= 1.26.0 (running go 1.25.12; GOTOOLCHAIN=local)'
+circleci docker build: 'go: go.mod requires go >= 1.26.0 (running go 1.25.12; GOTOOLCHAIN=local)  make: *** [Makefile:223: dataset-controller-build] Error 1'

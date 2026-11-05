@@ -1,0 +1,4 @@
+go version go1.26.0 linux/amd64
+l1: ref=30d488bb7ecd601fb8f338387d9b1fec1c4a2a2a expect=pass — running pinned go1.25.12 with GOTOOLCHAIN=local
+github.com/fluid-cloudnative/fluid/pkg/metrics
+L1-RESULT: PASS (ref 30d488bb7ecd601fb8f338387d9b1fec1c4a2a2a accepted by pinned go1.25.12)
