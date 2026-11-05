@@ -1,0 +1,8 @@
+TestBasicPatchRoundTrip	pass
+TestMethodAndReturnVariants	pass
+TestOriginRestoresThenReapplies	pass
+TestTrampolineSlotsReleasedOnReset	pass
+TestRePatchSameTargetReusesSlot	pass
+TestPatchShortFunctionAdjacentIntact	pass
+TestConcurrentPatchCap	pass
+TestEntryFootprintIsFiveByteBranch	pass
