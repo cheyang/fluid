@@ -1,0 +1,91 @@
+2026/11/06 07:53:52 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestAlluxio
+Running Suite: Alluxio Suite - /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/alluxio
+[38;5;204m[alluxio][0m 
+===================================================================================================================
+Random Seed: [1m1793922832[0m
+
+Will run [1m2[0m of [1m152[0m specs
+[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;10m[1mRan 2 of 152 Specs in 0.002 seconds[0m
+[38;5;10m[1mSUCCESS![0m -- [38;5;10m[1m2 Passed[0m | [38;5;9m[1m0 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m150 Skipped[0m
+--- PASS: TestAlluxio (0.00s)
+=== RUN   TestAlluxioEngine_getGracefulShutdownLimits
+=== RUN   TestAlluxioEngine_getGracefulShutdownLimits/no_clean_cache_policy
+=== RUN   TestAlluxioEngine_getGracefulShutdownLimits/clean_cache_policy
+=== RUN   TestAlluxioEngine_getGracefulShutdownLimits/test_err
+--- PASS: TestAlluxioEngine_getGracefulShutdownLimits (0.00s)
+    --- PASS: TestAlluxioEngine_getGracefulShutdownLimits/no_clean_cache_policy (0.00s)
+    --- PASS: TestAlluxioEngine_getGracefulShutdownLimits/clean_cache_policy (0.00s)
+    --- PASS: TestAlluxioEngine_getGracefulShutdownLimits/test_err (0.00s)
+=== RUN   TestAlluxioEngine_getCleanCacheGracePeriodSeconds
+=== RUN   TestAlluxioEngine_getCleanCacheGracePeriodSeconds/no_clean_cache_policy
+=== RUN   TestAlluxioEngine_getCleanCacheGracePeriodSeconds/clean_cache_policy
+=== RUN   TestAlluxioEngine_getCleanCacheGracePeriodSeconds/test_err
+--- PASS: TestAlluxioEngine_getCleanCacheGracePeriodSeconds (0.00s)
+    --- PASS: TestAlluxioEngine_getCleanCacheGracePeriodSeconds/no_clean_cache_policy (0.00s)
+    --- PASS: TestAlluxioEngine_getCleanCacheGracePeriodSeconds/clean_cache_policy (0.00s)
+    --- PASS: TestAlluxioEngine_getCleanCacheGracePeriodSeconds/test_err (0.00s)
+=== RUN   TestAlluxioEngine_generateDataProcessValueFile
+=== RUN   TestAlluxioEngine_generateDataProcessValueFile/TestNotOfTypeDataProcess
+=== RUN   TestAlluxioEngine_generateDataProcessValueFile/TestTargetDatasetNotFound
+=== RUN   TestAlluxioEngine_generateDataProcessValueFile/TestGenerateDataProcessValueFile
+--- PASS: TestAlluxioEngine_generateDataProcessValueFile (0.00s)
+    --- PASS: TestAlluxioEngine_generateDataProcessValueFile/TestNotOfTypeDataProcess (0.00s)
+    --- PASS: TestAlluxioEngine_generateDataProcessValueFile/TestTargetDatasetNotFound (0.00s)
+    --- PASS: TestAlluxioEngine_generateDataProcessValueFile/TestGenerateDataProcessValueFile (0.00s)
+=== RUN   TestAlluxioEngineCleanAll
+=== RUN   TestAlluxioEngineCleanAll/spark
+--- PASS: TestAlluxioEngineCleanAll (0.00s)
+    --- PASS: TestAlluxioEngineCleanAll/spark (0.00s)
+=== RUN   TestAlluxioEngineReleasePorts
+=== RUN   TestAlluxioEngineReleasePorts/spark
+--- PASS: TestAlluxioEngineReleasePorts (0.00s)
+    --- PASS: TestAlluxioEngineReleasePorts/spark (0.00s)
+=== RUN   TestAlluxioEngineCleanupCache
+=== RUN   TestAlluxioEngineCleanupCache/spark
+--- PASS: TestAlluxioEngineCleanupCache (0.00s)
+    --- PASS: TestAlluxioEngineCleanupCache/spark (0.00s)
+=== RUN   TestAlluxioEngineDestroyMaster
+=== RUN   TestAlluxioEngineDestroyMaster/spark
+--- PASS: TestAlluxioEngineDestroyMaster (0.00s)
+    --- PASS: TestAlluxioEngineDestroyMaster/spark (0.00s)
+=== RUN   TestAlluxioEngine_SyncRuntime
+=== RUN   TestAlluxioEngine_SyncRuntime/default
+--- PASS: TestAlluxioEngine_SyncRuntime (0.00s)
+    --- PASS: TestAlluxioEngine_SyncRuntime/default (0.00s)
+=== RUN   TestAlluxioEngine_allocateSinglePort
+=== RUN   TestAlluxioEngine_allocateSinglePort/test_set_Properties
+=== RUN   TestAlluxioEngine_allocateSinglePort/test_unset_Properties
+=== RUN   TestAlluxioEngine_allocateSinglePort/test_set_runtime
+--- PASS: TestAlluxioEngine_allocateSinglePort (0.00s)
+    --- PASS: TestAlluxioEngine_allocateSinglePort/test_set_Properties (0.00s)
+    --- PASS: TestAlluxioEngine_allocateSinglePort/test_unset_Properties (0.00s)
+    --- PASS: TestAlluxioEngine_allocateSinglePort/test_set_runtime (0.00s)
+=== RUN   TestAlluxioEngine_allocatePorts
+=== RUN   TestAlluxioEngine_allocatePorts/test_set_Properties
+=== RUN   TestAlluxioEngine_allocatePorts/test_set_runtime_Properties
+=== RUN   TestAlluxioEngine_allocatePorts/test_set_runtime_NoProperties
+--- PASS: TestAlluxioEngine_allocatePorts (0.00s)
+    --- PASS: TestAlluxioEngine_allocatePorts/test_set_Properties (0.00s)
+    --- PASS: TestAlluxioEngine_allocatePorts/test_set_runtime_Properties (0.00s)
+    --- PASS: TestAlluxioEngine_allocatePorts/test_set_runtime_NoProperties (0.00s)
+=== RUN   TestAlluxioEngine_getInitUserDir
+=== RUN   TestAlluxioEngine_getInitUserDir/test
+--- PASS: TestAlluxioEngine_getInitUserDir (0.00s)
+    --- PASS: TestAlluxioEngine_getInitUserDir/test (0.00s)
+=== RUN   TestAlluxioEngine_getInitUsersArgs
+=== RUN   TestAlluxioEngine_getInitUsersArgs/test
+--- PASS: TestAlluxioEngine_getInitUsersArgs (0.00s)
+    --- PASS: TestAlluxioEngine_getInitUsersArgs/test (0.00s)
+=== RUN   TestAlluxioEngineValidate
+=== RUN   TestAlluxioEngineValidate/emptyOwnerDatasetUID
+=== RUN   TestAlluxioEngineValidate/placementModeNotSet
+=== RUN   TestAlluxioEngineValidate/fullyConfiguredRuntimeInfo
+--- PASS: TestAlluxioEngineValidate (0.00s)
+    --- PASS: TestAlluxioEngineValidate/emptyOwnerDatasetUID (0.00s)
+    --- PASS: TestAlluxioEngineValidate/placementModeNotSet (0.00s)
+    --- PASS: TestAlluxioEngineValidate/fullyConfiguredRuntimeInfo (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	0.020s

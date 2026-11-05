@@ -1,0 +1,31 @@
+2026/11/06 07:54:01 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Alluxio Suite - /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/alluxio
+[38;5;204m[alluxio][0m 
+===================================================================================================================
+Random Seed: [1m1793922841[0m
+
+Will run [1m2[0m of [1m152[0m specs
+[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.001 seconds][0m
+[0mprocessUpdatingUFS doc-comment verification (PR #6082) [38;5;9m[1m[It] F1: update succeeds (nil error) but updateReady=false: no UfsTotal reset, no SyncMetadata[0m [38;5;204m[pkg.ddc.alluxio.ufs_internal_doc_verify_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/alluxio/ufs_internal_doc_verify_test.go:78[0m
+
+  [38;5;9m[FAILED] SyncMetadata must NOT run when updateReady is false
+  Expected
+      <bool>: true
+  to be false[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/alluxio/ufs_internal_doc_verify_test.go:108[0m [38;5;243m@ 11/06/26 07:54:01.384[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m
+
+[38;5;9m[1mSummarizing 1 Failure:[0m
+  [38;5;9m[FAIL][0m [0mprocessUpdatingUFS doc-comment verification (PR #6082) [38;5;9m[1m[It] F1: update succeeds (nil error) but updateReady=false: no UfsTotal reset, no SyncMetadata[0m [38;5;204m[pkg.ddc.alluxio.ufs_internal_doc_verify_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/ddc/alluxio/ufs_internal_doc_verify_test.go:108[0m
+
+[38;5;9m[1mRan 2 of 152 Specs in 0.002 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m1 Passed[0m | [38;5;9m[1m1 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m150 Skipped[0m
+--- FAIL: TestAlluxio (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	0.018s
+FAIL

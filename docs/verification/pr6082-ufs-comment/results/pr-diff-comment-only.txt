@@ -1,0 +1,15 @@
+diff --git a/pkg/ddc/alluxio/ufs_internal.go b/pkg/ddc/alluxio/ufs_internal.go
+index 69b56ee87..0ab8a58d8 100644
+--- a/pkg/ddc/alluxio/ufs_internal.go
++++ b/pkg/ddc/alluxio/ufs_internal.go
+@@ -145,6 +145,10 @@ func (e *AlluxioEngine) FindUnmountedUFS() (unmountedPaths []string, err error)
+ 	return fileUtils.FindUnmountedAlluxioPaths(alluxioPaths)
+ }
+ 
++// processUpdatingUFS updates the under file system (UFS) mount configuration for the Alluxio engine.
++// It first determines the update method based on whether mount config map is enabled,
++// then if the update succeeds, it resets the dataset's UfsTotal status to trigger a metadata sync,
++// and finally updates the mount timestamp when new mount paths are added.
+ func (e *AlluxioEngine) processUpdatingUFS(ufsToUpdate *utils.UFSToUpdate) (updateReady bool, err error) {
+ 	dataset, err := utils.GetDataset(e.Client, e.name, e.namespace)
+ 	if err != nil {

@@ -1,0 +1,47 @@
+{
+  "topic": "pr6082-ufs-comment",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6082",
+  "harnessPaths": [
+    "docs/verification/pr6082-ufs-comment",
+    "pkg/ddc/alluxio/ufs_internal_doc_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #6081 (OPEN): \"Add comments to processUpdatingUFS in pkg/ddc/alluxio/ufs_internal.go\" — the function has no doc comment explaining its purpose and update workflow.",
+    "reportedComponent": "pkg/ddc/alluxio/ufs_internal.go processUpdatingUFS",
+    "patchedComponent": "pkg/ddc/alluxio/ufs_internal.go processUpdatingUFS (doc comment only)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "git show <merge-base>:pkg/ddc/alluxio/ufs_internal.go line 148 shows `func (e *AlluxioEngine) processUpdatingUFS(...)` with no preceding doc comment; see results/pr-diff-comment-only.txt",
+    "match": []
+  },
+  "layers": {
+    "unit": {
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/ddc/alluxio/ -run TestAlluxio -count=1 -ginkgo.focus 'doc-comment verification' -ginkgo.json-report=$GINKGO_REPORT -v",
+      "report": "$GINKGO_REPORT"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/alluxio/ -count=1 -timeout 15m -json",
+      "report": ""
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": ["F1: update succeeds (nil error) but updateReady=false"]
+    },
+    {
+      "id": "F2",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": ["F2: updateReady=true with paths to add"]
+    }
+  ],
+  "liveNote": "L3 not applicable: the PR is comment-only; there is no runtime behavior change to observe on a live cluster. Per debate round policy the live/KUBECONFIG layer is skipped."
+}
