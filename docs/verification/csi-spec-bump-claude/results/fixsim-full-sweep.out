@@ -1,0 +1,43 @@
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mHelm [38;5;243mListAllReleasesWithDetail [0mwhen all conditions are met [38;5;9m[1m[It] should list all releases with detail successfully[0m
+[38;5;243m/tmp/fluid-fixsim/pkg/utils/helm/utils_test.go:451[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*exec.Error | 0x1e6aa2004d80>: 
+      exec: "ddc-helm": executable file not found in $PATH
+      {
+          Name: "ddc-helm",
+          Err: <*errors.errorString | 0x2a85fa0>{
+              s: "executable file not found in $PATH",
+          },
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-fixsim/pkg/utils/helm/utils_test.go:460[0m [38;5;243m@ 11/06/26 06:28:48.567[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;9m[1mSummarizing 7 Failures:[0m
+  [38;5;13m[PANICKED!][0m [0mHelm [38;5;243mInstallRelease [0mwhen CombinedOutput fails [38;5;13m[1m[It] should return an error[0m
+  [38;5;243m/usr/local/go/src/runtime/panic.go:336[0m
+  [38;5;13m[PANICKED!][0m [0mHelm [38;5;243mInstallRelease [0mwhen namespace contains invalid characters [38;5;13m[1m[It] should return an error[0m
+  [38;5;243m/usr/local/go/src/runtime/panic.go:336[0m
+  [38;5;13m[PANICKED!][0m [0mHelm [38;5;243mInstallRelease [0mwhen all conditions are met [38;5;13m[1m[It] should install release successfully[0m
+  [38;5;243m/usr/local/go/src/runtime/panic.go:336[0m
+  [38;5;9m[FAIL][0m [0mHelm [38;5;243mDeleteRelease [0mwhen all conditions are met [38;5;9m[1m[It] should delete release successfully[0m
+  [38;5;243m/tmp/fluid-fixsim/pkg/utils/helm/utils_test.go:260[0m
+  [38;5;9m[FAIL][0m [0mHelm [38;5;243mListReleases [0mwhen all conditions are met [38;5;9m[1m[It] should list releases successfully[0m
+  [38;5;243m/tmp/fluid-fixsim/pkg/utils/helm/utils_test.go:326[0m
+  [38;5;9m[FAIL][0m [0mHelm [38;5;243mListReleaseMap [0mwhen all conditions are met [38;5;9m[1m[It] should list release map successfully[0m
+  [38;5;243m/tmp/fluid-fixsim/pkg/utils/helm/utils_test.go:393[0m
+  [38;5;9m[FAIL][0m [0mHelm [38;5;243mListAllReleasesWithDetail [0mwhen all conditions are met [38;5;9m[1m[It] should list all releases with detail successfully[0m
+  [38;5;243m/tmp/fluid-fixsim/pkg/utils/helm/utils_test.go:460[0m
+
+[38;5;9m[1mRan 29 of 29 Specs in 0.003 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m22 Passed[0m | [38;5;9m[1m7 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/helm	0.018s
+FAIL
+FULLTEST_FIXSIM_DONE
+
+[exited with code 0]

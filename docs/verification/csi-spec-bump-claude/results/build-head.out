@@ -1,0 +1,5 @@
+# github.com/kubernetes-csi/drivers/pkg/csi-common
+vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:76:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:84:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:92:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+go build exit: 1
