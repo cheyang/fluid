@@ -1,0 +1,2 @@
+PASS: diff is comment-only (0 added comment lines, 0 removed lines)
+EXIT:0

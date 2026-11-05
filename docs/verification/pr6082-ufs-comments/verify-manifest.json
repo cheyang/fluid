@@ -1,0 +1,49 @@
+{
+  "topic": "pr6082-ufs-comments",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6082",
+  "baseSha": "8cda1f984627e75d1706e732723b1f9dc4d3c455",
+  "headSha": "f704d3b273e2d1a9874397d11d7b6611667c3d5b",
+  "harnessPaths": [
+    "docs/verification/pr6082-ufs-comments",
+    "pkg/ddc/alluxio/zz_pr6082_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #6081: 'Add comments to explain the purpose and update workflow of processUpdatingUFS' in pkg/ddc/alluxio/ufs_internal.go (docs-only request, no runtime symptom claimed)",
+    "reportedComponent": "pkg/ddc/alluxio/ufs_internal.go (processUpdatingUFS)",
+    "patchedComponent": "pkg/ddc/alluxio/ufs_internal.go (processUpdatingUFS doc comment)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Docs-only carve-out: issue is open and names exactly the function this PR comments; diff adds 4 comment lines and nothing else (results/comment-only-diff.txt). Accuracy of each comment sentence verified against the function body at the PR head (see README accuracy table).",
+    "match": [
+      "TestPR6082CommentOnlyDiff"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "GOFLAGS=-mod=vendor go test ./pkg/ddc/alluxio/ -run 'TestPR6082' -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestPR6082DCOSignoff"
+      ]
+    },
+    {
+      "id": "G1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestPR6082CommentOnlyDiff"
+      ]
+    }
+  ],
+  "liveNote": "No live layer: comment-only diff cannot alter runtime behavior; skip KUBECONFIG runs."
+}
