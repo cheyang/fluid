@@ -23,9 +23,10 @@ trap 'rm -f "$BUILD_LOG"' EXIT
 if go build ./... >"$BUILD_LOG" 2>&1; then
   exec go test ./pkg/csi/plugins/ -run "^${TEST}$" -count=1 -json
 else
-  echo "F1: module compile check did not pass at this ref; emitting synthetic failure for ${TEST}" >&2
-  # Compiler errors as go-test "output" events (valid JSON, ignored by the
-  # re-verify parser's pass/fail select, but kept for human inspection).
+  # NOTE: emit ONLY go-test JSON on stdout (stderr is captured into the same
+  # output file by re-verify.sh, and any non-JSON line breaks its jq parser).
+  # Compiler errors are embedded as go-test "output" events (valid JSON,
+  # ignored by the parser's pass/fail select, but kept for human inspection).
   if [ -s "$BUILD_LOG" ]; then
     jq -Rs 'split("\n") | map(select(length > 0)) | .[]
             | {Action: "output", Test: "TestCSISpecCompatHarness",
