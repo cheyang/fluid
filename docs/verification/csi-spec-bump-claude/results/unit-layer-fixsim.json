@@ -1,0 +1,8 @@
+{"Time":"2026-11-06T06:36:21.814774269+08:00","Action":"start","Package":"github.com/fluid-cloudnative/fluid/pkg/csi/plugins"}
+{"Time":"2026-11-06T06:36:21.827381858+08:00","Action":"run","Package":"github.com/fluid-cloudnative/fluid/pkg/csi/plugins","Test":"TestCSISpecCompatHarness"}
+{"Time":"2026-11-06T06:36:21.827436491+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/csi/plugins","Test":"TestCSISpecCompatHarness","Output":"=== RUN   TestCSISpecCompatHarness\n","OutputType":"frame"}
+{"Time":"2026-11-06T06:36:21.827458371+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/csi/plugins","Test":"TestCSISpecCompatHarness","Output":"--- PASS: TestCSISpecCompatHarness (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-06T06:36:21.827460771+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/csi/plugins","Test":"TestCSISpecCompatHarness","Elapsed":0}
+{"Time":"2026-11-06T06:36:21.827465612+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/csi/plugins","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-11-06T06:36:21.828809119+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/csi/plugins","Output":"ok  \tgithub.com/fluid-cloudnative/fluid/pkg/csi/plugins\t0.014s\n"}
+{"Time":"2026-11-06T06:36:21.82882884+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/csi/plugins","Elapsed":0.014}

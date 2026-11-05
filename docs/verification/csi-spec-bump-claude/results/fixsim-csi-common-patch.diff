@@ -1,0 +1,30 @@
+--- /tmp/fluid-pr-6229/vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/identityserver-default.go	2026-11-06 06:24:42.222828489 +0800
++++ /tmp/fluid-fixsim/vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/identityserver-default.go	2026-11-06 06:27:27.366268859 +0800
+@@ -25,6 +25,7 @@
+ )
+ 
+ type DefaultIdentityServer struct {
++	csi.UnimplementedIdentityServer
+ 	Driver *CSIDriver
+ }
+ 
+--- /tmp/fluid-pr-6229/vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/nodeserver-default.go	2026-11-06 06:24:42.222828489 +0800
++++ /tmp/fluid-fixsim/vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/nodeserver-default.go	2026-11-06 06:27:27.367268891 +0800
+@@ -25,6 +25,7 @@
+ )
+ 
+ type DefaultNodeServer struct {
++	csi.UnimplementedNodeServer
+ 	Driver *CSIDriver
+ }
+ 
+--- /tmp/fluid-pr-6229/vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/controllerserver-default.go	2026-11-06 06:24:42.222828489 +0800
++++ /tmp/fluid-fixsim/vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/controllerserver-default.go	2026-11-06 06:27:27.368268924 +0800
+@@ -25,6 +25,7 @@
+ )
+ 
+ type DefaultControllerServer struct {
++	csi.UnimplementedControllerServer
+ 	Driver *CSIDriver
+ }
+ 

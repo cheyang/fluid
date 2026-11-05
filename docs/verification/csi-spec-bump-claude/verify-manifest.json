@@ -1,0 +1,35 @@
+{
+  "topic": "csi-spec-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6229",
+  "harnessPaths": [
+    "docs/verification/csi-spec-bump-claude",
+    "pkg/csi/plugins/csi_spec_compat_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot PR body: \"Bumps github.com/container-storage-interface/spec from 1.8.0 to 1.13.0.\" — routine dependency-currency maintenance; no user-visible symptom claimed, no closing issue.",
+    "reportedComponent": "CSI spec Go bindings (module github.com/container-storage-interface/spec, vendored under vendor/github.com/container-storage-interface/spec/lib/go/csi)",
+    "patchedComponent": "go.mod / go.sum / vendored generated csi code — same component. Match.",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base 30d488bb the dependency is indeed at v1.8.0, the module builds (go build ./... exit 0) and ./pkg/csi/plugins tests pass (results/build-base.out, results/test-base.out). Nothing to refute: a currency bump is a valid maintenance action; the defect it introduces is F1.",
+    "match": ["TestCSISpecCompatHarness"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/csi-spec-bump-claude/scripts/unit-layer.sh"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestCSISpecCompatHarness"]
+    }
+  ],
+  "liveNote": "L3 (live) not applicable: the module does not compile at the PR head, so no live cluster behavior exists to observe. The unit layer fully decides F1 (a compile-level contract)."
+}
