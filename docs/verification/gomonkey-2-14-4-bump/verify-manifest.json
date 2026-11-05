@@ -1,0 +1,35 @@
+{
+  "topic": "gomonkey-2-14-4-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6228",
+  "harnessPaths": [
+    "docs/verification/gomonkey-2-14-4-bump"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Bumps github.com/agiledragon/gomonkey/v2 from 2.13.0 to 2.14.4 to pick up upstream fixes (darwin SIGBUS/icache flush, arm64 R10 clobber, amd64 unwind 'invalid runtime symbol table').",
+    "reportedComponent": "test-only dependency github.com/agiledragon/gomonkey/v2 (88 *_test.go consumers, 0 non-test imports)",
+    "patchedComponent": "go.mod / go.sum / vendor/modules.txt / vendor/github.com/agiledragon/gomonkey/v2",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Vendored tree byte-identical to sumdb-verified upstream v2.14.4 module (proxy Origin tag commit 331dbeb matches release notes); go.sum hashes match proxy; base carries the 12-byte MOVABS;JMP entry sequence blamed by upstream #191 (mechanism canary flips base->head). See results/unit-base-go1.25.12.txt vs results/unit-head-go1.25.12.txt.",
+    "match": ["TestEntryFootprintIsFiveByteBranch"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "GOTOOLCHAIN=go1.25.12 go test ./docs/verification/gomonkey-2-14-4-bump/harness/ -gcflags=\"all=-N -l\" -race -count=1 -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "GOTOOLCHAIN=go1.25.12 bash -c 'CGO_ENABLED=0 go list ./... | grep -v controller | grep -v e2etest | FLUID_UNIT_TEST=true xargs go test -race -gcflags=\"all=-N -l\" -count=1 -json'"
+    }
+  },
+  "findings": [
+    { "id": "B1", "polarity": "canary", "layer": "unit", "match": ["TestConcurrentPatchCap"] },
+    { "id": "B2", "polarity": "canary", "layer": "unit", "match": ["TestEntryFootprintIsFiveByteBranch"] },
+    { "id": "B3", "polarity": "contract", "layer": "unit", "match": ["TestBasicPatchRoundTrip", "TestMethodAndReturnVariants", "TestOriginRestoresThenReapplies", "TestTrampolineSlotsReleasedOnReset", "TestRePatchSameTargetReusesSlot", "TestPatchShortFunctionAdjacentIntact"] }
+  ],
+  "liveNote": "No live layer: gomonkey is a test-only dependency; production binaries never link it. Layer 2 (fluid's CI-equivalent unit sweep with -race) is the strongest applicable layer and passed on the head; CI checks (unittest, build amd64+arm64, e2e on k8s 1.22-1.33) were all SUCCESS at review time."
+}

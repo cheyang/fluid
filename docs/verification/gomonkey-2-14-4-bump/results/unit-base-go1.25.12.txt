@@ -1,0 +1,21 @@
+=== RUN   TestBasicPatchRoundTrip
+--- PASS: TestBasicPatchRoundTrip (0.00s)
+=== RUN   TestMethodAndReturnVariants
+--- PASS: TestMethodAndReturnVariants (0.00s)
+=== RUN   TestOriginRestoresThenReapplies
+--- PASS: TestOriginRestoresThenReapplies (0.00s)
+=== RUN   TestTrampolineSlotsReleasedOnReset
+--- PASS: TestTrampolineSlotsReleasedOnReset (0.00s)
+=== RUN   TestRePatchSameTargetReusesSlot
+--- PASS: TestRePatchSameTargetReusesSlot (0.00s)
+=== RUN   TestPatchShortFunctionAdjacentIntact
+--- PASS: TestPatchShortFunctionAdjacentIntact (0.00s)
+=== RUN   TestConcurrentPatchCap
+    gomonkey_bump_verify_test.go:184: 300 concurrent function patches succeeded; expected the 2.14.4 amd64 trampoline pool (256 slots) to panic on exhaustion
+--- FAIL: TestConcurrentPatchCap (0.00s)
+=== RUN   TestEntryFootprintIsFiveByteBranch
+    gomonkey_bump_verify_test.go:214: patched entry opcode = 0x48, want 0xE9 (JMP rel32); raw entry bytes: 48 ba b0 73 76 00 00 00
+--- FAIL: TestEntryFootprintIsFiveByteBranch (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/docs/verification/gomonkey-2-14-4-bump/harness	0.006s
+FAIL

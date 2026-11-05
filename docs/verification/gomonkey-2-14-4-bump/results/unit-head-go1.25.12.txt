@@ -1,0 +1,20 @@
+=== RUN   TestBasicPatchRoundTrip
+--- PASS: TestBasicPatchRoundTrip (0.00s)
+=== RUN   TestMethodAndReturnVariants
+--- PASS: TestMethodAndReturnVariants (0.00s)
+=== RUN   TestOriginRestoresThenReapplies
+--- PASS: TestOriginRestoresThenReapplies (0.00s)
+=== RUN   TestTrampolineSlotsReleasedOnReset
+--- PASS: TestTrampolineSlotsReleasedOnReset (0.01s)
+=== RUN   TestRePatchSameTargetReusesSlot
+--- PASS: TestRePatchSameTargetReusesSlot (0.00s)
+=== RUN   TestPatchShortFunctionAdjacentIntact
+--- PASS: TestPatchShortFunctionAdjacentIntact (0.00s)
+=== RUN   TestConcurrentPatchCap
+    gomonkey_bump_verify_test.go:191: observed expected pool-exhaustion panic: no reachable amd64 patch trampoline available for target 0x6c5320 (256 slots)
+--- PASS: TestConcurrentPatchCap (0.00s)
+=== RUN   TestEntryFootprintIsFiveByteBranch
+    gomonkey_bump_verify_test.go:216: patched entry bytes: e9 fb 09 ff ff 83 ec 08 (5-byte JMP rel32 into trampoline)
+--- PASS: TestEntryFootprintIsFiveByteBranch (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/docs/verification/gomonkey-2-14-4-bump/harness	0.009s

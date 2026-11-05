@@ -1,0 +1,20 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataload	1.119s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/datamigrate	1.104s
+2026/11/06 05:56:43 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+[1m[38;5;9mUnknown Decorator[0m
+[38;5;246mvar _ = BeforeSuite(func() {[0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6228/pkg/controllers/v1alpha1/dataprocess/suite_test.go:51[0m
+  [BeforeSuite] node was passed an unknown decorator: '60'
+
+  [1mLearn more at:[0m [38;5;14m[4mhttp://onsi.github.io/ginkgo/#node-decorators-overview[0m
+
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataprocess	0.067s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset	1.157s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/efc	1.081s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/fluidapp	1.091s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/fluidapp/dataflowaffinity	1.097s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/juicefs	1.081s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/thinruntime	1.079s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/webhook	1.066s
+FAIL
+EXIT=1
