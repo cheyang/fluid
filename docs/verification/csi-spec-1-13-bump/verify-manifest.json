@@ -1,0 +1,35 @@
+{
+  "topic": "csi-spec-1-13-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6229",
+  "harnessPaths": [
+    "docs/verification/csi-spec-1-13-bump",
+    "pkg/csi/plugins/zz_verify_pr6229_interface_contract_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Bumping github.com/container-storage-interface/spec from v1.8.0 to v1.13.0 is a non-breaking dependency update for fluid (upstream release notes: 'Breaking changes/Deprecations: None'; dependabot compatibility score badge).",
+    "reportedComponent": "go.mod dependency github.com/container-storage-interface/spec (vendored generated CSI gRPC stubs)",
+    "patchedComponent": "go.mod/go.sum, vendor/github.com/container-storage-interface/spec, vendor/github.com/golang/protobuf/ptypes/wrappers (removed), vendor/modules.txt",
+    "componentMatch": true,
+    "runsAgainst": "head (differential vs base 30d488bb)",
+    "layer": "unit",
+    "verdict": "refuted",
+    "evidence": "go build ./pkg/csi/... ./cmd/csi/... fails on head 7b5d0397 (results/head-build-csi.log) and passes on base 30d488bb (results/base-build-csi.log); vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:76,84,92: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer). Same error in CI build/lint/staticcheck/unittest/e2e jobs (results/ci-failure-excerpt.log).",
+    "match": ["TestVerifyBuildCSI"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 -json -run 'TestVerify(BuildCSI|VetCSI|InterfaceContract)' ./docs/verification/csi-spec-1-13-bump/"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 -json -run 'TestVerifyCSIUnitTests' ./docs/verification/csi-spec-1-13-bump/"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyBuildCSI", "TestVerifyVetCSI", "TestVerifyInterfaceContract"] },
+    { "id": "F1", "polarity": "contract", "layer": "integration", "match": ["TestVerifyCSIUnitTests"] }
+  ],
+  "liveNote": "L3 skipped per round policy (no KUBECONFIG layer). The live signal is CI: kind-e2e / backward-compat jobs build the fluid-csi image; on 7b5d0397 they fail at `make vet` (Makefile:189) with the same csi-common compile error before any cluster work."
+}

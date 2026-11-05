@@ -1,0 +1,53 @@
+--- FAIL: TestVerifyBuildCSI (0.13s)
+    harness_test.go:25: check-build.sh output:
+        using GOTOOLCHAIN=go1.25.12
+        == go build ./pkg/csi/... ./cmd/csi/... ==
+        # github.com/kubernetes-csi/drivers/pkg/csi-common
+        vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:76:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+        vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:84:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+        vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:92:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+        build exit=1
+    harness_test.go:25: check-build.sh [] failed: exit status 1
+--- FAIL: TestVerifyVetCSI (0.24s)
+    harness_test.go:28: check-vet.sh output:
+        using GOTOOLCHAIN=go1.25.12
+        == go vet ./pkg/csi/... ==
+        # github.com/kubernetes-csi/drivers/pkg/csi-common
+        vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:76:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+        vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:84:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+        vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:92:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+        vet exit=1
+    harness_test.go:28: check-vet.sh [] failed: exit status 1
+--- FAIL: TestVerifyInterfaceContract (0.15s)
+    harness_test.go:31: check-interface-contract.sh output:
+        using GOTOOLCHAIN=go1.25.12
+        == go test -count=1 -run TestVerifyPR6229CSIInterfaceContracts ./pkg/csi/plugins/ ==
+        # github.com/kubernetes-csi/drivers/pkg/csi-common
+        vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:76:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+        vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:84:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+        vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:92:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+        FAIL	github.com/fluid-cloudnative/fluid/pkg/csi/plugins [compile error]
+        FAIL
+        interface-contract exit=1
+    harness_test.go:31: check-interface-contract.sh [] failed: exit status 1
+--- FAIL: TestVerifyCSIUnitTests (1.23s)
+    harness_test.go:34: check-unit-tests.sh output:
+        using GOTOOLCHAIN=go1.25.12
+        == go test -count=1 ./pkg/csi/... ==
+        # github.com/kubernetes-csi/drivers/pkg/csi-common
+        vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:76:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+        vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:84:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+        vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:92:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+        FAIL	github.com/fluid-cloudnative/fluid/pkg/csi [compile error]
+        ?   	github.com/fluid-cloudnative/fluid/pkg/csi/config	[no test files]
+        ok  	github.com/fluid-cloudnative/fluid/pkg/csi/features	0.005s
+        FAIL	github.com/fluid-cloudnative/fluid/pkg/csi/plugins [compile error]
+        ok  	github.com/fluid-cloudnative/fluid/pkg/csi/recover	0.359s
+        ok  	github.com/fluid-cloudnative/fluid/pkg/csi/updatedbconf	0.014s
+        FAIL
+        unit exit=1
+    harness_test.go:34: check-unit-tests.sh [] failed: exit status 1
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/docs/verification/csi-spec-1-13-bump	1.758s
+FAIL
+exit=1
