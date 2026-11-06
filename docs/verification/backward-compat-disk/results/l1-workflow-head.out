@@ -1,0 +1,12 @@
+ok:   step 'Free disk space' present
+ok:   'Free disk space' runs after kind cluster creation
+ok:   'Free disk space' runs before 'Build current fluid docker images'
+ok:   cleanup step removes dotnet
+ok:   cleanup step removes android SDK
+ok:   cleanup step removes ghc
+ok:   cleanup step removes CodeQL
+ok:   cleanup step removes ghcup
+ok:   cleanup step prunes unused docker images
+ok:   cleanup step logs disk usage before/after
+
+L1-VERDICT: PASS

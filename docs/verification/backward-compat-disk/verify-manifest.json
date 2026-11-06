@@ -1,0 +1,82 @@
+{
+  "topic": "backward-compat-disk",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6002",
+  "harnessPaths": [
+    "docs/verification/backward-compat-disk"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "The backward-compat-test CI job was failing with `no space left on device` when loading Docker images to the kind cluster.",
+    "reportedComponent": ".github/workflows/backward-compatibility-e2e.yml + .github/scripts/build-all-images.sh (the 'Build current fluid docker images' step)",
+    "patchedComponent": "same files — exact match",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "ci-observation",
+    "verdict": "confirmed",
+    "evidence": "GitHub Actions API: base-era run 27287867871 (branch 'policy', 2026-06-10, pre-PR code) failed at step 'Build current fluid docker images' on ALL 5 matrix legs, e2e step skipped; PR-head run 27496321566 (2026-06-14) passes all 5 legs. June job logs are HTTP 410 (expired), so the literal 'no space left on device' message is no longer re-readable — confirmation is at step level, not message level. See results/ci-evidence.md.",
+    "match": ["scripts/l1_mock_harness.sh"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "script",
+      "cmd": "bash docs/verification/backward-compat-disk/scripts/l1_mock_harness.sh <repo-root>",
+      "report": "results/l1-head.out"
+    },
+    "ci-observation": {
+      "kind": "github-api",
+      "cmd": "gh api repos/fluid-cloudnative/fluid/actions/runs/<run-id>/jobs (see results/ci-evidence.md for the recorded runs)",
+      "report": "results/ci-evidence.md"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "title": "Fix contract: after each successful `kind load docker-image <img>`, the host-side docker image is removed (`docker rmi <img>`) inside the load loop",
+      "polarity": "contract",
+      "layer": "unit",
+      "status": "confirmed",
+      "origin": "initial-pr",
+      "firstSeenSha": "27581121b535fd809804316feaa27bb70043c935",
+      "evidenceKind": "differential",
+      "evidence": "results/l1-head.out PASS on PR head (10 rmi calls, each after its kind load); results/l1-base.out FAIL on base script (0 rmi calls) — harness bites.",
+      "match": ["l1_mock_harness.sh"]
+    },
+    {
+      "id": "F2",
+      "title": "Robustness contract: a failing `docker rmi` must not abort build-all-images.sh (set -e safety); warning is printed, loop continues, exit 0",
+      "polarity": "contract",
+      "layer": "unit",
+      "status": "confirmed",
+      "origin": "initial-pr",
+      "firstSeenSha": "27581121b535fd809804316feaa27bb70043c935",
+      "evidenceKind": "code-path",
+      "evidence": "results/l1-rmi-fail.out PASS on PR head with stubbed rmi failure (exit 0, 10 warnings).",
+      "match": ["l1_mock_harness.sh --rmi-fail"]
+    },
+    {
+      "id": "F3",
+      "title": "Workflow contract: 'Free disk space' step present in backward-compat-test, positioned after kind cluster creation and before image build, removing dotnet/android/ghc/CodeQL/ghcup and pruning unused docker images",
+      "polarity": "contract",
+      "layer": "unit",
+      "status": "confirmed",
+      "origin": "initial-pr",
+      "firstSeenSha": "27581121b535fd809804316feaa27bb70043c935",
+      "evidenceKind": "differential",
+      "evidence": "results/l1-workflow-head.out PASS on PR head; results/l1-workflow-base.out FAIL on base workflow (step missing) — harness bites. Placement after cluster creation keeps kindest/node in-use so `docker image prune --all --force` cannot remove it.",
+      "match": ["l1_workflow_contract.py"]
+    },
+    {
+      "id": "F4",
+      "title": "Shared-script blast radius: build-all-images.sh is also called by kind-e2e.yml; the rmi change must not break that workflow",
+      "polarity": "contract",
+      "layer": "ci-observation",
+      "status": "confirmed",
+      "origin": "initial-pr",
+      "firstSeenSha": "27581121b535fd809804316feaa27bb70043c935",
+      "evidenceKind": "differential",
+      "evidence": "results/ci-evidence.md: all 5 kind-e2e-test legs success on PR head (run 27496321576); nothing after the load loop consumes the local images (deploy-fluid-to-kind.sh only runs helm against kind-local images; base already pruned all images at script end via cleanup_docker_caches).",
+      "match": ["ci-evidence.md"]
+    }
+  ],
+  "liveNote": "L2/L3 for this PR is the GitHub Actions run itself: backward-compat-test green on all 5 matrix legs (run 27496321566 on head, 2026-06-14). The only currently failing check on the PR is the 'lint' job, which also fails on the merge base and on the PR's empty first commit — pre-existing, Go-code-only lint job, not touched by this PR."
+}

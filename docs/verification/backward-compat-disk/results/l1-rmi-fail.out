@@ -1,0 +1,24 @@
+script=/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-06/pr-6002/worktree/.github/scripts/build-all-images.sh
+exit_code=0
+rmi_calls=10
+kind_load_calls=10
+prune_calls=4
+warnings=10
+
+ok:   script exits 0
+ok:   dataset-controller: docker rmi follows kind load
+ok:   application-controller: docker rmi follows kind load
+ok:   alluxioruntime-controller: docker rmi follows kind load
+ok:   jindoruntime-controller: docker rmi follows kind load
+ok:   juicefsruntime-controller: docker rmi follows kind load
+ok:   cacheruntime-controller: docker rmi follows kind load
+ok:   thinruntime-controller: docker rmi follows kind load
+ok:   fluid-csi: docker rmi follows kind load
+ok:   fluid-webhook: docker rmi follows kind load
+ok:   fluid-crd-upgrader: docker rmi follows kind load
+ok:   exactly 10 docker rmi calls (one per image)
+ok:   cleanup_docker_caches prunes unchanged
+ok:   docker rmi failure does not abort the script (exit 0)
+ok:   warning printed for every failed rmi (10)
+
+L1-VERDICT: PASS

@@ -1,0 +1,23 @@
+script=/tmp/base-extract/build-all-images.sh
+exit_code=0
+rmi_calls=0
+kind_load_calls=10
+prune_calls=4
+warnings=0
+
+ok:   script exits 0
+FAIL: docker rmi for dataset-controller never invoked after kind load (host copy not freed)
+FAIL: docker rmi for application-controller never invoked after kind load (host copy not freed)
+FAIL: docker rmi for alluxioruntime-controller never invoked after kind load (host copy not freed)
+FAIL: docker rmi for jindoruntime-controller never invoked after kind load (host copy not freed)
+FAIL: docker rmi for juicefsruntime-controller never invoked after kind load (host copy not freed)
+FAIL: docker rmi for cacheruntime-controller never invoked after kind load (host copy not freed)
+FAIL: docker rmi for thinruntime-controller never invoked after kind load (host copy not freed)
+FAIL: docker rmi for fluid-csi never invoked after kind load (host copy not freed)
+FAIL: docker rmi for fluid-webhook never invoked after kind load (host copy not freed)
+FAIL: docker rmi for fluid-crd-upgrader never invoked after kind load (host copy not freed)
+FAIL: expected 10 docker rmi calls, observed 0
+ok:   cleanup_docker_caches prunes unchanged
+
+L1-VERDICT: FAIL
+base_rc=1
