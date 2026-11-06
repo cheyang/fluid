@@ -72,6 +72,10 @@ bash docs/verification/pr6088-alluxio-doc-gofmt/scripts/re-verify.sh
 
 It fetches the current PR head from the manifest `pr` URL, grafts this harness onto it, runs
 the unit layer, and reports F1 as **FIXED** (contract test goes green) or **STILL-BROKEN**.
+Both ends were exercised this round: against the current head it reports
+`F1 contract unit STILL-BROKEN (pass=0 fail=1)`; against a simulated author fix (local temp
+commit with the blank line restored, `tmp/fixed-simul`, since deleted) it reports
+`F1 contract unit FIXED (pass=1 fail=0)` and exits 0.
 Exit 0 iff fixed. No live layer for this PR (comments-only change). Then advance the marker:
 
 ```bash
