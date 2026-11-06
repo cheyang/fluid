@@ -1,0 +1,7 @@
+== base (91a58c1) go.mod gomega/yaml pins ==
+	github.com/onsi/gomega v1.38.2
+	go.yaml.in/yaml/v3 v3.0.4 // indirect
+
+== head (b4c8873) go.mod gomega/yaml pins ==
+	github.com/onsi/gomega v1.44.0
+	go.yaml.in/yaml/v3 v3.0.5 // indirect

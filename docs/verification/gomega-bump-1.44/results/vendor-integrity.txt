@@ -1,0 +1,7 @@
+== diff -r module(gomega@v1.44.0) vendor/github.com/onsi/gomega: content diffs (empty = identical) ==
+(none)
+== diff -r module(yaml/v3@v3.0.5) vendor/go.yaml.in/yaml/v3: content diffs (empty = identical) ==
+(none)
+
+== go mod verify ==
+all modules verified

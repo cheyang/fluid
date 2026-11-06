@@ -1,0 +1,39 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers	0.093s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/deploy	0.016s
+2026/11/07 06:45:34 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+[1m[38;5;9mInvalid NodeTimeout SpecTimeout, or GracePeriod[0m
+[38;5;246mvar _ = BeforeSuite(NodeTimeout(60*time.Second), func() {[0m
+[38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-07/pr-6231/head-wt/pkg/controllers/v1alpha1/alluxio/suite_test.go:51[0m
+  [BeforeSuite] was passed NodeTimeout, SpecTimeout, or GracePeriod but does not
+  have a callback that accepts a [1mSpecContext[0m or [1mcontext.Context[0m.  You must
+  accept a context to enable timeouts and grace periods
+
+  [1mLearn more at:[0m
+  [38;5;14m[4mhttp://onsi.github.io/ginkgo/#spec-timeouts-and-interruptible-nodes[0m
+
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/alluxio	0.014s
+?   	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/cacheruntime	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/databackup	0.022s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataflow	0.023s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataload	0.024s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/datamigrate	0.023s
+2026/11/07 06:45:34 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+[1m[38;5;9mUnknown Decorator[0m
+[38;5;246mvar _ = BeforeSuite(func() {[0m
+[38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-07/pr-6231/head-wt/pkg/controllers/v1alpha1/dataprocess/suite_test.go:51[0m
+  [BeforeSuite] node was passed an unknown decorator: '60'
+
+  [1mLearn more at:[0m [38;5;14m[4mhttp://onsi.github.io/ginkgo/#node-decorators-overview[0m
+
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataprocess	0.016s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset	0.027s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/efc	0.021s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/fluidapp	0.040s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/fluidapp/dataflowaffinity	0.022s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/jindo	0.019s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/juicefs	0.020s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/thinruntime	0.019s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/vineyard	0.019s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/webhook	0.016s
+FAIL
+EXIT=0

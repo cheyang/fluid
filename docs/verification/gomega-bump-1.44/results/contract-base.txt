@@ -1,0 +1,26 @@
+=== RUN   TestGomegaBumpContractSemantics
+=== RUN   TestGomegaBumpContractSemantics/BeNumericallySignedUnsignedEquality
+    gomega_semantics_test.go:55: int64(-1) == uint64(max): Match(actual) = true, want false
+=== RUN   TestGomegaBumpContractSemantics/BeNumericallySignedUnsignedOrdering
+    gomega_semantics_test.go:61: uint(5) > -3: Match(actual) = false, want true
+=== RUN   TestGomegaBumpContractSemantics/BeNumericallyFloatThreshold
+    gomega_semantics_test.go:67: 1.1 == 1.0 +/- 0.2: Match(actual) = false, want true
+=== RUN   TestGomegaBumpContractSemantics/MatchJSONLargeIntegersExact
+    gomega_semantics_test.go:74: max-int64 json ids differ: Match(actual) = true, want false
+=== RUN   TestGomegaBumpContractSemantics/MatchYAMLComparesAllDocuments
+    gomega_semantics_test.go:83: second yaml document differs: Match(actual) = true, want false
+=== RUN   TestGomegaBumpContractSemantics/MatchXMLIgnoresNamespacePrefixes
+    gomega_semantics_test.go:91: same uri, different prefixes: Match(actual) = false, want true
+=== RUN   TestGomegaBumpContractSemantics/HaveKeyWithValueAnyMatchedKey
+    gomega_semantics_test.go:102: key matcher matches key2 whose value matches: Match(actual) = false, want true
+--- FAIL: TestGomegaBumpContractSemantics (0.00s)
+    --- FAIL: TestGomegaBumpContractSemantics/BeNumericallySignedUnsignedEquality (0.00s)
+    --- FAIL: TestGomegaBumpContractSemantics/BeNumericallySignedUnsignedOrdering (0.00s)
+    --- FAIL: TestGomegaBumpContractSemantics/BeNumericallyFloatThreshold (0.00s)
+    --- FAIL: TestGomegaBumpContractSemantics/MatchJSONLargeIntegersExact (0.00s)
+    --- FAIL: TestGomegaBumpContractSemantics/MatchYAMLComparesAllDocuments (0.00s)
+    --- FAIL: TestGomegaBumpContractSemantics/MatchXMLIgnoresNamespacePrefixes (0.00s)
+    --- FAIL: TestGomegaBumpContractSemantics/HaveKeyWithValueAnyMatchedKey (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/gomegacontract	0.002s
+FAIL

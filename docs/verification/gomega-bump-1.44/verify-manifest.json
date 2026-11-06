@@ -1,0 +1,36 @@
+{
+  "topic": "gomega-bump-1.44",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6231",
+  "harnessPaths": [
+    "docs/verification/gomega-bump-1.44",
+    "pkg/gomegacontract"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: 'bump github.com/onsi/gomega from 1.38.2 to 1.44.0' — the direct test dependency is 6 minor versions behind; upstream v1.44.0 ships matcher correctness fixes (BeNumerically signed/unsigned and float-threshold, MatchJSON large-integer exactness, MatchYAML multi-document streams, MatchXML namespace URIs, HaveKey/HaveKeyWithValue determinism) plus go.yaml.in/yaml/v3 v3.0.5.",
+    "reportedComponent": "go.mod test dependency (github.com/onsi/gomega) + vendor tree",
+    "patchedComponent": "go.mod, go.sum, vendor/github.com/onsi/gomega, vendor/go.yaml.in/yaml/v3, vendor/modules.txt — nothing else (verified: the full non-vendor diff is exactly the two version pins; vendored trees are byte-identical to the checksum-verified upstream modules)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "base go.mod pins gomega v1.38.2 / yaml v3.0.4 (results/premise-base.txt); no non-test Go file in fluid imports gomega, so the change is confined to the test framework layer",
+    "match": ["TestGomegaBumpContractSemantics"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/gomega-bump-1.44/scripts/static-guard.sh && go test ./pkg/gomegacontract/ -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "KUBEBUILDER_ASSETS=${KUBEBUILDER_ASSETS:-$HOME/.local/share/kubebuilder-envtest/k8s/1.31.0-linux-amd64} go test -count=1 -timeout 15m ./pkg/controllers/v1alpha1/alluxio/ ./pkg/controllers/v1alpha1/dataprocess/ -json"
+    }
+  },
+  "findings": [
+    { "id": "V1", "polarity": "contract", "layer": "unit", "match": ["TestGomegaBumpContractSemantics"] },
+    { "id": "F-alluxio-suite-broken", "polarity": "contract", "layer": "integration", "match": ["TestAPIs"] },
+    { "id": "F-dataprocess-suite-broken", "polarity": "contract", "layer": "integration", "match": ["TestAPIs"] }
+  ],
+  "liveNote": "L3 not applicable: gomega is a test-only dependency in fluid (zero non-test imports). The live-equivalent gate is the repo's own CI on the PR head b4c88736: unittest, staticcheck, lint, build (amd64+arm), kind-e2e across 6 k8s versions, backward-compat, CodeQL, SonarCloud — all SUCCESS (checked via GitHub API, 2026-11-06)."
+}

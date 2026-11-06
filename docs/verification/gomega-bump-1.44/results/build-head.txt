@@ -1,0 +1,2 @@
+== go build ./... at head b4c8873 ==
+BUILD OK (exit 0)

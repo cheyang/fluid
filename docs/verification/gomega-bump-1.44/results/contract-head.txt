@@ -1,0 +1,18 @@
+=== RUN   TestGomegaBumpContractSemantics
+=== RUN   TestGomegaBumpContractSemantics/BeNumericallySignedUnsignedEquality
+=== RUN   TestGomegaBumpContractSemantics/BeNumericallySignedUnsignedOrdering
+=== RUN   TestGomegaBumpContractSemantics/BeNumericallyFloatThreshold
+=== RUN   TestGomegaBumpContractSemantics/MatchJSONLargeIntegersExact
+=== RUN   TestGomegaBumpContractSemantics/MatchYAMLComparesAllDocuments
+=== RUN   TestGomegaBumpContractSemantics/MatchXMLIgnoresNamespacePrefixes
+=== RUN   TestGomegaBumpContractSemantics/HaveKeyWithValueAnyMatchedKey
+--- PASS: TestGomegaBumpContractSemantics (0.00s)
+    --- PASS: TestGomegaBumpContractSemantics/BeNumericallySignedUnsignedEquality (0.00s)
+    --- PASS: TestGomegaBumpContractSemantics/BeNumericallySignedUnsignedOrdering (0.00s)
+    --- PASS: TestGomegaBumpContractSemantics/BeNumericallyFloatThreshold (0.00s)
+    --- PASS: TestGomegaBumpContractSemantics/MatchJSONLargeIntegersExact (0.00s)
+    --- PASS: TestGomegaBumpContractSemantics/MatchYAMLComparesAllDocuments (0.00s)
+    --- PASS: TestGomegaBumpContractSemantics/MatchXMLIgnoresNamespacePrefixes (0.00s)
+    --- PASS: TestGomegaBumpContractSemantics/HaveKeyWithValueAnyMatchedKey (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/gomegacontract	(cached)
