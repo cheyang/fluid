@@ -1,0 +1,22 @@
+backward-compat-test (v1.22.17)	fail	2m40s	https://github.com/fluid-cloudnative/fluid/actions/runs/42152614621/job/127679168857	
+backward-compat-test (v1.24.17)	fail	2m43s	https://github.com/fluid-cloudnative/fluid/actions/runs/42152614621/job/127679168879	
+backward-compat-test (v1.28.15)	fail	3m5s	https://github.com/fluid-cloudnative/fluid/actions/runs/42152614621/job/127679168794	
+backward-compat-test (v1.30.13)	fail	2m49s	https://github.com/fluid-cloudnative/fluid/actions/runs/42152614621/job/127679169073	
+backward-compat-test (v1.33.2)	fail	2m48s	https://github.com/fluid-cloudnative/fluid/actions/runs/42152614621/job/127679168602	
+build (ubuntu-24.04-arm)	fail	1m17s	https://github.com/fluid-cloudnative/fluid/actions/runs/42152614564/job/127679168319	
+build (ubuntu-latest)	fail	1m43s	https://github.com/fluid-cloudnative/fluid/actions/runs/42152614564/job/127679168195	
+ci/circleci: build	fail	0	https://circleci.com/gh/fluid-cloudnative/fluid/4203	Your tests failed on CircleCI
+kind-e2e-test (v1.22.17)	fail	4m58s	https://github.com/fluid-cloudnative/fluid/actions/runs/42152614425/job/127679168263	
+kind-e2e-test (v1.24.17)	fail	5m43s	https://github.com/fluid-cloudnative/fluid/actions/runs/42152614425/job/127679168222	
+kind-e2e-test (v1.28.15)	fail	4m37s	https://github.com/fluid-cloudnative/fluid/actions/runs/42152614425/job/127679168393	
+kind-e2e-test (v1.30.13)	fail	5m31s	https://github.com/fluid-cloudnative/fluid/actions/runs/42152614425/job/127679167937	
+kind-e2e-test (v1.33.2)	fail	6m2s	https://github.com/fluid-cloudnative/fluid/actions/runs/42152614425/job/127679168198	
+lint	fail	1m54s	https://github.com/fluid-cloudnative/fluid/actions/runs/42152614564/job/127679168235	
+staticcheck	fail	1m11s	https://github.com/fluid-cloudnative/fluid/actions/runs/42152614564/job/127679168308	
+unittest	fail	2m17s	https://github.com/fluid-cloudnative/fluid/actions/runs/42152614564/job/127679168553	
+Analyze (go)	pass	3m43s	https://github.com/fluid-cloudnative/fluid/actions/runs/42152614655/job/127679168114	
+CodeQL	pass	3s	https://github.com/fluid-cloudnative/fluid/runs/127680377807	
+DCO	pass	1s	https://probot.github.io/apps/dco/	
+SonarCloud	pass	2s	https://github.com/fluid-cloudnative/fluid/runs/127679467769	
+SonarCloud Code Analysis	pass	44s	https://sonarcloud.io/dashboard?id=fluid-cloudnative_fluid&pullRequest=6229	
+tide	pending	0		Not mergeable. Needs approved, lgtm labels.

@@ -36,6 +36,33 @@ Answered before the findings, run against the **base** branch without the patch.
 |----|-------|-------|---------|----------|
 | F1 | Bumping the CSI spec ≥ 1.10.0 breaks the build: the vendored `kubernetes-csi/drivers v1.0.2` csi-common `Default*Server` types no longer satisfy the regenerated `csi.*Server` interfaces | 1 | **Confirmed** | base: `go build ./...` exit 0 / head: 3 compile errors (results/build-base.out vs results/build-head.out); harness red at head (results/unit-layer-head.json), green with fix (results/unit-layer-fixsim.json) |
 
+## Round 2 — 2026-11-07 (head force-updated: dependabot rebase)
+
+The PR head moved `7b5d0397f1d6` → `93c51d5b9afe` and the merge-base advanced
+`30d488bb7ecd` → `91a58c1d9d47` (master took #6227: Go 1.25.12 → 1.26.10 /
+x/net v0.62.0, and #6222: codeql-action bumps). Delta analysis:
+
+- `git diff 7b5d0397..93c51d5` non-vendor changes are **exactly** the files
+  master's advance touched (workflow ymls, Dockerfiles, .travis.yml,
+  .circleci) — i.e. pure rebase churn; the PR's own footprint at the new base
+  is still only `go.mod`/`go.sum`/vendor (6 files, same set as round 1).
+- The vendored `container-storage-interface/spec` files are **byte-identical**
+  between the two heads; `kubernetes-csi/drivers` stays pinned at v1.0.2.
+  Nothing in the rebase addresses F1 — it cannot, short of fluid-side work.
+
+Re-verification on the new head (base also re-verified, since it moved):
+
+| Check | Result | Evidence |
+|-------|--------|----------|
+| `re-verify.sh` (auto-resolves head = `93c51d5b9afe`) | **F1 STILL-BROKEN** (contract test fail=1) | results/reverify/unit.out (copy: results/r2-reverify-unit.out) |
+| new base `91a58c1d`: `go build ./...`, stock `./pkg/csi/plugins/...` tests, `go mod verify` | all pass; spec still v1.8.0 | results/r2-base-91a58c1-evidence.out |
+| head `93c51d5b`: `go mod verify` | all modules verified | results/r2-head-93c51d5-evidence.out |
+| CI on new head (toolchain now go1.26.10) | build/unittest/lint/staticcheck/kind-e2e ×5/backward-compat ×5/circleci all **fail** with the identical `csi-common/utils.go:76,84,92 mustEmbedUnimplementedIdentityServer` errors; CodeQL/Sonar/DCO pass | results/r2-ci-checks.txt |
+
+Toolchain independence of F1 is now observed on go1.25.12 (round 1),
+go1.26.10 (CI at the new head), and go1.27.0 (local, both rounds).
+`.last-reviewed` advanced to `93c51d5b9afe` for the next round.
+
 ## Per-finding detail
 
 ### F1 — module does not compile at the PR head (blocker)
