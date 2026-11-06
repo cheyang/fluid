@@ -1,0 +1,22 @@
+=== full package suite at head (regression check) ===
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations	0.118s
+
+=== P0 premise: base lacks the comment, head has it ===
+--- base da69206: lines above func TestOperations ---
+7-	. "github.com/onsi/gomega"
+8-)
+9-
+10:func TestOperations(t *testing.T) {
+--- head 47fad35: lines above func TestOperations ---
+9-
+10-// TestOperations is the entry point for the Ginkgo test suite of the operations package.
+11-// It registers the Gomega fail handler and runs all Ginkgo specs defined in the package
+12-// under the suite name "Operations Suite".
+13-// This function is invoked by the Go test runner via `go test`.
+14-//
+15-// Parameters:
+16-//   - t (*testing.T): The standard Go testing object passed by the test runner.
+17:func TestOperations(t *testing.T) {
+
+=== issue #5999 (linked via 'fixes') state ===
+{"createdAt":"2026-06-14T09:02:51Z","number":5999,"state":"OPEN","title":"Add comments to TestOperations in pkg/ddc/efc/operations/operations_suite_test.go."}

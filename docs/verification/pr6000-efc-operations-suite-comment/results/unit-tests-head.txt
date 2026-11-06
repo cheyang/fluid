@@ -1,0 +1,9 @@
+=== RUN   TestPR6000DocCommentPresent
+--- PASS: TestPR6000DocCommentPresent (0.00s)
+=== RUN   TestPR6000ChangedFileGofmtClean
+--- PASS: TestPR6000ChangedFileGofmtClean (0.00s)
+=== RUN   TestPR6000NoNewGofmtFailuresVsBase
+    verify_pr6000_comment_test.go:176: gofmt-flagged files at HEAD (all pre-existing at base): map[pkg/ddc/alluxio/ufs_internal.go:true pkg/ddc/base/runtime.go:true pkg/ddc/thin/transform_fuse.go:true]
+--- PASS: TestPR6000NoNewGofmtFailuresVsBase (0.11s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations	0.124s

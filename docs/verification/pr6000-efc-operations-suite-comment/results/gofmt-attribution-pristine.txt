@@ -1,0 +1,9 @@
+gofmt-flagged at BASE (da69206da6388e46a8e9e32834d6b22e53fe14a9):
+  pkg/ddc/alluxio/ufs_internal.go
+  pkg/ddc/base/runtime.go
+  pkg/ddc/thin/transform_fuse.go
+gofmt-flagged at HEAD (47fad35486719409d051ef7db82cda2c69ab8b04):
+  pkg/ddc/alluxio/ufs_internal.go
+  pkg/ddc/base/runtime.go
+  pkg/ddc/thin/transform_fuse.go
+PASS: no new gofmt failures vs base; changed file is gofmt-clean (any red 'Code fmt check' is baseline-inherited)

@@ -1,0 +1,35 @@
+{
+  "topic": "pr6000-efc-operations-suite-comment",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6000",
+  "harnessPaths": [
+    "docs/verification/pr6000-efc-operations-suite-comment",
+    "pkg/ddc/efc/operations/verify_pr6000_comment_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #5999 (OPEN, 2026-06-14): \"Add comments to TestOperations in pkg/ddc/efc/operations/operations_suite_test.go.\" — the function has no doc comment on the base branch.",
+    "reportedComponent": "pkg/ddc/efc/operations/operations_suite_test.go (func TestOperations)",
+    "patchedComponent": "pkg/ddc/efc/operations/operations_suite_test.go (func TestOperations)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "base da69206 has no comment above func TestOperations (imports end at line 8, func at line 10); head 47fad35 adds exactly the comment text the issue requests. results/p0-premise.txt",
+    "match": ["TestPR6000DocCommentPresent"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/efc/operations/ -run 'TestPR6000' -count=1 -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestPR6000NoNewGofmtFailuresVsBase", "TestPR6000ChangedFileGofmtClean"]
+    }
+  ],
+  "liveNote": "No live layer: comment-only test-file change; nothing deploys or runs in a cluster. CI attribution (F1) is decided by the differential gofmt check, see scripts/check-gofmt-attribution.sh and results/gofmt-attribution-pristine.txt."
+}

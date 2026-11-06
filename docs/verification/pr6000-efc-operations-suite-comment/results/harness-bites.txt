@@ -1,0 +1,19 @@
+=== M1: delete the added doc comment -> deliverable guard must go RED ===
+0
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations	0.011s
+FAIL
+
+=== M2: add trailing whitespace to a comment line in the changed file -> gofmt contracts must go RED ===
+pkg/ddc/efc/operations/operations_suite_test.go
+--- FAIL: TestPR6000ChangedFileGofmtClean (0.00s)
+    verify_pr6000_comment_test.go:115: PR-changed file is flagged by gofmt -l: operations_suite_test.go
+--- FAIL: TestPR6000NoNewGofmtFailuresVsBase (0.10s)
+    verify_pr6000_comment_test.go:170: NEW gofmt failure not present at merge-base da69206: pkg/ddc/efc/operations/operations_suite_test.go
+    verify_pr6000_comment_test.go:173: the file this PR changes must never be gofmt-flagged: pkg/ddc/efc/operations/operations_suite_test.go
+    verify_pr6000_comment_test.go:176: gofmt-flagged files at HEAD (all pre-existing at base): map[pkg/ddc/alluxio/ufs_internal.go:true pkg/ddc/base/runtime.go:true pkg/ddc/efc/operations/operations_suite_test.go:true pkg/ddc/thin/transform_fuse.go:true]
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations	0.112s
+
+=== after revert: worktree diff of production file must be empty ===
+(empty = reverted)

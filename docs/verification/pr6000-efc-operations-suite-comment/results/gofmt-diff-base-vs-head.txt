@@ -1,0 +1,12 @@
+=== gofmt -l ./pkg ./cmd ./api under CI toolchain go1.24.12 ===
+--- at BASE da69206 ---
+pkg/ddc/alluxio/ufs_internal.go
+pkg/ddc/base/runtime.go
+pkg/ddc/thin/transform_fuse.go
+--- at HEAD 47fad35 (PR head) ---
+pkg/ddc/alluxio/ufs_internal.go
+pkg/ddc/base/runtime.go
+pkg/ddc/thin/transform_fuse.go
+--- changed file only, go1.24.12 (empty = clean) ---
+(end)
+--- identical sets base vs head => lint failure is baseline-inherited, not PR-caused ---
