@@ -1,0 +1,45 @@
+{
+  "topic": "pr6021-reportsummary-comment",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6021",
+  "headSha": "7d68471e176dc5b8a55fac813888313a8f0d0a9a",
+  "baseSha": "d118fbd203bbc739cb90960ae56d90fc8db275ef",
+  "harnessPaths": [
+    "docs/verification/pr6021-reportsummary-comment",
+    "pkg/ddc/alluxio/operations/verify_pr6021_gofmt_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Add comments to TestAlluxioFileUtils_ReportSummary in pkg/ddc/alluxio/operations/base_test.go (issue #6023 asks for exactly this comment, quoted: '// TestAlluxioFileUtils_ReportSummary tests the AlluxioFileUtils.ReportSummary method // for both failure and success cases by mocking the internal exec command.')",
+    "reportedComponent": "pkg/ddc/alluxio/operations/base_test.go (test documentation)",
+    "patchedComponent": "pkg/ddc/alluxio/operations/base_test.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Comments-only PR (scope carve-out); issue #6023 is OPEN and names the exact file/function the PR touches; the comment is present at the PR head (TestVerifyPR6021_ReportSummaryCommentPresent passes). See results/unit-layer-head.json.",
+    "match": ["TestVerifyPR6021_ReportSummaryCommentPresent"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/alluxio/operations/ -run 'TestVerifyPR6021|TestAlluxioFileUtils_ReportSummary' -gcflags=\"all=-N -l\" -count=1 -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyPR6021_BaseTestFileGofmtClean"],
+      "note": "PR head leaves pkg/ddc/alluxio/operations/base_test.go not gofmt-clean (new comment block + func line indented by one tab), failing the lint job's 'Code fmt check' step in .github/workflows/project-check.yml (gofmt -l ./pkg ./cmd ./api must be empty). Fixed means gofmt-clean. NOTE: -count=1 is load-bearing; without it Go's test cache can replay a stale pass recorded while the file was gofmt-formatted."
+    },
+    {
+      "id": "G1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyPR6021_ReportSummaryCommentPresent"],
+      "note": "Intent guard, not a bug: passes before AND after a correct fix. Catches a 'fix' that deletes the requested comment instead of reformatting it (issue #6023 asked for the comment). Expected verdict on any acceptable head: FIXED."
+    }
+  ],
+  "liveNote": "No live layer: comment-only change in a unit test file; CI 'lint' job (project-check.yml) is the authoritative gate."
+}

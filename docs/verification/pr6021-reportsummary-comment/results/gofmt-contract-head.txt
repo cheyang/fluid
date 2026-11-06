@@ -1,0 +1,6 @@
+## control: gofmt -l on merge-base d118fbd version of base_test.go
+gofmt -l output: ''
+RESULT: base version is gofmt-CLEAN
+
+## PR head: gofmt -l pkg/ddc/alluxio/operations/
+pkg/ddc/alluxio/operations/base_test.go
