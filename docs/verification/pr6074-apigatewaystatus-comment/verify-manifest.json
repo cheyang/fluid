@@ -1,0 +1,31 @@
+{
+  "topic": "pr6074-apigatewaystatus-comment",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6074",
+  "harnessPaths": [
+    "docs/verification/pr6074-apigatewaystatus-comment",
+    "pkg/ddc/alluxio/verify_pr6074_comment_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #6073: \"Add comments to TestGetAPIGatewayStatus in pkg/ddc/alluxio/api_gateway_test.go.\"",
+    "reportedComponent": "pkg/ddc/alluxio/api_gateway_test.go",
+    "patchedComponent": "pkg/ddc/alluxio/api_gateway_test.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "At base bf04633 the function has no doc comment; PR adds exactly the requested comment. Comments-only carve-out: symptom reproduction skipped; request/change match validated instead. See results/unit-base.txt.",
+    "match": ["TestGetAPIGatewayStatus"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/alluxio/ -run 'TestGetAPIGatewayStatus|TestQueryAPIGatewayEndpoint|TestPR6074CommentAttached' -count=1 -json"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestPR6074CommentAttached"] },
+    { "id": "AC2", "polarity": "contract", "layer": "unit", "match": ["TestGetAPIGatewayStatus", "TestQueryAPIGatewayEndpoint"] }
+  ],
+  "liveNote": "No live layer: comment-only diff in a _test.go file; also skipped per debate setup (no KUBECONFIG)."
+}

@@ -1,0 +1,7 @@
+2026/11/07 07:31:08 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestPR6074CommentAttached
+    verify_pr6074_comment_test.go:47: F1: doc comment for TestGetAPIGatewayStatus is detached from the func declaration by a blank line; remove the blank line so it reads as a Go doc comment (cf. TestQueryAPIGatewayEndpoint in the same file)
+--- FAIL: TestPR6074CommentAttached (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	0.013s
+FAIL
