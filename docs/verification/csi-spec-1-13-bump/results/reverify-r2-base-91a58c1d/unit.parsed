@@ -1,0 +1,3 @@
+TestVerifyBuildCSI	pass
+TestVerifyVetCSI	pass
+TestVerifyInterfaceContract	pass

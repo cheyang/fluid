@@ -1,0 +1,29 @@
+# CI failure excerpt — PR #6229 round 2, head 93c51d5b9afedf4c76465d84345928697cff5b9b
+# source: gh run view --job 127679168553 --log (unittest, run 42152614564, 2026-11-06T02:50Z)
+unittest	UNKNOWN STEP	2026-11-06T02:50:12.2891684Z ##[error]vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:76:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+unittest	UNKNOWN STEP	2026-11-06T02:50:12.2898685Z ##[error]vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:84:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+unittest	UNKNOWN STEP	2026-11-06T02:50:12.2918707Z ##[error]vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:92:20: cannot use ids (variable of type *DefaultIdentityServer) as csi.IdentityServer value in argument to s.Start: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer)
+
+# gh pr checks 6229 (2026-11-07):
+backward-compat-test (v1.22.17): fail
+backward-compat-test (v1.24.17): fail
+backward-compat-test (v1.28.15): fail
+backward-compat-test (v1.30.13): fail
+backward-compat-test (v1.33.2): fail
+build (ubuntu-24.04-arm): fail
+build (ubuntu-latest): fail
+ci/circleci: build: fail
+kind-e2e-test (v1.22.17): fail
+kind-e2e-test (v1.24.17): fail
+kind-e2e-test (v1.28.15): fail
+kind-e2e-test (v1.30.13): fail
+kind-e2e-test (v1.33.2): fail
+lint: fail
+staticcheck: fail
+unittest: fail
+Analyze (go): pass
+CodeQL: pass
+DCO: pass
+SonarCloud: pass
+SonarCloud Code Analysis: pass
+tide: pending

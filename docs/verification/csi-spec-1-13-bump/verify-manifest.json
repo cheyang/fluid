@@ -14,8 +14,10 @@
     "runsAgainst": "head (differential vs base 30d488bb)",
     "layer": "unit",
     "verdict": "refuted",
-    "evidence": "go build ./pkg/csi/... ./cmd/csi/... fails on head 7b5d0397 (results/head-build-csi.log) and passes on base 30d488bb (results/base-build-csi.log); vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:76,84,92: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer). Same error in CI build/lint/staticcheck/unittest/e2e jobs (results/ci-failure-excerpt.log).",
-    "match": ["TestVerifyBuildCSI"]
+    "evidence": "go build ./pkg/csi/... ./cmd/csi/... fails on head 7b5d0397 (results/head-build-csi.log) and passes on base 30d488bb (results/base-build-csi.log); vendor/github.com/kubernetes-csi/drivers/pkg/csi-common/utils.go:76,84,92: *DefaultIdentityServer does not implement csi.IdentityServer (missing method mustEmbedUnimplementedIdentityServer). Same error in CI build/lint/staticcheck/unittest/e2e jobs (results/ci-failure-excerpt.log). Round 2 (head 93c51d5b, base 91a58c1d, toolchain go1.26.10): re-verify.sh -> all 4 contracts FAIL at head, PASS at base (results/reverify-r2-head-93c51d5b/, results/reverify-r2-base-91a58c1d/); same csi-common error in CI (results/ci-failure-excerpt-r2.log).",
+    "match": [
+      "TestVerifyBuildCSI"
+    ]
   },
   "layers": {
     "unit": {
@@ -28,8 +30,38 @@
     }
   },
   "findings": [
-    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyBuildCSI", "TestVerifyVetCSI", "TestVerifyInterfaceContract"] },
-    { "id": "F1", "polarity": "contract", "layer": "integration", "match": ["TestVerifyCSIUnitTests"] }
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyBuildCSI",
+        "TestVerifyVetCSI",
+        "TestVerifyInterfaceContract"
+      ]
+    },
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestVerifyCSIUnitTests"
+      ]
+    }
   ],
-  "liveNote": "L3 skipped per round policy (no KUBECONFIG layer). The live signal is CI: kind-e2e / backward-compat jobs build the fluid-csi image; on 7b5d0397 they fail at `make vet` (Makefile:189) with the same csi-common compile error before any cluster work."
+  "liveNote": "L3 skipped per round policy (no KUBECONFIG layer). The live signal is CI: kind-e2e / backward-compat jobs build the fluid-csi image; on 7b5d0397 they fail at `make vet` (Makefile:189) with the same csi-common compile error before any cluster work.",
+  "round2": {
+    "headSha": "93c51d5b9afedf4c76465d84345928697cff5b9b",
+    "baseSha": "91a58c1d9d473c6063be7817f398a048233de0f2",
+    "toolchain": "go1.26.10",
+    "verdict": {
+      "F1": "STILL-BROKEN (unit fail=3/3, integration fail=1/1); base control all-pass"
+    },
+    "evidence": [
+      "results/reverify-r2-head-93c51d5b/",
+      "results/reverify-r2-base-91a58c1d/",
+      "results/ci-failure-excerpt-r2.log",
+      "results/spec-v1.9.0-downgrade-r2.out"
+    ]
+  }
 }

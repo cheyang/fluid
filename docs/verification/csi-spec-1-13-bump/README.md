@@ -76,13 +76,52 @@ the real failure path, and (b) no further breakage hides behind the first
 compile error. The vendor patch is a demonstration only, NOT a shippable fix:
 `go mod vendor` would wipe it.
 
+## Round 2 (2026-11-07): rebase re-verification — F1 STILL-BROKEN
+
+The PR was rebased: head `7b5d0397` -> `93c51d5b9afedf4c76465d84345928697cff5b9b`,
+merge-base `30d488bb` -> `91a58c1d9d473c6063be7817f398a048233de0f2` (base added the
+Go 1.26.10 + x/net bump #6227 and the codeql-action group bump #6222; **no**
+pkg/csi or cmd/csi changes). The PR commit itself is byte-identical except one
+go.mod context line (gomonkey v2.13.0 -> v2.14.4 context): same spec
+1.8.0 -> 1.13.0 bump, same vendored regen. The go.mod-pinned toolchain is now
+**go1.26.10** (was go1.25.12); the failure reproduces there unchanged.
+
+`scripts/re-verify.sh` (unit + integration layers; L3 skipped per round policy):
+
+| contract | new base 91a58c1d | new head 93c51d5b |
+|----------|-------------------|-------------------|
+| C1 build | PASS | FAIL (`csi-common/utils.go:76,84,92` mustEmbedUnimplementedIdentityServer) |
+| C2 vet   | PASS | FAIL (same) |
+| C3 interface contract | PASS | FAIL (same) |
+| C4 csi unit tests | PASS | FAIL (same, `[build failed]`) |
+
+Raw evidence: `results/reverify-r2-base-91a58c1d/`, `results/reverify-r2-head-93c51d5b/`
+(`.out` = raw `go test -json`, `.parsed` = per-test verdicts). CI at 93c51d5b:
+same red set (build x2, unittest, lint, staticcheck, kind-e2e x5,
+backward-compat x5) with the identical csi-common error
+(`results/ci-failure-excerpt-r2.log`, unittest run 42152614564). `go mod verify`
+clean at head; no `ptypes/wrappers` consumers outside vendor (AC4 holds).
+Module state unchanged: spec v1.13.0 + archived `kubernetes-csi/drivers` v1.0.2.
+
+Harness fix this round (additive): untracked the volatile
+`results/reverify/*.parsed` files (added `results/.gitignore`) — they were
+committed in round 1 and the re-verify.sh cleanup checkout restored their stale
+committed content after the persist step, so post-run inspection could disagree
+with the runtime verdict table. Runtime verdicts were always correct; this only
+affected the persisted scratch copies.
+
 ## Fix directions (author's choice)
 
 1. **Close the bump** — fluid uses none of the spec 1.9–1.13 additions
    (VolumeGroupSnapshot, ModifyVolume GA, VolumeHealth, GetSnapshot, Snapshot
    Topology); nothing outside `pkg/csi/plugins` even imports the package.
-2. **Pin `< v1.10.0`** (e.g. v1.9.x) — still compiles with csi-common v1.0.2,
-   but keeps the EOL dependency.
+2. **Stay at `<= v1.8.0` (decline the bump)** — the only compile-safe pin.
+   (Round-1 cross-critique correction: a re-pin into the 1.9.x range is NOT an
+   escape — spec v1.9.0 also fails to compile against csi-common v1.0.2:
+   `pkg/csi/plugins/driver.go:107` — `controllerServer` missing
+   `ControllerModifyVolume`, which v1.9.0 already added to the interface.
+   Re-reproduced on the round-2 base, see
+   `results/spec-v1.9.0-downgrade-r2.out`.)
 3. **Do the bump properly**: drop/replace the archived
    `github.com/kubernetes-csi/drivers/pkg/csi-common` (inline the ~200 lines of
    helpers fluid actually uses, or fork with the three `Unimplemented*` embeds),

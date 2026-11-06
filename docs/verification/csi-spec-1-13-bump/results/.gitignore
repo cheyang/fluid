@@ -1,0 +1,3 @@
+# re-verify.sh scratch output (volatile; overwritten each run, and the
+# cleanup checkout restores tracked files — keep this dir untracked).
+results/reverify/

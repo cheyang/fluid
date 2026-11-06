@@ -1,0 +1,3 @@
+TestVerifyBuildCSI	fail
+TestVerifyVetCSI	fail
+TestVerifyInterfaceContract	fail
