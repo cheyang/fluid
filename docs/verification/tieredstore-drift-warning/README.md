@@ -3,6 +3,28 @@
 Reproducible evidence for the findings raised while reviewing
 https://github.com/fluid-cloudnative/fluid/pull/6219.
 
+**Round 6** (head `724796907bd7f9124386e321e1b020898b21944a`, reviewed 2026-11-07, rebased onto
+base `a01c038bcc115e46f0fd74faf5e5ca5e9c6aa840` = #6162 dataset-phase restore + #6227 Go 1.26.10
+bump + #6222 codeql bumps + #6232 chart image bump, squashed to a single PR commit): the PR
+content is **byte-identical** to round 5 for 9 of 10 files. The only PR-side change in the entire
+round is **one comment line** in `test/gha-e2e/curvine/test.sh:522` — the exact round-5 cosmetic
+residue recorded under TS-E2E-REVERT-VACUOUS-LEG ("the inline comment still reads
+resolution-flavored — one comment line would finish the job the log line already did"): it now
+reads "Trigger reconcile after revert and assert event count remains stable at 1 (no new conflict
+events emitted)". No executable line changed. The head-vs-head diffs for `sync.go`/`sync_test.go`
+are the #6162 base movement (CacheEngine.Sync dataset-status block, sync.go:84-117), not PR
+content; the drift-check region is byte-identical to round 5 and #6162's hunk does not interact
+with it. All five harness contracts plus the P0 premise test re-run green on the new head
+(`results/unit-head-724796907.txt`, `results/reverify-round6.txt`); the premise was additionally
+re-run against the **new base** `a01c038b` (PASS — the silent split still reproduces without the
+PR). Full engine package 345 passed / 0 failed / 16 pre-existing env skips (+2 vs round 5 =
+#6162's own new specs; note: without `-gcflags="all=-N -l"` gomonkey specs fail — that is the
+known inlining artifact, not a regression). Required CI fully green on 724796907 (runs
+42265387872/42265388300, 2026-11-06, head_sha verified via gh api) with all four drift phases
+confirmed in the kind-e2e v1.22.17 job log (job 128055838695). The carried advisory
+TS-REQUEUE-REEMISSION is unchanged (no controller/requeue file in the PR diff; -1 env still maps
+to NoRequeue) — maintainer decision. #6192 and #6221 both re-checked OPEN 2026-11-07.
+
 **Round 5** (head `a8f4e5584730987740bd0b81aaab18a33c2c74a4`, reviewed 2026-11-04, rebased onto
 base `7f27b7e2a9cc6343e8905abd37a236e4c735dc24` = #6223 HPA scale subresource): the PR content is
 **byte-identical** to round 4 for every file except `test/gha-e2e/curvine/test.sh`, whose entire

@@ -1,0 +1,75 @@
+Round 6 re-verify — PR #6219 head 724796907bd7f9124386e321e1b020898b21944a (base a01c038bcc115e46f0fd74faf5e5ca5e9c6aa840)
+Run: 2026-11-07, re-verify.sh (auto-resolved head from manifest.pr = pull/6219/head, confirmed
+"current head = 724796907..."), unit layer, harness from verify/tieredstore-drift-warning-claude @ 174f683d9.
+NOTE: re-verify.sh's own cleanup (git checkout -f) reverts its persisted results-dir copy; the
+table below is captured from stdout (/tmp/reverify-r6-full.log) and re-run verbatim for the raw
+files (unit-head-724796907.txt).
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+TS1    contract  unit         FIXED          pass=1 fail=0 miss=0   (TestVerifyWorkerDriftWarnsThroughFullSync)
+TS2    canary    unit         STILL-PRESENT  pass=1 fail=0 miss=0   (TestVerifyClientTieredStoreDriftSilent — EXPECTED: client silence is the tracked #6221 gap; flips red when #6221 lands; re-checked OPEN 2026-11-07)
+TS3    contract  unit         FIXED          pass=1 fail=0 miss=0   (TestVerifyEmptyDirMediumFlipDetected, both directions)
+TS4    contract  unit         FIXED          pass=1 fail=0 miss=0   (TestVerifyDriftThrottleAcrossSyncs)
+TS5    contract  unit         FIXED          pass=1 fail=0 miss=0   (TestVerifyDispatchPrecedenceMatchesConfigMap)
+
+P0 premise test: TestPremiseTieredStoreSplitWorker  pass.
+  Re-run this round against the NEW base a01c038b (grafted, -gcflags="all=-N -l"): PASS —
+  the silent split of issue #6192 still reproduces on the moved base without the PR.
+  (Base movement 7f27b7e2 -> a01c038b = #6162 dataset-phase restore + #6227 Go 1.26.10 bump +
+  #6222 codeql bumps + #6232 chart image bump; none touch cm.go/generateRuntimeConfigData or
+  the ConfigMap-rebuild-per-sync mechanism, so the premise is unaffected — and now re-proven.)
+
+Full engine package on head 724796907 (-gcflags="all=-N -l" -count=1 -v):
+  Ran 345 of 361 Specs — SUCCESS! 345 Passed | 0 Failed | 0 Pending | 16 Skipped
+  (round 5: 343 passed; the +2 are #6162's own new dataset-phase specs in sync_test.go, which
+   arrive via the base movement, not the PR; 16 skips remain the pre-existing env-dependent
+   set from #6186's base files, none in sync_test.go).
+  Attribution note: running WITHOUT -gcflags="all=-N -l" yields 12 failures (ufs_test.go x11 +
+  sync_test.go:492 "should get cache states successfully with mocked Execute") — these are the
+  well-known gomonkey/inlining artifact (same flags the PR body's own instructions require),
+  in files/hunks the PR does not touch, and they vanish with the flags. Not a PR regression.
+
+Round-6 PR-content delta (previous reviewed head a8f4e558 -> 724796907):
+  Per-file comparison of PR content vs each round's merge-base: 9 of 10 files byte-identical
+  to round 5. The ONLY PR-side change in the entire round is one comment line in
+  test/gha-e2e/curvine/test.sh:522 —
+    - "# Trigger reconcile after revert and assert no further conflict events while resolved"
+    + "# Trigger reconcile after revert and assert event count remains stable at 1 (no new conflict events emitted)"
+  This is exactly the round-5 optional cosmetic residue recorded under TS-E2E-REVERT-VACUOUS-LEG
+  ("the inline comment at test.sh:522 still reads resolution-flavored — one comment line would
+  finish the job the log line already did"). The function's executable lines are unchanged.
+  head-vs-head diff for sync.go/sync_test.go equals the base-movement diff (7f27b7e2..a01c038b)
+  modulo hunk offsets: those changes belong to #6162 (CacheEngine.Sync dataset-status block,
+  sync.go:84-117), NOT to this PR. The drift-check region (syncRuntimeSpec ~196-340,
+  checkWorkerTieredStoreDrift :279, call site :256) is byte-identical to round 5; #6162's hunk
+  sits after syncRuntimeSpec's call (:76) in the dataset-status branch and does not interact
+  with drift detection or event emission.
+
+Live CI on head 724796907 (run 42265387872 / 42265388300, executed 2026-11-06, head_sha
+verified via gh api on both runs): all required checks SUCCESS — build x2, unittest, lint,
+staticcheck, Analyze(go)/CodeQL, SonarCloud x2, codecov patch+project, backward-compat-test
+v1.22.17-v1.33.2, kind-e2e-test v1.22.17-v1.33.2 (~29-34 min each); only 'tide' pending
+(approved/lgtm label gating, not a test). kind-e2e v1.22.17 job 128055838695 log contains all
+four drift phases on this head:
+  "Found expected RuntimeTieredStoreConflict event: Worker tieredStore cannot be updated
+   in-place after creation: level 0 (emptyDir): spec quota 2Gi does not match worker volume
+   tiered-store-level-0-index-0 sizeLimit 1Gi. Delete and recreate the CacheRuntime to apply
+   changes."  (AC-TS6 remediation text still the sole guidance, live on this head)
+  "Throttling verified: event count remained 1 across reconcile cycles under persistent drift"
+  "Revert stability verified: event count remained 1 (no new conflict events emitted after
+   drift resolved)"
+  "Cooldown reset verified: fresh drift re-warned immediately without waiting 10m"
+
+Carried advisory TS-REQUEUE-REEMISSION: code path unchanged — no runtime_controller.go or
+crtl_utils.go file in the PR diff vs the new merge-base (count 0); crtl_utils.go:184-186 still
+maps FLUID_RUNTIME_RECONCILE_DURATION=-1 to NoRequeue. Still advisory, still never executed,
+still a maintainer decision (requeue-on-drift or persistent status condition).
+
+Issues re-checked 2026-11-07: #6192 OPEN (premise), #6221 OPEN (client-side detection
+follow-up, author-filed).
+
+Verdict: no new findings; every previously fixed finding re-verified fixed on 724796907; the
+only PR-side delta closes the last recorded cosmetic residue. All 12 acceptance criteria pass
+on the round-6 head. gh pr view reviewDecision=CHANGES_REQUESTED is the maintainer's
+round-2-era review state, unchanged by this round.
