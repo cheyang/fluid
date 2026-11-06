@@ -1,0 +1,25 @@
+# harness-bites: apply proposed fix (gofmt -w, Go 1.24.12) at head, re-run
+using go1.24.12 gofmt (CI-pinned): /home/ecs-user/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.24.12.linux-amd64/bin/gofmt
+== F1: /home/ecs-user/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.24.12.linux-amd64/bin/gofmt -l pkg/ddc/alluxio/operations/base_test.go (contract: expect empty output) ==
+PASS: pkg/ddc/alluxio/operations/base_test.go is gofmt-clean
+contract exit=0
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	0.011s
+unit exit=0
+# resulting diff to PR head (should be exactly the 3 dedented lines):
+diff --git a/pkg/ddc/alluxio/operations/base_test.go b/pkg/ddc/alluxio/operations/base_test.go
+index 00b2ffcd2..57ca6ea62 100644
+--- a/pkg/ddc/alluxio/operations/base_test.go
++++ b/pkg/ddc/alluxio/operations/base_test.go
+@@ -141,9 +141,9 @@ func TestAlluxioFileUtils_Du(t *testing.T) {
+ 	}
+ }
+ 
+-	// TestAlluxioFileUtils_ReportSummary tests the AlluxioFileUtils.ReportSummary method
+-	// for both failure and success cases by mocking the internal exec command.
+-	func TestAlluxioFileUtils_ReportSummary(t *testing.T) {
++// TestAlluxioFileUtils_ReportSummary tests the AlluxioFileUtils.ReportSummary method
++// for both failure and success cases by mocking the internal exec command.
++func TestAlluxioFileUtils_ReportSummary(t *testing.T) {
+ 	ExecCommon := func(a AlluxioFileUtils, command []string, verbose bool) (stdout string, stderr string, err error) {
+ 		return "Alluxio cluster summary", "", nil
+ 	}

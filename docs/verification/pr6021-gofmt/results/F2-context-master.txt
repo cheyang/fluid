@@ -1,0 +1,5 @@
+== F2 (context): /home/ecs-user/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.25.12.linux-amd64/bin/gofmt -l ./pkg ./cmd ./api  [go1.25.12, CI-pinned] ==
+<clean>
+== F2 (context): PATH gofmt (go version go1.27.0 linux/amd64) -l ./pkg ./cmd ./api ==
+pkg/ddc/thin/transform_fuse.go
+(informational; exit 0 — pre-existing upstream state, not a gate on PR #6021)

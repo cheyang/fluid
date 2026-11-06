@@ -1,0 +1,4 @@
+=== RUN   TestAlluxioFileUtils_ReportSummary
+--- PASS: TestAlluxioFileUtils_ReportSummary (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	0.011s

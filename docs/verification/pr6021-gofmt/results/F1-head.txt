@@ -1,0 +1,8 @@
+# F1 contract test at PR head 7d68471e1 (CI-pinned gofmt, Go 1.24.12)
+using go1.24.12 gofmt (CI-pinned): /home/ecs-user/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.24.12.linux-amd64/bin/gofmt
+== F1: /home/ecs-user/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.24.12.linux-amd64/bin/gofmt -l pkg/ddc/alluxio/operations/base_test.go (contract: expect empty output) ==
+FAIL: gofmt flags pkg/ddc/alluxio/operations/base_test.go:
+/tmp/fluid-6021-head/pkg/ddc/alluxio/operations/base_test.go
+Fix: remove the stray leading tab on the added comment lines and the func decl,
+or run: gofmt -w pkg/ddc/alluxio/operations/base_test.go  (equivalently 'make fmt')
+exit=1

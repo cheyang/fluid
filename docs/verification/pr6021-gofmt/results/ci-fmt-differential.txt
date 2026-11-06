@@ -1,0 +1,20 @@
+# CI differential: workflow 'Code fmt check' = gofmt -l ./pkg ./cmd ./api
+# gofmt binary: /home/ecs-user/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.24.12.linux-amd64/bin/gofmt (Go 1.24.12, the GO_VERSION pinned in project-check.yml)
+== base d118fbd20 (merge-base) ==
+files listed: 0 -> step PASSES
+== head 7d68471e1 (PR #6021) ==
+pkg/ddc/alluxio/operations/base_test.go
+files listed: 1 -> step FAILS (grep . matches -> exit 1)
+== current origin/master 30d488bb7 ==
+files listed: 0 -> step PASSES (consistent with master CI)
+
+# Real CI evidence (GitHub API, 2026-11-06):
+# Project Check run 27689217718 at head 7d68471e1: conclusion=FAILURE
+#   lint job 82040982357: failed step = 'Code fmt check'
+# Project Check run 41834068553 at master 30d488bb7: conclusion=SUCCESS
+# DCO check on the PR: ACTION_REQUIRED (separate, unrelated to this finding).
+
+# gofmt version-sensitivity note (F2 refutation):
+# PATH gofmt here is go version go1.27.0 linux/amd64:
+pkg/ddc/thin/transform_fuse.go
+^ a newer gofmt (go1.27) additionally flags transform_fuse.go on master; CI's go1.24.12 gofmt does not (base and master are clean above), and master CI is green — so that is a version artifact, not a real violation under the current CI contract.
