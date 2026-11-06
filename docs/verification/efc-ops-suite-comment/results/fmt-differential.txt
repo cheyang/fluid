@@ -1,0 +1,7 @@
+gofmt -l ./pkg ./cmd ./api  (same check as the CI lint job 'Code fmt check' step)
+base: da69206da6388e46a8e9e32834d6b22e53fe14a9  (3 files)
+head: 47fad35486719409d051ef7db82cda2c69ab8b04  (3 files)
+--- new violations introduced on head (must be empty for PR-clean) ---
+<none>
+--- violations present on base but not head ---
+<none>

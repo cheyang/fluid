@@ -1,0 +1,31 @@
+{
+  "topic": "efc-ops-suite-comment",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6000",
+  "harnessPaths": [
+    "docs/verification/efc-ops-suite-comment",
+    "pkg/ddc/efc/operations/pr6000_comment_contract_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #5999 (OPEN, 2026-06-14): 'Add comments to TestOperations in pkg/ddc/efc/operations/operations_suite_test.go' — the function carries no doc comment on the merge base.",
+    "reportedComponent": "pkg/ddc/efc/operations/operations_suite_test.go, func TestOperations",
+    "patchedComponent": "pkg/ddc/efc/operations/operations_suite_test.go, func TestOperations (exact match)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "git show da69206:pkg/ddc/efc/operations/operations_suite_test.go has no comment above func TestOperations; contract test TestPR6000CommentAccuracy FAILS on base (results/unit-base-bite-check.out) and PASSES on head (results/unit-head.out).",
+    "match": ["TestPR6000CommentAccuracy"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/efc/operations/... -run TestPR6000 -json"
+    }
+  },
+  "findings": [
+    { "id": "PR6000-C1", "polarity": "contract", "layer": "unit", "match": ["TestPR6000CommentAccuracy"] },
+    { "id": "PR6000-C2", "polarity": "contract", "layer": "unit", "match": ["TestPR6000GofmtClean"] }
+  ],
+  "liveNote": "L3 not applicable: comment-only change, no runtime behavior to observe in a cluster. Attribution evidence for the CI lint failure is captured by scripts/fmt-differential.sh (results/fmt-differential.txt: identical 3-file gofmt violation set on base and head, none in the PR's file)."
+}
