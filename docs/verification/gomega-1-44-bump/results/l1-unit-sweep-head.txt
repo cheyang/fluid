@@ -1,0 +1,153 @@
+# Trimmed from full go test sweep output (raw ANSI log discarded).
+# Command: FLUID_UNIT_TEST=true go test $(go list ./... | grep -v vendor | grep -v controller | grep -v e2etest)
+# All FAIL packages below fail IDENTICALLY on base 91a58c1d (gomega v1.38.2), pass with -gcflags=all=-l,
+# and are green in CI job 127752082214 at this head -> local gomonkey/host artifact, not PR-caused.
+
+?   	github.com/fluid-cloudnative/fluid	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/api/v1alpha1	(cached)
+?   	github.com/fluid-cloudnative/fluid/cmd/alluxio	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/alluxio/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/cache	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/cache/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/csi	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/csi/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/dataset	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/dataset/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/efc	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/efc/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/fluidapp	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/fluidapp/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/jindo	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/jindo/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/juicefs	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/juicefs/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/thin	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/thin/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/vineyard	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/vineyard/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/webhook	[no test files]
+?   	github.com/fluid-cloudnative/fluid/cmd/webhook/app	[no test files]
+?   	github.com/fluid-cloudnative/fluid/hack/sdk	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/application/inject	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse/mutator	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse/poststart	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/common	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/common/features	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi	(cached)
+?   	github.com/fluid-cloudnative/fluid/pkg/csi/config	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/features	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/plugins	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/recover	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/updatedbconf	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ctrl	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ctrl/watch	(cached)
+?   	github.com/fluid-cloudnative/fluid/pkg/databackup	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataflow	(cached)
+?   	github.com/fluid-cloudnative/fluid/pkg/dataload	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/datamigrate	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataoperation	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataoperation/mock	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataprocess	(cached)
+?   	github.com/fluid-cloudnative/fluid/pkg/ddc	[no test files]
+FAIL! -- 149 Passed | 1 Failed | 0 Pending | 0 Skipped
+--- FAIL: TestAlluxio (6.06s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	10.087s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/base	(cached)
+?   	github.com/fluid-cloudnative/fluid/pkg/ddc/base/mock	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/base/portallocator	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	(cached)
+Summarizing 12 Failures:
+  [FAIL] CacheEngine Sync Tests Sync when runtime is ready with ReportSummary configured [It] should get cache states successfully with mocked Execute [pkg.ddc.cache.engine.sync_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return parsed CacheRuntimeMountUfsOutput with valid JSON output [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount returns empty output [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount returns whitespace-only output [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return JSON parse error when Mount returns invalid JSON [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests PrepareUFS Tests (Public Method) when MountUFS executes successfully [It] should return error when Mount command fails [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when PrepareUFS returns invalid JSON [It] should return JSON parse error [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when PrepareUFS returns empty output [It] should return empty output error [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when syncDatasetMounts fails due to missing mount point [It] should return mount point not mounted error [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when syncDatasetMounts fails due to unexpected mounted paths [It] should return unexpected mounted paths error [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when all mount points are correctly mounted [It] should successfully update mounts and set status to Bound [pkg.ddc.cache.engine.ufs_test.go]
+  [FAIL] CacheEngine UpdateOnUFSChange Tests UpdateOnUFSChange Tests (Public Method) when dataset has native scheme mounts [It] should skip native scheme mounts and succeed [pkg.ddc.cache.engine.ufs_test.go]
+FAIL! -- 316 Passed | 12 Failed | 0 Pending | 16 Skipped
+--- FAIL: TestCacheEngine (0.23s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.257s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/efc	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindo	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindo/operations	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache/operations	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx/operations	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs/operations	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin/operations	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin/referencedataset	(cached)
+?   	github.com/fluid-cloudnative/fluid/pkg/ddc/types	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/vineyard	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/vineyard/operations	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/dump	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/errors	(cached)
+?   	github.com/fluid-cloudnative/fluid/pkg/metrics	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/runtime	[no test files]
+--- FAIL: TestCheckMountPointBroken (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	112.087s
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/applications/defaultapp	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/applications/pod	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/applications/unstructured	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/cmdguard	(cached)
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/compatibility	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/volume	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/discovery	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/docker	(cached)
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/fake	[no test files]
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/feature	[no test files]
+Summarizing 7 Failures:
+  [PANICKED!] Helm InstallRelease when CombinedOutput fails [It] should return an error
+  [PANICKED!] Helm InstallRelease when namespace contains invalid characters [It] should return an error
+  [PANICKED!] Helm InstallRelease when all conditions are met [It] should install release successfully
+  [FAIL] Helm DeleteRelease when all conditions are met [It] should delete release successfully
+  [FAIL] Helm ListReleases when all conditions are met [It] should list releases successfully
+  [FAIL] Helm ListReleaseMap when all conditions are met [It] should list release map successfully
+  [FAIL] Helm ListAllReleasesWithDetail when all conditions are met [It] should list all releases with detail successfully
+FAIL! -- 22 Passed | 7 Failed | 0 Pending | 0 Skipped
+--- FAIL: TestHelm (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/helm	0.018s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/jindo	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubelet	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/mountinfo	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/runtimes/options	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/security	(cached)
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/testutil	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/tieredstore	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/transformer	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/validation	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/version	(cached)
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/webhook/generator	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/webhook/writer	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook	(cached)
+?   	github.com/fluid-cloudnative/fluid/pkg/webhook/cache	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/handler	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/handler/mutating	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins	(cached)
+?   	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/api	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/datasetusageinjector	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/fileprefetcher	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/fusesidecar	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/mountpropagationinjector	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/nodeaffinitywithcache	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/prefernodeswithoutcache	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/requirenodewithfuse	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/utils	(cached)
+?   	github.com/fluid-cloudnative/fluid/test/gha-e2e/jindo/oss-emulator	[no test files]
+FAIL

@@ -1,0 +1,35 @@
+{
+  "topic": "gomega-1-44-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6231",
+  "harnessPaths": [
+    "docs/verification/gomega-1-44-bump"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: bump github.com/onsi/gomega from 1.38.2 to 1.44.0 (test-only matcher library) without breaking fluid's build or test suite.",
+    "reportedComponent": "test-only dependency github.com/onsi/gomega (0 non-_test.go importers in fluid)",
+    "patchedComponent": "go.mod, go.sum, vendor/github.com/onsi/gomega, vendor/go.yaml.in/yaml/v3, vendor/modules.txt",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "vendor byte-identical to upstream module zips (results/l0-vendor-vs-upstream.txt); go mod tidy+vendor reproduces committed state (results/l0-revendor-diff.txt); fluid matcher usage (35x BeNumerically all same-sign/no threshold forms, 216x HaveKeyWithValue + 89x HaveKey all literal keys, 0x MatchJSON/MatchYAML/MatchXML/HaveExactElements) does not intersect any v1.44.0 behavior change; harness fluid-pattern contracts pass on BOTH versions (results/l1-delta-head.txt, results/l1-delta-base.txt).",
+    "match": ["TestBeNumericallyFluidPatterns", "TestHaveKeyWithValueLiteralPatterns"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 ./docs/verification/gomega-1-44-bump/harness/ -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "KUBEBUILDER_ASSETS=${KUBEBUILDER_ASSETS:-/home/ecs-user/envtest-assets/k8s/1.31.0-linux-amd64} go test -count=1 ./pkg/controllers/v1alpha1/dataprocess/ ./pkg/controllers/v1alpha1/alluxio/ -json"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "integration", "match": ["TestAPIs"], "_note": "pkg/controllers/v1alpha1/dataprocess suite: BeforeSuite legacy ginkgo-v1 timeout arg '60' (suite_test.go:75) aborts the whole suite at runtime ('unknown decorator: 60'). Contract = suite boots under envtest. Currently FAILS on base AND head (pre-existing; invisible to CI because make test excludes controller paths)." },
+    { "id": "F2", "polarity": "contract", "layer": "integration", "match": ["TestAPIs"], "_note": "pkg/controllers/v1alpha1/alluxio/suite_test.go:51 BeforeSuite(NodeTimeout(...), func(){...}) rejected by ginkgo v2 (needs SpecContext-accepting callback). Suite aborts. Currently FAILS on base AND head (pre-existing). Both F1/F2 run TestAPIs in different packages; re-verify matches per-package." },
+    { "id": "F3", "polarity": "contract", "layer": "unit", "match": ["TestBeNumericallySignedUnsignedDelta"], "_note": "pins the intentional upstream delta onsi/gomega#925 (signed/unsigned compare by value in v1.44.0). PASS on head (v1.44.0); FAILS on base (v1.38.2) = harness-bites sensitivity proof." }
+  ],
+  "liveNote": "L3 skipped per debate setup (no live/KUBECONFIG layer). kind-e2e + backward-compat e2e already run in CI and are green at head b4c88736."
+}

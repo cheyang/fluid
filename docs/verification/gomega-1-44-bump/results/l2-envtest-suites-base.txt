@@ -1,0 +1,6 @@
+== BASE (91a58c1d, gomega v1.38.2) ==
+  [BeforeSuite] node was passed an unknown decorator: '60'
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataprocess	0.012s
+  [BeforeSuite] was passed NodeTimeout, SpecTimeout, or GracePeriod but does not
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/alluxio	0.013s
+FAIL

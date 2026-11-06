@@ -1,0 +1,14 @@
+=== RUN   TestBeNumericallyFluidPatterns
+--- PASS: TestBeNumericallyFluidPatterns (0.00s)
+=== RUN   TestHaveKeyWithValueLiteralPatterns
+--- PASS: TestHaveKeyWithValueLiteralPatterns (0.00s)
+=== RUN   TestBeNumericallySignedUnsignedDelta
+    gomega_delta_test.go:75: 
+        Expected
+            <int>: -1
+        not to be ==
+            <uint64>: 18446744073709551615
+--- FAIL: TestBeNumericallySignedUnsignedDelta (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/docs/verification/gomega-1-44-bump/harness	0.002s
+FAIL
