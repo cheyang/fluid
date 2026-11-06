@@ -1,0 +1,8 @@
+== failed backward-compat job 127091790780 (run 41981311011, dependabot PR, 2026-11-05): failure mode ==
+backward-compat-test (v1.33.2)	UNKNOWN STEP	2026-11-05T06:34:34.3327265Z ##[warning]Restore cache failed: Dependencies file is not found in /home/runner/work/fluid/fluid. Supported file pattern: go.mod
+backward-compat-test (v1.33.2)	UNKNOWN STEP	2026-11-05T06:34:37.2154014Z   fail-on-cache-miss: false
+backward-compat-test (v1.33.2)	UNKNOWN STEP	2026-11-05T06:34:37.4527605Z   ignore_failed_clean: false
+backward-compat-test (v1.33.2)	UNKNOWN STEP	2026-11-05T06:35:51.8836061Z Error: load packages in root "/home/runner/work/fluid/fluid/src/github.com/fluid-cloudnative/fluid": err: exit status 1: stderr: go: go.mod requires go >= 1.26.0 (running go 1.25.12; GOTOOLCHAIN=local)
+backward-compat-test (v1.33.2)	UNKNOWN STEP	2026-11-05T06:35:51.8866470Z make: *** [Makefile:179: generate] Error 1
+backward-compat-test (v1.33.2)	UNKNOWN STEP	2026-11-05T06:35:51.8879985Z ##[error]Process completed with exit code 2.
+backward-compat-test (v1.33.2)	UNKNOWN STEP	2026-11-05T06:35:52.0523427Z Error response from daemon: No such container: kind-registry

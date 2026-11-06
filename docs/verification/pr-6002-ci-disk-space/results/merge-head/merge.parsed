@@ -1,0 +1,4 @@
+merge_clean	pass
+merge_keeps_rmi	pass
+merge_keeps_master_features	pass
+merge_keeps_free_disk_step	pass

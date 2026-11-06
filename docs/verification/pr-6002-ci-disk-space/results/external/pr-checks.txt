@@ -1,0 +1,28 @@
+== gh pr checks 6002 (captured 2026-11-06T02:03:30Z) ==
+lint	fail	2m31s	https://github.com/fluid-cloudnative/fluid/actions/runs/27496321559/job/81383340010	
+Analyze (go)	pass	11m13s	https://github.com/fluid-cloudnative/fluid/actions/runs/27496321555/job/81383338821	
+CodeQL	pass	1s	https://github.com/fluid-cloudnative/fluid/runs/81385313818	
+DCO	pass	1s	https://probot.github.io/apps/dco/	
+SonarCloud	pass	1s	https://github.com/fluid-cloudnative/fluid/runs/81270967487	
+SonarCloud Code Analysis	pass	26s	https://sonarcloud.io	
+backward-compat-test (v1.22.17)	pass	17m21s	https://github.com/fluid-cloudnative/fluid/actions/runs/27496321566/job/81383339016	
+backward-compat-test (v1.24.17)	pass	15m35s	https://github.com/fluid-cloudnative/fluid/actions/runs/27496321566/job/81383339034	
+backward-compat-test (v1.28.15)	pass	16m58s	https://github.com/fluid-cloudnative/fluid/actions/runs/27496321566/job/81383339116	
+backward-compat-test (v1.30.13)	pass	15m34s	https://github.com/fluid-cloudnative/fluid/actions/runs/27496321566/job/81383339032	
+backward-compat-test (v1.33.2)	pass	16m22s	https://github.com/fluid-cloudnative/fluid/actions/runs/27496321566/job/81383339052	
+build (ubuntu-24.04-arm)	pass	5m54s	https://github.com/fluid-cloudnative/fluid/actions/runs/27496321559/job/81383340019	
+build (ubuntu-latest)	pass	7m33s	https://github.com/fluid-cloudnative/fluid/actions/runs/27496321559/job/81383340016	
+ci/circleci: build	pass	0	https://circleci.com/gh/fluid-cloudnative/fluid/4005	Your tests passed on CircleCI!
+codecov/patch	pass	1s	https://app.codecov.io/gh/fluid-cloudnative/fluid/pull/6002	
+codecov/project	pass	0	https://app.codecov.io/gh/fluid-cloudnative/fluid/pull/6002	
+kind-e2e-test (v1.22.17)	pass	20m2s	https://github.com/fluid-cloudnative/fluid/actions/runs/27496321576/job/81383341209	
+kind-e2e-test (v1.24.17)	pass	20m48s	https://github.com/fluid-cloudnative/fluid/actions/runs/27496321576/job/81383341220	
+kind-e2e-test (v1.28.15)	pass	18m49s	https://github.com/fluid-cloudnative/fluid/actions/runs/27496321576/job/81383340966	
+kind-e2e-test (v1.33.2)	pass	19m29s	https://github.com/fluid-cloudnative/fluid/actions/runs/27496321576/job/81383340898	
+staticcheck	pass	1m37s	https://github.com/fluid-cloudnative/fluid/actions/runs/27496321559/job/81383340096	
+unittest	pass	6m43s	https://github.com/fluid-cloudnative/fluid/actions/runs/27496321559/job/81383340021	
+tide	pending	0		Not mergeable. Job lint has not succeeded.
+kind-e2e-test (v1.30.13)	pass	19m22s	https://github.com/fluid-cloudnative/fluid/actions/runs/27496321576/job/81383340894	
+
+== pr view: state/mergeable ==
+{"createdAt":"2026-06-14T10:38:23Z","isDraft":false,"mergeable":"MERGEABLE","state":"OPEN"}

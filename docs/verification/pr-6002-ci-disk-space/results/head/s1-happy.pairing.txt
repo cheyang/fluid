@@ -1,0 +1,1 @@
+  [pairing] loads=10 rmis=10 violations=0

@@ -1,0 +1,2 @@
+make docker-build-all
+kind load docker-image testrepo/dataset-controller:v1.1.0-abcdef1 --name test-cluster

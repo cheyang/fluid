@@ -1,0 +1,42 @@
+{
+  "topic": "pr-6002-ci-disk-space",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6002",
+  "reviewer": "codex",
+  "baseSha": "da69206da6388e46a8e9e32834d6b22e53fe14a9",
+  "headSha": "27581121b535fd809804316feaa27bb70043c935",
+  "harnessPaths": [
+    "docs/verification/pr-6002-ci-disk-space"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "The backward-compat-test CI job was failing with `no space left on device` when loading Docker images to the kind cluster (~36 MB free, not enough for `docker save` temp files).",
+    "reportedComponent": ".github/workflows/backward-compatibility-e2e.yml (GitHub Actions CI)",
+    "patchedComponent": ".github/workflows/backward-compatibility-e2e.yml + .github/scripts/build-all-images.sh",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "external-evidence",
+    "verdict": "not-reproduced",
+    "evidence": "June-2026 failure logs are past GitHub's 90-day retention and cannot be re-inspected. Corroborated historically: master merged the same class of fix for kind-e2e as #6123 (5438f7a43, 2026-07-14, 'prevent out-of-disk failures'). On current master the symptom is NOT observable: backward-compat job 126560263055 (run 41825854539, 2026-11-04) shows /dev/root 145G with 85G avail before build and 81-82G after (results/external/master-backcompat-disk.txt); the only recent backward-compat failures (run 41981311011, 2026-11-05) are a go.mod>=1.26 vs Go 1.25 toolchain error, not disk (results/external/dependabot-failure-mode.txt). Not blocking per policy (not-reproduced != refuted; cheap standard hardening with maintainer precedent).",
+    "match": []
+  },
+  "layers": {
+    "unit": {
+      "kind": "shell",
+      "cmd": "rm -rf /tmp/pr-6002-reverify && bash docs/verification/pr-6002-ci-disk-space/scripts/stub-run.sh . /tmp/pr-6002-reverify/l1"
+    },
+    "integration": {
+      "kind": "shell",
+      "cmd": "python3 docs/verification/pr-6002-ci-disk-space/scripts/check-workflow-yaml.py . ; bash docs/verification/pr-6002-ci-disk-space/scripts/check-merge-coherence.sh /tmp/pr-6002-reverify/merge"
+    }
+  },
+  "findings": [
+    { "id": "C-RMI-ORDER", "polarity": "contract", "layer": "unit", "match": ["rmi_after_load_pairing"] },
+    { "id": "C-RMI-TOLERATED", "polarity": "contract", "layer": "unit", "match": ["rmi_failure_tolerated"] },
+    { "id": "C-LOAD-FAIL-ABORTS", "polarity": "contract", "layer": "unit", "match": ["load_failure_aborts"] },
+    { "id": "C-CLEANUP", "polarity": "contract", "layer": "unit", "match": ["final_cleanup_runs", "script_exits_zero"] },
+    { "id": "C-WORKFLOW-STEP", "polarity": "contract", "layer": "integration", "match": ["workflow_yaml_parses", "free_disk_step_present", "free_disk_step_ordering", "free_disk_step_contents"] },
+    { "id": "C-MERGE-COHERENCE", "polarity": "contract", "layer": "integration", "match": ["merge_clean", "merge_keeps_rmi", "merge_keeps_master_features", "merge_keeps_free_disk_step"] }
+  ],
+  "liveNote": "L3 (real GHA runner) intentionally skipped: no local docker/kind on the review machine, and the change is self-testing in CI — the workflow under review executes the new step on every PR run. A fresh backward-compat + kind-e2e run on the merged/rebased state is the live-layer evidence (see review.acceptance A-CI).",
+  "_polarity_note": "All checks are contract tests for the PR's own new behavior plus pre-existing safety properties (load_failure_aborts, final_cleanup_runs). They PASS on the PR head and the new-behavior ones FAIL on the merge-base (see results/base/), which is the harness-bites proof."
+}

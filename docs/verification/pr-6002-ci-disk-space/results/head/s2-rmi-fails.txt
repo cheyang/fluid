@@ -1,0 +1,1 @@
+  [rmi-fails] rc=0 loads=10 warnings=10

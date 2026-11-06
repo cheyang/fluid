@@ -1,0 +1,28 @@
+make docker-build-all
+kind load docker-image testrepo/dataset-controller:v1.1.0-abcdef1 --name test-cluster
+docker rmi testrepo/dataset-controller:v1.1.0-abcdef1
+kind load docker-image testrepo/application-controller:v1.1.0-abcdef1 --name test-cluster
+docker rmi testrepo/application-controller:v1.1.0-abcdef1
+kind load docker-image testrepo/alluxioruntime-controller:v1.1.0-abcdef1 --name test-cluster
+docker rmi testrepo/alluxioruntime-controller:v1.1.0-abcdef1
+kind load docker-image testrepo/jindoruntime-controller:v1.1.0-abcdef1 --name test-cluster
+docker rmi testrepo/jindoruntime-controller:v1.1.0-abcdef1
+kind load docker-image testrepo/juicefsruntime-controller:v1.1.0-abcdef1 --name test-cluster
+docker rmi testrepo/juicefsruntime-controller:v1.1.0-abcdef1
+kind load docker-image testrepo/cacheruntime-controller:v1.1.0-abcdef1 --name test-cluster
+docker rmi testrepo/cacheruntime-controller:v1.1.0-abcdef1
+kind load docker-image testrepo/thinruntime-controller:v1.1.0-abcdef1 --name test-cluster
+docker rmi testrepo/thinruntime-controller:v1.1.0-abcdef1
+kind load docker-image testrepo/fluid-csi:v1.1.0-abcdef1 --name test-cluster
+docker rmi testrepo/fluid-csi:v1.1.0-abcdef1
+kind load docker-image testrepo/fluid-webhook:v1.1.0-abcdef1 --name test-cluster
+docker rmi testrepo/fluid-webhook:v1.1.0-abcdef1
+kind load docker-image testrepo/fluid-crd-upgrader:v1.1.0-abcdef1 --name test-cluster
+docker rmi testrepo/fluid-crd-upgrader:v1.1.0-abcdef1
+docker system df
+docker ps
+docker container prune -f
+docker images
+docker image prune -a -f
+docker builder prune -a -f
+docker buildx prune -a -f

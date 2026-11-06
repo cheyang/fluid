@@ -1,0 +1,5 @@
+free_disk step missing: /usr/share/dotnet, /usr/local/lib/android, /opt/ghc, docker image prune
+workflow_yaml_parses	pass
+free_disk_step_present	fail
+free_disk_step_ordering	fail
+free_disk_step_contents	fail

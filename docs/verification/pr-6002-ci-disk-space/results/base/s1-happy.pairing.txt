@@ -1,0 +1,12 @@
+  [pairing] load before pending rmi cleared: testrepo/application-controller:v1.1.0-abcdef1
+  [pairing] load before pending rmi cleared: testrepo/alluxioruntime-controller:v1.1.0-abcdef1
+  [pairing] load before pending rmi cleared: testrepo/jindoruntime-controller:v1.1.0-abcdef1
+  [pairing] load before pending rmi cleared: testrepo/juicefsruntime-controller:v1.1.0-abcdef1
+  [pairing] load before pending rmi cleared: testrepo/cacheruntime-controller:v1.1.0-abcdef1
+  [pairing] load before pending rmi cleared: testrepo/thinruntime-controller:v1.1.0-abcdef1
+  [pairing] load before pending rmi cleared: testrepo/fluid-csi:v1.1.0-abcdef1
+  [pairing] load before pending rmi cleared: testrepo/fluid-webhook:v1.1.0-abcdef1
+  [pairing] load before pending rmi cleared: testrepo/fluid-crd-upgrader:v1.1.0-abcdef1
+  [pairing] trailing load never rmi'd: testrepo/fluid-crd-upgrader:v1.1.0-abcdef1
+  [pairing] loads=10 rmis=0
+  [pairing] loads=10 rmis=0 violations=11

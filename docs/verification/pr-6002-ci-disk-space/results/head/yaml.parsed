@@ -1,0 +1,4 @@
+workflow_yaml_parses	pass
+free_disk_step_present	pass
+free_disk_step_ordering	pass
+free_disk_step_contents	pass

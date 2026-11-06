@@ -1,0 +1,5 @@
+script_exits_zero	pass
+final_cleanup_runs	pass
+rmi_after_load_pairing	pass
+rmi_failure_tolerated	pass
+load_failure_aborts	pass

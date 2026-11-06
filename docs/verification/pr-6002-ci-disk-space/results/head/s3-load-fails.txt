@@ -1,0 +1,1 @@
+  [load-fails] rc=1 loads=1 rmis=0
