@@ -1,0 +1,12 @@
+{"Time":"2026-11-06T08:56:19.206162575+08:00","Action":"start","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations"}
+{"Time":"2026-11-06T08:56:19.217120225+08:00","Action":"run","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations","Test":"TestPR6000CommentAccuracy"}
+{"Time":"2026-11-06T08:56:19.217176287+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations","Test":"TestPR6000CommentAccuracy","Output":"=== RUN   TestPR6000CommentAccuracy\n","OutputType":"frame"}
+{"Time":"2026-11-06T08:56:19.217200758+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations","Test":"TestPR6000CommentAccuracy","Output":"--- PASS: TestPR6000CommentAccuracy (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-06T08:56:19.217203488+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations","Test":"TestPR6000CommentAccuracy","Elapsed":0}
+{"Time":"2026-11-06T08:56:19.217209288+08:00","Action":"run","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations","Test":"TestPR6000GofmtClean"}
+{"Time":"2026-11-06T08:56:19.217210648+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations","Test":"TestPR6000GofmtClean","Output":"=== RUN   TestPR6000GofmtClean\n","OutputType":"frame"}
+{"Time":"2026-11-06T08:56:19.217285751+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations","Test":"TestPR6000GofmtClean","Output":"--- PASS: TestPR6000GofmtClean (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-06T08:56:19.217288481+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations","Test":"TestPR6000GofmtClean","Elapsed":0}
+{"Time":"2026-11-06T08:56:19.217290931+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-11-06T08:56:19.218632919+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations","Output":"ok  \tgithub.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations\t0.012s\n"}
+{"Time":"2026-11-06T08:56:19.218975641+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations","Elapsed":0.013}
