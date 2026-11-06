@@ -1,0 +1,6 @@
+=== RUN   TestPR6000CommentAccuracy
+--- PASS: TestPR6000CommentAccuracy (0.00s)
+=== RUN   TestPR6000GofmtClean
+--- PASS: TestPR6000GofmtClean (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations	0.012s

@@ -1,0 +1,8 @@
+=== RUN   TestPR6000CommentAccuracy
+    keep_test.go:35: no doc comment directly above func TestOperations; issue #5999 asks for one
+--- FAIL: TestPR6000CommentAccuracy (0.00s)
+=== RUN   TestPR6000GofmtClean
+--- PASS: TestPR6000GofmtClean (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations	0.013s
+FAIL
