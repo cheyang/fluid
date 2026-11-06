@@ -1,0 +1,37 @@
+{
+  "topic": "pr6088-gofmt-comment",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6088",
+  "harnessPaths": [
+    "docs/verification/pr6088-gofmt-comment",
+    "pkg/ddc/alluxio/verify_pr6088_gofmt_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #6087: 'Add comments to getMasterName in fluid/pkg/ddc/alluxio/utils.go' — the function ships without a doc comment; the PR adds the requested comment.",
+    "reportedComponent": "pkg/ddc/alluxio/utils.go, func (e *AlluxioEngine) getMasterName",
+    "patchedComponent": "pkg/ddc/alluxio/utils.go, func (e *AlluxioEngine) getMasterName",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "base ccd52dcb: getMasterName has no doc comment (git show base:pkg/ddc/alluxio/utils.go, line ~112). Comments-only PR; per review rubric the premise rigor is scoped to issue/PR/file correspondence, which matches exactly. See results/gofmt-differential.txt (base block).",
+    "match": ["TestVerifyPR6088TouchedFilesGofmtClean"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/alluxio/ -run 'TestVerifyPR6088' -count=1 -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyPR6088TouchedFilesGofmtClean"],
+      "claim": "pkg/ddc/alluxio/utils.go at PR head is not gofmt-clean (the patch deleted the blank line before the new doc comment), so the lint job's 'Code fmt check' step (gofmt -l ./pkg ./cmd ./api | grep . && exit 1) fails. Confirmed differentially: base clean / head flagged with go1.24.12 gofmt (the CI GO_VERSION) and go1.27.0. CI lint job 84444787085 failed on this head while merge-base ccd52dcb passed the same workflow.",
+      "fix": "Run `make fmt` (or restore the blank line between getMasterPodInfo's closing brace and the new comment) and amend the commit."
+    }
+  ],
+  "liveNote": "No live layer needed: comment-only PR; the finding is a deterministic formatting gate failure, fully decidable by gofmt. Skipped per debate round policy (unit + integration only)."
+}

@@ -1,0 +1,21 @@
+# gofmt differential, tool: go1.24.12 gofmt (CI GO_VERSION) and go1.27.0 gofmt
+## base ccd52dcb: pkg/ddc/alluxio/utils.go
+go1.24.12 gofmt -l: []
+go1.27.0  gofmt -l: []
+
+## head e23c7a04: pkg/ddc/alluxio/utils.go
+go1.24.12 gofmt -l: [/tmp/head_utils.go]
+go1.27.0  gofmt -l: [/tmp/head_utils.go]
+
+## go1.24.12 gofmt -d on head file:
+diff /tmp/head_utils.go.orig /tmp/head_utils.go
+--- /tmp/head_utils.go.orig
++++ /tmp/head_utils.go
+@@ -111,6 +111,7 @@
+ 
+ 	return
+ }
++
+ // getMasterName returns the name of the Alluxio master StatefulSet.
+ // It constructs the name by appending "-master" to the engine's base name.
+ // This name is used to identify the master StatefulSet resource in Kubernetes.

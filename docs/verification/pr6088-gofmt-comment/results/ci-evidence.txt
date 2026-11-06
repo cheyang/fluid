@@ -1,0 +1,29 @@
+lint	fail	2m33s	https://github.com/fluid-cloudnative/fluid/actions/runs/28426517251/job/84444787085	
+Analyze (go)	pass	10m22s	https://github.com/fluid-cloudnative/fluid/actions/runs/28426517244/job/84444810511	
+CodeQL	pass	2s	https://github.com/fluid-cloudnative/fluid/runs/84445855511	
+DCO	pass	1s	https://probot.github.io/apps/dco/	
+SonarCloud	pass	3s	https://github.com/fluid-cloudnative/fluid/runs/84230978799	
+SonarCloud Code Analysis	pass	49s	https://sonarcloud.io/dashboard?id=fluid-cloudnative_fluid&pullRequest=6088	
+backward-compat-test (v1.22.17)	pass	16m14s	https://github.com/fluid-cloudnative/fluid/actions/runs/28426517256/job/84444801214	
+backward-compat-test (v1.24.17)	pass	15m18s	https://github.com/fluid-cloudnative/fluid/actions/runs/28426517256/job/84444801215	
+backward-compat-test (v1.28.15)	pass	16m2s	https://github.com/fluid-cloudnative/fluid/actions/runs/28426517256/job/84444801263	
+backward-compat-test (v1.30.13)	pass	15m41s	https://github.com/fluid-cloudnative/fluid/actions/runs/28426517256/job/84444801211	
+backward-compat-test (v1.33.2)	pass	16m18s	https://github.com/fluid-cloudnative/fluid/actions/runs/28426517256/job/84444801236	
+build (ubuntu-24.04-arm)	pass	5m56s	https://github.com/fluid-cloudnative/fluid/actions/runs/28426517251/job/84444787000	
+build (ubuntu-latest)	pass	9m23s	https://github.com/fluid-cloudnative/fluid/actions/runs/28426517251/job/84444786996	
+codecov/patch	pass	1s	https://app.codecov.io/gh/fluid-cloudnative/fluid/pull/6088	
+codecov/project	pass	1s	https://app.codecov.io/gh/fluid-cloudnative/fluid/pull/6088	
+kind-e2e-test (v1.22.17)	pass	24m2s	https://github.com/fluid-cloudnative/fluid/actions/runs/28426517261/job/84444793238	
+kind-e2e-test (v1.24.17)	pass	24m37s	https://github.com/fluid-cloudnative/fluid/actions/runs/28426517261/job/84444793237	
+kind-e2e-test (v1.28.15)	pass	24m2s	https://github.com/fluid-cloudnative/fluid/actions/runs/28426517261/job/84444793243	
+kind-e2e-test (v1.30.13)	pass	23m59s	https://github.com/fluid-cloudnative/fluid/actions/runs/28426517261/job/84444793241	
+kind-e2e-test (v1.33.2)	pass	23m5s	https://github.com/fluid-cloudnative/fluid/actions/runs/28426517261/job/84444793259	
+staticcheck	pass	1m38s	https://github.com/fluid-cloudnative/fluid/actions/runs/28426517251/job/84444786991	
+unittest	pass	6m52s	https://github.com/fluid-cloudnative/fluid/actions/runs/28426517251/job/84444787013	
+tide	pending	0		Not mergeable. Needs approved, lgtm labels.
+
+=== lint check-run on head ===
+{"completed_at":"2026-07-01T02:53:32Z","conclusion":"failure","details_url":"https://github.com/fluid-cloudnative/fluid/actions/runs/28426517251/job/84444787085","name":"lint","started_at":"2026-07-01T02:50:59Z"}
+
+=== merge-base push run (same workflow) ===
+{"conclusion":"success","created_at":"2026-06-30T03:33:34Z","display_title":"﻿test: add NotFound/helm-delete path tests for DataProcess status han…","head_sha":"ccd52dcb"}
