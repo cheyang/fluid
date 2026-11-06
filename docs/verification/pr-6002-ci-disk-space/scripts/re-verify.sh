@@ -35,6 +35,12 @@ fi
 MANIFEST_DIR="$(dirname "$MANIFEST")"
 echo "re-verify: manifest = $MANIFEST"
 
+# The manifest disappears from the worktree when we checkout the target ref
+# (the harness only exists on the verify branch). Copy it aside first.
+RUNTIME_DIR="$(mktemp -d)"
+cp "$MANIFEST" "$RUNTIME_DIR/manifest.json"
+MANIFEST="$RUNTIME_DIR/manifest.json"
+
 # resolve target ref
 if [ -z "$FIXED_REF" ]; then
   PR_URL="$(jq -r '.pr // empty' "$MANIFEST")"
@@ -55,7 +61,7 @@ if [ -n "$LAST_REVIEWED" ]; then
   git log --oneline "$LAST_REVIEWED..$FIXED_REF" 2>/dev/null | sed 's/^/re-verify: delta: /' || true
 fi
 
-RUNTIME_DIR="$(mktemp -d)"; RESULTS_DIR="$RUNTIME_DIR/results"; mkdir -p "$RESULTS_DIR"
+RESULTS_DIR="$RUNTIME_DIR/results"; mkdir -p "$RESULTS_DIR"
 ORIG_REF="$(git symbolic-ref --quiet --short HEAD || git rev-parse HEAD)"
 HARNESS_SRC="$(git rev-parse HEAD)"
 cleanup() { git checkout -f "$ORIG_REF" >/dev/null 2>&1 || true; rm -rf "$RUNTIME_DIR" 2>/dev/null || true; }
@@ -64,7 +70,10 @@ trap cleanup EXIT
 git checkout -f "$FIXED_REF" >/dev/null 2>&1 || { echo "re-verify: cannot checkout $FIXED_REF" >&2; exit 2; }
 HPATHS=()
 while IFS= read -r p; do [ -n "$p" ] && HPATHS+=("$p"); done < <(jq -r '.harnessPaths[]' "$MANIFEST")
-git checkout "$HARNESS_SRC" -- "${HPATHS[@]}" 2>/dev/null || { echo "re-verify: failed to graft harness" >&2; exit 2; }
+# Guard: with an empty array, `git checkout <ref> --` is a BRANCH SWITCH, not a
+# path restore — never let it run with no paths.
+[ "${#HPATHS[@]}" -gt 0 ] || { echo "re-verify: manifest harnessPaths is empty" >&2; exit 2; }
+git checkout "$HARNESS_SRC" -- "${HPATHS[@]}" || { echo "re-verify: failed to graft harness" >&2; exit 2; }
 
 run_layer() {
   local layer="$1" kind cmd out
