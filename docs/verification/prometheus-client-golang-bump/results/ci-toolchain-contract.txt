@@ -1,0 +1,6 @@
+# check_ci_toolchain_contract.sh
+# repo: /home/ecs-user/.pr-debate/homes/claude/wt-pr6230-r2-claude
+CI GO_VERSION pin: 1.26.10
+go.mod minimum go:  1.26.0
+building with GOTOOLCHAIN=go1.26.10 (as CI does with GOTOOLCHAIN=local)...
+PASS: repo builds with the CI-pinned Go 1.26.10

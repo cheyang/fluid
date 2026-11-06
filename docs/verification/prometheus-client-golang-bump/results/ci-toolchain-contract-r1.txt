@@ -1,0 +1,6 @@
+# check_ci_toolchain_contract.sh
+# repo: /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid
+CI GO_VERSION pin: 1.25.12
+go.mod minimum go:  1.26.0
+FAIL: go.mod requires go >= 1.26.0 but CI pins 1.25.12 with GOTOOLCHAIN=local
+      -> every CI job that invokes go fails before compiling anything

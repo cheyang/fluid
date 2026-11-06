@@ -1,0 +1,17 @@
+# The 4 packages that fail the unit suite at PR HEAD af817d9ad, re-run at BASE 30d488bb.
+# Identical failures at base = pre-existing, NOT introduced by PR #6230.
+# command (base worktree, go1.27.0): FLUID_UNIT_TEST=true go test -count=1 -timeout 600s ./pkg/ddc/alluxio/... ./pkg/ddc/cache/engine/... ./pkg/utils/helm/... ./pkg/utils/
+
+--- FAIL: TestAlluxio (6.05s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	10.077s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	0.015s
+--- FAIL: TestCacheEngine (0.24s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.261s
+--- FAIL: TestHelm (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/helm	0.017s
+--- FAIL: TestCheckMountPointBroken (0.00s)
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	0.021s
+FAIL

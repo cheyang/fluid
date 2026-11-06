@@ -1,0 +1,15 @@
+# check_builder_image_go.sh
+# repo: /tmp/fluid-pr6230-base
+go.mod minimum go: 1.25.0
+ok:   /tmp/fluid-pr6230-base/docker/Dockerfile.webhook (FROM golang:1.25.12 satisfies go 1.25.0)
+ok:   /tmp/fluid-pr6230-base/docker/Dockerfile.vineyardruntime (FROM golang:1.25.12 satisfies go 1.25.0)
+ok:   /tmp/fluid-pr6230-base/docker/Dockerfile.thinruntime (FROM golang:1.25.12 satisfies go 1.25.0)
+ok:   /tmp/fluid-pr6230-base/docker/Dockerfile.juicefsruntime (FROM golang:1.25.12 satisfies go 1.25.0)
+ok:   /tmp/fluid-pr6230-base/docker/Dockerfile.jindoruntime (FROM golang:1.25.12 satisfies go 1.25.0)
+ok:   /tmp/fluid-pr6230-base/docker/Dockerfile.efcruntime (FROM golang:1.25.12 satisfies go 1.25.0)
+ok:   /tmp/fluid-pr6230-base/docker/Dockerfile.dataset (FROM golang:1.25.12 satisfies go 1.25.0)
+ok:   /tmp/fluid-pr6230-base/docker/Dockerfile.csi (FROM golang:1.25.12 satisfies go 1.25.0)
+ok:   /tmp/fluid-pr6230-base/docker/Dockerfile.cacheruntime (FROM golang:1.25.12 satisfies go 1.25.0)
+ok:   /tmp/fluid-pr6230-base/docker/Dockerfile.application (FROM golang:1.25.12 satisfies go 1.25.0)
+ok:   /tmp/fluid-pr6230-base/docker/Dockerfile.alluxioruntime (FROM golang:1.25.12 satisfies go 1.25.0)
+PASS: all pinned builder images satisfy the module's minimum Go

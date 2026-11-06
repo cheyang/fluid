@@ -1,0 +1,4 @@
+# check_builder_image_go.sh
+# repo: /home/ecs-user/.pr-debate
+go.mod minimum go: 
+PASS: all pinned builder images satisfy the module's minimum Go

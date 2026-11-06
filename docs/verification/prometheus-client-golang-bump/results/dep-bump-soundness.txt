@@ -1,0 +1,9 @@
+# check_dep_bump_soundness.sh
+# repo: /home/ecs-user/.pr-debate/homes/claude/wt-pr6230-r2-claude
+# local go: go version go1.27.0 linux/amd64
+ok: no non-vendor import of client_golang/api (v1.25.0 breaking surface unused)
+ok: go build ./... (vendored) passes with go 1.27.0
+ok: go vet ./pkg/... ./cmd/... passes
+?   	github.com/fluid-cloudnative/fluid/pkg/metrics	[no test files]
+ok: pkg/metrics compiles and links against client_golang v1.25.0
+PASS: dependency bump is sound; CI failure is the toolchain pin (F1/F2)

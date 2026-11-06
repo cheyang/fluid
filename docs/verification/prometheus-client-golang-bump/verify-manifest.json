@@ -1,0 +1,120 @@
+{
+  "topic": "prometheus-client-golang-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6230",
+  "prHeadFetch": {
+    "remote": "origin",
+    "ref": "pull/6230/head"
+  },
+  "harnessPaths": [
+    "docs/verification/prometheus-client-golang-bump"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Bump github.com/prometheus/client_golang from 1.20.5 to 1.25.0 (plus transitive refresh: testify 1.12.1, prometheus/common 0.72.0, procfs 0.22.0, protobuf 1.36.12, golang.org/x/* bumps, klauspost/compress dropped from the graph).",
+    "reportedComponent": "vendored Go dependencies / go.mod",
+    "patchedComponent": "go.mod, go.sum, vendor/** (no fluid source changes)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "A routine, valid dependency bump: with a Go >= 1.26 toolchain the vendored tree builds (go build ./...), vets clean, and fluid's only client_golang consumer (pkg/metrics, GaugeVec/CounterVec via controller-runtime's registry) compiles and links. Fluid imports none of the API surface broken in v1.25.0 (api/prometheus/v1). See results/dep-bump-soundness.txt. The premise carries no security driver and no linked issue; the benefit for fluid is modest but real (promhttp nil-URL panic fix #2065 and Gather() collector-panic recovery #1961 both apply to controller-runtime's /metrics path). Round 2 (head a70ab0a, base 91a58c1): unchanged premise, same bump rebased; re-verified on the final remediation head with the exact CI-pinned toolchain (GOTOOLCHAIN=go1.26.10 build PASS, results/ci-toolchain-contract.txt).",
+    "match": [
+      "dep-bump-soundness.txt",
+      "ci-toolchain-contract.txt",
+      "dep-bump-soundness.txt"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "script",
+      "cmd": "bash scripts/check_ci_toolchain_contract.sh && bash scripts/check_builder_image_go.sh && bash scripts/check_dep_bump_soundness.sh",
+      "note": "pure-repo checks, no cluster/docker needed; the F1 check downloads the CI-pinned Go toolchain once (network)."
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go list ./... | grep -v controller | grep -v e2etest | FLUID_UNIT_TEST=true xargs go test -count=1 -timeout 600s",
+      "note": "full unit suite mirrors CI's 'make unit-test' package list; ran with local go1.27.0 (CI's pinned 1.25.12 cannot build this head at all - that IS finding F1). 66 packages ok; the 4 failing packages fail identically at base 30d488bb (results/unit-suite-base-attribution.txt), so they are pre-existing, not PR-caused. Live/KUBECONFIG layer skipped per debate setup."
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "status": "fixed",
+      "claim": "go.mod raises the module minimum to go 1.26.0 while CI pins GO_VERSION 1.25.12 (GOTOOLCHAIN=local via actions/setup-go v7) in .github/workflows/{project-check,kind-e2e,backward-compatibility-e2e}.yml, so all 16 required checks fail with 'go: go.mod requires go >= 1.26.0 (running go 1.25.12; GOTOOLCHAIN=local)'. ROUND 2 (head a70ab0a, base 91a58c1 via PR #6227): CI pins are now GO_VERSION 1.26.10 (all 3 workflows), go.mod minimum stays go 1.26.0 with toolchain go1.26.10 restored, and the tree builds under GOTOOLCHAIN=go1.26.10. All 16 previously-failing checks pass on the head (results/ci-status-r2.txt).",
+      "verification": {
+        "base": "pass",
+        "previous": "fail",
+        "head": "pass"
+      },
+      "tests": [
+        "scripts/check_ci_toolchain_contract.sh (results/ci-toolchain-contract.txt: green at head r2; red at r1 head archived as ci-toolchain-contract-r1.txt; green at new base 91a58c1)"
+      ],
+      "match": [
+        "ci-toolchain-contract.txt",
+        "ci-toolchain-contract-r1.txt",
+        "ci-status-r2.txt"
+      ]
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "status": "fixed",
+      "claim": "go.mod minimum (1.26.0) exceeds the Go of all 11 digest-pinned builder images (golang:1.25.12-bookworm@sha256:... in docker/Dockerfile.*), so image builds silently depend on a network toolchain auto-download outside the digest pin; hermetic/air-gapped image builds break. Same for .travis.yml (go 1.25.12) and .circleci/config.yml (cimg/go:1.25, whose comment documents the now-removed 'toolchain go1.25.12' contract). ROUND 2: all 11 Dockerfiles now pin golang:1.26.10-bookworm@sha256:23ce713... (via PR #6227); 11/11 satisfy go 1.26.0. CircleCI moved to cimg/go:1.26, .travis.yml to 1.26.10, and the .circleci comment now narrates 'toolchain go1.26.10' (F3 resolved with it).",
+      "verification": {
+        "base": "pass",
+        "previous": "fail",
+        "head": "pass"
+      },
+      "tests": [
+        "scripts/check_builder_image_go.sh (results/builder-image-go.txt: 11/11 ok at head r2; green at new base too; r1 11/11 FAIL archived as builder-image-go-r1.txt)"
+      ],
+      "match": [
+        "builder-image-go.txt",
+        "builder-image-go-r1.txt"
+      ]
+    },
+    {
+      "id": "S1",
+      "polarity": "contract",
+      "layer": "unit",
+      "status": "pass",
+      "claim": "Isolation control for F1: the dependency bump itself is sound (builds/vets/links with Go >= 1.26; no use of the v1.25.0 breaking API surface). ROUND 2 re-confirmation on the final remediation head (per the round-1 caveat): dependency set differs from r1 (x/net v0.62.0 and x/mod/x/tools/x/sys from the new base; klauspost/compress still dropped). go build ./... (vendored) + go vet pass under go1.27.0; ./pkg/... ./cmd/... build under the exact CI-pinned GOTOOLCHAIN=go1.26.10; CI unittest/lint/staticcheck green under 1.26.10. Full unit suite at head: 66 ok / 4 FAIL, the same 4 packages fail identically at the new base 91a58c1 (results/unit-suite-base-r2-failures.txt) - environmental, no PR-attributed regression.",
+      "verification": {
+        "base": "pass",
+        "previous": "pass",
+        "head": "pass"
+      },
+      "tests": [
+        "scripts/check_dep_bump_soundness.sh (results/dep-bump-soundness.txt)"
+      ],
+      "match": [
+        "dep-bump-soundness.txt",
+        "unit-suite-head.txt",
+        "unit-suite-base-attribution.txt",
+        "dep-bump-soundness.txt",
+        "unit-suite-head-r2.txt",
+        "unit-suite-base-r2-failures.txt"
+      ]
+    }
+  ],
+  "liveNote": "No live layer for this PR: the reviewable diff is go.mod/go.sum/vendor only; CI-attributed failure is reproduced deterministically at the unit layer (F1).",
+  "proposedFixes": [
+    "RESOLVED (round 2): Option A was taken - PR #6227 (Go 1.25.12 -> 1.26.10 + x/net v0.62.0) landed and this PR was rebased onto it (head a70ab0a, base 91a58c1). Option B (cap at client_golang v1.24.1) is no longer needed."
+  ],
+  "round": 2,
+  "rounds": {
+    "1": {
+      "headSha": "af817d9ad264de238c2ecabb43a220e77f9c1b95",
+      "baseSha": "30d488bb7ecd601fb8f338387d9b1fec1c4a2a2a",
+      "verdict": "F1/F2 open (blocker/major)"
+    },
+    "2": {
+      "headSha": "a70ab0a5074cd15b05bcfe222927a8972b82d32d",
+      "baseSha": "91a58c1d9d473c6063be7817f398a048233de0f2",
+      "verdict": "all findings fixed by rebase onto #6227 (Go 1.26.10); F1/F2 re-verified green head + base"
+    }
+  }
+}

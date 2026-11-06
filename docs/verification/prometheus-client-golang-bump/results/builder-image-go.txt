@@ -1,0 +1,15 @@
+# check_builder_image_go.sh
+# repo: /home/ecs-user/.pr-debate/homes/claude/wt-pr6230-r2-claude
+go.mod minimum go: 1.26.0
+ok:   /home/ecs-user/.pr-debate/homes/claude/wt-pr6230-r2-claude/docker/Dockerfile.cacheruntime (FROM golang:1.26.10 satisfies go 1.26.0)
+ok:   /home/ecs-user/.pr-debate/homes/claude/wt-pr6230-r2-claude/docker/Dockerfile.efcruntime (FROM golang:1.26.10 satisfies go 1.26.0)
+ok:   /home/ecs-user/.pr-debate/homes/claude/wt-pr6230-r2-claude/docker/Dockerfile.application (FROM golang:1.26.10 satisfies go 1.26.0)
+ok:   /home/ecs-user/.pr-debate/homes/claude/wt-pr6230-r2-claude/docker/Dockerfile.alluxioruntime (FROM golang:1.26.10 satisfies go 1.26.0)
+ok:   /home/ecs-user/.pr-debate/homes/claude/wt-pr6230-r2-claude/docker/Dockerfile.dataset (FROM golang:1.26.10 satisfies go 1.26.0)
+ok:   /home/ecs-user/.pr-debate/homes/claude/wt-pr6230-r2-claude/docker/Dockerfile.thinruntime (FROM golang:1.26.10 satisfies go 1.26.0)
+ok:   /home/ecs-user/.pr-debate/homes/claude/wt-pr6230-r2-claude/docker/Dockerfile.juicefsruntime (FROM golang:1.26.10 satisfies go 1.26.0)
+ok:   /home/ecs-user/.pr-debate/homes/claude/wt-pr6230-r2-claude/docker/Dockerfile.csi (FROM golang:1.26.10 satisfies go 1.26.0)
+ok:   /home/ecs-user/.pr-debate/homes/claude/wt-pr6230-r2-claude/docker/Dockerfile.vineyardruntime (FROM golang:1.26.10 satisfies go 1.26.0)
+ok:   /home/ecs-user/.pr-debate/homes/claude/wt-pr6230-r2-claude/docker/Dockerfile.webhook (FROM golang:1.26.10 satisfies go 1.26.0)
+ok:   /home/ecs-user/.pr-debate/homes/claude/wt-pr6230-r2-claude/docker/Dockerfile.jindoruntime (FROM golang:1.26.10 satisfies go 1.26.0)
+PASS: all pinned builder images satisfy the module's minimum Go

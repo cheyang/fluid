@@ -1,0 +1,85 @@
+# full unit suite at PR head af817d9ad (local go1.27.0, FLUID_UNIT_TEST=true, mirrors 'make unit-test' package list)
+# command: go list ./... | grep -v controller | grep -v e2etest | FLUID_UNIT_TEST=true xargs go test -count=1 -timeout 600s
+
+ok  	github.com/fluid-cloudnative/fluid/api/v1alpha1	0.019s
+ok  	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse	0.052s
+ok  	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse/mutator	0.053s
+ok  	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse/poststart	0.031s
+ok  	github.com/fluid-cloudnative/fluid/pkg/common	0.025s
+ok  	github.com/fluid-cloudnative/fluid/pkg/common/features	0.023s
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi	0.028s
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/features	0.013s
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/plugins	3.597s
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/recover	0.438s
+ok  	github.com/fluid-cloudnative/fluid/pkg/csi/updatedbconf	0.027s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ctrl	0.058s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ctrl/watch	0.047s
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataflow	0.022s
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataoperation	0.026s
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataoperation/mock	0.027s
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataprocess	0.046s
+--- FAIL: TestAlluxio (6.06s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	10.108s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	0.040s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/base	0.065s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/base/portallocator	0.038s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	0.059s
+--- FAIL: TestCacheEngine (0.28s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.330s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/efc	10.052s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/efc/operations	0.043s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindo	12.070s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindo/operations	30.038s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	47.093s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache/operations	30.037s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	15.083s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx/operations	30.039s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	12.181s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs/operations	0.029s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	12.067s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin/operations	0.032s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin/referencedataset	1.054s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/vineyard	25.050s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/vineyard/operations	0.010s
+ok  	github.com/fluid-cloudnative/fluid/pkg/dump	2.794s
+ok  	github.com/fluid-cloudnative/fluid/pkg/errors	0.010s
+--- FAIL: TestCheckMountPointBroken (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	112.109s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/cmdguard	0.041s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.051s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/volume	29.100s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/discovery	0.049s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/docker	0.029s
+--- FAIL: TestHelm (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/helm	0.022s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/jindo	0.013s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient	0.218s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubelet	0.015s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/mountinfo	0.022s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/runtimes/options	0.015s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/security	0.005s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/tieredstore	0.020s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/transformer	0.020s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/validation	0.005s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/version	0.006s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/webhook/writer	1.103s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook	0.346s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/handler	0.019s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/handler/mutating	0.029s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins	0.023s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/datasetusageinjector	0.019s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/fileprefetcher	0.022s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/fusesidecar	0.020s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/mountpropagationinjector	0.019s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/nodeaffinitywithcache	0.021s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/prefernodeswithoutcache	0.019s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/requirenodewithfuse	0.017s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/utils	0.022s
+FAIL
+
+FAIL
+EXIT=123

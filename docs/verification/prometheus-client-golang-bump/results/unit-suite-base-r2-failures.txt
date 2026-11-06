@@ -1,0 +1,20 @@
+--- FAIL: TestAlluxio (6.06s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	10.087s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	0.018s
+--- FAIL: TestCacheEngine (1.48s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	2.509s
+--- FAIL: TestCheckMountPointBroken (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	112.089s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/cmdguard	0.015s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.029s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/volume	29.089s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/discovery	0.039s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/docker	0.021s
+--- FAIL: TestHelm (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/helm	0.023s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/jindo	0.017s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient	0.219s

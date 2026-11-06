@@ -1,0 +1,22 @@
+# CI failure evidence for PR #6230 head af817d9ad (gh run 41981310741 project-check, 41981310804 kind-e2e, 41981311011 backward-compat)
+# every failing job errors with the same line:
+go: go.mod requires go >= 1.26.0 (running go 1.25.12; GOTOOLCHAIN=local)
+go: go.mod requires go >= 1.26.0 (running go 1.25.12; GOTOOLCHAIN=local)
+go: go.mod requires go >= 1.26.0 (running go 1.25.12; GOTOOLCHAIN=local)
+
+failing checks on head (statusCheckRollup):
+backward-compat-test (v1.33.2)
+kind-e2e-test (v1.33.2)
+staticcheck
+backward-compat-test (v1.30.13)
+kind-e2e-test (v1.30.13)
+backward-compat-test (v1.28.15)
+kind-e2e-test (v1.28.15)
+backward-compat-test (v1.24.17)
+kind-e2e-test (v1.24.17)
+backward-compat-test (v1.22.17)
+kind-e2e-test (v1.22.17)
+lint
+build (ubuntu-latest)
+build (ubuntu-24.04-arm)
+unittest

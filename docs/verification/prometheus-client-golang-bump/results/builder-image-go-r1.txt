@@ -1,0 +1,15 @@
+# check_builder_image_go.sh
+# repo: /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid
+go.mod minimum go: 1.26.0
+FAIL: /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/docker/Dockerfile.cacheruntime pins FROM golang:1.25.12 but go.mod requires go >= 1.26.0
+FAIL: /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/docker/Dockerfile.efcruntime pins FROM golang:1.25.12 but go.mod requires go >= 1.26.0
+FAIL: /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/docker/Dockerfile.application pins FROM golang:1.25.12 but go.mod requires go >= 1.26.0
+FAIL: /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/docker/Dockerfile.alluxioruntime pins FROM golang:1.25.12 but go.mod requires go >= 1.26.0
+FAIL: /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/docker/Dockerfile.dataset pins FROM golang:1.25.12 but go.mod requires go >= 1.26.0
+FAIL: /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/docker/Dockerfile.thinruntime pins FROM golang:1.25.12 but go.mod requires go >= 1.26.0
+FAIL: /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/docker/Dockerfile.juicefsruntime pins FROM golang:1.25.12 but go.mod requires go >= 1.26.0
+FAIL: /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/docker/Dockerfile.csi pins FROM golang:1.25.12 but go.mod requires go >= 1.26.0
+FAIL: /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/docker/Dockerfile.vineyardruntime pins FROM golang:1.25.12 but go.mod requires go >= 1.26.0
+FAIL: /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/docker/Dockerfile.webhook pins FROM golang:1.25.12 but go.mod requires go >= 1.26.0
+FAIL: /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/docker/Dockerfile.jindoruntime pins FROM golang:1.25.12 but go.mod requires go >= 1.26.0
+FAIL: at least one pinned builder image is below the module's minimum Go

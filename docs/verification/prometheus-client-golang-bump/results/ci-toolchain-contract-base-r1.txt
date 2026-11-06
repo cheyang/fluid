@@ -1,0 +1,6 @@
+# check_ci_toolchain_contract.sh
+# repo: /tmp/fluid-pr6230-base
+CI GO_VERSION pin: 1.25.12
+go.mod minimum go:  1.25.0
+building with GOTOOLCHAIN=go1.25.12 (as CI does with GOTOOLCHAIN=local)...
+PASS: repo builds with the CI-pinned Go 1.25.12
