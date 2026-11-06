@@ -1,0 +1,9 @@
+2026/11/06 08:30:45 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6088TouchedFilesGofmtClean
+    verify_pr6088_gofmt_test.go:57: F1: files touched by PR #6088 are not gofmt-clean (CI 'Code fmt check' fails):
+        utils.go
+        run `make fmt` to fix
+--- FAIL: TestVerifyPR6088TouchedFilesGofmtClean (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	0.014s
+FAIL
