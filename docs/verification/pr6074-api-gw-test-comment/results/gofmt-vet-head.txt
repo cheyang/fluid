@@ -1,0 +1,5 @@
+== gofmt -l (head 2a0c023) ==
+(empty = clean)
+
+== go vet ./pkg/ddc/alluxio/ (head) ==
+vet: ok

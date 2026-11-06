@@ -1,0 +1,31 @@
+{
+  "topic": "pr6074-api-gw-test-comment",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6074",
+  "harnessPaths": [
+    "docs/verification/pr6074-api-gw-test-comment"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #6073 (OPEN): \"Add comments to TestGetAPIGatewayStatus in pkg/ddc/alluxio/api_gateway_test.go\" — the requested 5-line comment block does not exist on the base branch.",
+    "reportedComponent": "pkg/ddc/alluxio/api_gateway_test.go, function TestGetAPIGatewayStatus",
+    "patchedComponent": "pkg/ddc/alluxio/api_gateway_test.go, function TestGetAPIGatewayStatus",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "grep for '// TestGetAPIGatewayStatus tests whether' at base bf04633 returns 0 matches (results/unit-base.txt); at head 2a0c023 the block is present at lines 31-35 and matches the issue text verbatim. Comment-only PR: the docs/test carve-out applies, so this premise check was a cheap inspection, not a runtime repro.",
+    "match": ["grep-count-comment-at-base"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest+scripts",
+      "cmd": "gofmt -l pkg/ddc/alluxio/api_gateway_test.go && go vet ./pkg/ddc/alluxio/ && go test -run 'TestGetAPIGatewayStatus|TestQueryAPIGatewayEndpoint' ./pkg/ddc/alluxio/ && scripts/check-dco-trailer.sh <head> && scripts/check-doc-comment-attachment.sh"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["check-dco-trailer.sh"], "note": "gating: DCO bot fails on the unsigned commit; tide reports Not mergeable" },
+    { "id": "AC3", "polarity": "contract", "layer": "unit", "match": ["TestGetAPIGatewayStatus", "TestQueryAPIGatewayEndpoint"], "note": "regression guard: the change must stay purely additive (gofmt/vet clean, both tests pass identically to base)" },
+    { "id": "F2", "polarity": "canary", "layer": "unit", "match": ["check-doc-comment-attachment.sh"], "note": "nit, non-gating: blank line keeps the new comment detached from the func; canary flips when the author removes it" }
+  ],
+  "liveNote": "No live layer: comment-only diff, no runtime behavior to observe. CI evidence (gh pr checks) is recorded in results/ci-checks.txt."
+}

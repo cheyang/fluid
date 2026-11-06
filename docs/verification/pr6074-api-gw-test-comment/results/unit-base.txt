@@ -1,0 +1,6 @@
+== go test @ BASE bf04633 ==
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	(cached)
+
+== comment presence at base ==
+0
+grep exit=1 (1 = absent)
