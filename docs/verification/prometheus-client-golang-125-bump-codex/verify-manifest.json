@@ -21,7 +21,7 @@
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "GOTOOLCHAIN=local go test ./docs/verification/prometheus-client-golang-125-bump-codex/ -run 'TestToolchainConsistency' -count=1 -json"
+      "cmd": "GOTOOLCHAIN=local go test ./docs/verification/prometheus-client-golang-125-bump-codex/ -run 'TestToolchainConsistency|TestGoModToolchainDirective' -count=1 -json"
     }
   },
   "findings": [
