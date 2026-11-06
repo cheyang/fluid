@@ -1,0 +1,8 @@
+# Round 2 unit-suite attribution (GOTOOLCHAIN=go1.26.10, sandbox)
+# env-failing packages identical at base 91a58c1d and head a70ab0a; CI unittest green at head.
+## head a70ab0a:
+FAIL pkg/utils (TestCheckMountPointBroken), FAIL pkg/utils/helm (TestHelm), FAIL pkg/ddc/alluxio (TestAlluxio), FAIL pkg/ddc/cache/engine (TestCacheEngine); ok: pkg/common, pkg/common/features, pkg/utils/{cmdguard,dataset/lifecycle,dataset/volume,discovery,docker,jindo,kubeclient,kubelet,mountinfo,runtimes/options,security,tieredstore,transformer,validation,version}, pkg/ctrl, pkg/ctrl/watch
+## base 91a58c1d:
+FAIL pkg/utils (TestCheckMountPointBroken, 112s), FAIL pkg/utils/helm (TestHelm), FAIL pkg/ddc/alluxio (TestAlluxio), FAIL pkg/ddc/cache/engine (TestCacheEngine)
+## conclusion: no package passes at base and fails at head -> no unit regression; failures are the known gomonkey sandbox artifacts (E1, pre-existing).
+## authoritative differential: GitHub 'unittest' check SUCCESS on head a70ab0a (Project Check workflow).

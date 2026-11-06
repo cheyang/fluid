@@ -1,0 +1,19 @@
+# Round 2 (head a70ab0a, base 91a58c1d) — L2 soundness under the PINNED toolchain go1.26.10
+# date: 2026-11-07, host: Linux x86_64
+go version go1.26.10 linux/amd64
+
+== go build ./... (vendor mode) ==
+BUILD OK
+
+== go vet ./pkg/... ./cmd/... ==
+VET OK
+
+== go mod verify ==
+all modules verified
+
+== go mod tidy stability ==
+go.mod TIDY-CLEAN
+go.sum TIDY-CLEAN
+
+== go mod vendor consistency ==
+(empty above = vendor consistent)

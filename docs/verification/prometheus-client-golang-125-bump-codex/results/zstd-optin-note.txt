@@ -1,0 +1,11 @@
+# Round 2 observation (nit-level): promhttp zstd negotiation became opt-in inside the bump range
+- base vendor (client_golang v1.20.5): promhttp/http.go imports klauspost/compress/zstd directly;
+  defaultCompressionFormats = {Identity, Gzip, Zstd} — zstd served by default.
+- v1.24.1 (module cache): same opt-in shape as v1.25.0 already (no direct klauspost import in http.go)
+  => the change arrived in v1.24.0, NOT v1.25.0; the alternative "cap at v1.24.1" was equivalent here.
+- head vendor (v1.25.0): promhttp/internal/compression.go exposes `var NewZstdWriter func(...)`;
+  zstd is negotiated only when non-nil, set by side-effect import of prometheus/promhttp/zstd.
+  Fluid imports neither promhttp/zstd nor klauspost (both absent from vendor/modules.txt).
+- Impact: /metrics endpoints (served via controller-runtime -> promhttp) answer zstd-preferring
+  scrapers with gzip/identity instead. Identity is always in defaultCompressionFormats, so no
+  scrape can break; worst case is wire size/CPU. No action required; note for completeness.

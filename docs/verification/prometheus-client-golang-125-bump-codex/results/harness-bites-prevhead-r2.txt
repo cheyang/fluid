@@ -1,0 +1,24 @@
+=== RUN   TestToolchainConsistencyWithPinnedToolchains
+    toolchain_consistency_verify_test.go:86: go.mod go directive: 1.26
+    toolchain_consistency_verify_test.go:124: F1: .github/workflows/backward-compatibility-e2e.yml pins Go 1.25.12 but go.mod requires go 1.26: this build entrypoint fails with 'go.mod requires go >= 1.26 (GOTOOLCHAIN=local)'
+    toolchain_consistency_verify_test.go:124: F1: .github/workflows/kind-e2e.yml pins Go 1.25.12 but go.mod requires go 1.26: this build entrypoint fails with 'go.mod requires go >= 1.26 (GOTOOLCHAIN=local)'
+    toolchain_consistency_verify_test.go:124: F1: .github/workflows/project-check.yml pins Go 1.25.12 but go.mod requires go 1.26: this build entrypoint fails with 'go.mod requires go >= 1.26 (GOTOOLCHAIN=local)'
+    toolchain_consistency_verify_test.go:124: F1: docker/Dockerfile.alluxioruntime pins Go 1.25.12 but go.mod requires go 1.26: this build entrypoint fails with 'go.mod requires go >= 1.26 (GOTOOLCHAIN=local)'
+    toolchain_consistency_verify_test.go:124: F1: docker/Dockerfile.application pins Go 1.25.12 but go.mod requires go 1.26: this build entrypoint fails with 'go.mod requires go >= 1.26 (GOTOOLCHAIN=local)'
+    toolchain_consistency_verify_test.go:124: F1: docker/Dockerfile.cacheruntime pins Go 1.25.12 but go.mod requires go 1.26: this build entrypoint fails with 'go.mod requires go >= 1.26 (GOTOOLCHAIN=local)'
+    toolchain_consistency_verify_test.go:124: F1: docker/Dockerfile.csi pins Go 1.25.12 but go.mod requires go 1.26: this build entrypoint fails with 'go.mod requires go >= 1.26 (GOTOOLCHAIN=local)'
+    toolchain_consistency_verify_test.go:124: F1: docker/Dockerfile.dataset pins Go 1.25.12 but go.mod requires go 1.26: this build entrypoint fails with 'go.mod requires go >= 1.26 (GOTOOLCHAIN=local)'
+    toolchain_consistency_verify_test.go:124: F1: docker/Dockerfile.efcruntime pins Go 1.25.12 but go.mod requires go 1.26: this build entrypoint fails with 'go.mod requires go >= 1.26 (GOTOOLCHAIN=local)'
+    toolchain_consistency_verify_test.go:124: F1: docker/Dockerfile.jindoruntime pins Go 1.25.12 but go.mod requires go 1.26: this build entrypoint fails with 'go.mod requires go >= 1.26 (GOTOOLCHAIN=local)'
+    toolchain_consistency_verify_test.go:124: F1: docker/Dockerfile.juicefsruntime pins Go 1.25.12 but go.mod requires go 1.26: this build entrypoint fails with 'go.mod requires go >= 1.26 (GOTOOLCHAIN=local)'
+    toolchain_consistency_verify_test.go:124: F1: docker/Dockerfile.thinruntime pins Go 1.25.12 but go.mod requires go 1.26: this build entrypoint fails with 'go.mod requires go >= 1.26 (GOTOOLCHAIN=local)'
+    toolchain_consistency_verify_test.go:124: F1: docker/Dockerfile.vineyardruntime pins Go 1.25.12 but go.mod requires go 1.26: this build entrypoint fails with 'go.mod requires go >= 1.26 (GOTOOLCHAIN=local)'
+    toolchain_consistency_verify_test.go:124: F1: docker/Dockerfile.webhook pins Go 1.25.12 but go.mod requires go 1.26: this build entrypoint fails with 'go.mod requires go >= 1.26 (GOTOOLCHAIN=local)'
+    toolchain_consistency_verify_test.go:124: F1: .circleci/config.yml pins Go 1.25 but go.mod requires go 1.26: this build entrypoint fails with 'go.mod requires go >= 1.26 (GOTOOLCHAIN=local)'
+--- FAIL: TestToolchainConsistencyWithPinnedToolchains (0.00s)
+=== RUN   TestGoModToolchainDirectivePresent
+    toolchain_directive_verify_test.go:34: F3: go.mod carries no explicit toolchain directive; the documented pin contract (.circleci/config.yml narrates it) is gone
+--- FAIL: TestGoModToolchainDirectivePresent (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/docs/verification/prometheus-client-golang-125-bump-codex	0.002s
+FAIL

@@ -3,7 +3,7 @@
 - PR: https://github.com/fluid-cloudnative/fluid/pull/6230
 - Reviewed head: `af817d9ad264de238c2ecabb43a220e77f9c1b95`
 - Base (merge-base): `30d488bb7ecd601fb8f338387d9b1fec1c4a2a2a`
-- Reviewer: Reviewer B (Codex), round 1 (initial). Production code untouched.
+- Reviewer: Reviewer B (Codex). Round 1 (initial, head af817d9); Round 2 (incremental, head a70ab0a). Production code untouched.
 
 ## Premise (P0) — REFUTED as submitted
 
@@ -68,6 +68,36 @@ bash docs/verification/prometheus-client-golang-125-bump-codex/scripts/re-verify
 | same on simulated fix (all pins → 1.26) | PASS | PASS ✔ |
 | `go build ./...` on head with go1.27 | pass if bump is sound | pass ✔ |
 | `go vet` + metrics/common tests on head with go1.27 | pass | pass ✔ |
+
+## Round 2 (incremental) — head a70ab0a, new base 91a58c1d — ALL FIXED
+
+The remediation recommended in round 1 was executed: the Go 1.26 migration
+PR #6227 (Go 1.26.10 + x/net v0.62.0) merged into master, and dependabot
+rebased this PR onto it (new merge-base 91a58c1d includes #6227). The PR is
+now a single clean commit: go.mod/go.sum/vendor only (client_golang 1.20.5 ->
+1.25.0; companions testify 1.12.1, prometheus/common 0.72.0, procfs 0.22.0,
+client_model 0.6.3, protobuf 1.36.12, oauth2 0.37.0, go.yaml.in/yaml/v3 3.0.5;
+klauspost/compress and pmezard/go-difflib pruned out).
+
+Outcomes (re-verify.sh + manual layers):
+
+| Finding | Round 1 | Round 2 | Evidence |
+|---|---|---|---|
+| F1 toolchain gate (blocker) | FAIL on head | **FIXED** — all pins (3 workflows, cimg/go, 11 Dockerfiles, travis) now 1.26.10; contract test PASS; 21/21 CI checks green incl. ci/circleci: build | results/reverify/, results/ci-rollup-r2.txt, results/contract-tests-head-r2.txt |
+| F2 builder images | 11/11 FAIL | **FIXED** — all docker/Dockerfile.* pin golang:1.26.10-bookworm; covered by the same contract test | results/contract-tests-head-r2.txt |
+| F3 toolchain directive + stale circleci comment | absent/stale | **FIXED** — go.mod carries `toolchain go1.26.10`; .circleci comment rewritten; new guard TestGoModToolchainDirectivePresent (bites on prev head, passes on new) | results/harness-bites-prevhead-r2.txt vs results/contract-tests-head-r2.txt |
+| F4 bump soundness (refuted risk) | pass under go1.27 | **RE-PASSED under the exact pinned go1.26.10**: build ./... OK, vet OK, go mod verify clean, `go mod tidy` and `go mod vendor` are no-ops (tidy/vendor-clean) | results/l2-head-r2-go12610.txt |
+| Unit-suite regression | none (differential) | none: env-failing 4 packages fail identically at base 91a58c1d and head a70ab0a; authoritative: CI `unittest` SUCCESS on head | results/unit-attribution-r2.txt |
+| M1 pkg/metrics has no tests | open (pre-existing) | still open — unchanged, tracking-issue candidate | `go test ./pkg/metrics/...` = [no test files] |
+| N1 dependabot ignore rule | conditional | **moot** — project moved to Go 1.26; the bump is buildable, no ignore rule needed | .github/dependabot.yml unchanged, now harmless |
+| Q1 remediation path | open | **resolved** — option A executed (#6227 merged, PR rebased) | git history ee16a8532 |
+
+New round-2 observation (nit, non-blocking): within the 1.20.5 -> 1.25.0 range
+(precisely: already in v1.24.x), promhttp's zstd negotiation became opt-in via
+the side-effect package prometheus/promhttp/zstd; fluid does not import it, so
+/metrics now negotiates gzip/identity instead of zstd. Identity is always
+offered, no scraper can break; bandwidth/CPU nuance only. See
+results/zstd-optin-note.txt.
 
 ## Handoff / continuing after the fix
 

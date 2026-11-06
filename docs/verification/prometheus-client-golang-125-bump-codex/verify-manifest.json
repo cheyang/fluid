@@ -12,9 +12,11 @@
     "componentMatch": true,
     "runsAgainst": "base",
     "layer": "script",
-    "verdict": "refuted",
-    "evidence": "client_golang v1.25.0 requires Go >= 1.26; fluid pins Go 1.25.12 in 3 GH workflows, .circleci and 11 Dockerfiles; all CI/image builds fail: 'go.mod requires go >= 1.26.0 (running go 1.25.12; GOTOOLCHAIN=local)'. See results/l1-head.txt, results/ci-failures.txt.",
-    "match": ["TestToolchainConsistencyWithPinnedToolchains"]
+    "verdict": "confirmed-remediated",
+    "evidence": "Round 1: refuted as submitted (go 1.26.0 directive vs 1.25.12 pins). Round 2: the PR was rebased onto the merged Go 1.26.10 migration #6227 (new base 91a58c1d); the bump is now a clean go.mod/go.sum/vendor-only change and every pinned toolchain satisfies it.",
+    "match": [
+      "TestToolchainConsistencyWithPinnedToolchains"
+    ]
   },
   "layers": {
     "unit": {
@@ -27,8 +29,32 @@
       "id": "F1",
       "polarity": "contract",
       "layer": "unit",
-      "match": ["TestToolchainConsistencyWithPinnedToolchains"]
+      "match": [
+        "TestToolchainConsistencyWithPinnedToolchains"
+      ]
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestToolchainConsistencyWithPinnedToolchains"
+      ]
+    },
+    {
+      "id": "F3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestGoModToolchainDirectivePresent"
+      ]
     }
   ],
-  "liveNote": "No live layer: the failure happens at the Go toolchain gate before any binary runs. Direct CI-faithful repro: scripts/l1-toolchain-gate.sh <ref> fail."
+  "liveNote": "No live layer: the failure happens at the Go toolchain gate before any binary runs. Direct CI-faithful repro: scripts/l1-toolchain-gate.sh <ref> fail.",
+  "round2": {
+    "base": "91a58c1d9d473c6063be7817f398a048233de0f2",
+    "previousHead": "af817d9ad264de238c2ecabb43a220e77f9c1b95",
+    "head": "a70ab0a5074cd15b05bcfe222927a8972b82d32d",
+    "results": "results/{reverify,l2-head-r2-go12610.txt,unit-attribution-r2.txt,ci-rollup-r2.txt,harness-bites-prevhead-r2.txt,contract-tests-head-r2.txt,zstd-optin-note.txt}"
+  }
 }

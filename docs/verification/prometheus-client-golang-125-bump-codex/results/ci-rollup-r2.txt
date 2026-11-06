@@ -1,0 +1,7 @@
+# CI statusCheckRollup on head a70ab0a (queried 2026-11-07, gh api via gh pr view)
+SUCCESS: build (ubuntu-latest), build (ubuntu-24.04-arm), unittest, lint, staticcheck, Analyze (go), CodeQL, SonarCloud, SonarCloud Code Analysis, DCO
+SUCCESS: kind-e2e-test v1.22.17/v1.24.17/v1.28.15/v1.30.13/v1.33.2 (x5)
+SUCCESS: backward-compat-test v1.22.17/v1.24.17/v1.28.15/v1.30.13/v1.33.2 (x5)
+SUCCESS: ci/circleci: build  (in-container docker builds under cimg/go:1.26)
+PENDING: tide (merge pool; normal pre-merge state)
+mergeable=MERGEABLE mergeStateStatus=BLOCKED (awaiting review approval, not a check failure)

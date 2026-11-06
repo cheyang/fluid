@@ -1,0 +1,8 @@
+=== RUN   TestToolchainConsistencyWithPinnedToolchains
+    toolchain_consistency_verify_test.go:86: go.mod go directive: 1.26
+--- PASS: TestToolchainConsistencyWithPinnedToolchains (0.00s)
+=== RUN   TestGoModToolchainDirectivePresent
+    toolchain_directive_verify_test.go:39: go directive 1.26, toolchain directive 1.26
+--- PASS: TestGoModToolchainDirectivePresent (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/docs/verification/prometheus-client-golang-125-bump-codex	0.002s
