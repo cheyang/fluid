@@ -1,0 +1,3 @@
+TestGetAPIGatewayStatus	pass
+TestQueryAPIGatewayEndpoint	pass
+TestPR6074CommentAttached	fail
