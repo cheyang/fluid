@@ -1,0 +1,5 @@
+# system gofmt (go1.27.0), command: gofmt -l ./pkg ./cmd ./api on PR head e23c7a04
+pkg/ddc/alluxio/utils.go
+pkg/ddc/thin/transform_fuse.go
+# utils.go: same violation as under go1.24.12. transform_fuse.go: pre-existing,
+# flagged by newer gofmt on base as well (see base/gofmt-1.25plus.txt).

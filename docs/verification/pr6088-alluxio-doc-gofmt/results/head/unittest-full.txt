@@ -1,0 +1,10 @@
+--- FAIL: TestAlluxio (6.54s)
+--- FAIL: TestVerifyGofmtCleanAlluxio (0.02s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	10.586s
+FAIL
+--- same failure occurs on BASE (pre-existing, env-dependent; CI unittest passed) ---
+--- FAIL: TestAlluxio (6.26s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	10.290s
+FAIL

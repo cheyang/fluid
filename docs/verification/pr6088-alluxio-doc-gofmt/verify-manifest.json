@@ -1,0 +1,37 @@
+{
+  "_comment": "Verification harness for PR #6088 (fluid-cloudnative/fluid). Harness is additive: production code is untouched on this branch; only this docs tree and one new test file (pkg/ddc/alluxio/utils_gofmt_verify_test.go).",
+  "topic": "pr6088-alluxio-doc-gofmt",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6088",
+  "harnessPaths": [
+    "docs/verification/pr6088-alluxio-doc-gofmt",
+    "pkg/ddc/alluxio/utils_gofmt_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #6087: 'Add comments to getMasterName in fluid/pkg/ddc/alluxio/utils.go' with the exact requested comment text; the base branch has no doc comment on getMasterName.",
+    "reportedComponent": "pkg/ddc/alluxio/utils.go getMasterName",
+    "patchedComponent": "pkg/ddc/alluxio/utils.go getMasterName",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Docs-only PR (carve-out applies): base ccd52dcb has no comment above getMasterName (git show ccd52dcb:pkg/ddc/alluxio/utils.go | grep -n getMasterName); head adds the comment verbatim as requested. results/base/gofmt-1.24.12.txt.",
+    "match": []
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/alluxio/ -run '^TestVerifyGofmtCleanAlluxio$' -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "title": "PR head is gofmt-dirty: blank line before the new doc comment was removed, failing the CI lint job's Code fmt check",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyGofmtCleanAlluxio"]
+    }
+  ],
+  "liveNote": "Not applicable — comments-only PR; there is no runtime behavior to observe live."
+}

@@ -1,0 +1,9 @@
+2026/11/06 08:26:15 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyGofmtCleanAlluxio
+    utils_gofmt_verify_test.go:28: gofmt reports unformatted files (CI 'Code fmt check' step will fail the lint job):
+        utils.go
+        fix: restore the blank line before the getMasterName doc comment, or run `gofmt -w pkg/ddc/alluxio`
+--- FAIL: TestVerifyGofmtCleanAlluxio (0.02s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	0.035s
+FAIL

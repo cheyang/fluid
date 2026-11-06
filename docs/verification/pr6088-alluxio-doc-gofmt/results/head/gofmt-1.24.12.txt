@@ -1,0 +1,5 @@
+# gofmt from Go 1.24.12 (exact version the CI "lint" job uses, env GO_VERSION: 1.24.12)
+# command: gofmt -l ./pkg ./cmd ./api   (mirrors CI "Code fmt check" step)
+# ref: HEAD e23c7a04ffc3ebb18fad77c5955ab38d3ba8a1a0 (PR #6088 head)
+pkg/ddc/alluxio/utils.go
+# => dirty. CI step `gofmt -l ./pkg ./cmd ./api | grep .` exits 1 -> lint job FAILS.

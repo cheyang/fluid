@@ -1,0 +1,5 @@
+2026/11/06 08:26:24 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyGofmtCleanAlluxio
+--- PASS: TestVerifyGofmtCleanAlluxio (0.02s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	0.032s

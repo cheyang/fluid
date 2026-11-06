@@ -1,0 +1,3 @@
+# system gofmt (go1.27.0): gofmt -l ./pkg ./cmd ./api on BASE ccd52dcb
+# only pre-existing transform_fuse.go; utils.go is clean on base.
+pkg/ddc/thin/transform_fuse.go

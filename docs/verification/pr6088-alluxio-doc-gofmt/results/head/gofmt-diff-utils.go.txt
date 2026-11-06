@@ -1,0 +1,12 @@
+== gofmt -d pkg/ddc/alluxio/utils.go on HEAD (go1.24.12) ==
+diff pkg/ddc/alluxio/utils.go.orig pkg/ddc/alluxio/utils.go
+--- pkg/ddc/alluxio/utils.go.orig
++++ pkg/ddc/alluxio/utils.go
+@@ -111,6 +111,7 @@
+ 
+ 	return
+ }
++
+ // getMasterName returns the name of the Alluxio master StatefulSet.
+ // It constructs the name by appending "-master" to the engine's base name.
+ // This name is used to identify the master StatefulSet resource in Kubernetes.

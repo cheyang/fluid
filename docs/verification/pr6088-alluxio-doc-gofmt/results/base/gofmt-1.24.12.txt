@@ -1,0 +1,8 @@
+# gofmt from Go 1.24.12 (exact version the CI "lint" job uses, env GO_VERSION: 1.24.12)
+# command: gofmt -l ./pkg ./cmd ./api   (mirrors CI "Code fmt check" step)
+# ref: BASE ccd52dcb0e6cdd9d6e285aa21b37925d3fb54702 (PR #6088 merge-base)
+# (no files listed)
+# => clean. The same command on the PR head flags pkg/ddc/alluxio/utils.go:
+#    differential attribution: the PR (and only the PR) introduces the gofmt violation.
+# note: `pkg/ddc/thin/transform_fuse.go` is flagged only by gofmt >= 1.25/1.27 on BOTH
+#   base and head (pre-existing, invisible to the CI's go1.24.12 gofmt). Not a PR finding.
