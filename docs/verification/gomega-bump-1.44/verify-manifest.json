@@ -20,17 +20,17 @@
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "bash docs/verification/gomega-bump-1.44/scripts/static-guard.sh && go test ./pkg/gomegacontract/ -json"
+      "cmd": "bash docs/verification/gomega-bump-1.44/scripts/static-guard.sh > docs/verification/gomega-bump-1.44/results/static-guard.out 2>&1 && go test ./pkg/gomegacontract/ -json || { echo '{\"Action\":\"fail\",\"Package\":\"pkg/gomegacontract\",\"Test\":\"TestGomegaBumpContractSemantics\",\"Elapsed\":0}'; exit 1; }"
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "KUBEBUILDER_ASSETS=${KUBEBUILDER_ASSETS:-$HOME/.local/share/kubebuilder-envtest/k8s/1.31.0-linux-amd64} go test -count=1 -timeout 15m ./pkg/controllers/v1alpha1/alluxio/ ./pkg/controllers/v1alpha1/dataprocess/ -json"
+      "cmd": "bash docs/verification/gomega-bump-1.44/scripts/integration-layer.sh"
     }
   },
   "findings": [
     { "id": "V1", "polarity": "contract", "layer": "unit", "match": ["TestGomegaBumpContractSemantics"] },
-    { "id": "F-alluxio-suite-broken", "polarity": "contract", "layer": "integration", "match": ["TestAPIs"] },
-    { "id": "F-dataprocess-suite-broken", "polarity": "contract", "layer": "integration", "match": ["TestAPIs"] }
+    { "id": "F-alluxio-suite-broken", "polarity": "contract", "layer": "integration", "match": ["TestAPIs/alluxio"] },
+    { "id": "F-dataprocess-suite-broken", "polarity": "contract", "layer": "integration", "match": ["TestAPIs/dataprocess"] }
   ],
   "liveNote": "L3 not applicable: gomega is a test-only dependency in fluid (zero non-test imports). The live-equivalent gate is the repo's own CI on the PR head b4c88736: unittest, staticcheck, lint, build (amd64+arm), kind-e2e across 6 k8s versions, backward-compat, CodeQL, SonarCloud — all SUCCESS (checked via GitHub API, 2026-11-06)."
 }

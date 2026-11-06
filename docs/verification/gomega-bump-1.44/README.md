@@ -35,8 +35,7 @@ bash docs/verification/gomega-bump-1.44/scripts/static-guard.sh
 go test ./pkg/gomegacontract/ -v
 
 # integration layer (the two pre-existing broken suites; needs envtest assets)
-KUBEBUILDER_ASSETS=~/.local/share/kubebuilder-envtest/k8s/1.31.0-linux-amd64 \
-  go test -count=1 ./pkg/controllers/v1alpha1/alluxio/ ./pkg/controllers/v1alpha1/dataprocess/
+bash docs/verification/gomega-bump-1.44/scripts/integration-layer.sh
 
 # full re-verify (grafts this harness onto the current PR head, applies polarity)
 bash docs/verification/gomega-bump-1.44/scripts/re-verify.sh
