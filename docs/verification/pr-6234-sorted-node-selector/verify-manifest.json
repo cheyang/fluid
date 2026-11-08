@@ -1,0 +1,43 @@
+{
+  "topic": "pr-6234-sorted-node-selector",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6234",
+  "harnessPaths": [
+    "docs/verification/pr-6234-sorted-node-selector",
+    "pkg/utils/kubeclient/zz_verify_pr6234_test.go",
+    "pkg/webhook/plugins/requirenodewithfuse/zz_verify_pr6234_test.go",
+    "pkg/webhook/plugins/nodeaffinitywithcache/zz_verify_pr6234_test.go",
+    "pkg/utils/dataset/volume/zz_verify_pr6234_test.go",
+    "pkg/ddc/efc/zz_verify_pr6234_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Several sites iterate over Go maps without key sorting when building NodeSelectorTerms or MatchExpressions (issue #6220): nodeaffinitywithcache getTieredLocalityPreferredSchedulingTerms/getTieredLocalityNodeSelectorTerms, requirenodewithfuse getRequiredSchedulingTerm, utils/dataset/volume CreatePersistentVolumeForRuntime, ddc/efc createPersistentVolumeForRuntime. For pods bound to multiple datasets/runtimes (or multi-label fuse selectors) this yields non-deterministic term/expression order in mutated pod specs and PV node affinity.",
+    "reportedComponent": "pkg/webhook/plugins/nodeaffinitywithcache, pkg/webhook/plugins/requirenodewithfuse, pkg/utils/dataset/volume, pkg/ddc/efc",
+    "patchedComponent": "same four sites + pkg/utils/affinity.go (new helper) + pkg/utils/kubeclient/pod.go (refactor)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base a01c038b the four contract tests fail with observed unsorted orders (e.g. [zone arch region] vs want [arch region zone]; preferred term[0]=runtime-b before runtime-a); on head c9dfc9f4 all four pass. See results/base-unit.txt and results/head-unit.txt.",
+    "match": ["TestVerifyPR6234FuseSelectorRequirementsSorted", "TestVerifyPR6234TieredLocalityDeterministic", "TestVerifyPR6234PVNodeAffinitySorted", "TestVerifyPR6234EFCFusePVNodeAffinitySorted"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -mod=vendor -count=1 -json -run 'TestVerifyPR6234(MergeNodeSelectorSortedControl|FuseSelectorRequirementsSorted|MutateTermOrderDeterministic|TieredLocalityDeterministic)$' ./pkg/utils/kubeclient ./pkg/webhook/plugins/requirenodewithfuse ./pkg/webhook/plugins/nodeaffinitywithcache"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test -mod=vendor -count=1 -json -run 'TestVerifyPR6234(PVNodeAffinitySorted|EFCFusePVNodeAffinitySorted)$' ./pkg/utils/dataset/volume ./pkg/ddc/efc"
+    }
+  },
+  "findings": [
+    { "id": "S1", "polarity": "contract", "layer": "unit",        "match": ["TestVerifyPR6234FuseSelectorRequirementsSorted"] },
+    { "id": "S2", "polarity": "contract", "layer": "unit",        "match": ["TestVerifyPR6234TieredLocalityDeterministic"] },
+    { "id": "S3", "polarity": "contract", "layer": "integration", "match": ["TestVerifyPR6234PVNodeAffinitySorted"] },
+    { "id": "S4", "polarity": "contract", "layer": "integration", "match": ["TestVerifyPR6234EFCFusePVNodeAffinitySorted"] },
+    { "id": "C1", "polarity": "contract", "layer": "unit",        "match": ["TestVerifyPR6234MergeNodeSelectorSortedControl"] },
+    { "id": "F1", "polarity": "contract", "layer": "unit",        "match": ["TestVerifyPR6234MutateTermOrderDeterministic"] }
+  ],
+  "liveNote": "L3 skipped per debate policy. The observable signal in a real cluster would be: repeated admissions of a pod bound to multiple runtimes with global-fuse node selectors produce byte-identical pod affinity (currently only MatchExpressions inside each term are stable; term ORDER still varies, see F1)."
+}

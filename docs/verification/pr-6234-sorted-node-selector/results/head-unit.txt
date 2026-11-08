@@ -1,0 +1,10 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient	0.013s
+--- FAIL: TestVerifyPR6234MutateTermOrderDeterministic (0.00s)
+    zz_verify_pr6234_test.go:105: iteration 0: NodeSelectorTerm order is non-deterministic across runtimeInfos map iterations: got [sel-mmm sel-zzz sel-aaa], want sorted [sel-aaa sel-mmm sel-zzz] (distinct orders seen so far: map[sel-mmm,sel-zzz,sel-aaa:1])
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/requirenodewithfuse	0.012s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/nodeaffinitywithcache	0.020s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/volume	100.055s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/efc	0.018s
+FAIL
+EXIT=1

@@ -1,0 +1,22 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/kubeclient	0.014s
+--- FAIL: TestVerifyPR6234FuseSelectorRequirementsSorted (0.00s)
+    zz_verify_pr6234_test.go:51: iteration 1: MatchExpressions not sorted/deterministic: got [zone arch region], want [arch region zone]
+--- FAIL: TestVerifyPR6234MutateTermOrderDeterministic (0.00s)
+    zz_verify_pr6234_test.go:105: iteration 0: NodeSelectorTerm order is non-deterministic across runtimeInfos map iterations: got [sel-mmm sel-zzz sel-aaa], want sorted [sel-aaa sel-mmm sel-zzz] (distinct orders seen so far: map[sel-mmm,sel-zzz,sel-aaa:1])
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/requirenodewithfuse	0.013s
+--- FAIL: TestVerifyPR6234TieredLocalityDeterministic (0.00s)
+    zz_verify_pr6234_test.go:68: iteration 0: preferred term order non-deterministic: term[0].key=fluid.io/s-fluid-test-runtime-b, want fluid.io/s-fluid-test-runtime-a (full want [fluid.io/s-fluid-test-runtime-a fluid.io/s-fluid-test-runtime-b fluid.io/s-fluid-test-runtime-c])
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/nodeaffinitywithcache	0.013s
+--- FAIL: TestVerifyPR6234PVNodeAffinitySorted (1.00s)
+    zz_verify_pr6234_test.go:74: iteration 0: PV MatchExpressions not sorted/deterministic: got [region zone arch], want [arch region zone]
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/volume	1.014s
+2026/11/09 06:24:16 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+--- FAIL: TestVerifyPR6234EFCFusePVNodeAffinitySorted (0.00s)
+    zz_verify_pr6234_test.go:82: iteration 0: PV MatchExpressions not sorted/deterministic: got [zone arch region], want [arch region zone]
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/efc	0.013s
+FAIL
+EXIT=1
