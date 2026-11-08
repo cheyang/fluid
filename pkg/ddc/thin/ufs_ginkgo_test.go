@@ -23,6 +23,7 @@ import (
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
 	"github.com/fluid-cloudnative/fluid/pkg/common"
 	"github.com/fluid-cloudnative/fluid/pkg/utils/fake"
+	"github.com/go-logr/logr"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	appsv1 "k8s.io/api/apps/v1"
@@ -348,4 +349,72 @@ var _ = Describe("ThinEngine ShouldUpdateUFS", func() {
 
 		Expect(engine.ShouldUpdateUFS()).To(BeNil())
 	})
+
+	It("demotes log to V(1) and returns nil when a pvc mount is not yet bound", func() {
+		runtime := newRuntime("pending-pvc-runtime")
+		pendingPVC := &corev1.PersistentVolumeClaim{
+			ObjectMeta: metav1.ObjectMeta{
+				Name:      "my-pvc",
+				Namespace: "fluid",
+			},
+			Status: corev1.PersistentVolumeClaimStatus{
+				Phase: corev1.ClaimPending,
+			},
+		}
+		dataset := newDataset(
+			"pending-pvc-runtime",
+			datav1alpha1.Mount{Name: "my-pvc", MountPoint: "pvc://my-pvc"},
+		)
+		configMap := newFuseConfigMap("pending-pvc-runtime", "{}")
+
+		sink := &testCaptureLogSink{}
+		engine := newEngine(runtime, dataset, configMap, pendingPVC)
+		engine.Log = logr.New(sink)
+
+		Expect(engine.ShouldUpdateUFS()).To(BeNil())
+
+		// Must NOT log at Error level
+		Expect(sink.errorMsgs).To(BeEmpty())
+		Expect(sink.errors).To(BeEmpty())
+
+		// Must log at V(1) Info level with clear explanation
+		Expect(sink.infoMsgs).To(ContainElement(ContainSubstring("PVC is not bounded yet, will update fuse config once bounded")))
+	})
+
+	It("logs an error and returns nil when updateFuseConfigOnChange fails with an unexpected error", func() {
+		runtime := newRuntime("error-runtime")
+		dataset := newDataset(
+			"error-runtime",
+			datav1alpha1.Mount{Name: "non-existent-pvc", MountPoint: "pvc://non-existent-pvc"},
+		)
+		configMap := newFuseConfigMap("error-runtime", "{}")
+
+		sink := &testCaptureLogSink{}
+		engine := newEngine(runtime, dataset, configMap)
+		engine.Log = logr.New(sink)
+
+		Expect(engine.ShouldUpdateUFS()).To(BeNil())
+
+		// Must log at Error level
+		Expect(sink.errorMsgs).To(ContainElement(Equal("Failed to update fuse config")))
+		Expect(sink.errors).To(HaveLen(1))
+	})
 })
+
+type testCaptureLogSink struct {
+	infoMsgs  []string
+	errorMsgs []string
+	errors    []error
+}
+
+func (s *testCaptureLogSink) Init(info logr.RuntimeInfo) {}
+func (s *testCaptureLogSink) Enabled(level int) bool     { return true }
+func (s *testCaptureLogSink) Info(level int, msg string, keysAndValues ...interface{}) {
+	s.infoMsgs = append(s.infoMsgs, msg)
+}
+func (s *testCaptureLogSink) Error(err error, msg string, keysAndValues ...interface{}) {
+	s.errorMsgs = append(s.errorMsgs, msg)
+	s.errors = append(s.errors, err)
+}
+func (s *testCaptureLogSink) WithValues(keysAndValues ...interface{}) logr.LogSink { return s }
+func (s *testCaptureLogSink) WithName(name string) logr.LogSink                    { return s }

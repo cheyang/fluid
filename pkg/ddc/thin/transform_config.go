@@ -35,6 +35,11 @@ const (
 	EnvFuseConfigStorage = "THIN_FUSE_CONFIG_STORAGE"
 )
 
+var (
+	// ErrPVCNotBound indicates that a persistent volume claim is not bounded yet.
+	ErrPVCNotBound = errors.New("persistent volume claim not bounded yet")
+)
+
 func getFuseConfigStorage() string {
 	if envVal, exists := os.LookupEnv(EnvFuseConfigStorage); exists {
 		return envVal
@@ -158,7 +163,7 @@ func (t *ThinEngine) extractVolumeInfo(pvcName string) (csiInfo *corev1.CSIPersi
 	}
 
 	if len(pvc.Spec.VolumeName) == 0 || pvc.Status.Phase != corev1.ClaimBound {
-		err = fmt.Errorf("persistent volume claim %s not bounded yet", pvcName)
+		err = fmt.Errorf("persistent volume claim %s not bounded yet: %w", pvcName, ErrPVCNotBound)
 		return
 	}
 
