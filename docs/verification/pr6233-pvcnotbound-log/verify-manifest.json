@@ -1,0 +1,43 @@
+{
+  "topic": "pr6233-pvcnotbound-log",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6233",
+  "reviewer": "codex",
+  "headSha": "952e37ed16c99cea73fe044ea95d4b07630e5c66",
+  "baseSha": "a01c038bcc115e46f0fd74faf5e5ca5e9c6aa840",
+  "harnessPaths": [
+    "docs/verification/pr6233-pvcnotbound-log",
+    "pkg/ddc/thin/verify_pr6233_pvcnotbound_test.go",
+    "pkg/ddc/thin/verify_pr6233_envtest_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "For a pvc:// mount whose PVC exists but is not yet Bound, extractVolumeInfo returns 'persistent volume claim <name> not bounded yet' ... but ShouldUpdateUFS now emits it at Error level roughly once per syncRetryDuration (default 5s) until the PVC binds (issue #6203).",
+    "reportedComponent": "pkg/ddc/thin (ThinEngine.ShouldUpdateUFS -> updateFuseConfigOnChange -> transformFuseConfig -> extractVolumeInfo)",
+    "patchedComponent": "pkg/ddc/thin (transform_config.go, ufs.go)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base a01c038b, one ShouldUpdateUFS call with a pending PVC produces exactly 1 Error log record 'Failed to update fuse config' (fake client: results/base-harness.txt; real API server via envtest: results/base-envtest.txt). On head 952e37ed the same harness records 0 Error logs and a V(1) info notice.",
+    "match": ["TestVerifyPR6233_Premise_PendingPVCNoErrorLog"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/thin/ -run 'TestVerifyPR6233_' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "KUBEBUILDER_ASSETS=$(ls -d $HOME/.local/share/kubebuilder-envtest/k8s/* 2>/dev/null | sort -V | tail -1) go test ./pkg/ddc/thin/ -run 'TestVerifyPR6233_Envtest' -json"
+    }
+  },
+  "findings": [
+    { "id": "P0a",  "polarity": "contract", "layer": "unit",        "match": ["TestVerifyPR6233_Premise_PendingPVCNoErrorLog"] },
+    { "id": "P0b",  "polarity": "contract", "layer": "unit",        "match": ["TestVerifyPR6233_Premise_PendingPVCLogsAtVerboseLevel"] },
+    { "id": "P0",   "polarity": "contract", "layer": "integration", "match": ["TestVerifyPR6233_Envtest_PendingPVCNoErrorLog"] },
+    { "id": "GUARD","polarity": "contract", "layer": "unit",        "match": ["TestVerifyPR6233_Guard_UnexpectedErrorStillErrorLevel"] },
+    { "id": "F2",   "polarity": "canary",   "layer": "unit",        "match": ["TestVerifyPR6233_Canary_LostPVCDemotedToVerboseLog"] },
+    { "id": "F3",   "polarity": "contract", "layer": "unit",        "match": ["TestVerifyPR6233_Premise_PendingPVCLogsAtVerboseLevel"] }
+  ],
+  "liveNote": "L3 skipped per debate setup (no live/KUBECONFIG layer). The change routes one log line; unit + envtest layers fully decide every claim. If a live pass is ever wanted: run the thin controller out-of-cluster against a test cluster with a Dataset mounting a pending pvc:// claim and grep controller logs for 'Failed to update fuse config' (base) vs 'PVC is not bounded yet' at -v=1 (head)."
+}

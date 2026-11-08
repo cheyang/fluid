@@ -1,0 +1,7 @@
+2026/11/09 05:51:59 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6233_Envtest_PendingPVCNoErrorLog
+    verify_pr6233_envtest_test.go:131: pending PVC produced 1 Error log records ([Failed to update fuse config]) against a real API server; want 0 — issue #6203 symptom present
+--- FAIL: TestVerifyPR6233_Envtest_PendingPVCNoErrorLog (5.59s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	5.607s
+FAIL

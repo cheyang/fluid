@@ -1,0 +1,5 @@
+2026/11/09 05:51:45 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6233_Envtest_PendingPVCNoErrorLog
+--- PASS: TestVerifyPR6233_Envtest_PendingPVCNoErrorLog (5.82s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	5.839s
