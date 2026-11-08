@@ -19,13 +19,42 @@
       "introducedByPR": false,
       "firstSeenSha": "a01c038bcc115e46f0fd74faf5e5ca5e9c6aa840",
       "evidenceKind": "differential",
-      "verification": { "base": "fail", "previous": "not-run", "head": "pass" },
+      "verification": {
+        "base": "fail",
+        "previous": "not-run",
+        "head": "pass"
+      },
       "tests": [
-        { "file": "pkg/webhook/plugins/requirenodewithfuse/determinism_harness_test.go", "name": "TestHarnessFuseSelectorExpressionsSortedDeterministic", "polarity": "contract", "layer": "unit" },
-        { "file": "pkg/webhook/plugins/nodeaffinitywithcache/determinism_harness_test.go", "name": "TestHarnessTieredLocalityPreferredOrderSortedDeterministic", "polarity": "contract", "layer": "unit" },
-        { "file": "pkg/webhook/plugins/nodeaffinitywithcache/determinism_harness_test.go", "name": "TestHarnessTieredLocalityRequiredOrderSortedDeterministic", "polarity": "contract", "layer": "unit" },
-        { "file": "pkg/utils/dataset/volume/determinism_harness_test.go", "name": "TestHarnessPVNodeAffinityExpressionsSortedDeterministic", "polarity": "contract", "layer": "unit" },
-        { "file": "pkg/ddc/efc/create_volume_determinism_harness_test.go", "name": "TestHarnessEFCPVNodeAffinityExpressionsSortedDeterministic", "polarity": "contract", "layer": "unit" }
+        {
+          "file": "pkg/webhook/plugins/requirenodewithfuse/determinism_harness_test.go",
+          "name": "TestHarnessFuseSelectorExpressionsSortedDeterministic",
+          "polarity": "contract",
+          "layer": "unit"
+        },
+        {
+          "file": "pkg/webhook/plugins/nodeaffinitywithcache/determinism_harness_test.go",
+          "name": "TestHarnessTieredLocalityPreferredOrderSortedDeterministic",
+          "polarity": "contract",
+          "layer": "unit"
+        },
+        {
+          "file": "pkg/webhook/plugins/nodeaffinitywithcache/determinism_harness_test.go",
+          "name": "TestHarnessTieredLocalityRequiredOrderSortedDeterministic",
+          "polarity": "contract",
+          "layer": "unit"
+        },
+        {
+          "file": "pkg/utils/dataset/volume/determinism_harness_test.go",
+          "name": "TestHarnessPVNodeAffinityExpressionsSortedDeterministic",
+          "polarity": "contract",
+          "layer": "unit"
+        },
+        {
+          "file": "pkg/ddc/efc/create_volume_determinism_harness_test.go",
+          "name": "TestHarnessEFCPVNodeAffinityExpressionsSortedDeterministic",
+          "polarity": "contract",
+          "layer": "unit"
+        }
       ],
       "evidence": "Premise/fix verification: all 5 contract tests red on base (multiple orderings), green on head (single sorted ordering)."
     },
@@ -34,9 +63,13 @@
       "status": "open",
       "origin": "preexisting",
       "introducedByPR": false,
-      "firstSeenSha": "a01c038bcc115e46f0fd74faf5e5ca5e9c6aa840",
+      "firstSeenSha": "c9dfc9f43c4924f558e6a2328194ac1e89c1e11e",
       "evidenceKind": "code-path",
-      "verification": { "base": "not-run", "previous": "not-run", "head": "not-run" },
+      "verification": {
+        "base": "not-run",
+        "previous": "not-run",
+        "head": "not-run"
+      },
       "tests": [],
       "evidence": "Code-path reasoning: pkg/webhook/plugins/requirenodewithfuse/require_node_with_fuse.go Mutate() iterates runtimeInfos (a map) at line ~61, so the ORDER of the per-runtime NodeSelectorTerms remains random; the PR only sorts MatchExpressions within each term. Scheduling semantics unchanged (terms are OR'ed), so non-blocking. No harness test: a canary asserting randomness would be flaky by construction."
     },
@@ -45,9 +78,13 @@
       "status": "open",
       "origin": "preexisting",
       "introducedByPR": false,
-      "firstSeenSha": "a01c038bcc115e46f0fd74faf5e5ca5e9c6aa840",
+      "firstSeenSha": "c9dfc9f43c4924f558e6a2328194ac1e89c1e11e",
       "evidenceKind": "code-path",
-      "verification": { "base": "not-run", "previous": "not-run", "head": "not-run" },
+      "verification": {
+        "base": "not-run",
+        "previous": "not-run",
+        "head": "not-run"
+      },
       "tests": [],
       "evidence": "Code-path reasoning: pkg/dataflow/helper.go (~line 50) iterates the pod annotations map unsorted when appending NodeSelectorRequirements - the same nondeterminism class as issue #6220, but not one of the sites it enumerates. Out of the PR's stated scope; track separately."
     },
@@ -58,7 +95,11 @@
       "introducedByPR": true,
       "firstSeenSha": "c9dfc9f43c4924f558e6a2328194ac1e89c1e11e",
       "evidenceKind": "code-path",
-      "verification": { "base": "not-run", "previous": "not-run", "head": "not-run" },
+      "verification": {
+        "base": "not-run",
+        "previous": "not-run",
+        "head": "not-run"
+      },
       "tests": [],
       "evidence": "pkg/utils/affinity_test.go deterministic_order_over_repeated_calls computes expected := ToNodeSelectorRequirements(multi) from the function under test, so it only detects cross-call randomness, not unsortedness; the table test multiple_entries_sorted is what actually pins the order. Test-quality nit."
     }
