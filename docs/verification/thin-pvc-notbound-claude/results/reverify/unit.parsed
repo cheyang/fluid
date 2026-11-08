@@ -1,0 +1,5 @@
+TestHarnessP0_PendingPVCNoErrorLog	pass
+TestHarnessP0_PendingPVCLogsV1Info	pass
+TestHarness_UnexpectedErrorStillErrorLog	pass
+TestHarness_ErrPVCNotBoundSurvivesWrapChain	pass
+TestHarness_ExtractVolumeInfoReturnsSentinel	pass
