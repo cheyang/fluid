@@ -90,12 +90,8 @@ func getRequiredSchedulingTerm(runtimeInfo base.RuntimeInfoInterface) (requiredS
 	}
 
 	selectors := runtimeInfo.GetFuseNodeSelector()
-	for key, value := range selectors {
-		requiredSchedulingTerm.MatchExpressions = append(requiredSchedulingTerm.MatchExpressions, corev1.NodeSelectorRequirement{
-			Key:      key,
-			Operator: corev1.NodeSelectorOpIn,
-			Values:   []string{value},
-		})
+	if len(selectors) > 0 {
+		requiredSchedulingTerm.MatchExpressions = append(requiredSchedulingTerm.MatchExpressions, utils.ToNodeSelectorRequirements(selectors)...)
 	}
 
 	return

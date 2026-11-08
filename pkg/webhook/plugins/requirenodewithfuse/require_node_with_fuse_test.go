@@ -54,6 +54,34 @@ var _ = Describe("RequireNodeWithFuse Plugin", func() {
 			expectTerms = corev1.NodeSelectorTerm{MatchExpressions: []corev1.NodeSelectorRequirement{}}
 			Expect(terms).To(Equal(expectTerms))
 
+			// Global fuse with multi-label selector (sorted deterministically)
+			runtimeInfo.SetFuseNodeSelector(map[string]string{
+				"zone":   "us-east-1a",
+				"arch":   "amd64",
+				"region": "us-east-1",
+			})
+			for i := 0; i < 50; i++ {
+				terms, err = getRequiredSchedulingTerm(runtimeInfo)
+				Expect(err).NotTo(HaveOccurred())
+				Expect(terms.MatchExpressions).To(Equal([]corev1.NodeSelectorRequirement{
+					{
+						Key:      "arch",
+						Operator: corev1.NodeSelectorOpIn,
+						Values:   []string{"amd64"},
+					},
+					{
+						Key:      "region",
+						Operator: corev1.NodeSelectorOpIn,
+						Values:   []string{"us-east-1"},
+					},
+					{
+						Key:      "zone",
+						Operator: corev1.NodeSelectorOpIn,
+						Values:   []string{"us-east-1a"},
+					},
+				}))
+			}
+
 			// runtimeInfo is nil
 			_, err = getRequiredSchedulingTerm(nil)
 			Expect(err).To(HaveOccurred())
