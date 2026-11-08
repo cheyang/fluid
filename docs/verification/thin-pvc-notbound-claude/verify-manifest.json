@@ -1,0 +1,60 @@
+{
+  "topic": "thin-pvc-notbound",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6233",
+  "harnessPaths": [
+    "docs/verification/thin-pvc-notbound-claude",
+    "pkg/ddc/thin/verify_lognoise_harness_test.go",
+    "pkg/ddc/thin/verify_sentinel_harness_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "issue #6203: \"ShouldUpdateUFS now emits it at Error level roughly once per syncRetryDuration (default 5s) until the PVC binds\" for a pvc:// mount whose PVC exists but is not yet Bound",
+    "reportedComponent": "pkg/ddc/thin/ufs.go (ShouldUpdateUFS) fed by pkg/ddc/thin/transform_config.go (extractVolumeInfo)",
+    "patchedComponent": "same files (sentinel + errors.Is demotion); no component mismatch",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base a01c038, TestHarnessP0_PendingPVCNoErrorLog FAILS with the exact claimed Error log: 'Failed to update fuse config' / 'persistent volume claim my-pvc not bounded yet' (see results/base-harness.txt). Cadence mechanism verified in code: base.Sync -> UpdateUFS -> ShouldUpdateUFS gated by permitSync with defaultSyncRetryDuration=5s (pkg/ddc/base/template_engine.go:35).",
+    "match": ["TestHarnessP0_PendingPVCNoErrorLog"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/thin/ -run 'TestHarness' -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "P0",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestHarnessP0_PendingPVCNoErrorLog"]
+    },
+    {
+      "id": "V1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestHarnessP0_PendingPVCLogsV1Info"]
+    },
+    {
+      "id": "V2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestHarness_UnexpectedErrorStillErrorLog"]
+    },
+    {
+      "id": "V3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestHarness_ErrPVCNotBoundSurvivesWrapChain"]
+    },
+    {
+      "id": "V4",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestHarness_ExtractVolumeInfoReturnsSentinel"]
+    }
+  ],
+  "liveNote": "L3 (skipped per round policy, unit+integration only): if run live, check the controller log stream for a dataset with a pending pvc:// mount -- Error-level 'Failed to update fuse config' lines should be absent, with a V(1) 'PVC is not bounded yet' line appearing instead when debug logging is enabled."
+}

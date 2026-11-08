@@ -1,0 +1,13 @@
+2026/11/09 05:44:25 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestHarnessP0_PendingPVCNoErrorLog
+--- PASS: TestHarnessP0_PendingPVCNoErrorLog (0.00s)
+=== RUN   TestHarnessP0_PendingPVCLogsV1Info
+--- PASS: TestHarnessP0_PendingPVCLogsV1Info (0.00s)
+=== RUN   TestHarness_UnexpectedErrorStillErrorLog
+--- PASS: TestHarness_UnexpectedErrorStillErrorLog (0.00s)
+=== RUN   TestHarness_ErrPVCNotBoundSurvivesWrapChain
+--- PASS: TestHarness_ErrPVCNotBoundSurvivesWrapChain (0.00s)
+=== RUN   TestHarness_ExtractVolumeInfoReturnsSentinel
+--- PASS: TestHarness_ExtractVolumeInfoReturnsSentinel (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	0.013s

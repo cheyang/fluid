@@ -1,0 +1,12 @@
+2026/11/09 05:44:38 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestHarnessP0_PendingPVCNoErrorLog
+    verify_lognoise_harness_test.go:115: P0: expected NO Error-level log for a not-yet-bound PVC, got 1: [Failed to update fuse config] (errors: [failed to extract volume info from PersistentVolumeClaim "my-pvc": persistent volume claim my-pvc not bounded yet])
+--- FAIL: TestHarnessP0_PendingPVCNoErrorLog (0.00s)
+=== RUN   TestHarnessP0_PendingPVCLogsV1Info
+    verify_lognoise_harness_test.go:132: expected a V(>=1) Info log "PVC is not bounded yet, will update fuse config once bounded", got infoMsgs=[] infoLvls=[]
+--- FAIL: TestHarnessP0_PendingPVCLogsV1Info (0.00s)
+=== RUN   TestHarness_UnexpectedErrorStillErrorLog
+--- PASS: TestHarness_UnexpectedErrorStillErrorLog (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	0.013s
+FAIL
