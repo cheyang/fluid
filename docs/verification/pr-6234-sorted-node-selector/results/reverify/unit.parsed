@@ -1,0 +1,4 @@
+TestVerifyPR6234MergeNodeSelectorSortedControl	pass
+TestVerifyPR6234FuseSelectorRequirementsSorted	pass
+TestVerifyPR6234MutateTermOrderDeterministic	fail
+TestVerifyPR6234TieredLocalityDeterministic	pass
