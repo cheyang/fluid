@@ -1,0 +1,4 @@
+=== RUN   TestHarnessPVNodeAffinityExpressionsSortedDeterministic
+--- PASS: TestHarnessPVNodeAffinityExpressionsSortedDeterministic (80.08s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/volume	80.090s

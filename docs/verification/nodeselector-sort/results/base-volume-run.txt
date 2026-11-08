@@ -1,0 +1,5 @@
+--- FAIL: TestHarnessPVNodeAffinityExpressionsSortedDeterministic (80.09s)
+    determinism_harness_test.go:93: non-deterministic PV node affinity order: 6 distinct orderings over 80 PV creations (expected 1). expected sorted order "alpha,beta,iota,kappa,mu,zeta"; sample alternative "mu,beta,kappa,iota,zeta,alpha"; histogram map[alpha,mu,beta,kappa,iota,zeta:9 beta,kappa,iota,zeta,alpha,mu:12 iota,zeta,alpha,mu,beta,kappa:7 kappa,iota,zeta,alpha,mu,beta:12 mu,beta,kappa,iota,zeta,alpha:11 zeta,alpha,mu,beta,kappa,iota:29]
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/volume	80.098s
+FAIL

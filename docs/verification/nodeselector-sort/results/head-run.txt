@@ -1,0 +1,15 @@
+=== RUN   TestHarnessFuseSelectorExpressionsSortedDeterministic
+--- PASS: TestHarnessFuseSelectorExpressionsSortedDeterministic (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/requirenodewithfuse	(cached)
+=== RUN   TestHarnessTieredLocalityPreferredOrderSortedDeterministic
+--- PASS: TestHarnessTieredLocalityPreferredOrderSortedDeterministic (0.01s)
+=== RUN   TestHarnessTieredLocalityRequiredOrderSortedDeterministic
+--- PASS: TestHarnessTieredLocalityRequiredOrderSortedDeterministic (0.01s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/nodeaffinitywithcache	(cached)
+2026/11/09 06:24:41 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestHarnessEFCPVNodeAffinityExpressionsSortedDeterministic
+--- PASS: TestHarnessEFCPVNodeAffinityExpressionsSortedDeterministic (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/efc	(cached)

@@ -1,0 +1,111 @@
+{
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6234",
+  "topic": "nodeselector-sort",
+  "reviewer": "claude",
+  "headSha": "c9dfc9f43c4924f558e6a2328194ac1e89c1e11e",
+  "baseSha": "a01c038bcc115e46f0fd74faf5e5ca5e9c6aa840",
+  "premise": {
+    "id": "P0",
+    "claim": "On base, the four sites named in issue #6220 iterate Go maps unsorted when building NodeSelector MatchExpressions / scheduling terms, producing non-deterministic output order across calls for multi-key selectors or multi-runtime pods.",
+    "runsAgainst": "base",
+    "verdict": "Confirmed",
+    "evidence": "results/base-run.txt and results/base-volume-run.txt: 5 harness tests fail on base with 4-6 distinct orderings observed (500/300/80/60 iterations per site). Same tests pass on head (results/head-run.txt, results/head-volume-run.txt)."
+  },
+  "findings": [
+    {
+      "id": "P0",
+      "status": "open",
+      "origin": "initial-pr",
+      "introducedByPR": false,
+      "firstSeenSha": "a01c038bcc115e46f0fd74faf5e5ca5e9c6aa840",
+      "evidenceKind": "differential",
+      "verification": { "base": "fail", "previous": "not-run", "head": "pass" },
+      "tests": [
+        { "file": "pkg/webhook/plugins/requirenodewithfuse/determinism_harness_test.go", "name": "TestHarnessFuseSelectorExpressionsSortedDeterministic", "polarity": "contract", "layer": "unit" },
+        { "file": "pkg/webhook/plugins/nodeaffinitywithcache/determinism_harness_test.go", "name": "TestHarnessTieredLocalityPreferredOrderSortedDeterministic", "polarity": "contract", "layer": "unit" },
+        { "file": "pkg/webhook/plugins/nodeaffinitywithcache/determinism_harness_test.go", "name": "TestHarnessTieredLocalityRequiredOrderSortedDeterministic", "polarity": "contract", "layer": "unit" },
+        { "file": "pkg/utils/dataset/volume/determinism_harness_test.go", "name": "TestHarnessPVNodeAffinityExpressionsSortedDeterministic", "polarity": "contract", "layer": "unit" },
+        { "file": "pkg/ddc/efc/create_volume_determinism_harness_test.go", "name": "TestHarnessEFCPVNodeAffinityExpressionsSortedDeterministic", "polarity": "contract", "layer": "unit" }
+      ],
+      "evidence": "Premise/fix verification: all 5 contract tests red on base (multiple orderings), green on head (single sorted ordering)."
+    },
+    {
+      "id": "F1-term-order-requirenodewithfuse",
+      "status": "open",
+      "origin": "preexisting",
+      "introducedByPR": false,
+      "firstSeenSha": "a01c038bcc115e46f0fd74faf5e5ca5e9c6aa840",
+      "evidenceKind": "code-path",
+      "verification": { "base": "not-run", "previous": "not-run", "head": "not-run" },
+      "tests": [],
+      "evidence": "Code-path reasoning: pkg/webhook/plugins/requirenodewithfuse/require_node_with_fuse.go Mutate() iterates runtimeInfos (a map) at line ~61, so the ORDER of the per-runtime NodeSelectorTerms remains random; the PR only sorts MatchExpressions within each term. Scheduling semantics unchanged (terms are OR'ed), so non-blocking. No harness test: a canary asserting randomness would be flaky by construction."
+    },
+    {
+      "id": "F2-dataflow-helper-unsorted",
+      "status": "open",
+      "origin": "preexisting",
+      "introducedByPR": false,
+      "firstSeenSha": "a01c038bcc115e46f0fd74faf5e5ca5e9c6aa840",
+      "evidenceKind": "code-path",
+      "verification": { "base": "not-run", "previous": "not-run", "head": "not-run" },
+      "tests": [],
+      "evidence": "Code-path reasoning: pkg/dataflow/helper.go (~line 50) iterates the pod annotations map unsorted when appending NodeSelectorRequirements - the same nondeterminism class as issue #6220, but not one of the sites it enumerates. Out of the PR's stated scope; track separately."
+    },
+    {
+      "id": "F3-self-referential-determinism-test",
+      "status": "open",
+      "origin": "initial-pr",
+      "introducedByPR": true,
+      "firstSeenSha": "c9dfc9f43c4924f558e6a2328194ac1e89c1e11e",
+      "evidenceKind": "code-path",
+      "verification": { "base": "not-run", "previous": "not-run", "head": "not-run" },
+      "tests": [],
+      "evidence": "pkg/utils/affinity_test.go deterministic_order_over_repeated_calls computes expected := ToNodeSelectorRequirements(multi) from the function under test, so it only detects cross-call randomness, not unsortedness; the table test multiple_entries_sorted is what actually pins the order. Test-quality nit."
+    }
+  ],
+  "acceptance": [
+    {
+      "id": "AC1",
+      "contract": "utils.ToNodeSelectorRequirements returns requirements sorted by key ascending and deterministic across calls (nil for empty input)",
+      "status": "passed",
+      "evidence": "PR test TestToNodeSelectorRequirements + harness coverage at all call sites; head-run.txt"
+    },
+    {
+      "id": "AC2",
+      "contract": "requirenodewithfuse getRequiredSchedulingTerm emits sorted, deterministic MatchExpressions for multi-label selectors",
+      "status": "passed",
+      "evidence": "PR test (50 iterations) + TestHarnessFuseSelectorExpressionsSortedDeterministic (500 iterations, red on base / green on head)"
+    },
+    {
+      "id": "AC3",
+      "contract": "nodeaffinitywithcache tiered locality preferred and required terms are emitted in runtime-name-sorted order, deterministically",
+      "status": "passed",
+      "evidence": "PR test TestTieredLocalityDeterministicOrdering + 2 harness tests (300 iterations, red on base / green on head)"
+    },
+    {
+      "id": "AC4",
+      "contract": "CreatePersistentVolumeForRuntime PV node affinity MatchExpressions sorted alphabetically",
+      "status": "passed",
+      "evidence": "PR test + TestHarnessPVNodeAffinityExpressionsSortedDeterministic (80 PVs, red on base / green on head)"
+    },
+    {
+      "id": "AC5",
+      "contract": "EFC createFusePersistentVolume PV node affinity MatchExpressions sorted alphabetically",
+      "status": "passed",
+      "evidence": "PR test TestEFCEngine_createFusePersistentVolumeWithNodeSelector + TestHarnessEFCPVNodeAffinityExpressionsSortedDeterministic (60 PVs, red on base / green on head)"
+    },
+    {
+      "id": "AC6",
+      "contract": "MergeNodeSelectorAndNodeAffinity behavior unchanged vs base (sorted expressions, same nil/empty semantics at every call site)",
+      "status": "passed",
+      "evidence": "Existing pkg/utils/kubeclient tests pass on head; the refactor delegates to a helper with identical output (sorted keys, In operator, single value); all call sites guard len>0 where empty slices were previously produced"
+    },
+    {
+      "id": "AC7",
+      "contract": "Required CI on the PR is green",
+      "status": "unverified",
+      "evidence": "GitHub statusCheckRollup reported pending at round start (review-context.json)"
+    }
+  ],
+  "liveNote": "No live layer needed: all claims are pure unit-level ordering properties; no cluster state is involved."
+}
