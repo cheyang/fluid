@@ -240,6 +240,52 @@ Raw output: `results/round6/reverify-{base-e0fc4c18,prevhead-ce4f0c4f,head-a773d
 `f11-contract-{base-e0fc4c18,prevhead-ce4f0c4f,head-a773dfa6}.txt`,
 `suite-head-a773dfa6.txt`, `failures-head-a773dfa6.txt`.
 
+
+## Round 7 (a773dfa6 -> 956d78a8): F14/F13 doc neutralization lands; master merged in
+
+The delta is one PR commit, `94a82543f` ("docs(cache): clarify CacheRuntimeClass edit
+semantics"), plus a merge of master (`a01c038bc`, including #6186, #6181, #6162, #6223,
+#6217, #6199, #6206). The docs commit removes the two live-template-propagation bullets
+(en + zh) and the "change the CacheRuntimeClass template to drop a requirement" advice,
+replacing them with the neutral pointer the maintainer's 2026-10-20 decision asked for:
+"How CacheRuntimeClass edits affect existing CacheRuntimes is tracked in #6213; don't rely
+on them reaching existing instances." The PR body was edited in the same direction: the
+"**Upgrade note.**" paragraph is gone and the Behaviour-changes list now says live
+propagation is outside the documented behavior, pointing at #6213. F14 and F13 both flip
+to fixed (docs findings; verified by reading the head tree and the PR body, grep for the
+old wording returns nothing).
+
+Merge-resolution review (94a82543f..956d78a8 on the PR-owned files): master's changes land
+around the PR's logic without touching it -- #6186 adds `desiredComponentVersion` /
+`componentImage` / `reportIncompleteVersion` to `transform_common.go` and version
+completion at both sync call sites; #6162 adds the Failed->Bound dataset restore in
+`Sync`; #6181/#6200 rewire worker status/affinity; #6223 adds the scale subresource and
+status selector. The PR's merge/guard chain (`desiredComponentResources` ->
+`validateResourceRequirements` -> `splitDeclaredClaims` in `validDesiredResources`) is
+byte-unchanged, and both master's e2e additions and the PR's
+`update_worker_resources_and_verify` remain wired into `test/gha-e2e/curvine/test.sh`
+main().
+
+Full re-verify at head 956d78a8: **all findings FIXED** (exit 0) -- P0/G1/G2/G3/F6/F9/F11/
+F7/F10 green against the merged code, so no revision regression from the master merge.
+
+No-regression sweep at head: engine suite 395 ran / 395 passed / 0 failed / 16 skipped
+(round 6's 12 env-sensitive failures pass on this machine; +54 specs from merged master
+tests), component package green.
+
+CI at head 956d78a8 (queried 2026-11-13): 22/22 checks pass -- DCO, unittest, lint,
+staticcheck, build x2, CodeQL, SonarCloud x2, codecov x2, kind-e2e and backward-compat on
+v1.22.17/v1.24.17/v1.28.15/v1.30.13/v1.33.2. No new human comments on the PR since
+2026-10-24 (Sonar bot only).
+
+Noted, not a finding against this PR: master #6186's merged docs carry an "Image edits in
+the CacheRuntimeClass template reach existing instances" bullet (en:63) describing
+runtimeVersion re-resolution. It is master-introduced, outside this PR's diff vs the new
+merge-base, and accurate for today's code, but it sits next to the new resources "don't
+rely on it" line and would go stale the same way if #6213 pins the whole template.
+
+Raw output: `results/round7/reverify-head-956d78a8.txt`, `results/round7/suite-head-956d78a8.txt`.
+
 ## How to run
 
 ```bash
