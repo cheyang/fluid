@@ -286,3 +286,63 @@ ledger, along with F13 (stale upgrade paragraph in the PR body), which the
 same comment also asks the author to drop.
 
 `.last-reviewed` advanced to `a773dfa6`.
+
+## Round 7 — delta `a773dfa6..956d78a8`
+
+Two first-parent commits: `94a82543f` ("docs(cache): clarify CacheRuntimeClass
+edit semantics") and the merge `956d78a8f` of master `a01c038bc` into the
+branch. The **base changed**: the merge-base moved from `e0fc4c18` to
+`a01c038bc`, and the master side of the merge touches the same engine files
+this PR modifies (#6186 partial runtime-version completion, #6223 HPA/scale
+subresource, #6162 dataset Failed→Bound restore, #6200 affinity read
+consolidation). So this round re-ran the *entire* contract set rather than
+trusting the round-6 record.
+
+Full re-verify at head (`results/round7/reverify-head-956d78a8.log`): **all
+16 contracts FIXED/pass** (B1–B5, D1–D6, F7, F8, F9, F10, F11, E2) — the merge
+resolution did not regress any resource-merge contract.
+
+Merge-resolution audit (the 13 files `git show 956d78a8f` lists as
+conflict-resolved): each carries both sides' hunks — the PR's
+`checkComponentResources` blocks sit after master's `reportIncompleteVersion`
+in all three transform files; `syncRuntimeSpec`'s `ComponentSpec` literals
+carry both `desiredComponentVersion(...)` (master #6186) and
+`e.validDesiredResources(desiredComponentResources(...), podSpec)` (this PR);
+`constants.go` has both `RuntimeResourcesConflict` and
+`RuntimeVersionIncomplete`. Spec inventory `a773dfa6..956d78a8`: **0 ginkgo
+specs dropped, 45 added** (all from the master side); `func Test*` inventory
+identical.
+
+Full suite at head under the CI-canonical invocation
+(`results/round7/suite-head-956d78a8.log`): component **56/56 passed**;
+engine **411 specs — 395 ran, 395 passed, 0 failed, 16 skipped** (pre-existing
+conditional skips). Master-side contracts live in this suite and pass — the
+merge preserved both sides. The 12 gomonkey failures recorded in earlier
+rounds under the *plain* local invocation do not appear under the canonical
+`-gcflags="all=-N -l"` invocation, matching CI.
+
+**F14 fixed**: `94a82543f` deletes the "Edits to the template's `resources`
+reach existing instances" bullet and the "change the CacheRuntimeClass
+template" advice from both language docs and inserts the maintainer's exact
+suggested neutral wording ("How CacheRuntimeClass edits affect existing
+CacheRuntimes is tracked in #6213; don't rely on them reaching existing
+instances" — en:114, zh:124). The live PR body (re-read 2026-11-12 via `gh`)
+no longer advertises reach either — it carries the neutral #6213 bullet — and
+the stale "**Upgrade note.**" paragraph (F13) is gone; the body's claims
+bullet now describes the round-6 sync guard accurately. Both maintainer
+pre-merge asks from the 2026-10-20 decision are satisfied.
+
+One new observation (F15 in the round-7 ledger, non-blocking, pre-existing):
+the merged doc now also carries #6186's "Image edits in the CacheRuntimeClass
+template reach existing instances" bullet (en:63, zh:~70) next to the neutral
+#6213 pointer. It is mechanically accurate on the merged head (the image is
+re-resolved against the current template each reconcile), it exists at the
+merge-base `a01c038bc` (master #6186), so it is not introduced by this PR —
+recorded as a consistency question for #6213, not a gate.
+
+CI at the exact head `956d78a8` (re-queried live 2026-11-12): all 22
+check-runs COMPLETED/SUCCESS — DCO, unittest, lint, staticcheck, builds,
+CodeQL, SonarCloud, codecov, kind-e2e-test and backward-compat-test on
+v1.22.17/v1.24.17/v1.28.15/v1.30.13/v1.33.2.
+
+`.last-reviewed` advanced to `956d78a8`.

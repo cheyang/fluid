@@ -1,319 +1,354 @@
 {
-  "topic": "cache-resources-merge",
-  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6177",
-  "harnessPaths": [
-    "docs/verification/cache-resources-merge",
-    "pkg/ddc/cache/engine/verify_premise_6177_test.go",
-    "pkg/ddc/cache/engine/verify_delta_6177_test.go",
-    "pkg/ddc/cache/engine/verify_delta_r3_6177_test.go",
-    "pkg/ddc/cache/engine/verify_delta_r4_6177_test.go",
-    "pkg/ddc/cache/engine/verify_delta_r5_6177_test.go"
-  ],
-  "premise": {
-    "id": "P0",
-    "claim": "A CacheRuntime that names only limits.memory on a worker whose CacheRuntimeClass template declares a full set loses requests.cpu, requests.memory and limits.cpu from the workload on the next reconcile, with no error and no event; Claims is dropped the same way (issue #6173).",
-    "reportedComponent": "pkg/ddc/cache — CacheRuntime resource resolution feeding AdvancedStatefulSetManager.updateResources",
-    "patchedComponent": "pkg/ddc/cache/engine — sync.go desiredComponentResources + transform_common.go transformComponentPodTemplate/mergeResourceRequirements",
-    "componentMatch": true,
-    "runsAgainst": "base",
-    "layer": "unit",
-    "verdict": "confirmed",
-    "evidence": "Canary at merge base e0fc4c18: 'limits.cpu dropped (got \"0\")', 'requests dropped: got map[]', claims dropped at both creation and sync layers — results/unit-base.log",
-    "match": [
-      "TestP0SyncDesiredKeepsUnstatedTemplateKeys",
-      "TestP0CreationKeepsUnstatedTemplateKeys",
-      "TestP2ClaimsSurvive"
-    ]
+ "topic": "cache-resources-merge",
+ "pr": "https://github.com/fluid-cloudnative/fluid/pull/6177",
+ "harnessPaths": [
+  "docs/verification/cache-resources-merge",
+  "pkg/ddc/cache/engine/verify_premise_6177_test.go",
+  "pkg/ddc/cache/engine/verify_delta_6177_test.go",
+  "pkg/ddc/cache/engine/verify_delta_r3_6177_test.go",
+  "pkg/ddc/cache/engine/verify_delta_r4_6177_test.go",
+  "pkg/ddc/cache/engine/verify_delta_r5_6177_test.go"
+ ],
+ "premise": {
+  "id": "P0",
+  "claim": "A CacheRuntime that names only limits.memory on a worker whose CacheRuntimeClass template declares a full set loses requests.cpu, requests.memory and limits.cpu from the workload on the next reconcile, with no error and no event; Claims is dropped the same way (issue #6173).",
+  "reportedComponent": "pkg/ddc/cache \u2014 CacheRuntime resource resolution feeding AdvancedStatefulSetManager.updateResources",
+  "patchedComponent": "pkg/ddc/cache/engine \u2014 sync.go desiredComponentResources + transform_common.go transformComponentPodTemplate/mergeResourceRequirements",
+  "componentMatch": true,
+  "runsAgainst": "base",
+  "layer": "unit",
+  "verdict": "confirmed",
+  "evidence": "Canary at merge base e0fc4c18: 'limits.cpu dropped (got \"0\")', 'requests dropped: got map[]', claims dropped at both creation and sync layers \u2014 results/unit-base.log",
+  "match": [
+   "TestP0SyncDesiredKeepsUnstatedTemplateKeys",
+   "TestP0CreationKeepsUnstatedTemplateKeys",
+   "TestP2ClaimsSurvive"
+  ]
+ },
+ "layers": {
+  "unit": {
+   "kind": "gotest",
+   "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -run 'TestP0|TestP1|TestP2|TestD1|TestD2|TestD3|TestD4|TestD5|TestD6|TestD7|TestD8|TestD9|TestD10|TestD11|TestE1|TestE2' -json"
   },
-  "layers": {
-    "unit": {
-      "kind": "gotest",
-      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -run 'TestP0|TestP1|TestP2|TestD1|TestD2|TestD3|TestD4|TestD5|TestD6|TestD7|TestD8|TestD9|TestD10|TestD11|TestE1|TestE2' -json"
-    },
-    "integration": {
-      "kind": "ginkgo",
-      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -run TestCacheEngine -ginkgo.focus \"names part of the template's resources\" -ginkgo.json-report=$GINKGO_REPORT -v",
-      "report": "$GINKGO_REPORT"
-    }
-  },
-  "findings": [
-    {
-      "id": "B1",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestP0SyncDesiredKeepsUnstatedTemplateKeys",
-        "TestP0CreationKeepsUnstatedTemplateKeys"
-      ]
-    },
-    {
-      "id": "B2",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestP1CreationAndSyncAgree"
-      ]
-    },
-    {
-      "id": "B3",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestP2ClaimsSurvive"
-      ]
-    },
-    {
-      "id": "B4",
-      "polarity": "contract",
-      "layer": "integration",
-      "match": [
-        "should move the key it names and keep the template's other requirements"
-      ]
-    },
-    {
-      "id": "B5",
-      "polarity": "contract",
-      "layer": "integration",
-      "match": [
-        "should leave requests unset and stop patching once converged"
-      ]
-    },
-    {
-      "id": "D1",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestD1NeitherDeclaresResolvesEmpty"
-      ],
-      "note": "delta c1c303e8..e259d738: desiredComponentResources never returns nil; a key neither side declares is cleared. fails on c1c303e (nil return), passes on e259d738."
-    },
-    {
-      "id": "D2",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestD2MergeSynthesizesRequestsAboveLimits"
-      ],
-      "note": "F6 fixed by commit f02054bd (round 3): the canary flipped, so it was inverted into a contract test — the sync must refuse the conflicting merge, leave the workload's resources untouched and emit a RuntimeResourcesConflict Warning event."
-    },
-    {
-      "id": "D3",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestD3QuotaWithoutBaselineStaysUnconstrained"
-      ],
-      "note": "delta made the tiered-store quota read-back unconditional: an unconstrained container with a memory tmpfs must stay unconstrained and unpatched."
-    },
-    {
-      "id": "D4",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestD4SyncConflictSkipsResourcesButSyncsReplicas"
-      ],
-      "note": "round 3: the conflict must not abort the component sync — replicas still move while the resource patch is skipped and the Warning event names the memory pair."
-    },
-    {
-      "id": "D5",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestD5CreationRejectsConflictingPair"
-      ],
-      "note": "round 3: the creation path (transformWorker) must fail loudly on a conflicting pair, naming the component and the keys, instead of rendering a pod spec the API server rejects at rollout."
-    },
-    {
-      "id": "D6",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestD6MasterSyncConflictSkipsResources"
-      ],
-      "note": "round 3: the master call site in syncRuntimeSpec shares the worker's validation; pin the skip + event + replica behavior there too."
-    },
-    {
-      "id": "F9",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestD7NonOvercommittableMergeRules",
-        "TestD8SyncRefusesNonOvercommittableConflict"
-      ],
-      "note": "round 4 (497bbeaf..3adc547d): the non-overcommittable family rules. D7/D8 fail on 497bbeaf (rules absent) and pass on 3adc547d (commit 3adc547d adds isOvercommitAllowed + the equality/no-limit rules, verified verbatim against k8s.io/kubernetes@v1.29.15 pkg/apis/core/v1/helper/helpers.go and validation.go:6568-6578). Kept as regression contracts."
-    },
-    {
-      "id": "F11",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestE1ClassClaimAdditionMustNotWedgeExistingWorkload"
-      ],
-      "note": "round 6 (ce4f0c4f..a773dfa6): FIXED by a773dfa6 — splitDeclaredClaims + validDesiredResources(podSpec) drop container claims the workload does not declare (pod-level or already carried), emit a RuntimeResourcesConflict Warning naming them, and still sync the rest. E1 contract: fail at ce4f0c4f (round-5 log), pass at a773dfa6 (results/round6/). B3 stays green (no over-drop). Remedy matches the F6/F9 guard pattern proposed in round 4."
-    },
-    {
-      "id": "E2-empty-map-clear",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestE2ExplicitEmptyMapStillClearsWorkload"
-      ],
-      "note": "refutation record for Copilot discussion_r4212708077 ('empty resource maps fail to clear workload limits'): an explicit limits:{} still clears the workload's stale limit; the contract passes on base, 497bbeaf and 3adc547d. Copilot's claim that desiredComponentResources 'returns nil' does not match the code — it never returns nil."
-    },
-    {
-      "id": "F7",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestD9SyncWithTopologylessClassIsANoOp"
-      ],
-      "note": "round 5 (3adc547d..ce4f0c4f): fixed by 94121e27 — syncRuntimeSpec guards a topology-less class before the first dereference. D9 FAILS (panic) on 3adc547d and PASSES on ce4f0c4f. getRuntimeClass still rejects such classes up front, so this stays defense in depth."
-    },
-    {
-      "id": "F8",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestD10TieredStoreQuotaAgreesAcrossPaths"
-      ],
-      "note": "round 5: coverage fixed by 44e6c90a + ce4f0c4f (the equivalence table renders tiered-store rows and pins the charged quota). D10 is a regression PIN, not a flip: it passes on both heads; the PR's own new specs are the coverage fix, D10 keeps the creation/sync quota agreement pinned in this harness."
-    },
-    {
-      "id": "F10",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "TestD11CreationConflictEmitsRuntimeResourcesConflictEvent"
-      ],
-      "note": "round 5: fixed by 71d94397 + 4a8668f9 — the creation path routes validation through checkComponentResources, which emits the RuntimeResourcesConflict Warning event. D11 FAILS on 3adc547d (error, no event) and PASSES on ce4f0c4f. Worker call site driven; master and client share the wrapper and are covered by the PR's own specs."
-    }
-  ],
-  "liveNote": "L3 (live cluster) was skipped by the debate configuration (unit + integration layers mandated). A probe did find a reachable cluster (kubectl get no: 1 node, v1.36.2-aliyun.1); it was left untouched. If L3 is ever run: apply the #6173 manifests, kubectl patch the cacheruntime with limits.memory=8Gi only, then read .spec.template.spec.containers[0].resources from the advancedstatefulset — expect limits {cpu 2, memory 8Gi} and requests {cpu 1, memory 2Gi}, and expect requests to stay nil (not an empty map) on the limits-only template.",
-  "rounds": {
-    "2026-10-08": {
-      "head": "c1c303e8b2dc0a237ab9abe289be4e64c4445970",
-      "verdicts": {
-        "P0": "confirmed",
-        "B1": "fixed",
-        "B2": "fixed",
-        "B3": "fixed",
-        "B4": "fixed",
-        "B5": "fixed"
-      }
-    },
-    "2026-10-12": {
-      "head": "e259d738dec605902755ff5f9b5a6a56a2ef73fc",
-      "delta": "c1c303e8..e259d738 (7 commits: nil-return removal 'clear undeclared', equivalence tests, master spec, curvine e2e, docs)",
-      "verification": {
-        "base": {
-          "B1": "fail",
-          "B2": "fail",
-          "B3": "fail",
-          "D1": "fail",
-          "D2": "fail",
-          "D3": "pass"
-        },
-        "previous": {
-          "B1": "pass",
-          "B2": "pass",
-          "B3": "pass",
-          "B4": "pass",
-          "B5": "pass",
-          "D1": "fail",
-          "D2": "pass",
-          "D3": "pass"
-        },
-        "head": {
-          "B1": "pass",
-          "B2": "pass",
-          "B3": "pass",
-          "B4": "pass",
-          "B5": "pass",
-          "D1": "pass",
-          "D2": "pass(canary)",
-          "D3": "pass"
-        }
-      },
-      "suite": "full engine suite: 292 passed / 12 failed at head vs 275 / 12 at previous head; failing set byte-identical (pre-existing ufs_test.go failures) - no revision regression",
-      "newFindings": [
-        "D2 -> ledger F6 (major): merged requests can exceed limits; controller applies without validation/event"
-      ]
-    },
-    "2026-10-13": {
-      "head": "497bbeaf254071c522904d654a0e574651df65fd",
-      "delta": "e259d738..497bbeaf: history rewritten by rebase --signoff (ecd41afa->4194456f, e259d738->54e3756b, all commits now Signed-off-by, DCO green); new commits f02054bd (fix: reject merged resources whose request exceeds its limit) and 497bbeaf (docs en+zh).",
-      "verification": {
-        "head": {
-          "B1": "pass",
-          "B2": "pass",
-          "B3": "pass",
-          "B4": "pass",
-          "B5": "pass",
-          "D1": "pass",
-          "D2": "pass(contract, inverted)",
-          "D3": "pass",
-          "D4": "pass",
-          "D5": "pass",
-          "D6": "pass"
-        },
-        "previous_head_e259d738": {
-          "D2": "fail",
-          "D4": "fail",
-          "D5": "fail",
-          "D6": "fail",
-          "B1..B5,D1,D3": "pass"
-        }
-      },
-      "suite": "full engine suite at head with harness grafted: 298 passed / 12 failed; the 12 failing specs are the pre-existing ufs_test.go set, byte-identical to the pre-PR base e0fc4c18 and to round 2 - no revision regression.",
-      "changedBase": "master moved e0fc4c18 -> 3e99063a; local test merge of 497bbeaf + 3e99063a compiles and passes the harness (unit ok, full suite 311/12, identical failure set). Overlapping files (sync.go, curvine test.sh, spec-update docs) merge without semantic conflict.",
-      "ledger": "F6 fixed by f02054bd; DCO green; F1 maintainer ack still outstanding; F7/F8 nits unchanged."
-    },
-    "2026-10-19": {
-      "head": "ce4f0c4f966ff201d644a895eb4abbdc18c36d3a",
-      "delta": "3adc547d..ce4f0c4f (6 commits: drop unreleased-upgrade docs, creation-path conflict event, nil-topology guard, tiered-store equivalence rows + quota pins)",
-      "verification": {
-        "previous": {
-          "D9": "fail",
-          "D10": "pass",
-          "D11": "fail"
-        },
-        "head": {
-          "D9": "pass",
-          "D10": "pass",
-          "D11": "pass"
-        }
-      }
-    },
-    "2026-10-24": {
-      "head": "a773dfa6a3ba5f6ead88e68d7223408bc4b75e69",
-      "delta": "ce4f0c4f..a773dfa6 (1 commit: a773dfa6 fix(cache): do not sync container claims the workload does not declare)",
-      "verification": {
-        "B1": "fixed",
-        "B2": "fixed",
-        "B3": "fixed",
-        "B4": "fixed",
-        "B5": "fixed",
-        "D1": "fixed",
-        "D2": "fixed",
-        "D3": "fixed",
-        "D4": "fixed",
-        "D5": "fixed",
-        "D6": "fixed",
-        "F9": "fixed",
-        "F11": "fixed",
-        "E2-empty-map-clear": "fixed",
-        "F7": "fixed",
-        "F8": "fixed",
-        "F10": "fixed"
-      },
-      "verdict": "all findings fixed, incl. F11 (E1 contract flipped fail at ce4f0c4f -> pass at a773dfa6); full engine suite 329 passed / 12 pre-existing failures (byte-identical set, 11x ufs_test + 1x sync_test ReportSummary); CI 22/22 check-runs SUCCESS at head (re-queried 2026-10-24); maintainer ack of the merge semantics recorded (cheyang personal comment 2026-10-20T12:38:43Z, F1 closed) with one doc change requested before merge (F14: neutralize live-template-propagation wording, see #6213) plus F13 (drop the stale upgrade paragraph from the PR body)",
-      "logs": [
-        "results/round6/reverify-head-a773dfa6.log",
-        "results/round6/suite-head-a773dfa6.log",
-        "results/round6/failures-head-a773dfa6.txt",
-        "results/round6/unit-head-a773dfa6.out",
-        "results/round6/integration-head-a773dfa6.out"
-      ]
-    }
+  "integration": {
+   "kind": "ginkgo",
+   "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -run TestCacheEngine -ginkgo.focus \"names part of the template's resources\" -ginkgo.json-report=$GINKGO_REPORT -v",
+   "report": "$GINKGO_REPORT"
   }
+ },
+ "findings": [
+  {
+   "id": "B1",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestP0SyncDesiredKeepsUnstatedTemplateKeys",
+    "TestP0CreationKeepsUnstatedTemplateKeys"
+   ]
+  },
+  {
+   "id": "B2",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestP1CreationAndSyncAgree"
+   ]
+  },
+  {
+   "id": "B3",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestP2ClaimsSurvive"
+   ]
+  },
+  {
+   "id": "B4",
+   "polarity": "contract",
+   "layer": "integration",
+   "match": [
+    "should move the key it names and keep the template's other requirements"
+   ]
+  },
+  {
+   "id": "B5",
+   "polarity": "contract",
+   "layer": "integration",
+   "match": [
+    "should leave requests unset and stop patching once converged"
+   ]
+  },
+  {
+   "id": "D1",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestD1NeitherDeclaresResolvesEmpty"
+   ],
+   "note": "delta c1c303e8..e259d738: desiredComponentResources never returns nil; a key neither side declares is cleared. fails on c1c303e (nil return), passes on e259d738."
+  },
+  {
+   "id": "D2",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestD2MergeSynthesizesRequestsAboveLimits"
+   ],
+   "note": "F6 fixed by commit f02054bd (round 3): the canary flipped, so it was inverted into a contract test \u2014 the sync must refuse the conflicting merge, leave the workload's resources untouched and emit a RuntimeResourcesConflict Warning event."
+  },
+  {
+   "id": "D3",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestD3QuotaWithoutBaselineStaysUnconstrained"
+   ],
+   "note": "delta made the tiered-store quota read-back unconditional: an unconstrained container with a memory tmpfs must stay unconstrained and unpatched."
+  },
+  {
+   "id": "D4",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestD4SyncConflictSkipsResourcesButSyncsReplicas"
+   ],
+   "note": "round 3: the conflict must not abort the component sync \u2014 replicas still move while the resource patch is skipped and the Warning event names the memory pair."
+  },
+  {
+   "id": "D5",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestD5CreationRejectsConflictingPair"
+   ],
+   "note": "round 3: the creation path (transformWorker) must fail loudly on a conflicting pair, naming the component and the keys, instead of rendering a pod spec the API server rejects at rollout."
+  },
+  {
+   "id": "D6",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestD6MasterSyncConflictSkipsResources"
+   ],
+   "note": "round 3: the master call site in syncRuntimeSpec shares the worker's validation; pin the skip + event + replica behavior there too."
+  },
+  {
+   "id": "F9",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestD7NonOvercommittableMergeRules",
+    "TestD8SyncRefusesNonOvercommittableConflict"
+   ],
+   "note": "round 4 (497bbeaf..3adc547d): the non-overcommittable family rules. D7/D8 fail on 497bbeaf (rules absent) and pass on 3adc547d (commit 3adc547d adds isOvercommitAllowed + the equality/no-limit rules, verified verbatim against k8s.io/kubernetes@v1.29.15 pkg/apis/core/v1/helper/helpers.go and validation.go:6568-6578). Kept as regression contracts."
+  },
+  {
+   "id": "F11",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestE1ClassClaimAdditionMustNotWedgeExistingWorkload"
+   ],
+   "note": "round 6 (ce4f0c4f..a773dfa6): FIXED by a773dfa6 \u2014 splitDeclaredClaims + validDesiredResources(podSpec) drop container claims the workload does not declare (pod-level or already carried), emit a RuntimeResourcesConflict Warning naming them, and still sync the rest. E1 contract: fail at ce4f0c4f (round-5 log), pass at a773dfa6 (results/round6/). B3 stays green (no over-drop). Remedy matches the F6/F9 guard pattern proposed in round 4."
+  },
+  {
+   "id": "E2-empty-map-clear",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestE2ExplicitEmptyMapStillClearsWorkload"
+   ],
+   "note": "refutation record for Copilot discussion_r4212708077 ('empty resource maps fail to clear workload limits'): an explicit limits:{} still clears the workload's stale limit; the contract passes on base, 497bbeaf and 3adc547d. Copilot's claim that desiredComponentResources 'returns nil' does not match the code \u2014 it never returns nil."
+  },
+  {
+   "id": "F7",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestD9SyncWithTopologylessClassIsANoOp"
+   ],
+   "note": "round 5 (3adc547d..ce4f0c4f): fixed by 94121e27 \u2014 syncRuntimeSpec guards a topology-less class before the first dereference. D9 FAILS (panic) on 3adc547d and PASSES on ce4f0c4f. getRuntimeClass still rejects such classes up front, so this stays defense in depth."
+  },
+  {
+   "id": "F8",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestD10TieredStoreQuotaAgreesAcrossPaths"
+   ],
+   "note": "round 5: coverage fixed by 44e6c90a + ce4f0c4f (the equivalence table renders tiered-store rows and pins the charged quota). D10 is a regression PIN, not a flip: it passes on both heads; the PR's own new specs are the coverage fix, D10 keeps the creation/sync quota agreement pinned in this harness."
+  },
+  {
+   "id": "F10",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "TestD11CreationConflictEmitsRuntimeResourcesConflictEvent"
+   ],
+   "note": "round 5: fixed by 71d94397 + 4a8668f9 \u2014 the creation path routes validation through checkComponentResources, which emits the RuntimeResourcesConflict Warning event. D11 FAILS on 3adc547d (error, no event) and PASSES on ce4f0c4f. Worker call site driven; master and client share the wrapper and are covered by the PR's own specs."
+  }
+ ],
+ "liveNote": "L3 (live cluster) was skipped by the debate configuration (unit + integration layers mandated). A probe did find a reachable cluster (kubectl get no: 1 node, v1.36.2-aliyun.1); it was left untouched. If L3 is ever run: apply the #6173 manifests, kubectl patch the cacheruntime with limits.memory=8Gi only, then read .spec.template.spec.containers[0].resources from the advancedstatefulset \u2014 expect limits {cpu 2, memory 8Gi} and requests {cpu 1, memory 2Gi}, and expect requests to stay nil (not an empty map) on the limits-only template.",
+ "rounds": {
+  "2026-10-08": {
+   "head": "c1c303e8b2dc0a237ab9abe289be4e64c4445970",
+   "verdicts": {
+    "P0": "confirmed",
+    "B1": "fixed",
+    "B2": "fixed",
+    "B3": "fixed",
+    "B4": "fixed",
+    "B5": "fixed"
+   }
+  },
+  "2026-10-12": {
+   "head": "e259d738dec605902755ff5f9b5a6a56a2ef73fc",
+   "delta": "c1c303e8..e259d738 (7 commits: nil-return removal 'clear undeclared', equivalence tests, master spec, curvine e2e, docs)",
+   "verification": {
+    "base": {
+     "B1": "fail",
+     "B2": "fail",
+     "B3": "fail",
+     "D1": "fail",
+     "D2": "fail",
+     "D3": "pass"
+    },
+    "previous": {
+     "B1": "pass",
+     "B2": "pass",
+     "B3": "pass",
+     "B4": "pass",
+     "B5": "pass",
+     "D1": "fail",
+     "D2": "pass",
+     "D3": "pass"
+    },
+    "head": {
+     "B1": "pass",
+     "B2": "pass",
+     "B3": "pass",
+     "B4": "pass",
+     "B5": "pass",
+     "D1": "pass",
+     "D2": "pass(canary)",
+     "D3": "pass"
+    }
+   },
+   "suite": "full engine suite: 292 passed / 12 failed at head vs 275 / 12 at previous head; failing set byte-identical (pre-existing ufs_test.go failures) - no revision regression",
+   "newFindings": [
+    "D2 -> ledger F6 (major): merged requests can exceed limits; controller applies without validation/event"
+   ]
+  },
+  "2026-10-13": {
+   "head": "497bbeaf254071c522904d654a0e574651df65fd",
+   "delta": "e259d738..497bbeaf: history rewritten by rebase --signoff (ecd41afa->4194456f, e259d738->54e3756b, all commits now Signed-off-by, DCO green); new commits f02054bd (fix: reject merged resources whose request exceeds its limit) and 497bbeaf (docs en+zh).",
+   "verification": {
+    "head": {
+     "B1": "pass",
+     "B2": "pass",
+     "B3": "pass",
+     "B4": "pass",
+     "B5": "pass",
+     "D1": "pass",
+     "D2": "pass(contract, inverted)",
+     "D3": "pass",
+     "D4": "pass",
+     "D5": "pass",
+     "D6": "pass"
+    },
+    "previous_head_e259d738": {
+     "D2": "fail",
+     "D4": "fail",
+     "D5": "fail",
+     "D6": "fail",
+     "B1..B5,D1,D3": "pass"
+    }
+   },
+   "suite": "full engine suite at head with harness grafted: 298 passed / 12 failed; the 12 failing specs are the pre-existing ufs_test.go set, byte-identical to the pre-PR base e0fc4c18 and to round 2 - no revision regression.",
+   "changedBase": "master moved e0fc4c18 -> 3e99063a; local test merge of 497bbeaf + 3e99063a compiles and passes the harness (unit ok, full suite 311/12, identical failure set). Overlapping files (sync.go, curvine test.sh, spec-update docs) merge without semantic conflict.",
+   "ledger": "F6 fixed by f02054bd; DCO green; F1 maintainer ack still outstanding; F7/F8 nits unchanged."
+  },
+  "2026-10-19": {
+   "head": "ce4f0c4f966ff201d644a895eb4abbdc18c36d3a",
+   "delta": "3adc547d..ce4f0c4f (6 commits: drop unreleased-upgrade docs, creation-path conflict event, nil-topology guard, tiered-store equivalence rows + quota pins)",
+   "verification": {
+    "previous": {
+     "D9": "fail",
+     "D10": "pass",
+     "D11": "fail"
+    },
+    "head": {
+     "D9": "pass",
+     "D10": "pass",
+     "D11": "pass"
+    }
+   }
+  },
+  "2026-10-24": {
+   "head": "a773dfa6a3ba5f6ead88e68d7223408bc4b75e69",
+   "delta": "ce4f0c4f..a773dfa6 (1 commit: a773dfa6 fix(cache): do not sync container claims the workload does not declare)",
+   "verification": {
+    "B1": "fixed",
+    "B2": "fixed",
+    "B3": "fixed",
+    "B4": "fixed",
+    "B5": "fixed",
+    "D1": "fixed",
+    "D2": "fixed",
+    "D3": "fixed",
+    "D4": "fixed",
+    "D5": "fixed",
+    "D6": "fixed",
+    "F9": "fixed",
+    "F11": "fixed",
+    "E2-empty-map-clear": "fixed",
+    "F7": "fixed",
+    "F8": "fixed",
+    "F10": "fixed"
+   },
+   "verdict": "all findings fixed, incl. F11 (E1 contract flipped fail at ce4f0c4f -> pass at a773dfa6); full engine suite 329 passed / 12 pre-existing failures (byte-identical set, 11x ufs_test + 1x sync_test ReportSummary); CI 22/22 check-runs SUCCESS at head (re-queried 2026-10-24); maintainer ack of the merge semantics recorded (cheyang personal comment 2026-10-20T12:38:43Z, F1 closed) with one doc change requested before merge (F14: neutralize live-template-propagation wording, see #6213) plus F13 (drop the stale upgrade paragraph from the PR body)",
+   "logs": [
+    "results/round6/reverify-head-a773dfa6.log",
+    "results/round6/suite-head-a773dfa6.log",
+    "results/round6/failures-head-a773dfa6.txt",
+    "results/round6/unit-head-a773dfa6.out",
+    "results/round6/integration-head-a773dfa6.out"
+   ]
+  },
+  "2026-11-13": {
+   "head": "956d78a8f57859e60331d1ecdfd4ae2e3fd64062",
+   "delta": "a773dfa6..956d78a8 (author docs commit 94a82543f = F14 neutralization + merge of master a01c038bc: changed base; master side touches the same engine files via #6186/#6223/#6162)",
+   "verification": {
+    "base": "not-run (unchanged contracts; base pinning per earlier rounds)",
+    "previous": "pass (all 16, round 6)",
+    "head": "pass (all 16)"
+   },
+   "verdicts": {
+    "B1": "fixed",
+    "B2": "fixed",
+    "B3": "fixed",
+    "B4": "fixed",
+    "B5": "fixed",
+    "D1": "fixed",
+    "D2": "fixed",
+    "D3": "fixed",
+    "D4": "fixed",
+    "D5": "fixed",
+    "D6": "fixed",
+    "F7": "fixed",
+    "F8": "fixed",
+    "F9": "fixed",
+    "F10": "fixed",
+    "F11": "fixed",
+    "E2-empty-map-clear": "fixed"
+   },
+   "notes": "full re-run (changed base): all 16 contracts green at merged head; suite 56/56 component + 395 engine passed 0 failed 16 skipped (canonical invocation); 0 ginkgo specs dropped, 45 added from master; F14 fixed by 94a82543f + PR body edit (neutral #6213 wording, no upgrade note); F13 fixed (no Upgrade note paragraph, claims bullet accurate); F15 new non-blocking pre-existing question (image-propagation doc bullet from master #6186 vs #6213 pointer); CI 22/22 SUCCESS at head",
+   "logs": [
+    "results/round7/reverify-head-956d78a8.log",
+    "results/round7/suite-head-956d78a8.log",
+    "results/round7/unit-head-956d78a8.out",
+    "results/round7/integration-head-956d78a8.out"
+   ]
+  }
+ }
 }

@@ -1,0 +1,48 @@
+re-verify: manifest = docs/verification/cache-resources-merge/verify-manifest.json
+re-verify: resolving PR head via 'git fetch https://github.com/fluid-cloudnative/fluid.git pull/6177/head' (machine-independent)
+re-verify: current head = 956d78a8f57859e60331d1ecdfd4ae2e3fd64062
+re-verify: last-reviewed = a773dfa6a3ba5f6ead88e68d7223408bc4b75e69  (review delta = a773dfa6a3ba5f6ead88e68d7223408bc4b75e69..956d78a8f57859e60331d1ecdfd4ae2e3fd64062)
+re-verify: fixed-ref=956d78a8f57859e60331d1ecdfd4ae2e3fd64062  harness-from=fc0b2cd5722b30f1f330e240c0bc81e0e3e2486d
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'integration' (ginkgo)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+B1     contract  unit         FIXED          pass=2 fail=0 miss=0
+B2     contract  unit         FIXED          pass=1 fail=0 miss=0
+B3     contract  unit         FIXED          pass=1 fail=0 miss=0
+B4     contract  integration  FIXED          pass=1 fail=0 miss=0
+B5     contract  integration  FIXED          pass=1 fail=0 miss=0
+D1     contract  unit         FIXED          pass=1 fail=0 miss=0
+D2     contract  unit         FIXED          pass=1 fail=0 miss=0
+D3     contract  unit         FIXED          pass=1 fail=0 miss=0
+D4     contract  unit         FIXED          pass=1 fail=0 miss=0
+D5     contract  unit         FIXED          pass=1 fail=0 miss=0
+D6     contract  unit         FIXED          pass=1 fail=0 miss=0
+F9     contract  unit         FIXED          pass=2 fail=0 miss=0
+F11    contract  unit         FIXED          pass=1 fail=0 miss=0
+E2-empty-map-clear contract  unit         FIXED          pass=1 fail=0 miss=0
+F7     contract  unit         FIXED          pass=1 fail=0 miss=0
+F8     contract  unit         FIXED          pass=1 fail=0 miss=0
+F10    contract  unit         FIXED          pass=1 fail=0 miss=0
+
+RESULT: all findings fixed.  (round 7 — run 2026-11-13, host wt-pr6177-r7-claude)
+
+Round-7 context: head 956d78a8f = author docs commit 94a82543f (the F14 doc neutralization)
++ merge of master a01c038bc into the branch (changed base). The master side of the merge
+touches the same engine files (#6186 partial-runtime-version completion, #6223 HPA/scale,
+#6162 dataset Failed->Bound restore), so the whole contract set was re-run rather than
+trusting the round-6 record. All 16 contracts green at the merged head; no revision
+regression from the merge resolution.
+
+Companion evidence, same round:
+- results/round7/suite-head-956d78a8.log   full pkg/ddc/cache/... suite at head under the
+  CI-canonical invocation (FLUID_UNIT_TEST=true go test -gcflags="all=-N -l" -count=1):
+  component 56/56 passed; engine 411 specs, 395 ran, 395 passed, 0 failed, 16 skipped
+  (pre-existing conditional skips). Master-side contracts (#6186 image/version specs,
+  #6223 component specs, #6162 status specs) are inside this suite and pass — the merge
+  resolution preserved both sides.
+- Spec inventory diff a773dfa6..956d78a8: 0 ginkgo specs dropped, 45 added (all from the
+  master side); `func Test*` inventory identical (19 = 19).
+- Merge resolution read file-by-file for the 13 conflicted paths (git show 956d78a8f):
+  each file carries both sides' hunks; no dropped hunks observed.
