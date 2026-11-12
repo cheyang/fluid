@@ -1,0 +1,38 @@
+{
+  "topic": "zap-1-28-0-bump-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6241",
+  "harnessPaths": [
+    "docs/verification/zap-1-28-0-bump-codex",
+    "pkg/utils/zapcompatverify/zap_compat_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Bumps go.uber.org/zap from 1.27.0 to 1.28.0. Release notes: #1501 prevent Object from panicking on nils; #1511 fix race condition in WithLazy; #1534 add CheckPreWriteHook / CheckedEntry.Before.",
+    "reportedComponent": "third-party dependency go.uber.org/zap (used by fluid only via cmd/*/app logging setup and sigs.k8s.io/controller-runtime/pkg/log/zap)",
+    "patchedComponent": "go.mod, go.sum, vendor/go.uber.org/zap, vendor/modules.txt",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base (zap 1.27.0) the same harness fails: zap.Object(nil) panics and level alias 'warning' is unrecognized (results/base-unit.txt); on head both pass (results/head-unit-race.json). Bump delivers the claimed fixes and builds cleanly (results/head-build.txt, results/head-go-mod-verify.txt).",
+    "match": ["TestObjectNilMarshalerDoesNotPanic", "TestLevelUnmarshalCompatibility"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -race -count=1 -json ./pkg/utils/zapcompatverify/"
+    },
+    "integration": {
+      "kind": "shell",
+      "cmd": "go build -mod=vendor ./... && go mod verify | tail -1 && go vet -mod=vendor ./cmd/fluidapp/... ./cmd/dataset/... ./cmd/csi/..."
+    }
+  },
+  "findings": [
+    { "id": "C2-level-parse-compat", "polarity": "contract", "layer": "unit", "match": ["TestLevelUnmarshalCompatibility"] },
+    { "id": "C3-fluid-prod-logger-shape", "polarity": "contract", "layer": "unit", "match": ["TestFluidProductionLoggerShape"] },
+    { "id": "C4-object-nil-no-panic", "polarity": "contract", "layer": "unit", "match": ["TestObjectNilMarshalerDoesNotPanic"] },
+    { "id": "C5-lazywith-no-race", "polarity": "contract", "layer": "unit", "match": ["TestLazyWithConcurrentUse"] },
+    { "id": "C1-vendored-build-and-hashes", "polarity": "contract", "layer": "integration", "match": ["go build -mod=vendor ./...", "go mod verify", "go vet -mod=vendor ./cmd/..."] }
+  ],
+  "liveNote": "L3 skipped per debate policy (no KUBECONFIG layer). In a live check, run any fluid controller binary and confirm startup logs render with capital levels and ISO8601 timestamps."
+}

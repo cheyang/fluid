@@ -1,0 +1,7 @@
+--- FAIL: TestLevelUnmarshalCompatibility (0.00s)
+    zap_compat_verify_test.go:41: UnmarshalText("warning") unexpected error: unrecognized level: "warning"
+--- FAIL: TestObjectNilMarshalerDoesNotPanic (0.00s)
+    zap_compat_verify_test.go:88: zap.Object(nil) panicked: interface conversion: interface is nil, not zapcore.ObjectMarshaler
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/zapcompatverify	0.006s
+FAIL
