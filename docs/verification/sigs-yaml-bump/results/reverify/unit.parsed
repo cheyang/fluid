@@ -1,0 +1,4 @@
+TestSigsYamlMarshalGolden	pass
+TestSigsYamlUnmarshalConfigGolden	pass
+TestSigsYamlRoundTripStability	pass
+TestSigsYamlErrorTextStable	pass
