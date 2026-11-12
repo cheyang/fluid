@@ -1,0 +1,79 @@
+{
+  "topic": "zap-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6241",
+  "harnessPaths": [
+    "docs/verification/zap-bump",
+    "pkg/utils/zapcompat/doc.go",
+    "pkg/utils/zapcompat/zapcompat_harness_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: \"Bumps go.uber.org/zap from 1.27.0 to 1.28.0\" — routine maintenance bump; release notes claim 1.27.1 fixes (prevent Object from panicking on nils; fix a race condition in WithLazy) and the 1.28.0 PreWriteHook enhancement become available to fluid.",
+    "reportedComponent": "go.uber.org/zap as vendored into fluid (go.mod, go.sum, vendor/modules.txt, vendor/go.uber.org/zap/**)",
+    "patchedComponent": "exactly those files — see PR file list (18 files, all zap-bump related)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "The upgrade premise is confirmed as coherent and safe: vendor tree byte-identical to upstream v1.28.0 (results/vendor-fidelity-head.txt), go.sum matches checksum DB, `go mod tidy` yields zero drift, full build passes, and the vendored tree demonstrably carries >=1.27.1 semantics (A3/A4 fail on base, pass on head — results/unit-base.txt vs results/unit-head.txt). This is a maintenance bump, so 'confirmed' means: the claimed upgrade is genuine, complete, and non-regressive, not that a user-facing bug existed on base.",
+    "match": [
+      "TestHarnessWarningLevelNewlyAccepted",
+      "TestHarnessNilObjectNoPanic"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 -v ./pkg/utils/zapcompat/"
+    },
+    "integration": {
+      "kind": "script",
+      "cmd": "bash docs/verification/zap-bump/scripts/verify-vendor-fidelity.sh && go build ./..."
+    }
+  },
+  "findings": [
+    {
+      "id": "P0-premise",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestHarnessWarningLevelNewlyAccepted", "TestHarnessNilObjectNoPanic"]
+    },
+    {
+      "id": "A1-fluid-logger-path",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestHarnessFluidLoggerPathWorks"]
+    },
+    {
+      "id": "A2-level-strings-regression",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestHarnessLevelStringsStillAccepted"]
+    },
+    {
+      "id": "A3-warning-level-alias",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestHarnessWarningLevelNewlyAccepted"]
+    },
+    {
+      "id": "A4-nil-object-no-panic",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestHarnessNilObjectNoPanic"]
+    },
+    {
+      "id": "A5-vendor-version-consistency",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestHarnessVendoredZapVersionConsistent"]
+    },
+    {
+      "id": "S1-vendor-fidelity",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["scripts/verify-vendor-fidelity.sh"]
+    }
+  ],
+  "liveNote": "No live layer needed: this PR changes no fluid runtime behavior directly (fluid's own zap call sites are AddCaller/NewProductionEncoderConfig/NewDevelopmentEncoderConfig/NewConsoleEncoder/CapitalLevelEncoder/ISO8601TimeEncoder — all untouched upstream). Controller-runtime, the only vendored-graph consumer of the changed zap APIs, uses none of the changed symbols except zapcore.Level (via its own lowercase levelStrings map, unaffected). Per round policy the live/KUBECONFIG layer is skipped."
+}

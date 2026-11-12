@@ -1,0 +1,648 @@
+2026/11/13 06:45:17 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Alluxio Suite - /tmp/fluid-zap-base/pkg/ddc/alluxio
+[38;5;204m[alluxio][0m 
+==================================================================
+Random Seed: [1m1794523517[0m
+
+Will run [1m150[0m of [1m150[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.020 seconds][0m
+[0mAlluxioEngine Metadata Synchronization Tests [38;5;243mTest AlluxioEngine.syncMetadataInternal() [0mwhen given AlluxioEngine works as expected [38;5;9m[1m[It] should successfully sync metadata and update dataset status[0m [38;5;204m[pkg.ddc.alluxio.metadata_test.go][0m
+[38;5;243m/tmp/fluid-zap-base/pkg/ddc/alluxio/metadata_test.go:205[0m
+
+  [38;5;9m[FAILED] Expected
+      <*errors.errorString | 0x172d0ac2d040>: 
+      GetMetadataInfoFailed
+      {
+          s: "GetMetadataInfoFailed",
+      }
+  to be nil[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-zap-base/pkg/ddc/alluxio/metadata_test.go:233[0m [38;5;243m@ 11/13/26 06:45:24.052[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;9m[1mSummarizing 1 Failure:[0m
+  [38;5;9m[FAIL][0m [0mAlluxioEngine Metadata Synchronization Tests [38;5;243mTest AlluxioEngine.syncMetadataInternal() [0mwhen given AlluxioEngine works as expected [38;5;9m[1m[It] should successfully sync metadata and update dataset status[0m [38;5;204m[pkg.ddc.alluxio.metadata_test.go][0m
+  [38;5;243m/tmp/fluid-zap-base/pkg/ddc/alluxio/metadata_test.go:233[0m
+
+[38;5;9m[1mRan 150 of 150 Specs in 6.057 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m149 Passed[0m | [38;5;9m[1m1 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+--- FAIL: TestAlluxio (6.06s)
+2026-11-13T06:45:28+08:00	INFO	mountRoot	{"path": "/alluxio"}
+2026-11-13T06:45:28+08:00	INFO	Check if the alluxio version not less than 2.8	{"version": "2.3.0-SNAPSHOT-2c41226", "isNewFuseArgVersion": false}
+2026-11-13T06:45:28+08:00	INFO	Error:	{"err": "datasets.data.fluid.io \"hbase\" not found"}
+2026-11-13T06:45:28+08:00	INFO	skip setting memory limit
+2026-11-13T06:45:28+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [20001, 20002, 20003]}
+2026-11-13T06:45:28+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 10, "allocated ports": [20148, 20428, 20602, 20286, 20248, 20372, 20721, 20137, 20150, 20463]}
+2026-11-13T06:45:28+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 10, "allocated ports": [20065, 20743, 20547, 20237, 20111, 20190, 20181, 20086, 20967, 20412]}
+2026-11-13T06:45:28+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 10, "allocated ports": [20407, 20991, 20361, 20376, 20845, 20105, 20492, 20972, 20410, 20850]}
+2026-11-13T06:45:28+08:00	INFO	mountRoot	{"path": "/alluxio"}
+2026-11-13T06:45:28+08:00	INFO	Check if the alluxio version not less than 2.8	{"version": "2.3.0-SNAPSHOT-2c41226", "isNewFuseArgVersion": false}
+2026-11-13T06:45:28+08:00	INFO	Error:	{"err": "datasets.data.fluid.io \"test\" not found"}
+2026-11-13T06:45:28+08:00	INFO	skip setting memory limit
+2026-11-13T06:45:28+08:00	DEBUG	spark	Nothing to do for syncing
+2026-11-13T06:45:28+08:00	DEBUG	spark	Update runtime status	{"runtime": "big-data/spark"}
+2026-11-13T06:45:28+08:00	DEBUG	hadoop	Nothing to do for syncing
+2026-11-13T06:45:28+08:00	DEBUG	hadoop	Update runtime status	{"runtime": "big-data/hadoop"}
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	10.089s
+2026/11/13 06:45:17 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Cache Engine Suite - /tmp/fluid-zap-base/pkg/ddc/cache/engine
+[38;5;204m[cache_engine][0m 
+============================================================================
+Random Seed: [1m1794523517[0m
+
+Will run [1m344[0m of [1m344[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.011 seconds][0m
+[0mCacheEngine Sync Tests [38;5;243mSync [0mwhen runtime is ready with ReportSummary configured [38;5;9m[1m[It] should get cache states successfully with mocked Execute[0m [38;5;204m[pkg.ddc.cache.engine.sync_test.go][0m
+[38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/sync_test.go:469[0m
+
+  [38;5;9m[FAILED] Expected
+      <common.CacheStateList | len:0>: nil
+  not to be nil[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-zap-base/pkg/ddc/cache/engine/sync_test.go:492[0m [38;5;243m@ 11/13/26 06:45:18.082[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.009 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return parsed CacheRuntimeMountUfsOutput with valid JSON output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:226[0m
+
+  [38;5;243mTimeline >>[0m
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:241 [38;5;243m@ 11/13/26 06:45:18.114[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*errors.withStack | 0xd1f6cafcf30>: 
+      error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+      {
+          error: <*errors.withMessage | 0xd1f6d196280>{
+              cause: <*errors.StatusError | 0xd1f6d209900>{
+                  ErrStatus: {
+                      TypeMeta: {Kind: "", APIVersion: ""},
+                      ListMeta: {
+                          SelfLink: "",
+                          ResourceVersion: "",
+                          Continue: "",
+                          RemainingItemCount: nil,
+                      },
+                      Status: "Failure",
+                      Message: "pods \"test-runtime-master-0\" not found",
+                      Reason: "NotFound",
+                      Details: {
+                          Name: "test-runtime-master-0",
+                          Group: "",
+                          Kind: "pods",
+                          UID: "",
+                          Causes: nil,
+                          RetryAfterSeconds: 0,
+                      },
+                      Code: 404,
+                  },
+              },
+              msg: "error when executing command [/mount.sh]",
+          },
+          stack: [0x17757a5, 0x177584f, 0x178360f, 0x17f4012, 0x1713ef3, 0x1715750, 0x49b301],
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:241[0m [38;5;243m@ 11/13/26 06:45:18.114[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.011 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount returns empty output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:246[0m
+
+  [38;5;243mTimeline >>[0m
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:262 [38;5;243m@ 11/13/26 06:45:18.126[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: empty output[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:262[0m [38;5;243m@ 11/13/26 06:45:18.126[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.010 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount returns whitespace-only output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:266[0m
+
+  [38;5;243mTimeline >>[0m
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:282 [38;5;243m@ 11/13/26 06:45:18.136[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: empty output[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:282[0m [38;5;243m@ 11/13/26 06:45:18.136[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.011 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return JSON parse error when Mount returns invalid JSON[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:286[0m
+
+  [38;5;243mTimeline >>[0m
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:302 [38;5;243m@ 11/13/26 06:45:18.147[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: failed to parse mount ufs output[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:302[0m [38;5;243m@ 11/13/26 06:45:18.147[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.009 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount command fails[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:306[0m
+
+  [38;5;243mTimeline >>[0m
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:322 [38;5;243m@ 11/13/26 06:45:18.156[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: mount command failed[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:322[0m [38;5;243m@ 11/13/26 06:45:18.156[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.011 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen PrepareUFS returns invalid JSON [38;5;9m[1m[It] should return JSON parse error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:573[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:580 [38;5;243m@ 11/13/26 06:45:18.168[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: failed to parse mount ufs output[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:580[0m [38;5;243m@ 11/13/26 06:45:18.168[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.012 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen PrepareUFS returns empty output [38;5;9m[1m[It] should return empty output error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:590[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:597 [38;5;243m@ 11/13/26 06:45:18.181[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: empty output[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:597[0m [38;5;243m@ 11/13/26 06:45:18.181[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.009 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen syncDatasetMounts fails due to missing mount point [38;5;9m[1m[It] should return mount point not mounted error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:607[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:614 [38;5;243m@ 11/13/26 06:45:18.189[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: is not yet mounted[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:614[0m [38;5;243m@ 11/13/26 06:45:18.189[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.010 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen syncDatasetMounts fails due to unexpected mounted paths [38;5;9m[1m[It] should return unexpected mounted paths error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:624[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:631 [38;5;243m@ 11/13/26 06:45:18.2[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: unexpected mounted paths remain[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:631[0m [38;5;243m@ 11/13/26 06:45:18.2[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.010 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen all mount points are correctly mounted [38;5;9m[1m[It] should successfully update mounts and set status to Bound[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:641[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:647 [38;5;243m@ 11/13/26 06:45:18.21[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*errors.withStack | 0xd1f6cf160f0>: 
+      failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+      {
+          error: <*errors.withMessage | 0xd1f6d4080e0>{
+              cause: <*errors.withStack | 0xd1f6cf160c0>{
+                  error: <*errors.withMessage | 0xd1f6d4080c0>{
+                      cause: <*errors.StatusError | 0xd1f6cff2280>{
+                          ErrStatus: {
+                              TypeMeta: {Kind: "", APIVersion: ""},
+                              ListMeta: {
+                                  SelfLink: "",
+                                  ResourceVersion: "",
+                                  Continue: "",
+                                  RemainingItemCount: nil,
+                              },
+                              Status: "Failure",
+                              Message: "pods \"test-runtime-master-0\" not found",
+                              Reason: "NotFound",
+                              Details: {
+                                  Name: "test-runtime-master-0",
+                                  Group: "",
+                                  Kind: "pods",
+                                  UID: "",
+                                  Causes: nil,
+                                  RetryAfterSeconds: 0,
+                              },
+                              Code: 404,
+                          },
+                      },
+                      msg: "error when executing command [/mount.sh]",
+                  },
+                  stack: [0x17757a5, 0x177584f, 0x178360f, 0x1783d85, 0x17f0158, 0x1713ef3, 0x1715750, 0x49b301],
+              },
+              msg: "failed to execute mount ufs command",
+          },
+          stack: [0x1783e51, 0x17f0158, 0x1713ef3, 0x1715750, 0x49b301],
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:647[0m [38;5;243m@ 11/13/26 06:45:18.21[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.011 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen dataset has native scheme mounts [38;5;9m[1m[It] should skip native scheme mounts and succeed[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:662[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:675 [38;5;243m@ 11/13/26 06:45:18.221[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*errors.withStack | 0xd1f6cf16b40>: 
+      failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+      {
+          error: <*errors.withMessage | 0xd1f6d408f20>{
+              cause: <*errors.withStack | 0xd1f6cf16b10>{
+                  error: <*errors.withMessage | 0xd1f6d408f00>{
+                      cause: <*errors.StatusError | 0xd1f6cff3d60>{
+                          ErrStatus: {
+                              TypeMeta: {Kind: "", APIVersion: ""},
+                              ListMeta: {
+                                  SelfLink: "",
+                                  ResourceVersion: "",
+                                  Continue: "",
+                                  RemainingItemCount: nil,
+                              },
+                              Status: "Failure",
+                              Message: "pods \"test-runtime-master-0\" not found",
+                              Reason: "NotFound",
+                              Details: {
+                                  Name: "test-runtime-master-0",
+                                  Group: "",
+                                  Kind: "pods",
+                                  UID: "",
+                                  Causes: nil,
+                                  RetryAfterSeconds: 0,
+                              },
+                              Code: 404,
+                          },
+                      },
+                      msg: "error when executing command [/mount.sh]",
+                  },
+                  stack: [0x17757a5, 0x177584f, 0x178360f, 0x1783d85, 0x17efe67, 0x1713ef3, 0x1715750, 0x49b301],
+              },
+              msg: "failed to execute mount ufs command",
+          },
+          stack: [0x1783e51, 0x17efe67, 0x1713ef3, 0x1715750, 0x49b301],
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:675[0m [38;5;243m@ 11/13/26 06:45:18.221[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;9m[1mSummarizing 12 Failures:[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine Sync Tests [38;5;243mSync [0mwhen runtime is ready with ReportSummary configured [38;5;9m[1m[It] should get cache states successfully with mocked Execute[0m [38;5;204m[pkg.ddc.cache.engine.sync_test.go][0m
+  [38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/sync_test.go:492[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return parsed CacheRuntimeMountUfsOutput with valid JSON output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:241[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount returns empty output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:262[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount returns whitespace-only output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:282[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return JSON parse error when Mount returns invalid JSON[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:302[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount command fails[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:322[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen PrepareUFS returns invalid JSON [38;5;9m[1m[It] should return JSON parse error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:580[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen PrepareUFS returns empty output [38;5;9m[1m[It] should return empty output error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:597[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen syncDatasetMounts fails due to missing mount point [38;5;9m[1m[It] should return mount point not mounted error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:614[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen syncDatasetMounts fails due to unexpected mounted paths [38;5;9m[1m[It] should return unexpected mounted paths error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:631[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen all mount points are correctly mounted [38;5;9m[1m[It] should successfully update mounts and set status to Bound[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:647[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen dataset has native scheme mounts [38;5;9m[1m[It] should skip native scheme mounts and succeed[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/tmp/fluid-zap-base/pkg/ddc/cache/engine/ufs_test.go:675[0m
+
+[38;5;9m[1mRan 328 of 344 Specs in 0.225 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m316 Passed[0m | [38;5;9m[1m12 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m16 Skipped[0m
+--- FAIL: TestCacheEngine (0.23s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.255s
+2026/11/13 06:45:17 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+......
+6 total assertions
+
+Running Suite: Jindo Suite - /tmp/fluid-zap-base/pkg/ddc/jindo
+==============================================================
+Random Seed: [1m1794523517[0m
+
+Will run [1m21[0m of [1m21[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;10m[1mRan 21 of 21 Specs in 0.003 seconds[0m
+[38;5;10m[1mSUCCESS![0m -- [38;5;10m[1m21 Passed[0m | [38;5;9m[1m0 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+--- FAIL: TestDestroyWorker (0.00s)
+    shutdown_test.go:191: fail to exec the function with the error jindoruntimes.data.fluid.io "spark" not found
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:191: fail to exec the function with the error jindoruntimes.data.fluid.io "hadoop" not found
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindo	12.047s
+2026/11/13 06:45:17 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+......
+6 total assertions
+
+Running Suite: Jindofsx Suite - /tmp/fluid-zap-base/pkg/ddc/jindofsx
+====================================================================
+Random Seed: [1m1794523517[0m
+
+Will run [1m36[0m of [1m36[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;10m[1mRan 36 of 36 Specs in 0.007 seconds[0m
+[38;5;10m[1mSUCCESS![0m -- [38;5;10m[1m36 Passed[0m | [38;5;9m[1m0 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+--- FAIL: TestDestroyWorker (0.00s)
+    shutdown_test.go:191: fail to exec the function with the error jindoruntimes.data.fluid.io "spark" not found
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:191: fail to exec the function with the error jindoruntimes.data.fluid.io "hadoop" not found
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+(0x2dd9da0,0x1a78bc728470)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	15.057s
+2026/11/13 06:45:17 Found FLUID_RUNTIME_RECONCILE_DURATION value abc, using it as RuntimeReconcileDurationEnvVal
+2026/11/13 06:45:17 Found FLUID_RUNTIME_RECONCILE_DURATION value -1, using it as RuntimeReconcileDurationEnvVal
+2026/11/13 06:45:17 Found FLUID_RUNTIME_RECONCILE_DURATION value 10, using it as RuntimeReconcileDurationEnvVal
+2026/11/13 06:45:17 Found FLUID_RUNTIME_RECONCILE_DURATION value 10, using it as RuntimeReconcileDurationEnvVal
+2026/11/13 06:45:17 Found FLUID_RUNTIME_RECONCILE_DURATION_OFFSET value abc, using it as RuntimeReconcileDurationOffsetEnvVal
+2026/11/13 06:45:17 Found FLUID_RUNTIME_RECONCILE_DURATION value 10, using it as RuntimeReconcileDurationEnvVal
+2026/11/13 06:45:17 Found FLUID_RUNTIME_RECONCILE_DURATION_OFFSET value 15, using it as RuntimeReconcileDurationOffsetEnvVal
+2026/11/13 06:45:17 Found FLUID_RUNTIME_RECONCILE_DURATION value 10, using it as RuntimeReconcileDurationEnvVal
+2026/11/13 06:45:17 Found FLUID_RUNTIME_RECONCILE_DURATION_OFFSET value 2, using it as RuntimeReconcileDurationOffsetEnvVal
+....
+4 total assertions
+
+........
+12 total assertions
+
+x........
+Failures:
+
+  * /tmp/fluid-zap-base/pkg/utils/mount_test.go 
+  Line 220:
+  Expected: nil
+  Actual:   'checking mounted failed: test'
+
+
+21 total assertions
+
+--- FAIL: TestCheckMountPointBroken (0.00s)
+[controller-runtime] log.SetLogger(...) was never called; logs will not be displayed.
+Detected at:
+	>  goroutine 155 [running]:
+	>  runtime/debug.Stack()
+	>  	/usr/local/go/src/runtime/debug/stack.go:26 +0x5e
+	>  sigs.k8s.io/controller-runtime/pkg/log.eventuallyFulfillRoot()
+	>  	/tmp/fluid-zap-base/vendor/sigs.k8s.io/controller-runtime/pkg/log/log.go:60 +0xcd
+	>  sigs.k8s.io/controller-runtime/pkg/log.(*delegatingLogSink).WithName(0x279fc2015c00, {0x17779ea, 0x4})
+	>  	/tmp/fluid-zap-base/vendor/sigs.k8s.io/controller-runtime/pkg/log/deleg.go:147 +0x3e
+	>  github.com/go-logr/logr.Logger.WithName(...)
+	>  	/tmp/fluid-zap-base/vendor/github.com/go-logr/logr/logr.go:345
+	>  github.com/fluid-cloudnative/fluid/pkg/utils.TestNewPprofServerWithDevelopment(0x279fc2adc008)
+	>  	/tmp/fluid-zap-base/pkg/utils/pprof_test.go:47 +0x62
+	>  testing.tRunner(0x279fc2adc008, 0x2b87930)
+	>  	/usr/local/go/src/testing/testing.go:2193 +0xea
+	>  created by testing.(*T).Run in goroutine 1
+	>  	/usr/local/go/src/testing/testing.go:2258 +0x4d4
+Running Suite: Utils Suite - /tmp/fluid-zap-base/pkg/utils
+==========================================================
+Random Seed: [1m1794523517[0m
+
+Will run [1m115[0m of [1m115[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;10m[1mRan 115 of 115 Specs in 0.003 seconds[0m
+[38;5;10m[1mSUCCESS![0m -- [38;5;10m[1m115 Passed[0m | [38;5;9m[1m0 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	112.084s
+Running Suite: Helm Suite - /tmp/fluid-zap-base/pkg/utils/helm
+==============================================================
+Random Seed: [1m1794523517[0m
+
+Will run [1m29[0m of [1m29[0m specs
+[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;13m• [PANICKED] [0.000 seconds][0m
+[0mHelm [38;5;243mInstallRelease [0mwhen CombinedOutput fails [38;5;13m[1m[It] should return an error[0m
+[38;5;243m/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:75[0m
+
+  [38;5;13m[PANICKED] Test Panicked[0m
+  [38;5;13mIn [1m[It][0m[38;5;13m at: [1m/usr/local/go/src/runtime/panic.go:336[0m [38;5;243m@ 11/13/26 06:45:17.994[0m
+
+  [38;5;13mruntime error: invalid memory address or nil pointer dereference[0m
+
+  [38;5;13mFull Stack Trace[0m
+    os/exec.findExecutable({0x221902e3ba00, 0x1a})
+    	/usr/local/go/src/os/exec/lp_unix.go:27 +0x2e
+    os/exec.lookPath({0x167454d, 0x8})
+    	/usr/local/go/src/os/exec/lp_unix.go:67 +0x29f
+    os/exec.LookPath(...)
+    	/usr/local/go/src/os/exec/lookpath.go:29
+    github.com/fluid-cloudnative/fluid/pkg/utils/helm.InstallRelease({0x16703a5, 0x5}, {0x1672ab9, 0x7}, {0x167b5d0, 0xd}, {0x1679f1f, 0xc})
+    	/tmp/fluid-zap-base/pkg/utils/helm/utils.go:46 +0x199
+    github.com/fluid-cloudnative/fluid/pkg/utils/helm.init.func1.1.4.1()
+    	/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:86 +0x13e
+[38;5;243m------------------------------[0m
+[38;5;13m• [PANICKED] [0.000 seconds][0m
+[0mHelm [38;5;243mInstallRelease [0mwhen namespace contains invalid characters [38;5;13m[1m[It] should return an error[0m
+[38;5;243m/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:92[0m
+
+  [38;5;13m[PANICKED] Test Panicked[0m
+  [38;5;13mIn [1m[It][0m[38;5;13m at: [1m/usr/local/go/src/runtime/panic.go:336[0m [38;5;243m@ 11/13/26 06:45:17.994[0m
+
+  [38;5;13mruntime error: invalid memory address or nil pointer dereference[0m
+
+  [38;5;13mFull Stack Trace[0m
+    os/exec.findExecutable({0x221902e3bc60, 0x1a})
+    	/usr/local/go/src/os/exec/lp_unix.go:27 +0x2e
+    os/exec.lookPath({0x167454d, 0x8})
+    	/usr/local/go/src/os/exec/lp_unix.go:67 +0x29f
+    os/exec.LookPath(...)
+    	/usr/local/go/src/os/exec/lookpath.go:29
+    github.com/fluid-cloudnative/fluid/pkg/utils/helm.InstallRelease({0x16703a5, 0x5}, {0x1674555, 0x8}, {0x167b5d0, 0xd}, {0x1679f1f, 0xc})
+    	/tmp/fluid-zap-base/pkg/utils/helm/utils.go:46 +0x199
+    github.com/fluid-cloudnative/fluid/pkg/utils/helm.init.func1.1.5.1()
+    	/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:101 +0xed
+[38;5;243m------------------------------[0m
+[38;5;13m• [PANICKED] [0.000 seconds][0m
+[0mHelm [38;5;243mInstallRelease [0mwhen all conditions are met [38;5;13m[1m[It] should install release successfully[0m
+[38;5;243m/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:107[0m
+
+  [38;5;13m[PANICKED] Test Panicked[0m
+  [38;5;13mIn [1m[It][0m[38;5;13m at: [1m/usr/local/go/src/runtime/panic.go:336[0m [38;5;243m@ 11/13/26 06:45:17.994[0m
+
+  [38;5;13mruntime error: invalid memory address or nil pointer dereference[0m
+
+  [38;5;13mFull Stack Trace[0m
+    os/exec.findExecutable({0x221902e3bec0, 0x1a})
+    	/usr/local/go/src/os/exec/lp_unix.go:27 +0x2e
+    os/exec.lookPath({0x167454d, 0x8})
+    	/usr/local/go/src/os/exec/lp_unix.go:67 +0x29f
+    os/exec.LookPath(...)
+    	/usr/local/go/src/os/exec/lookpath.go:29
+    github.com/fluid-cloudnative/fluid/pkg/utils/helm.InstallRelease({0x16703a5, 0x5}, {0x1672ab9, 0x7}, {0x167b5d0, 0xd}, {0x1679f1f, 0xc})
+    	/tmp/fluid-zap-base/pkg/utils/helm/utils.go:46 +0x199
+    github.com/fluid-cloudnative/fluid/pkg/utils/helm.init.func1.1.6.1()
+    	/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:118 +0x13e
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mHelm [38;5;243mDeleteRelease [0mwhen all conditions are met [38;5;9m[1m[It] should delete release successfully[0m
+[38;5;243m/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:251[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*exec.Error | 0x221902f07ec0>: 
+      exec: "ddc-helm": executable file not found in $PATH
+      {
+          Name: "ddc-helm",
+          Err: <*errors.errorString | 0x2a85dc0>{
+              s: "executable file not found in $PATH",
+          },
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:260[0m [38;5;243m@ 11/13/26 06:45:17.994[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mHelm [38;5;243mListReleases [0mwhen all conditions are met [38;5;9m[1m[It] should list releases successfully[0m
+[38;5;243m/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:317[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*exec.Error | 0x221902df8280>: 
+      exec: "ddc-helm": executable file not found in $PATH
+      {
+          Name: "ddc-helm",
+          Err: <*errors.errorString | 0x2a85dc0>{
+              s: "executable file not found in $PATH",
+          },
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:326[0m [38;5;243m@ 11/13/26 06:45:17.995[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mHelm [38;5;243mListReleaseMap [0mwhen all conditions are met [38;5;9m[1m[It] should list release map successfully[0m
+[38;5;243m/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:384[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*exec.Error | 0x22190308a240>: 
+      exec: "ddc-helm": executable file not found in $PATH
+      {
+          Name: "ddc-helm",
+          Err: <*errors.errorString | 0x2a85dc0>{
+              s: "executable file not found in $PATH",
+          },
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:393[0m [38;5;243m@ 11/13/26 06:45:17.996[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mHelm [38;5;243mListAllReleasesWithDetail [0mwhen all conditions are met [38;5;9m[1m[It] should list all releases with detail successfully[0m
+[38;5;243m/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:451[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*exec.Error | 0x22190308ad40>: 
+      exec: "ddc-helm": executable file not found in $PATH
+      {
+          Name: "ddc-helm",
+          Err: <*errors.errorString | 0x2a85dc0>{
+              s: "executable file not found in $PATH",
+          },
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:460[0m [38;5;243m@ 11/13/26 06:45:17.996[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;9m[1mSummarizing 7 Failures:[0m
+  [38;5;13m[PANICKED!][0m [0mHelm [38;5;243mInstallRelease [0mwhen CombinedOutput fails [38;5;13m[1m[It] should return an error[0m
+  [38;5;243m/usr/local/go/src/runtime/panic.go:336[0m
+  [38;5;13m[PANICKED!][0m [0mHelm [38;5;243mInstallRelease [0mwhen namespace contains invalid characters [38;5;13m[1m[It] should return an error[0m
+  [38;5;243m/usr/local/go/src/runtime/panic.go:336[0m
+  [38;5;13m[PANICKED!][0m [0mHelm [38;5;243mInstallRelease [0mwhen all conditions are met [38;5;13m[1m[It] should install release successfully[0m
+  [38;5;243m/usr/local/go/src/runtime/panic.go:336[0m
+  [38;5;9m[FAIL][0m [0mHelm [38;5;243mDeleteRelease [0mwhen all conditions are met [38;5;9m[1m[It] should delete release successfully[0m
+  [38;5;243m/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:260[0m
+  [38;5;9m[FAIL][0m [0mHelm [38;5;243mListReleases [0mwhen all conditions are met [38;5;9m[1m[It] should list releases successfully[0m
+  [38;5;243m/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:326[0m
+  [38;5;9m[FAIL][0m [0mHelm [38;5;243mListReleaseMap [0mwhen all conditions are met [38;5;9m[1m[It] should list release map successfully[0m
+  [38;5;243m/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:393[0m
+  [38;5;9m[FAIL][0m [0mHelm [38;5;243mListAllReleasesWithDetail [0mwhen all conditions are met [38;5;9m[1m[It] should list all releases with detail successfully[0m
+  [38;5;243m/tmp/fluid-zap-base/pkg/utils/helm/utils_test.go:460[0m
+
+[38;5;9m[1mRan 29 of 29 Specs in 0.003 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m22 Passed[0m | [38;5;9m[1m7 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+--- FAIL: TestHelm (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/helm	0.017s
+FAIL

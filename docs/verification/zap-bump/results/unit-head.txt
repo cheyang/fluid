@@ -1,0 +1,13 @@
+=== RUN   TestHarnessFluidLoggerPathWorks
+--- PASS: TestHarnessFluidLoggerPathWorks (0.00s)
+=== RUN   TestHarnessLevelStringsStillAccepted
+--- PASS: TestHarnessLevelStringsStillAccepted (0.00s)
+=== RUN   TestHarnessWarningLevelNewlyAccepted
+--- PASS: TestHarnessWarningLevelNewlyAccepted (0.00s)
+=== RUN   TestHarnessNilObjectNoPanic
+--- PASS: TestHarnessNilObjectNoPanic (0.00s)
+=== RUN   TestHarnessVendoredZapVersionConsistent
+    zapcompat_harness_test.go:146: go.uber.org/zap pinned at v1.28.0 in both go.mod and vendor/modules.txt
+--- PASS: TestHarnessVendoredZapVersionConsistent (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/zapcompat	0.003s
