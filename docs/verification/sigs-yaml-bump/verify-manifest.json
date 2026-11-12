@@ -1,0 +1,51 @@
+{
+  "topic": "sigs-yaml-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6240",
+  "harnessPaths": [
+    "docs/verification/sigs-yaml-bump",
+    "pkg/ddc/juicefs/sigsyaml_contract_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: \"chore(deps): bump sigs.k8s.io/yaml from 1.4.0 to 1.6.0\" — fluid pins an outdated sigs.k8s.io/yaml; the bump must apply cleanly and preserve all YAML marshal/unmarshal behavior fluid's engine code depends on.",
+    "reportedComponent": "go module sigs.k8s.io/yaml (vendored)",
+    "patchedComponent": "go.mod/go.sum + vendor/sigs.k8s.io/yaml, vendor/go.yaml.in/yaml/v2",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Base pins v1.4.0 (deprecated in-repo goyaml.v2 paths); bump builds and the identical contract test file passes byte-identically on base (1.4.0) and head (1.6.0) — results/unit-base-differential.out vs results/unit-head.out. Underlying engine is byte-identical across all 13 vendored files except one comment line.",
+    "match": ["TestSigsYamlMarshalGolden", "TestSigsYamlUnmarshalConfigGolden"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/juicefs/ -run 'TestSigsYaml' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/juicefs/... ./pkg/dataprocess/... -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "P0",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestSigsYamlMarshalGolden", "TestSigsYamlUnmarshalConfigGolden"]
+    },
+    {
+      "id": "R1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestSigsYamlRoundTripStability", "TestSigsYamlErrorTextStable"]
+    },
+    {
+      "id": "R2",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestJuicefs", "TestDataprocess"]
+    }
+  ],
+  "liveNote": "L3 not applicable for this PR per debate setup (unit+integration only). For a live signal if ever needed: deploy the fluid controller and check engine Helm values generation (dataset runtime creation) still succeeds."
+}

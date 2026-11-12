@@ -1,0 +1,20 @@
+# Harness-bites check (verifier skill Step 4) — sigs-yaml-bump, 2026-11-13
+# Prove the contract tests actually compare against library output, not vacuously pass.
+# All runs in the PR-head worktree (300d8ccf8, sigs.k8s.io/yaml v1.6.0).
+
+Step 1: corrupt Marshal golden ("replicas: 2" -> "replicas: 3")
+  $ go test ./pkg/ddc/juicefs/ -run TestSigsYamlMarshalGolden
+  --- FAIL: TestSigsYamlMarshalGolden (0.00s)   [RED as expected]
+
+Step 2: corrupt Unmarshal expectation (float64(42) -> 42)
+  $ go test ./pkg/ddc/juicefs/ -run TestSigsYamlUnmarshalConfigGolden
+  --- FAIL: TestSigsYamlUnmarshalConfigGolden (0.00s)   [RED as expected]
+
+Step 3: restore goldens, full suite
+  --- PASS: TestSigsYamlMarshalGolden
+  --- PASS: TestSigsYamlUnmarshalConfigGolden
+  --- PASS: TestSigsYamlRoundTripStability
+  --- PASS: TestSigsYamlErrorTextStable   [GREEN again]
+
+Conclusion: the comparisons are live; a green result is meaningful.
+Production code was never modified (only the test file's expected constants).
