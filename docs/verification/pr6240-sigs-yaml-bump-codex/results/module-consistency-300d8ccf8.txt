@@ -1,0 +1,7 @@
+== ref 300d8ccf8bdea8883187bdf1088ffbc8720ae14e ==
+--- go build ./...
+build: OK
+--- go mod verify
+all modules verified
+--- go mod tidy no-op check
+tidy: NO-OP

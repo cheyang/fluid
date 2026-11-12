@@ -1,0 +1,16 @@
+CASE C1-marshal-helmvalues | fullnameOverride: demo\nfuse:\n  args:\n  - fuse\n  - --fuse-opts=kernel_cache,ro\n  enabled: true\n  metricsPort: 20003\n  mountPath: /runtime-mnt/alluxio\nhostNetwork: true\nimage: fluid/alluxio\nimageTag: release-2.9.0\nports:\n  rpc: 19998\n  web: 19999\nproperties:\n  alluxio.user.file.writetype: CACHE_THROUGH\n  quoted: 'a:b # c'\nreplicas: 3\ntolerations:\n- key: fluid\n  operator: Equal\n  value: "true"\n
+CASE C2-unmarshal-juicefs | worker=true,20001 fuse=false,20002
+CASE C3-yaml11-scalars | {"a_yes":true,"b_no":"no","c_on":true,"d_hex":16,"e_underscore":1000,"f_sexagesimal":"1:30","h_octalish":83,"i_exp":1000,"j_null":null,"k_tilde":null,"l_empty":"","m_date":"2024-01-02"}
+CASE C3b-inf-err | err=json: unsupported value: +Inf
+CASE C4-marshal-map | enabled: false\nimage: fluid:0.9\nlabels:\n  a.b/c: x\n  num: 7\nlist:\n- 1\n- two\n- true\nreplicas: 2\n
+CASE C5-tab-indent-err | err=error converting YAML to JSON: yaml: line 2: found character that cannot start any token
+CASE C5-dup-strict-err | err=error converting YAML to JSON: yaml: unmarshal errors:\n  line 2: key "a" already set in map
+CASE C5-dup-lax | err=<nil> val=map[a:2]
+CASE C5-typemismatch-err | err=error unmarshaling JSON: while decoding JSON: json: cannot unmarshal string into Go struct field .worker.hostNetwork of type bool
+CASE C6-errunwrap | errors.As(*json.UnmarshalTypeError)=true
+CASE C7-empty-null | emptyErr=<nil> nullErr=<nil>
+CASE C8-anchors | err=<nil> val={"base":{"true":[1,2,3],"x":1},"ref":{"true":[1,2,3],"x":1,"z":2}}
+CASE C9-int-precision | max64: 9223372036854775807\nmin64: -9223372036854775808\nover: 18446744073709551615\nplain: 42\n
+CASE C10-dataset-manifest | default/demo kind=Dataset mounts=1 am=[ReadOnlyMany]
+CASE C11-disallow-unknown | err=error unmarshaling JSON: while decoding JSON: json: unknown field "unknownField"
+CASE C12-ordering-unicode | alpha: héllo\nmid:\n- 3\n- 1\n- 2\nzeta: 最后一个\n

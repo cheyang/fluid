@@ -1,0 +1,37 @@
+{
+  "topic": "pr6240-sigs-yaml-bump-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6240",
+  "harnessPaths": [
+    "docs/verification/pr6240-sigs-yaml-bump-codex",
+    "pkg/utils/sigsyamlverify"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "chore(deps): bump sigs.k8s.io/yaml from 1.4.0 to 1.6.0 — a safe, mechanical dependency update (release notes: kyaml addition, error wrapping, goyaml deprecation redirect to go.yaml.in)",
+    "reportedComponent": "sigs.k8s.io/yaml (vendored YAML/JSON conversion library used by fluid's ddc engines, webhook plugins, pkg/utils)",
+    "patchedComponent": "go.mod, go.sum, vendor/modules.txt, vendor/sigs.k8s.io/yaml, vendor/go.yaml.in/yaml/v2",
+    "componentMatch": true,
+    "runsAgainst": "base+head (differential)",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "vendored engine code byte-identical (only doc-comment URL differs) plus 16-case behavior matrix identical base vs head except the documented %w error-unwrap improvement; see results/behavior-*.txt",
+    "match": ["TestYamlBehaviorMatrix"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/sigsyamlverify/ -run 'TestYamlBehaviorMatrix' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "KUBEBUILDER_ASSETS=${KUBEBUILDER_ASSETS:-/home/ecs-user/envtest-assets/k8s/1.30.3-linux-amd64} go test ./pkg/utils/sigsyamlverify/ -run 'TestEnvtestYamlRoundTrip' -json"
+    }
+  },
+  "findings": [
+    { "id": "EQ1", "polarity": "contract", "layer": "unit", "match": ["TestYamlBehaviorMatrix"],
+      "note": "YAML behavior matrix (16 cases incl. golden pins of fluid-realistic marshal/unmarshal shapes). Identical output on base and head except documented C6-errunwrap (%v -> %w). Fails if any vendored-engine behavior changes." },
+    { "id": "EQ2", "polarity": "contract", "layer": "integration", "match": ["TestEnvtestYamlRoundTrip"],
+      "note": "envtest (real kube-apiserver) round-trip of Dataset and AlluxioRuntime YAML manifests through sigs.k8s.io/yaml + unstructured client. Skips if KUBEBUILDER_ASSETS unset." }
+  ],
+  "liveNote": "L3 skipped by debate policy (no live cluster). CI already covers kind-e2e on k8s v1.22.17-v1.33.2, all green on 300d8ccf8b."
+}

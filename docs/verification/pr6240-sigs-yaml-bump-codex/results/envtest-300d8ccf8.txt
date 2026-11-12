@@ -1,0 +1,2 @@
+CASE envtest-Dataset-roundtrip | OK kind=Dataset name=verify-yaml-bump
+CASE envtest-AlluxioRuntime-roundtrip | OK kind=AlluxioRuntime name=verify-yaml-bump

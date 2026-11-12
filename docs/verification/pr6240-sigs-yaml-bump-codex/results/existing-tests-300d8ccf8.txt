@@ -1,0 +1,498 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataprocess	0.018s
+2026/11/13 06:17:46 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+......
+6 total assertions
+
+Running Suite: Jindofsx Suite - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/jindofsx
+=====================================================================================================================================
+Random Seed: [1m1794521866[0m
+
+Will run [1m36[0m of [1m36[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;10m[1mRan 36 of 36 Specs in 0.007 seconds[0m
+[38;5;10m[1mSUCCESS![0m -- [38;5;10m[1m36 Passed[0m | [38;5;9m[1m0 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+--- FAIL: TestDestroyWorker (0.00s)
+    shutdown_test.go:191: fail to exec the function with the error jindoruntimes.data.fluid.io "spark" not found
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:191: fail to exec the function with the error jindoruntimes.data.fluid.io "hadoop" not found
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+(0x2df4f58,0x1ab0f40d010)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	15.060s
+2026/11/13 06:17:46 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+......
+6 total assertions
+
+Running Suite: Jindo Suite - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/jindo
+===============================================================================================================================
+Random Seed: [1m1794521866[0m
+
+Will run [1m21[0m of [1m21[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;10m[1mRan 21 of 21 Specs in 0.004 seconds[0m
+[38;5;10m[1mSUCCESS![0m -- [38;5;10m[1m21 Passed[0m | [38;5;9m[1m0 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+--- FAIL: TestDestroyWorker (0.00s)
+    shutdown_test.go:191: fail to exec the function with the error jindoruntimes.data.fluid.io "spark" not found
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:191: fail to exec the function with the error jindoruntimes.data.fluid.io "hadoop" not found
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindo	12.052s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	13.595s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	12.034s
+2026/11/13 06:17:46 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Alluxio Suite - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/alluxio
+[38;5;204m[alluxio][0m 
+===================================================================================================================================
+Random Seed: [1m1794521866[0m
+
+Will run [1m150[0m of [1m150[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.240 seconds][0m
+[0mAlluxioEngine Metadata Synchronization Tests [38;5;243mTest AlluxioEngine.syncMetadataInternal() [0mwhen given AlluxioEngine works as expected [38;5;9m[1m[It] should successfully sync metadata and update dataset status[0m [38;5;204m[pkg.ddc.alluxio.metadata_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/alluxio/metadata_test.go:205[0m
+
+  [38;5;9m[FAILED] Expected
+      <*errors.errorString | 0x138988487320>: 
+      GetMetadataInfoFailed
+      {
+          s: "GetMetadataInfoFailed",
+      }
+  to be nil[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/alluxio/metadata_test.go:233[0m [38;5;243m@ 11/13/26 06:17:52.441[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;9m[1mSummarizing 1 Failure:[0m
+  [38;5;9m[FAIL][0m [0mAlluxioEngine Metadata Synchronization Tests [38;5;243mTest AlluxioEngine.syncMetadataInternal() [0mwhen given AlluxioEngine works as expected [38;5;9m[1m[It] should successfully sync metadata and update dataset status[0m [38;5;204m[pkg.ddc.alluxio.metadata_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/alluxio/metadata_test.go:233[0m
+
+[38;5;9m[1mRan 150 of 150 Specs in 6.278 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m149 Passed[0m | [38;5;9m[1m1 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+--- FAIL: TestAlluxio (6.28s)
+2026-11-13T06:17:56+08:00	INFO	mountRoot	{"path": "/alluxio"}
+2026-11-13T06:17:56+08:00	INFO	Check if the alluxio version not less than 2.8	{"version": "2.3.0-SNAPSHOT-2c41226", "isNewFuseArgVersion": false}
+2026-11-13T06:17:56+08:00	INFO	Error:	{"err": "datasets.data.fluid.io \"hbase\" not found"}
+2026-11-13T06:17:56+08:00	INFO	skip setting memory limit
+2026-11-13T06:17:56+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [20001, 20002, 20003]}
+2026-11-13T06:17:56+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 10, "allocated ports": [20072, 20641, 20935, 20688, 20195, 20533, 20301, 20060, 20847, 20027]}
+2026-11-13T06:17:56+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 10, "allocated ports": [20476, 20518, 20303, 20418, 20588, 20555, 20817, 20645, 20987, 20120]}
+2026-11-13T06:17:56+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 10, "allocated ports": [20660, 20554, 20204, 20921, 20196, 20300, 20005, 20783, 20926, 20862]}
+2026-11-13T06:17:56+08:00	INFO	mountRoot	{"path": "/alluxio"}
+2026-11-13T06:17:56+08:00	INFO	Check if the alluxio version not less than 2.8	{"version": "2.3.0-SNAPSHOT-2c41226", "isNewFuseArgVersion": false}
+2026-11-13T06:17:56+08:00	INFO	Error:	{"err": "datasets.data.fluid.io \"test\" not found"}
+2026-11-13T06:17:56+08:00	INFO	skip setting memory limit
+2026-11-13T06:17:56+08:00	DEBUG	spark	Nothing to do for syncing
+2026-11-13T06:17:56+08:00	DEBUG	spark	Update runtime status	{"runtime": "big-data/spark"}
+2026-11-13T06:17:56+08:00	DEBUG	hadoop	Nothing to do for syncing
+2026-11-13T06:17:56+08:00	DEBUG	hadoop	Update runtime status	{"runtime": "big-data/hadoop"}
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	10.310s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/vineyard	25.037s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	48.309s
+2026/11/13 06:17:46 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Cache Engine Suite - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine
+[38;5;204m[cache_engine][0m 
+=============================================================================================================================================
+Random Seed: [1m1794521866[0m
+
+Will run [1m344[0m of [1m344[0m specs
+[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.215 seconds][0m
+[0mCacheEngine Sync Tests [38;5;243mSync [0mwhen runtime is ready with ReportSummary configured [38;5;9m[1m[It] should get cache states successfully with mocked Execute[0m [38;5;204m[pkg.ddc.cache.engine.sync_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/sync_test.go:469[0m
+
+  [38;5;9m[FAILED] Expected
+      <common.CacheStateList | len:0>: nil
+  not to be nil[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/sync_test.go:492[0m [38;5;243m@ 11/13/26 06:17:48.16[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.010 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return parsed CacheRuntimeMountUfsOutput with valid JSON output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:226[0m
+
+  [38;5;243mTimeline >>[0m
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:241 [38;5;243m@ 11/13/26 06:17:48.197[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*errors.withStack | 0x717af98a528>: 
+      error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+      {
+          error: <*errors.withMessage | 0x717afe0e600>{
+              cause: <*errors.StatusError | 0x717afe12640>{
+                  ErrStatus: {
+                      TypeMeta: {Kind: "", APIVersion: ""},
+                      ListMeta: {
+                          SelfLink: "",
+                          ResourceVersion: "",
+                          Continue: "",
+                          RemainingItemCount: nil,
+                      },
+                      Status: "Failure",
+                      Message: "pods \"test-runtime-master-0\" not found",
+                      Reason: "NotFound",
+                      Details: {
+                          Name: "test-runtime-master-0",
+                          Group: "",
+                          Kind: "pods",
+                          UID: "",
+                          Causes: nil,
+                          RetryAfterSeconds: 0,
+                      },
+                      Code: 404,
+                  },
+              },
+              msg: "error when executing command [/mount.sh]",
+          },
+          stack: [0x17757a5, 0x177584f, 0x178360f, 0x17f4012, 0x1713ef3, 0x1715750, 0x49b301],
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:241[0m [38;5;243m@ 11/13/26 06:17:48.197[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.219 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount returns empty output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:246[0m
+
+  [38;5;243mTimeline >>[0m
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:262 [38;5;243m@ 11/13/26 06:17:48.416[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: empty output[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:262[0m [38;5;243m@ 11/13/26 06:17:48.416[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.012 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount returns whitespace-only output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:266[0m
+
+  [38;5;243mTimeline >>[0m
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:282 [38;5;243m@ 11/13/26 06:17:48.429[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: empty output[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:282[0m [38;5;243m@ 11/13/26 06:17:48.429[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.011 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return JSON parse error when Mount returns invalid JSON[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:286[0m
+
+  [38;5;243mTimeline >>[0m
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:302 [38;5;243m@ 11/13/26 06:17:48.44[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: failed to parse mount ufs output[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:302[0m [38;5;243m@ 11/13/26 06:17:48.44[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.215 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount command fails[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:306[0m
+
+  [38;5;243mTimeline >>[0m
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:322 [38;5;243m@ 11/13/26 06:17:48.655[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: mount command failed[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:322[0m [38;5;243m@ 11/13/26 06:17:48.655[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.216 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen PrepareUFS returns invalid JSON [38;5;9m[1m[It] should return JSON parse error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:573[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:580 [38;5;243m@ 11/13/26 06:17:48.872[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: failed to parse mount ufs output[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:580[0m [38;5;243m@ 11/13/26 06:17:48.872[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.220 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen PrepareUFS returns empty output [38;5;9m[1m[It] should return empty output error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:590[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:597 [38;5;243m@ 11/13/26 06:17:49.093[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: empty output[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:597[0m [38;5;243m@ 11/13/26 06:17:49.093[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.010 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen syncDatasetMounts fails due to missing mount point [38;5;9m[1m[It] should return mount point not mounted error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:607[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:614 [38;5;243m@ 11/13/26 06:17:49.103[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: is not yet mounted[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:614[0m [38;5;243m@ 11/13/26 06:17:49.103[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.222 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen syncDatasetMounts fails due to unexpected mounted paths [38;5;9m[1m[It] should return unexpected mounted paths error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:624[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:631 [38;5;243m@ 11/13/26 06:17:49.325[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+  to contain substring
+      <string>: unexpected mounted paths remain[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:631[0m [38;5;243m@ 11/13/26 06:17:49.325[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.012 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen all mount points are correctly mounted [38;5;9m[1m[It] should successfully update mounts and set status to Bound[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:641[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:647 [38;5;243m@ 11/13/26 06:17:49.337[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*errors.withStack | 0x717af8adcc8>: 
+      failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+      {
+          error: <*errors.withMessage | 0x717afc4f2c0>{
+              cause: <*errors.withStack | 0x717af8adc98>{
+                  error: <*errors.withMessage | 0x717afc4f220>{
+                      cause: <*errors.StatusError | 0x717afc45540>{
+                          ErrStatus: {
+                              TypeMeta: {Kind: "", APIVersion: ""},
+                              ListMeta: {
+                                  SelfLink: "",
+                                  ResourceVersion: "",
+                                  Continue: "",
+                                  RemainingItemCount: nil,
+                              },
+                              Status: "Failure",
+                              Message: "pods \"test-runtime-master-0\" not found",
+                              Reason: "NotFound",
+                              Details: {
+                                  Name: "test-runtime-master-0",
+                                  Group: "",
+                                  Kind: "pods",
+                                  UID: "",
+                                  Causes: nil,
+                                  RetryAfterSeconds: 0,
+                              },
+                              Code: 404,
+                          },
+                      },
+                      msg: "error when executing command [/mount.sh]",
+                  },
+                  stack: [0x17757a5, 0x177584f, 0x178360f, 0x1783d85, 0x17f0158, 0x1713ef3, 0x1715750, 0x49b301],
+              },
+              msg: "failed to execute mount ufs command",
+          },
+          stack: [0x1783e51, 0x17f0158, 0x1713ef3, 0x1715750, 0x49b301],
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:647[0m [38;5;243m@ 11/13/26 06:17:49.337[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.221 seconds][0m
+[0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen dataset has native scheme mounts [38;5;9m[1m[It] should skip native scheme mounts and succeed[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:662[0m
+
+  [38;5;243mTimeline >>[0m
+  "level"=0 "msg"="Detected UFS changes, updating mount points" "toAdd"=["/mount2"] "toRemove"=[]
+  "msg"="CacheFileUtils.Mount() failed" "error"="error when executing command [/mount.sh]: pods \"test-runtime-master-0\" not found" "stdout"="" "stderr"=""
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:675 [38;5;243m@ 11/13/26 06:17:49.558[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] Unexpected error:
+      <*errors.withStack | 0x717aff80888>: 
+      failed to execute mount ufs command: error when executing command [/mount.sh]: pods "test-runtime-master-0" not found
+      {
+          error: <*errors.withMessage | 0x717afccc520>{
+              cause: <*errors.withStack | 0x717aff80858>{
+                  error: <*errors.withMessage | 0x717afccc500>{
+                      cause: <*errors.StatusError | 0x717af7f0c80>{
+                          ErrStatus: {
+                              TypeMeta: {Kind: "", APIVersion: ""},
+                              ListMeta: {
+                                  SelfLink: "",
+                                  ResourceVersion: "",
+                                  Continue: "",
+                                  RemainingItemCount: nil,
+                              },
+                              Status: "Failure",
+                              Message: "pods \"test-runtime-master-0\" not found",
+                              Reason: "NotFound",
+                              Details: {
+                                  Name: "test-runtime-master-0",
+                                  Group: "",
+                                  Kind: "pods",
+                                  UID: "",
+                                  Causes: nil,
+                                  RetryAfterSeconds: 0,
+                              },
+                              Code: 404,
+                          },
+                      },
+                      msg: "error when executing command [/mount.sh]",
+                  },
+                  stack: [0x17757a5, 0x177584f, 0x178360f, 0x1783d85, 0x17efe67, 0x1713ef3, 0x1715750, 0x49b301],
+              },
+              msg: "failed to execute mount ufs command",
+          },
+          stack: [0x1783e51, 0x17efe67, 0x1713ef3, 0x1715750, 0x49b301],
+      }
+  occurred[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:675[0m [38;5;243m@ 11/13/26 06:17:49.558[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;9m[1mSummarizing 12 Failures:[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine Sync Tests [38;5;243mSync [0mwhen runtime is ready with ReportSummary configured [38;5;9m[1m[It] should get cache states successfully with mocked Execute[0m [38;5;204m[pkg.ddc.cache.engine.sync_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/sync_test.go:492[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return parsed CacheRuntimeMountUfsOutput with valid JSON output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:241[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount returns empty output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:262[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount returns whitespace-only output[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:282[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return JSON parse error when Mount returns invalid JSON[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:302[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mPrepareUFS Tests (Public Method) [0mwhen MountUFS executes successfully [38;5;9m[1m[It] should return error when Mount command fails[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:322[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen PrepareUFS returns invalid JSON [38;5;9m[1m[It] should return JSON parse error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:580[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen PrepareUFS returns empty output [38;5;9m[1m[It] should return empty output error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:597[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen syncDatasetMounts fails due to missing mount point [38;5;9m[1m[It] should return mount point not mounted error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:614[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen syncDatasetMounts fails due to unexpected mounted paths [38;5;9m[1m[It] should return unexpected mounted paths error[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:631[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen all mount points are correctly mounted [38;5;9m[1m[It] should successfully update mounts and set status to Bound[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:647[0m
+  [38;5;9m[FAIL][0m [0mCacheEngine UpdateOnUFSChange Tests [38;5;243mUpdateOnUFSChange Tests (Public Method) [0mwhen dataset has native scheme mounts [38;5;9m[1m[It] should skip native scheme mounts and succeed[0m [38;5;204m[pkg.ddc.cache.engine.ufs_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/ddc/cache/engine/ufs_test.go:675[0m
+
+[38;5;9m[1mRan 328 of 344 Specs in 3.355 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m316 Passed[0m | [38;5;9m[1m12 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m16 Skipped[0m
+--- FAIL: TestCacheEngine (3.36s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	4.388s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/efc	10.036s
+2026/11/13 06:17:46 Found FLUID_RUNTIME_RECONCILE_DURATION value abc, using it as RuntimeReconcileDurationEnvVal
+2026/11/13 06:17:46 Found FLUID_RUNTIME_RECONCILE_DURATION value -1, using it as RuntimeReconcileDurationEnvVal
+2026/11/13 06:17:46 Found FLUID_RUNTIME_RECONCILE_DURATION value 10, using it as RuntimeReconcileDurationEnvVal
+2026/11/13 06:17:46 Found FLUID_RUNTIME_RECONCILE_DURATION value 10, using it as RuntimeReconcileDurationEnvVal
+2026/11/13 06:17:46 Found FLUID_RUNTIME_RECONCILE_DURATION_OFFSET value abc, using it as RuntimeReconcileDurationOffsetEnvVal
+2026/11/13 06:17:46 Found FLUID_RUNTIME_RECONCILE_DURATION value 10, using it as RuntimeReconcileDurationEnvVal
+2026/11/13 06:17:46 Found FLUID_RUNTIME_RECONCILE_DURATION_OFFSET value 15, using it as RuntimeReconcileDurationOffsetEnvVal
+2026/11/13 06:17:46 Found FLUID_RUNTIME_RECONCILE_DURATION value 10, using it as RuntimeReconcileDurationEnvVal
+2026/11/13 06:17:46 Found FLUID_RUNTIME_RECONCILE_DURATION_OFFSET value 2, using it as RuntimeReconcileDurationOffsetEnvVal
+....
+4 total assertions
+
+........
+12 total assertions
+
+x........
+Failures:
+
+  * /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/utils/mount_test.go 
+  Line 220:
+  Expected: nil
+  Actual:   'checking mounted failed: test'
+
+
+21 total assertions
+
+--- FAIL: TestCheckMountPointBroken (0.00s)
+[controller-runtime] log.SetLogger(...) was never called; logs will not be displayed.
+Detected at:
+	>  goroutine 316 [running]:
+	>  runtime/debug.Stack()
+	>  	/usr/local/go/src/runtime/debug/stack.go:26 +0x5e
+	>  sigs.k8s.io/controller-runtime/pkg/log.eventuallyFulfillRoot()
+	>  	/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/vendor/sigs.k8s.io/controller-runtime/pkg/log/log.go:60 +0xcd
+	>  sigs.k8s.io/controller-runtime/pkg/log.(*delegatingLogSink).WithName(0x1f726d633dc0, {0x17779ea, 0x4})
+	>  	/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/vendor/sigs.k8s.io/controller-runtime/pkg/log/deleg.go:147 +0x3e
+	>  github.com/go-logr/logr.Logger.WithName(...)
+	>  	/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/vendor/github.com/go-logr/logr/logr.go:345
+	>  github.com/fluid-cloudnative/fluid/pkg/utils.TestNewPprofServerWithDevelopment(0x1f726d82e008)
+	>  	/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/utils/pprof_test.go:47 +0x62
+	>  testing.tRunner(0x1f726d82e008, 0x2b9c028)
+	>  	/usr/local/go/src/testing/testing.go:2193 +0xea
+	>  created by testing.(*T).Run in goroutine 1
+	>  	/usr/local/go/src/testing/testing.go:2258 +0x4d4
+Running Suite: Utils Suite - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6240-verify/pkg/utils
+===========================================================================================================================
+Random Seed: [1m1794521866[0m
+
+Will run [1m115[0m of [1m115[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;10m[1mRan 115 of 115 Specs in 0.003 seconds[0m
+[38;5;10m[1mSUCCESS![0m -- [38;5;10m[1m115 Passed[0m | [38;5;9m[1m0 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	112.074s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins	0.020s
+?   	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/api	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/datasetusageinjector	0.016s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/fileprefetcher	0.020s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/fusesidecar	0.016s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/mountpropagationinjector	0.017s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/nodeaffinitywithcache	0.020s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/prefernodeswithoutcache	0.015s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/requirenodewithfuse	0.015s
+FAIL
