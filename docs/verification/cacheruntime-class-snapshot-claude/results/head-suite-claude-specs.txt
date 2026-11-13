@@ -1,0 +1,3 @@
+passed	must not change an existing workload after a CacheRuntimeClass edit
+passed	rebinds to the current class when the snapshot is deleted, and applies it
+passed	makes data operations wait instead of reading the live class while unbound

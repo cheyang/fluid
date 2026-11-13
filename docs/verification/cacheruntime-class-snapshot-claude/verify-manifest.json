@@ -1,0 +1,34 @@
+{
+  "topic": "cacheruntime-class-snapshot-claude",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6242",
+  "harnessPaths": [
+    "docs/verification/cacheruntime-class-snapshot-claude",
+    "pkg/ddc/cache/engine/runtime_class_edit_claude_test.go",
+    "pkg/ddc/cache/engine/runtime_class_snapshot_claude_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #6213 / PR body: \"Editing a CacheRuntimeClass can currently change existing CacheRuntimes on their next reconcile.\"",
+    "reportedComponent": "pkg/ddc/cache (CacheRuntime engine reading its CacheRuntimeClass live)",
+    "patchedComponent": "pkg/ddc/cache/engine (snapshot binding in runtime_class_snapshot.go)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "results/p0-base/run.txt — the contract spec 'must not change an existing workload after a CacheRuntimeClass edit' FAILS on base ff99142f (worker limits.cpu 1->4, memory 4Gi->16Gi reached the ASTS) and PASSES on head; results/head-suite-claude-specs.txt",
+    "match": ["must not change an existing workload after a CacheRuntimeClass edit"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "ginkgo",
+      "cmd": "go test -gcflags=all=-l ./pkg/ddc/cache/engine/ -run TestCacheEngine -count=1 -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    }
+  },
+  "findings": [
+    { "id": "AC1", "polarity": "contract", "layer": "unit", "match": ["must not change an existing workload after a CacheRuntimeClass edit"] },
+    { "id": "AC2", "polarity": "contract", "layer": "unit", "match": ["rebinds to the current class when the snapshot is deleted"] },
+    { "id": "AC3", "polarity": "contract", "layer": "unit", "match": ["makes data operations wait instead of reading the live class"] }
+  ],
+  "liveNote": "L3 (live) was not run this round: the debate setup limits stage 2 to unit+integration. The curvine kind e2e in test/gha-e2e/curvine/test.sh (function verify_runtime_class_edit_not_propagated) covers the class-edit-isolation contract on a real cluster and passed in the kind-e2e-test workflow on head 5ac1064b across k8s v1.22-v1.33."
+}
