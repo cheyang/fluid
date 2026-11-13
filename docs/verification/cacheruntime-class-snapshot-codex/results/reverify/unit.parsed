@@ -1,0 +1,2 @@
+TestVerifyPR6242ClassEditDoesNotReachExistingRuntime	pass
+TestVerifyPR6242DataLoadWaitsForSnapshot	pass
