@@ -1,0 +1,32 @@
+{
+  "topic": "cacheruntime-class-snapshot-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6242",
+  "harnessPaths": [
+    "docs/verification/cacheruntime-class-snapshot-codex",
+    "pkg/ddc/cache/engine/verify_pr6242_class_pinning_test.go",
+    "pkg/ddc/cache/engine/verify_pr6242_dataload_snapshot_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Editing a CacheRuntimeClass can currently change existing CacheRuntimes on their next reconcile (PR body); #6213: one class edit resizes or recreates master/worker pods of every CacheRuntime using the class, in every namespace, within one 90s reconcile interval.",
+    "reportedComponent": "pkg/ddc/cache/engine (CacheRuntime controller class resolution)",
+    "patchedComponent": "pkg/ddc/cache/engine (runtime_class_snapshot.go, setup.go, sync.go, dataload.go, cm.go, ufs.go)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "results/base-p0-premise.txt: TestVerifyPR6242ClassEditDoesNotReachExistingRuntime FAILS on base 956d78a8f (worker/master ASTS and runtime-config CM all change after the class edit); PASSES on head 5ac1064be (results/head-harness.txt).",
+    "match": ["TestVerifyPR6242ClassEditDoesNotReachExistingRuntime"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 -gcflags=all=-l ./pkg/ddc/cache/engine/ -run 'TestVerifyPR6242' -json"
+    }
+  },
+  "findings": [
+    { "id": "C1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6242ClassEditDoesNotReachExistingRuntime"] },
+    { "id": "C2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6242DataLoadWaitsForSnapshot"] }
+  ],
+  "liveNote": "L3 skipped per debate setup (unit+integration only). On a real cluster the curvine e2e verify_runtime_class_edit_not_propagated covers the same contract; it is green in PR CI."
+}

@@ -1,0 +1,8 @@
+2026/11/14 05:56:48 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6242DataLoadWaitsForSnapshot
+    verify_pr6242_dataload_snapshot_test.go:94: expected a not-bound error, got: CacheRuntime is not supported by CacheRuntime[test-runtime]
+--- FAIL: TestVerifyPR6242DataLoadWaitsForSnapshot (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.019s
+FAIL
+mutation exit=1

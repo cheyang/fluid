@@ -1,0 +1,8 @@
+2026/11/14 05:56:31 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6242ClassEditDoesNotReachExistingRuntime
+--- PASS: TestVerifyPR6242ClassEditDoesNotReachExistingRuntime (0.03s)
+=== RUN   TestVerifyPR6242DataLoadWaitsForSnapshot
+--- PASS: TestVerifyPR6242DataLoadWaitsForSnapshot (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.044s
+head-harness exit=0
