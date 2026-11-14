@@ -1,0 +1,3 @@
+TestCommittedWebhookManifestsIncludeValidatingWebhook	fail
+TestValidateSpecUpdateAllowsImagePullPolicyChange	pass
+TestSyncComponentSpecDoesNotPropagateImagePullPolicy	pass
