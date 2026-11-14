@@ -1,0 +1,49 @@
+{
+  "topic": "cacheruntime-immutable-spec-webhook",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6243",
+  "harnessPaths": [
+    "docs/verification/cacheruntime-immutable-spec-webhook",
+    "pkg/ddc/cache/component/imagepullpolicy_sync_gap_test.go",
+    "pkg/ddc/cache/engine/sync_premise_p0_test.go",
+    "pkg/webhook/handler/validating/cacheruntime/envtest_admission_test.go",
+    "pkg/webhook/handler/validating/cacheruntime/spec_update_gap_test.go",
+    "pkg/webhook/handler/validating/cacheruntime/manifests_commit_test.go",
+    "pkg/webhook/handler/validating/cacheruntime/testdata/validatingwebhookconfiguration.yaml"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "An UPDATE of a CacheRuntime that changes a spec field which cannot take effect in place is accepted and silently ignored (tieredStore is applied halfway: the ConfigMap quota follows the spec while the Worker tmpfs sizeLimit keeps its creation-time value)",
+    "reportedComponent": "CacheRuntime controller sync (CacheEngine.Sync / AdvancedStatefulSetManager.SyncComponentSpec)",
+    "patchedComponent": "validating admission webhook (update.cacheruntime.fluid.io) for CacheRuntime UPDATEs",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "premise",
+    "verdict": "confirmed",
+    "evidence": "results/premise-base.out — on base ff99142 the spec change is accepted, the runtime ConfigMap quota follows the new spec (4Gi) while the worker ASTS keeps creation-time tmpfs sizeLimit (1Gi), nodeSelector and args",
+    "match": ["TestCacheEngine"]
+  },
+  "layers": {
+    "premise": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run TestCacheEngine -ginkgo.focus 'P0 premise' -json"
+    },
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/cache/component/ ./pkg/webhook/handler/validating/cacheruntime/ -run 'TestSyncComponentSpecDoesNotPropagateImagePullPolicy|TestValidateSpecUpdateAllowsImagePullPolicyChange|TestCommittedWebhookManifestsIncludeValidatingWebhook' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/webhook/handler/validating/cacheruntime/ -run TestValidatingWebhookAdmissionAgainstRealAPIServer -json"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "integration", "match": ["TestValidatingWebhookAdmissionAgainstRealAPIServer/F1"] },
+    { "id": "F2", "polarity": "contract", "layer": "unit", "match": ["TestCommittedWebhookManifestsIncludeValidatingWebhook"] },
+    { "id": "F3", "polarity": "canary", "layer": "unit", "match": ["TestValidateSpecUpdateAllowsImagePullPolicyChange", "TestSyncComponentSpecDoesNotPropagateImagePullPolicy"] }
+  ],
+  "liveNote": "L3 skipped per review setup (unit + integration only). CI kind-e2e job 132432994134 is the live corroboration for F1: 'Failed to add ownerreference ... spec.client.cleanPolicy: Forbidden: field is immutable' with the mooncake dataset stuck NotBound. scripts/verify-manifests.sh additionally reproduces the CI lint failure for F2 (needs controller-gen v0.19.0, auto-installed).",
+  "guardNotes": {
+    "F1-control": "TestValidatingWebhookAdmissionAgainstRealAPIServer/control (metadata-only update WITH an explicit client object is allowed) — green on head, pins the mechanism",
+    "F1-guard": "TestValidatingWebhookAdmissionAgainstRealAPIServer/guard (tieredStore change is denied) — green on head, proves the webhook is wired so F1's red is not a wiring false-negative"
+  }
+}

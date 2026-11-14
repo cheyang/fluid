@@ -1,0 +1,26 @@
+# Mirrors charts/fluid/fluid/templates/webhook/webhookconfiguration.yaml (the
+# ValidatingWebhookConfiguration this PR installs), so the envtest admission
+# harness exercises the same rule the chart deploys. envtest rewrites the
+# clientConfig to point at the local webhook server it expects the test to run.
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: fluid-cacheruntime-validating-webhook
+webhooks:
+  - name: update.cacheruntime.fluid.io
+    rules:
+      - apiGroups:   ["data.fluid.io"]
+        apiVersions: ["v1alpha1"]
+        operations:  ["UPDATE"]
+        resources:   ["cacheruntimes"]
+    clientConfig:
+      service:
+        namespace: fluid-system
+        name: fluid-pod-admission-webhook
+        path: "validate-data-fluid-io-v1alpha1-cacheruntime"
+        port: 9443
+      caBundle: Cg==
+    timeoutSeconds: 15
+    failurePolicy: Fail
+    sideEffects: None
+    admissionReviewVersions: ["v1"]
