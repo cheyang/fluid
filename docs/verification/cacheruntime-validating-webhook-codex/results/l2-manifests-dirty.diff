@@ -1,0 +1,34 @@
+diff --git a/config/webhook/manifests.yaml b/config/webhook/manifests.yaml
+index 5971f9779..f0e3a0da2 100644
+--- a/config/webhook/manifests.yaml
++++ b/config/webhook/manifests.yaml
+@@ -25,3 +25,29 @@ webhooks:
+     resources:
+     - pods
+   sideEffects: None
++---
++apiVersion: admissionregistration.k8s.io/v1
++kind: ValidatingWebhookConfiguration
++metadata:
++  name: validating-webhook-configuration
++webhooks:
++- admissionReviewVersions:
++  - v1
++  - v1beta1
++  clientConfig:
++    service:
++      name: webhook-service
++      namespace: system
++      path: /validate-data-fluid-io-v1alpha1-cacheruntime
++  failurePolicy: Fail
++  name: update.cacheruntime.fluid.io
++  rules:
++  - apiGroups:
++    - data.fluid.io
++    apiVersions:
++    - v1alpha1
++    operations:
++    - UPDATE
++    resources:
++    - cacheruntimes
++  sideEffects: None

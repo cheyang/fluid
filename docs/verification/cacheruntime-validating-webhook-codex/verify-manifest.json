@@ -1,0 +1,53 @@
+{
+  "topic": "cacheruntime-validating-webhook-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6243",
+  "harnessPaths": [
+    "docs/verification/cacheruntime-validating-webhook-codex",
+    "pkg/webhook/handler/validating/cacheruntime/verify_pr6243_defaulting_test.go",
+    "pkg/webhook/handler/validating/cacheruntime/verify_pr6243_manifests_test.go",
+    "pkg/webhook/handler/validating/cacheruntime/defaultingtest"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "A CacheRuntime update changing a spec field other than master/worker replicas, runtimeVersion and resources is accepted but never applied (silently ignored), and a tieredStore update is applied halfway: the runtime ConfigMap quota follows the spec while the worker pod's tmpfs sizeLimit keeps its creation-time value.",
+    "reportedComponent": "CacheRuntime controller / API server (no admission validation on CacheRuntime updates)",
+    "patchedComponent": "fluid webhook (new ValidatingWebhookConfiguration for cacheruntimes UPDATE)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "code-path",
+    "verdict": "confirmed",
+    "evidence": "Base ff99142f: pkg/ddc/cache/engine/sync.go syncRuntimeSpec syncs only Version/Resources/Replicas for master and worker (AdvancedStatefulSetManager.SyncComponentSpec); the client DaemonSet is never synced (daemonset_manager.go SyncComponentSpec returns unsupported and is never called); cm.go regenerates the runtime ConfigMap (incl. tieredStore levels) from the current spec each reconcile, while the worker pod tmpfs sizeLimit is fixed at creation. No validating webhook existed on base (register.go had validating.HandlerMap commented out). See docs/verification/cacheruntime-validating-webhook-codex/README.md.",
+    "match": []
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/webhook/handler/validating/cacheruntime/ -run 'TestVerifyPR6243' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/webhook/handler/validating/cacheruntime/defaultingtest/ -run 'TestClientlessCacheRuntimeDefaultingAsymmetry' -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyPR6243ClientlessMetadataUpdateAllowed", "TestVerifyPR6243ClientlessCleanPolicyStillGuarded", "TestVerifyPR6243ClientfulMetadataUpdateAllowed"]
+    },
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestClientlessCacheRuntimeDefaultingAsymmetry"]
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyPR6243WebhookManifestsUpToDate"]
+    }
+  ],
+  "liveNote": "L3 (live cluster) intentionally skipped per debate setup. The PR's own kind-e2e CI already shows F1 end-to-end: mooncake e2e times out (dataset NotBound 600s) with the CacheRuntime controller logging admission webhook denied ... spec.client.cleanPolicy: Forbidden on all five Kubernetes versions (see results/ci-kind-e2e.out)."
+}

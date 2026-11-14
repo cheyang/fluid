@@ -1,0 +1,5 @@
+FAIL: config/webhook/manifests.yaml is stale (missing update.cacheruntime.fluid.io).
+      The PR adds a +kubebuilder:webhook marker but did not commit the
+      regenerated manifests; 'make update-crd' leaves a dirty tree and the
+      lint CI job fails. Fix: run 'make update-crd' and commit the result.
+exit=1

@@ -1,0 +1,16 @@
+=== RUN   TestVerifyPR6243ClientlessMetadataUpdateAllowed
+    verify_pr6243_defaulting_test.go:150: F1 reproduced: the webhook denied a metadata-only update of a client-less CacheRuntime: only master/worker replicas, runtimeVersion and resources can be updated in place: spec.client.cleanPolicy: Forbidden: field is immutable
+--- FAIL: TestVerifyPR6243ClientlessMetadataUpdateAllowed (0.00s)
+=== RUN   TestVerifyPR6243ClientlessCleanPolicyStillGuarded
+--- PASS: TestVerifyPR6243ClientlessCleanPolicyStillGuarded (0.00s)
+=== RUN   TestVerifyPR6243ClientfulMetadataUpdateAllowed
+--- PASS: TestVerifyPR6243ClientfulMetadataUpdateAllowed (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/webhook/handler/validating/cacheruntime	0.012s
+FAIL
+=== RUN   TestVerifyPR6243WebhookManifestsUpToDate
+    verify_pr6243_manifests_test.go:42: F2 reproduced: ../../../../../config/webhook/manifests.yaml is stale; the +kubebuilder:webhook marker for /validate-data-fluid-io-v1alpha1-cacheruntime is not reflected. Run 'make update-crd' and commit the result.
+--- FAIL: TestVerifyPR6243WebhookManifestsUpToDate (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/webhook/handler/validating/cacheruntime	0.012s
+FAIL

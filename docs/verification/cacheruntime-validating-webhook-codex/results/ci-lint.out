@@ -1,0 +1,6 @@
+##[group]Run make update-crd
+^[[36;1mmake update-crd^[[0m
+^[[36;1mgit status --porcelain^[[0m
+^[[36;1mif [ -z "`git status --porcelain`" ]; then echo "CRD validation passed."; else echo "CRD validation failed. Please use 'make update-crd' to keep CRDs latest"; exit 1; fi^[[0m
+ M config/webhook/manifests.yaml
+CRD validation failed. Please use 'make update-crd' to keep CRDs latest

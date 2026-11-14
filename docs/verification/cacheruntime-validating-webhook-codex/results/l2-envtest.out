@@ -1,0 +1,7 @@
+=== RUN   TestClientlessCacheRuntimeDefaultingAsymmetry
+    envtest_defaulting_test.go:162: fact 2 confirmed: after a typed full-object update the stored object gained spec.client.cleanPolicy="OnRuntimeDeleted"
+    envtest_defaulting_test.go:181: F1 reproduced against a real API server: metadata-only update of a client-less CacheRuntime is denied: [spec.client.cleanPolicy: Forbidden: field is immutable]
+--- FAIL: TestClientlessCacheRuntimeDefaultingAsymmetry (5.15s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/webhook/handler/validating/cacheruntime/defaultingtest	5.159s
+FAIL

@@ -1,0 +1,10 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/fileprefetcher	0.019s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/fusesidecar	0.017s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/mountpropagationinjector	0.017s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/nodeaffinitywithcache	0.022s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/prefernodeswithoutcache	0.016s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/requirenodewithfuse	0.016s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/utils	0.021s
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ctrl/watch [build failed]
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/webhook	0.016s
+FAIL
