@@ -1,0 +1,8 @@
+TestVerifyPr6245HelmRenderScenarios	pass
+TestVerifyPr6245CRDSchemaCheck	pass
+TestVerifyPr6245EnvDefaultStillApplies	pass
+TestVerifyPr6245RuntimeOverridesEnv	pass
+TestVerifyPr6245WorkerAndFuseOverrides	pass
+TestVerifyPr6245HelmValuesShape	pass
+TestVerifyPr6245MasterAndJobWorkerSecretsInert	pass
+TestVerifyPr6245DeepCopyIsolated	pass
