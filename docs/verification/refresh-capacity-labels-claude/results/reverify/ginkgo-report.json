@@ -1,0 +1,4387 @@
+[
+  {
+    "SuitePath": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle",
+    "SuiteDescription": "Lifecycle Suite",
+    "SuiteLabels": [],
+    "SuiteSemVerConstraints": [],
+    "SuiteSucceeded": false,
+    "SuiteHasProgrammaticFocus": false,
+    "SpecialSuiteFailureReasons": null,
+    "PreRunStats": {
+      "TotalSpecs": 30,
+      "SpecsThatWillRun": 30
+    },
+    "StartTime": "2026-11-15T06:32:29.904295664+08:00",
+    "EndTime": "2026-11-15T06:32:29.916767978+08:00",
+    "RunTime": 12472304,
+    "SuiteConfig": {
+      "RandomSeed": 1794695549,
+      "RandomizeAllSpecs": false,
+      "FocusStrings": null,
+      "SkipStrings": null,
+      "FocusFiles": null,
+      "SkipFiles": null,
+      "LabelFilter": "",
+      "SemVerFilter": "",
+      "FailOnPending": false,
+      "FailOnEmpty": false,
+      "FailFast": false,
+      "FlakeAttempts": 0,
+      "MustPassRepeatedly": 0,
+      "DryRun": false,
+      "PollProgressAfter": 0,
+      "PollProgressInterval": 0,
+      "Timeout": 3600000000000,
+      "EmitSpecProgress": false,
+      "OutputInterceptorMode": "",
+      "SourceRoots": null,
+      "GracePeriod": 30000000000,
+      "ParallelProcess": 1,
+      "ParallelTotal": 1,
+      "ParallelHost": ""
+    },
+    "SpecReports": [
+      {
+        "ContainerHierarchyTexts": [
+          "Verify PR #6244: capacity label refresh on already-labelled nodes",
+          "C1/P0: entry point refreshes outdated capacity labels on an already-labelled node"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 85
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 154
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+          "LineNumber": 155
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should refresh outdated capacity labels on a node that already has the runtime label",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.904371277+08:00",
+        "EndTime": "2026-11-15T06:32:29.905548849+08:00",
+        "RunTime": 1177581,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 155
+            },
+            "TimelineLocation": {
+              "Order": 1,
+              "Time": "2026-11-15T06:32:29.904388047+08:00"
+            },
+            "Message": "should refresh outdated capacity labels on a node that already has the runtime label",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 155
+            },
+            "TimelineLocation": {
+              "Order": 3,
+              "Time": "2026-11-15T06:32:29.905545669+08:00"
+            },
+            "Message": "should refresh outdated capacity labels on a node that already has the runtime label",
+            "Duration": 1157621,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Verify PR #6244: capacity label refresh on already-labelled nodes",
+          "C2: entry point drops the capacity label of a removed tier"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 85
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 179
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+          "LineNumber": 180
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove the capacity label of a tier the runtime no longer has",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.905561509+08:00",
+        "EndTime": "2026-11-15T06:32:29.906831544+08:00",
+        "RunTime": 1270035,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 180
+            },
+            "TimelineLocation": {
+              "Order": 4,
+              "Time": "2026-11-15T06:32:29.905562779+08:00"
+            },
+            "Message": "should remove the capacity label of a tier the runtime no longer has",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 180
+            },
+            "TimelineLocation": {
+              "Order": 6,
+              "Time": "2026-11-15T06:32:29.906825894+08:00"
+            },
+            "Message": "should remove the capacity label of a tier the runtime no longer has",
+            "Duration": 1263115,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Verify PR #6244: capacity label refresh on already-labelled nodes",
+          "C3: entry point must honor nodeExcludeSelector"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 85
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 205
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+          "LineNumber": 206
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should leave nodes matching nodeExcludeSelector untouched",
+        "State": "failed",
+        "StartTime": "2026-11-15T06:32:29.906857565+08:00",
+        "EndTime": "2026-11-15T06:32:29.907498998+08:00",
+        "RunTime": 641443,
+        "ParallelProcess": 1,
+        "Failure": {
+          "Message": "Expected\n    \u003cmap[string]string | len:5\u003e: {\n        \"fluid.io/s-h-alluxio-m-fluid-spark\": \"1GiB\",\n        \"fluid.io/s-h-alluxio-t-fluid-spark\": \"3GiB\",\n        \"type\": \"virtual-kubelet\",\n        \"fluid.io/s-alluxio-fluid-spark\": \"true\",\n        \"fluid.io/s-h-alluxio-d-fluid-spark\": \"2GiB\",\n    }\nto have {key: value}\n    \u003cmap[interface {}]interface {} | len:1\u003e: {\n        \u003cstring\u003e\"fluid.io/s-h-alluxio-t-fluid-spark\": \u003cstring\u003e\"0B\",\n    }",
+          "Location": {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 233,
+            "FullStackTrace": "github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle.init.func1.8.1()\n\t/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go:233 +0x893"
+          },
+          "TimelineLocation": {
+            "Order": 8,
+            "Time": "2026-11-15T06:32:29.907471997+08:00"
+          },
+          "FailureNodeContext": "leaf-node",
+          "FailureNodeType": "It",
+          "FailureNodeLocation": {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 206
+          },
+          "ProgressReport": {
+            "LeafNodeLocation": {},
+            "SpecStartTime": "0001-01-01T00:00:00Z",
+            "CurrentNodeLocation": {},
+            "CurrentNodeStartTime": "0001-01-01T00:00:00Z",
+            "CurrentStepLocation": {},
+            "CurrentStepStartTime": "0001-01-01T00:00:00Z",
+            "TimelineLocation": {
+              "Time": "0001-01-01T00:00:00Z"
+            }
+          }
+        },
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 206
+            },
+            "TimelineLocation": {
+              "Order": 7,
+              "Time": "2026-11-15T06:32:29.906860945+08:00"
+            },
+            "Message": "should leave nodes matching nodeExcludeSelector untouched",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 206
+            },
+            "TimelineLocation": {
+              "Order": 9,
+              "Time": "2026-11-15T06:32:29.907477137+08:00"
+            },
+            "Message": "should leave nodes matching nodeExcludeSelector untouched",
+            "Duration": 616202,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 226
+            },
+            "TimelineLocation": {
+              "Order": 10,
+              "Time": "2026-11-15T06:32:29.907480327+08:00"
+            },
+            "Message": "C3: entry point must honor nodeExcludeSelector",
+            "NodeType": "DeferCleanup (Each)"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 226
+            },
+            "TimelineLocation": {
+              "Order": 12,
+              "Time": "2026-11-15T06:32:29.907498298+08:00"
+            },
+            "Message": "C3: entry point must honor nodeExcludeSelector",
+            "Duration": 17961,
+            "NodeType": "DeferCleanup (Each)"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Verify PR #6244: capacity label refresh on already-labelled nodes",
+          "C4: steady state must not write"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 85
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 239
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+          "LineNumber": 240
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should not patch a node whose capacity labels already match",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.90755618+08:00",
+        "EndTime": "2026-11-15T06:32:29.90783931+08:00",
+        "RunTime": 283140,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 240
+            },
+            "TimelineLocation": {
+              "Order": 13,
+              "Time": "2026-11-15T06:32:29.90755758+08:00"
+            },
+            "Message": "should not patch a node whose capacity labels already match",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 240
+            },
+            "TimelineLocation": {
+              "Order": 15,
+              "Time": "2026-11-15T06:32:29.9078377+08:00"
+            },
+            "Message": "should not patch a node whose capacity labels already match",
+            "Duration": 280110,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Verify PR #6244: capacity label refresh on already-labelled nodes",
+          "C4b: harness-bites check for the counting client"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 85
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 263
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+          "LineNumber": 264
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should observe a patch when labels are outdated",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.907846731+08:00",
+        "EndTime": "2026-11-15T06:32:29.908224004+08:00",
+        "RunTime": 377264,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 264
+            },
+            "TimelineLocation": {
+              "Order": 16,
+              "Time": "2026-11-15T06:32:29.90784778+08:00"
+            },
+            "Message": "should observe a patch when labels are outdated",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 264
+            },
+            "TimelineLocation": {
+              "Order": 18,
+              "Time": "2026-11-15T06:32:29.908222924+08:00"
+            },
+            "Message": "should observe a patch when labels are outdated",
+            "Duration": 375133,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given exclusive placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 65
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 66
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 81
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add exclusive labels to node",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.908237444+08:00",
+        "EndTime": "2026-11-15T06:32:29.90868155+08:00",
+        "RunTime": 444106,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 19,
+              "Time": "2026-11-15T06:32:29.908240345+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 21,
+              "Time": "2026-11-15T06:32:29.908418961+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 178616,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 67
+            },
+            "TimelineLocation": {
+              "Order": 22,
+              "Time": "2026-11-15T06:32:29.908419971+08:00"
+            },
+            "Message": "when given exclusive placement mode runtime",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 67
+            },
+            "TimelineLocation": {
+              "Order": 24,
+              "Time": "2026-11-15T06:32:29.908427441+08:00"
+            },
+            "Message": "when given exclusive placement mode runtime",
+            "Duration": 7470,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 25,
+              "Time": "2026-11-15T06:32:29.908427951+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 27,
+              "Time": "2026-11-15T06:32:29.908443222+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 15271,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 81
+            },
+            "TimelineLocation": {
+              "Order": 28,
+              "Time": "2026-11-15T06:32:29.908443722+08:00"
+            },
+            "Message": "should add exclusive labels to node",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 81
+            },
+            "TimelineLocation": {
+              "Order": 30,
+              "Time": "2026-11-15T06:32:29.90868037+08:00"
+            },
+            "Message": "should add exclusive labels to node",
+            "Duration": 236658,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given share placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 65
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 100
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 115
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add share mode labels to node",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.908690981+08:00",
+        "EndTime": "2026-11-15T06:32:29.909057363+08:00",
+        "RunTime": 366373,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 31,
+              "Time": "2026-11-15T06:32:29.908693461+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 33,
+              "Time": "2026-11-15T06:32:29.908843546+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 150095,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 101
+            },
+            "TimelineLocation": {
+              "Order": 34,
+              "Time": "2026-11-15T06:32:29.908844276+08:00"
+            },
+            "Message": "when given share placement mode runtime",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 101
+            },
+            "TimelineLocation": {
+              "Order": 36,
+              "Time": "2026-11-15T06:32:29.908851596+08:00"
+            },
+            "Message": "when given share placement mode runtime",
+            "Duration": 7320,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 37,
+              "Time": "2026-11-15T06:32:29.908852056+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 39,
+              "Time": "2026-11-15T06:32:29.908864137+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 12081,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 115
+            },
+            "TimelineLocation": {
+              "Order": 40,
+              "Time": "2026-11-15T06:32:29.908864467+08:00"
+            },
+            "Message": "should add share mode labels to node",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 115
+            },
+            "TimelineLocation": {
+              "Order": 42,
+              "Time": "2026-11-15T06:32:29.909056494+08:00"
+            },
+            "Message": "should add share mode labels to node",
+            "Duration": 192036,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given runtime with tiered store"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 65
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 134
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 169
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add capacity labels to node",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.909066794+08:00",
+        "EndTime": "2026-11-15T06:32:29.909450548+08:00",
+        "RunTime": 383754,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 43,
+              "Time": "2026-11-15T06:32:29.909068784+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 45,
+              "Time": "2026-11-15T06:32:29.909213689+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 144905,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 135
+            },
+            "TimelineLocation": {
+              "Order": 46,
+              "Time": "2026-11-15T06:32:29.909214459+08:00"
+            },
+            "Message": "when given runtime with tiered store",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 135
+            },
+            "TimelineLocation": {
+              "Order": 48,
+              "Time": "2026-11-15T06:32:29.9092249+08:00"
+            },
+            "Message": "when given runtime with tiered store",
+            "Duration": 10431,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 49,
+              "Time": "2026-11-15T06:32:29.90922524+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 51,
+              "Time": "2026-11-15T06:32:29.90923699+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 11760,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 169
+            },
+            "TimelineLocation": {
+              "Order": 52,
+              "Time": "2026-11-15T06:32:29.90923742+08:00"
+            },
+            "Message": "should add capacity labels to node",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 169
+            },
+            "TimelineLocation": {
+              "Order": 54,
+              "Time": "2026-11-15T06:32:29.909449477+08:00"
+            },
+            "Message": "should add capacity labels to node",
+            "Duration": 212047,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has dataset-num label with value 2"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 188
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 189
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 190
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should decrease dataset number to 1",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.909468848+08:00",
+        "EndTime": "2026-11-15T06:32:29.909642254+08:00",
+        "RunTime": 173406,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 55,
+              "Time": "2026-11-15T06:32:29.909470388+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 57,
+              "Time": "2026-11-15T06:32:29.909620434+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 150046,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 58,
+              "Time": "2026-11-15T06:32:29.909621254+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 60,
+              "Time": "2026-11-15T06:32:29.909633064+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 11800,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 190
+            },
+            "TimelineLocation": {
+              "Order": 61,
+              "Time": "2026-11-15T06:32:29.909633414+08:00"
+            },
+            "Message": "should decrease dataset number to 1",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 190
+            },
+            "TimelineLocation": {
+              "Order": 63,
+              "Time": "2026-11-15T06:32:29.909641354+08:00"
+            },
+            "Message": "should decrease dataset number to 1",
+            "Duration": 7950,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has dataset-num label with value 1"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 188
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 209
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 210
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should delete dataset-num label",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.909648975+08:00",
+        "EndTime": "2026-11-15T06:32:29.909818271+08:00",
+        "RunTime": 169306,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 64,
+              "Time": "2026-11-15T06:32:29.909650545+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 66,
+              "Time": "2026-11-15T06:32:29.9097956+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 145045,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 67,
+              "Time": "2026-11-15T06:32:29.90979622+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 69,
+              "Time": "2026-11-15T06:32:29.90980981+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 13590,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 210
+            },
+            "TimelineLocation": {
+              "Order": 70,
+              "Time": "2026-11-15T06:32:29.90981043+08:00"
+            },
+            "Message": "should delete dataset-num label",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 210
+            },
+            "TimelineLocation": {
+              "Order": 72,
+              "Time": "2026-11-15T06:32:29.909817581+08:00"
+            },
+            "Message": "should delete dataset-num label",
+            "Duration": 7151,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has invalid dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 188
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 228
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 229
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return error",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.909822831+08:00",
+        "EndTime": "2026-11-15T06:32:29.909982907+08:00",
+        "RunTime": 160085,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 73,
+              "Time": "2026-11-15T06:32:29.909824371+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 75,
+              "Time": "2026-11-15T06:32:29.909959336+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 134975,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 76,
+              "Time": "2026-11-15T06:32:29.909959826+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 78,
+              "Time": "2026-11-15T06:32:29.909973676+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 13850,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 229
+            },
+            "TimelineLocation": {
+              "Order": 79,
+              "Time": "2026-11-15T06:32:29.909974226+08:00"
+            },
+            "Message": "should return error",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 229
+            },
+            "TimelineLocation": {
+              "Order": 81,
+              "Time": "2026-11-15T06:32:29.909982387+08:00"
+            },
+            "Message": "should return error",
+            "Duration": 8160,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has no dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 188
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 241
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 242
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should not modify labels",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.909987347+08:00",
+        "EndTime": "2026-11-15T06:32:29.910158643+08:00",
+        "RunTime": 171306,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 82,
+              "Time": "2026-11-15T06:32:29.909988607+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 84,
+              "Time": "2026-11-15T06:32:29.910129722+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 141115,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 85,
+              "Time": "2026-11-15T06:32:29.910130472+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 87,
+              "Time": "2026-11-15T06:32:29.910150302+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 19820,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 242
+            },
+            "TimelineLocation": {
+              "Order": 88,
+              "Time": "2026-11-15T06:32:29.910150853+08:00"
+            },
+            "Message": "should not modify labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 242
+            },
+            "TimelineLocation": {
+              "Order": 90,
+              "Time": "2026-11-15T06:32:29.910157993+08:00"
+            },
+            "Message": "should not modify labels",
+            "Duration": 7140,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test increaseDatasetNum",
+          "when node has existing dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 256
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 257
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 258
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should increase dataset number",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.910162773+08:00",
+        "EndTime": "2026-11-15T06:32:29.910338359+08:00",
+        "RunTime": 175586,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 91,
+              "Time": "2026-11-15T06:32:29.910164553+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 93,
+              "Time": "2026-11-15T06:32:29.910309998+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 145455,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 94,
+              "Time": "2026-11-15T06:32:29.910310468+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 96,
+              "Time": "2026-11-15T06:32:29.910329799+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 19331,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 258
+            },
+            "TimelineLocation": {
+              "Order": 97,
+              "Time": "2026-11-15T06:32:29.910330209+08:00"
+            },
+            "Message": "should increase dataset number",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 258
+            },
+            "TimelineLocation": {
+              "Order": 99,
+              "Time": "2026-11-15T06:32:29.910337749+08:00"
+            },
+            "Message": "should increase dataset number",
+            "Duration": 7540,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test increaseDatasetNum",
+          "when node has no dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 256
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 276
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 277
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add dataset-num label with value 1",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.910342449+08:00",
+        "EndTime": "2026-11-15T06:32:29.910512455+08:00",
+        "RunTime": 170006,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 100,
+              "Time": "2026-11-15T06:32:29.910343509+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 102,
+              "Time": "2026-11-15T06:32:29.910487694+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 144185,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 103,
+              "Time": "2026-11-15T06:32:29.910488225+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 105,
+              "Time": "2026-11-15T06:32:29.910502355+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 14130,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 277
+            },
+            "TimelineLocation": {
+              "Order": 106,
+              "Time": "2026-11-15T06:32:29.910502745+08:00"
+            },
+            "Message": "should add dataset-num label with value 1",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 277
+            },
+            "TimelineLocation": {
+              "Order": 108,
+              "Time": "2026-11-15T06:32:29.910511715+08:00"
+            },
+            "Message": "should add dataset-num label with value 1",
+            "Duration": 8970,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has runtime label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 296
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 297
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 298
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return true",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.910516926+08:00",
+        "EndTime": "2026-11-15T06:32:29.910682881+08:00",
+        "RunTime": 165955,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 109,
+              "Time": "2026-11-15T06:32:29.910518515+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 111,
+              "Time": "2026-11-15T06:32:29.910657051+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 138536,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 112,
+              "Time": "2026-11-15T06:32:29.91065758+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 114,
+              "Time": "2026-11-15T06:32:29.910673611+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 16031,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 298
+            },
+            "TimelineLocation": {
+              "Order": 115,
+              "Time": "2026-11-15T06:32:29.910674141+08:00"
+            },
+            "Message": "should return true",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 298
+            },
+            "TimelineLocation": {
+              "Order": 117,
+              "Time": "2026-11-15T06:32:29.910682221+08:00"
+            },
+            "Message": "should return true",
+            "Duration": 8091,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has no runtime label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 296
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 313
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 314
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.910686681+08:00",
+        "EndTime": "2026-11-15T06:32:29.910842857+08:00",
+        "RunTime": 156176,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 118,
+              "Time": "2026-11-15T06:32:29.910687652+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 120,
+              "Time": "2026-11-15T06:32:29.910819646+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 131985,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 121,
+              "Time": "2026-11-15T06:32:29.910820166+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 123,
+              "Time": "2026-11-15T06:32:29.910835047+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 14891,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 314
+            },
+            "TimelineLocation": {
+              "Order": 124,
+              "Time": "2026-11-15T06:32:29.910835577+08:00"
+            },
+            "Message": "should return false",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 314
+            },
+            "TimelineLocation": {
+              "Order": 126,
+              "Time": "2026-11-15T06:32:29.910842247+08:00"
+            },
+            "Message": "should return false",
+            "Duration": 6660,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has no labels"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 296
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 329
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 330
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.910846177+08:00",
+        "EndTime": "2026-11-15T06:32:29.910999663+08:00",
+        "RunTime": 153496,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 127,
+              "Time": "2026-11-15T06:32:29.910847427+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 129,
+              "Time": "2026-11-15T06:32:29.910976312+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 128875,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 130,
+              "Time": "2026-11-15T06:32:29.910976802+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 132,
+              "Time": "2026-11-15T06:32:29.910990082+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 13290,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 330
+            },
+            "TimelineLocation": {
+              "Order": 133,
+              "Time": "2026-11-15T06:32:29.910990492+08:00"
+            },
+            "Message": "should return false",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 330
+            },
+            "TimelineLocation": {
+              "Order": 135,
+              "Time": "2026-11-15T06:32:29.910998973+08:00"
+            },
+            "Message": "should return false",
+            "Duration": 8481,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given exclusive placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 344
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 345
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 368
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove fluid labels and keep other labels",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.911006543+08:00",
+        "EndTime": "2026-11-15T06:32:29.911374656+08:00",
+        "RunTime": 368113,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 136,
+              "Time": "2026-11-15T06:32:29.911007843+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 138,
+              "Time": "2026-11-15T06:32:29.911138828+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 130995,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 346
+            },
+            "TimelineLocation": {
+              "Order": 139,
+              "Time": "2026-11-15T06:32:29.911139578+08:00"
+            },
+            "Message": "when given exclusive placement mode runtime",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 346
+            },
+            "TimelineLocation": {
+              "Order": 141,
+              "Time": "2026-11-15T06:32:29.911146958+08:00"
+            },
+            "Message": "when given exclusive placement mode runtime",
+            "Duration": 7380,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 142,
+              "Time": "2026-11-15T06:32:29.911147428+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 144,
+              "Time": "2026-11-15T06:32:29.911158408+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 10970,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 368
+            },
+            "TimelineLocation": {
+              "Order": 145,
+              "Time": "2026-11-15T06:32:29.911158868+08:00"
+            },
+            "Message": "should remove fluid labels and keep other labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 368
+            },
+            "TimelineLocation": {
+              "Order": 147,
+              "Time": "2026-11-15T06:32:29.911373826+08:00"
+            },
+            "Message": "should remove fluid labels and keep other labels",
+            "Duration": 214968,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given share placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 344
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 394
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 415
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove all fluid labels",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.911382176+08:00",
+        "EndTime": "2026-11-15T06:32:29.911716428+08:00",
+        "RunTime": 334252,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 148,
+              "Time": "2026-11-15T06:32:29.911385337+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 150,
+              "Time": "2026-11-15T06:32:29.911533282+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 147945,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 395
+            },
+            "TimelineLocation": {
+              "Order": 151,
+              "Time": "2026-11-15T06:32:29.911534182+08:00"
+            },
+            "Message": "when given share placement mode runtime",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 395
+            },
+            "TimelineLocation": {
+              "Order": 153,
+              "Time": "2026-11-15T06:32:29.911540592+08:00"
+            },
+            "Message": "when given share placement mode runtime",
+            "Duration": 6410,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 154,
+              "Time": "2026-11-15T06:32:29.911541062+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 156,
+              "Time": "2026-11-15T06:32:29.911552643+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 11590,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 415
+            },
+            "TimelineLocation": {
+              "Order": 157,
+              "Time": "2026-11-15T06:32:29.911553072+08:00"
+            },
+            "Message": "should remove all fluid labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 415
+            },
+            "TimelineLocation": {
+              "Order": 159,
+              "Time": "2026-11-15T06:32:29.911715668+08:00"
+            },
+            "Message": "should remove all fluid labels",
+            "Duration": 162596,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given runtime with tiered store"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 344
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 437
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 481
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove all fluid labels including capacity labels",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.911722418+08:00",
+        "EndTime": "2026-11-15T06:32:29.91206013+08:00",
+        "RunTime": 337723,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 160,
+              "Time": "2026-11-15T06:32:29.911723949+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 162,
+              "Time": "2026-11-15T06:32:29.911866603+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 142665,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 438
+            },
+            "TimelineLocation": {
+              "Order": 163,
+              "Time": "2026-11-15T06:32:29.911867354+08:00"
+            },
+            "Message": "when given runtime with tiered store",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 438
+            },
+            "TimelineLocation": {
+              "Order": 165,
+              "Time": "2026-11-15T06:32:29.911879264+08:00"
+            },
+            "Message": "when given runtime with tiered store",
+            "Duration": 11901,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 166,
+              "Time": "2026-11-15T06:32:29.911879614+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 168,
+              "Time": "2026-11-15T06:32:29.911891355+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 11741,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 481
+            },
+            "TimelineLocation": {
+              "Order": 169,
+              "Time": "2026-11-15T06:32:29.911891664+08:00"
+            },
+            "Message": "should remove all fluid labels including capacity labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 481
+            },
+            "TimelineLocation": {
+              "Order": 171,
+              "Time": "2026-11-15T06:32:29.912059361+08:00"
+            },
+            "Message": "should remove all fluid labels including capacity labels",
+            "Duration": 167706,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test syncCapacityInfoOnNode()",
+          "when the node was labelled with an empty tiered store"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 507
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 536
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 546
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should write the current capacity labels",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.912065991+08:00",
+        "EndTime": "2026-11-15T06:32:29.912417043+08:00",
+        "RunTime": 351052,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 172,
+              "Time": "2026-11-15T06:32:29.912067891+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 174,
+              "Time": "2026-11-15T06:32:29.912207726+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 139835,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 175,
+              "Time": "2026-11-15T06:32:29.912208576+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 177,
+              "Time": "2026-11-15T06:32:29.912217216+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "Duration": 8640,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 537
+            },
+            "TimelineLocation": {
+              "Order": 178,
+              "Time": "2026-11-15T06:32:29.912217716+08:00"
+            },
+            "Message": "when the node was labelled with an empty tiered store",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 537
+            },
+            "TimelineLocation": {
+              "Order": 180,
+              "Time": "2026-11-15T06:32:29.912221916+08:00"
+            },
+            "Message": "when the node was labelled with an empty tiered store",
+            "Duration": 4190,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 181,
+              "Time": "2026-11-15T06:32:29.912222346+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 183,
+              "Time": "2026-11-15T06:32:29.912228547+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 6191,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 530
+            },
+            "TimelineLocation": {
+              "Order": 184,
+              "Time": "2026-11-15T06:32:29.912229127+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 530
+            },
+            "TimelineLocation": {
+              "Order": 186,
+              "Time": "2026-11-15T06:32:29.912238317+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "Duration": 9200,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 546
+            },
+            "TimelineLocation": {
+              "Order": 187,
+              "Time": "2026-11-15T06:32:29.912238777+08:00"
+            },
+            "Message": "should write the current capacity labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 546
+            },
+            "TimelineLocation": {
+              "Order": 189,
+              "Time": "2026-11-15T06:32:29.912416213+08:00"
+            },
+            "Message": "should write the current capacity labels",
+            "Duration": 177426,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test syncCapacityInfoOnNode()",
+          "when the node has a label for a tier the runtime no longer has"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 507
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 558
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 580
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove the stale tier label",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.912425054+08:00",
+        "EndTime": "2026-11-15T06:32:29.912759765+08:00",
+        "RunTime": 334711,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 190,
+              "Time": "2026-11-15T06:32:29.912427763+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 192,
+              "Time": "2026-11-15T06:32:29.912568779+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 141016,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 193,
+              "Time": "2026-11-15T06:32:29.912569448+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 195,
+              "Time": "2026-11-15T06:32:29.912577269+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "Duration": 7821,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 559
+            },
+            "TimelineLocation": {
+              "Order": 196,
+              "Time": "2026-11-15T06:32:29.912577619+08:00"
+            },
+            "Message": "when the node has a label for a tier the runtime no longer has",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 559
+            },
+            "TimelineLocation": {
+              "Order": 198,
+              "Time": "2026-11-15T06:32:29.912584309+08:00"
+            },
+            "Message": "when the node has a label for a tier the runtime no longer has",
+            "Duration": 6680,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 199,
+              "Time": "2026-11-15T06:32:29.912584729+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 201,
+              "Time": "2026-11-15T06:32:29.912591009+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 6280,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 530
+            },
+            "TimelineLocation": {
+              "Order": 202,
+              "Time": "2026-11-15T06:32:29.91259148+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 530
+            },
+            "TimelineLocation": {
+              "Order": 204,
+              "Time": "2026-11-15T06:32:29.91259843+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "Duration": 6960,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 580
+            },
+            "TimelineLocation": {
+              "Order": 205,
+              "Time": "2026-11-15T06:32:29.91259887+08:00"
+            },
+            "Message": "should remove the stale tier label",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 580
+            },
+            "TimelineLocation": {
+              "Order": 207,
+              "Time": "2026-11-15T06:32:29.912758665+08:00"
+            },
+            "Message": "should remove the stale tier label",
+            "Duration": 159795,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test syncCapacityInfoOnNode()",
+          "when the node doesn't have the runtime label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 507
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 591
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 597
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should leave the node alone",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.912766156+08:00",
+        "EndTime": "2026-11-15T06:32:29.912951152+08:00",
+        "RunTime": 185006,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 208,
+              "Time": "2026-11-15T06:32:29.912767766+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 210,
+              "Time": "2026-11-15T06:32:29.9129029+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 135135,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 211,
+              "Time": "2026-11-15T06:32:29.912903531+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 213,
+              "Time": "2026-11-15T06:32:29.912911021+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "Duration": 7481,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 592
+            },
+            "TimelineLocation": {
+              "Order": 214,
+              "Time": "2026-11-15T06:32:29.912911471+08:00"
+            },
+            "Message": "when the node doesn't have the runtime label",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 592
+            },
+            "TimelineLocation": {
+              "Order": 216,
+              "Time": "2026-11-15T06:32:29.912915271+08:00"
+            },
+            "Message": "when the node doesn't have the runtime label",
+            "Duration": 3790,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 217,
+              "Time": "2026-11-15T06:32:29.912916141+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 219,
+              "Time": "2026-11-15T06:32:29.912922131+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 5980,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 530
+            },
+            "TimelineLocation": {
+              "Order": 220,
+              "Time": "2026-11-15T06:32:29.912922561+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 530
+            },
+            "TimelineLocation": {
+              "Order": 222,
+              "Time": "2026-11-15T06:32:29.912928681+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "Duration": 6120,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 597
+            },
+            "TimelineLocation": {
+              "Order": 223,
+              "Time": "2026-11-15T06:32:29.912929221+08:00"
+            },
+            "Message": "should leave the node alone",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 597
+            },
+            "TimelineLocation": {
+              "Order": 225,
+              "Time": "2026-11-15T06:32:29.912950362+08:00"
+            },
+            "Message": "should leave the node alone",
+            "Duration": 21130,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given current and previous node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 607
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 608
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 609
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should calculate correct differences",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.912955902+08:00",
+        "EndTime": "2026-11-15T06:32:29.91373885+08:00",
+        "RunTime": 782958,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 226,
+              "Time": "2026-11-15T06:32:29.912956993+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 228,
+              "Time": "2026-11-15T06:32:29.913704539+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 747537,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 229,
+              "Time": "2026-11-15T06:32:29.913707399+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 231,
+              "Time": "2026-11-15T06:32:29.91372696+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 19571,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 609
+            },
+            "TimelineLocation": {
+              "Order": 232,
+              "Time": "2026-11-15T06:32:29.91372737+08:00"
+            },
+            "Message": "should calculate correct differences",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 609
+            },
+            "TimelineLocation": {
+              "Order": 234,
+              "Time": "2026-11-15T06:32:29.9137374+08:00"
+            },
+            "Message": "should calculate correct differences",
+            "Duration": 10030,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given identical node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 607
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 620
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 621
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return empty differences",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.913759221+08:00",
+        "EndTime": "2026-11-15T06:32:29.91400322+08:00",
+        "RunTime": 243999,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 235,
+              "Time": "2026-11-15T06:32:29.913762471+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 237,
+              "Time": "2026-11-15T06:32:29.913965328+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 202857,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 238,
+              "Time": "2026-11-15T06:32:29.913967789+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 240,
+              "Time": "2026-11-15T06:32:29.913991169+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 23380,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 621
+            },
+            "TimelineLocation": {
+              "Order": 241,
+              "Time": "2026-11-15T06:32:29.913991849+08:00"
+            },
+            "Message": "should return empty differences",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 621
+            },
+            "TimelineLocation": {
+              "Order": 243,
+              "Time": "2026-11-15T06:32:29.91400123+08:00"
+            },
+            "Message": "should return empty differences",
+            "Duration": 9381,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given completely different node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 607
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 632
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 633
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return all nodes as differences",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.91402538+08:00",
+        "EndTime": "2026-11-15T06:32:29.914204657+08:00",
+        "RunTime": 179276,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 244,
+              "Time": "2026-11-15T06:32:29.914027591+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 246,
+              "Time": "2026-11-15T06:32:29.914184696+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 157115,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 247,
+              "Time": "2026-11-15T06:32:29.914185236+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 249,
+              "Time": "2026-11-15T06:32:29.914194917+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 9680,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 633
+            },
+            "TimelineLocation": {
+              "Order": 250,
+              "Time": "2026-11-15T06:32:29.914195266+08:00"
+            },
+            "Message": "should return all nodes as differences",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 633
+            },
+            "TimelineLocation": {
+              "Order": 252,
+              "Time": "2026-11-15T06:32:29.914203887+08:00"
+            },
+            "Message": "should return all nodes as differences",
+            "Duration": 8621,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test SyncScheduleInfoToCacheNodes",
+          "when calling SyncScheduleInfoToCacheNodes several times to mock runtime scaling"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 645
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 709
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 723
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should successfully add or remove schedule info on proper nodes",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.914212587+08:00",
+        "EndTime": "2026-11-15T06:32:29.916104594+08:00",
+        "RunTime": 1892007,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 253,
+              "Time": "2026-11-15T06:32:29.914215117+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 255,
+              "Time": "2026-11-15T06:32:29.914368743+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 153626,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 652
+            },
+            "TimelineLocation": {
+              "Order": 256,
+              "Time": "2026-11-15T06:32:29.914369473+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 652
+            },
+            "TimelineLocation": {
+              "Order": 258,
+              "Time": "2026-11-15T06:32:29.914384463+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes",
+            "Duration": 14990,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 711
+            },
+            "TimelineLocation": {
+              "Order": 259,
+              "Time": "2026-11-15T06:32:29.914384933+08:00"
+            },
+            "Message": "when calling SyncScheduleInfoToCacheNodes several times to mock runtime scaling",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 711
+            },
+            "TimelineLocation": {
+              "Order": 261,
+              "Time": "2026-11-15T06:32:29.914390653+08:00"
+            },
+            "Message": "when calling SyncScheduleInfoToCacheNodes several times to mock runtime scaling",
+            "Duration": 5720,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 262,
+              "Time": "2026-11-15T06:32:29.914391273+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 264,
+              "Time": "2026-11-15T06:32:29.914418245+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 26981,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 723
+            },
+            "TimelineLocation": {
+              "Order": 265,
+              "Time": "2026-11-15T06:32:29.914418685+08:00"
+            },
+            "Message": "should successfully add or remove schedule info on proper nodes",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 724
+            },
+            "TimelineLocation": {
+              "Order": 266,
+              "Time": "2026-11-15T06:32:29.914426065+08:00"
+            },
+            "Message": "scaling two pods to node-0 and node-1, the two nodes should have runtime labels"
+          },
+          {
+            "SpecEventType": "By (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 724
+            },
+            "TimelineLocation": {
+              "Order": 267,
+              "Time": "2026-11-15T06:32:29.915064457+08:00"
+            },
+            "Message": "scaling two pods to node-0 and node-1, the two nodes should have runtime labels",
+            "Duration": 638392
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 746
+            },
+            "TimelineLocation": {
+              "Order": 268,
+              "Time": "2026-11-15T06:32:29.915066577+08:00"
+            },
+            "Message": "scaling out a third pod to node-2, all pods should have runtime labels"
+          },
+          {
+            "SpecEventType": "By (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 746
+            },
+            "TimelineLocation": {
+              "Order": 269,
+              "Time": "2026-11-15T06:32:29.915398299+08:00"
+            },
+            "Message": "scaling out a third pod to node-2, all pods should have runtime labels",
+            "Duration": 331722
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 759
+            },
+            "TimelineLocation": {
+              "Order": 270,
+              "Time": "2026-11-15T06:32:29.91540022+08:00"
+            },
+            "Message": "scaling in pods on node-1 and node-2, only node-0 should have runtime labels"
+          },
+          {
+            "SpecEventType": "By (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 759
+            },
+            "TimelineLocation": {
+              "Order": 271,
+              "Time": "2026-11-15T06:32:29.915848525+08:00"
+            },
+            "Message": "scaling in pods on node-1 and node-2, only node-0 should have runtime labels",
+            "Duration": 448305
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 781
+            },
+            "TimelineLocation": {
+              "Order": 272,
+              "Time": "2026-11-15T06:32:29.915850125+08:00"
+            },
+            "Message": "scaling in the last pod node node-0, now all nodes should not have runtime labels"
+          },
+          {
+            "SpecEventType": "By (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 781
+            },
+            "TimelineLocation": {
+              "Order": 273,
+              "Time": "2026-11-15T06:32:29.916098464+08:00"
+            },
+            "Message": "scaling in the last pod node node-0, now all nodes should not have runtime labels",
+            "Duration": 248339
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 723
+            },
+            "TimelineLocation": {
+              "Order": 275,
+              "Time": "2026-11-15T06:32:29.916103005+08:00"
+            },
+            "Message": "should successfully add or remove schedule info on proper nodes",
+            "Duration": 1684311,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR is not set"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 797
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 801
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 802
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should not return error and nodeExcludeSelector should be nil",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.916115525+08:00",
+        "EndTime": "2026-11-15T06:32:29.916346913+08:00",
+        "RunTime": 231398,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 276,
+              "Time": "2026-11-15T06:32:29.916117955+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 278,
+              "Time": "2026-11-15T06:32:29.916298961+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 181007,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 279,
+              "Time": "2026-11-15T06:32:29.916299561+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 281,
+              "Time": "2026-11-15T06:32:29.916329842+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 30270,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 802
+            },
+            "TimelineLocation": {
+              "Order": 282,
+              "Time": "2026-11-15T06:32:29.916330213+08:00"
+            },
+            "Message": "Should not return error and nodeExcludeSelector should be nil",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 802
+            },
+            "TimelineLocation": {
+              "Order": 284,
+              "Time": "2026-11-15T06:32:29.916336463+08:00"
+            },
+            "Message": "Should not return error and nodeExcludeSelector should be nil",
+            "Duration": 6241,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 798
+            },
+            "TimelineLocation": {
+              "Order": 285,
+              "Time": "2026-11-15T06:32:29.916338123+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 798
+            },
+            "TimelineLocation": {
+              "Order": 287,
+              "Time": "2026-11-15T06:32:29.916345583+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "Duration": 7450,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR has valid label selector"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 797
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 809
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 810
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should parse the selector correctly",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.916353273+08:00",
+        "EndTime": "2026-11-15T06:32:29.916564421+08:00",
+        "RunTime": 211148,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 288,
+              "Time": "2026-11-15T06:32:29.916355114+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 290,
+              "Time": "2026-11-15T06:32:29.916506859+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 151746,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 291,
+              "Time": "2026-11-15T06:32:29.916507489+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 293,
+              "Time": "2026-11-15T06:32:29.916525549+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 18060,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 810
+            },
+            "TimelineLocation": {
+              "Order": 294,
+              "Time": "2026-11-15T06:32:29.916525869+08:00"
+            },
+            "Message": "Should parse the selector correctly",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 810
+            },
+            "TimelineLocation": {
+              "Order": 296,
+              "Time": "2026-11-15T06:32:29.916555541+08:00"
+            },
+            "Message": "Should parse the selector correctly",
+            "Duration": 29670,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 798
+            },
+            "TimelineLocation": {
+              "Order": 297,
+              "Time": "2026-11-15T06:32:29.916556621+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 798
+            },
+            "TimelineLocation": {
+              "Order": 299,
+              "Time": "2026-11-15T06:32:29.916563171+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "Duration": 6560,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR has invalid label selector"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 797
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 825
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 826
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should return error",
+        "State": "passed",
+        "StartTime": "2026-11-15T06:32:29.916569131+08:00",
+        "EndTime": "2026-11-15T06:32:29.916765028+08:00",
+        "RunTime": 195887,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 300,
+              "Time": "2026-11-15T06:32:29.916570621+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 302,
+              "Time": "2026-11-15T06:32:29.916712316+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 141695,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 303,
+              "Time": "2026-11-15T06:32:29.916712866+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 305,
+              "Time": "2026-11-15T06:32:29.916728787+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 15921,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 826
+            },
+            "TimelineLocation": {
+              "Order": 306,
+              "Time": "2026-11-15T06:32:29.916729207+08:00"
+            },
+            "Message": "Should return error",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 826
+            },
+            "TimelineLocation": {
+              "Order": 308,
+              "Time": "2026-11-15T06:32:29.916756778+08:00"
+            },
+            "Message": "Should return error",
+            "Duration": 27571,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 798
+            },
+            "TimelineLocation": {
+              "Order": 309,
+              "Time": "2026-11-15T06:32:29.916758658+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 798
+            },
+            "TimelineLocation": {
+              "Order": 311,
+              "Time": "2026-11-15T06:32:29.916764318+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "Duration": 5670,
+            "NodeType": "AfterEach"
+          }
+        ]
+      }
+    ]
+  }
+]
