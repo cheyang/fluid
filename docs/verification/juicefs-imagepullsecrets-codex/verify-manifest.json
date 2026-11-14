@@ -26,11 +26,11 @@
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "go test ./pkg/ddc/juicefs/ -run 'TestVerifyPr6245' -count=1 -v"
+      "cmd": "go test ./pkg/ddc/juicefs/ -run 'TestVerifyPr6245' -count=1 -json"
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "go test ./pkg/ddc/juicefs/ -run 'TestVerifyPr6245(HelmRenderScenarios|CRDSchemaCheck)' -count=1 -v"
+      "cmd": "go test ./pkg/ddc/juicefs/ -run 'TestVerifyPr6245(HelmRenderScenarios|CRDSchemaCheck)' -count=1 -json"
     }
   },
   "findings": [
