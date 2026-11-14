@@ -1,0 +1,49 @@
+{
+  "topic": "refresh-capacity-labels-claude",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6244",
+  "harnessPaths": [
+    "docs/verification/refresh-capacity-labels-claude",
+    "pkg/utils/dataset/lifecycle/node_capacity_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #6204 / PR body: \"an existing CacheRuntime still shows fluid.io/s-h-cache-t-*: 0B with no mem/disk labels\" because addScheduleInfoToNode skips nodes that already have the runtime label and calculateNodeDifferences only looks at new nodes.",
+    "reportedComponent": "cache runtime node capacity labels (lifecycle.SyncScheduleInfoToCacheNodes path)",
+    "patchedComponent": "pkg/utils/dataset/lifecycle/node.go (SyncScheduleInfoToCacheNodes + new syncCapacityInfoOnNodes/syncCapacityInfoOnNode) - used by all engines incl. CacheEngine",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base ff99142f the C1 spec fails: node with runtime label + total 0B keeps 0B and gets no mem/disk labels after SyncScheduleInfoToCacheNodes; C2 also fails (stale tier label kept). results/base.out",
+    "match": [
+      "should refresh outdated capacity labels on a node that already has the runtime label",
+      "should remove the capacity label of a tier the runtime no longer has"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/utils/dataset/lifecycle/ -run TestLifecycle -count=1 -ginkgo.no-color -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1-exclude-selector-bypass",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["should leave nodes matching nodeExcludeSelector untouched"]
+    },
+    {
+      "id": "PR6244-fix-regression",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "should refresh outdated capacity labels on a node that already has the runtime label",
+        "should remove the capacity label of a tier the runtime no longer has",
+        "should not patch a node whose capacity labels already match"
+      ]
+    }
+  ],
+  "liveNote": "L3 (skipped in this round per pipeline policy): on a cluster where a CacheRuntime was created before #6181, upgrade the controller and check existing cache nodes get real mem/disk/total labels on the next reconcile, and that nodes matching FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR are not patched (controller log line 'Updating outdated capacity labels on node' should not name excluded nodes)."
+}
