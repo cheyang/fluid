@@ -1,0 +1,8 @@
+=== RUN   TestCommittedWebhookManifestsIncludeValidatingWebhook
+    manifests_commit_test.go:53: config/webhook/manifests.yaml does not contain "kind: ValidatingWebhookConfiguration".
+    manifests_commit_test.go:53: config/webhook/manifests.yaml does not contain "name: update.cacheruntime.fluid.io".
+    manifests_commit_test.go:53: config/webhook/manifests.yaml does not contain "path: /validate-data-fluid-io-v1alpha1-cacheruntime".
+--- FAIL: TestCommittedWebhookManifestsIncludeValidatingWebhook (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/webhook/handler/validating/cacheruntime	0.012s
+FAIL

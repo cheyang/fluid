@@ -1,0 +1,15 @@
+dirty files before regeneration: [?? docs/verification/
+?? pkg/ddc/cache/component/imagepullpolicy_sync_gap_test.go
+?? pkg/ddc/cache/engine/sync_premise_p0_test.go
+?? pkg/webhook/handler/validating/cacheruntime/envtest_admission_test.go
+?? pkg/webhook/handler/validating/cacheruntime/spec_update_gap_test.go
+?? pkg/webhook/handler/validating/cacheruntime/testdata/]
+dirty files after regeneration:  [ M config/webhook/manifests.yaml
+?? docs/verification/
+?? pkg/ddc/cache/component/imagepullpolicy_sync_gap_test.go
+?? pkg/ddc/cache/engine/sync_premise_p0_test.go
+?? pkg/webhook/handler/validating/cacheruntime/envtest_admission_test.go
+?? pkg/webhook/handler/validating/cacheruntime/spec_update_gap_test.go
+?? pkg/webhook/handler/validating/cacheruntime/testdata/]
+modified tracked files:          [ M config/webhook/manifests.yaml]
+RESULT: regeneration produces a diff -> the CI lint gate ('make update-crd') fails on this PR.

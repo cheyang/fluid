@@ -1,0 +1,4 @@
+dirty files before regeneration: [?? pkg/ddc/cache/engine/sync_premise_p0_test.go]
+dirty files after regeneration:  [?? pkg/ddc/cache/engine/sync_premise_p0_test.go]
+modified tracked files:          []
+RESULT: regeneration is a no-op -> lint gate would pass.

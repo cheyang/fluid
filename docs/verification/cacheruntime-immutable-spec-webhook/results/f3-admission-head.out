@@ -1,0 +1,4 @@
+=== RUN   TestValidateSpecUpdateAllowsImagePullPolicyChange
+--- PASS: TestValidateSpecUpdateAllowsImagePullPolicyChange (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/handler/validating/cacheruntime	(cached)

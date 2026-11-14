@@ -1,0 +1,4 @@
+=== RUN   TestSyncComponentSpecDoesNotPropagateImagePullPolicy
+--- PASS: TestSyncComponentSpecDoesNotPropagateImagePullPolicy (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	(cached)

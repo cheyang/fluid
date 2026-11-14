@@ -1,0 +1,15 @@
+=== RUN   TestValidatingWebhookAdmissionAgainstRealAPIServer
+=== RUN   TestValidatingWebhookAdmissionAgainstRealAPIServer/F1:_metadata-only_update_of_a_clientless_CacheRuntime_is_allowed
+    envtest_admission_test.go:139: 2026-11-15T06:01:46+08:00	INFO	cacheruntime-validating-handler	denied a CacheRuntime update that changes immutable spec fields	{"namespace": "cacheruntime-envtest", "name": "no-client", "errors": "spec.client.cleanPolicy: Forbidden: field is immutable"}
+=== NAME  TestValidatingWebhookAdmissionAgainstRealAPIServer/F1:_metadata-only_update_of_a_clientless_CacheRuntime_is_allowed
+    envtest_admission_test.go:259: metadata-only update was denied: admission webhook "update.cacheruntime.fluid.io" denied the request: only master/worker replicas, runtimeVersion and resources can be updated in place: spec.client.cleanPolicy: Forbidden: field is immutable
+=== RUN   TestValidatingWebhookAdmissionAgainstRealAPIServer/control:_metadata-only_update_with_explicit_client_spec_is_allowed
+=== RUN   TestValidatingWebhookAdmissionAgainstRealAPIServer/guard:_tieredStore_change_is_denied
+    envtest_admission_test.go:139: 2026-11-15T06:01:46+08:00	INFO	cacheruntime-validating-handler	denied a CacheRuntime update that changes immutable spec fields	{"namespace": "cacheruntime-envtest", "name": "tieredstore-change", "errors": "[spec.worker.tieredStore: Forbidden: field is immutable, spec.client.cleanPolicy: Forbidden: field is immutable]"}
+--- FAIL: TestValidatingWebhookAdmissionAgainstRealAPIServer (6.25s)
+    --- FAIL: TestValidatingWebhookAdmissionAgainstRealAPIServer/F1:_metadata-only_update_of_a_clientless_CacheRuntime_is_allowed (2.02s)
+    --- PASS: TestValidatingWebhookAdmissionAgainstRealAPIServer/control:_metadata-only_update_with_explicit_client_spec_is_allowed (0.00s)
+    --- PASS: TestValidatingWebhookAdmissionAgainstRealAPIServer/guard:_tieredStore_change_is_denied (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/webhook/handler/validating/cacheruntime	6.265s
+FAIL
