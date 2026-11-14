@@ -1,0 +1,6 @@
+2026/11/15 06:48:21 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestPR6244Envtest
+    node_envtest_verify_test.go:204: node-1 final labels: map[fluid.io/s-alluxio-fluid-spark:true fluid.io/s-h-alluxio-d-fluid-spark:2GiB fluid.io/s-h-alluxio-t-fluid-spark:2GiB]
+--- PASS: TestPR6244Envtest (23.59s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	23.600s

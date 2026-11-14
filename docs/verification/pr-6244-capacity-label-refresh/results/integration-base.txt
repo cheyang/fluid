@@ -1,0 +1,7 @@
+2026/11/15 06:46:42 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestPR6244Envtest
+    node_envtest_verify_test.go:154: timed out waiting for stale capacity labels to be refreshed
+--- FAIL: TestPR6244Envtest (82.59s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	82.599s
+FAIL

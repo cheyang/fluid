@@ -1,0 +1,54 @@
+2026/11/15 06:48:51 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestLifecycle
+Running Suite: Lifecycle Suite - /tmp/fluid-base-6244/pkg/utils/dataset/lifecycle
+=================================================================================
+Random Seed: 1794696531
+
+Will run 6 of 28 specs
+------------------------------
+• [FAILED] [0.001 seconds]
+PR6244 verification (codex) [It] P0a-stale-capacity-labels-get-refreshed [verify-pr-6244]
+/tmp/fluid-base-6244/pkg/utils/dataset/lifecycle/node_verify_test.go:106
+
+  [FAILED] Expected
+      <map[string]string | len:3>: {
+          "fluid.io/s-alluxio-fluid-spark": "true",
+          "fluid.io/s-fluid-spark": "true",
+          "fluid.io/s-h-alluxio-t-fluid-spark": "0B",
+      }
+  to have {key: value}
+      <map[interface {}]interface {} | len:1>: {
+          <string>"fluid.io/s-h-alluxio-m-fluid-spark": <string>"1GiB",
+      }
+  In [It] at: /tmp/fluid-base-6244/pkg/utils/dataset/lifecycle/node_verify_test.go:117 @ 11/15/26 06:48:51.916
+------------------------------
+• [FAILED] [0.000 seconds]
+PR6244 verification (codex) [It] P0b-removed-tier-label-gets-deleted [verify-pr-6244]
+/tmp/fluid-base-6244/pkg/utils/dataset/lifecycle/node_verify_test.go:124
+
+  [FAILED] Expected
+      <map[string]string | len:5>: {
+          "fluid.io/s-alluxio-fluid-spark": "true",
+          "fluid.io/s-fluid-spark": "true",
+          "fluid.io/s-h-alluxio-d-fluid-spark": "2GiB",
+          "fluid.io/s-h-alluxio-m-fluid-spark": "1GiB",
+          "fluid.io/s-h-alluxio-t-fluid-spark": "3GiB",
+      }
+  not to have key
+      <string>: fluid.io/s-h-alluxio-m-fluid-spark
+  In [It] at: /tmp/fluid-base-6244/pkg/utils/dataset/lifecycle/node_verify_test.go:140 @ 11/15/26 06:48:51.916
+------------------------------
+••••SSSSSSSSSSSSSSSSSSSSSS
+
+Summarizing 2 Failures:
+  [FAIL] PR6244 verification (codex) [It] P0a-stale-capacity-labels-get-refreshed [verify-pr-6244]
+  /tmp/fluid-base-6244/pkg/utils/dataset/lifecycle/node_verify_test.go:117
+  [FAIL] PR6244 verification (codex) [It] P0b-removed-tier-label-gets-deleted [verify-pr-6244]
+  /tmp/fluid-base-6244/pkg/utils/dataset/lifecycle/node_verify_test.go:140
+
+Ran 6 of 28 Specs in 0.004 seconds
+FAIL! -- 4 Passed | 2 Failed | 0 Pending | 22 Skipped
+--- FAIL: TestLifecycle (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.017s
+FAIL

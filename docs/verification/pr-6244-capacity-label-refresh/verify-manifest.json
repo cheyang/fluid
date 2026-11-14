@@ -1,0 +1,42 @@
+{
+  "topic": "pr-6244-capacity-label-refresh",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6244",
+  "reviewer": "codex",
+  "headSha": "e0cba66ef9447434750a73be698402b4b958b893",
+  "baseSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
+  "harnessPaths": [
+    "docs/verification/pr-6244-capacity-label-refresh",
+    "pkg/utils/dataset/lifecycle/node_verify_test.go",
+    "pkg/utils/dataset/lifecycle/node_envtest_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "an existing CacheRuntime still shows fluid.io/s-h-cache-t-*: 0B with no mem/disk labels. It only clears once the worker moves off the node or the runtime is recreated. (issue #6204)",
+    "reportedComponent": "CacheRuntime node capacity labels (cache engine -> pkg/utils/dataset/lifecycle)",
+    "patchedComponent": "pkg/utils/dataset/lifecycle/node.go (SyncScheduleInfoToCacheNodes)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "base: specs P0a/P0b FAIL (labels stay 0B / stale mem label kept), controls PASS (results/unit-base.txt); base envtest: 60s timeout, labels never refreshed (results/integration-base.txt)",
+    "match": ["P0a-stale-capacity-labels-get-refreshed", "P0b-removed-tier-label-gets-deleted"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "ginkgo",
+      "cmd": "go test -count=1 ./pkg/utils/dataset/lifecycle/ -run TestLifecycle -args -ginkgo.focus=\"PR6244 verification\" -ginkgo.no-color -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "KUBEBUILDER_ASSETS=${KUBEBUILDER_ASSETS:-/home/ecs-user/envtest-assets/k8s/1.31.0-linux-amd64} go test -count=1 -json ./pkg/utils/dataset/lifecycle/ -run '^TestPR6244Envtest$'"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit",
+      "match": ["P0a-stale-capacity-labels-get-refreshed", "P0b-removed-tier-label-gets-deleted", "C1-matching-labels-are-not-rewritten", "C2-foreign-runtime-labels-are-untouched", "C3-new-node-still-gets-full-label-set", "C4-removed-node-loses-all-runtime-labels"] },
+    { "id": "F2", "polarity": "contract", "layer": "integration",
+      "match": ["TestPR6244Envtest"] }
+  ],
+  "liveNote": "L3 skipped per round policy (no KUBECONFIG layer). If run later: on a live cluster with a pre-#6181 CacheRuntime, upgrade the controller and watch previously-0B nodes gain mem/disk/total labels on the next CacheEngine sync (controller log: 'Updating outdated capacity labels on node')."
+}

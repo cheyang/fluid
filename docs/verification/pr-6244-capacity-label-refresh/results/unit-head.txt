@@ -1,0 +1,14 @@
+2026/11/15 06:48:20 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestLifecycle
+Running Suite: Lifecycle Suite - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle
+================================================================================================================================
+Random Seed: 1794696500
+
+Will run 6 of 31 specs
+SSSSSSSSSSSSSSSSSSSSSSSSS••••••
+
+Ran 6 of 31 Specs in 0.004 seconds
+SUCCESS! -- 6 Passed | 0 Failed | 0 Pending | 25 Skipped
+--- PASS: TestLifecycle (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.018s
