@@ -1,0 +1,75 @@
+configs:
+  formatCmd: /usr/local/bin/juicefs format --no-update ${METAURL} test
+  metaurlSecret: test
+  metaurlSecretKey: metaurl
+  name: test
+edition: community
+fsGroup: 0
+fullnameOverride: test
+fuse:
+  command: exec /bin/mount.juicefs ${METAURL} /juicefs/fluid/test/juicefs-fuse -o
+    subdir=/mnt/test,cache-dir=/var/jfsCache,ro,attr-cache=7200,entry-cache=7200,metrics=0.0.0.0:15396
+  enabled: true
+  hostMountPath: /juicefs/fluid/test
+  hostNetwork: true
+  image: juicedata/juicefs-fuse
+  imagePullPolicy: IfNotPresent
+  imagePullSecrets:
+  - name: fuse-secret
+  imageTag: ce-v1.1.0-beta2
+  metricsPort: 15396
+  mountPath: /juicefs/fluid/test/juicefs-fuse
+  nodeSelector:
+    fluid.io/f-fluid-test: "true"
+  privileged: true
+  resources: {}
+  statCmd: stat -c %i /juicefs/fluid/test/juicefs-fuse
+  subPath: /mnt/test
+  volumeMounts:
+  - mountPath: /var/jfsCache
+    name: cache-dir-0
+  volumes:
+  - hostPath:
+      path: /var/jfsCache
+      type: DirectoryOrCreate
+    name: cache-dir-0
+group: 0
+image: juicedata/juicefs-fuse
+imagePullPolicy: IfNotPresent
+imagePullSecrets:
+- name: runtime-secret
+imageTag: ce-v1.1.0-beta2
+owner:
+  apiVersion: data.fluid.io/v1alpha1
+  blockOwnerDeletion: false
+  controller: true
+  enabled: true
+  kind: JuiceFSRuntime
+  name: test
+  uid: ""
+ownerDatasetId: fluid-test
+placement: Exclusive
+runtimeIdentity:
+  name: test
+  namespace: fluid
+source: ${METAURL}
+user: 0
+worker:
+  command: exec /bin/mount.juicefs ${METAURL} /juicefs/fluid/test/juicefs-fuse -o
+    subdir=/mnt/test,cache-dir=/var/jfsCache,metrics=0.0.0.0:15132
+  hostNetwork: true
+  imagePullSecrets:
+  - name: worker-secret
+  metricsPort: 15132
+  mountPath: /juicefs/fluid/test/juicefs-fuse
+  privileged: true
+  resources: {}
+  statCmd: stat -c %i /juicefs/fluid/test/juicefs-fuse
+  volumeMounts:
+  - mountPath: /var/jfsCache
+    name: cache-dir-0
+  volumes:
+  - hostPath:
+      path: /var/jfsCache
+      type: DirectoryOrCreate
+    name: cache-dir-0

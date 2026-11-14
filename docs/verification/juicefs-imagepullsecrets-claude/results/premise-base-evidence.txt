@@ -1,0 +1,33 @@
+P0 premise check — PR #6245 (juicefs hierarchical imagePullSecrets), runs against BASE
+base = ff99142f9ec5c32a0c9166de023cb8936f0e5ae5 (merge-base with master)
+
+Claim (issue #4222, OPEN since 2024-07-22, quoted):
+  "We request the enhancement of the JuiceFSRuntime to support hierarchical
+   `imagePullSecrets` configuration. Specifically, we want to be able to specify
+   `imagePullSecrets` at two levels: 1. Global level under `spec`
+   2. Component level a. Worker b. FUSE"
+
+Evidence the feature is absent at base (positive, structural):
+  $ git grep -c "ImagePullSecrets" <base> -- api/v1alpha1/juicefsruntime_types.go
+  -> no matches (field does not exist at spec/worker/fuse level)
+  $ git grep -n "Spec.ImagePullSecrets" <base> -- pkg/ddc/juicefs/
+  -> no matches (engine never reads runtime-level secrets)
+  $ git show <base>:pkg/ddc/juicefs/transform.go (transformWorkers)
+  -> imagePullSecrets := docker.GetImagePullSecretsFromEnv(common.EnvImagePullSecretsKey)
+     i.e. the ONLY source at base is the controller env var IMAGE_PULL_SECRETS.
+
+Differential parity evidence (the same feature already exists for AlluxioRuntime at base):
+  api/v1alpha1/alluxioruntime_types.go has ImagePullSecrets on the spec level, on the
+  component template spec, and on AlluxioFuseSpec; pkg/ddc/alluxio/transform.go wires
+  them through with runtime-over-env precedence.
+
+Component match: issue names JuiceFSRuntime CRD; PR touches api/v1alpha1/juicefsruntime_types.go,
+pkg/ddc/juicefs/{transform,transform_fuse,type}.go and charts/juicefs templates. MATCH.
+
+Behavioral confirmation on the patched head (harness scenarios s1-s5):
+  - an existing install with only the controller env default renders identically to base (s1);
+  - spec.imagePullSecrets replaces the env default (s2, Alluxio-compatible semantics);
+  - worker/fuse component secrets override the runtime-level ones (s3);
+  - a single component level works with no global/env default at all (s4/s5).
+
+VERDICT: confirmed — real feature gap at base, and the PR closes exactly the gap the issue names.

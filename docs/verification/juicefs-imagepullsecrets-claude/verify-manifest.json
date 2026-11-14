@@ -1,0 +1,71 @@
+{
+  "topic": "juicefs-imagepullsecrets",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6245",
+  "reviewer": "claude",
+  "headSha": "6711374b5ccbdf0371069b4cc9c0ca9593891528",
+  "baseSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
+  "harnessPaths": [
+    "docs/verification/juicefs-imagepullsecrets-claude",
+    "pkg/ddc/juicefs/imagepullsecrets_harness_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "JuiceFSRuntime cannot express imagePullSecrets at spec / worker / fuse level; only the controller-wide IMAGE_PULL_SECRETS env exists (issue #4222, OPEN).",
+    "reportedComponent": "JuiceFSRuntime CRD + juicefs engine",
+    "patchedComponent": "api/v1alpha1/juicefsruntime_types.go, pkg/ddc/juicefs/{transform,transform_fuse,type}.go, charts/juicefs templates",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "git grep at base: no ImagePullSecrets in juicefsruntime_types.go, no Spec.ImagePullSecrets reads in pkg/ddc/juicefs; transformWorkers at base only reads the env default. AlluxioRuntime has the whole hierarchy at base (differential parity). See results/premise-base-evidence.txt.",
+    "match": ["transforms s1-env-default-only"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/juicefs/ -run TestJuicefs -json"
+    },
+    "integration": {
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/ddc/juicefs/ -run TestJuicefs -ginkgo.focus 'imagePullSecrets' -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    }
+  },
+  "findings": [
+    {
+      "id": "C1-hierarchical-precedence-controller",
+      "polarity": "contract",
+      "layer": "integration",
+      "claim": "Under JuiceFSRuntime with spec/worker/fuse imagePullSecrets and/or the controller env default, transform() produces value.ImagePullSecrets (env default, replaced by spec.imagePullSecrets) and value.Worker/Fuse.ImagePullSecrets (component-level) with component > runtime > env precedence, and the marshaled values expose exactly the keys the chart reads.",
+      "match": [
+        "transforms s2-runtime-replaces-env-default",
+        "transforms s3-component-overrides-runtime",
+        "transforms s4-worker-only-no-default",
+        "transforms s5-fuse-only-no-default",
+        "prefers the runtime and worker secrets",
+        "uses the controller default when the runtime sets no secrets",
+        "sets the fuse secrets only when the fuse spec has them"
+      ]
+    },
+    {
+      "id": "C2-chart-render-fallback",
+      "polarity": "contract",
+      "layer": "integration",
+      "claim": "The juicefs chart renders the worker StatefulSet and fuse DaemonSet with pod-level imagePullSecrets = component secrets when set, else the global value; helm template on the real chart with the values produced by the real transform() shows the contract end to end.",
+      "match": [
+        "transforms s1-env-default-only",
+        "transforms s3-component-overrides-runtime",
+        "transforms s4-worker-only-no-default",
+        "transforms s5-fuse-only-no-default"
+      ]
+    },
+    {
+      "id": "C3-env-default-back-compat",
+      "polarity": "contract",
+      "layer": "integration",
+      "claim": "An existing install that sets only the controller env IMAGE_PULL_SECRETS and no new spec fields renders the same pods as before the PR (both worker and fuse pods keep the env-default secret; nothing new appears).",
+      "match": ["transforms s1-env-default-only"]
+    }
+  ],
+  "liveNote": "L3 (live cluster) intentionally not run this round: pipeline configured for unit + integration layers only. The chart rendering inside the ginkgo scenarios covers the helm layer without a cluster."
+}

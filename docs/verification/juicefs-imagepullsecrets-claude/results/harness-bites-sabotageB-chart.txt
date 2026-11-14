@@ -1,0 +1,9 @@
+[38;5;9m• [FAILED] [0.027 seconds][0m
+  [38;5;9m[FAILED] s3-component-overrides-runtime: worker pod imagePullSecrets
+[38;5;9m• [FAILED] [0.026 seconds][0m
+  [38;5;9m[FAILED] s4-worker-only-no-default: worker pod imagePullSecrets
+[38;5;9m• [FAILED] [0.025 seconds][0m
+  [38;5;9m[FAILED] s5-fuse-only-no-default: fuse pod imagePullSecrets
+[38;5;9m[1mSummarizing 3 Failures:[0m
+[38;5;9m[1mRan 182 of 182 Specs in 0.176 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m179 Passed[0m | [38;5;9m[1m3 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
