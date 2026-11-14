@@ -1,0 +1,8 @@
+PASS: spec.imagePullSecrets present in CRD schema
+PASS: spec.worker.imagePullSecrets present in CRD schema
+PASS: spec.master.imagePullSecrets present in CRD schema
+PASS: spec.jobWorker.imagePullSecrets present in CRD schema
+PASS: spec.fuse.imagePullSecrets present in CRD schema
+PASS: CR with runtime/worker/fuse imagePullSecrets validates against CRD schema
+PASS: legacy CR still validates
+exit=0

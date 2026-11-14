@@ -1,0 +1,14 @@
+P0 premise check (runs against base ff99142f):
+$ git show ff99142f:api/v1alpha1/juicefsruntime_types.go | grep -c -i imagepullsecrets
+0
+$ git show ff99142f:charts/juicefs/templates/worker/statefulset.yaml | grep -n imagePullSecrets
+66:      {{- with .Values.imagePullSecrets }}
+67:      imagePullSecrets:
+=> base has no per-runtime/per-component imagePullSecrets for JuiceFS; only the
+   controller env default flows into the chart's top-level value.
+Compile-level confirmation: checking out base api/v1alpha1 + pkg/ddc/juicefs
+transform files makes the PR's own test and the verify harness fail to build
+("unknown field ImagePullSecrets in struct literal of type JuiceFSRuntimeSpec").
+Harness-bites: reverting ONLY pkg/ddc/juicefs/transform{,_fuse}.go (keeping the
+API fields) makes TestVerifyPr6245RuntimeOverridesEnv and
+TestVerifyPr6245WorkerAndFuseOverrides FAIL at runtime; restoring re-passes.

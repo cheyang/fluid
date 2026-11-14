@@ -1,0 +1,23 @@
+== scenario A: global only (head chart) ==
+PASS: worker gets runtime-level secret
+PASS: fuse gets runtime-level secret
+== scenario B: worker override ==
+PASS: worker override wins on worker
+PASS: fuse keeps runtime-level secret
+== scenario C: fuse override ==
+PASS: worker keeps runtime-level secret
+PASS: fuse override wins on fuse
+== scenario D: both overrides ==
+PASS: worker override wins
+PASS: fuse override wins
+== scenario E: worker override only, no global ==
+PASS: worker gets its own secret
+PASS: fuse gets no imagePullSecrets
+== scenario F: nothing set ==
+PASS: worker has no imagePullSecrets
+PASS: fuse has no imagePullSecrets
+== scenario G: backward compat — base chart vs head chart, identical values ==
+PASS: rendered manifests identical between base and head chart (global-only)
+PASS: rendered manifests identical between base and head chart (none)
+ALL HELM RENDER CHECKS PASSED
+exit=0

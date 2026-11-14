@@ -1,0 +1,103 @@
+{
+  "topic": "juicefs-imagepullsecrets-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6245",
+  "reviewer": "codex",
+  "baseSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
+  "headSha": "6711374b5ccbdf0371069b4cc9c0ca9593891528",
+  "harnessPaths": [
+    "docs/verification/juicefs-imagepullsecrets-codex",
+    "pkg/ddc/juicefs/transform_image_pull_secrets_verify_test.go",
+    "pkg/ddc/juicefs/transform_image_pull_secrets_helm_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #4222 (OPEN): JuiceFSRuntime should support hierarchical imagePullSecrets at spec level plus spec.worker and spec.fuse overrides; today only the controller-level IMAGE_PULL_SECRETS env default exists.",
+    "reportedComponent": "JuiceFSRuntime CRD / juicefs runtime pods (worker, fuse)",
+    "patchedComponent": "api/v1alpha1/juicefsruntime_types.go, pkg/ddc/juicefs transform, charts/juicefs worker+fuse templates",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On merge-base ff99142f, juicefsruntime_types.go has zero imagePullSecrets fields and charts/juicefs worker/fuse templates consume only .Values.imagePullSecrets; harness test file fails to COMPILE against base api/v1alpha1 (fields absent). See results/premise-base.log.",
+    "match": [
+      "results/premise-base.log"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/juicefs/ -run 'TestVerifyPr6245' -count=1 -v"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/juicefs/ -run 'TestVerifyPr6245(HelmRenderScenarios|CRDSchemaCheck)' -count=1 -v"
+    }
+  },
+  "findings": [
+    {
+      "id": "A1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPr6245EnvDefaultStillApplies"
+      ]
+    },
+    {
+      "id": "A2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPr6245RuntimeOverridesEnv"
+      ]
+    },
+    {
+      "id": "A3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPr6245WorkerAndFuseOverrides"
+      ]
+    },
+    {
+      "id": "A4",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPr6245HelmValuesShape"
+      ]
+    },
+    {
+      "id": "A5",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPr6245DeepCopyIsolated"
+      ]
+    },
+    {
+      "id": "F1",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPr6245MasterAndJobWorkerSecretsInert"
+      ]
+    },
+    {
+      "id": "A6",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestVerifyPr6245HelmRenderScenarios"
+      ]
+    },
+    {
+      "id": "A7",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestVerifyPr6245CRDSchemaCheck"
+      ]
+    }
+  ],
+  "liveNote": "L3 (skipped per debate policy): on a real cluster, create a JuiceFSRuntime with spec.imagePullSecrets and worker/fuse overrides and inspect the resulting worker StatefulSet / fuse DaemonSet pod specs."
+}
