@@ -1,7 +1,14 @@
 # refresh-capacity-labels-claude — bug verification
 
 Reproducible evidence for the findings raised while reviewing
-https://github.com/fluid-cloudnative/fluid/pull/6244 (head `e0cba66e`, base `ff99142f`).
+https://github.com/fluid-cloudnative/fluid/pull/6244 (base `ff99142f`).
+
+**Round 2 (head `7de88000e`): F1 is FIXED.** The PR added the proposed guard to
+`syncCapacityInfoOnNode` (mirroring `addScheduleInfoToNode`) plus two entry-point tests
+through `SyncScheduleInfoToCacheNodes` (repair + steady-state zero-patch, and
+exclude-selector untouched). All 32 specs in the package pass on head, including the C3
+contract that failed on the previous head `e0cba66e`. See
+`results/reverify-head2/` for this round's raw output and the table below.
 
 Reviewer: Claude (Reviewer A, PR-debate pipeline). **Additive only — production code is
 untouched on this branch**; the harness is one new test file next to the code it exercises.
@@ -39,6 +46,29 @@ Code under review = PR head `e0cba66e`. Base = `ff99142f` (premise + differentia
 | P0 | stale capacity labels are never refreshed on already-labelled nodes | FAIL (bug present) | — | **Confirmed (premise)** | results/base.out |
 | PR6244-fix-regression | `SyncScheduleInfoToCacheNodes` refreshes outdated labels (C1), drops labels of removed tiers (C2), and does not write on steady state (C4) | FAIL | PASS | **Fix works as claimed** | results/head.out; C4 shows 0 Patch calls when labels already match (counting-client), C4b proves the counter bites |
 | F1-exclude-selector-bypass | nodes matching `nodeExcludeSelector` (FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR) must not be written to by the schedule-info sync | PASS (already-labelled nodes never touched) | FAIL (labels patched) | **Confirmed, introduced by this PR** | results/head.out — the node ends with m=1GiB/d=2GiB/t=3GiB although it matches the exclude selector |
+
+### Round 2 re-verification (head `7de88000e`, delta `e0cba66e..7de88000e`)
+
+Delta reviewed: commit "fix(lifecycle): skip excluded nodes when refreshing capacity labels"
+adds the `nodeExcludeSelector` guard to `syncCapacityInfoOnNode` (exact mirror of
+`addScheduleInfoToNode`: same position after the node `Get`, same predicate, same V(1) log) and
+two new entry-point specs in `node_test.go` driven through `SyncScheduleInfoToCacheNodes` with
+a patch-counting interceptor client.
+
+| ID | Claim | base | previous head (`e0cba66e`) | head (`7de88000e`) | Verdict | Evidence |
+|----|-------|------|---------------------------|--------------------|---------|----------|
+| F1-exclude-selector-bypass | excluded nodes untouched by the refresh | PASS | FAIL | **PASS** | **Fixed** | results/reverify-head2/ginkgo-report.json — "should leave nodes matching nodeExcludeSelector untouched" green; the PR's own "should leave nodes matching the exclude selector untouched" also green |
+| PR6244-fix-regression | refresh (C1) / tier removal (C2) / steady-state no-write (C4) | FAIL | PASS | **PASS** | **Still fixed (no regression)** | results/reverify-head2/ginkgo-report.json — all three green; C4b bites-check green |
+| F2-missing-entry-point-test | PR's own tests cover the wiring through the entry point | — | absent | **present & green** | **Fixed** | node_test.go "Test SyncScheduleInfoToCacheNodes refreshing capacity labels": repair + second-sync zero-patch, plus the exclude-selector entry test; both pass on head |
+
+Full package suite on head: **32/32 specs pass** (30 from round 1 + the PR's two new
+entry-point specs), `gofmt`/`go vet` clean, `results/reverify-head2/unit.out`.
+
+Note on the guard's blast radius: the early `return nil` for excluded nodes skips only the
+capacity-label write; no cleanup, retry, or status update is skipped (the caller
+`syncCapacityInfoOnNodes` only logs errors, and the removal path is unchanged). Excluded
+nodes keep their runtime label and stale capacity labels — the same opt-out contract
+`addScheduleInfoToNode` already gives the operator.
 
 ## Per-finding detail
 

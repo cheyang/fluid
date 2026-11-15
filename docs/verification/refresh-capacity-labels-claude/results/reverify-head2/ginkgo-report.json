@@ -1,0 +1,4770 @@
+[
+  {
+    "SuitePath": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle",
+    "SuiteDescription": "Lifecycle Suite",
+    "SuiteLabels": [],
+    "SuiteSemVerConstraints": [],
+    "SuiteSucceeded": true,
+    "SuiteHasProgrammaticFocus": false,
+    "SpecialSuiteFailureReasons": null,
+    "PreRunStats": {
+      "TotalSpecs": 32,
+      "SpecsThatWillRun": 32
+    },
+    "StartTime": "2026-11-16T06:21:31.752384324+08:00",
+    "EndTime": "2026-11-16T06:21:31.764899509+08:00",
+    "RunTime": 12515196,
+    "SuiteConfig": {
+      "RandomSeed": 1794781291,
+      "RandomizeAllSpecs": false,
+      "FocusStrings": null,
+      "SkipStrings": null,
+      "FocusFiles": null,
+      "SkipFiles": null,
+      "LabelFilter": "",
+      "SemVerFilter": "",
+      "FailOnPending": false,
+      "FailOnEmpty": false,
+      "FailFast": false,
+      "FlakeAttempts": 0,
+      "MustPassRepeatedly": 0,
+      "DryRun": false,
+      "PollProgressAfter": 0,
+      "PollProgressInterval": 0,
+      "Timeout": 3600000000000,
+      "EmitSpecProgress": false,
+      "OutputInterceptorMode": "",
+      "SourceRoots": null,
+      "GracePeriod": 30000000000,
+      "ParallelProcess": 1,
+      "ParallelTotal": 1,
+      "ParallelHost": ""
+    },
+    "SpecReports": [
+      {
+        "ContainerHierarchyTexts": [
+          "Verify PR #6244: capacity label refresh on already-labelled nodes",
+          "C1/P0: entry point refreshes outdated capacity labels on an already-labelled node"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 85
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 154
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+          "LineNumber": 155
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should refresh outdated capacity labels on a node that already has the runtime label",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.752438956+08:00",
+        "EndTime": "2026-11-16T06:21:31.75424461+08:00",
+        "RunTime": 1805654,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 155
+            },
+            "TimelineLocation": {
+              "Order": 1,
+              "Time": "2026-11-16T06:21:31.752453976+08:00"
+            },
+            "Message": "should refresh outdated capacity labels on a node that already has the runtime label",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 155
+            },
+            "TimelineLocation": {
+              "Order": 3,
+              "Time": "2026-11-16T06:21:31.75423943+08:00"
+            },
+            "Message": "should refresh outdated capacity labels on a node that already has the runtime label",
+            "Duration": 1785444,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Verify PR #6244: capacity label refresh on already-labelled nodes",
+          "C2: entry point drops the capacity label of a removed tier"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 85
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 179
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+          "LineNumber": 180
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove the capacity label of a tier the runtime no longer has",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.754288412+08:00",
+        "EndTime": "2026-11-16T06:21:31.754955535+08:00",
+        "RunTime": 667123,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 180
+            },
+            "TimelineLocation": {
+              "Order": 4,
+              "Time": "2026-11-16T06:21:31.754291732+08:00"
+            },
+            "Message": "should remove the capacity label of a tier the runtime no longer has",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 180
+            },
+            "TimelineLocation": {
+              "Order": 6,
+              "Time": "2026-11-16T06:21:31.754953195+08:00"
+            },
+            "Message": "should remove the capacity label of a tier the runtime no longer has",
+            "Duration": 661463,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Verify PR #6244: capacity label refresh on already-labelled nodes",
+          "C3: entry point must honor nodeExcludeSelector"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 85
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 205
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+          "LineNumber": 206
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should leave nodes matching nodeExcludeSelector untouched",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.754965936+08:00",
+        "EndTime": "2026-11-16T06:21:31.755284777+08:00",
+        "RunTime": 318841,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 206
+            },
+            "TimelineLocation": {
+              "Order": 7,
+              "Time": "2026-11-16T06:21:31.754967816+08:00"
+            },
+            "Message": "should leave nodes matching nodeExcludeSelector untouched",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 206
+            },
+            "TimelineLocation": {
+              "Order": 9,
+              "Time": "2026-11-16T06:21:31.755251506+08:00"
+            },
+            "Message": "should leave nodes matching nodeExcludeSelector untouched",
+            "Duration": 283700,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 226
+            },
+            "TimelineLocation": {
+              "Order": 10,
+              "Time": "2026-11-16T06:21:31.755268637+08:00"
+            },
+            "Message": "C3: entry point must honor nodeExcludeSelector",
+            "NodeType": "DeferCleanup (Each)"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 226
+            },
+            "TimelineLocation": {
+              "Order": 12,
+              "Time": "2026-11-16T06:21:31.755284157+08:00"
+            },
+            "Message": "C3: entry point must honor nodeExcludeSelector",
+            "Duration": 15530,
+            "NodeType": "DeferCleanup (Each)"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Verify PR #6244: capacity label refresh on already-labelled nodes",
+          "C4: steady state must not write"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 85
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 239
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+          "LineNumber": 240
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should not patch a node whose capacity labels already match",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.755294978+08:00",
+        "EndTime": "2026-11-16T06:21:31.755563617+08:00",
+        "RunTime": 268630,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 240
+            },
+            "TimelineLocation": {
+              "Order": 13,
+              "Time": "2026-11-16T06:21:31.755296007+08:00"
+            },
+            "Message": "should not patch a node whose capacity labels already match",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 240
+            },
+            "TimelineLocation": {
+              "Order": 15,
+              "Time": "2026-11-16T06:21:31.755562707+08:00"
+            },
+            "Message": "should not patch a node whose capacity labels already match",
+            "Duration": 266710,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Verify PR #6244: capacity label refresh on already-labelled nodes",
+          "C4b: harness-bites check for the counting client"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 85
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+            "LineNumber": 263
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+          "LineNumber": 264
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should observe a patch when labels are outdated",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.755570107+08:00",
+        "EndTime": "2026-11-16T06:21:31.755993972+08:00",
+        "RunTime": 423855,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 264
+            },
+            "TimelineLocation": {
+              "Order": 16,
+              "Time": "2026-11-16T06:21:31.755571117+08:00"
+            },
+            "Message": "should observe a patch when labels are outdated",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_capacity_verify_test.go",
+              "LineNumber": 264
+            },
+            "TimelineLocation": {
+              "Order": 18,
+              "Time": "2026-11-16T06:21:31.755992922+08:00"
+            },
+            "Message": "should observe a patch when labels are outdated",
+            "Duration": 421795,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given exclusive placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 68
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 69
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 84
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add exclusive labels to node",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.756004523+08:00",
+        "EndTime": "2026-11-16T06:21:31.756448328+08:00",
+        "RunTime": 443805,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 19,
+              "Time": "2026-11-16T06:21:31.756007393+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 21,
+              "Time": "2026-11-16T06:21:31.756184309+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 176906,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 70
+            },
+            "TimelineLocation": {
+              "Order": 22,
+              "Time": "2026-11-16T06:21:31.756185049+08:00"
+            },
+            "Message": "when given exclusive placement mode runtime",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 70
+            },
+            "TimelineLocation": {
+              "Order": 24,
+              "Time": "2026-11-16T06:21:31.756192439+08:00"
+            },
+            "Message": "when given exclusive placement mode runtime",
+            "Duration": 7401,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 25,
+              "Time": "2026-11-16T06:21:31.756192839+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 27,
+              "Time": "2026-11-16T06:21:31.75621096+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 18131,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 84
+            },
+            "TimelineLocation": {
+              "Order": 28,
+              "Time": "2026-11-16T06:21:31.75621142+08:00"
+            },
+            "Message": "should add exclusive labels to node",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 84
+            },
+            "TimelineLocation": {
+              "Order": 30,
+              "Time": "2026-11-16T06:21:31.756447268+08:00"
+            },
+            "Message": "should add exclusive labels to node",
+            "Duration": 235848,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given share placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 68
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 103
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 118
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add share mode labels to node",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.756455559+08:00",
+        "EndTime": "2026-11-16T06:21:31.756808041+08:00",
+        "RunTime": 352492,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 31,
+              "Time": "2026-11-16T06:21:31.756457339+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 33,
+              "Time": "2026-11-16T06:21:31.756601984+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 144645,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 104
+            },
+            "TimelineLocation": {
+              "Order": 34,
+              "Time": "2026-11-16T06:21:31.756602594+08:00"
+            },
+            "Message": "when given share placement mode runtime",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 104
+            },
+            "TimelineLocation": {
+              "Order": 36,
+              "Time": "2026-11-16T06:21:31.756611404+08:00"
+            },
+            "Message": "when given share placement mode runtime",
+            "Duration": 8810,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 37,
+              "Time": "2026-11-16T06:21:31.756612044+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 39,
+              "Time": "2026-11-16T06:21:31.756627395+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 15351,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 118
+            },
+            "TimelineLocation": {
+              "Order": 40,
+              "Time": "2026-11-16T06:21:31.756627875+08:00"
+            },
+            "Message": "should add share mode labels to node",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 118
+            },
+            "TimelineLocation": {
+              "Order": 42,
+              "Time": "2026-11-16T06:21:31.756807211+08:00"
+            },
+            "Message": "should add share mode labels to node",
+            "Duration": 179326,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given runtime with tiered store"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 68
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 137
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 172
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add capacity labels to node",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.756813572+08:00",
+        "EndTime": "2026-11-16T06:21:31.757180685+08:00",
+        "RunTime": 367104,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 43,
+              "Time": "2026-11-16T06:21:31.756814961+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 45,
+              "Time": "2026-11-16T06:21:31.756956197+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 141225,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 138
+            },
+            "TimelineLocation": {
+              "Order": 46,
+              "Time": "2026-11-16T06:21:31.756957367+08:00"
+            },
+            "Message": "when given runtime with tiered store",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 138
+            },
+            "TimelineLocation": {
+              "Order": 48,
+              "Time": "2026-11-16T06:21:31.756968637+08:00"
+            },
+            "Message": "when given runtime with tiered store",
+            "Duration": 11270,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 49,
+              "Time": "2026-11-16T06:21:31.756968987+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 51,
+              "Time": "2026-11-16T06:21:31.756979718+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 10731,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 172
+            },
+            "TimelineLocation": {
+              "Order": 52,
+              "Time": "2026-11-16T06:21:31.756980087+08:00"
+            },
+            "Message": "should add capacity labels to node",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 172
+            },
+            "TimelineLocation": {
+              "Order": 54,
+              "Time": "2026-11-16T06:21:31.757179814+08:00"
+            },
+            "Message": "should add capacity labels to node",
+            "Duration": 199727,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has dataset-num label with value 2"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 191
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 192
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 193
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should decrease dataset number to 1",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.757185735+08:00",
+        "EndTime": "2026-11-16T06:21:31.757374241+08:00",
+        "RunTime": 188506,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 55,
+              "Time": "2026-11-16T06:21:31.757187185+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 57,
+              "Time": "2026-11-16T06:21:31.75733892+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 151735,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 58,
+              "Time": "2026-11-16T06:21:31.75733948+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 60,
+              "Time": "2026-11-16T06:21:31.757362541+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 23061,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 193
+            },
+            "TimelineLocation": {
+              "Order": 61,
+              "Time": "2026-11-16T06:21:31.757362981+08:00"
+            },
+            "Message": "should decrease dataset number to 1",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 193
+            },
+            "TimelineLocation": {
+              "Order": 63,
+              "Time": "2026-11-16T06:21:31.757373472+08:00"
+            },
+            "Message": "should decrease dataset number to 1",
+            "Duration": 10491,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has dataset-num label with value 1"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 191
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 212
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 213
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should delete dataset-num label",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.757381322+08:00",
+        "EndTime": "2026-11-16T06:21:31.757552808+08:00",
+        "RunTime": 171486,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 64,
+              "Time": "2026-11-16T06:21:31.757383942+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 66,
+              "Time": "2026-11-16T06:21:31.757530537+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 146605,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 67,
+              "Time": "2026-11-16T06:21:31.757531207+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 69,
+              "Time": "2026-11-16T06:21:31.757542847+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 11640,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 213
+            },
+            "TimelineLocation": {
+              "Order": 70,
+              "Time": "2026-11-16T06:21:31.757543427+08:00"
+            },
+            "Message": "should delete dataset-num label",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 213
+            },
+            "TimelineLocation": {
+              "Order": 72,
+              "Time": "2026-11-16T06:21:31.757552138+08:00"
+            },
+            "Message": "should delete dataset-num label",
+            "Duration": 8711,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has invalid dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 191
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 231
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 232
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return error",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.757556288+08:00",
+        "EndTime": "2026-11-16T06:21:31.757731954+08:00",
+        "RunTime": 175666,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 73,
+              "Time": "2026-11-16T06:21:31.757558048+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 75,
+              "Time": "2026-11-16T06:21:31.757701623+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 143565,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 76,
+              "Time": "2026-11-16T06:21:31.757702303+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 78,
+              "Time": "2026-11-16T06:21:31.757721284+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 18971,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 232
+            },
+            "TimelineLocation": {
+              "Order": 79,
+              "Time": "2026-11-16T06:21:31.757721604+08:00"
+            },
+            "Message": "should return error",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 232
+            },
+            "TimelineLocation": {
+              "Order": 81,
+              "Time": "2026-11-16T06:21:31.757731244+08:00"
+            },
+            "Message": "should return error",
+            "Duration": 9650,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has no dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 191
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 244
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 245
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should not modify labels",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.757736154+08:00",
+        "EndTime": "2026-11-16T06:21:31.75788997+08:00",
+        "RunTime": 153866,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 82,
+              "Time": "2026-11-16T06:21:31.757737154+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 84,
+              "Time": "2026-11-16T06:21:31.757871169+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 134025,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 85,
+              "Time": "2026-11-16T06:21:31.757872009+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 87,
+              "Time": "2026-11-16T06:21:31.757882259+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 10250,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 245
+            },
+            "TimelineLocation": {
+              "Order": 88,
+              "Time": "2026-11-16T06:21:31.75788271+08:00"
+            },
+            "Message": "should not modify labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 245
+            },
+            "TimelineLocation": {
+              "Order": 90,
+              "Time": "2026-11-16T06:21:31.75788915+08:00"
+            },
+            "Message": "should not modify labels",
+            "Duration": 6450,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test increaseDatasetNum",
+          "when node has existing dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 259
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 260
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 261
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should increase dataset number",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.75789407+08:00",
+        "EndTime": "2026-11-16T06:21:31.758042665+08:00",
+        "RunTime": 148605,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 91,
+              "Time": "2026-11-16T06:21:31.7578952+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 93,
+              "Time": "2026-11-16T06:21:31.758023495+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 128285,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 94,
+              "Time": "2026-11-16T06:21:31.758024795+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 96,
+              "Time": "2026-11-16T06:21:31.758034605+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 9820,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 261
+            },
+            "TimelineLocation": {
+              "Order": 97,
+              "Time": "2026-11-16T06:21:31.758035035+08:00"
+            },
+            "Message": "should increase dataset number",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 261
+            },
+            "TimelineLocation": {
+              "Order": 99,
+              "Time": "2026-11-16T06:21:31.758042005+08:00"
+            },
+            "Message": "should increase dataset number",
+            "Duration": 6970,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test increaseDatasetNum",
+          "when node has no dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 259
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 279
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 280
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add dataset-num label with value 1",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.758051866+08:00",
+        "EndTime": "2026-11-16T06:21:31.758204121+08:00",
+        "RunTime": 152255,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 100,
+              "Time": "2026-11-16T06:21:31.758052826+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 102,
+              "Time": "2026-11-16T06:21:31.75818156+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 128744,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 103,
+              "Time": "2026-11-16T06:21:31.75818212+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 105,
+              "Time": "2026-11-16T06:21:31.758193931+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 11821,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 280
+            },
+            "TimelineLocation": {
+              "Order": 106,
+              "Time": "2026-11-16T06:21:31.758194371+08:00"
+            },
+            "Message": "should add dataset-num label with value 1",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 280
+            },
+            "TimelineLocation": {
+              "Order": 108,
+              "Time": "2026-11-16T06:21:31.758203521+08:00"
+            },
+            "Message": "should add dataset-num label with value 1",
+            "Duration": 9150,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has runtime label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 299
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 300
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 301
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return true",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.758209141+08:00",
+        "EndTime": "2026-11-16T06:21:31.758374917+08:00",
+        "RunTime": 165776,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 109,
+              "Time": "2026-11-16T06:21:31.758210301+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 111,
+              "Time": "2026-11-16T06:21:31.758353596+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 143285,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 112,
+              "Time": "2026-11-16T06:21:31.758354076+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 114,
+              "Time": "2026-11-16T06:21:31.758365497+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 11431,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 301
+            },
+            "TimelineLocation": {
+              "Order": 115,
+              "Time": "2026-11-16T06:21:31.758365817+08:00"
+            },
+            "Message": "should return true",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 301
+            },
+            "TimelineLocation": {
+              "Order": 117,
+              "Time": "2026-11-16T06:21:31.758374117+08:00"
+            },
+            "Message": "should return true",
+            "Duration": 8300,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has no runtime label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 299
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 316
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 317
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.758379857+08:00",
+        "EndTime": "2026-11-16T06:21:31.758527222+08:00",
+        "RunTime": 147365,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 118,
+              "Time": "2026-11-16T06:21:31.758381577+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 120,
+              "Time": "2026-11-16T06:21:31.758506252+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 124665,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 121,
+              "Time": "2026-11-16T06:21:31.758506612+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 123,
+              "Time": "2026-11-16T06:21:31.758517982+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 11370,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 317
+            },
+            "TimelineLocation": {
+              "Order": 124,
+              "Time": "2026-11-16T06:21:31.758518312+08:00"
+            },
+            "Message": "should return false",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 317
+            },
+            "TimelineLocation": {
+              "Order": 126,
+              "Time": "2026-11-16T06:21:31.758526413+08:00"
+            },
+            "Message": "should return false",
+            "Duration": 8101,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has no labels"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 299
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 332
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 333
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.758530973+08:00",
+        "EndTime": "2026-11-16T06:21:31.758675488+08:00",
+        "RunTime": 144515,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 127,
+              "Time": "2026-11-16T06:21:31.758531993+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 129,
+              "Time": "2026-11-16T06:21:31.758655047+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 123064,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 130,
+              "Time": "2026-11-16T06:21:31.758655537+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 132,
+              "Time": "2026-11-16T06:21:31.758665358+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 9820,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 333
+            },
+            "TimelineLocation": {
+              "Order": 133,
+              "Time": "2026-11-16T06:21:31.758666087+08:00"
+            },
+            "Message": "should return false",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 333
+            },
+            "TimelineLocation": {
+              "Order": 135,
+              "Time": "2026-11-16T06:21:31.758674888+08:00"
+            },
+            "Message": "should return false",
+            "Duration": 8790,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given exclusive placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 347
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 348
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 371
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove fluid labels and keep other labels",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.758682478+08:00",
+        "EndTime": "2026-11-16T06:21:31.7590315+08:00",
+        "RunTime": 349033,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 136,
+              "Time": "2026-11-16T06:21:31.758684698+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 138,
+              "Time": "2026-11-16T06:21:31.758811883+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 127185,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 349
+            },
+            "TimelineLocation": {
+              "Order": 139,
+              "Time": "2026-11-16T06:21:31.758812783+08:00"
+            },
+            "Message": "when given exclusive placement mode runtime",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 349
+            },
+            "TimelineLocation": {
+              "Order": 141,
+              "Time": "2026-11-16T06:21:31.758819923+08:00"
+            },
+            "Message": "when given exclusive placement mode runtime",
+            "Duration": 7140,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 142,
+              "Time": "2026-11-16T06:21:31.758820413+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 144,
+              "Time": "2026-11-16T06:21:31.758831664+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 11250,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 371
+            },
+            "TimelineLocation": {
+              "Order": 145,
+              "Time": "2026-11-16T06:21:31.758832073+08:00"
+            },
+            "Message": "should remove fluid labels and keep other labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 371
+            },
+            "TimelineLocation": {
+              "Order": 147,
+              "Time": "2026-11-16T06:21:31.75903046+08:00"
+            },
+            "Message": "should remove fluid labels and keep other labels",
+            "Duration": 198398,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given share placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 347
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 397
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 418
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove all fluid labels",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.759036631+08:00",
+        "EndTime": "2026-11-16T06:21:31.759361632+08:00",
+        "RunTime": 324991,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 148,
+              "Time": "2026-11-16T06:21:31.759038121+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 150,
+              "Time": "2026-11-16T06:21:31.759175816+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 137695,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 398
+            },
+            "TimelineLocation": {
+              "Order": 151,
+              "Time": "2026-11-16T06:21:31.759178156+08:00"
+            },
+            "Message": "when given share placement mode runtime",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 398
+            },
+            "TimelineLocation": {
+              "Order": 153,
+              "Time": "2026-11-16T06:21:31.759184676+08:00"
+            },
+            "Message": "when given share placement mode runtime",
+            "Duration": 6520,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 154,
+              "Time": "2026-11-16T06:21:31.759185106+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 156,
+              "Time": "2026-11-16T06:21:31.759195946+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 10851,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 418
+            },
+            "TimelineLocation": {
+              "Order": 157,
+              "Time": "2026-11-16T06:21:31.759196286+08:00"
+            },
+            "Message": "should remove all fluid labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 418
+            },
+            "TimelineLocation": {
+              "Order": 159,
+              "Time": "2026-11-16T06:21:31.759360812+08:00"
+            },
+            "Message": "should remove all fluid labels",
+            "Duration": 164536,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given runtime with tiered store"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 347
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 440
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 484
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove all fluid labels including capacity labels",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.759367052+08:00",
+        "EndTime": "2026-11-16T06:21:31.759687804+08:00",
+        "RunTime": 320752,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 160,
+              "Time": "2026-11-16T06:21:31.759368572+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 162,
+              "Time": "2026-11-16T06:21:31.759504567+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 135995,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 441
+            },
+            "TimelineLocation": {
+              "Order": 163,
+              "Time": "2026-11-16T06:21:31.759505088+08:00"
+            },
+            "Message": "when given runtime with tiered store",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 441
+            },
+            "TimelineLocation": {
+              "Order": 165,
+              "Time": "2026-11-16T06:21:31.759517568+08:00"
+            },
+            "Message": "when given runtime with tiered store",
+            "Duration": 12471,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 166,
+              "Time": "2026-11-16T06:21:31.759517908+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 168,
+              "Time": "2026-11-16T06:21:31.759530968+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 13060,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 484
+            },
+            "TimelineLocation": {
+              "Order": 169,
+              "Time": "2026-11-16T06:21:31.759531388+08:00"
+            },
+            "Message": "should remove all fluid labels including capacity labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 484
+            },
+            "TimelineLocation": {
+              "Order": 171,
+              "Time": "2026-11-16T06:21:31.759686914+08:00"
+            },
+            "Message": "should remove all fluid labels including capacity labels",
+            "Duration": 155536,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test syncCapacityInfoOnNode()",
+          "when the node was labelled with an empty tiered store"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 510
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 539
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 549
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should write the current capacity labels",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.759694144+08:00",
+        "EndTime": "2026-11-16T06:21:31.760030506+08:00",
+        "RunTime": 336362,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 172,
+              "Time": "2026-11-16T06:21:31.759696044+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 174,
+              "Time": "2026-11-16T06:21:31.759828309+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 132265,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 513
+            },
+            "TimelineLocation": {
+              "Order": 175,
+              "Time": "2026-11-16T06:21:31.759828989+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 513
+            },
+            "TimelineLocation": {
+              "Order": 177,
+              "Time": "2026-11-16T06:21:31.759837589+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "Duration": 8600,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 540
+            },
+            "TimelineLocation": {
+              "Order": 178,
+              "Time": "2026-11-16T06:21:31.759838229+08:00"
+            },
+            "Message": "when the node was labelled with an empty tiered store",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 540
+            },
+            "TimelineLocation": {
+              "Order": 180,
+              "Time": "2026-11-16T06:21:31.759844629+08:00"
+            },
+            "Message": "when the node was labelled with an empty tiered store",
+            "Duration": 6390,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 181,
+              "Time": "2026-11-16T06:21:31.75984522+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 183,
+              "Time": "2026-11-16T06:21:31.75985176+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 6550,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 533
+            },
+            "TimelineLocation": {
+              "Order": 184,
+              "Time": "2026-11-16T06:21:31.75985211+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 533
+            },
+            "TimelineLocation": {
+              "Order": 186,
+              "Time": "2026-11-16T06:21:31.75986238+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "Duration": 10260,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 549
+            },
+            "TimelineLocation": {
+              "Order": 187,
+              "Time": "2026-11-16T06:21:31.7598627+08:00"
+            },
+            "Message": "should write the current capacity labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 549
+            },
+            "TimelineLocation": {
+              "Order": 189,
+              "Time": "2026-11-16T06:21:31.760029446+08:00"
+            },
+            "Message": "should write the current capacity labels",
+            "Duration": 166746,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test syncCapacityInfoOnNode()",
+          "when the node has a label for a tier the runtime no longer has"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 510
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 561
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 583
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove the stale tier label",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.760035136+08:00",
+        "EndTime": "2026-11-16T06:21:31.760367018+08:00",
+        "RunTime": 331872,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 190,
+              "Time": "2026-11-16T06:21:31.760036586+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 192,
+              "Time": "2026-11-16T06:21:31.760176671+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 140095,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 513
+            },
+            "TimelineLocation": {
+              "Order": 193,
+              "Time": "2026-11-16T06:21:31.760177181+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 513
+            },
+            "TimelineLocation": {
+              "Order": 195,
+              "Time": "2026-11-16T06:21:31.760185992+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "Duration": 8811,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 562
+            },
+            "TimelineLocation": {
+              "Order": 196,
+              "Time": "2026-11-16T06:21:31.760186462+08:00"
+            },
+            "Message": "when the node has a label for a tier the runtime no longer has",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 562
+            },
+            "TimelineLocation": {
+              "Order": 198,
+              "Time": "2026-11-16T06:21:31.760193822+08:00"
+            },
+            "Message": "when the node has a label for a tier the runtime no longer has",
+            "Duration": 7350,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 199,
+              "Time": "2026-11-16T06:21:31.760194152+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 201,
+              "Time": "2026-11-16T06:21:31.760201212+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 7050,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 533
+            },
+            "TimelineLocation": {
+              "Order": 202,
+              "Time": "2026-11-16T06:21:31.760201712+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 533
+            },
+            "TimelineLocation": {
+              "Order": 204,
+              "Time": "2026-11-16T06:21:31.760209602+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "Duration": 7890,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 583
+            },
+            "TimelineLocation": {
+              "Order": 205,
+              "Time": "2026-11-16T06:21:31.760209922+08:00"
+            },
+            "Message": "should remove the stale tier label",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 583
+            },
+            "TimelineLocation": {
+              "Order": 207,
+              "Time": "2026-11-16T06:21:31.760366248+08:00"
+            },
+            "Message": "should remove the stale tier label",
+            "Duration": 156326,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test syncCapacityInfoOnNode()",
+          "when the node doesn't have the runtime label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 510
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 594
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 600
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should leave the node alone",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.760372578+08:00",
+        "EndTime": "2026-11-16T06:21:31.760588136+08:00",
+        "RunTime": 215548,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 208,
+              "Time": "2026-11-16T06:21:31.760374068+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 210,
+              "Time": "2026-11-16T06:21:31.760516793+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 142725,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 513
+            },
+            "TimelineLocation": {
+              "Order": 211,
+              "Time": "2026-11-16T06:21:31.760517553+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 513
+            },
+            "TimelineLocation": {
+              "Order": 213,
+              "Time": "2026-11-16T06:21:31.760533114+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "Duration": 15561,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 595
+            },
+            "TimelineLocation": {
+              "Order": 214,
+              "Time": "2026-11-16T06:21:31.760533524+08:00"
+            },
+            "Message": "when the node doesn't have the runtime label",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 595
+            },
+            "TimelineLocation": {
+              "Order": 216,
+              "Time": "2026-11-16T06:21:31.760552155+08:00"
+            },
+            "Message": "when the node doesn't have the runtime label",
+            "Duration": 18631,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 217,
+              "Time": "2026-11-16T06:21:31.760552705+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 219,
+              "Time": "2026-11-16T06:21:31.760558985+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 6290,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 533
+            },
+            "TimelineLocation": {
+              "Order": 220,
+              "Time": "2026-11-16T06:21:31.760559315+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 533
+            },
+            "TimelineLocation": {
+              "Order": 222,
+              "Time": "2026-11-16T06:21:31.760565985+08:00"
+            },
+            "Message": "Test syncCapacityInfoOnNode()",
+            "Duration": 6670,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 600
+            },
+            "TimelineLocation": {
+              "Order": 223,
+              "Time": "2026-11-16T06:21:31.760566415+08:00"
+            },
+            "Message": "should leave the node alone",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 600
+            },
+            "TimelineLocation": {
+              "Order": 225,
+              "Time": "2026-11-16T06:21:31.760587506+08:00"
+            },
+            "Message": "should leave the node alone",
+            "Duration": 21091,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test SyncScheduleInfoToCacheNodes refreshing capacity labels"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 610
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 678
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should repair outdated capacity labels and not patch again once they match",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.760592796+08:00",
+        "EndTime": "2026-11-16T06:21:31.761796049+08:00",
+        "RunTime": 1203253,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 226,
+              "Time": "2026-11-16T06:21:31.760595346+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 228,
+              "Time": "2026-11-16T06:21:31.761051452+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 456096,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 616
+            },
+            "TimelineLocation": {
+              "Order": 229,
+              "Time": "2026-11-16T06:21:31.761055813+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 616
+            },
+            "TimelineLocation": {
+              "Order": 231,
+              "Time": "2026-11-16T06:21:31.761100454+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
+            "Duration": 44631,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 232,
+              "Time": "2026-11-16T06:21:31.761101364+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 234,
+              "Time": "2026-11-16T06:21:31.761131195+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 29831,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 639
+            },
+            "TimelineLocation": {
+              "Order": 235,
+              "Time": "2026-11-16T06:21:31.761131925+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 639
+            },
+            "TimelineLocation": {
+              "Order": 237,
+              "Time": "2026-11-16T06:21:31.761191968+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
+            "Duration": 60042,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 678
+            },
+            "TimelineLocation": {
+              "Order": 238,
+              "Time": "2026-11-16T06:21:31.761192668+08:00"
+            },
+            "Message": "should repair outdated capacity labels and not patch again once they match",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 678
+            },
+            "TimelineLocation": {
+              "Order": 240,
+              "Time": "2026-11-16T06:21:31.761783149+08:00"
+            },
+            "Message": "should repair outdated capacity labels and not patch again once they match",
+            "Duration": 590472,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 674
+            },
+            "TimelineLocation": {
+              "Order": 241,
+              "Time": "2026-11-16T06:21:31.761786719+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 674
+            },
+            "TimelineLocation": {
+              "Order": 243,
+              "Time": "2026-11-16T06:21:31.761795009+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
+            "Duration": 8300,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test SyncScheduleInfoToCacheNodes refreshing capacity labels"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 610
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 692
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should leave nodes matching the exclude selector untouched",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.761806329+08:00",
+        "EndTime": "2026-11-16T06:21:31.76210683+08:00",
+        "RunTime": 300511,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 244,
+              "Time": "2026-11-16T06:21:31.76180957+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 246,
+              "Time": "2026-11-16T06:21:31.761966115+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 156555,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 616
+            },
+            "TimelineLocation": {
+              "Order": 247,
+              "Time": "2026-11-16T06:21:31.761966885+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 616
+            },
+            "TimelineLocation": {
+              "Order": 249,
+              "Time": "2026-11-16T06:21:31.761975505+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
+            "Duration": 8610,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 250,
+              "Time": "2026-11-16T06:21:31.761975835+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 252,
+              "Time": "2026-11-16T06:21:31.761984966+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 9131,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 639
+            },
+            "TimelineLocation": {
+              "Order": 253,
+              "Time": "2026-11-16T06:21:31.761985796+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 639
+            },
+            "TimelineLocation": {
+              "Order": 255,
+              "Time": "2026-11-16T06:21:31.762007737+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
+            "Duration": 21941,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 692
+            },
+            "TimelineLocation": {
+              "Order": 256,
+              "Time": "2026-11-16T06:21:31.762008266+08:00"
+            },
+            "Message": "should leave nodes matching the exclude selector untouched",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 692
+            },
+            "TimelineLocation": {
+              "Order": 258,
+              "Time": "2026-11-16T06:21:31.7620997+08:00"
+            },
+            "Message": "should leave nodes matching the exclude selector untouched",
+            "Duration": 91434,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 674
+            },
+            "TimelineLocation": {
+              "Order": 259,
+              "Time": "2026-11-16T06:21:31.7621008+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 674
+            },
+            "TimelineLocation": {
+              "Order": 261,
+              "Time": "2026-11-16T06:21:31.76210625+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
+            "Duration": 5450,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given current and previous node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 705
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 706
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 707
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should calculate correct differences",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.76211497+08:00",
+        "EndTime": "2026-11-16T06:21:31.762287727+08:00",
+        "RunTime": 172756,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 262,
+              "Time": "2026-11-16T06:21:31.7621162+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 264,
+              "Time": "2026-11-16T06:21:31.762266386+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 150176,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 265,
+              "Time": "2026-11-16T06:21:31.762267066+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 267,
+              "Time": "2026-11-16T06:21:31.762276646+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 9580,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 707
+            },
+            "TimelineLocation": {
+              "Order": 268,
+              "Time": "2026-11-16T06:21:31.762277106+08:00"
+            },
+            "Message": "should calculate correct differences",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 707
+            },
+            "TimelineLocation": {
+              "Order": 270,
+              "Time": "2026-11-16T06:21:31.762286927+08:00"
+            },
+            "Message": "should calculate correct differences",
+            "Duration": 9830,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given identical node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 705
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 718
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 719
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return empty differences",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.762292737+08:00",
+        "EndTime": "2026-11-16T06:21:31.762443082+08:00",
+        "RunTime": 150345,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 271,
+              "Time": "2026-11-16T06:21:31.762294097+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 273,
+              "Time": "2026-11-16T06:21:31.762427881+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 133784,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 274,
+              "Time": "2026-11-16T06:21:31.762428952+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 276,
+              "Time": "2026-11-16T06:21:31.762435712+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 6761,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 719
+            },
+            "TimelineLocation": {
+              "Order": 277,
+              "Time": "2026-11-16T06:21:31.762436222+08:00"
+            },
+            "Message": "should return empty differences",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 719
+            },
+            "TimelineLocation": {
+              "Order": 279,
+              "Time": "2026-11-16T06:21:31.762442562+08:00"
+            },
+            "Message": "should return empty differences",
+            "Duration": 6350,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given completely different node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 705
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 730
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 731
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return all nodes as differences",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.762447442+08:00",
+        "EndTime": "2026-11-16T06:21:31.762594547+08:00",
+        "RunTime": 147095,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 280,
+              "Time": "2026-11-16T06:21:31.762448472+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 282,
+              "Time": "2026-11-16T06:21:31.762580197+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 131725,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 283,
+              "Time": "2026-11-16T06:21:31.762580607+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 285,
+              "Time": "2026-11-16T06:21:31.762587647+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 7040,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 731
+            },
+            "TimelineLocation": {
+              "Order": 286,
+              "Time": "2026-11-16T06:21:31.762587967+08:00"
+            },
+            "Message": "should return all nodes as differences",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 731
+            },
+            "TimelineLocation": {
+              "Order": 288,
+              "Time": "2026-11-16T06:21:31.762594078+08:00"
+            },
+            "Message": "should return all nodes as differences",
+            "Duration": 6111,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test SyncScheduleInfoToCacheNodes",
+          "when calling SyncScheduleInfoToCacheNodes several times to mock runtime scaling"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 743
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 807
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 821
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should successfully add or remove schedule info on proper nodes",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.762598538+08:00",
+        "EndTime": "2026-11-16T06:21:31.764265587+08:00",
+        "RunTime": 1667059,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 289,
+              "Time": "2026-11-16T06:21:31.762600838+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 291,
+              "Time": "2026-11-16T06:21:31.762742473+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 141625,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 750
+            },
+            "TimelineLocation": {
+              "Order": 292,
+              "Time": "2026-11-16T06:21:31.762743023+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 750
+            },
+            "TimelineLocation": {
+              "Order": 294,
+              "Time": "2026-11-16T06:21:31.762756493+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes",
+            "Duration": 13460,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 809
+            },
+            "TimelineLocation": {
+              "Order": 295,
+              "Time": "2026-11-16T06:21:31.762757053+08:00"
+            },
+            "Message": "when calling SyncScheduleInfoToCacheNodes several times to mock runtime scaling",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 809
+            },
+            "TimelineLocation": {
+              "Order": 297,
+              "Time": "2026-11-16T06:21:31.762763324+08:00"
+            },
+            "Message": "when calling SyncScheduleInfoToCacheNodes several times to mock runtime scaling",
+            "Duration": 6271,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 298,
+              "Time": "2026-11-16T06:21:31.762763784+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 300,
+              "Time": "2026-11-16T06:21:31.762780094+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 16310,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 821
+            },
+            "TimelineLocation": {
+              "Order": 301,
+              "Time": "2026-11-16T06:21:31.762780554+08:00"
+            },
+            "Message": "should successfully add or remove schedule info on proper nodes",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 822
+            },
+            "TimelineLocation": {
+              "Order": 302,
+              "Time": "2026-11-16T06:21:31.762788424+08:00"
+            },
+            "Message": "scaling two pods to node-0 and node-1, the two nodes should have runtime labels"
+          },
+          {
+            "SpecEventType": "By (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 822
+            },
+            "TimelineLocation": {
+              "Order": 303,
+              "Time": "2026-11-16T06:21:31.763294482+08:00"
+            },
+            "Message": "scaling two pods to node-0 and node-1, the two nodes should have runtime labels",
+            "Duration": 506048
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 844
+            },
+            "TimelineLocation": {
+              "Order": 304,
+              "Time": "2026-11-16T06:21:31.763296872+08:00"
+            },
+            "Message": "scaling out a third pod to node-2, all pods should have runtime labels"
+          },
+          {
+            "SpecEventType": "By (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 844
+            },
+            "TimelineLocation": {
+              "Order": 305,
+              "Time": "2026-11-16T06:21:31.763601153+08:00"
+            },
+            "Message": "scaling out a third pod to node-2, all pods should have runtime labels",
+            "Duration": 304281
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 857
+            },
+            "TimelineLocation": {
+              "Order": 306,
+              "Time": "2026-11-16T06:21:31.763603053+08:00"
+            },
+            "Message": "scaling in pods on node-1 and node-2, only node-0 should have runtime labels"
+          },
+          {
+            "SpecEventType": "By (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 857
+            },
+            "TimelineLocation": {
+              "Order": 307,
+              "Time": "2026-11-16T06:21:31.764021208+08:00"
+            },
+            "Message": "scaling in pods on node-1 and node-2, only node-0 should have runtime labels",
+            "Duration": 418145
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 879
+            },
+            "TimelineLocation": {
+              "Order": 308,
+              "Time": "2026-11-16T06:21:31.764022598+08:00"
+            },
+            "Message": "scaling in the last pod node node-0, now all nodes should not have runtime labels"
+          },
+          {
+            "SpecEventType": "By (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 879
+            },
+            "TimelineLocation": {
+              "Order": 309,
+              "Time": "2026-11-16T06:21:31.764252486+08:00"
+            },
+            "Message": "scaling in the last pod node node-0, now all nodes should not have runtime labels",
+            "Duration": 229888
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 821
+            },
+            "TimelineLocation": {
+              "Order": 311,
+              "Time": "2026-11-16T06:21:31.764264227+08:00"
+            },
+            "Message": "should successfully add or remove schedule info on proper nodes",
+            "Duration": 1483673,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR is not set"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 895
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 899
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 900
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should not return error and nodeExcludeSelector should be nil",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.764274117+08:00",
+        "EndTime": "2026-11-16T06:21:31.764479334+08:00",
+        "RunTime": 205228,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 312,
+              "Time": "2026-11-16T06:21:31.764275957+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 314,
+              "Time": "2026-11-16T06:21:31.764440983+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 165036,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 315,
+              "Time": "2026-11-16T06:21:31.764441693+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 317,
+              "Time": "2026-11-16T06:21:31.764459334+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 17641,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 900
+            },
+            "TimelineLocation": {
+              "Order": 318,
+              "Time": "2026-11-16T06:21:31.764460084+08:00"
+            },
+            "Message": "Should not return error and nodeExcludeSelector should be nil",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 900
+            },
+            "TimelineLocation": {
+              "Order": 320,
+              "Time": "2026-11-16T06:21:31.764467674+08:00"
+            },
+            "Message": "Should not return error and nodeExcludeSelector should be nil",
+            "Duration": 7590,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 896
+            },
+            "TimelineLocation": {
+              "Order": 321,
+              "Time": "2026-11-16T06:21:31.764468824+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 896
+            },
+            "TimelineLocation": {
+              "Order": 323,
+              "Time": "2026-11-16T06:21:31.764478634+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "Duration": 9800,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR has valid label selector"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 895
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 907
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 908
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should parse the selector correctly",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.764484305+08:00",
+        "EndTime": "2026-11-16T06:21:31.764690082+08:00",
+        "RunTime": 205777,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 324,
+              "Time": "2026-11-16T06:21:31.764486235+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 326,
+              "Time": "2026-11-16T06:21:31.7646296+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 143375,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 327,
+              "Time": "2026-11-16T06:21:31.76463052+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 329,
+              "Time": "2026-11-16T06:21:31.76464724+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 16720,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 908
+            },
+            "TimelineLocation": {
+              "Order": 330,
+              "Time": "2026-11-16T06:21:31.76464774+08:00"
+            },
+            "Message": "Should parse the selector correctly",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 908
+            },
+            "TimelineLocation": {
+              "Order": 332,
+              "Time": "2026-11-16T06:21:31.764683592+08:00"
+            },
+            "Message": "Should parse the selector correctly",
+            "Duration": 35862,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 896
+            },
+            "TimelineLocation": {
+              "Order": 333,
+              "Time": "2026-11-16T06:21:31.764684482+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 896
+            },
+            "TimelineLocation": {
+              "Order": 335,
+              "Time": "2026-11-16T06:21:31.764689412+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "Duration": 4930,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR has invalid label selector"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 895
+          },
+          {
+            "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 923
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 924
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should return error",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:21:31.764694182+08:00",
+        "EndTime": "2026-11-16T06:21:31.764896469+08:00",
+        "RunTime": 202287,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 336,
+              "Time": "2026-11-16T06:21:31.764695452+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 53
+            },
+            "TimelineLocation": {
+              "Order": 338,
+              "Time": "2026-11-16T06:21:31.764838107+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 142655,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 339,
+              "Time": "2026-11-16T06:21:31.764838757+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 64
+            },
+            "TimelineLocation": {
+              "Order": 341,
+              "Time": "2026-11-16T06:21:31.764867118+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 28371,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 924
+            },
+            "TimelineLocation": {
+              "Order": 342,
+              "Time": "2026-11-16T06:21:31.764867458+08:00"
+            },
+            "Message": "Should return error",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 924
+            },
+            "TimelineLocation": {
+              "Order": 344,
+              "Time": "2026-11-16T06:21:31.764890899+08:00"
+            },
+            "Message": "Should return error",
+            "Duration": 23451,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 896
+            },
+            "TimelineLocation": {
+              "Order": 345,
+              "Time": "2026-11-16T06:21:31.764891879+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/tmp/rv-6244-head/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 896
+            },
+            "TimelineLocation": {
+              "Order": 347,
+              "Time": "2026-11-16T06:21:31.764895829+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "Duration": 3950,
+            "NodeType": "AfterEach"
+          }
+        ]
+      }
+    ]
+  }
+]
