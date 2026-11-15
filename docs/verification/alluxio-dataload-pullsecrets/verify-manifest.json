@@ -1,0 +1,61 @@
+{
+  "topic": "alluxio-dataload-pullsecrets",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6250",
+  "harnessPaths": [
+    "docs/verification/alluxio-dataload-pullsecrets",
+    "pkg/ddc/alluxio/load_data_pullsecrets_verify_test.go",
+    "pkg/ddc/alluxio/backup_data_pullsecrets_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "DataLoad and DataBackup pods for Alluxio \"always used the controller value, so a DataLoad on a runtime whose images live in its own private registry couldn't pull the image\" (PR body); issue #6247: \"a DataLoad on that runtime still runs with the controller wide secrets, so it fails to pull if the image lives in the same private registry\"",
+    "reportedComponent": "Alluxio DataLoad/DataBackup value-file generation (pkg/ddc/alluxio), JuiceFS parts deferred",
+    "patchedComponent": "pkg/ddc/alluxio/load_data.go, backup_data.go, utils.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On merge-base ff99142 with runtime spec.imagePullSecrets=[runtime-secret] and env IMAGE_PULL_SECRETS=env-secret-should-be-replaced, the generated DataLoad/DataBackup value files carry [{env-secret-should-be-replaced}], not the runtime secret — see results/base-unit.out",
+    "match": [
+      "TestPR6250DataLoadValueFileUsesRuntimePullSecrets",
+      "TestPR6250DataBackupValueFileUsesRuntimePullSecrets"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/alluxio/ -run 'TestPR6250' -count=1 -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "P0",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestPR6250DataLoadValueFileUsesRuntimePullSecrets",
+        "TestPR6250DataBackupValueFileUsesRuntimePullSecrets"
+      ]
+    },
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestPR6250DataLoadValueFileUsesRuntimePullSecrets",
+        "TestPR6250DataBackupValueFileUsesRuntimePullSecrets",
+        "TestPR6250DataLoadValueFileFallsBackToEnvPullSecrets",
+        "TestPR6250DataBackupValueFileFallsBackToEnvPullSecrets"
+      ]
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestPR6250DataLoadValueFileRequiresRuntime"
+      ]
+    }
+  ],
+  "liveNote": "L3 (skipped for this review, unit+integration only per round policy): create an AlluxioRuntime with spec.imagePullSecrets and no IMAGE_PULL_SECRETS on the controller, run a DataLoad, and confirm the loader job pod spec lists the runtime's secret (kubectl get pod -o jsonpath='{.spec.imagePullSecrets}')."
+}
