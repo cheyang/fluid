@@ -1,0 +1,42 @@
+2026/11/16 06:32:50 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Lifecycle Suite - /home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle
+===================================================================================================================
+Random Seed: 1794781970
+
+Will run 8 of 33 specs
+••••••
+------------------------------
+• [FAILED] [0.000 seconds]
+PR6244 verification (codex) [It] E1-excluded-node-is-not-refreshed [verify-pr-6244]
+/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go:244
+
+  [FAILED] Expected
+      <map[string]string | len:6>: {
+          "fluid.io/s-alluxio-fluid-spark": "true",
+          "fluid.io/s-fluid-spark": "true",
+          "fluid.io/s-h-alluxio-d-fluid-spark": "2GiB",
+          "fluid.io/s-h-alluxio-m-fluid-spark": "1GiB",
+          "fluid.io/s-h-alluxio-t-fluid-spark": "3GiB",
+          "type": "virtual-kubelet",
+      }
+  to equal
+      <map[string]string | len:4>: {
+          "fluid.io/s-alluxio-fluid-spark": "true",
+          "fluid.io/s-fluid-spark": "true",
+          "fluid.io/s-h-alluxio-t-fluid-spark": "0B",
+          "type": "virtual-kubelet",
+      }
+  In [It] at: /home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go:262 @ 11/16/26 06:32:50.178
+------------------------------
+•SSSSSSSSSSSSSSSSSSSSSSSSS
+
+Summarizing 1 Failure:
+  [FAIL] PR6244 verification (codex) [It] E1-excluded-node-is-not-refreshed [verify-pr-6244]
+  /home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go:262
+
+Ran 8 of 33 Specs in 0.005 seconds
+FAIL! -- 7 Passed | 1 Failed | 0 Pending | 25 Skipped
+--- FAIL: TestLifecycle (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.018s
+FAIL
