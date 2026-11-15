@@ -32,6 +32,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/utils/ptr"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -230,5 +231,84 @@ var _ = Describe("PR6244 verification (codex)", Label("verify-pr-6244"), func() 
 		for _, k := range []string{runtimeLabel, commonLabel, memLabel, diskLabel, totalLabel} {
 			Expect(node.Labels).NotTo(HaveKey(k), fmt.Sprintf("label %s should be gone", k))
 		}
+	})
+
+	// E1 (contract, consensus finding F1): a node matching
+	// FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR must be left byte-identical by the
+	// capacity refresh - parity with addScheduleInfoToNode (#5285, documented in
+	// charts/fluid/fluid/values.yaml, canonical example type=virtual-kubelet).
+	// Isolates ONLY the exclusion behavior so the base/head differential is clean:
+	//   base ff99142:      PASS (no refresh exists, excluded node trivially untouched)
+	//   previous e0cba66:  FAIL (refresh patches the excluded node - the F1 bug)
+	//   fixed head 7de8800: PASS (guard mirrors addScheduleInfoToNode)
+	It("E1-excluded-node-is-not-refreshed", func() {
+		nodeExcludeSelector = labels.SelectorFromSet(labels.Set{"type": "virtual-kubelet"})
+		defer func() { nodeExcludeSelector = nil }()
+
+		fx := newVerifyFixture("excluded-node", map[string]string{
+			runtimeLabel: "true",
+			commonLabel:  "true",
+			totalLabel:   "0B", // pre-#6181 stale label
+			"type":       "virtual-kubelet",
+		}, memThenDiskTieredStore())
+
+		before, err := kubeclient.GetNode(fx.client, "excluded-node")
+		Expect(err).To(BeNil())
+
+		Expect(SyncScheduleInfoToCacheNodes(fx.runtimeInfo, fx.client)).To(Succeed())
+
+		excluded, err := kubeclient.GetNode(fx.client, "excluded-node")
+		Expect(err).To(BeNil())
+		Expect(excluded.Labels).To(Equal(before.Labels))
+		Expect(excluded.ResourceVersion).To(Equal(before.ResourceVersion),
+			"a node matching nodeExcludeSelector must not be patched by the capacity refresh")
+	})
+
+	// E2 (contract): with the exclude selector active, a NON-matching node in the
+	// same sync must still be refreshed - guards against an over-broad fix that
+	// skips the refresh entirely. Same polarity family as P0a:
+	//   base ff99142:      FAIL (no refresh exists at all)
+	//   previous e0cba66:  PASS (refresh ignores the selector, sibling is refreshed)
+	//   fixed head 7de8800: PASS (guard skips only the excluded node)
+	It("E2-exclude-guard-does-not-skip-normal-nodes", func() {
+		nodeExcludeSelector = labels.SelectorFromSet(labels.Set{"type": "virtual-kubelet"})
+		defer func() { nodeExcludeSelector = nil }()
+
+		fx := newVerifyFixture("excluded-node", map[string]string{
+			runtimeLabel: "true",
+			commonLabel:  "true",
+			totalLabel:   "0B",
+			"type":       "virtual-kubelet",
+		}, memThenDiskTieredStore())
+
+		// a second worker node, same runtime, NOT matching the exclude selector
+		sibling := &corev1.Node{ObjectMeta: metav1.ObjectMeta{Name: "sibling-node", Labels: map[string]string{
+			runtimeLabel: "true",
+			commonLabel:  "true",
+			totalLabel:   "0B",
+			"type":       "real-node",
+		}}}
+		Expect(fx.client.Create(context.TODO(), sibling)).To(Succeed())
+		siblingPod := &corev1.Pod{
+			ObjectMeta: metav1.ObjectMeta{
+				Name:      "spark-worker-1",
+				Namespace: "fluid",
+				Labels:    map[string]string{"app": "spark-worker"},
+				OwnerReferences: []metav1.OwnerReference{{
+					APIVersion: "apps/v1", Kind: "StatefulSet", Name: "spark-worker",
+					UID: "verify-uid", Controller: ptr.To(true),
+				}},
+			},
+			Spec: corev1.PodSpec{NodeName: "sibling-node"},
+		}
+		Expect(fx.client.Create(context.TODO(), siblingPod)).To(Succeed())
+
+		Expect(SyncScheduleInfoToCacheNodes(fx.runtimeInfo, fx.client)).To(Succeed())
+
+		refreshed, err := kubeclient.GetNode(fx.client, "sibling-node")
+		Expect(err).To(BeNil())
+		Expect(refreshed.Labels).To(HaveKeyWithValue(memLabel, "1GiB"))
+		Expect(refreshed.Labels).To(HaveKeyWithValue(diskLabel, "2GiB"))
+		Expect(refreshed.Labels).To(HaveKeyWithValue(totalLabel, "3GiB"))
 	})
 })
