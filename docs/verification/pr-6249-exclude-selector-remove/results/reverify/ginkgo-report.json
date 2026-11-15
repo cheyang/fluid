@@ -1,0 +1,1446 @@
+[
+  {
+    "SuitePath": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle",
+    "SuiteDescription": "Lifecycle Suite",
+    "SuiteLabels": [],
+    "SuiteSemVerConstraints": [],
+    "SuiteSucceeded": true,
+    "SuiteHasProgrammaticFocus": false,
+    "SpecialSuiteFailureReasons": null,
+    "PreRunStats": {
+      "TotalSpecs": 26,
+      "SpecsThatWillRun": 2
+    },
+    "StartTime": "2026-11-16T06:56:41.945521052+08:00",
+    "EndTime": "2026-11-16T06:56:41.947475102+08:00",
+    "RunTime": 1954030,
+    "SuiteConfig": {
+      "RandomSeed": 1794783401,
+      "RandomizeAllSpecs": false,
+      "FocusStrings": [
+        "PR6249ExcludeSelectorRemoveHarness"
+      ],
+      "SkipStrings": null,
+      "FocusFiles": null,
+      "SkipFiles": null,
+      "LabelFilter": "",
+      "SemVerFilter": "",
+      "FailOnPending": false,
+      "FailOnEmpty": false,
+      "FailFast": false,
+      "FlakeAttempts": 0,
+      "MustPassRepeatedly": 0,
+      "DryRun": false,
+      "PollProgressAfter": 0,
+      "PollProgressInterval": 0,
+      "Timeout": 3600000000000,
+      "EmitSpecProgress": false,
+      "OutputInterceptorMode": "",
+      "SourceRoots": null,
+      "GracePeriod": 30000000000,
+      "ParallelProcess": 1,
+      "ParallelTotal": 1,
+      "ParallelHost": ""
+    },
+    "SpecReports": [
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given exclusive placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 65
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 66
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 81
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add exclusive labels to node",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945585195+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given share placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 65
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 100
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 115
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add share mode labels to node",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945608215+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given runtime with tiered store"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 65
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 134
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 169
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add capacity labels to node",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945611816+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has dataset-num label with value 2"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 188
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 189
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 190
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should decrease dataset number to 1",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945615485+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has dataset-num label with value 1"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 188
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 209
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 210
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should delete dataset-num label",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945617976+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has invalid dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 188
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 228
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 229
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return error",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945620506+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has no dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 188
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 241
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 242
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should not modify labels",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945622486+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test increaseDatasetNum",
+          "when node has existing dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 256
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 257
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 258
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should increase dataset number",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945624516+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test increaseDatasetNum",
+          "when node has no dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 256
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 276
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 277
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add dataset-num label with value 1",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945626526+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has runtime label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 296
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 297
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 298
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return true",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945630256+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has no runtime label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 296
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 313
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 314
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945632486+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has no labels"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 296
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 329
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 330
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945635096+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given exclusive placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 344
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 345
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 368
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove fluid labels and keep other labels",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945637126+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given share placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 344
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 394
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 415
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove all fluid labels",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945640017+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given runtime with tiered store"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 344
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 437
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 481
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove all fluid labels including capacity labels",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945641846+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test removeScheduleInfoFromNode()"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 507
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 531
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove the runtime label from a node that isn't excluded",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945728529+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test removeScheduleInfoFromNode()"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 507
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 539
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should leave a node matching the exclude selector untouched",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.94574194+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given current and previous node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 550
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 551
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 552
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should calculate correct differences",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945769821+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given identical node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 550
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 563
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 564
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return empty differences",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945776091+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given completely different node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 550
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 575
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 576
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return all nodes as differences",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945782802+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test SyncScheduleInfoToCacheNodes",
+          "when calling SyncScheduleInfoToCacheNodes several times to mock runtime scaling"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 588
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 652
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 666
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should successfully add or remove schedule info on proper nodes",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945789162+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR is not set"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 740
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 744
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 745
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should not return error and nodeExcludeSelector should be nil",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945796432+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR has valid label selector"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 740
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 752
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 753
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should parse the selector correctly",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945813083+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR has invalid label selector"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 740
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 768
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 769
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should return error",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:56:41.945891575+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6249ExcludeSelectorRemoveHarness"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+            "LineNumber": 41
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "verify-pr-6249"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+          "LineNumber": 73
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "C1: excluded node keeps all labels after removeScheduleInfoFromNode",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:56:41.945937607+08:00",
+        "EndTime": "2026-11-16T06:56:41.946723625+08:00",
+        "RunTime": 786028,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 49
+            },
+            "TimelineLocation": {
+              "Order": 1,
+              "Time": "2026-11-16T06:56:41.945942167+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 49
+            },
+            "TimelineLocation": {
+              "Order": 3,
+              "Time": "2026-11-16T06:56:41.946388493+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "Duration": 446326,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 73
+            },
+            "TimelineLocation": {
+              "Order": 4,
+              "Time": "2026-11-16T06:56:41.946391963+08:00"
+            },
+            "Message": "C1: excluded node keeps all labels after removeScheduleInfoFromNode",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 73
+            },
+            "TimelineLocation": {
+              "Order": 6,
+              "Time": "2026-11-16T06:56:41.946711484+08:00"
+            },
+            "Message": "C1: excluded node keeps all labels after removeScheduleInfoFromNode",
+            "Duration": 319521,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 68
+            },
+            "TimelineLocation": {
+              "Order": 7,
+              "Time": "2026-11-16T06:56:41.946714365+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 68
+            },
+            "TimelineLocation": {
+              "Order": 9,
+              "Time": "2026-11-16T06:56:41.946722285+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "Duration": 7930,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6249ExcludeSelectorRemoveHarness"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+            "LineNumber": 41
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "verify-pr-6249"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+          "LineNumber": 89
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "C2: non-excluded node still loses the runtime label",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:56:41.946751296+08:00",
+        "EndTime": "2026-11-16T06:56:41.947468182+08:00",
+        "RunTime": 716895,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 49
+            },
+            "TimelineLocation": {
+              "Order": 10,
+              "Time": "2026-11-16T06:56:41.946754256+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 49
+            },
+            "TimelineLocation": {
+              "Order": 12,
+              "Time": "2026-11-16T06:56:41.946942043+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "Duration": 187797,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 89
+            },
+            "TimelineLocation": {
+              "Order": 13,
+              "Time": "2026-11-16T06:56:41.946942643+08:00"
+            },
+            "Message": "C2: non-excluded node still loses the runtime label",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 89
+            },
+            "TimelineLocation": {
+              "Order": 15,
+              "Time": "2026-11-16T06:56:41.947458681+08:00"
+            },
+            "Message": "C2: non-excluded node still loses the runtime label",
+            "Duration": 516038,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 68
+            },
+            "TimelineLocation": {
+              "Order": 16,
+              "Time": "2026-11-16T06:56:41.947460471+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 68
+            },
+            "TimelineLocation": {
+              "Order": 18,
+              "Time": "2026-11-16T06:56:41.947467251+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "Duration": 6780,
+            "NodeType": "AfterEach"
+          }
+        ]
+      }
+    ]
+  }
+]

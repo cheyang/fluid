@@ -1,0 +1,26 @@
+should add exclusive labels to node	skipped
+should add share mode labels to node	skipped
+should add capacity labels to node	skipped
+should decrease dataset number to 1	skipped
+should delete dataset-num label	skipped
+should return error	skipped
+should not modify labels	skipped
+should increase dataset number	skipped
+should add dataset-num label with value 1	skipped
+should return true	skipped
+should return false	skipped
+should return false	skipped
+should remove fluid labels and keep other labels	skipped
+should remove all fluid labels	skipped
+should remove all fluid labels including capacity labels	skipped
+should remove the runtime label from a node that isn't excluded	skipped
+should leave a node matching the exclude selector untouched	skipped
+should calculate correct differences	skipped
+should return empty differences	skipped
+should return all nodes as differences	skipped
+should successfully add or remove schedule info on proper nodes	skipped
+Should not return error and nodeExcludeSelector should be nil	skipped
+Should parse the selector correctly	skipped
+Should return error	skipped
+C1: excluded node keeps all labels after removeScheduleInfoFromNode	pass
+C2: non-excluded node still loses the runtime label	pass
