@@ -2,7 +2,7 @@
   "topic": "pr-6244-capacity-label-refresh",
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6244",
   "reviewer": "codex",
-  "headSha": "e0cba66ef9447434750a73be698402b4b958b893",
+  "headSha": "7de88000e21b1e299d6f205f86057a177c5bf8fc",
   "baseSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
   "harnessPaths": [
     "docs/verification/pr-6244-capacity-label-refresh",
@@ -19,7 +19,10 @@
     "layer": "unit",
     "verdict": "confirmed",
     "evidence": "base: specs P0a/P0b FAIL (labels stay 0B / stale mem label kept), controls PASS (results/unit-base.txt); base envtest: 60s timeout, labels never refreshed (results/integration-base.txt)",
-    "match": ["P0a-stale-capacity-labels-get-refreshed", "P0b-removed-tier-label-gets-deleted"]
+    "match": [
+      "P0a-stale-capacity-labels-get-refreshed",
+      "P0b-removed-tier-label-gets-deleted"
+    ]
   },
   "layers": {
     "unit": {
@@ -33,10 +36,55 @@
     }
   },
   "findings": [
-    { "id": "F1", "polarity": "contract", "layer": "unit",
-      "match": ["P0a-stale-capacity-labels-get-refreshed", "P0b-removed-tier-label-gets-deleted", "C1-matching-labels-are-not-rewritten", "C2-foreign-runtime-labels-are-untouched", "C3-new-node-still-gets-full-label-set", "C4-removed-node-loses-all-runtime-labels"] },
-    { "id": "F2", "polarity": "contract", "layer": "integration",
-      "match": ["TestPR6244Envtest"] }
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "E1-excluded-node-is-not-refreshed"
+      ],
+      "note": "consensus F1: capacity refresh bypasses nodeExcludeSelector. E1 isolates only the exclusion behavior: base=pass (no refresh), previous e0cba66=fail (excluded node patched), head=pass iff the guard mirrors addScheduleInfoToNode."
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "P0a-stale-capacity-labels-get-refreshed",
+        "P0b-removed-tier-label-gets-deleted",
+        "E2-exclude-guard-does-not-skip-normal-nodes",
+        "C1-matching-labels-are-not-rewritten"
+      ],
+      "note": "consensus F2 / AC-refresh/AC-tier-removal/AC-noop/AC-wiring: entry-point refresh works, incl. with the exclude guard active (E2), and steady nodes are not re-patched (C1)."
+    },
+    {
+      "id": "F3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "P0b-removed-tier-label-gets-deleted"
+      ],
+      "note": "consensus F3: deletion mechanics for a removed tier (the blast-radius carrier for silently-dropped levels). The dropped-level trigger itself is code-path-verified only, deferred to the #6204 follow-up."
+    },
+    {
+      "id": "AC-compat",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "C1-matching-labels-are-not-rewritten",
+        "C2-foreign-runtime-labels-are-untouched",
+        "C3-new-node-still-gets-full-label-set",
+        "C4-removed-node-loses-all-runtime-labels"
+      ]
+    },
+    {
+      "id": "AC-envtest",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestPR6244Envtest"
+      ]
+    }
   ],
   "liveNote": "L3 skipped per round policy (no KUBECONFIG layer). If run later: on a live cluster with a pre-#6181 CacheRuntime, upgrade the controller and watch previously-0B nodes gain mem/disk/total labels on the next CacheEngine sync (controller log: 'Updating outdated capacity labels on node')."
 }
