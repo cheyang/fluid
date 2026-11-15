@@ -1,0 +1,21 @@
+re-verify: manifest = docs/verification/juicefs-imagepullsecrets-claude/verify-manifest.json
+re-verify: resolving PR head via 'git fetch https://github.com/fluid-cloudnative/fluid.git pull/6245/head' (machine-independent)
+re-verify: current head = 3271f28d7c3bc126d221422abdb9e6e0048eb9c9
+re-verify: last-reviewed = 3271f28d7c3bc126d221422abdb9e6e0048eb9c9  (review delta = 3271f28d7..3271f28d7, empty: marker already advanced this round)
+re-verify: fixed-ref=3271f28d7c3bc126d221422abdb9e6e0048eb9c9  harness-from=verify/juicefs-imagepullsecrets-claude
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'integration' (ginkgo)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+C1-hierarchical-precedence-controller contract  integration  FIXED          pass=7 fail=0 miss=0
+C2-chart-render-fallback contract  integration  FIXED          pass=5 fail=0 miss=0
+C3-env-default-back-compat contract  integration  FIXED          pass=1 fail=0 miss=0
+C4-apidoc-row-placement contract  unit         STILL-BROKEN   pass=0 fail=1 miss=0
+
+Live layer (manual): L3 (live cluster) intentionally not run this round: pipeline configured for unit + integration layers only.
+
+RESULT: not all findings fixed.
+(C1/C2/C3 are round-1 contract tests that keep passing on the new head = no behavioral
+regression from the docs delta. C4 is the round-2 finding, reproduced red; it flips to
+FIXED when api_doc.md is regenerated with the pinned generator.)
