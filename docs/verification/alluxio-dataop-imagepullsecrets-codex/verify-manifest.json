@@ -1,0 +1,35 @@
+{
+  "topic": "alluxio-dataop-imagepullsecrets-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6250",
+  "harnessPaths": [
+    "docs/verification/alluxio-dataop-imagepullsecrets-codex",
+    "pkg/ddc/alluxio/dataop_imagepullsecrets_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "DataLoad and DataBackup pods for Alluxio always used the controller's IMAGE_PULL_SECRETS and ignored the AlluxioRuntime's spec.imagePullSecrets, so a DataLoad on a runtime whose images live in its own private registry couldn't pull the image (issue #6247).",
+    "reportedComponent": "pkg/ddc/alluxio data_load.go / backup_data.go (DataLoad, DataBackup value generation)",
+    "patchedComponent": "pkg/ddc/alluxio load_data.go / backup_data.go / utils.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base ff99142f the runtime-secrets contract tests fail (dataload/databackup value files contain no imagePullSecrets when only the runtime sets them); on head 34a7318 they pass. See results/base-harness.txt vs results/head-harness.txt.",
+    "match": ["TestVerifyDataLoadUsesRuntimeImagePullSecrets", "TestVerifyDataBackupUsesRuntimeImagePullSecrets"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/alluxio/ -run 'TestVerify' -v"
+    }
+  },
+  "findings": [
+    { "id": "A1-load-runtime-secrets", "polarity": "contract", "layer": "unit", "match": ["TestVerifyDataLoadUsesRuntimeImagePullSecrets"] },
+    { "id": "A2-load-env-fallback", "polarity": "contract", "layer": "unit", "match": ["TestVerifyDataLoadFallsBackToEnvImagePullSecrets"] },
+    { "id": "A3-load-replace-not-merge", "polarity": "contract", "layer": "unit", "match": ["TestVerifyDataLoadRuntimeSecretsReplaceEnv"] },
+    { "id": "A4-backup-runtime-secrets", "polarity": "contract", "layer": "unit", "match": ["TestVerifyDataBackupUsesRuntimeImagePullSecrets"] },
+    { "id": "A5-backup-env-fallback", "polarity": "contract", "layer": "unit", "match": ["TestVerifyDataBackupFallsBackToEnvImagePullSecrets"] },
+    { "id": "A6-missing-runtime-errors", "polarity": "contract", "layer": "unit", "match": ["TestVerifyDataLoadMissingRuntimeNowErrors"] }
+  ],
+  "liveNote": "L3 not run (skipped per debate setup): on a real cluster, create an AlluxioRuntime with spec.imagePullSecrets and no controller IMAGE_PULL_SECRETS, run a DataLoad, and check the loader job's pod spec lists the runtime secret (PR section IV)."
+}
