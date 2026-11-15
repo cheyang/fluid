@@ -1,0 +1,18 @@
+PASS: docs/en/dev/api_doc.md: exactly one row describes 'pull images for this component' (found 1)
+PASS: docs/en/dev/api_doc.md: 'pull images for this component' row inside JuiceFSCompTemplateSpec table (found in section 'JuiceFSCompTemplateSpec', line 1323, in_table=True)
+PASS: docs/en/dev/api_doc.md: exactly one row describes 'pull the JuiceFS fuse image' (found 1)
+PASS: docs/en/dev/api_doc.md: 'pull the JuiceFS fuse image' row inside JuiceFSFuseSpec table (found in section 'JuiceFSFuseSpec', line 1352, in_table=True)
+PASS: docs/en/dev/api_doc.md: exactly one row describes 'pull images for all JuiceFS components' (found 1)
+PASS: docs/en/dev/api_doc.md: 'pull images for all JuiceFS components' row inside JuiceFSRuntimeSpec table (found in section 'JuiceFSRuntimeSpec', line 1396, in_table=True)
+PASS: docs/en/dev/api_doc.md: no imagePullSecrets row under 'JuiceFSRuntime' section (found at lines [])
+PASS: docs/en/dev/api_doc.md: no imagePullSecrets row under 'MasterSpec' section (found at lines [])
+PASS: docs/zh/dev/api_doc.md: exactly one row describes 'pull images for this component' (found 1)
+PASS: docs/zh/dev/api_doc.md: 'pull images for this component' row inside JuiceFSCompTemplateSpec table (found in section 'JuiceFSCompTemplateSpec', line 1323, in_table=True)
+PASS: docs/zh/dev/api_doc.md: exactly one row describes 'pull the JuiceFS fuse image' (found 1)
+PASS: docs/zh/dev/api_doc.md: 'pull the JuiceFS fuse image' row inside JuiceFSFuseSpec table (found in section 'JuiceFSFuseSpec', line 1352, in_table=True)
+PASS: docs/zh/dev/api_doc.md: exactly one row describes 'pull images for all JuiceFS components' (found 1)
+PASS: docs/zh/dev/api_doc.md: 'pull images for all JuiceFS components' row inside JuiceFSRuntimeSpec table (found in section 'JuiceFSRuntimeSpec', line 1396, in_table=True)
+PASS: docs/zh/dev/api_doc.md: no imagePullSecrets row under 'JuiceFSRuntime' section (found at lines [])
+PASS: docs/zh/dev/api_doc.md: no imagePullSecrets row under 'MasterSpec' section (found at lines [])
+
+RESULT: PASS
