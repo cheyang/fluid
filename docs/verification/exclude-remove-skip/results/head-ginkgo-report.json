@@ -1,0 +1,4097 @@
+[
+  {
+    "SuitePath": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle",
+    "SuiteDescription": "Lifecycle Suite",
+    "SuiteLabels": [],
+    "SuiteSemVerConstraints": [],
+    "SuiteSucceeded": true,
+    "SuiteHasProgrammaticFocus": false,
+    "SpecialSuiteFailureReasons": null,
+    "PreRunStats": {
+      "TotalSpecs": 26,
+      "SpecsThatWillRun": 26
+    },
+    "StartTime": "2026-11-16T06:59:58.395399272+08:00",
+    "EndTime": "2026-11-16T06:59:58.406198147+08:00",
+    "RunTime": 10798855,
+    "SuiteConfig": {
+      "RandomSeed": 1794783598,
+      "RandomizeAllSpecs": false,
+      "FocusStrings": null,
+      "SkipStrings": null,
+      "FocusFiles": null,
+      "SkipFiles": null,
+      "LabelFilter": "",
+      "SemVerFilter": "",
+      "FailOnPending": false,
+      "FailOnEmpty": false,
+      "FailFast": false,
+      "FlakeAttempts": 0,
+      "MustPassRepeatedly": 0,
+      "DryRun": false,
+      "PollProgressAfter": 0,
+      "PollProgressInterval": 0,
+      "Timeout": 3600000000000,
+      "EmitSpecProgress": false,
+      "OutputInterceptorMode": "",
+      "SourceRoots": null,
+      "GracePeriod": 30000000000,
+      "ParallelProcess": 1,
+      "ParallelTotal": 1,
+      "ParallelHost": ""
+    },
+    "SpecReports": [
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given exclusive placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 65
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 66
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 81
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add exclusive labels to node",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.395716183+08:00",
+        "EndTime": "2026-11-16T06:59:58.397062721+08:00",
+        "RunTime": 1346538,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 1,
+              "Time": "2026-11-16T06:59:58.395739874+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 3,
+              "Time": "2026-11-16T06:59:58.396357816+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 617952,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 67
+            },
+            "TimelineLocation": {
+              "Order": 4,
+              "Time": "2026-11-16T06:59:58.396361406+08:00"
+            },
+            "Message": "when given exclusive placement mode runtime",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 67
+            },
+            "TimelineLocation": {
+              "Order": 6,
+              "Time": "2026-11-16T06:59:58.396383367+08:00"
+            },
+            "Message": "when given exclusive placement mode runtime",
+            "Duration": 21971,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 7,
+              "Time": "2026-11-16T06:59:58.396384017+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 9,
+              "Time": "2026-11-16T06:59:58.396444099+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 60082,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 81
+            },
+            "TimelineLocation": {
+              "Order": 10,
+              "Time": "2026-11-16T06:59:58.396444579+08:00"
+            },
+            "Message": "should add exclusive labels to node",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 81
+            },
+            "TimelineLocation": {
+              "Order": 12,
+              "Time": "2026-11-16T06:59:58.397059501+08:00"
+            },
+            "Message": "should add exclusive labels to node",
+            "Duration": 614922,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given share placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 65
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 100
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 115
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add share mode labels to node",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.397088232+08:00",
+        "EndTime": "2026-11-16T06:59:58.397506797+08:00",
+        "RunTime": 418565,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 13,
+              "Time": "2026-11-16T06:59:58.397091182+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 15,
+              "Time": "2026-11-16T06:59:58.397241908+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 150726,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 101
+            },
+            "TimelineLocation": {
+              "Order": 16,
+              "Time": "2026-11-16T06:59:58.397242597+08:00"
+            },
+            "Message": "when given share placement mode runtime",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 101
+            },
+            "TimelineLocation": {
+              "Order": 18,
+              "Time": "2026-11-16T06:59:58.397249008+08:00"
+            },
+            "Message": "when given share placement mode runtime",
+            "Duration": 6411,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 19,
+              "Time": "2026-11-16T06:59:58.397249358+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 21,
+              "Time": "2026-11-16T06:59:58.397280549+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 31191,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 115
+            },
+            "TimelineLocation": {
+              "Order": 22,
+              "Time": "2026-11-16T06:59:58.397280889+08:00"
+            },
+            "Message": "should add share mode labels to node",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 115
+            },
+            "TimelineLocation": {
+              "Order": 24,
+              "Time": "2026-11-16T06:59:58.397505677+08:00"
+            },
+            "Message": "should add share mode labels to node",
+            "Duration": 224788,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given runtime with tiered store"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 65
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 134
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 169
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add capacity labels to node",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.397516017+08:00",
+        "EndTime": "2026-11-16T06:59:58.397900661+08:00",
+        "RunTime": 384654,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 25,
+              "Time": "2026-11-16T06:59:58.397518818+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 27,
+              "Time": "2026-11-16T06:59:58.397669883+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 151056,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 135
+            },
+            "TimelineLocation": {
+              "Order": 28,
+              "Time": "2026-11-16T06:59:58.397670363+08:00"
+            },
+            "Message": "when given runtime with tiered store",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 135
+            },
+            "TimelineLocation": {
+              "Order": 30,
+              "Time": "2026-11-16T06:59:58.397684753+08:00"
+            },
+            "Message": "when given runtime with tiered store",
+            "Duration": 14390,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 31,
+              "Time": "2026-11-16T06:59:58.397685273+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 33,
+              "Time": "2026-11-16T06:59:58.397696404+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 11131,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 169
+            },
+            "TimelineLocation": {
+              "Order": 34,
+              "Time": "2026-11-16T06:59:58.397696744+08:00"
+            },
+            "Message": "should add capacity labels to node",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 169
+            },
+            "TimelineLocation": {
+              "Order": 36,
+              "Time": "2026-11-16T06:59:58.397899991+08:00"
+            },
+            "Message": "should add capacity labels to node",
+            "Duration": 203257,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has dataset-num label with value 2"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 188
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 189
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 190
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should decrease dataset number to 1",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.397909061+08:00",
+        "EndTime": "2026-11-16T06:59:58.398072967+08:00",
+        "RunTime": 163896,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 37,
+              "Time": "2026-11-16T06:59:58.397910641+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 39,
+              "Time": "2026-11-16T06:59:58.398053257+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 142606,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 40,
+              "Time": "2026-11-16T06:59:58.398053717+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 42,
+              "Time": "2026-11-16T06:59:58.398064177+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 10451,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 190
+            },
+            "TimelineLocation": {
+              "Order": 43,
+              "Time": "2026-11-16T06:59:58.398064497+08:00"
+            },
+            "Message": "should decrease dataset number to 1",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 190
+            },
+            "TimelineLocation": {
+              "Order": 45,
+              "Time": "2026-11-16T06:59:58.398072377+08:00"
+            },
+            "Message": "should decrease dataset number to 1",
+            "Duration": 7880,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has dataset-num label with value 1"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 188
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 209
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 210
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should delete dataset-num label",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.398076657+08:00",
+        "EndTime": "2026-11-16T06:59:58.398224572+08:00",
+        "RunTime": 147926,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 46,
+              "Time": "2026-11-16T06:59:58.398077637+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 48,
+              "Time": "2026-11-16T06:59:58.398207192+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 129555,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 49,
+              "Time": "2026-11-16T06:59:58.398207562+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 51,
+              "Time": "2026-11-16T06:59:58.398217512+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 9950,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 210
+            },
+            "TimelineLocation": {
+              "Order": 52,
+              "Time": "2026-11-16T06:59:58.398217822+08:00"
+            },
+            "Message": "should delete dataset-num label",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 210
+            },
+            "TimelineLocation": {
+              "Order": 54,
+              "Time": "2026-11-16T06:59:58.398224072+08:00"
+            },
+            "Message": "should delete dataset-num label",
+            "Duration": 6261,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has invalid dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 188
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 228
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 229
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return error",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.398228263+08:00",
+        "EndTime": "2026-11-16T06:59:58.398394329+08:00",
+        "RunTime": 166065,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 55,
+              "Time": "2026-11-16T06:59:58.398229543+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 57,
+              "Time": "2026-11-16T06:59:58.398367908+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 138365,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 58,
+              "Time": "2026-11-16T06:59:58.398368278+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 60,
+              "Time": "2026-11-16T06:59:58.398385388+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 17110,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 229
+            },
+            "TimelineLocation": {
+              "Order": 61,
+              "Time": "2026-11-16T06:59:58.398385748+08:00"
+            },
+            "Message": "should return error",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 229
+            },
+            "TimelineLocation": {
+              "Order": 63,
+              "Time": "2026-11-16T06:59:58.398393809+08:00"
+            },
+            "Message": "should return error",
+            "Duration": 8061,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has no dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 188
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 241
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 242
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should not modify labels",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.398398949+08:00",
+        "EndTime": "2026-11-16T06:59:58.398551444+08:00",
+        "RunTime": 152495,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 64,
+              "Time": "2026-11-16T06:59:58.398401059+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 66,
+              "Time": "2026-11-16T06:59:58.398531983+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 130924,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 67,
+              "Time": "2026-11-16T06:59:58.398532383+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 69,
+              "Time": "2026-11-16T06:59:58.398544564+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 12180,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 242
+            },
+            "TimelineLocation": {
+              "Order": 70,
+              "Time": "2026-11-16T06:59:58.398544884+08:00"
+            },
+            "Message": "should not modify labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 242
+            },
+            "TimelineLocation": {
+              "Order": 72,
+              "Time": "2026-11-16T06:59:58.398550954+08:00"
+            },
+            "Message": "should not modify labels",
+            "Duration": 6070,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test increaseDatasetNum",
+          "when node has existing dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 256
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 257
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 258
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should increase dataset number",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.398554784+08:00",
+        "EndTime": "2026-11-16T06:59:58.39871228+08:00",
+        "RunTime": 157506,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 73,
+              "Time": "2026-11-16T06:59:58.398557284+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 75,
+              "Time": "2026-11-16T06:59:58.398693299+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 136015,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 76,
+              "Time": "2026-11-16T06:59:58.398693719+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 78,
+              "Time": "2026-11-16T06:59:58.39870244+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 8721,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 258
+            },
+            "TimelineLocation": {
+              "Order": 79,
+              "Time": "2026-11-16T06:59:58.39870276+08:00"
+            },
+            "Message": "should increase dataset number",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 258
+            },
+            "TimelineLocation": {
+              "Order": 81,
+              "Time": "2026-11-16T06:59:58.39871167+08:00"
+            },
+            "Message": "should increase dataset number",
+            "Duration": 8920,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test increaseDatasetNum",
+          "when node has no dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 256
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 276
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 277
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add dataset-num label with value 1",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.39871558+08:00",
+        "EndTime": "2026-11-16T06:59:58.398854065+08:00",
+        "RunTime": 138485,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 82,
+              "Time": "2026-11-16T06:59:58.39871624+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 84,
+              "Time": "2026-11-16T06:59:58.398837434+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 121205,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 85,
+              "Time": "2026-11-16T06:59:58.398837914+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 87,
+              "Time": "2026-11-16T06:59:58.398847075+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 9161,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 277
+            },
+            "TimelineLocation": {
+              "Order": 88,
+              "Time": "2026-11-16T06:59:58.398847385+08:00"
+            },
+            "Message": "should add dataset-num label with value 1",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 277
+            },
+            "TimelineLocation": {
+              "Order": 90,
+              "Time": "2026-11-16T06:59:58.398853475+08:00"
+            },
+            "Message": "should add dataset-num label with value 1",
+            "Duration": 6080,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has runtime label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 296
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 297
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 298
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return true",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.398858185+08:00",
+        "EndTime": "2026-11-16T06:59:58.39899671+08:00",
+        "RunTime": 138525,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 91,
+              "Time": "2026-11-16T06:59:58.398858935+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 93,
+              "Time": "2026-11-16T06:59:58.39898131+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 122365,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 94,
+              "Time": "2026-11-16T06:59:58.39898179+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 96,
+              "Time": "2026-11-16T06:59:58.39898994+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 8150,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 298
+            },
+            "TimelineLocation": {
+              "Order": 97,
+              "Time": "2026-11-16T06:59:58.39899025+08:00"
+            },
+            "Message": "should return true",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 298
+            },
+            "TimelineLocation": {
+              "Order": 99,
+              "Time": "2026-11-16T06:59:58.39899623+08:00"
+            },
+            "Message": "should return true",
+            "Duration": 5970,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has no runtime label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 296
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 313
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 314
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.399016371+08:00",
+        "EndTime": "2026-11-16T06:59:58.399160956+08:00",
+        "RunTime": 144585,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 100,
+              "Time": "2026-11-16T06:59:58.399017321+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 102,
+              "Time": "2026-11-16T06:59:58.399146416+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 129095,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 103,
+              "Time": "2026-11-16T06:59:58.399146796+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 105,
+              "Time": "2026-11-16T06:59:58.399155256+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 8470,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 314
+            },
+            "TimelineLocation": {
+              "Order": 106,
+              "Time": "2026-11-16T06:59:58.399155566+08:00"
+            },
+            "Message": "should return false",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 314
+            },
+            "TimelineLocation": {
+              "Order": 108,
+              "Time": "2026-11-16T06:59:58.399160466+08:00"
+            },
+            "Message": "should return false",
+            "Duration": 4910,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has no labels"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 296
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 329
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 330
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.399164356+08:00",
+        "EndTime": "2026-11-16T06:59:58.399308751+08:00",
+        "RunTime": 144395,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 109,
+              "Time": "2026-11-16T06:59:58.399165046+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 111,
+              "Time": "2026-11-16T06:59:58.39929163+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 126584,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 112,
+              "Time": "2026-11-16T06:59:58.399292001+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 114,
+              "Time": "2026-11-16T06:59:58.399301731+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 9721,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 330
+            },
+            "TimelineLocation": {
+              "Order": 115,
+              "Time": "2026-11-16T06:59:58.399302161+08:00"
+            },
+            "Message": "should return false",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 330
+            },
+            "TimelineLocation": {
+              "Order": 117,
+              "Time": "2026-11-16T06:59:58.399308221+08:00"
+            },
+            "Message": "should return false",
+            "Duration": 6070,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given exclusive placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 344
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 345
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 368
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove fluid labels and keep other labels",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.399313031+08:00",
+        "EndTime": "2026-11-16T06:59:58.399676004+08:00",
+        "RunTime": 362973,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 118,
+              "Time": "2026-11-16T06:59:58.399314511+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 120,
+              "Time": "2026-11-16T06:59:58.399443226+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 128705,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 346
+            },
+            "TimelineLocation": {
+              "Order": 121,
+              "Time": "2026-11-16T06:59:58.399443666+08:00"
+            },
+            "Message": "when given exclusive placement mode runtime",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 346
+            },
+            "TimelineLocation": {
+              "Order": 123,
+              "Time": "2026-11-16T06:59:58.399448696+08:00"
+            },
+            "Message": "when given exclusive placement mode runtime",
+            "Duration": 5030,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 124,
+              "Time": "2026-11-16T06:59:58.399449046+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 126,
+              "Time": "2026-11-16T06:59:58.399463157+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 14111,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 368
+            },
+            "TimelineLocation": {
+              "Order": 127,
+              "Time": "2026-11-16T06:59:58.399463467+08:00"
+            },
+            "Message": "should remove fluid labels and keep other labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 368
+            },
+            "TimelineLocation": {
+              "Order": 129,
+              "Time": "2026-11-16T06:59:58.399675324+08:00"
+            },
+            "Message": "should remove fluid labels and keep other labels",
+            "Duration": 211857,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given share placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 344
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 394
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 415
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove all fluid labels",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.399682575+08:00",
+        "EndTime": "2026-11-16T06:59:58.399999356+08:00",
+        "RunTime": 316781,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 130,
+              "Time": "2026-11-16T06:59:58.399683764+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 132,
+              "Time": "2026-11-16T06:59:58.399812359+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 128595,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 395
+            },
+            "TimelineLocation": {
+              "Order": 133,
+              "Time": "2026-11-16T06:59:58.399812799+08:00"
+            },
+            "Message": "when given share placement mode runtime",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 395
+            },
+            "TimelineLocation": {
+              "Order": 135,
+              "Time": "2026-11-16T06:59:58.399817399+08:00"
+            },
+            "Message": "when given share placement mode runtime",
+            "Duration": 4600,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 136,
+              "Time": "2026-11-16T06:59:58.399818049+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 138,
+              "Time": "2026-11-16T06:59:58.39982784+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 9801,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 415
+            },
+            "TimelineLocation": {
+              "Order": 139,
+              "Time": "2026-11-16T06:59:58.39982829+08:00"
+            },
+            "Message": "should remove all fluid labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 415
+            },
+            "TimelineLocation": {
+              "Order": 141,
+              "Time": "2026-11-16T06:59:58.399998716+08:00"
+            },
+            "Message": "should remove all fluid labels",
+            "Duration": 170426,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given runtime with tiered store"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 344
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 437
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 481
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove all fluid labels including capacity labels",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.400004246+08:00",
+        "EndTime": "2026-11-16T06:59:58.400338608+08:00",
+        "RunTime": 334362,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 142,
+              "Time": "2026-11-16T06:59:58.400005256+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 144,
+              "Time": "2026-11-16T06:59:58.400130011+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 124755,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 438
+            },
+            "TimelineLocation": {
+              "Order": 145,
+              "Time": "2026-11-16T06:59:58.400130511+08:00"
+            },
+            "Message": "when given runtime with tiered store",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 438
+            },
+            "TimelineLocation": {
+              "Order": 147,
+              "Time": "2026-11-16T06:59:58.400139451+08:00"
+            },
+            "Message": "when given runtime with tiered store",
+            "Duration": 8940,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 148,
+              "Time": "2026-11-16T06:59:58.400139871+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 150,
+              "Time": "2026-11-16T06:59:58.400152621+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 12750,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 481
+            },
+            "TimelineLocation": {
+              "Order": 151,
+              "Time": "2026-11-16T06:59:58.400153211+08:00"
+            },
+            "Message": "should remove all fluid labels including capacity labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 481
+            },
+            "TimelineLocation": {
+              "Order": 153,
+              "Time": "2026-11-16T06:59:58.400337958+08:00"
+            },
+            "Message": "should remove all fluid labels including capacity labels",
+            "Duration": 184747,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test removeScheduleInfoFromNode()"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 507
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 531
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove the runtime label from a node that isn't excluded",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.400345068+08:00",
+        "EndTime": "2026-11-16T06:59:58.400708511+08:00",
+        "RunTime": 363443,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 154,
+              "Time": "2026-11-16T06:59:58.400347438+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 156,
+              "Time": "2026-11-16T06:59:58.400490353+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 142925,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 157,
+              "Time": "2026-11-16T06:59:58.400491133+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 159,
+              "Time": "2026-11-16T06:59:58.400498244+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 7111,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 160,
+              "Time": "2026-11-16T06:59:58.400498584+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 162,
+              "Time": "2026-11-16T06:59:58.400505254+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 6670,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 521
+            },
+            "TimelineLocation": {
+              "Order": 163,
+              "Time": "2026-11-16T06:59:58.400505724+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 521
+            },
+            "TimelineLocation": {
+              "Order": 165,
+              "Time": "2026-11-16T06:59:58.400514604+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 8880,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 531
+            },
+            "TimelineLocation": {
+              "Order": 166,
+              "Time": "2026-11-16T06:59:58.400514924+08:00"
+            },
+            "Message": "should remove the runtime label from a node that isn't excluded",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 531
+            },
+            "TimelineLocation": {
+              "Order": 168,
+              "Time": "2026-11-16T06:59:58.400701881+08:00"
+            },
+            "Message": "should remove the runtime label from a node that isn't excluded",
+            "Duration": 186957,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 527
+            },
+            "TimelineLocation": {
+              "Order": 169,
+              "Time": "2026-11-16T06:59:58.400703411+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 527
+            },
+            "TimelineLocation": {
+              "Order": 171,
+              "Time": "2026-11-16T06:59:58.400707651+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 4240,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test removeScheduleInfoFromNode()"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 507
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 539
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should leave a node matching the exclude selector untouched",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.400713961+08:00",
+        "EndTime": "2026-11-16T06:59:58.400896888+08:00",
+        "RunTime": 182917,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 172,
+              "Time": "2026-11-16T06:59:58.400715441+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 174,
+              "Time": "2026-11-16T06:59:58.400839206+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 123775,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 175,
+              "Time": "2026-11-16T06:59:58.400839766+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 177,
+              "Time": "2026-11-16T06:59:58.400845936+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 6170,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 178,
+              "Time": "2026-11-16T06:59:58.400846246+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 180,
+              "Time": "2026-11-16T06:59:58.400852436+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 6180,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 521
+            },
+            "TimelineLocation": {
+              "Order": 181,
+              "Time": "2026-11-16T06:59:58.400853116+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 521
+            },
+            "TimelineLocation": {
+              "Order": 183,
+              "Time": "2026-11-16T06:59:58.400862366+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 9240,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 539
+            },
+            "TimelineLocation": {
+              "Order": 184,
+              "Time": "2026-11-16T06:59:58.400862706+08:00"
+            },
+            "Message": "should leave a node matching the exclude selector untouched",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 539
+            },
+            "TimelineLocation": {
+              "Order": 186,
+              "Time": "2026-11-16T06:59:58.400891087+08:00"
+            },
+            "Message": "should leave a node matching the exclude selector untouched",
+            "Duration": 28381,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 527
+            },
+            "TimelineLocation": {
+              "Order": 187,
+              "Time": "2026-11-16T06:59:58.400892158+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 527
+            },
+            "TimelineLocation": {
+              "Order": 189,
+              "Time": "2026-11-16T06:59:58.400896248+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 4091,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given current and previous node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 550
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 551
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 552
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should calculate correct differences",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.400903018+08:00",
+        "EndTime": "2026-11-16T06:59:58.401042133+08:00",
+        "RunTime": 139115,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 190,
+              "Time": "2026-11-16T06:59:58.400904038+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 192,
+              "Time": "2026-11-16T06:59:58.401025802+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 121764,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 193,
+              "Time": "2026-11-16T06:59:58.401026212+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 195,
+              "Time": "2026-11-16T06:59:58.401032852+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 6641,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 552
+            },
+            "TimelineLocation": {
+              "Order": 196,
+              "Time": "2026-11-16T06:59:58.401033643+08:00"
+            },
+            "Message": "should calculate correct differences",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 552
+            },
+            "TimelineLocation": {
+              "Order": 198,
+              "Time": "2026-11-16T06:59:58.401041523+08:00"
+            },
+            "Message": "should calculate correct differences",
+            "Duration": 7880,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given identical node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 550
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 563
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 564
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return empty differences",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.401045973+08:00",
+        "EndTime": "2026-11-16T06:59:58.401184628+08:00",
+        "RunTime": 138655,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 199,
+              "Time": "2026-11-16T06:59:58.401046863+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 201,
+              "Time": "2026-11-16T06:59:58.401172057+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 125184,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 202,
+              "Time": "2026-11-16T06:59:58.401172448+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 204,
+              "Time": "2026-11-16T06:59:58.401178498+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 6050,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 564
+            },
+            "TimelineLocation": {
+              "Order": 205,
+              "Time": "2026-11-16T06:59:58.401178848+08:00"
+            },
+            "Message": "should return empty differences",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 564
+            },
+            "TimelineLocation": {
+              "Order": 207,
+              "Time": "2026-11-16T06:59:58.401184128+08:00"
+            },
+            "Message": "should return empty differences",
+            "Duration": 5290,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given completely different node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 550
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 575
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 576
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return all nodes as differences",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.401188098+08:00",
+        "EndTime": "2026-11-16T06:59:58.401332623+08:00",
+        "RunTime": 144535,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 208,
+              "Time": "2026-11-16T06:59:58.401189048+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 210,
+              "Time": "2026-11-16T06:59:58.401318263+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 129215,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 211,
+              "Time": "2026-11-16T06:59:58.401318683+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 213,
+              "Time": "2026-11-16T06:59:58.401325263+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 6580,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 576
+            },
+            "TimelineLocation": {
+              "Order": 214,
+              "Time": "2026-11-16T06:59:58.401325583+08:00"
+            },
+            "Message": "should return all nodes as differences",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 576
+            },
+            "TimelineLocation": {
+              "Order": 216,
+              "Time": "2026-11-16T06:59:58.401332113+08:00"
+            },
+            "Message": "should return all nodes as differences",
+            "Duration": 6530,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test SyncScheduleInfoToCacheNodes",
+          "when calling SyncScheduleInfoToCacheNodes several times to mock runtime scaling"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 588
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 652
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 666
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should successfully add or remove schedule info on proper nodes",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.401337154+08:00",
+        "EndTime": "2026-11-16T06:59:58.403983648+08:00",
+        "RunTime": 2646504,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 217,
+              "Time": "2026-11-16T06:59:58.401477599+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 219,
+              "Time": "2026-11-16T06:59:58.402016647+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 539039,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 595
+            },
+            "TimelineLocation": {
+              "Order": 220,
+              "Time": "2026-11-16T06:59:58.402019978+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 595
+            },
+            "TimelineLocation": {
+              "Order": 222,
+              "Time": "2026-11-16T06:59:58.402052269+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes",
+            "Duration": 32281,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 654
+            },
+            "TimelineLocation": {
+              "Order": 223,
+              "Time": "2026-11-16T06:59:58.402052909+08:00"
+            },
+            "Message": "when calling SyncScheduleInfoToCacheNodes several times to mock runtime scaling",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 654
+            },
+            "TimelineLocation": {
+              "Order": 225,
+              "Time": "2026-11-16T06:59:58.402060009+08:00"
+            },
+            "Message": "when calling SyncScheduleInfoToCacheNodes several times to mock runtime scaling",
+            "Duration": 7100,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 226,
+              "Time": "2026-11-16T06:59:58.402060529+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 228,
+              "Time": "2026-11-16T06:59:58.402108671+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 48152,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 666
+            },
+            "TimelineLocation": {
+              "Order": 229,
+              "Time": "2026-11-16T06:59:58.402109141+08:00"
+            },
+            "Message": "should successfully add or remove schedule info on proper nodes",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 667
+            },
+            "TimelineLocation": {
+              "Order": 230,
+              "Time": "2026-11-16T06:59:58.402120241+08:00"
+            },
+            "Message": "scaling two pods to node-0 and node-1, the two nodes should have runtime labels"
+          },
+          {
+            "SpecEventType": "By (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 667
+            },
+            "TimelineLocation": {
+              "Order": 231,
+              "Time": "2026-11-16T06:59:58.403004383+08:00"
+            },
+            "Message": "scaling two pods to node-0 and node-1, the two nodes should have runtime labels",
+            "Duration": 884142
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 689
+            },
+            "TimelineLocation": {
+              "Order": 232,
+              "Time": "2026-11-16T06:59:58.403006643+08:00"
+            },
+            "Message": "scaling out a third pod to node-2, all pods should have runtime labels"
+          },
+          {
+            "SpecEventType": "By (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 689
+            },
+            "TimelineLocation": {
+              "Order": 233,
+              "Time": "2026-11-16T06:59:58.403319394+08:00"
+            },
+            "Message": "scaling out a third pod to node-2, all pods should have runtime labels",
+            "Duration": 312751
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 702
+            },
+            "TimelineLocation": {
+              "Order": 234,
+              "Time": "2026-11-16T06:59:58.403321064+08:00"
+            },
+            "Message": "scaling in pods on node-1 and node-2, only node-0 should have runtime labels"
+          },
+          {
+            "SpecEventType": "By (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 702
+            },
+            "TimelineLocation": {
+              "Order": 235,
+              "Time": "2026-11-16T06:59:58.40376364+08:00"
+            },
+            "Message": "scaling in pods on node-1 and node-2, only node-0 should have runtime labels",
+            "Duration": 442566
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 724
+            },
+            "TimelineLocation": {
+              "Order": 236,
+              "Time": "2026-11-16T06:59:58.40376527+08:00"
+            },
+            "Message": "scaling in the last pod node node-0, now all nodes should not have runtime labels"
+          },
+          {
+            "SpecEventType": "By (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 724
+            },
+            "TimelineLocation": {
+              "Order": 237,
+              "Time": "2026-11-16T06:59:58.403976068+08:00"
+            },
+            "Message": "scaling in the last pod node node-0, now all nodes should not have runtime labels",
+            "Duration": 210798
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 666
+            },
+            "TimelineLocation": {
+              "Order": 239,
+              "Time": "2026-11-16T06:59:58.403981877+08:00"
+            },
+            "Message": "should successfully add or remove schedule info on proper nodes",
+            "Duration": 1872736,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR is not set"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 740
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 744
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 745
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should not return error and nodeExcludeSelector should be nil",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.403998708+08:00",
+        "EndTime": "2026-11-16T06:59:58.404210486+08:00",
+        "RunTime": 211778,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 240,
+              "Time": "2026-11-16T06:59:58.404004869+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 242,
+              "Time": "2026-11-16T06:59:58.404163714+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 158845,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 243,
+              "Time": "2026-11-16T06:59:58.404164364+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 245,
+              "Time": "2026-11-16T06:59:58.404187875+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 23511,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 745
+            },
+            "TimelineLocation": {
+              "Order": 246,
+              "Time": "2026-11-16T06:59:58.404188275+08:00"
+            },
+            "Message": "Should not return error and nodeExcludeSelector should be nil",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 745
+            },
+            "TimelineLocation": {
+              "Order": 248,
+              "Time": "2026-11-16T06:59:58.404197335+08:00"
+            },
+            "Message": "Should not return error and nodeExcludeSelector should be nil",
+            "Duration": 9060,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 741
+            },
+            "TimelineLocation": {
+              "Order": 249,
+              "Time": "2026-11-16T06:59:58.404198945+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 741
+            },
+            "TimelineLocation": {
+              "Order": 251,
+              "Time": "2026-11-16T06:59:58.404209616+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "Duration": 10671,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR has valid label selector"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 740
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 752
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 753
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should parse the selector correctly",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.404220326+08:00",
+        "EndTime": "2026-11-16T06:59:58.404452994+08:00",
+        "RunTime": 232668,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 252,
+              "Time": "2026-11-16T06:59:58.404221536+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 254,
+              "Time": "2026-11-16T06:59:58.404380972+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 159436,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 255,
+              "Time": "2026-11-16T06:59:58.404382042+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 257,
+              "Time": "2026-11-16T06:59:58.404413753+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 31701,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 753
+            },
+            "TimelineLocation": {
+              "Order": 258,
+              "Time": "2026-11-16T06:59:58.404414353+08:00"
+            },
+            "Message": "Should parse the selector correctly",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 753
+            },
+            "TimelineLocation": {
+              "Order": 260,
+              "Time": "2026-11-16T06:59:58.404443184+08:00"
+            },
+            "Message": "Should parse the selector correctly",
+            "Duration": 28831,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 741
+            },
+            "TimelineLocation": {
+              "Order": 261,
+              "Time": "2026-11-16T06:59:58.404444484+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 741
+            },
+            "TimelineLocation": {
+              "Order": 263,
+              "Time": "2026-11-16T06:59:58.404452364+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "Duration": 7880,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR has invalid label selector"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 740
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 768
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 769
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should return error",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.404458954+08:00",
+        "EndTime": "2026-11-16T06:59:58.404647851+08:00",
+        "RunTime": 188897,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 264,
+              "Time": "2026-11-16T06:59:58.404461825+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 266,
+              "Time": "2026-11-16T06:59:58.40460125+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 139425,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 267,
+              "Time": "2026-11-16T06:59:58.40460169+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 269,
+              "Time": "2026-11-16T06:59:58.40461697+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 15280,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 769
+            },
+            "TimelineLocation": {
+              "Order": 270,
+              "Time": "2026-11-16T06:59:58.4046173+08:00"
+            },
+            "Message": "Should return error",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 769
+            },
+            "TimelineLocation": {
+              "Order": 272,
+              "Time": "2026-11-16T06:59:58.404640911+08:00"
+            },
+            "Message": "Should return error",
+            "Duration": 23621,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 741
+            },
+            "TimelineLocation": {
+              "Order": 273,
+              "Time": "2026-11-16T06:59:58.404641661+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 741
+            },
+            "TimelineLocation": {
+              "Order": 275,
+              "Time": "2026-11-16T06:59:58.404647281+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "Duration": 5620,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6249 verification: exclude selector vs schedule info removal"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+            "LineNumber": 58
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pr6249-verify"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+          "LineNumber": 101
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "keeps the runtime label on an excluded node when its worker leaves (PR6249 contract)",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.404653152+08:00",
+        "EndTime": "2026-11-16T06:59:58.405564454+08:00",
+        "RunTime": 911312,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 66
+            },
+            "TimelineLocation": {
+              "Order": 276,
+              "Time": "2026-11-16T06:59:58.404653961+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 66
+            },
+            "TimelineLocation": {
+              "Order": 278,
+              "Time": "2026-11-16T06:59:58.404786986+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "Duration": 133025,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 93
+            },
+            "TimelineLocation": {
+              "Order": 279,
+              "Time": "2026-11-16T06:59:58.404787366+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 93
+            },
+            "TimelineLocation": {
+              "Order": 281,
+              "Time": "2026-11-16T06:59:58.404803327+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "Duration": 15971,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 101
+            },
+            "TimelineLocation": {
+              "Order": 282,
+              "Time": "2026-11-16T06:59:58.404803657+08:00"
+            },
+            "Message": "keeps the runtime label on an excluded node when its worker leaves (PR6249 contract)",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 102
+            },
+            "TimelineLocation": {
+              "Order": 283,
+              "Time": "2026-11-16T06:59:58.404808957+08:00"
+            },
+            "Message": "labelling both nodes before the operator excludes the vk node"
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 114
+            },
+            "TimelineLocation": {
+              "Order": 284,
+              "Time": "2026-11-16T06:59:58.405318265+08:00"
+            },
+            "Message": "excluding the vk node, then scaling the runtime off both nodes"
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 121
+            },
+            "TimelineLocation": {
+              "Order": 285,
+              "Time": "2026-11-16T06:59:58.405534833+08:00"
+            },
+            "Message": "the non-excluded node loses the runtime label (control group)"
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 127
+            },
+            "TimelineLocation": {
+              "Order": 286,
+              "Time": "2026-11-16T06:59:58.405542173+08:00"
+            },
+            "Message": "the excluded node keeps the runtime label (the contract PR #6249 introduces)"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 101
+            },
+            "TimelineLocation": {
+              "Order": 288,
+              "Time": "2026-11-16T06:59:58.405555004+08:00"
+            },
+            "Message": "keeps the runtime label on an excluded node when its worker leaves (PR6249 contract)",
+            "Duration": 751347,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 97
+            },
+            "TimelineLocation": {
+              "Order": 289,
+              "Time": "2026-11-16T06:59:58.405556314+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 97
+            },
+            "TimelineLocation": {
+              "Order": 291,
+              "Time": "2026-11-16T06:59:58.405562894+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "Duration": 6570,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6249 verification: exclude selector vs schedule info removal"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+            "LineNumber": 58
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pr6249-verify"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+          "LineNumber": 134
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "still removes the runtime label when the selector does not match the node (PR6249 contract)",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:59:58.405572364+08:00",
+        "EndTime": "2026-11-16T06:59:58.406193696+08:00",
+        "RunTime": 621322,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 66
+            },
+            "TimelineLocation": {
+              "Order": 292,
+              "Time": "2026-11-16T06:59:58.405573744+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 66
+            },
+            "TimelineLocation": {
+              "Order": 294,
+              "Time": "2026-11-16T06:59:58.405716899+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "Duration": 143155,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 93
+            },
+            "TimelineLocation": {
+              "Order": 295,
+              "Time": "2026-11-16T06:59:58.40571737+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 93
+            },
+            "TimelineLocation": {
+              "Order": 297,
+              "Time": "2026-11-16T06:59:58.4057373+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "Duration": 19940,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 134
+            },
+            "TimelineLocation": {
+              "Order": 298,
+              "Time": "2026-11-16T06:59:58.40573765+08:00"
+            },
+            "Message": "still removes the runtime label when the selector does not match the node (PR6249 contract)",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 134
+            },
+            "TimelineLocation": {
+              "Order": 300,
+              "Time": "2026-11-16T06:59:58.406185796+08:00"
+            },
+            "Message": "still removes the runtime label when the selector does not match the node (PR6249 contract)",
+            "Duration": 448146,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 97
+            },
+            "TimelineLocation": {
+              "Order": 301,
+              "Time": "2026-11-16T06:59:58.406187236+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 97
+            },
+            "TimelineLocation": {
+              "Order": 303,
+              "Time": "2026-11-16T06:59:58.406193106+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "Duration": 5870,
+            "NodeType": "AfterEach"
+          }
+        ]
+      }
+    ]
+  }
+]

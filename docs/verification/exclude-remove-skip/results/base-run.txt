@@ -1,0 +1,43 @@
+2026/11/16 07:00:04 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Lifecycle Suite - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-base/pkg/utils/dataset/lifecycle
+===================================================================================================================================================
+Random Seed: [1m1794783604[0m
+
+Will run [1m24[0m of [1m24[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.001 seconds][0m
+[0mPR6249 verification: exclude selector vs schedule info removal [38;5;9m[1m[It] keeps the runtime label on an excluded node when its worker leaves (PR6249 contract)[0m [38;5;204m[pr6249-verify][0m
+[38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-base/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go:101[0m
+
+  [38;5;243mTimeline >>[0m
+  [1mSTEP:[0m labelling both nodes before the operator excludes the vk node [38;5;243m@ 11/16/26 07:00:04.614[0m
+  [1mSTEP:[0m excluding the vk node, then scaling the runtime off both nodes [38;5;243m@ 11/16/26 07:00:04.614[0m
+  [1mSTEP:[0m the non-excluded node loses the runtime label (control group) [38;5;243m@ 11/16/26 07:00:04.615[0m
+  [1mSTEP:[0m the excluded node keeps the runtime label (the contract PR #6249 introduces) [38;5;243m@ 11/16/26 07:00:04.615[0m
+  [38;5;9m[FAILED][0m in [It] - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-base/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go:130 [38;5;243m@ 11/16/26 07:00:04.615[0m
+  [38;5;243m<< Timeline[0m
+
+  [38;5;9m[FAILED] an excluded node must not be label-patched by the removal path
+  Expected
+      <map[string]string | len:1>: {
+          "type": "virtual-kubelet",
+      }
+  to have {key: value}
+      <map[interface {}]interface {} | len:1>: {
+          <string>"fluid.io/s-alluxio-fluid-hbase": <string>"true",
+      }[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-base/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go:130[0m [38;5;243m@ 11/16/26 07:00:04.615[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m
+
+[38;5;9m[1mSummarizing 1 Failure:[0m
+  [38;5;9m[FAIL][0m [0mPR6249 verification: exclude selector vs schedule info removal [38;5;9m[1m[It] keeps the runtime label on an excluded node when its worker leaves (PR6249 contract)[0m [38;5;204m[pr6249-verify][0m
+  [38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-base/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go:130[0m
+
+[38;5;9m[1mRan 24 of 24 Specs in 0.011 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m23 Passed[0m | [38;5;9m[1m1 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+--- FAIL: TestLifecycle (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.025s
+FAIL

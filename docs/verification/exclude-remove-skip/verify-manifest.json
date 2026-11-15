@@ -1,0 +1,42 @@
+{
+  "topic": "exclude-remove-skip",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6249",
+  "harnessPaths": [
+    "docs/verification/exclude-remove-skip",
+    "pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "removeScheduleInfoFromNode ignores FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR, so an excluded node that has the runtime label still gets its Fluid labels removed when it leaves the cache node set (issue #6246)",
+    "reportedComponent": "pkg/utils/dataset/lifecycle node schedule-info sync (every engine's SyncScheduleInfoToCacheNodes)",
+    "patchedComponent": "pkg/utils/dataset/lifecycle/node.go removeScheduleInfoFromNode",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "contract spec 'keeps the runtime label on an excluded node when its worker leaves' grafted onto base ff99142 FAILS (vk-node labels reduced to {type: virtual-kubelet}); same spec passes on head 145a2c13 — results/base-run.txt, results/head-run.txt",
+    "match": ["keeps the runtime label on an excluded node when its worker leaves"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/utils/dataset/lifecycle/... -run TestLifecycle -count=1 -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    }
+  },
+  "findings": [
+    {
+      "id": "issue-6246-removal-skip",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["keeps the runtime label on an excluded node when its worker leaves"]
+    },
+    {
+      "id": "issue-6246-no-false-skip",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["still removes the runtime label when the selector does not match"]
+    }
+  ],
+  "liveNote": "L3 not run this round: the claim is deterministic label bookkeeping fully exercised by the fake-client ginkgo layer; a live cluster would repeat the same code path. If wanted: set FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR, label a node before excluding it, scale the runtime down, expect the excluded node's fluid.io/s-* labels to survive."
+}
