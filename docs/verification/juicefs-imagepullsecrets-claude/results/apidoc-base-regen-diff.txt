@@ -1,0 +1,119 @@
+# Round 2 control: regeneration from BASE (ff99142) api source vs committed base api_doc.md.
+# Body of this diff contains ZERO imagePullSecrets lines => all non-imagePullSecrets hunks in the head diff are pre-existing master drift, not this PR's doing.
+
+294,295d293
+< 
+< 
+681,682d678
+< | `policy` _[Policy](#policy)_ | Policy defines the operation policy, including Once, Cron, OnEvent | Once | Enum: [Once Cron OnEvent] <br />Optional: \{\} <br /> |
+< | `schedule` _string_ | Schedule defines the Cron schedule, only used when Policy is Cron.<br />See https://en.wikipedia.org/wiki/Cron. |  | Optional: \{\} <br /> |
+934,951d929
+< #### EmptyDirMediumSource
+< 
+< 
+< 
+< EmptyDirMediumSource describes emptyDir volume as a storage medium.
+< Can be backed by node's default storage or memory (tmpfs).
+< 
+< 
+< 
+< _Appears in:_
+< - [RuntimeTieredStoreLevel](#runtimetieredstorelevel)
+< 
+< | Field | Description | Default | Validation |
+< | --- | --- | --- | --- |
+< | `quota` _[Quantity](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#quantity-resource-api)_ | Quota specifies the maximum storage capacity for the emptyDir volume.<br />For Memory medium, this limit is also constrained by the sum of container memory limits.<br />The actual limit = min(Quota, sum of container memory limits).<br />Example: "100Gi" limits the emptyDir to 100GiB. |  | Required: \{\} <br /> |
+< | `medium` _[StorageMedium](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#storagemedium-v1-core)_ | medium represents what type of storage medium should back this directory.<br />The default is "" which means to use the node's default medium.<br />Must be an empty string (default) or Memory.<br />More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir |  | Optional: \{\} <br /> |
+< 
+< 
+1129,1147d1106
+< #### HostPathMediumSource
+< 
+< 
+< 
+< HostPathMediumSource describes hostPath volumes as a storage medium.
+< Multiple paths can be configured to distribute cache across different disks.
+< 
+< 
+< 
+< _Appears in:_
+< - [RuntimeTieredStoreLevel](#runtimetieredstorelevel)
+< 
+< | Field | Description | Default | Validation |
+< | --- | --- | --- | --- |
+< | `paths` _string array_ | Paths is a list of file paths on the host machine to be used for caching.<br />Multiple paths allow distributing cache across different mount points or disks.<br />Example: ["/mnt/cache1", "/mnt/cache2"] |  | MinItems: 1 <br />Required: \{\} <br /> |
+< | `quotas` _[Quantity](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#quantity-resource-api) array_ | Quotas is a list of storage quotas corresponding to each path.<br />The length of Quotas must match the length of Paths.<br />Each quota defines the maximum cache size for the corresponding path.<br />Example: ["100Gi", "50Gi"] allocates 100GiB to the first path and 50GiB to the second. |  | MinItems: 1 <br />Required: \{\} <br /> |
+< | `type` _[HostPathType](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#hostpathtype-v1-core)_ | Type specifies the type of hostPath volume.<br />Defaults to empty string (no validation).<br />More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath |  | Optional: \{\} <br /> |
+< 
+< 
+1461a1421,1438
+> #### MediumSource
+> 
+> 
+> 
+> MediumSource describes the storage medium type for tiered store.
+> Only one of its members may be specified.
+> 
+> 
+> 
+> _Appears in:_
+> - [RuntimeTieredStoreLevel](#runtimetieredstorelevel)
+> 
+> | Field | Description | Default | Validation |
+> | --- | --- | --- | --- |
+> | `processMemory` _[ProcessMemoryMediumSource](#processmemorymediumsource)_ | ProcessMemory indicates that process memory should be used as the storage medium.<br />The cache will be stored in the process's memory space. |  | Optional: \{\} <br /> |
+> | `volume` _[VolumeMediumSource](#volumemediumsource)_ | Volume indicates that a Kubernetes volume should be used as the storage medium.<br />Supported volume types include hostPath, emptyDir, and ephemeral volumes. |  | Optional: \{\} <br /> |
+> 
+> 
+1489a1467
+> - [CacheRuntimeStatus](#cacheruntimestatus)
+1685d1662
+< - [DataProcessSpec](#dataprocessspec)
+1716c1693,1694
+< Cache data will be stored in the process's memory space.
+---
+> When specified, cache data will be stored in the process's memory space,
+> and the quota will be added to the container's resource requests and limits.
+1721c1699
+< - [RuntimeTieredStoreLevel](#runtimetieredstorelevel)
+---
+> - [MediumSource](#mediumsource)
+1723,1725d1700
+< | Field | Description | Default | Validation |
+< | --- | --- | --- | --- |
+< | `quota` _[Quantity](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#quantity-resource-api)_ | Quota specifies the amount of memory to allocate for caching.<br />This value will be added to the container's resource requests and limits.<br />Example: "4Gi" allocates 4GiB memory for cache. |  | Required: \{\} <br /> |
+2032,2034c2007
+< RuntimeTieredStoreLevel describes the configuration for a single tier in the tiered storage.
+< Each tier can use different storage media (e.g., memory, SSD, HDD).
+< Only one of ProcessMemory, EmptyDir, or HostPath should be specified.
+---
+> RuntimeTieredStoreLevel describes the configuration for a single tier in the tiered storage
+2043,2045c2016,2018
+< | `processMemory` _[ProcessMemoryMediumSource](#processmemorymediumsource)_ | ProcessMemory indicates that process memory should be used as one storage medium.<br />When specified, cache data will be stored in the process's memory space,<br />and the quota will be added to the container's resource requests and limits. |  | Optional: \{\} <br /> |
+< | `emptyDir` _[EmptyDirMediumSource](#emptydirmediumsource)_ | EmptyDir indicates that an emptyDir volume should be used as the storage medium. |  | Optional: \{\} <br /> |
+< | `hostPath` _[HostPathMediumSource](#hostpathmediumsource)_ | HostPath indicates that one or more hostPath volumes should be used as a storage medium. |  | Optional: \{\} <br /> |
+---
+> | `medium` _[MediumSource](#mediumsource)_ | Medium describes the storage medium type for this tier.<br />Supported types include process memory and various volume types. |  | Optional: \{\} <br /> |
+> | `path` _string array_ | Path is a list of file paths to be used for the cache tier.<br />Multiple paths can be specified to distribute cache across different mount points.<br />For example: ["/mnt/cache1", "/mnt/cache2"]. |  | MinItems: 1 <br />Optional: \{\} <br /> |
+> | `quota` _[Quantity](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#quantity-resource-api) array_ | Quota is a list of storage quotas for each path in the tier.<br />The length of Quota should match the length of Path.<br />Each quota corresponds to the path at the same index.<br />For example: ["100Gi", "50Gi"] allocates 100GiB to the first path and 50GiB to the second path. |  | Optional: \{\} <br /> |
+2493a2467,2485
+> 
+> 
+> #### VolumeMediumSource
+> 
+> 
+> 
+> VolumeMediumSource describes a Kubernetes volume as a storage medium.
+> Only one of its members may be specified.
+> 
+> 
+> 
+> _Appears in:_
+> - [MediumSource](#mediumsource)
+> 
+> | Field | Description | Default | Validation |
+> | --- | --- | --- | --- |
+> | `hostPath` _[HostPathVolumeSource](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#hostpathvolumesource-v1-core)_ | HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container.<br />More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath |  | Optional: \{\} <br /> |
+> | `emptyDir` _[EmptyDirVolumeSource](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#emptydirvolumesource-v1-core)_ | EmptyDir represents a temporary directory that shares a pod's lifetime.<br />More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir |  | Optional: \{\} <br /> |
+> | `ephemeral` _[EphemeralVolumeSource](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#ephemeralvolumesource-v1-core)_ | Ephemeral represents a volume that is handled by a cluster storage driver.<br />The volume's lifecycle is tied to the pod that defines it.<br />More info: https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/ |  | Optional: \{\} <br /> |
+# (diff exit code 1)

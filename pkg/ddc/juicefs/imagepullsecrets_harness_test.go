@@ -77,10 +77,10 @@ type imagePullSecretsScenario struct {
 	fuseSecrets          []string
 
 	// expectations: nil means "no imagePullSecrets key at all"
-	wantGlobal  []string
-	wantWorker  []string
-	wantFuse    []string
-	wantNoKeys  bool // true when no imagePullSecrets key may appear anywhere in the marshaled values
+	wantGlobal []string
+	wantWorker []string
+	wantFuse   []string
+	wantNoKeys bool // true when no imagePullSecrets key may appear anywhere in the marshaled values
 }
 
 var _ = Describe("imagePullSecrets hierarchy (PR 6245 harness)", func() {
@@ -93,11 +93,11 @@ var _ = Describe("imagePullSecrets hierarchy (PR 6245 harness)", func() {
 		{
 			// P0-adjacent: existing installs (no new spec fields) must render exactly
 			// as before the PR — the controller env default keeps flowing to all pods.
-			name:                 "s1-env-default-only",
-			envImagePullSecrets:  "default-secret",
-			wantGlobal:           []string{"default-secret"},
-			wantWorker:           nil,
-			wantFuse:             nil,
+			name:                "s1-env-default-only",
+			envImagePullSecrets: "default-secret",
+			wantGlobal:          []string{"default-secret"},
+			wantWorker:          nil,
+			wantFuse:            nil,
 		},
 		{
 			// spec.imagePullSecrets replaces the controller default (Alluxio-compatible semantics).
@@ -130,12 +130,12 @@ var _ = Describe("imagePullSecrets hierarchy (PR 6245 harness)", func() {
 		},
 		{
 			// only fuse-level set: fuse pod gets its own, worker pod gets nothing.
-			name:       "s5-fuse-only-no-default",
-			unsetEnv:   true,
+			name:        "s5-fuse-only-no-default",
+			unsetEnv:    true,
 			fuseSecrets: []string{"fuse-secret"},
-			wantGlobal: nil,
-			wantWorker: nil,
-			wantFuse:   []string{"fuse-secret"},
+			wantGlobal:  nil,
+			wantWorker:  nil,
+			wantFuse:    []string{"fuse-secret"},
 		},
 	}
 
@@ -259,6 +259,45 @@ var _ = Describe("imagePullSecrets hierarchy (PR 6245 harness)", func() {
 			}
 		})
 	}
+
+	// s6 (round 2, delta 6711374..3271f28): charts/juicefs/values.yaml now declares
+	// worker.imagePullSecrets: [] and fuse.imagePullSecrets: []. An empty list must
+	// stay "unset" for the chart's `| default .Values.imagePullSecrets` fallback:
+	// with nothing set, no pod carries secrets; with only the global value set,
+	// both pods fall back to it.
+	It("chart defaults keep imagePullSecrets fallback (values.yaml-declared empty lists)", func() {
+		helmBin, err := exec.LookPath("helm")
+		Expect(err).NotTo(HaveOccurred(), "helm is required by this verification harness")
+
+		_, thisFile, _, _ := goruntime.Caller(0)
+		repoRoot := filepath.Dir(filepath.Dir(filepath.Dir(filepath.Dir(thisFile))))
+		chartDir := filepath.Join(repoRoot, "charts", "juicefs")
+		_, statErr := os.Stat(chartDir)
+		Expect(statErr).NotTo(HaveOccurred(), "charts/juicefs not found at "+chartDir)
+
+		render := func(extraArgs ...string) map[string][]corev1.LocalObjectReference {
+			args := append([]string{"template", "test", chartDir, "--namespace", "fluid"}, extraArgs...)
+			cmd := exec.Command(helmBin, args...)
+			out, err := cmd.CombinedOutput()
+			Expect(err).NotTo(HaveOccurred(), "helm template failed:\n%s", string(out))
+			return parseRenderedPodImagePullSecrets(out)
+		}
+
+		// (a) pure chart defaults: neither pod gets any imagePullSecrets
+		rendered := render()
+		Expect(rendered).To(HaveKey("worker"), "worker StatefulSet not rendered")
+		Expect(rendered).To(HaveKey("fuse"), "fuse DaemonSet not rendered")
+		Expect(rendered["worker"]).To(BeEmpty(), "worker pod should have no imagePullSecrets with chart defaults")
+		Expect(rendered["fuse"]).To(BeEmpty(), "fuse pod should have no imagePullSecrets with chart defaults")
+
+		// (b) only the global value set: both pods fall back to it even though
+		// worker.imagePullSecrets / fuse.imagePullSecrets are declared as [].
+		rendered = render("--set", "imagePullSecrets[0].name=chart-global-secret")
+		Expect(names(rendered["worker"])).To(Equal([]string{"chart-global-secret"}),
+			"worker pod must fall back to the global imagePullSecrets")
+		Expect(names(rendered["fuse"])).To(Equal([]string{"chart-global-secret"}),
+			"fuse pod must fall back to the global imagePullSecrets")
+	})
 })
 
 func orFallback(component, global []string) []string {
@@ -305,13 +344,48 @@ func renderChartAndAssert(sc imagePullSecretsScenario, valuesYAML []byte) {
 		out = out[idx:]
 	}
 
+	rendered := parseRenderedPodImagePullSecrets(out)
+
+	// the chart's fallback: component secrets, else the global ones
+	wantWorker := orFallback(sc.wantWorker, sc.wantGlobal)
+	wantFuse := orFallback(sc.wantFuse, sc.wantGlobal)
+	if wantWorker == nil {
+		wantWorker = []string{}
+	}
+	if wantFuse == nil {
+		wantFuse = []string{}
+	}
+
+	// both workloads always render for these scenarios; the contract is on the
+	// pod-level imagePullSecrets each of them ends up with
+	Expect(rendered).To(HaveKey("worker"), "worker StatefulSet not rendered")
+	Expect(names(rendered["worker"])).To(Equal(wantWorker),
+		"%s: worker pod imagePullSecrets", sc.name)
+	Expect(rendered).To(HaveKey("fuse"), "fuse DaemonSet not rendered")
+	Expect(names(rendered["fuse"])).To(Equal(wantFuse),
+		"%s: fuse pod imagePullSecrets", sc.name)
+}
+
+// names converts LocalObjectReference slices to plain name slices.
+func names(refs []corev1.LocalObjectReference) []string {
+	ns := []string{}
+	for _, r := range refs {
+		ns = append(ns, r.Name)
+	}
+	return ns
+}
+
+// parseRenderedPodImagePullSecrets extracts the pod-level imagePullSecrets of
+// the juicefs worker StatefulSet (-worker suffix) and fuse DaemonSet (-fuse
+// suffix) from a `helm template` output.
+func parseRenderedPodImagePullSecrets(out []byte) map[string][]corev1.LocalObjectReference {
 	rendered := map[string][]corev1.LocalObjectReference{}
 	for _, doc := range strings.Split(string(out), "\n---") {
 		if !strings.Contains(doc, "kind: StatefulSet") && !strings.Contains(doc, "kind: DaemonSet") {
 			continue
 		}
 		var obj struct {
-			Kind string `json:"kind" yaml:"kind"`
+			Kind     string `json:"kind" yaml:"kind"`
 			Metadata struct {
 				Name string `json:"name" yaml:"name"`
 			} `json:"metadata" yaml:"metadata"`
@@ -337,31 +411,5 @@ func renderChartAndAssert(sc imagePullSecretsScenario, valuesYAML []byte) {
 			}
 		}
 	}
-
-	names := func(refs []corev1.LocalObjectReference) []string {
-		ns := []string{}
-		for _, r := range refs {
-			ns = append(ns, r.Name)
-		}
-		return ns
-	}
-
-	// the chart's fallback: component secrets, else the global ones
-	wantWorker := orFallback(sc.wantWorker, sc.wantGlobal)
-	wantFuse := orFallback(sc.wantFuse, sc.wantGlobal)
-	if wantWorker == nil {
-		wantWorker = []string{}
-	}
-	if wantFuse == nil {
-		wantFuse = []string{}
-	}
-
-	// both workloads always render for these scenarios; the contract is on the
-	// pod-level imagePullSecrets each of them ends up with
-	Expect(rendered).To(HaveKey("worker"), "worker StatefulSet not rendered")
-	Expect(names(rendered["worker"])).To(Equal(wantWorker),
-		"%s: worker pod imagePullSecrets", sc.name)
-	Expect(rendered).To(HaveKey("fuse"), "fuse DaemonSet not rendered")
-	Expect(names(rendered["fuse"])).To(Equal(wantFuse),
-		"%s: fuse pod imagePullSecrets", sc.name)
+	return rendered
 }

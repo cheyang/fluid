@@ -1,0 +1,15 @@
+# Round 2 harness-bites check for TestJuicefsApiDocImagePullSecretsPlacement (contract polarity)
+
+## 1. RED on the PR head 3271f28 docs (reproduction of F-api-doc-rows-misplaced):
+--- FAIL: TestJuicefsApiDocImagePullSecretsPlacement (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	0.015s
+FAIL
+
+## 2. GREEN after applying the proposed fix (make update-api-doc output, i.e. the pinned crd-ref-docs v0.3.0 regeneration) — then reverted:
+--- PASS: TestJuicefsApiDocImagePullSecretsPlacement (0.00s)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	0.014s
+
+## 3. docs restored to head state; production diff must be empty afterwards:
+0
+^ lines of user-docs (docs/en, docs/zh) diff vs head (must be 0; note: git diff 3271f28 -- docs/ also lists the harness's own docs/verification files as insertions, which are reviewer artifacts, not production code)

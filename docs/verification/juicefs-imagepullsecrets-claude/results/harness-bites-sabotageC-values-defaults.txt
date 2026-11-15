@@ -1,0 +1,14 @@
+# Round 2 harness-bites check for s6 (chart defaults keep imagePullSecrets fallback).
+# Sabotage: charts/juicefs/templates/worker/statefulset.yaml line 66 changed from
+#   {{- with (.Values.worker.imagePullSecrets | default .Values.imagePullSecrets) }}
+# to
+#   {{- with .Values.worker.imagePullSecrets }}
+# (dropping the global fallback), then reverted.
+
+sabotage run: {'passed': 180, 'failed': 3}
+failing specs:
+  - transforms s1-env-default-only
+  - transforms s2-runtime-replaces-env-default
+  - chart defaults keep imagePullSecrets fallback (values.yaml-declared empty lists)
+
+Clean run (template restored): 183/183 passed (see results/reverify-round2/).
