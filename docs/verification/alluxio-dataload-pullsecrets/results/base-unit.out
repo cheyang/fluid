@@ -1,0 +1,17 @@
+2026/11/16 07:27:20 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestPR6250DataBackupValueFileUsesRuntimePullSecrets
+    backup_data_pullsecrets_verify_test.go:148: DataBackup value file imagePullSecrets = [{env-secret-should-be-replaced}], want [{runtime-secret}] (runtime secrets must replace the env default)
+--- FAIL: TestPR6250DataBackupValueFileUsesRuntimePullSecrets (0.00s)
+=== RUN   TestPR6250DataBackupValueFileFallsBackToEnvPullSecrets
+--- PASS: TestPR6250DataBackupValueFileFallsBackToEnvPullSecrets (0.00s)
+=== RUN   TestPR6250DataLoadValueFileUsesRuntimePullSecrets
+    load_data_pullsecrets_verify_test.go:122: DataLoad value file imagePullSecrets = [{env-secret-should-be-replaced}], want [{runtime-secret}] (runtime secrets must replace the env default)
+--- FAIL: TestPR6250DataLoadValueFileUsesRuntimePullSecrets (0.00s)
+=== RUN   TestPR6250DataLoadValueFileFallsBackToEnvPullSecrets
+--- PASS: TestPR6250DataLoadValueFileFallsBackToEnvPullSecrets (0.00s)
+=== RUN   TestPR6250DataLoadValueFileRequiresRuntime
+    load_data_pullsecrets_verify_test.go:162: expected an error when the AlluxioRuntime is missing, got nil
+--- FAIL: TestPR6250DataLoadValueFileRequiresRuntime (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	0.014s
+FAIL
