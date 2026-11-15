@@ -1,2 +1,3 @@
-TestVerifyPr6245HelmRenderScenarios	pass
+TestVerifyPr6245APIDocPlacement	fail
 TestVerifyPr6245CRDSchemaCheck	pass
+TestVerifyPr6245HelmRenderScenarios	pass
