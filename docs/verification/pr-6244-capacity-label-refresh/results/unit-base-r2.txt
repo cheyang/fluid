@@ -1,0 +1,74 @@
+2026/11/16 06:26:23 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Lifecycle Suite - /home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle
+===================================================================================================================
+Random Seed: 1794781583
+
+Will run 8 of 30 specs
+SSSSSSSSSSSSSSSSSSSSSS
+------------------------------
+• [FAILED] [0.001 seconds]
+PR6244 verification (codex) [It] P0a-stale-capacity-labels-get-refreshed [verify-pr-6244]
+/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go:107
+
+  [FAILED] Expected
+      <map[string]string | len:3>: {
+          "fluid.io/s-alluxio-fluid-spark": "true",
+          "fluid.io/s-fluid-spark": "true",
+          "fluid.io/s-h-alluxio-t-fluid-spark": "0B",
+      }
+  to have {key: value}
+      <map[interface {}]interface {} | len:1>: {
+          <string>"fluid.io/s-h-alluxio-m-fluid-spark": <string>"1GiB",
+      }
+  In [It] at: /home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go:118 @ 11/16/26 06:26:23.574
+------------------------------
+• [FAILED] [0.000 seconds]
+PR6244 verification (codex) [It] P0b-removed-tier-label-gets-deleted [verify-pr-6244]
+/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go:125
+
+  [FAILED] Expected
+      <map[string]string | len:5>: {
+          "fluid.io/s-alluxio-fluid-spark": "true",
+          "fluid.io/s-fluid-spark": "true",
+          "fluid.io/s-h-alluxio-d-fluid-spark": "2GiB",
+          "fluid.io/s-h-alluxio-m-fluid-spark": "1GiB",
+          "fluid.io/s-h-alluxio-t-fluid-spark": "3GiB",
+      }
+  not to have key
+      <string>: fluid.io/s-h-alluxio-m-fluid-spark
+  In [It] at: /home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go:141 @ 11/16/26 06:26:23.574
+------------------------------
+•••••
+------------------------------
+• [FAILED] [0.000 seconds]
+PR6244 verification (codex) [It] E2-exclude-guard-does-not-skip-normal-nodes [verify-pr-6244]
+/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go:273
+
+  [FAILED] Expected
+      <map[string]string | len:4>: {
+          "fluid.io/s-alluxio-fluid-spark": "true",
+          "fluid.io/s-fluid-spark": "true",
+          "fluid.io/s-h-alluxio-t-fluid-spark": "0B",
+          "type": "real-node",
+      }
+  to have {key: value}
+      <map[interface {}]interface {} | len:1>: {
+          <string>"fluid.io/s-h-alluxio-m-fluid-spark": <string>"1GiB",
+      }
+  In [It] at: /home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go:310 @ 11/16/26 06:26:23.577
+------------------------------
+
+Summarizing 3 Failures:
+  [FAIL] PR6244 verification (codex) [It] P0a-stale-capacity-labels-get-refreshed [verify-pr-6244]
+  /home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go:118
+  [FAIL] PR6244 verification (codex) [It] P0b-removed-tier-label-gets-deleted [verify-pr-6244]
+  /home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go:141
+  [FAIL] PR6244 verification (codex) [It] E2-exclude-guard-does-not-skip-normal-nodes [verify-pr-6244]
+  /home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go:310
+
+Ran 8 of 30 Specs in 0.005 seconds
+FAIL! -- 5 Passed | 3 Failed | 0 Pending | 22 Skipped
+--- FAIL: TestLifecycle (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.017s
+FAIL

@@ -1,0 +1,1869 @@
+[
+  {
+    "SuitePath": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle",
+    "SuiteDescription": "Lifecycle Suite",
+    "SuiteLabels": [],
+    "SuiteSemVerConstraints": [],
+    "SuiteSucceeded": true,
+    "SuiteHasProgrammaticFocus": false,
+    "SpecialSuiteFailureReasons": null,
+    "PreRunStats": {
+      "TotalSpecs": 35,
+      "SpecsThatWillRun": 8
+    },
+    "StartTime": "2026-11-16T06:26:53.821443256+08:00",
+    "EndTime": "2026-11-16T06:26:53.826084861+08:00",
+    "RunTime": 4641605,
+    "SuiteConfig": {
+      "RandomSeed": 1794781613,
+      "RandomizeAllSpecs": false,
+      "FocusStrings": [
+        "PR6244 verification"
+      ],
+      "SkipStrings": null,
+      "FocusFiles": null,
+      "SkipFiles": null,
+      "LabelFilter": "",
+      "SemVerFilter": "",
+      "FailOnPending": false,
+      "FailOnEmpty": false,
+      "FailFast": false,
+      "FlakeAttempts": 0,
+      "MustPassRepeatedly": 0,
+      "DryRun": false,
+      "PollProgressAfter": 0,
+      "PollProgressInterval": 0,
+      "Timeout": 3600000000000,
+      "EmitSpecProgress": false,
+      "OutputInterceptorMode": "",
+      "SourceRoots": null,
+      "GracePeriod": 30000000000,
+      "ParallelProcess": 1,
+      "ParallelTotal": 1,
+      "ParallelHost": ""
+    },
+    "SpecReports": [
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given exclusive placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 68
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 69
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 84
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add exclusive labels to node",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.821519109+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given share placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 68
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 103
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 118
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add share mode labels to node",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.82154601+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given runtime with tiered store"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 68
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 137
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 172
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add capacity labels to node",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.82154963+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has dataset-num label with value 2"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 191
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 192
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 193
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should decrease dataset number to 1",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.82155328+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has dataset-num label with value 1"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 191
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 212
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 213
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should delete dataset-num label",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.82155714+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has invalid dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 191
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 231
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 232
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return error",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.82156031+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has no dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 191
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 244
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 245
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should not modify labels",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.82156354+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test increaseDatasetNum",
+          "when node has existing dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 259
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 260
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 261
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should increase dataset number",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.82156598+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test increaseDatasetNum",
+          "when node has no dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 259
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 279
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 280
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add dataset-num label with value 1",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.82156845+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has runtime label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 299
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 300
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 301
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return true",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.82157158+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has no runtime label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 299
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 316
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 317
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.821574391+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has no labels"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 299
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 332
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 333
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.82157688+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given exclusive placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 347
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 348
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 371
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove fluid labels and keep other labels",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.821579281+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given share placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 347
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 397
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 418
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove all fluid labels",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.821581911+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given runtime with tiered store"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 347
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 440
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 484
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove all fluid labels including capacity labels",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.821584131+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test syncCapacityInfoOnNode()",
+          "when the node was labelled with an empty tiered store"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 510
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 539
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 549
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should write the current capacity labels",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.821587321+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test syncCapacityInfoOnNode()",
+          "when the node has a label for a tier the runtime no longer has"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 510
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 561
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 583
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove the stale tier label",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.821590241+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test syncCapacityInfoOnNode()",
+          "when the node doesn't have the runtime label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 510
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 594
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 600
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should leave the node alone",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.821593841+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test SyncScheduleInfoToCacheNodes refreshing capacity labels"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 610
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 678
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should repair outdated capacity labels and not patch again once they match",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.821597351+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test SyncScheduleInfoToCacheNodes refreshing capacity labels"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 610
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 692
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should leave nodes matching the exclude selector untouched",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.821600272+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given current and previous node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 705
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 706
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 707
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should calculate correct differences",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.821602641+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given identical node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 705
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 718
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 719
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return empty differences",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.821604781+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given completely different node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 705
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 730
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 731
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return all nodes as differences",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.821606952+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test SyncScheduleInfoToCacheNodes",
+          "when calling SyncScheduleInfoToCacheNodes several times to mock runtime scaling"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 743
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 807
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 821
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should successfully add or remove schedule info on proper nodes",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.821610522+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR is not set"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 895
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 899
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 900
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should not return error and nodeExcludeSelector should be nil",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.821612672+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR has valid label selector"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 895
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 907
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 908
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should parse the selector correctly",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.821615922+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR has invalid label selector"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 45
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 895
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 923
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 924
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should return error",
+        "State": "skipped",
+        "StartTime": "2026-11-16T06:26:53.821618252+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6244 verification (codex)"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+            "LineNumber": 96
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "verify-pr-6244"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+          "LineNumber": 107
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "P0a-stale-capacity-labels-get-refreshed",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:26:53.821622702+08:00",
+        "EndTime": "2026-11-16T06:26:53.823509629+08:00",
+        "RunTime": 1886927,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+              "LineNumber": 107
+            },
+            "TimelineLocation": {
+              "Order": 1,
+              "Time": "2026-11-16T06:26:53.821626212+08:00"
+            },
+            "Message": "P0a-stale-capacity-labels-get-refreshed",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+              "LineNumber": 107
+            },
+            "TimelineLocation": {
+              "Order": 3,
+              "Time": "2026-11-16T06:26:53.823505689+08:00"
+            },
+            "Message": "P0a-stale-capacity-labels-get-refreshed",
+            "Duration": 1879467,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6244 verification (codex)"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+            "LineNumber": 96
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "verify-pr-6244"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+          "LineNumber": 125
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "P0b-removed-tier-label-gets-deleted",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:26:53.82353299+08:00",
+        "EndTime": "2026-11-16T06:26:53.824017657+08:00",
+        "RunTime": 484667,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+              "LineNumber": 125
+            },
+            "TimelineLocation": {
+              "Order": 4,
+              "Time": "2026-11-16T06:26:53.82353539+08:00"
+            },
+            "Message": "P0b-removed-tier-label-gets-deleted",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+              "LineNumber": 125
+            },
+            "TimelineLocation": {
+              "Order": 6,
+              "Time": "2026-11-16T06:26:53.824015847+08:00"
+            },
+            "Message": "P0b-removed-tier-label-gets-deleted",
+            "Duration": 480447,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6244 verification (codex)"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+            "LineNumber": 96
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "verify-pr-6244"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+          "LineNumber": 148
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "C1-matching-labels-are-not-rewritten",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:26:53.824026068+08:00",
+        "EndTime": "2026-11-16T06:26:53.824309978+08:00",
+        "RunTime": 283910,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+              "LineNumber": 148
+            },
+            "TimelineLocation": {
+              "Order": 7,
+              "Time": "2026-11-16T06:26:53.824027638+08:00"
+            },
+            "Message": "C1-matching-labels-are-not-rewritten",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+              "LineNumber": 148
+            },
+            "TimelineLocation": {
+              "Order": 9,
+              "Time": "2026-11-16T06:26:53.824309088+08:00"
+            },
+            "Message": "C1-matching-labels-are-not-rewritten",
+            "Duration": 281450,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6244 verification (codex)"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+            "LineNumber": 96
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "verify-pr-6244"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+          "LineNumber": 174
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "C2-foreign-runtime-labels-are-untouched",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:26:53.824316128+08:00",
+        "EndTime": "2026-11-16T06:26:53.824546676+08:00",
+        "RunTime": 230538,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+              "LineNumber": 174
+            },
+            "TimelineLocation": {
+              "Order": 10,
+              "Time": "2026-11-16T06:26:53.824317008+08:00"
+            },
+            "Message": "C2-foreign-runtime-labels-are-untouched",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+              "LineNumber": 174
+            },
+            "TimelineLocation": {
+              "Order": 12,
+              "Time": "2026-11-16T06:26:53.824545876+08:00"
+            },
+            "Message": "C2-foreign-runtime-labels-are-untouched",
+            "Duration": 228868,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6244 verification (codex)"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+            "LineNumber": 96
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "verify-pr-6244"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+          "LineNumber": 198
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "C3-new-node-still-gets-full-label-set",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:26:53.824551386+08:00",
+        "EndTime": "2026-11-16T06:26:53.825005813+08:00",
+        "RunTime": 454426,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+              "LineNumber": 198
+            },
+            "TimelineLocation": {
+              "Order": 13,
+              "Time": "2026-11-16T06:26:53.824552236+08:00"
+            },
+            "Message": "C3-new-node-still-gets-full-label-set",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+              "LineNumber": 198
+            },
+            "TimelineLocation": {
+              "Order": 15,
+              "Time": "2026-11-16T06:26:53.825004902+08:00"
+            },
+            "Message": "C3-new-node-still-gets-full-label-set",
+            "Duration": 452666,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6244 verification (codex)"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+            "LineNumber": 96
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "verify-pr-6244"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+          "LineNumber": 214
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "C4-removed-node-loses-all-runtime-labels",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:26:53.825011243+08:00",
+        "EndTime": "2026-11-16T06:26:53.825432998+08:00",
+        "RunTime": 421755,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+              "LineNumber": 214
+            },
+            "TimelineLocation": {
+              "Order": 16,
+              "Time": "2026-11-16T06:26:53.825011933+08:00"
+            },
+            "Message": "C4-removed-node-loses-all-runtime-labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+              "LineNumber": 214
+            },
+            "TimelineLocation": {
+              "Order": 18,
+              "Time": "2026-11-16T06:26:53.825432178+08:00"
+            },
+            "Message": "C4-removed-node-loses-all-runtime-labels",
+            "Duration": 420245,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6244 verification (codex)"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+            "LineNumber": 96
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "verify-pr-6244"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+          "LineNumber": 244
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "E1-excluded-node-is-not-refreshed",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:26:53.825438008+08:00",
+        "EndTime": "2026-11-16T06:26:53.825681697+08:00",
+        "RunTime": 243699,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+              "LineNumber": 244
+            },
+            "TimelineLocation": {
+              "Order": 19,
+              "Time": "2026-11-16T06:26:53.825438658+08:00"
+            },
+            "Message": "E1-excluded-node-is-not-refreshed",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+              "LineNumber": 244
+            },
+            "TimelineLocation": {
+              "Order": 21,
+              "Time": "2026-11-16T06:26:53.825681026+08:00"
+            },
+            "Message": "E1-excluded-node-is-not-refreshed",
+            "Duration": 242368,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6244 verification (codex)"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+            "LineNumber": 96
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "verify-pr-6244"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+          "LineNumber": 273
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "E2-exclude-guard-does-not-skip-normal-nodes",
+        "State": "passed",
+        "StartTime": "2026-11-16T06:26:53.825686577+08:00",
+        "EndTime": "2026-11-16T06:26:53.826080031+08:00",
+        "RunTime": 393454,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+              "LineNumber": 273
+            },
+            "TimelineLocation": {
+              "Order": 22,
+              "Time": "2026-11-16T06:26:53.825687107+08:00"
+            },
+            "Message": "E2-exclude-guard-does-not-skip-normal-nodes",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr-6244-codex/pkg/utils/dataset/lifecycle/node_verify_test.go",
+              "LineNumber": 273
+            },
+            "TimelineLocation": {
+              "Order": 24,
+              "Time": "2026-11-16T06:26:53.826079301+08:00"
+            },
+            "Message": "E2-exclude-guard-does-not-skip-normal-nodes",
+            "Duration": 392184,
+            "NodeType": "It"
+          }
+        ]
+      }
+    ]
+  }
+]

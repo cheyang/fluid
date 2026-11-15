@@ -1,0 +1,10 @@
+{"Time":"2026-11-16T06:26:54.709160897+08:00","Action":"start","Package":"github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle"}
+{"Time":"2026-11-16T06:26:54.720837983+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle","Output":"2026/11/16 06:26:54 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes\n"}
+{"Time":"2026-11-16T06:26:54.720905896+08:00","Action":"run","Package":"github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle","Test":"TestPR6244Envtest"}
+{"Time":"2026-11-16T06:26:54.720908156+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle","Test":"TestPR6244Envtest","Output":"=== RUN   TestPR6244Envtest\n","OutputType":"frame"}
+{"Time":"2026-11-16T06:26:56.773008011+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle","Test":"TestPR6244Envtest","Output":"    node_envtest_verify_test.go:204: node-1 final labels: map[fluid.io/s-alluxio-fluid-spark:true fluid.io/s-h-alluxio-d-fluid-spark:2GiB fluid.io/s-h-alluxio-t-fluid-spark:2GiB]\n"}
+{"Time":"2026-11-16T06:27:16.787523035+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle","Test":"TestPR6244Envtest","Output":"--- PASS: TestPR6244Envtest (22.07s)\n","OutputType":"frame"}
+{"Time":"2026-11-16T06:27:16.787551946+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle","Test":"TestPR6244Envtest","Elapsed":22.07}
+{"Time":"2026-11-16T06:27:16.787564017+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-11-16T06:27:16.789529417+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle","Output":"ok  \tgithub.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle\t22.080s\n"}
+{"Time":"2026-11-16T06:27:16.789537807+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle","Elapsed":22.08}

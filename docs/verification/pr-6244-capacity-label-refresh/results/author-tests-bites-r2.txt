@@ -1,0 +1,38 @@
+2026/11/16 06:30:28 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestLifecycle
+Running Suite: Lifecycle Suite - /tmp/wt-pr6244-head/pkg/utils/dataset/lifecycle
+================================================================================
+Random Seed: 1794781828
+
+Will run 2 of 27 specs
+SSSSSSSSSSSSSSSSSS•
+------------------------------
+• [FAILED] [0.001 seconds]
+Dataset Lifecycle Node Tests Test SyncScheduleInfoToCacheNodes refreshing capacity labels [It] should leave nodes matching the exclude selector untouched [pkg.utils.dataset.lifecycle.node_test.go]
+/tmp/wt-pr6244-head/pkg/utils/dataset/lifecycle/node_test.go:692
+
+  [FAILED] Expected
+      <map[string]string | len:4>: {
+          "fluid.io/s-alluxio-fluid-hbase": "true",
+          "fluid.io/s-h-alluxio-m-fluid-hbase": "1GiB",
+          "fluid.io/s-h-alluxio-t-fluid-hbase": "1GiB",
+          "type": "real-node",
+      }
+  to have {key: value}
+      <map[interface {}]interface {} | len:1>: {
+          <string>"fluid.io/s-h-alluxio-t-fluid-hbase": <string>"0B",
+      }
+  In [It] at: /tmp/wt-pr6244-head/pkg/utils/dataset/lifecycle/node_test.go:699 @ 11/16/26 06:30:28.273
+------------------------------
+SSSSSSS
+
+Summarizing 1 Failure:
+  [FAIL] Dataset Lifecycle Node Tests Test SyncScheduleInfoToCacheNodes refreshing capacity labels [It] should leave nodes matching the exclude selector untouched [pkg.utils.dataset.lifecycle.node_test.go]
+  /tmp/wt-pr6244-head/pkg/utils/dataset/lifecycle/node_test.go:699
+
+Ran 2 of 27 Specs in 0.003 seconds
+FAIL! -- 1 Passed | 1 Failed | 0 Pending | 25 Skipped
+--- FAIL: TestLifecycle (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.016s
+FAIL

@@ -2,8 +2,9 @@
 
 Reproducible evidence for the review of https://github.com/fluid-cloudnative/fluid/pull/6244
 (`fix(lifecycle): refresh outdated capacity labels on cache nodes`, fixes #6204).
-Reviewer: codex. Round: initial (head e0cba66ef9447434750a73be698402b4b958b893,
-base ff99142f9ec5c32a0c9166de023cb8936f0e5ae5).
+Reviewer: codex. Round 1: initial (head e0cba66ef9447434750a73be698402b4b958b893,
+base ff99142f9ec5c32a0c9166de023cb8936f0e5ae5). Round 2: incremental re-verify of
+head 7de88000e21b1e299d6f205f86057a177c5bf8fc (same base) — see "Round 2" below.
 
 Layers run against the code under review (e0cba66):
 
@@ -94,3 +95,39 @@ bash docs/verification/pr-6244-capacity-label-refresh/scripts/re-verify.sh <ref>
   `bash docs/verification/pr-6244-capacity-label-refresh/scripts/re-verify.sh` from a
   checkout of `verify/pr-6244-capacity-label-refresh-codex`; then review
   `git diff $(cat docs/verification/pr-6244-capacity-label-refresh/.last-reviewed)..HEAD`."
+
+## Round 2 — incremental (head 7de88000e, delta e0cba66e..7de88000e)
+
+The delta is a single commit (`fix(lifecycle): skip excluded nodes when refreshing
+capacity labels`): +5 LOC in `syncCapacityInfoOnNode` mirroring the
+`addScheduleInfoToNode` nodeExcludeSelector guard verbatim, plus two entry-point
+specs in the PR's own `node_test.go` (repair + zero-patch steady state; excluded
+node untouched). This directly targets consensus findings F1 (selector bypass) and
+F2 (no entry-point test) from round 1.
+
+New harness specs (both CONTRACT, two desired nodes with stale 0B labels, one
+matching `type=virtual-kubelet`):
+
+| spec | contract | base ff99142 | previous e0cba66 | head 7de88000 |
+|------|----------|--------------|------------------|---------------|
+| E1-excluded-node-is-not-refreshed | excluded node byte-identical (labels + resourceVersion) | pass (no refresh exists) | **FAIL** (excluded node patched m=1GiB/d=2GiB/t=3GiB) | **pass** |
+| E2-exclude-guard-does-not-skip-normal-nodes | non-matching sibling still refreshed in the same sync | fail (no refresh exists) | pass | pass |
+
+E1/E2 split deliberately: a single combined spec fails on base for the sibling
+reason, which would muddy the F1 differential. Full differential evidence:
+results/unit-base-r2.parsed, results/unit-head-r2.parsed (previous-head E1 failure
+reproduced on the harness branch, which is based on e0cba66e).
+
+Re-verify verdicts on 7de88000e (`bash docs/verification/pr-6244-capacity-label-refresh/scripts/re-verify.sh 7de88000e21b1e299d6f205f86057a177c5bf8fc`):
+
+| ID | verdict | detail |
+|----|---------|--------|
+| F1 (exclude bypass) | **FIXED** | E1 passes on head; guard is verbatim parity with addScheduleInfoToNode (node.go:106-109 vs :222-225) |
+| F2 (entry-point coverage) | **FIXED** | P0a/P0b/E2/C1 pass on head; PR's own two entry-point specs pass on head (results/author-tests-head-r2.txt) and the exclude spec FAILS when the guard is reverted (bites check, results/author-tests-bites-r2.txt) |
+| F3 (tier-drop deletion mechanics) | verified (unchanged) | P0b passes; the silently-dropped-level trigger stays code-path-only, deferred to the #6204 follow-up per PR body §IV |
+| AC-compat | pass | C1-C4 green on head; full package suite green on 7de88000e (results/full-package-head-r2.txt) |
+| AC-envtest | pass | TestPR6244Envtest against envtest k8s 1.31.0 (results/integration-head-r2.out) |
+
+Author also filed #6246 (OPEN) for the pre-existing removeScheduleInfoFromNode
+selector gap (round-1 nit N1) and documented the exclude-selector interaction in
+the PR body. Production code untouched by this branch (harness + docs only).

@@ -1,0 +1,14 @@
+2026/11/16 06:30:36 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestLifecycle
+Running Suite: Lifecycle Suite - /tmp/wt-pr6244-head/pkg/utils/dataset/lifecycle
+================================================================================
+Random Seed: 1794781836
+
+Will run 2 of 27 specs
+SSSSSSSSSSSSSSSSSS••SSSSSSS
+
+Ran 2 of 27 Specs in 0.002 seconds
+SUCCESS! -- 2 Passed | 0 Failed | 0 Pending | 25 Skipped
+--- PASS: TestLifecycle (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.015s

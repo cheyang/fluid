@@ -1,0 +1,35 @@
+should add exclusive labels to node	skipped
+should add share mode labels to node	skipped
+should add capacity labels to node	skipped
+should decrease dataset number to 1	skipped
+should delete dataset-num label	skipped
+should return error	skipped
+should not modify labels	skipped
+should increase dataset number	skipped
+should add dataset-num label with value 1	skipped
+should return true	skipped
+should return false	skipped
+should return false	skipped
+should remove fluid labels and keep other labels	skipped
+should remove all fluid labels	skipped
+should remove all fluid labels including capacity labels	skipped
+should write the current capacity labels	skipped
+should remove the stale tier label	skipped
+should leave the node alone	skipped
+should repair outdated capacity labels and not patch again once they match	skipped
+should leave nodes matching the exclude selector untouched	skipped
+should calculate correct differences	skipped
+should return empty differences	skipped
+should return all nodes as differences	skipped
+should successfully add or remove schedule info on proper nodes	skipped
+Should not return error and nodeExcludeSelector should be nil	skipped
+Should parse the selector correctly	skipped
+Should return error	skipped
+P0a-stale-capacity-labels-get-refreshed	pass
+P0b-removed-tier-label-gets-deleted	pass
+C1-matching-labels-are-not-rewritten	pass
+C2-foreign-runtime-labels-are-untouched	pass
+C3-new-node-still-gets-full-label-set	pass
+C4-removed-node-loses-all-runtime-labels	pass
+E1-excluded-node-is-not-refreshed	pass
+E2-exclude-guard-does-not-skip-normal-nodes	pass
