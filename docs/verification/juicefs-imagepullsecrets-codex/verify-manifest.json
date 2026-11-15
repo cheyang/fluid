@@ -3,7 +3,7 @@
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6245",
   "reviewer": "codex",
   "baseSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
-  "headSha": "6711374b5ccbdf0371069b4cc9c0ca9593891528",
+  "headSha": "3271f28d7c3bc126d221422abdb9e6e0048eb9c9",
   "harnessPaths": [
     "docs/verification/juicefs-imagepullsecrets-codex",
     "pkg/ddc/juicefs/transform_image_pull_secrets_verify_test.go",
@@ -30,7 +30,7 @@
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "go test ./pkg/ddc/juicefs/ -run 'TestVerifyPr6245(HelmRenderScenarios|CRDSchemaCheck)' -count=1 -json"
+      "cmd": "go test ./pkg/ddc/juicefs/ -run 'TestVerifyPr6245(HelmRenderScenarios|CRDSchemaCheck|APIDocPlacement)' -count=1 -json"
     }
   },
   "findings": [
@@ -96,6 +96,14 @@
       "layer": "integration",
       "match": [
         "TestVerifyPr6245CRDSchemaCheck"
+      ]
+    },
+    {
+      "id": "F-apidoc-rows-misplaced",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestVerifyPr6245APIDocPlacement"
       ]
     }
   ],

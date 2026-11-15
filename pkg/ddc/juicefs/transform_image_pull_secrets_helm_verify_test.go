@@ -64,3 +64,22 @@ func TestVerifyPr6245CRDSchemaCheck(t *testing.T) {
 		t.Fatalf("crd_schema_check.py failed: %v\n%s", err, out)
 	}
 }
+
+// Contract: the three new JuiceFS imagePullSecrets rows in docs/{en,zh}/dev/
+// api_doc.md sit inside the field tables of their own type sections
+// (JuiceFSCompTemplateSpec, JuiceFSFuseSpec, JuiceFSRuntimeSpec) and not under
+// the root JuiceFSRuntime type or Vineyard's MasterSpec. Guards finding
+// F-apidoc-rows-misplaced (revision 6711374b..3271f28d added them shifted one
+// section down; the pinned crd-ref-docs v0.3.0 places them correctly).
+func TestVerifyPr6245APIDocPlacement(t *testing.T) {
+	if _, err := exec.LookPath("python3"); err != nil {
+		t.Skip("python3 not installed; integration layer not runnable here")
+	}
+	root := pr6245RepoRoot(t)
+	script := filepath.Join(root, "docs/verification/juicefs-imagepullsecrets-codex/scripts/apidoc_placement_check.py")
+	cmd := exec.Command("python3", script, root)
+	cmd.Dir = root
+	if out, err := cmd.CombinedOutput(); err != nil {
+		t.Fatalf("apidoc_placement_check.py failed: %v\n%s", err, out)
+	}
+}
