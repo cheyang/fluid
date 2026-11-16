@@ -45,8 +45,12 @@ fi
 out="$(mktemp)"
 trap 'rm -f "$out"' EXIT
 # Makefile-equivalent; FLUID_UNIT_TEST prefixes xargs on purpose (see header).
+# No -p flag: match `make test` exactly. Forcing -p 4 changed package scheduling
+# enough to trigger a pre-existing fixed-port collision (two test binaries both
+# listen on 127.0.0.1:6060 via utils.NewPprofServer) — a test-suite flake, not a
+# product regression; see README "Refuted during verification".
 go list ./... | grep -v controller | grep -v e2etest | \
-  FLUID_UNIT_TEST=true xargs go test -count=1 -gcflags="all=-N -l" -p 4 >"$out" 2>&1 || true
+  FLUID_UNIT_TEST=true xargs go test -count=1 -gcflags="all=-N -l" >"$out" 2>&1 || true
 
 ok_n="$(grep -c '^ok ' "$out")"
 fail_n="$(grep -c '^FAIL' "$out")"

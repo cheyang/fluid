@@ -64,6 +64,13 @@ shipping release images on a patched toolchain.
   isolation at base with both 1.26.10 and 1.26.11, and the PR's `unittest` CI
   job (ubuntu-latest, `-race`) is green. Do not re-trip on this;
   `run-unit-tests.sh` encodes the correct invocation and documents the trap.
+- "pkg/utils fails at head (driver run)" — **refuted: pre-existing fixed-port
+  collision.** `panic: listen tcp 127.0.0.1:6060: bind: address already in use`
+  from `utils.NewPprofServer` when two test binaries that start the pprof server
+  on the fixed port 6060 run concurrently. Only appeared when the harness forced
+  `-p 4` (different package scheduling than the Makefile's default); with the
+  exact `make test` invocation the suite is green. The fixed-port binding in the
+  pprof test is a pre-existing repo test-quality issue, unrelated to this PR.
 
 ## Observed-vs-expected table
 
