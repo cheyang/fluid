@@ -1,0 +1,30 @@
+# Round 2 (head bf85265045c6391cb9a1d62cc20ae4d1ac186342): harness-bites check for the PR's own new tests
+#
+# The PR added TestGenerateDataLoadValueFileImagePullSecrets (load_data_test.go) and a
+# "runtime imagePullSecrets reach the value file" case to TestGenerateDataBackupValueFile
+# (backup_data_test.go). To prove these tests actually protect the feature (F1's fix),
+# the feature wiring was temporarily reverted at each call site and the tests re-run;
+# then the revert was discarded (production code untouched on this branch).
+#
+# 1) DataLoad call-site revert (load_data.go):
+#    dataOperationImagePullSecrets(runtime) -> docker.GetImagePullSecretsFromEnv(common.EnvImagePullSecretsKey)
+#    $ go test ./pkg/ddc/alluxio/ -run 'TestGenerateDataLoadValueFileImagePullSecrets' -count=1
+#    --- FAIL: TestGenerateDataLoadValueFileImagePullSecrets (0.00s)
+#        --- FAIL: TestGenerateDataLoadValueFileImagePullSecrets/runtime_secrets_replace_the_env_default (0.00s)
+#            load_data_test.go:591: expected imagePullSecrets [{runtime-secret}], got [{env-secret}]
+#    => BITES (fails for exactly the right reason)
+#
+# 2) DataBackup call-site revert (backup_data.go:114):
+#    imagePullSecrets := dataOperationImagePullSecrets(runtime) -> docker.GetImagePullSecretsFromEnv(...)
+#    $ go test ./pkg/ddc/alluxio/ -run 'TestGenerateDataBackupValueFile' -count=1
+#    --- FAIL: TestGenerateDataBackupValueFile (0.00s)
+#        --- FAIL: TestGenerateDataBackupValueFile/runtime_imagePullSecrets_reach_the_value_file (0.00s)
+#            backup_data_test.go:173: expected imagePullSecrets [{runtime-secret}], got []
+#    => BITES
+#
+# 3) Full package sweep on head: 149/150 ginkgo specs pass; the single failure is the
+#    pre-existing local-env flake (metadata_test.go "should successfully sync metadata and
+#    update dataset status", GetMetadataInfoFailed), which fails IDENTICALLY on the base
+#    ff99142f (149/1 there too) -> not PR-attributed. go build ./... and go vet clean.
+#
+# 4) After reverting the reverts, `git diff` clean again; author's tests pass on head as-is.

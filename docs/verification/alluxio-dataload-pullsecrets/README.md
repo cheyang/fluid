@@ -133,3 +133,58 @@ observed-vs-expected table. The full alluxio package has one pre-existing local-
 failure (metadata_test.go syncMetadataInternal) on both refs — ignore it. Clean up scoped test
 resources; do not run cluster-wide destructive actions.
 ```
+
+---
+
+## Round 2 (incremental) — head `bf85265045` (2026-11-17)
+
+Delta reviewed: `34a731862..bf8526504` — one commit by the PR author:
+`test(alluxio): check that runtime imagePullSecrets reach the value files`. It
+
+1. adds `TestGenerateDataLoadValueFileImagePullSecrets` (load_data_test.go) — table-driven,
+   two subtests: "runtime secrets replace the env default" and "env default without runtime
+   secrets"; reads and unmarshals the generated value file and `reflect.DeepEqual`s the
+   secrets,
+2. adds a "runtime imagePullSecrets reach the value file" case to
+   `TestGenerateDataBackupValueFile` (backup_data_test.go) using the existing
+   `expectValueCheck` hook,
+3. switches `generateDataLoadValueFile`'s runtime lookup to `e.getRuntime()`
+   (load_data.go:82) — the round-1 consistency suggestion.
+
+### Harness update (fixture only, additive)
+
+The round-1 fixtures built `AlluxioEngine{}` and passed the client via the
+`ReconcileRequestContext`; after the `e.getRuntime()` switch the engine's own
+`Client/name/namespace` fields are read instead, so the DataLoad fixtures now set
+`AlluxioEngine{Client: client, name: verifyDatasetName, namespace: verifyDatasetNamespace}`.
+This is fixture wiring, not a contract change: in production `AlluxioEngine.Build`
+(engine.go:56-61) sets `name/namespace` from `ctx.NamespacedName`, which the operation
+controller (operation_controller.go:157-160) fills from the DataLoad's **target dataset** —
+the same key the old `utils.GetAlluxioRuntime(r.Client, dataload.Spec.Dataset.Name, …)`
+used. Same object, same client, same freshness.
+
+### Re-verify results on head `bf8526504`
+
+| ID | Polarity | Layer | Verdict | Evidence |
+|----|----------|-------|---------|----------|
+| P0 | contract | unit | **Fixed** (behavior present) | `results/round2/unit.out` — both runtime-secrets tests pass |
+| F1 | contract | unit | **Fixed** | all 4 secret-wiring tests pass; plus the PR's own tests now bite — see `results/round2/author-tests-bites-check.txt` |
+| F2 | contract | unit | **Fixed** | `TestPR6250DataLoadValueFileRequiresRuntime` still passes (missing runtime still errors, now via `e.getRuntime()`) |
+
+Full package sweep on head: 149/150 specs pass; the one failure is the known pre-existing
+local flake (`metadata_test.go` GetMetadataInfoFailed), identical on base. `go build ./...`,
+`go vet ./pkg/ddc/alluxio/` clean. GitHub CI on bf852650: all checks SUCCESS (incl. unittest,
+kind-e2e ×6 k8s versions, backward-compat ×5, staticcheck, lint).
+
+### Ledger outcome (round 2)
+
+- **F1 (missing in-repo assertions)**: fixed by the author — both new tests proven to bite
+  via call-site reverts (`results/round2/author-tests-bites-check.txt`). Residual nit: the
+  in-repo DataBackup table has no env-fallback subtest (only the runtime-secrets case);
+  the DataLoad table has both. Covered by this harness either way.
+- **F2**: the optional `e.getRuntime()` symmetry polish is applied; the underlying
+  missing-runtime behavior is unchanged and was adjudicated acceptable in round 1.
+- **F3/F4 (umbrella tracking questions)**: answered — the author posted a tracking comment
+  on #6247 (2026-11-16) listing JuiceFS (post-#6245), jindo/jindofsx/jindocache DataLoad,
+  and Alluxio DataProcess as what's left.
+- No new findings on the delta.

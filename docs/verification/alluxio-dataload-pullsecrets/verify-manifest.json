@@ -15,7 +15,7 @@
     "runsAgainst": "base",
     "layer": "unit",
     "verdict": "confirmed",
-    "evidence": "On merge-base ff99142 with runtime spec.imagePullSecrets=[runtime-secret] and env IMAGE_PULL_SECRETS=env-secret-should-be-replaced, the generated DataLoad/DataBackup value files carry [{env-secret-should-be-replaced}], not the runtime secret — see results/base-unit.out",
+    "evidence": "On merge-base ff99142 with runtime spec.imagePullSecrets=[runtime-secret] and env IMAGE_PULL_SECRETS=env-secret-should-be-replaced, the generated DataLoad/DataBackup value files carry [{env-secret-should-be-replaced}], not the runtime secret \u2014 see results/base-unit.out",
     "match": [
       "TestPR6250DataLoadValueFileUsesRuntimePullSecrets",
       "TestPR6250DataBackupValueFileUsesRuntimePullSecrets"
@@ -57,5 +57,15 @@
       ]
     }
   ],
-  "liveNote": "L3 (skipped for this review, unit+integration only per round policy): create an AlluxioRuntime with spec.imagePullSecrets and no IMAGE_PULL_SECRETS on the controller, run a DataLoad, and confirm the loader job pod spec lists the runtime's secret (kubectl get pod -o jsonpath='{.spec.imagePullSecrets}')."
+  "liveNote": "L3 (skipped for this review, unit+integration only per round policy): create an AlluxioRuntime with spec.imagePullSecrets and no IMAGE_PULL_SECRETS on the controller, run a DataLoad, and confirm the loader job pod spec lists the runtime's secret (kubectl get pod -o jsonpath='{.spec.imagePullSecrets}').",
+  "rounds": {
+    "1": {
+      "head": "34a7318627aeab595f5f7ed53d2f2eb1ed291787",
+      "verdict": "findings confirmed; F1 open (missing in-repo assertions)"
+    },
+    "2": {
+      "head": "bf85265045c6391cb9a1d62cc20ae4d1ac186342",
+      "verdict": "P0/F1/F2 fixed; harness fixture updated for e.getRuntime() engine-field lookup (additive); author's new in-repo tests bite (results/round2/author-tests-bites-check.txt); no new findings"
+    }
+  }
 }
