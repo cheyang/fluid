@@ -1,8 +1,8 @@
 # Verification harness — PR #6253 (reviewer B / codex)
 
 PR: https://github.com/fluid-cloudnative/fluid/pull/6253
-Reviewed head: `33c1eef59404f55d4f582a0cec84af62fb2e1d79` (base `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5`)
-Round: initial. Production code untouched — this branch adds only `docs/verification/vllm-curvine-sample-codex/**`.
+Reviewed head: `46cd54726b3877b051cfc19d2d485098af3f34fe` (base `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5`)
+Round: incremental (round 2; previous head `33c1eef59404f55d4f582a0cec84af62fb2e1d79`). Production code untouched — this branch adds only `docs/verification/vllm-curvine-sample-codex/**`.
 
 ## Premise (P0)
 
@@ -25,8 +25,25 @@ author's own kind-cluster report; not repeated per round policy (see `verify-man
 | "Only quota (1Gi→4Gi) differs" vs basic sample | TestRuntimeSampleDeltaIsOnlyQuota | unit | contract |
 | Doc manifests accepted by real apiserver + round-trip | TestEnvtestAppliesDocManifests | integration | contract |
 | **F1**: referenced doc must carry #6252 fixes | TestReferencedCurvineDocCarriesDependencyFixes | unit | contract |
+| **F3**: port-forward PID captured, no `kill %1`, bounded readiness wait | TestPortForwardLifecycleHardened | unit | contract |
+| **F4**: Prerequisites state kubectl >= 1.23 for `--for=jsonpath` | TestPrerequisitesStateKubectlVersion | unit | contract |
 
-## Observed vs expected (head 33c1eef)
+## Observed vs expected
+
+### Round 2 (head 46cd547)
+
+| finding | previous (33c1eef) | head (46cd547) | verdict |
+| --- | --- | --- | --- |
+| F1 (merge-order dep on #6252) | RED | RED — #6252 still OPEN, master `f432bdc87` still has the unquoted heredoc + `curvine/curvine:0.3.6-alpha` (404 re-confirmed 2026-11-17) | **STILL OPEN — merge #6252 first** |
+| F3 (port-forward lifecycle) | RED (`kill %1`, unbounded `until` loop) | GREEN (`PF_PID=$!` + `kill "$PF_PID"` + `timeout 60` bound) | **FIXED** |
+| F4 (kubectl >= 1.23 unstated) | RED (no version in Prerequisites) | GREEN (`kubectl` 1.23+ named with the `--for=jsonpath` reason, en+zh) | **FIXED** |
+| P0 / A2-A5 suite | green | green (all 8 pre-existing contract tests + envtest still pass at head) | Confirmed |
+
+Raw: results/reverify/unit.parsed + integration.parsed (head), results/reverify/previous-33c1eef.* (control).
+New nit this round (not harnessed, reasoning only): the F3 fix's `timeout` is GNU
+coreutils and absent on stock macOS — prereqs name kubectl/curl but not it (F5).
+
+### Round 1 (head 33c1eef)
 
 | finding | observed | expected | verdict |
 | --- | --- | --- | --- |
@@ -64,6 +81,8 @@ Elsewhere: `setup-envtest use 1.31.0 -p path`.
 ## Continuing after a fix
 
 - When #6252 merges: F1 flips green with no harness change. Then this PR can merge.
+- F3/F4 were fixed in 46cd547; their contract tests are now regression guards (they flip
+  red if the doc ever goes back to `kill %1` / an unbounded wait / drops the 1.23 prereq).
 - If either doc's sample YAML drifts beyond the pinned quota delta, `TestRuntimeSampleDeltaIsOnlyQuota`
   goes red = re-check the doc's "only one thing changes" sentence (harness-update semantics).
 - `.last-reviewed` holds the reviewed head; advance it after each round.

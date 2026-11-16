@@ -6,3 +6,5 @@ TestDocClaimsMatchSource	pass
 TestCrossReferencedStepsExist	pass
 TestRuntimeSampleDeltaIsOnlyQuota	pass
 TestReferencedCurvineDocCarriesDependencyFixes	fail
+TestPortForwardLifecycleHardened	pass
+TestPrerequisitesStateKubectlVersion	pass

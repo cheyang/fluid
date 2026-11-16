@@ -1,0 +1,10 @@
+TestDocManifestsParseAsYAML	pass
+TestEnZhManifestParity	pass
+TestHeredocsExpansionSafe	pass
+TestRelativeLinksResolve	pass
+TestDocClaimsMatchSource	pass
+TestCrossReferencedStepsExist	pass
+TestRuntimeSampleDeltaIsOnlyQuota	pass
+TestReferencedCurvineDocCarriesDependencyFixes	fail
+TestPortForwardLifecycleHardened	fail
+TestPrerequisitesStateKubectlVersion	fail
