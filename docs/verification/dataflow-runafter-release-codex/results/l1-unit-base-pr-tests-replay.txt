@@ -1,0 +1,147 @@
+Running Suite: DataFlow Controller Suite - /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow
+=================================================================================================
+Random Seed: 1794870350
+
+Will run 44 of 44 specs
+•••••••••
+------------------------------
+• [FAILED] [0.000 seconds]
+reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataLoad
+/tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/operations_test.go:910
+
+  [FAILED] Expected
+      <func()>: 0x1694bc0
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference
+  In [It] at: /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/operations_test.go:899 @ 11/17/26 07:05:50.364
+------------------------------
+• [FAILED] [0.000 seconds]
+reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataBackup
+/tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/operations_test.go:913
+
+  [FAILED] Expected
+      <func()>: 0x1694bc0
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference
+  In [It] at: /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/operations_test.go:899 @ 11/17/26 07:05:50.364
+------------------------------
+• [FAILED] [0.000 seconds]
+reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataMigrate
+/tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/operations_test.go:916
+
+  [FAILED] Expected
+      <func()>: 0x1694bc0
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference
+  In [It] at: /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/operations_test.go:899 @ 11/17/26 07:05:50.365
+------------------------------
+• [FAILED] [0.000 seconds]
+reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataProcess
+/tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/operations_test.go:919
+
+  [FAILED] Expected
+      <func()>: 0x1694bc0
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference
+  In [It] at: /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/operations_test.go:899 @ 11/17/26 07:05:50.365
+------------------------------
+• [FAILED] [0.000 seconds]
+reconcile a data operation whose spec.runAfter was removed while waiting [It] should request requeue and return the error when releasing the operation fails
+/tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/operations_test.go:924
+
+  [FAILED] Expected
+      <func()>: 0x1693e80
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference
+  In [It] at: /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/operations_test.go:935 @ 11/17/26 07:05:50.365
+------------------------------
+•••••
+------------------------------
+• [FAILED] [0.000 seconds]
+DataFlowReconciler Reconcile [It] should not panic and should release a DataLoad whose RunAfter was removed while it was waiting
+/tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/dataflow_controller_test.go:160
+
+  [FAILED] Expected
+      <func()>: 0x1686920
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference
+  In [It] at: /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/dataflow_controller_test.go:183 @ 11/17/26 07:05:50.366
+------------------------------
+••••••••••••••••••••
+------------------------------
+• [FAILED] [0.000 seconds]
+verify PR6254: waiting operation without spec.runAfter [It] P0-contract: Reconcile releases a waiting DataLoad whose runAfter is gone, without panicking
+/tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:80
+
+  [FAILED] Expected
+      <func()>: 0x1696160
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference
+  In [It] at: /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:92 @ 11/17/26 07:05:50.369
+------------------------------
+• [FAILED] [0.001 seconds]
+verify PR6254: waiting operation without spec.runAfter [It] P0-xkind-contract: a waiting DataLoad must not crash on a same-named non-waiting DataBackup without runAfter
+/tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:105
+
+  [FAILED] Expected
+      <func()>: 0x1695b60
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference
+  In [It] at: /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:126 @ 11/17/26 07:05:50.369
+------------------------------
+• [FAILED] [0.001 seconds]
+verify PR6254: waiting operation without spec.runAfter [It] F1-canary: a non-waiting same-named object of another kind gets a spurious waitingFor=false write
+/tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:131
+
+  [FAILED] Expected
+      <func()>: 0x1695740
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference
+  In [It] at: /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:152 @ 11/17/26 07:05:50.37
+------------------------------
+•
+
+Summarizing 9 Failures:
+  [FAIL] reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataLoad
+  /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/operations_test.go:899
+  [FAIL] reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataBackup
+  /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/operations_test.go:899
+  [FAIL] reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataMigrate
+  /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/operations_test.go:899
+  [FAIL] reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataProcess
+  /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/operations_test.go:899
+  [FAIL] reconcile a data operation whose spec.runAfter was removed while waiting [It] should request requeue and return the error when releasing the operation fails
+  /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/operations_test.go:935
+  [FAIL] DataFlowReconciler Reconcile [It] should not panic and should release a DataLoad whose RunAfter was removed while it was waiting
+  /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/dataflow_controller_test.go:183
+  [FAIL] verify PR6254: waiting operation without spec.runAfter [It] P0-contract: Reconcile releases a waiting DataLoad whose runAfter is gone, without panicking
+  /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:92
+  [FAIL] verify PR6254: waiting operation without spec.runAfter [It] P0-xkind-contract: a waiting DataLoad must not crash on a same-named non-waiting DataBackup without runAfter
+  /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:126
+  [FAIL] verify PR6254: waiting operation without spec.runAfter [It] F1-canary: a non-waiting same-named object of another kind gets a spurious waitingFor=false write
+  /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:152
+
+Ran 44 of 44 Specs in 0.009 seconds
+FAIL! -- 35 Passed | 9 Failed | 0 Pending | 0 Skipped
+--- FAIL: TestAPIs (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataflow	0.020s
+FAIL

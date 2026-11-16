@@ -1,0 +1,29 @@
+Running Suite: DataFlow Controller Suite - /tmp/fluid-head-6254/pkg/controllers/v1alpha1/dataflow
+=================================================================================================
+Random Seed: 1794870409
+
+Will run 3 of 44 specs
+SSSSSSSSSSSSSSSSSSSSSSSSS••
+------------------------------
+• [FAILED] [0.000 seconds]
+verify PR6254: waiting operation without spec.runAfter [It] F1-canary: a non-waiting same-named object of another kind gets a spurious waitingFor=false write
+/tmp/fluid-head-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:131
+
+  [FAILED] canary: expected the spurious status write to still happen
+  Expected
+      <*bool | 0x0>: nil
+  not to be <nil>
+  In [It] at: /tmp/fluid-head-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:158 @ 11/17/26 07:06:49.504
+------------------------------
+SSSSSSSSSSSSSSSS
+
+Summarizing 1 Failure:
+  [FAIL] verify PR6254: waiting operation without spec.runAfter [It] F1-canary: a non-waiting same-named object of another kind gets a spurious waitingFor=false write
+  /tmp/fluid-head-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:158
+
+Ran 3 of 44 Specs in 0.001 seconds
+FAIL! -- 2 Passed | 1 Failed | 0 Pending | 41 Skipped
+--- FAIL: TestAPIs (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataflow	0.015s
+FAIL

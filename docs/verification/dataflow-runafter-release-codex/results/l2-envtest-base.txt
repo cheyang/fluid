@@ -1,0 +1,57 @@
+Running Suite: DataFlow envtest Suite (PR6254 verification) - /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/dataflowenvtest
+====================================================================================================================================
+Random Seed: 1794870518
+
+Will run 2 of 2 specs
+------------------------------
+• [FAILED] [2.010 seconds]
+PR6254 L2: release a waiting operation whose runAfter is gone (real API server) [It] P0-contract: waiting DataLoad without runAfter is released via the status subresource, no panic
+/tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/dataflowenvtest/suite_test.go:85
+
+  Timeline >>
+  2026-11-17T07:08:43+08:00	INFO	reconcile starts	{"dataflow request": {"name":"l2-p0","namespace":"default"}}
+  2026-11-17T07:08:43+08:00	INFO	reconcile ends	{"dataflow request": {"name":"l2-p0","namespace":"default"}}
+  [FAILED] in [It] - /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/dataflowenvtest/suite_test.go:104 @ 11/17/26 07:08:43.515
+  << Timeline
+
+  [FAILED] Expected
+      <func()>: 0x17208c0
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference
+  In [It] at: /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/dataflowenvtest/suite_test.go:104 @ 11/17/26 07:08:43.515
+------------------------------
+• [FAILED] [0.033 seconds]
+PR6254 L2: release a waiting operation whose runAfter is gone (real API server) [It] P0-xkind + F1-canary: waiting DataLoad keeps waiting; non-waiting same-name DataBackup gets the spurious write
+/tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/dataflowenvtest/suite_test.go:114
+
+  Timeline >>
+  2026-11-17T07:08:43+08:00	INFO	reconcile starts	{"dataflow request": {"name":"l2-xkind","namespace":"default"}}
+  2026-11-17T07:08:43+08:00	DEBUG	DataMigrate not found, skip reconciling
+  2026-11-17T07:08:43+08:00	DEBUG	DataProcess not found, skip reconciling
+  2026-11-17T07:08:43+08:00	INFO	reconcile ends	{"dataflow request": {"name":"l2-xkind","namespace":"default"}}
+  [FAILED] in [It] - /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/dataflowenvtest/suite_test.go:145 @ 11/17/26 07:08:43.549
+  << Timeline
+
+  [FAILED] Expected
+      <func()>: 0x1721480
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference
+  In [It] at: /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/dataflowenvtest/suite_test.go:145 @ 11/17/26 07:08:43.549
+------------------------------
+
+Summarizing 2 Failures:
+  [FAIL] PR6254 L2: release a waiting operation whose runAfter is gone (real API server) [It] P0-contract: waiting DataLoad without runAfter is released via the status subresource, no panic
+  /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/dataflowenvtest/suite_test.go:104
+  [FAIL] PR6254 L2: release a waiting operation whose runAfter is gone (real API server) [It] P0-xkind + F1-canary: waiting DataLoad keeps waiting; non-waiting same-name DataBackup gets the spurious write
+  /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/dataflowenvtest/suite_test.go:145
+
+Ran 2 of 2 Specs in 4.579 seconds
+FAIL! -- 0 Passed | 2 Failed | 0 Pending | 0 Skipped
+--- FAIL: TestDataFlowEnvtest (4.58s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataflow/dataflowenvtest	4.593s
+FAIL

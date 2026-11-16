@@ -1,0 +1,59 @@
+Running Suite: DataFlow Controller Suite - /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow
+=================================================================================================
+Random Seed: 1794870336
+
+Will run 3 of 38 specs
+SSSSSSSSSS
+------------------------------
+• [FAILED] [0.000 seconds]
+verify PR6254: waiting operation without spec.runAfter [It] P0-contract: Reconcile releases a waiting DataLoad whose runAfter is gone, without panicking
+/tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:80
+
+  [FAILED] Expected
+      <func()>: 0x168e960
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference
+  In [It] at: /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:92 @ 11/17/26 07:05:36.177
+------------------------------
+• [FAILED] [0.000 seconds]
+verify PR6254: waiting operation without spec.runAfter [It] P0-xkind-contract: a waiting DataLoad must not crash on a same-named non-waiting DataBackup without runAfter
+/tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:105
+
+  [FAILED] Expected
+      <func()>: 0x168e360
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference
+  In [It] at: /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:126 @ 11/17/26 07:05:36.178
+------------------------------
+• [FAILED] [0.000 seconds]
+verify PR6254: waiting operation without spec.runAfter [It] F1-canary: a non-waiting same-named object of another kind gets a spurious waitingFor=false write
+/tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:131
+
+  [FAILED] Expected
+      <func()>: 0x168df40
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference
+  In [It] at: /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:152 @ 11/17/26 07:05:36.178
+------------------------------
+SSSSSSSSSSSSSSSSSSSSSSSSS
+
+Summarizing 3 Failures:
+  [FAIL] verify PR6254: waiting operation without spec.runAfter [It] P0-contract: Reconcile releases a waiting DataLoad whose runAfter is gone, without panicking
+  /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:92
+  [FAIL] verify PR6254: waiting operation without spec.runAfter [It] P0-xkind-contract: a waiting DataLoad must not crash on a same-named non-waiting DataBackup without runAfter
+  /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:126
+  [FAIL] verify PR6254: waiting operation without spec.runAfter [It] F1-canary: a non-waiting same-named object of another kind gets a spurious waitingFor=false write
+  /tmp/fluid-base-6254/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:152
+
+Ran 3 of 38 Specs in 0.001 seconds
+FAIL! -- 0 Passed | 3 Failed | 0 Pending | 35 Skipped
+--- FAIL: TestAPIs (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataflow	0.014s
+FAIL

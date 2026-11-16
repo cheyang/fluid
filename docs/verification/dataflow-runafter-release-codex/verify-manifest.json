@@ -1,0 +1,40 @@
+{
+  "topic": "dataflow-runafter-release-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6254",
+  "harnessPaths": [
+    "docs/verification/dataflow-runafter-release-codex",
+    "pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go",
+    "pkg/controllers/v1alpha1/dataflow/dataflowenvtest"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "spec.runAfter is mutable, so a user can remove it while the operation is still waiting. reconcileOperationDataFlow then dereferences the nil runAfter (runAfter.Namespace) and panics. Fluid does not enable controller-runtime's RecoverPanic, so the panic kills dataset-controller; the object keeps the same status, so the controller crash-loops.",
+    "reportedComponent": "DataFlow reconciler (pkg/controllers/v1alpha1/dataflow) in dataset-controller",
+    "patchedComponent": "pkg/controllers/v1alpha1/dataflow/operations.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base f432bdc8 the P0 contract specs panic with 'invalid memory address or nil pointer dereference' (results/l1-unit-base-p0-focus.txt, results/l2-envtest-base.txt); on head cc3947c0 they pass and waitingFor.operationComplete is cleared (results/l1-unit-head.txt, results/l2-envtest-head.txt). Replaying the PR's own new tests on base fails 35 Passed | 6 Failed, matching the PR body (results/l1-unit-base-pr-tests-replay.txt).",
+    "match": ["P0-contract", "P0-xkind-contract"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "ginkgo",
+      "cmd": "KUBECONFIG=/dev/null FLUID_UNIT_TEST=true CGO_ENABLED=0 go test -count=1 ./pkg/controllers/v1alpha1/dataflow/ -ginkgo.focus='verify PR6254' -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    },
+    "integration": {
+      "kind": "ginkgo",
+      "cmd": "KUBEBUILDER_ASSETS=${KUBEBUILDER_ASSETS:-$(ls -d $HOME/.local/share/kubebuilder-envtest/k8s/1.33.0-linux-amd64 2>/dev/null || true)} CGO_ENABLED=0 go test -count=1 ./pkg/controllers/v1alpha1/dataflow/dataflowenvtest/ -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    }
+  },
+  "findings": [
+    { "id": "P0", "polarity": "contract", "layer": "unit", "match": ["P0-contract", "P0-xkind-contract"] },
+    { "id": "F1", "polarity": "canary", "layer": "unit", "match": ["F1-canary"] },
+    { "id": "P0-L2", "polarity": "contract", "layer": "integration", "match": ["P0-contract"] },
+    { "id": "F1-L2", "polarity": "canary", "layer": "integration", "match": ["F1-canary"] }
+  ],
+  "liveNote": "L3 skipped per debate round policy (unit + integration only). The PR's own curvine e2e (verify_dataload_runafter_removed in test/gha-e2e/curvine/test.sh) covers the real-cluster layer on 5 k8s versions and was green at head cc3947c0."
+}

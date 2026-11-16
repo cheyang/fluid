@@ -1,0 +1,8 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataflow	0.019s
+[38;5;10m[1mRan 44 of 44 Specs in 0.007 seconds[0m
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataflow	0.020s
+verify PR6254: waiting operation without spec.runAfter P0-contract: Reconcile releases a waiting DataLoad whose runAfter is gone, without panicking
+verify PR6254: waiting operation without spec.runAfter P0-xkind-contract: a waiting DataLoad must not crash on a same-named non-waiting DataBackup without runAfter
+verify PR6254: waiting operation without spec.runAfter F1-canary: a non-waiting same-named object of another kind gets a spurious waitingFor=false write
+Ran 44 of 44 Specs in 0.008 seconds
+SUCCESS! -- 44 Passed | 0 Failed | 0 Pending | 0 Skipped
