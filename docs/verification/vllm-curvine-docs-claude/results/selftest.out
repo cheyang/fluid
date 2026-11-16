@@ -1,0 +1,1 @@
+SELFTEST	pass	mutations ['heredoc', 'label', 'link'] -> failures ['C1_label_selector_valid', 'C2_doc_links_resolve', 'C4_heredoc_no_shell_expansion']

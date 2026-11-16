@@ -1,0 +1,11 @@
+P0_no_prior_vllm_sample	pass	docs at base mention vllm: none
+C1_label_selector_valid	fail	doc missing
+C2_doc_links_resolve	fail	docs/en/samples/cacheruntime/vllm_with_curvine.md missing
+C3_en_zh_code_parity	fail	doc missing
+C4_heredoc_no_shell_expansion	fail	docs/en/samples/cacheruntime/vllm_with_curvine.md missing
+C5_cross_doc_references	fail	docs/en/samples/cacheruntime/curvine_cache_runtime.md or docs/en/samples/cacheruntime/vllm_with_curvine.md missing
+C7_yaml_fields_in_crd	fail	doc missing
+C8_toc_entries	fail	docs/en/TOC.md or docs/en/samples/cacheruntime/vllm_with_curvine.md missing
+C10_dataload_phase_value	fail	PhaseComplete in code=True; doc wait uses status.phase=Complete=False
+C6_walkthrough_images_pullable	skip	offline mode
+C9_vllm_entrypoint_and_port_env	skip	offline mode
