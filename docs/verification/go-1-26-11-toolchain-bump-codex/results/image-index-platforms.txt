@@ -1,0 +1,11 @@
+mediaType: application/vnd.oci.image.index.v1+json
+linux amd64 
+unknown unknown 
+linux arm v7
+unknown unknown 
+linux arm64 v8
+unknown unknown 
+linux 386 
+unknown unknown 
+linux ppc64le 
+unknown unknown 

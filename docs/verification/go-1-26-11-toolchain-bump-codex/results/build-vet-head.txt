@@ -1,0 +1,6 @@
+== head sha: e2d5e04e7da4bc46bce314a44d991f3f62d2e0c0 ==
+== toolchain: go version go1.26.11 linux/amd64 ==
+== go build ./... (GOFLAGS=-mod=vendor CGO_ENABLED=0) ==
+build: OK
+== go vet ./pkg/... ./cmd/... ./api/... ==
+vet: OK

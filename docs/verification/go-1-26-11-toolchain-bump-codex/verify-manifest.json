@@ -1,0 +1,31 @@
+{
+  "topic": "go-1-26-11-toolchain-bump-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6255",
+  "harnessPaths": [
+    "docs/verification/go-1-26-11-toolchain-bump-codex"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "go1.26.10 is affected by GO-2026-6859 / CVE-2026-97054 (HTTP/1 server crash due to a MaxBytesReader header race in net/http); the finding is reachable in Fluid at symbol level; go1.26.11 has the fix.",
+    "reportedComponent": "Go standard library (net/http) / build toolchain and release images",
+    "patchedComponent": "go.mod toolchain pin, 12 golang-builder Dockerfiles, CI Go version pins",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "script",
+    "verdict": "confirmed",
+    "evidence": "vuln.go.dev ranges [0,1.26.11)+[1.27.0,1.27.4); govulncheck differential: baseline go1.26.10 reports GO-2026-6859 reachable, head go1.26.11 clean. See results/vuln-db-record.txt and results/govulncheck-differential.txt",
+    "match": ["scripts/verify-govulncheck.sh"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "GOTOOLCHAIN=go1.26.11 GOFLAGS=-mod=vendor go test ./docs/verification/go-1-26-11-toolchain-bump-codex/harness/ -run 'TestToolchainVersionNotVulnerable|TestDockerfileGolangPinsConsistentAndFixed|TestNoStaleToolchainReferences' -json"
+    }
+  },
+  "findings": [
+    { "id": "C1", "polarity": "contract", "layer": "unit", "match": ["TestToolchainVersionNotVulnerable"] },
+    { "id": "C2", "polarity": "contract", "layer": "unit", "match": ["TestDockerfileGolangPinsConsistentAndFixed"] },
+    { "id": "C3", "polarity": "contract", "layer": "unit", "match": ["TestNoStaleToolchainReferences"] }
+  ],
+  "liveNote": "No live layer for a toolchain bump. Script evidence layers (network): scripts/verify-registry-digest.sh (digest == Docker Hub index) and scripts/verify-govulncheck.sh (stdlib differential). CI matrix at head: results/ci-status.txt."
+}

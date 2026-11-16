@@ -1,0 +1,7 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/helm	0.022s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	112.106s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/base	0.047s
+?   	github.com/fluid-cloudnative/fluid/pkg/ddc/base/mock	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/base/portallocator	0.018s
+ok  	github.com/fluid-cloudnative/fluid/pkg/common	0.019s
+ok  	github.com/fluid-cloudnative/fluid/pkg/common/features	0.008s

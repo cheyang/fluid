@@ -1,0 +1,51 @@
+--- FAIL: TestToolchainVersionNotVulnerable (0.00s)
+    toolchain_verify_test.go:85: go.mod toolchain = go1.26.10
+    toolchain_verify_test.go:87: toolchain go1.26.10 is inside GO-2026-6859 vulnerable range (want >= go1.26.11, or >= go1.27.4 on the 1.27 line)
+--- FAIL: TestDockerfileGolangPinsConsistentAndFixed (0.00s)
+    toolchain_verify_test.go:141: docker/Dockerfile.application: golang:1.26.10 is inside GO-2026-6859 vulnerable range
+    toolchain_verify_test.go:141: docker/Dockerfile.cacheruntime: golang:1.26.10 is inside GO-2026-6859 vulnerable range
+    toolchain_verify_test.go:141: docker/Dockerfile.efcruntime: golang:1.26.10 is inside GO-2026-6859 vulnerable range
+    toolchain_verify_test.go:141: docker/Dockerfile.jindoruntime: golang:1.26.10 is inside GO-2026-6859 vulnerable range
+    toolchain_verify_test.go:141: docker/Dockerfile.juicefsruntime: golang:1.26.10 is inside GO-2026-6859 vulnerable range
+    toolchain_verify_test.go:141: docker/Dockerfile.thinruntime: golang:1.26.10 is inside GO-2026-6859 vulnerable range
+    toolchain_verify_test.go:141: docker/Dockerfile.webhook: golang:1.26.10 is inside GO-2026-6859 vulnerable range
+    toolchain_verify_test.go:141: docker/Dockerfile.csi: golang:1.26.10 is inside GO-2026-6859 vulnerable range
+    toolchain_verify_test.go:141: docker/Dockerfile.dataset: golang:1.26.10 is inside GO-2026-6859 vulnerable range
+    toolchain_verify_test.go:141: docker/Dockerfile.vineyardruntime: golang:1.26.10 is inside GO-2026-6859 vulnerable range
+    toolchain_verify_test.go:141: test/gha-e2e/jindo/oss-emulator/Dockerfile: golang:1.26.10 is inside GO-2026-6859 vulnerable range
+    toolchain_verify_test.go:141: docker/Dockerfile.alluxioruntime: golang:1.26.10 is inside GO-2026-6859 vulnerable range
+    toolchain_verify_test.go:146: digests in use: map[23ce71337b726608afb1bc00986e630a05034a87a87ea1fc2cd1ae5cf33387eb:12]
+--- FAIL: TestNoStaleToolchainReferences (0.00s)
+    toolchain_verify_test.go:176: go.mod: stale reference to go 1.26.10
+    toolchain_verify_test.go:176: .travis.yml: stale reference to go 1.26.10
+    toolchain_verify_test.go:176: .circleci/config.yml: stale reference to go 1.26.10
+    toolchain_verify_test.go:176: .github/workflows/project-check.yml: stale reference to go 1.26.10
+    toolchain_verify_test.go:176: .github/workflows/kind-e2e.yml: stale reference to go 1.26.10
+    toolchain_verify_test.go:176: .github/workflows/backward-compatibility-e2e.yml: stale reference to go 1.26.10
+    toolchain_verify_test.go:176: docker/Dockerfile.application: stale reference to go 1.26.10
+    toolchain_verify_test.go:179: docker/Dockerfile.application: stale reference to previous golang image digest
+    toolchain_verify_test.go:176: docker/Dockerfile.dataset: stale reference to go 1.26.10
+    toolchain_verify_test.go:179: docker/Dockerfile.dataset: stale reference to previous golang image digest
+    toolchain_verify_test.go:176: docker/Dockerfile.efcruntime: stale reference to go 1.26.10
+    toolchain_verify_test.go:179: docker/Dockerfile.efcruntime: stale reference to previous golang image digest
+    toolchain_verify_test.go:176: docker/Dockerfile.vineyardruntime: stale reference to go 1.26.10
+    toolchain_verify_test.go:179: docker/Dockerfile.vineyardruntime: stale reference to previous golang image digest
+    toolchain_verify_test.go:176: test/gha-e2e/jindo/oss-emulator/Dockerfile: stale reference to go 1.26.10
+    toolchain_verify_test.go:179: test/gha-e2e/jindo/oss-emulator/Dockerfile: stale reference to previous golang image digest
+    toolchain_verify_test.go:176: docker/Dockerfile.alluxioruntime: stale reference to go 1.26.10
+    toolchain_verify_test.go:179: docker/Dockerfile.alluxioruntime: stale reference to previous golang image digest
+    toolchain_verify_test.go:176: docker/Dockerfile.cacheruntime: stale reference to go 1.26.10
+    toolchain_verify_test.go:179: docker/Dockerfile.cacheruntime: stale reference to previous golang image digest
+    toolchain_verify_test.go:176: docker/Dockerfile.csi: stale reference to go 1.26.10
+    toolchain_verify_test.go:179: docker/Dockerfile.csi: stale reference to previous golang image digest
+    toolchain_verify_test.go:176: docker/Dockerfile.jindoruntime: stale reference to go 1.26.10
+    toolchain_verify_test.go:179: docker/Dockerfile.jindoruntime: stale reference to previous golang image digest
+    toolchain_verify_test.go:176: docker/Dockerfile.juicefsruntime: stale reference to go 1.26.10
+    toolchain_verify_test.go:179: docker/Dockerfile.juicefsruntime: stale reference to previous golang image digest
+    toolchain_verify_test.go:176: docker/Dockerfile.thinruntime: stale reference to go 1.26.10
+    toolchain_verify_test.go:179: docker/Dockerfile.thinruntime: stale reference to previous golang image digest
+    toolchain_verify_test.go:176: docker/Dockerfile.webhook: stale reference to go 1.26.10
+    toolchain_verify_test.go:179: docker/Dockerfile.webhook: stale reference to previous golang image digest
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/docs/verification/go-1-26-11-toolchain-bump-codex/harness	0.004s
+FAIL

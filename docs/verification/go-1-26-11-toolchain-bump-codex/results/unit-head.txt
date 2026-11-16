@@ -1,0 +1,10 @@
+=== RUN   TestToolchainVersionNotVulnerable
+    toolchain_verify_test.go:85: go.mod toolchain = go1.26.11
+--- PASS: TestToolchainVersionNotVulnerable (0.00s)
+=== RUN   TestDockerfileGolangPinsConsistentAndFixed
+    toolchain_verify_test.go:146: digests in use: map[dc40a13b61304647ed7e5d581d246b86413dfc29d63c6d018310feb93cd98fc0:12]
+--- PASS: TestDockerfileGolangPinsConsistentAndFixed (0.00s)
+=== RUN   TestNoStaleToolchainReferences
+--- PASS: TestNoStaleToolchainReferences (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/docs/verification/go-1-26-11-toolchain-bump-codex/harness	0.005s

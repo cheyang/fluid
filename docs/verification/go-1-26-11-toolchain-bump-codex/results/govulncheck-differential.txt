@@ -1,0 +1,34 @@
+=== govulncheck with GOTOOLCHAIN=go1.26.11 (head) ===
+Vulnerability #1: GO-2025-4240
+  More info: https://pkg.go.dev/vuln/GO-2025-4240
+  Module: k8s.io/kubernetes
+Vulnerability #2: GO-2025-3915
+  More info: https://pkg.go.dev/vuln/GO-2025-3915
+  Module: k8s.io/kubernetes
+Vulnerability #3: GO-2025-3547
+  More info: https://pkg.go.dev/vuln/GO-2025-3547
+  Module: k8s.io/kubernetes
+Vulnerability #4: GO-2025-3521
+  More info: https://pkg.go.dev/vuln/GO-2025-3521
+  Module: k8s.io/kubernetes
+Your code is affected by 4 vulnerabilities from 1 module.
+This scan found no other vulnerabilities in packages you import or modules you
+=== govulncheck with GOTOOLCHAIN=go1.26.10 (baseline) ===
+Vulnerability #1: GO-2026-6859
+  More info: https://pkg.go.dev/vuln/GO-2026-6859
+Vulnerability #2: GO-2025-4240
+  More info: https://pkg.go.dev/vuln/GO-2025-4240
+  Module: k8s.io/kubernetes
+Vulnerability #3: GO-2025-3915
+  More info: https://pkg.go.dev/vuln/GO-2025-3915
+  Module: k8s.io/kubernetes
+Vulnerability #4: GO-2025-3547
+  More info: https://pkg.go.dev/vuln/GO-2025-3547
+  Module: k8s.io/kubernetes
+Vulnerability #5: GO-2025-3521
+  More info: https://pkg.go.dev/vuln/GO-2025-3521
+  Module: k8s.io/kubernetes
+Your code is affected by 5 vulnerabilities from 1 module and the Go standard library.
+This scan found no other vulnerabilities in packages you import or modules you
+
+Expected: head reports NO 'GO-2026-6859'; baseline reports 'Vulnerability #1: GO-2026-6859'.
