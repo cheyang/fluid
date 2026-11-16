@@ -1,0 +1,3 @@
+  (GOTOOLCHAIN=go1.26.11)
+CHECK C1-vuln pass  Your code is affected by 4 vulnerabilities from 1 module.
+  (remaining advisories are module-level k8s.io/kubernetes ones, out of scope for this PR)

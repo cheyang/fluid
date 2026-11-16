@@ -1,0 +1,6 @@
+CHECK C5-consistency-stale pass  no 1.26.10 references outside vendor/
+CHECK C5-consistency-gomod pass  go 1.26.0 / toolchain go1.26.11
+CHECK C5-consistency-workflows pass  GO_VERSION: 1.26.11 in 3 workflows
+CHECK C5-consistency-travis pass  .travis.yml go 1.26.11
+CHECK C5-consistency-olddigest pass  old image digest fully replaced
+CHECK C5-consistency pass  all sub-checks green
