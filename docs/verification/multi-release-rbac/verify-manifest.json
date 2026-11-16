@@ -1,0 +1,52 @@
+{
+  "topic": "multi-release-rbac",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6256",
+  "baseSha": "f432bdc87ac35941763b74e8e87683c7a84de5d9",
+  "headSha": "af73f5d6a8f7b918f8b1c07bd47cbdd6cebef563",
+  "harnessPaths": [
+    "docs/verification/multi-release-rbac",
+    "charts/fluid/fluid/clusterscoped_collision_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Installing multiple Fluid Helm releases in different namespaces fails: \"Unable to continue with install: ClusterRole \\\"alluxioruntime-controller\\\" in namespace \\\"\\\" exists and cannot be imported into the current release: invalid ownership metadata\"",
+    "reportedComponent": "Helm chart cluster-scoped RBAC (charts/fluid/fluid/templates/role/*/rbac.yaml)",
+    "patchedComponent": "Same RBAC templates + upgrade/crd-upgrade.yaml (matches for the RBAC subset only; CSIDriver and MutatingWebhookConfiguration are also part of the reported symptom and are NOT patched)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "integration",
+    "verdict": "confirmed",
+    "evidence": "Base render f432bdc: 26 cluster-scoped collisions across two releases incl. ClusterRole/alluxioruntime-controller (results/base-f432bdc.txt)",
+    "match": ["TestClusterScopedRBACReleaseScopedAcrossReleases"]
+  },
+  "layers": {
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./charts/fluid/fluid/ -run 'TestClusterScoped' -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "title": "Second Fluid release still fails with the #6134 ownership error: CSIDriver fuse.csi.fluid.io and MutatingWebhookConfiguration fluid-pod-admission-webhook keep fixed names",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestClusterScopedObjectsDisjointAcrossReleases"]
+    },
+    {
+      "id": "F2",
+      "title": "Same release name in two namespaces still collides on all 26 cluster-scoped objects (fluid.fullname ignores .Release.Namespace)",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestClusterScopedObjectsDisjointForSameReleaseNameInTwoNamespaces"]
+    },
+    {
+      "id": "G1",
+      "title": "Guard/control: RBAC renaming works (green on PR head, red on base) — keep green, red means the PR's own fix regressed",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestClusterScopedRBACReleaseScopedAcrossReleases"]
+    }
+  ],
+  "liveNote": "L3 (not run): helm install team-a then team-b on a throwaway cluster; expect the second install to fail with 'exists and cannot be imported into the current release' naming CSIDriver/fuse.csi.fluid.io or MutatingWebhookConfiguration/fluid-pod-admission-webhook. Also verify on upgrade whether Helm creates the new ClusterRoleBindings before deleting the old ones."
+}

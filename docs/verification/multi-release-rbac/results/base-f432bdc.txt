@@ -1,0 +1,161 @@
+=== RUN   TestClusterScopedObjectsDisjointAcrossReleases
+    clusterscoped_collision_test.go:147: cluster-scoped objects collide across two Fluid releases (issue #6134 symptom persists):
+          CSIDriver/fuse.csi.fluid.io
+          ClusterRole/alluxioruntime-controller
+          ClusterRole/cacheruntime-controller
+          ClusterRole/dataset-controller
+          ClusterRole/efcruntime-controller
+          ClusterRole/fluid-crds-upgrade
+          ClusterRole/fluid-csi-plugin
+          ClusterRole/fluid-webhook
+          ClusterRole/fluidapp-controller
+          ClusterRole/jindoruntime-controller
+          ClusterRole/juicefsruntime-controller
+          ClusterRole/thinruntime-controller
+          ClusterRole/vineyardruntime-controller
+          ClusterRoleBinding/alluxioruntime-clusterrolebinding
+          ClusterRoleBinding/cacheruntime-clusterrolebinding
+          ClusterRoleBinding/dataset-clusterrolebinding
+          ClusterRoleBinding/efcruntime-clusterrolebinding
+          ClusterRoleBinding/fluid-crds-upgrade
+          ClusterRoleBinding/fluid-csi-plugin
+          ClusterRoleBinding/fluid-webhook-clusterrolebinding
+          ClusterRoleBinding/fluidapp-clusterrolebinding
+          ClusterRoleBinding/jindoruntime-clusterrolebinding
+          ClusterRoleBinding/juicefsruntime-clusterrolebinding
+          ClusterRoleBinding/thinruntime-clusterrolebinding
+          ClusterRoleBinding/vineyardruntime-clusterrolebinding
+          MutatingWebhookConfiguration/fluid-pod-admission-webhook
+        helm install of the second release will fail with 'exists and cannot be imported into the current release' on these objects
+--- FAIL: TestClusterScopedObjectsDisjointAcrossReleases (0.07s)
+=== RUN   TestClusterScopedObjectsDisjointForSameReleaseNameInTwoNamespaces
+    clusterscoped_collision_test.go:169: cluster-scoped objects collide when the same release name is installed in two namespaces:
+          CSIDriver/fuse.csi.fluid.io
+          ClusterRole/alluxioruntime-controller
+          ClusterRole/cacheruntime-controller
+          ClusterRole/dataset-controller
+          ClusterRole/efcruntime-controller
+          ClusterRole/fluid-crds-upgrade
+          ClusterRole/fluid-csi-plugin
+          ClusterRole/fluid-webhook
+          ClusterRole/fluidapp-controller
+          ClusterRole/jindoruntime-controller
+          ClusterRole/juicefsruntime-controller
+          ClusterRole/thinruntime-controller
+          ClusterRole/vineyardruntime-controller
+          ClusterRoleBinding/alluxioruntime-clusterrolebinding
+          ClusterRoleBinding/cacheruntime-clusterrolebinding
+          ClusterRoleBinding/dataset-clusterrolebinding
+          ClusterRoleBinding/efcruntime-clusterrolebinding
+          ClusterRoleBinding/fluid-crds-upgrade
+          ClusterRoleBinding/fluid-csi-plugin
+          ClusterRoleBinding/fluid-webhook-clusterrolebinding
+          ClusterRoleBinding/fluidapp-clusterrolebinding
+          ClusterRoleBinding/jindoruntime-clusterrolebinding
+          ClusterRoleBinding/juicefsruntime-clusterrolebinding
+          ClusterRoleBinding/thinruntime-clusterrolebinding
+          ClusterRoleBinding/vineyardruntime-clusterrolebinding
+          MutatingWebhookConfiguration/fluid-pod-admission-webhook
+        fluid.fullname does not include the namespace, so release-scoped names are identical
+--- FAIL: TestClusterScopedObjectsDisjointForSameReleaseNameInTwoNamespaces (0.07s)
+=== RUN   TestClusterScopedRBACReleaseScopedAcrossReleases
+    clusterscoped_collision_test.go:205: release team-a: ClusterRole "alluxioruntime-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-a: ClusterRole "cacheruntime-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-a: ClusterRole "fluid-csi-plugin" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-a: ClusterRole "dataset-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-a: ClusterRole "efcruntime-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-a: ClusterRole "fluidapp-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-a: ClusterRole "jindoruntime-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-a: ClusterRole "juicefsruntime-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-a: ClusterRole "thinruntime-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-a: ClusterRole "vineyardruntime-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-a: ClusterRole "fluid-webhook" is not release-scoped
+    clusterscoped_collision_test.go:215: release team-a: ClusterRoleBinding "alluxioruntime-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-a: ClusterRoleBinding "alluxioruntime-clusterrolebinding" references non-release-scoped ClusterRole "alluxioruntime-controller"
+    clusterscoped_collision_test.go:215: release team-a: ClusterRoleBinding "cacheruntime-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-a: ClusterRoleBinding "cacheruntime-clusterrolebinding" references non-release-scoped ClusterRole "cacheruntime-controller"
+    clusterscoped_collision_test.go:215: release team-a: ClusterRoleBinding "fluid-csi-plugin" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-a: ClusterRoleBinding "fluid-csi-plugin" references non-release-scoped ClusterRole "fluid-csi-plugin"
+    clusterscoped_collision_test.go:215: release team-a: ClusterRoleBinding "dataset-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-a: ClusterRoleBinding "dataset-clusterrolebinding" references non-release-scoped ClusterRole "dataset-controller"
+    clusterscoped_collision_test.go:215: release team-a: ClusterRoleBinding "efcruntime-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-a: ClusterRoleBinding "efcruntime-clusterrolebinding" references non-release-scoped ClusterRole "efcruntime-controller"
+    clusterscoped_collision_test.go:215: release team-a: ClusterRoleBinding "fluidapp-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-a: ClusterRoleBinding "fluidapp-clusterrolebinding" references non-release-scoped ClusterRole "fluidapp-controller"
+    clusterscoped_collision_test.go:215: release team-a: ClusterRoleBinding "jindoruntime-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-a: ClusterRoleBinding "jindoruntime-clusterrolebinding" references non-release-scoped ClusterRole "jindoruntime-controller"
+    clusterscoped_collision_test.go:215: release team-a: ClusterRoleBinding "juicefsruntime-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-a: ClusterRoleBinding "juicefsruntime-clusterrolebinding" references non-release-scoped ClusterRole "juicefsruntime-controller"
+    clusterscoped_collision_test.go:215: release team-a: ClusterRoleBinding "thinruntime-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-a: ClusterRoleBinding "thinruntime-clusterrolebinding" references non-release-scoped ClusterRole "thinruntime-controller"
+    clusterscoped_collision_test.go:215: release team-a: ClusterRoleBinding "vineyardruntime-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-a: ClusterRoleBinding "vineyardruntime-clusterrolebinding" references non-release-scoped ClusterRole "vineyardruntime-controller"
+    clusterscoped_collision_test.go:215: release team-a: ClusterRoleBinding "fluid-webhook-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-a: ClusterRoleBinding "fluid-webhook-clusterrolebinding" references non-release-scoped ClusterRole "fluid-webhook"
+    clusterscoped_collision_test.go:205: release team-a: ClusterRole "fluid-crds-upgrade" is not release-scoped
+    clusterscoped_collision_test.go:215: release team-a: ClusterRoleBinding "fluid-crds-upgrade" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-a: ClusterRoleBinding "fluid-crds-upgrade" references non-release-scoped ClusterRole "fluid-crds-upgrade"
+    clusterscoped_collision_test.go:205: release team-b: ClusterRole "alluxioruntime-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-b: ClusterRole "cacheruntime-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-b: ClusterRole "fluid-csi-plugin" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-b: ClusterRole "dataset-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-b: ClusterRole "efcruntime-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-b: ClusterRole "fluidapp-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-b: ClusterRole "jindoruntime-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-b: ClusterRole "juicefsruntime-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-b: ClusterRole "thinruntime-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-b: ClusterRole "vineyardruntime-controller" is not release-scoped
+    clusterscoped_collision_test.go:205: release team-b: ClusterRole "fluid-webhook" is not release-scoped
+    clusterscoped_collision_test.go:215: release team-b: ClusterRoleBinding "alluxioruntime-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-b: ClusterRoleBinding "alluxioruntime-clusterrolebinding" references non-release-scoped ClusterRole "alluxioruntime-controller"
+    clusterscoped_collision_test.go:215: release team-b: ClusterRoleBinding "cacheruntime-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-b: ClusterRoleBinding "cacheruntime-clusterrolebinding" references non-release-scoped ClusterRole "cacheruntime-controller"
+    clusterscoped_collision_test.go:215: release team-b: ClusterRoleBinding "fluid-csi-plugin" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-b: ClusterRoleBinding "fluid-csi-plugin" references non-release-scoped ClusterRole "fluid-csi-plugin"
+    clusterscoped_collision_test.go:215: release team-b: ClusterRoleBinding "dataset-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-b: ClusterRoleBinding "dataset-clusterrolebinding" references non-release-scoped ClusterRole "dataset-controller"
+    clusterscoped_collision_test.go:215: release team-b: ClusterRoleBinding "efcruntime-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-b: ClusterRoleBinding "efcruntime-clusterrolebinding" references non-release-scoped ClusterRole "efcruntime-controller"
+    clusterscoped_collision_test.go:215: release team-b: ClusterRoleBinding "fluidapp-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-b: ClusterRoleBinding "fluidapp-clusterrolebinding" references non-release-scoped ClusterRole "fluidapp-controller"
+    clusterscoped_collision_test.go:215: release team-b: ClusterRoleBinding "jindoruntime-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-b: ClusterRoleBinding "jindoruntime-clusterrolebinding" references non-release-scoped ClusterRole "jindoruntime-controller"
+    clusterscoped_collision_test.go:215: release team-b: ClusterRoleBinding "juicefsruntime-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-b: ClusterRoleBinding "juicefsruntime-clusterrolebinding" references non-release-scoped ClusterRole "juicefsruntime-controller"
+    clusterscoped_collision_test.go:215: release team-b: ClusterRoleBinding "thinruntime-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-b: ClusterRoleBinding "thinruntime-clusterrolebinding" references non-release-scoped ClusterRole "thinruntime-controller"
+    clusterscoped_collision_test.go:215: release team-b: ClusterRoleBinding "vineyardruntime-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-b: ClusterRoleBinding "vineyardruntime-clusterrolebinding" references non-release-scoped ClusterRole "vineyardruntime-controller"
+    clusterscoped_collision_test.go:215: release team-b: ClusterRoleBinding "fluid-webhook-clusterrolebinding" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-b: ClusterRoleBinding "fluid-webhook-clusterrolebinding" references non-release-scoped ClusterRole "fluid-webhook"
+    clusterscoped_collision_test.go:205: release team-b: ClusterRole "fluid-crds-upgrade" is not release-scoped
+    clusterscoped_collision_test.go:215: release team-b: ClusterRoleBinding "fluid-crds-upgrade" is not release-scoped
+    clusterscoped_collision_test.go:222: release team-b: ClusterRoleBinding "fluid-crds-upgrade" references non-release-scoped ClusterRole "fluid-crds-upgrade"
+    clusterscoped_collision_test.go:237: RBAC object ClusterRole/alluxioruntime-controller collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRole/efcruntime-controller collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRole/fluidapp-controller collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRole/jindoruntime-controller collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRole/juicefsruntime-controller collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRole/fluid-webhook collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRoleBinding/alluxioruntime-clusterrolebinding collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRoleBinding/cacheruntime-clusterrolebinding collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRole/dataset-controller collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRole/thinruntime-controller collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRoleBinding/fluid-csi-plugin collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRoleBinding/efcruntime-clusterrolebinding collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRole/fluid-crds-upgrade collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRoleBinding/fluid-crds-upgrade collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRoleBinding/fluidapp-clusterrolebinding collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRoleBinding/juicefsruntime-clusterrolebinding collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRoleBinding/thinruntime-clusterrolebinding collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRoleBinding/vineyardruntime-clusterrolebinding collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRole/cacheruntime-controller collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRole/fluid-csi-plugin collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRole/vineyardruntime-controller collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRoleBinding/dataset-clusterrolebinding collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRoleBinding/jindoruntime-clusterrolebinding collides across releases team-a and team-b
+    clusterscoped_collision_test.go:237: RBAC object ClusterRoleBinding/fluid-webhook-clusterrolebinding collides across releases team-a and team-b
+--- FAIL: TestClusterScopedRBACReleaseScopedAcrossReleases (0.06s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/charts/fluid/fluid	0.201s
+FAIL

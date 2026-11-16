@@ -1,0 +1,45 @@
+=== RUN   TestClusterScopedObjectsDisjointAcrossReleases
+    clusterscoped_collision_test.go:147: cluster-scoped objects collide across two Fluid releases (issue #6134 symptom persists):
+          CSIDriver/fuse.csi.fluid.io
+          MutatingWebhookConfiguration/fluid-pod-admission-webhook
+        helm install of the second release will fail with 'exists and cannot be imported into the current release' on these objects
+--- FAIL: TestClusterScopedObjectsDisjointAcrossReleases (0.07s)
+=== RUN   TestClusterScopedObjectsDisjointForSameReleaseNameInTwoNamespaces
+    clusterscoped_collision_test.go:169: cluster-scoped objects collide when the same release name is installed in two namespaces:
+          CSIDriver/fuse.csi.fluid.io
+          ClusterRole/fluid-alluxioruntime-controller
+          ClusterRole/fluid-cacheruntime-controller
+          ClusterRole/fluid-crds-upgrade
+          ClusterRole/fluid-csi-plugin
+          ClusterRole/fluid-dataset-controller
+          ClusterRole/fluid-efcruntime-controller
+          ClusterRole/fluid-fluidapp-controller
+          ClusterRole/fluid-jindoruntime-controller
+          ClusterRole/fluid-juicefsruntime-controller
+          ClusterRole/fluid-thinruntime-controller
+          ClusterRole/fluid-vineyardruntime-controller
+          ClusterRole/fluid-webhook
+          ClusterRoleBinding/fluid-alluxioruntime-clusterrolebinding
+          ClusterRoleBinding/fluid-cacheruntime-clusterrolebinding
+          ClusterRoleBinding/fluid-crds-upgrade
+          ClusterRoleBinding/fluid-csi-plugin
+          ClusterRoleBinding/fluid-dataset-clusterrolebinding
+          ClusterRoleBinding/fluid-efcruntime-clusterrolebinding
+          ClusterRoleBinding/fluid-fluidapp-clusterrolebinding
+          ClusterRoleBinding/fluid-jindoruntime-clusterrolebinding
+          ClusterRoleBinding/fluid-juicefsruntime-clusterrolebinding
+          ClusterRoleBinding/fluid-thinruntime-clusterrolebinding
+          ClusterRoleBinding/fluid-vineyardruntime-clusterrolebinding
+          ClusterRoleBinding/fluid-webhook-clusterrolebinding
+          MutatingWebhookConfiguration/fluid-pod-admission-webhook
+        fluid.fullname does not include the namespace, so release-scoped names are identical
+--- FAIL: TestClusterScopedObjectsDisjointForSameReleaseNameInTwoNamespaces (0.07s)
+=== RUN   TestClusterScopedRBACReleaseScopedAcrossReleases
+--- PASS: TestClusterScopedRBACReleaseScopedAcrossReleases (0.07s)
+=== RUN   TestAlluxioClusterScopedRBACNamesAreReleaseScoped
+--- PASS: TestAlluxioClusterScopedRBACNamesAreReleaseScoped (0.00s)
+=== RUN   TestClusterScopedRBACNamesAreReleaseScoped
+--- PASS: TestClusterScopedRBACNamesAreReleaseScoped (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/charts/fluid/fluid	0.206s
+FAIL

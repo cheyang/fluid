@@ -1,0 +1,8 @@
+=== RUN   TestClusterScopedObjectsDisjointAcrossReleases
+--- PASS: TestClusterScopedObjectsDisjointAcrossReleases (0.07s)
+=== RUN   TestClusterScopedObjectsDisjointForSameReleaseNameInTwoNamespaces
+--- PASS: TestClusterScopedObjectsDisjointForSameReleaseNameInTwoNamespaces (0.07s)
+=== RUN   TestClusterScopedRBACReleaseScopedAcrossReleases
+--- PASS: TestClusterScopedRBACReleaseScopedAcrossReleases (0.07s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/charts/fluid/fluid	0.204s
