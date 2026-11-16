@@ -1,0 +1,3 @@
+TestToolchainVersionNotVulnerable	pass
+TestDockerfileGolangPinsConsistentAndFixed	pass
+TestNoStaleToolchainReferences	pass
