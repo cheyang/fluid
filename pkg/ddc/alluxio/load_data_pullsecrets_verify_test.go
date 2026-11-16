@@ -113,7 +113,12 @@ func TestPR6250DataLoadValueFileUsesRuntimePullSecrets(t *testing.T) {
 	}
 
 	client := fake.NewFakeClientWithScheme(testScheme, verifyDatasetObject(), runtimeWithSecrets)
-	engine := AlluxioEngine{}
+	// Round 2 (head bf852650): generateDataLoadValueFile now resolves the runtime via
+	// e.getRuntime(), i.e. the engine's own Client/name/namespace instead of r.Client +
+	// dataload.Spec.Dataset. In production (AlluxioEngine.Build) name/namespace come from
+	// ctx.NamespacedName = the DataLoad's target dataset, so the key is unchanged; the
+	// fixture mirrors that wiring.
+	engine := AlluxioEngine{Client: client, name: verifyDatasetName, namespace: verifyDatasetNamespace}
 	ctx := cruntime.ReconcileRequestContext{Client: client}
 
 	value := verifyDataLoadValue(t, engine, ctx, verifyDataLoadObject())
@@ -137,7 +142,7 @@ func TestPR6250DataLoadValueFileFallsBackToEnvPullSecrets(t *testing.T) {
 	}
 
 	client := fake.NewFakeClientWithScheme(testScheme, verifyDatasetObject(), runtimeNoSecrets)
-	engine := AlluxioEngine{}
+	engine := AlluxioEngine{Client: client, name: verifyDatasetName, namespace: verifyDatasetNamespace}
 	ctx := cruntime.ReconcileRequestContext{Client: client}
 
 	value := verifyDataLoadValue(t, engine, ctx, verifyDataLoadObject())
@@ -153,7 +158,7 @@ func TestPR6250DataLoadValueFileFallsBackToEnvPullSecrets(t *testing.T) {
 // runtime object at all). Contract test for the new intended behavior.
 func TestPR6250DataLoadValueFileRequiresRuntime(t *testing.T) {
 	client := fake.NewFakeClientWithScheme(testScheme, verifyDatasetObject())
-	engine := AlluxioEngine{}
+	engine := AlluxioEngine{Client: client, name: verifyDatasetName, namespace: verifyDatasetNamespace}
 	ctx := cruntime.ReconcileRequestContext{Client: client}
 
 	fileName, err := engine.generateDataLoadValueFile(ctx, verifyDataLoadObject())
