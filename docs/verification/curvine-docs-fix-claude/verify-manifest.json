@@ -1,0 +1,73 @@
+{
+  "topic": "curvine-docs-fix-claude",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6252",
+  "reviewer": "claude",
+  "mode": "initial",
+  "headSha": "41f10618939fae9c1373a79fee7245e7bfdc7521",
+  "baseSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
+  "premise": {
+    "id": "P0",
+    "claim": "Following docs/{en,zh}/samples/cacheruntime/curvine_cache_runtime.md as written on base produces broken YAML (unquoted cat<<EOF expands ${CURVINE_HOME} etc. locally) and references an image tag that does not exist on Docker Hub (curvine/curvine:0.3.6-alpha).",
+    "runsAgainst": "base",
+    "verdict": "Confirmed",
+    "evidence": [
+      "results/premise-base.out: C1 fails at base — CURVINE_CONF_DIR=\"/conf\" (expanded empty), read jobs become test -n \"\" with local 'cat: /data/minio/bar: No such file or directory'",
+      "results/images.out: curvine/curvine:0.3.6-alpha -> HTTP 404"
+    ]
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "title": "Heredoc local-shell expansion + wrong image tag break the Curvine walkthrough",
+      "introducedByPR": false,
+      "note": "Defect lives on base; this PR is the fix. Origin recorded as preexisting for the defect, fix-provenance initial-pr.",
+      "origin": "preexisting",
+      "status": "fixed-by-this-pr",
+      "firstSeenSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
+      "evidenceKind": "differential",
+      "verification": { "base": "fail", "head": "pass" },
+      "tests": [
+        { "id": "C1_heredoc_output_matches_body", "polarity": "contract", "layer": 1 },
+        { "id": "C2_yaml_parses", "polarity": "contract", "layer": 1 },
+        { "id": "C3_doc_tag_matches_e2e", "polarity": "contract", "layer": 1 },
+        { "id": "C4_en_zh_parity", "polarity": "contract", "layer": 1 },
+        { "id": "C6_image_pullable", "polarity": "contract", "layer": 2 },
+        { "id": "C6_old_tag_gone", "polarity": "contract", "layer": 2 }
+      ],
+      "evidence": [
+        "results/unit.out: all green at head 41f106189",
+        "results/premise-base.out: C1/C3 red at base ff99142f (harness-bites proof)",
+        "results/images.out: v0.3.6-alpha -> HTTP 200 multi-arch (linux/amd64, linux/arm64); 0.3.6-alpha -> HTTP 404",
+        "doc-generated cacheruntimeclass.yaml is byte-identical to test/gha-e2e/curvine/cacheruntimeclass.yaml, which CI (kind-e2e.yml -> gha-e2e.sh -> curvine_e2e) runs"
+      ]
+    },
+    {
+      "id": "F2",
+      "title": "Step 6 'kubectl get pod -l cacheruntime.fluid.io/runtime-name=curvine-demo' matches no pods — label key does not exist",
+      "introducedByPR": false,
+      "origin": "preexisting",
+      "status": "open",
+      "firstSeenSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
+      "evidenceKind": "code-path",
+      "blocking": false,
+      "note": "Out of this PR's stated scope (heredocs + image tag); real key is cacheruntime.fluid.io/name (pkg/common/label.go:154, set via GetComponentMatchLabels). Same finding was recorded by the PR #6253 review round. Recommend a small follow-up PR; do not block #6252 on it.",
+      "verification": { "base": "fail", "head": "fail" },
+      "tests": [
+        { "id": "C5_canary_step6_label_absent", "polarity": "canary", "layer": 1 }
+      ],
+      "evidence": [
+        "results/unit.out: C5 canary green (bug present) at head",
+        "pkg/common/label.go: LabelCacheRuntimeName = 'cacheruntime.' + 'fluid.io/' + 'name'",
+        "test/gha-e2e/curvine/test.sh uses cacheruntime.fluid.io/name and cacheruntime.fluid.io/component-name only"
+      ]
+    }
+  ],
+  "layers": {
+    "1": "offline: python3 scripts/check_doc_fixes.py --repo-root . --ref <sha> --offline",
+    "2": "network:  python3 scripts/check_doc_fixes.py --repo-root . --ref <sha> (Docker Hub registry API)",
+    "3": "live (kind cluster) — NOT run per round policy (unit+integration only); CI kind-e2e already exercises the identical manifest"
+  },
+  "liveNote": "If run live: follow the doc in a fresh kind cluster; expect Dataset Bound, DataLoad Complete, read-job Complete. CI (.github/workflows/kind-e2e.yml) already runs the byte-identical cacheruntimeclass.yaml.",
+  "harnessBranch": "verify/curvine-docs-fix-claude",
+  "harnessPushTarget": "https://github.com/cheyang/fluid.git (reviewer fork)"
+}
