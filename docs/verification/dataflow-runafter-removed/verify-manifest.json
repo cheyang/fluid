@@ -23,7 +23,7 @@
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "KUBECONFIG=/dev/null FLUID_UNIT_TEST=true CGO_ENABLED=0 go test -count=1 -run 'TestPR6254' -v ./pkg/controllers/v1alpha1/dataflow/"
+      "cmd": "KUBECONFIG=/dev/null FLUID_UNIT_TEST=true CGO_ENABLED=0 go test -count=1 -run 'TestPR6254' ./pkg/controllers/v1alpha1/dataflow/ -json"
     }
   },
   "findings": [
