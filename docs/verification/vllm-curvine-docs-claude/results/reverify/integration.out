@@ -9,3 +9,8 @@ C8_toc_entries	pass	TOC entries + titles match H1s
 C10_dataload_phase_value	pass	PhaseComplete in code=True; doc wait uses status.phase=Complete=True
 C6_walkthrough_images_pullable	fail	curlimages/curl:8.22.0 -> 200; curvine/curvine:0.3.6-alpha -> 404; curvine/curvine:v0.3.6-alpha -> 200; vllm/vllm-openai:v0.33.0 -> 200
 C9_vllm_entrypoint_and_port_env	pass	vllm v0.33.0: ENTRYPOINT vllm serve; VLLM_PORT URI guard present; doc mitigation present
+--- reader's resulting file (excerpt) ---
+  14:        CURVINE_CONF_DIR="/conf"
+  15:        CURVINE_DATA_DIR="/data"
+  16:        CURVINE_LOG_DIR="/logs"
+F1_heredoc	fail	unquoted heredoc: CURVINE_HOME expands empty, CURVINE_CONF_DIR mangled to "/conf"
