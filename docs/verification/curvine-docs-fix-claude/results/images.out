@@ -1,0 +1,3 @@
+[pass] C6_image_pullable — curvine/curvine:v0.3.6-alpha -> HTTP 200 ['linux/amd64', 'unknown/unknown', 'linux/arm64', 'unknown/unknown']
+[pass] C6_old_tag_gone — curvine/curvine:0.3.6-alpha -> HTTP 404 (expected 404)
+RESULT: PASS (all contract checks green; C5 canary green = pre-existing label bug still present, as documented)

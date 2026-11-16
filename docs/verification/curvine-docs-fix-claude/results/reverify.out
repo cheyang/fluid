@@ -1,0 +1,47 @@
+[pass] C1_heredoc_output_matches_body — docs/en/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<EOF >minio.yaml
+[pass] C1_heredoc_output_matches_body — docs/en/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<EOF >minio_create_bucket.yaml
+[pass] C1_heredoc_output_matches_body — docs/en/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<EOF >dataset.yaml
+[pass] C1_heredoc_output_matches_body — docs/en/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<'EOF' >cacheruntimeclass.yaml
+[pass] C1_heredoc_output_matches_body — docs/en/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<EOF >cacheruntime.yaml
+[pass] C1_heredoc_output_matches_body — docs/en/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<EOF >write_job.yaml
+[pass] C1_heredoc_output_matches_body — docs/en/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<EOF >dataload.yaml
+[pass] C1_heredoc_output_matches_body — docs/en/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<'EOF' >read_job.yaml
+[pass] C1_heredoc_output_matches_body — docs/en/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<EOF >ref-dataset.yaml
+[pass] C1_heredoc_output_matches_body — docs/en/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<'EOF' >read_ref_job.yaml
+[pass] C1_heredoc_output_matches_body — docs/zh/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<EOF >minio.yaml
+[pass] C1_heredoc_output_matches_body — docs/zh/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<EOF >minio_create_bucket.yaml
+[pass] C1_heredoc_output_matches_body — docs/zh/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<EOF >dataset.yaml
+[pass] C1_heredoc_output_matches_body — docs/zh/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<'EOF' >cacheruntimeclass.yaml
+[pass] C1_heredoc_output_matches_body — docs/zh/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<EOF >cacheruntime.yaml
+[pass] C1_heredoc_output_matches_body — docs/zh/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<EOF >write_job.yaml
+[pass] C1_heredoc_output_matches_body — docs/zh/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<EOF >dataload.yaml
+[pass] C1_heredoc_output_matches_body — docs/zh/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<'EOF' >read_job.yaml
+[pass] C1_heredoc_output_matches_body — docs/zh/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<EOF >ref-dataset.yaml
+[pass] C1_heredoc_output_matches_body — docs/zh/samples/cacheruntime/curvine_cache_runtime.md:$ cat<<'EOF' >read_ref_job.yaml
+[pass] C2_yaml_parses — cacheruntime.yaml (from docs/en/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — cacheruntimeclass.yaml (from docs/en/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — dataload.yaml (from docs/en/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — dataset.yaml (from docs/en/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — minio.yaml (from docs/en/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — minio_create_bucket.yaml (from docs/en/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — read_job.yaml (from docs/en/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — read_ref_job.yaml (from docs/en/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — ref-dataset.yaml (from docs/en/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — write_job.yaml (from docs/en/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — cacheruntime.yaml (from docs/zh/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — cacheruntimeclass.yaml (from docs/zh/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — dataload.yaml (from docs/zh/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — dataset.yaml (from docs/zh/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — minio.yaml (from docs/zh/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — minio_create_bucket.yaml (from docs/zh/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — read_job.yaml (from docs/zh/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — read_ref_job.yaml (from docs/zh/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — ref-dataset.yaml (from docs/zh/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C2_yaml_parses — write_job.yaml (from docs/zh/samples/cacheruntime/curvine_cache_runtime.md)
+[pass] C3_doc_tag_matches_e2e — doc=['curvine/curvine:v0.3.6-alpha'] e2e=['curvine/curvine:v0.3.6-alpha']
+[pass] C4_en_zh_parity — 10 vs 10 heredoc blocks, identical=True
+[pass] C5_canary_step6_label_absent — labels in doc: ['cacheruntime.fluid.io/runtime-name']; not set by code (expected runtime-name only): ['cacheruntime.fluid.io/runtime-name']
+[pass] C6_image_pullable — curvine/curvine:v0.3.6-alpha -> HTTP 200 ['linux/amd64', 'unknown/unknown', 'linux/arm64', 'unknown/unknown']
+[pass] C6_old_tag_gone — curvine/curvine:0.3.6-alpha -> HTTP 404 (expected 404)
+
+RESULT: PASS (all contract checks green; C5 canary green = pre-existing label bug still present, as documented)
