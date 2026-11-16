@@ -1,0 +1,16 @@
+=== RUN   TestPR6254RunAfterRemovedReleasesAllKinds
+=== RUN   TestPR6254RunAfterRemovedReleasesAllKinds/DataLoad
+=== RUN   TestPR6254RunAfterRemovedReleasesAllKinds/DataBackup
+=== RUN   TestPR6254RunAfterRemovedReleasesAllKinds/DataMigrate
+=== RUN   TestPR6254RunAfterRemovedReleasesAllKinds/DataProcess
+--- PASS: TestPR6254RunAfterRemovedReleasesAllKinds (0.00s)
+    --- PASS: TestPR6254RunAfterRemovedReleasesAllKinds/DataLoad (0.00s)
+    --- PASS: TestPR6254RunAfterRemovedReleasesAllKinds/DataBackup (0.00s)
+    --- PASS: TestPR6254RunAfterRemovedReleasesAllKinds/DataMigrate (0.00s)
+    --- PASS: TestPR6254RunAfterRemovedReleasesAllKinds/DataProcess (0.00s)
+=== RUN   TestPR6254ControllerReconcileNoPanicAndReleases
+--- PASS: TestPR6254ControllerReconcileNoPanicAndReleases (0.00s)
+=== RUN   TestPR6254ReleaseErrorPropagatesAndRequeues
+--- PASS: TestPR6254ReleaseErrorPropagatesAndRequeues (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataflow	0.013s

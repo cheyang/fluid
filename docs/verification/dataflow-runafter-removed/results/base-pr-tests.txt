@@ -1,0 +1,102 @@
+Running Suite: DataFlow Controller Suite - /tmp/fluid-base/pkg/controllers/v1alpha1/dataflow
+============================================================================================
+Random Seed: [1m1794869874[0m
+
+Will run [1m41[0m of [1m41[0m specs
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.001 seconds][0m
+[0mreconcile a data operation whose spec.runAfter was removed while waiting [38;5;243mshould release the operation without panicking [38;5;9m[1m[It] DataLoad[0m
+[38;5;243m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/operations_test.go:910[0m
+
+  [38;5;9m[FAILED] Expected
+      <func()>: 0x1694b80
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/operations_test.go:899[0m [38;5;243m@ 11/17/26 06:57:54.224[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mreconcile a data operation whose spec.runAfter was removed while waiting [38;5;243mshould release the operation without panicking [38;5;9m[1m[It] DataBackup[0m
+[38;5;243m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/operations_test.go:913[0m
+
+  [38;5;9m[FAILED] Expected
+      <func()>: 0x1694b80
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/operations_test.go:899[0m [38;5;243m@ 11/17/26 06:57:54.225[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mreconcile a data operation whose spec.runAfter was removed while waiting [38;5;243mshould release the operation without panicking [38;5;9m[1m[It] DataMigrate[0m
+[38;5;243m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/operations_test.go:916[0m
+
+  [38;5;9m[FAILED] Expected
+      <func()>: 0x1694b80
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/operations_test.go:899[0m [38;5;243m@ 11/17/26 06:57:54.225[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mreconcile a data operation whose spec.runAfter was removed while waiting [38;5;243mshould release the operation without panicking [38;5;9m[1m[It] DataProcess[0m
+[38;5;243m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/operations_test.go:919[0m
+
+  [38;5;9m[FAILED] Expected
+      <func()>: 0x1694b80
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/operations_test.go:899[0m [38;5;243m@ 11/17/26 06:57:54.225[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mreconcile a data operation whose spec.runAfter was removed while waiting [38;5;9m[1m[It] should request requeue and return the error when releasing the operation fails[0m
+[38;5;243m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/operations_test.go:924[0m
+
+  [38;5;9m[FAILED] Expected
+      <func()>: 0x1693e40
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/operations_test.go:935[0m [38;5;243m@ 11/17/26 06:57:54.226[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mDataFlowReconciler [38;5;243mReconcile [38;5;9m[1m[It] should not panic and should release a DataLoad whose RunAfter was removed while it was waiting[0m
+[38;5;243m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/dataflow_controller_test.go:160[0m
+
+  [38;5;9m[FAILED] Expected
+      <func()>: 0x16868e0
+  not to panic, but panicked with
+      <runtime.errorString>: 
+      runtime error: invalid memory address or nil pointer dereference
+      invalid memory address or nil pointer dereference[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/dataflow_controller_test.go:183[0m [38;5;243m@ 11/17/26 06:57:54.229[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;9m[1mSummarizing 6 Failures:[0m
+  [38;5;9m[FAIL][0m [0mreconcile a data operation whose spec.runAfter was removed while waiting [38;5;243mshould release the operation without panicking [38;5;9m[1m[It] DataLoad[0m
+  [38;5;243m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/operations_test.go:899[0m
+  [38;5;9m[FAIL][0m [0mreconcile a data operation whose spec.runAfter was removed while waiting [38;5;243mshould release the operation without panicking [38;5;9m[1m[It] DataBackup[0m
+  [38;5;243m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/operations_test.go:899[0m
+  [38;5;9m[FAIL][0m [0mreconcile a data operation whose spec.runAfter was removed while waiting [38;5;243mshould release the operation without panicking [38;5;9m[1m[It] DataMigrate[0m
+  [38;5;243m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/operations_test.go:899[0m
+  [38;5;9m[FAIL][0m [0mreconcile a data operation whose spec.runAfter was removed while waiting [38;5;243mshould release the operation without panicking [38;5;9m[1m[It] DataProcess[0m
+  [38;5;243m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/operations_test.go:899[0m
+  [38;5;9m[FAIL][0m [0mreconcile a data operation whose spec.runAfter was removed while waiting [38;5;9m[1m[It] should request requeue and return the error when releasing the operation fails[0m
+  [38;5;243m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/operations_test.go:935[0m
+  [38;5;9m[FAIL][0m [0mDataFlowReconciler [38;5;243mReconcile [38;5;9m[1m[It] should not panic and should release a DataLoad whose RunAfter was removed while it was waiting[0m
+  [38;5;243m/tmp/fluid-base/pkg/controllers/v1alpha1/dataflow/dataflow_controller_test.go:183[0m
+
+[38;5;9m[1mRan 41 of 41 Specs in 0.007 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m35 Passed[0m | [38;5;9m[1m6 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+--- FAIL: TestAPIs (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataflow	0.020s
+FAIL

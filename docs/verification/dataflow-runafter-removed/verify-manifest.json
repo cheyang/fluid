@@ -1,0 +1,50 @@
+{
+  "topic": "dataflow-runafter-removed",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6254",
+  "harnessPaths": [
+    "docs/verification/dataflow-runafter-removed",
+    "pkg/controllers/v1alpha1/dataflow/pr6254_runafter_removed_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "spec.runAfter is mutable, so a user can remove it while the operation is still waiting; reconcileOperationDataFlow then dereferences the nil runAfter (runAfter.Namespace) and panics; Fluid does not enable controller-runtime's RecoverPanic, so the panic kills dataset-controller, which crash-loops and stops Dataset and data-operation reconciliation for the whole cluster.",
+    "reportedComponent": "pkg/controllers/v1alpha1/dataflow (DataFlow reconciler running inside dataset-controller)",
+    "patchedComponent": "pkg/controllers/v1alpha1/dataflow/operations.go (reconcileOperationDataFlow + releaseWaitingOperation)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Harness grafted onto merge-base f432bdc8: all 6 subtests fail with 'runtime error: invalid memory address or nil pointer dereference' (results/base-harness.txt); same tests pass on head cc3947c0 (results/head-harness.txt). The PR's own tests on base: 35 Passed | 6 Failed, all nil-pointer (results/base-pr-tests.txt).",
+    "match": [
+      "TestPR6254RunAfterRemovedReleasesAllKinds",
+      "TestPR6254ControllerReconcileNoPanicAndReleases"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "KUBECONFIG=/dev/null FLUID_UNIT_TEST=true CGO_ENABLED=0 go test -count=1 -run 'TestPR6254' -v ./pkg/controllers/v1alpha1/dataflow/"
+    }
+  },
+  "findings": [
+    {
+      "id": "V1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestPR6254RunAfterRemovedReleasesAllKinds"]
+    },
+    {
+      "id": "V2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestPR6254ControllerReconcileNoPanicAndReleases"]
+    },
+    {
+      "id": "V3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestPR6254ReleaseErrorPropagatesAndRequeues"]
+    }
+  ],
+  "liveNote": "L3 (not run this round, no cluster): the PR's own e2e verify_dataload_runafter_removed in test/gha-e2e/curvine/test.sh covers it on a kind cluster; check DataLoad reaches Complete within 180s of removing spec.runAfter and dataset-controller restart count stays unchanged. GitHub Actions run 43818103797 (all 5 kind-e2e jobs green) is the author's evidence."
+}
