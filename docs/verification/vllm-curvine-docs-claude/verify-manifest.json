@@ -1,0 +1,69 @@
+{
+  "topic": "vllm-curvine-docs-claude",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6253",
+  "baseSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
+  "headSha": "33c1eef59404f55d4f582a0cec84af62fb2e1d79",
+  "harnessPaths": [
+    "docs/verification/vllm-curvine-docs-claude"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Docs-only PR: 'The existing CacheRuntime samples only read and write small files from busybox' — no CacheRuntime sample shows a realistic workload (inference serving) reading model weights through the Fluid PVC.",
+    "reportedComponent": "docs/en+zh/samples/cacheruntime/",
+    "patchedComponent": "docs/en+zh/samples/cacheruntime/vllm_with_curvine.md + TOC.md (en/zh)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "git grep -il vllm <base> -- docs/ = no hits; existing samples use busybox write/read jobs (results/unit.out: P0_no_prior_vllm_sample)",
+    "match": ["P0_no_prior_vllm_sample"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "script",
+      "cmd": "python3 docs/verification/vllm-curvine-docs-claude/scripts/check_doc_claims.py --repo-root . --ref WORKTREE --offline"
+    },
+    "integration": {
+      "kind": "script",
+      "cmd": "python3 docs/verification/vllm-curvine-docs-claude/scripts/check_doc_claims.py --repo-root . --ref WORKTREE",
+      "needsNetwork": "Docker Hub registry API + raw.githubusercontent.com (vllm@v0.33.0)"
+    }
+  },
+  "findings": [
+    {
+      "id": "D1",
+      "polarity": "contract",
+      "layer": "unit",
+      "summary": "Every code-checkable claim in the new sample docs matches the Fluid codebase (pod label, links, en/zh parity, heredoc safety, cross-doc refs, YAML-vs-CRD fields, TOC entries, DataLoad phase).",
+      "match": [
+        "C1_label_selector_valid",
+        "C2_doc_links_resolve",
+        "C3_en_zh_code_parity",
+        "C4_heredoc_no_shell_expansion",
+        "C5_cross_doc_references",
+        "C7_yaml_fields_in_crd",
+        "C8_toc_entries",
+        "C10_dataload_phase_value"
+      ]
+    },
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "integration",
+      "summary": "Merge-order dependency: Step 1 delegates to curvine_cache_runtime.md, whose CacheRuntimeClass deploys curvine/curvine:0.3.6-alpha — that tag does not exist on Docker Hub (all curvine tags are v-prefixed). Sample is unrunnable until #6252 (which fixes the tag) merges. Currently RED at head; expected to go green once #6252 lands.",
+      "match": [
+        "C6_walkthrough_images_pullable"
+      ]
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "integration",
+      "summary": "External vLLM claims: vllm-openai:v0.33.0 entrypoint is 'vllm serve' (positional model arg valid) and the VLLM_PORT URI guard exists in vllm/envs.py — the doc's enableServiceLinks:false / vllm-svc mitigation matches real vLLM behavior.",
+      "match": [
+        "C9_vllm_entrypoint_and_port_env"
+      ]
+    }
+  ],
+  "liveNote": "L3 (optional): a real GPU cluster run of the sample itself — Dataset Bound, DataLoad Complete with ~953MiB cached, vLLM serving /v1/chat/completions from the curvinefs FUSE mount, both replicas after scaling. The PR author already performed this run; not re-run here (no GPU/KUBECONFIG in this review environment)."
+}

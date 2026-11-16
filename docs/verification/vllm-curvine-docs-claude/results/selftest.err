@@ -1,0 +1,11 @@
+[selftest] P0_no_prior_vllm_sample	pass	docs at base mention vllm: none
+[selftest] C1_label_selector_valid	fail	doc selectors=['cacheruntime.fluid.io/runtime-name']; code label=cacheruntime.fluid.io/name; set-in-component-manager=True; zh-uses-label=True
+[selftest] C2_doc_links_resolve	fail	docs/en/samples/cacheruntime/vllm_with_curvine.md -> ../../userguide/install.md MISSING; docs/zh/samples/cacheruntime/vllm_with_curvine.md -> ../../userguide/install.md MISSING
+[selftest] C3_en_zh_code_parity	pass	code blocks identical modulo translated comments
+[selftest] C4_heredoc_no_shell_expansion	fail	injected: $VARIABLE in unquoted heredoc
+[selftest] C5_cross_doc_references	pass	names/steps/anchors all present; only quota differs
+[selftest] C7_yaml_fields_in_crd	pass	all YAML blocks parse; fields match CRD; k8s objects consistent
+[selftest] C8_toc_entries	pass	TOC entries + titles match H1s
+[selftest] C10_dataload_phase_value	pass	PhaseComplete in code=True; doc wait uses status.phase=Complete=True
+[selftest] C6_walkthrough_images_pullable	skip	offline mode
+[selftest] C9_vllm_entrypoint_and_port_env	skip	offline mode
