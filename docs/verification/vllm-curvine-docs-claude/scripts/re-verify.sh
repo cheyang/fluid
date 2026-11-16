@@ -82,7 +82,8 @@ run_layer() {
   out="$RESULTS_DIR/${layer}.out"
   echo "re-verify: running layer '$layer'" >&2
   if bash -c "$cmd" >"$out" 2>"$RESULTS_DIR/${layer}.err"; then :; fi
-  grep -E '^[A-Za-z0-9_]+\t(pass|fail)\t' "$out" || echo "__NO_CHECKS__"
+  local parsed; parsed="$(awk -F'\t' '($2=="pass"||$2=="fail"){print $1"\t"$2}' "$out")"
+  if [ -n "$parsed" ]; then printf '%s\n' "$parsed"; else echo "__NO_CHECKS__"; fi
 }
 
 for L in ${LAYERS//,/ }; do
