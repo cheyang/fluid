@@ -1,0 +1,44 @@
+using KUBEBUILDER_ASSETS=/home/ecs-user/.local/share/kubebuilder-envtest/k8s/1.36.2-linux-amd64
+helm: v3.16.3+gcfd0749
+envtest apiserver up
+=== P0: premise on BASE chart (f432bdc87ac35941763b74e8e87683c7a84de5d9) ===
+Error: INSTALLATION FAILED: Unable to continue with install: ServiceAccount "alluxioruntime-controller" in namespace "fluid-system" exists and cannot be imported into the current release: invalid ownership metadata; annotation validation error: key "meta.helm.sh/release-name" must equal "fluid-1": current value is "fluid"; annotation validation error: key "meta.helm.sh/release-namespace" must equal "test": current value is "fluid-system"
+Error: uninstall: Release not loaded: fluid-1: release: not found
+Error: INSTALLATION FAILED: Unable to continue with install: ClusterRole "alluxioruntime-controller" in namespace "" exists and cannot be imported into the current release: invalid ownership metadata; annotation validation error: key "meta.helm.sh/release-name" must equal "fluid-1": current value is "fluid"; annotation validation error: key "meta.helm.sh/release-namespace" must equal "test": current value is "fluid-system"
+Error: uninstall: Release not loaded: fluid-1: release: not found
+release "fluid" uninstalled
+=== F1: second install on HEAD chart (af73f5d6a8f7b918f8b1c07bd47cbdd6cebef563) ===
+Error: INSTALLATION FAILED: Unable to continue with install: ServiceAccount "alluxioruntime-controller" in namespace "fluid-system" exists and cannot be imported into the current release: invalid ownership metadata; annotation validation error: key "meta.helm.sh/release-name" must equal "fluid-1": current value is "fluid"; annotation validation error: key "meta.helm.sh/release-namespace" must equal "test": current value is "fluid-system"
+Error: uninstall: Release not loaded: fluid-1: release: not found
+Error: INSTALLATION FAILED: Unable to continue with install: CSIDriver "fuse.csi.fluid.io" in namespace "" exists and cannot be imported into the current release: invalid ownership metadata; annotation validation error: key "meta.helm.sh/release-name" must equal "fluid-1": current value is "fluid"; annotation validation error: key "meta.helm.sh/release-namespace" must equal "test": current value is "fluid-system"
+Error: uninstall: Release not loaded: fluid-1: release: not found
+NAME                              CREATED AT
+fluid-alluxioruntime-controller   2026-11-16T23:44:42Z
+NAME                                CREATED AT
+fluid-1-alluxioruntime-controller   2026-11-16T23:44:45Z
+release "fluid-1" uninstalled
+release "fluid" uninstalled
+=== F2: upgrade base -> head for release 'fluid' ===
+NAME                        CREATED AT
+alluxioruntime-controller   2026-11-16T23:44:47Z
+Error from server (NotFound): clusterroles.rbac.authorization.k8s.io "alluxioruntime-controller" not found
+NAME                              CREATED AT
+fluid-alluxioruntime-controller   2026-11-16T23:44:49Z
+release "fluid" uninstalled
+
+================ SUMMARY (base=f432bdc87ac35941763b74e8e87683c7a84de5d9 head=af73f5d6a8f7b918f8b1c07bd47cbdd6cebef563) ================
+PASS  P0.install1  base: first release installs
+PASS  P0.install2  base: second release FAILS with ownership conflict (premise holds)
+PASS  P0b  base with --set namespace=test: second release FAILS on ClusterRole alluxioruntime-controller (matches issue #6134 exactly)
+PASS  F1.install1  head: first release installs
+PASS  F1a  head: issue repro (no values override) still FAILS (fix incomplete)
+PASS  F1b  head: second release with --set namespace=test still FAILS on fixed-name cluster-scoped object (CSIDriver/MWC)
+PASS  F1c  head trimmed (no CSIDriver/MWC templates): second release with --set namespace=test installs OK (RBAC rename itself works)
+PASS  F1.names  both releases' release-scoped ClusterRoles coexist
+PASS  F2.install  base chart installs as release 'fluid'
+PASS  F2.before  old-name ClusterRole alluxioruntime-controller exists before upgrade
+PASS  F2.upgrade  helm upgrade to head chart succeeds
+PASS  F2.oldgone  old-name ClusterRole alluxioruntime-controller deleted by upgrade
+PASS  F2.newexists  new-name ClusterRole fluid-alluxioruntime-controller created by upgrade
+PASS  F2.subjects  new ClusterRoleBinding still binds SA alluxioruntime-controller/fluid-system
+pass=14 fail=0

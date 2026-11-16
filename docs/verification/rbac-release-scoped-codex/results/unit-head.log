@@ -1,0 +1,6 @@
+=== RUN   TestAlluxioClusterScopedRBACNamesAreReleaseScoped
+--- PASS: TestAlluxioClusterScopedRBACNamesAreReleaseScoped (0.00s)
+=== RUN   TestClusterScopedRBACNamesAreReleaseScoped
+--- PASS: TestClusterScopedRBACNamesAreReleaseScoped (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/charts/fluid/fluid	0.003s

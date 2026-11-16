@@ -1,0 +1,44 @@
+--- FAIL: TestAlluxioClusterScopedRBACNamesAreReleaseScoped (0.00s)
+    rbac_test.go:99: ClusterRole name is not release-scoped: want metadata name "{{ include \"fluid.fullname\" . }}-alluxioruntime-controller"
+    rbac_test.go:104: ClusterRoleBinding name is not release-scoped: want metadata name "{{ include \"fluid.fullname\" . }}-alluxioruntime-clusterrolebinding"
+    rbac_test.go:107: ClusterRoleBinding roleRef does not reference release-scoped ClusterRole "{{ include \"fluid.fullname\" . }}-alluxioruntime-controller"
+--- FAIL: TestClusterScopedRBACNamesAreReleaseScoped (0.00s)
+    rbac_test.go:156: templates/role/alluxio/rbac.yaml: ClusterRole name "alluxioruntime-controller" is not release-scoped
+    rbac_test.go:156: templates/role/alluxio/rbac.yaml: ClusterRoleBinding name "alluxioruntime-clusterrolebinding" is not release-scoped
+    rbac_test.go:156: templates/role/alluxio/rbac.yaml: ClusterRoleBinding name "alluxioruntime-controller" is not release-scoped
+    rbac_test.go:156: templates/role/cache/rbac.yaml: ClusterRole name "cacheruntime-controller" is not release-scoped
+    rbac_test.go:156: templates/role/cache/rbac.yaml: ClusterRoleBinding name "cacheruntime-clusterrolebinding" is not release-scoped
+    rbac_test.go:156: templates/role/cache/rbac.yaml: ClusterRoleBinding name "cacheruntime-controller" is not release-scoped
+    rbac_test.go:156: templates/role/csi/rbac.yaml: ClusterRole name "fluid-csi-plugin" is not release-scoped
+    rbac_test.go:156: templates/role/csi/rbac.yaml: ClusterRoleBinding name "fluid-csi-plugin" is not release-scoped
+    rbac_test.go:156: templates/role/csi/rbac.yaml: ClusterRoleBinding name "fluid-csi-plugin" is not release-scoped
+    rbac_test.go:156: templates/role/dataset/rbac.yaml: ClusterRole name "dataset-controller" is not release-scoped
+    rbac_test.go:156: templates/role/dataset/rbac.yaml: ClusterRoleBinding name "dataset-clusterrolebinding" is not release-scoped
+    rbac_test.go:156: templates/role/dataset/rbac.yaml: ClusterRoleBinding name "dataset-controller" is not release-scoped
+    rbac_test.go:156: templates/role/efc/rbac.yaml: ClusterRole name "efcruntime-controller" is not release-scoped
+    rbac_test.go:156: templates/role/efc/rbac.yaml: ClusterRoleBinding name "efcruntime-clusterrolebinding" is not release-scoped
+    rbac_test.go:156: templates/role/efc/rbac.yaml: ClusterRoleBinding name "efcruntime-controller" is not release-scoped
+    rbac_test.go:156: templates/role/fluidapp/rbac.yaml: ClusterRole name "fluidapp-controller" is not release-scoped
+    rbac_test.go:156: templates/role/fluidapp/rbac.yaml: ClusterRoleBinding name "fluidapp-clusterrolebinding" is not release-scoped
+    rbac_test.go:156: templates/role/fluidapp/rbac.yaml: ClusterRoleBinding name "fluidapp-controller" is not release-scoped
+    rbac_test.go:156: templates/role/jindo/rbac.yaml: ClusterRole name "jindoruntime-controller" is not release-scoped
+    rbac_test.go:156: templates/role/jindo/rbac.yaml: ClusterRoleBinding name "jindoruntime-clusterrolebinding" is not release-scoped
+    rbac_test.go:156: templates/role/jindo/rbac.yaml: ClusterRoleBinding name "jindoruntime-controller" is not release-scoped
+    rbac_test.go:156: templates/role/juicefs/rbac.yaml: ClusterRole name "juicefsruntime-controller" is not release-scoped
+    rbac_test.go:156: templates/role/juicefs/rbac.yaml: ClusterRoleBinding name "juicefsruntime-clusterrolebinding" is not release-scoped
+    rbac_test.go:156: templates/role/juicefs/rbac.yaml: ClusterRoleBinding name "juicefsruntime-controller" is not release-scoped
+    rbac_test.go:156: templates/role/thin/rbac.yaml: ClusterRole name "thinruntime-controller" is not release-scoped
+    rbac_test.go:156: templates/role/thin/rbac.yaml: ClusterRoleBinding name "thinruntime-clusterrolebinding" is not release-scoped
+    rbac_test.go:156: templates/role/thin/rbac.yaml: ClusterRoleBinding name "thinruntime-controller" is not release-scoped
+    rbac_test.go:156: templates/role/vineyard/rbac.yaml: ClusterRole name "vineyardruntime-controller" is not release-scoped
+    rbac_test.go:156: templates/role/vineyard/rbac.yaml: ClusterRoleBinding name "vineyardruntime-clusterrolebinding" is not release-scoped
+    rbac_test.go:156: templates/role/vineyard/rbac.yaml: ClusterRoleBinding name "vineyardruntime-controller" is not release-scoped
+    rbac_test.go:156: templates/role/webhook/rabc.yaml: ClusterRole name "fluid-webhook" is not release-scoped
+    rbac_test.go:156: templates/role/webhook/rabc.yaml: ClusterRoleBinding name "fluid-webhook-clusterrolebinding" is not release-scoped
+    rbac_test.go:156: templates/role/webhook/rabc.yaml: ClusterRoleBinding name "fluid-webhook" is not release-scoped
+    rbac_test.go:156: templates/upgrade/crd-upgrade.yaml: ClusterRole name "fluid-crds-upgrade" is not release-scoped
+    rbac_test.go:156: templates/upgrade/crd-upgrade.yaml: ClusterRoleBinding name "fluid-crds-upgrade" is not release-scoped
+    rbac_test.go:156: templates/upgrade/crd-upgrade.yaml: ClusterRoleBinding name "fluid-crds-upgrade" is not release-scoped
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/charts/fluid/fluid	0.002s
+FAIL

@@ -1,0 +1,58 @@
+{
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6256",
+  "topic": "rbac-release-scoped-codex",
+  "reviewer": "codex",
+  "baseSha": "f432bdc87ac35941763b74e8e87683c7a84de5d9",
+  "headSha": "af73f5d6a8f7b918f8b1c07bd47cbdd6cebef563",
+  "previousHeadSha": null,
+  "mode": "initial",
+  "premise": {
+    "id": "P0",
+    "claim": "Installing a second Fluid helm release on the same cluster fails with 'exists and cannot be imported into the current release' ownership conflicts (issue #6134).",
+    "runsAgainst": "base",
+    "verdict": "Confirmed",
+    "evidence": "results/p0-install2.log (fails on ServiceAccount alluxioruntime-controller, values-default layout) and results/p0b-install2.log (with --set namespace=test, fails on exactly the reported ClusterRole alluxioruntime-controller)."
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "title": "Incomplete fix: second release still cannot install (CSIDriver fuse.csi.fluid.io and MutatingWebhookConfiguration fluid-pod-admission-webhook keep fixed cluster-scoped names); 'Fixes #6134' does not hold",
+      "severity": "blocker",
+      "polarity": "contract",
+      "layer": "integration",
+      "tests": ["scripts/scenario.sh: F1a, F1b, F1c, F1.names"],
+      "evidence": "results/f1a-install2.log, results/f1b-install2.log, results/f1c-install2.log, results/scenario.log",
+      "observed": "head chart: second install fails with default values (namespaced SA collision) and with --set namespace=test (CSIDriver fuse.csi.fluid.io ownership conflict)",
+      "expected": "second release installs successfully (the 'Fixes #6134' claim)",
+      "status": "open",
+      "introducedByPR": true
+    },
+    {
+      "id": "F2",
+      "title": "Upgrade swaps ClusterRole/ClusterRoleBinding names (delete+create): brief permission-loss window for runtime controllers",
+      "severity": "minor",
+      "polarity": "contract",
+      "layer": "integration",
+      "tests": ["scripts/scenario.sh: F2.install, F2.before, F2.upgrade, F2.oldgone, F2.newexists, F2.subjects"],
+      "evidence": "results/f2-upgrade.log, results/f2-binding-subjects.txt, results/scenario.log",
+      "observed": "helm upgrade base->head succeeds; old-name objects deleted, new-name objects created; bindings keep referencing the same ServiceAccounts",
+      "expected": "mechanics confirmed; transient window disclosed by author in PR body",
+      "status": "open",
+      "introducedByPR": true
+    },
+    {
+      "id": "F3",
+      "title": "Chart tests assert template text only; no helm template/render or multi-install e2e coverage; glob misses templates outside role/ and upgrade/",
+      "severity": "minor",
+      "polarity": "contract",
+      "layer": "unit",
+      "tests": ["charts/fluid/fluid/rbac_test.go (PR's own)", "scripts/scenario.sh (integration equivalent)"],
+      "evidence": "results/unit-head.log (pass on head), results/unit-base-bites.log (38 failures on base)",
+      "status": "open",
+      "introducedByPR": true
+    }
+  ],
+  "prHeadFetch": {"repo": "https://github.com/fluid-cloudnative/fluid.git", "ref": "pull/6256/head"},
+  "liveNote": "Skipped per debate setup (no live cluster). Repo CI rollup at review time: only DCO + SonarCloud (success); kind-e2e/backward-compat workflows did not run on this PR. The backward-compat workflow would cover this upgrade path once triggered.",
+  "reverify": "bash docs/verification/rbac-release-scoped-codex/scripts/re-verify.sh"
+}
