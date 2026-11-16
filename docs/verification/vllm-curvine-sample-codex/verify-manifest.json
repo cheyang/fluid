@@ -14,12 +14,23 @@
     "layer": "unit+integration",
     "verdict": "confirmed",
     "evidence": "L1 unit + L2 envtest all pass (results/unit-layer.json, results/integration-layer.json); image tags / vLLM entrypoint / external anchors confirmed (results/external-evidence.txt). Residue: live GPU end-to-end run not repeated (docs-only PR, author's kind-cluster run report accepted; L3 skipped per round policy).",
-    "match": ["TestDocManifestsParseAsYAML", "TestEnZhManifestParity", "TestHeredocsExpansionSafe", "TestRelativeLinksResolve", "TestDocClaimsMatchSource", "TestCrossReferencedStepsExist", "TestRuntimeSampleDeltaIsOnlyQuota", "TestEnvtestAppliesDocManifests"]
+    "match": [
+      "TestDocManifestsParseAsYAML",
+      "TestEnZhManifestParity",
+      "TestHeredocsExpansionSafe",
+      "TestRelativeLinksResolve",
+      "TestDocClaimsMatchSource",
+      "TestCrossReferencedStepsExist",
+      "TestRuntimeSampleDeltaIsOnlyQuota",
+      "TestEnvtestAppliesDocManifests",
+      "TestPortForwardLifecycleHardened",
+      "TestPrerequisitesStateKubectlVersion"
+    ]
   },
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "go test ./docs/verification/vllm-curvine-sample-codex/harness/ -run 'TestDoc|TestEnZh|TestHeredocs|TestRelativeLinks|TestCrossReferenced|TestRuntimeSample|TestReferenced' -json"
+      "cmd": "go test ./docs/verification/vllm-curvine-sample-codex/harness/ -run 'TestDoc|TestEnZh|TestHeredocs|TestRelativeLinks|TestCrossReferenced|TestRuntimeSample|TestReferenced|TestPortForward|TestPrerequisites' -json"
     },
     "integration": {
       "kind": "gotest",
@@ -31,8 +42,28 @@
       "id": "F1",
       "polarity": "contract",
       "layer": "unit",
-      "match": ["TestReferencedCurvineDocCarriesDependencyFixes"],
+      "match": [
+        "TestReferencedCurvineDocCarriesDependencyFixes"
+      ],
       "note": "Merge-order dependency on PR #6252. RED at head 33c1eef (referenced doc still has unquoted CacheRuntimeClass heredoc + nonexistent curvine/curvine:0.3.6-alpha tag). Flips green once #6252 is in the tree. Harness-bites proven both directions; see README."
+    },
+    {
+      "id": "F3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestPortForwardLifecycleHardened"
+      ],
+      "note": "nit from round 1: port-forward lifecycle was brittle (kill %1 + unbounded until-loop). Fixed in 46cd547 (PF_PID capture + kill \"$PF_PID\" + timeout-bounded wait). RED on previous head 33c1eef, green at 46cd547."
+    },
+    {
+      "id": "F4",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestPrerequisitesStateKubectlVersion"
+      ],
+      "note": "nit from round 1: kubectl >= 1.23 implied by --for=jsonpath was unstated. Fixed in 46cd547 (Prerequisites now name 1.23 + the jsonpath reason). RED on previous head 33c1eef, green at 46cd547."
     }
   ],
   "liveNote": "L3 (skipped this round per policy): on a GPU kind cluster, follow docs/en/samples/cacheruntime/vllm_with_curvine.md end to end; expect Dataset Bound, DataLoad Complete with ~953MiB cached, vLLM answering /v1/chat/completions, 2 replicas sharing one PVC."

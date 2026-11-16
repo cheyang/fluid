@@ -301,3 +301,51 @@ func TestReferencedCurvineDocCarriesDependencyFixes(t *testing.T) {
 		}
 	}
 }
+
+// F3 (contract; fix landed in 46cd547): Step 2's port-forward lifecycle must not
+// rely on shell job control (`kill %1` kills whatever happens to be job #1), and
+// the readiness wait must be bounded so a failed port-forward cannot spin forever.
+// Fails on 33c1eef (kill %1 + unbounded `until` loop); passes once the PID is
+// captured and reused and the wait is wrapped in `timeout`.
+func TestPortForwardLifecycleHardened(t *testing.T) {
+	root := repoRoot(t)
+	for _, lang := range []string{"en", "zh"} {
+		doc := readDoc(t, root, lang, newDocName)
+		if strings.Contains(doc, "kill %1") {
+			t.Fatalf("F3 %s: doc still stops the port-forward with `kill %%1` (job-control; kills the wrong job if anything else was backgrounded)", lang)
+		}
+		iPF := strings.Index(doc, "kubectl port-forward svc/minio 19000:9000 &")
+		iCap := strings.Index(doc, "PF_PID=$!")
+		iKill := strings.Index(doc, `kill "$PF_PID"`)
+		if iPF < 0 || iCap < 0 || iKill < 0 {
+			t.Fatalf("F3 %s: expected port-forward start, PF_PID capture and `kill \"$PF_PID\"` (found start=%v capture=%v kill=%v)", lang, iPF >= 0, iCap >= 0, iKill >= 0)
+		}
+		if !(iPF < iCap && iCap < iKill) {
+			t.Fatalf("F3 %s: PF_PID capture/kill ordering wrong (start=%d capture=%d kill=%d)", lang, iPF, iCap, iKill)
+		}
+		// bounded readiness wait: the `until curl ...` loop must be wrapped so it
+		// terminates (timeout ...) and the loop must not be the bare unbounded form
+		if strings.Contains(doc, "$ until curl -s -o /dev/null http://127.0.0.1:19000/minio/health/live; do sleep 1; done") {
+			t.Fatalf("F3 %s: readiness wait is the unbounded `until curl ...` loop with no timeout", lang)
+		}
+		if !strings.Contains(doc, "timeout 60 sh -c 'until curl -s -o /dev/null http://127.0.0.1:19000/minio/health/live") {
+			t.Fatalf("F3 %s: readiness wait is not bounded by `timeout` around the until-loop", lang)
+		}
+	}
+}
+
+// F4 (contract; fix landed in 46cd547): `kubectl wait --for=jsonpath=...` (used in
+// Step 4) requires kubectl >= 1.23, so Prerequisites must say so. Fails on 33c1eef
+// (prereq listed kubectl with no version); passes once 1.23 is named with the reason.
+func TestPrerequisitesStateKubectlVersion(t *testing.T) {
+	root := repoRoot(t)
+	for _, lang := range []string{"en", "zh"} {
+		doc := readDoc(t, root, lang, newDocName)
+		if !strings.Contains(doc, "kubectl wait --for=jsonpath") {
+			t.Fatalf("F4 %s: prereq should name --for=jsonpath as the reason for the kubectl floor", lang)
+		}
+		if !strings.Contains(doc, "1.23") {
+			t.Fatalf("F4 %s: Prerequisites do not state the kubectl >= 1.23 floor implied by --for=jsonpath", lang)
+		}
+	}
+}
