@@ -1,0 +1,4 @@
+{"Test":"ExtImage/CurvineOldTagAbsent","Action":"pass","Output":"curvine/curvine:0.3.6-alpha -> HTTP 404 (expected 404)"}
+{"Test":"ExtImage/CurvineNewTagPresent","Action":"pass","Output":"curvine/curvine:v0.3.6-alpha -> HTTP 200 (expected 200)"}
+{"Test":"ExtImage/CurlImagePresent","Action":"pass","Output":"curlimages/curl:8.22.0 -> HTTP 200 (expected 200)"}
+{"Test":"ExtImage/BusyboxPresent","Action":"pass","Output":"library/busybox:latest -> HTTP 200 (expected 200)"}

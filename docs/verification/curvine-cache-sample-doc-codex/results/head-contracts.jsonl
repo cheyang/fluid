@@ -1,0 +1,12 @@
+{"Test":"DocContractEN/CacheRuntimeClassVars","Action":"pass","Output":"pod-side $ vars preserved literally"}
+{"Test":"DocContractEN/ReadJobCmdSubst","Action":"pass","Output":"$(cat /data/minio/bar) preserved for pod shell"}
+{"Test":"DocContractEN/ReadRefJobCmdSubst","Action":"pass","Output":"$(cat /data/minio/bar) preserved for pod shell"}
+{"Test":"DocContractEN/BucketJobEscapeContract","Action":"pass","Output":"\\$ collapsed to $ for the pod shell"}
+{"Test":"DocContractEN/GeneratedYAMLValid","Action":"pass","Output":"all 10 generated files parse as YAML"}
+{"Test":"DocContractEN/ImageTagVPrefix","Action":"pass","Output":"all curvine/curvine refs are v-prefixed"}
+{"Test":"DocContractZH/CacheRuntimeClassVars","Action":"pass","Output":"pod-side $ vars preserved literally"}
+{"Test":"DocContractZH/ReadJobCmdSubst","Action":"pass","Output":"$(cat /data/minio/bar) preserved for pod shell"}
+{"Test":"DocContractZH/ReadRefJobCmdSubst","Action":"pass","Output":"$(cat /data/minio/bar) preserved for pod shell"}
+{"Test":"DocContractZH/BucketJobEscapeContract","Action":"pass","Output":"\\$ collapsed to $ for the pod shell"}
+{"Test":"DocContractZH/GeneratedYAMLValid","Action":"pass","Output":"all 10 generated files parse as YAML"}
+{"Test":"DocContractZH/ImageTagVPrefix","Action":"pass","Output":"all curvine/curvine refs are v-prefixed"}

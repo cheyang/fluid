@@ -1,0 +1,58 @@
+{
+  "topic": "curvine-cache-sample-doc-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6252",
+  "baseSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
+  "headSha": "41f10618939fae9c1373a79fee7245e7bfdc7521",
+  "harnessPaths": [
+    "docs/verification/curvine-cache-sample-doc-codex"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "The Curvine sample does not work when followed as written: unquoted cat<<EOF heredocs expand ${CURVINE_HOME}, $FLUID_DATALOAD_DATA_PATH and $(cat /data/minio/bar) in the local shell before the file is written, and image curvine/curvine:0.3.6-alpha does not exist on Docker Hub (tag is v0.3.6-alpha).",
+    "reportedComponent": "docs/{en,zh}/samples/cacheruntime/curvine_cache_runtime.md",
+    "patchedComponent": "docs/{en,zh}/samples/cacheruntime/curvine_cache_runtime.md",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Base doc generates CURVINE_CONF_DIR=\"/conf\", target_path=\"\", `set -ex; test -n \"\"`, and runs the reader's local `cat /data/minio/bar` (results/base-artifacts/*, results/base-contracts.jsonl); Docker Hub: 0.3.6-alpha -> 404, v0.3.6-alpha -> 200 (results/integration-images.jsonl).",
+    "match": ["DocContractEN/CacheRuntimeClassVars", "DocContractEN/ReadJobCmdSubst", "DocContractEN/ImageTagVPrefix"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/curvine-cache-sample-doc-codex/scripts/run_doc_contracts.sh HEAD"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/curvine-cache-sample-doc-codex/scripts/check_external_images.sh"
+    }
+  },
+  "findings": [
+    {
+      "id": "C1-heredoc-expansion-fixed",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["DocContractEN/CacheRuntimeClassVars", "DocContractEN/ReadJobCmdSubst", "DocContractEN/ReadRefJobCmdSubst", "DocContractZH/CacheRuntimeClassVars", "DocContractZH/ReadJobCmdSubst", "DocContractZH/ReadRefJobCmdSubst"]
+    },
+    {
+      "id": "C2-image-tag-static",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["DocContractEN/ImageTagVPrefix", "DocContractZH/ImageTagVPrefix"]
+    },
+    {
+      "id": "C3-image-tag-registry",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["ExtImage/CurvineOldTagAbsent", "ExtImage/CurvineNewTagPresent", "ExtImage/CurlImagePresent", "ExtImage/BusyboxPresent"]
+    },
+    {
+      "id": "G1-bucket-job-escape-guard",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["DocContractEN/BucketJobEscapeContract", "DocContractZH/BucketJobEscapeContract", "DocContractEN/GeneratedYAMLValid", "DocContractZH/GeneratedYAMLValid"]
+    }
+  ],
+  "liveNote": "L3 intentionally skipped for this docs-only PR (debate-pipeline deviation: unit + integration layers only). Full-sample live replay would need a cluster with the Fluid Curvine plugin; the heredoc/tag defects are fully decided by L1+L2."
+}

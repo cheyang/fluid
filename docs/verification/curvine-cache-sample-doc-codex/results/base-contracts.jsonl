@@ -1,0 +1,12 @@
+{"Test":"DocContractEN/CacheRuntimeClassVars","Action":"fail","Output":"pod-side $ vars expanded/mangled by local shell (generated: CURVINE_CONF_DIR=\"/conf\")"}
+{"Test":"DocContractEN/ReadJobCmdSubst","Action":"fail","Output":"$(cat ...) was expanded by the local shell at doc-follow time"}
+{"Test":"DocContractEN/ReadRefJobCmdSubst","Action":"fail","Output":"$(cat ...) was expanded by the local shell at doc-follow time"}
+{"Test":"DocContractEN/BucketJobEscapeContract","Action":"pass","Output":"\\$ collapsed to $ for the pod shell"}
+{"Test":"DocContractEN/GeneratedYAMLValid","Action":"pass","Output":"all 10 generated files parse as YAML"}
+{"Test":"DocContractEN/ImageTagVPrefix","Action":"fail","Output":"non-v-prefixed curvine tag(s): 231:            image: curvine/curvine:0.3.6-alpha;257:            image: curvine/curvine:0.3.6-alpha;281:            image: curvine/curvine:0.3.6-alpha;"}
+{"Test":"DocContractZH/CacheRuntimeClassVars","Action":"fail","Output":"pod-side $ vars expanded/mangled by local shell (generated: CURVINE_CONF_DIR=\"/conf\")"}
+{"Test":"DocContractZH/ReadJobCmdSubst","Action":"fail","Output":"$(cat ...) was expanded by the local shell at doc-follow time"}
+{"Test":"DocContractZH/ReadRefJobCmdSubst","Action":"fail","Output":"$(cat ...) was expanded by the local shell at doc-follow time"}
+{"Test":"DocContractZH/BucketJobEscapeContract","Action":"pass","Output":"\\$ collapsed to $ for the pod shell"}
+{"Test":"DocContractZH/GeneratedYAMLValid","Action":"pass","Output":"all 10 generated files parse as YAML"}
+{"Test":"DocContractZH/ImageTagVPrefix","Action":"fail","Output":"non-v-prefixed curvine tag(s): 231:            image: curvine/curvine:0.3.6-alpha;257:            image: curvine/curvine:0.3.6-alpha;281:            image: curvine/curvine:0.3.6-alpha;"}

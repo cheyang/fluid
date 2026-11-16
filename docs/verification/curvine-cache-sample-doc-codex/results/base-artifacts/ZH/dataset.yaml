@@ -1,0 +1,24 @@
+apiVersion: data.fluid.io/v1alpha1
+kind: Dataset
+metadata:
+  name: curvine-demo
+spec:
+  accessModes: ["ReadWriteMany"]
+  mounts:
+    - mountPoint: "s3://test"
+      name: minio
+      options:
+        endpoint_url: "http://minio:9000"
+        region_name: "us-east-1"
+        path_style: "true"
+      encryptOptions:
+        - name: access
+          valueFrom:
+            secretKeyRef:
+              name: curvine-secret
+              key: access-key
+        - name: secret
+          valueFrom:
+            secretKeyRef:
+              name: curvine-secret
+              key: secret-key

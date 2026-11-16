@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: read-job
+  namespace: default
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: read-job
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "512Mi"
+            ephemeral-storage: "5Gi"
+        command: ['sh']
+        args:
+        - -c
+        - set -ex; test -n ""
+        volumeMounts:
+        - name: data-vol
+          mountPath: /data
+      volumes:
+      - name: data-vol
+        persistentVolumeClaim:
+          claimName: curvine-demo

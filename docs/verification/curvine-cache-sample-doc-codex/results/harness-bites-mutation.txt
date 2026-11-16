@@ -1,0 +1,8 @@
+34:$ cat<<EOF >minio.yaml
+98:$ cat<<'EOF' >minio_create_bucket.yaml
+134:$ cat<<EOF >dataset.yaml
+--- mutated generated line:
+18:          - "curl -sSf -X PUT --aws-sigv4 aws:amz:us-east-1:s3 --user \$MINIO_ROOT_USER:\$MINIO_ROOT_PASSWORD http://minio:9000/test"
+--- YAML parse of mutated file:
+found unknown escape character '$'
+  in "/tmp/tmp.9gT4udyBOz/minio_create_bucket.yaml", line 18, column 72
