@@ -1,0 +1,15 @@
+== captured 2026-11-16T00:03:08Z ==
+-- docker hub: curvine/curvine:v0.3.6-alpha (doc pins this) --
+{"creator":36050547,"id":1236451487,"images":[{"architecture":"amd64","features":"","variant":null,"digest":"sha256:d90d3015b4ea30393b5aad0788c36deda9cf3946a7a888d340948119c379c96e","os":"linux","os_f
+-- docker hub: curvine/curvine:0.3.6-alpha (referenced doc at base pins this; #6252 fixes) --
+{"message":"httperror 404: tag '0.3.6-alpha' not found","errinfo":{"namespace":"curvine","repository":"curvine","tag":"0.3.6-alpha"}}
+-- docker hub: vllm/vllm-openai:v0.33.0 --
+{"creator":34668080,"id":1379089254,"images":[{"architecture":"amd64","features":"","variant":null,"digest":"sha256:91ee
+-- docker hub: curlimages/curl:8.22.0 --
+{"creator":476692,"id":1292625044,"images":[{"architecture":"amd64","features":"","variant":null,"digest":"sha256:43366c
+-- vllm v0.33.0 Dockerfile ENTRYPOINT lines --
+1334:ENTRYPOINT ["./sagemaker-entrypoint.sh"]
+1344:ENTRYPOINT ["vllm", "serve"]
+1365:ENTRYPOINT ["/usr/local/bin/vllm-nonroot-entrypoint.sh"]
+-- NVIDIA k8s-device-plugin README anchor 'Shared Access to GPUs' --
+358:### Shared Access to GPUs

@@ -1,0 +1,39 @@
+{
+  "topic": "vllm-curvine-sample-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6253",
+  "harnessPaths": [
+    "docs/verification/vllm-curvine-sample-codex"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "The added sample doc (docs/{en,zh}/samples/cacheruntime/vllm_with_curvine.md) is followable as written: its manifests are valid for the repo's CRDs, its commands/fields match the code, its links resolve, and en/zh stay in sync.",
+    "reportedComponent": "docs (CacheRuntime/Curvine sample)",
+    "patchedComponent": "docs (CacheRuntime/Curvine sample + TOC)",
+    "componentMatch": true,
+    "runsAgainst": "head",
+    "layer": "unit+integration",
+    "verdict": "confirmed",
+    "evidence": "L1 unit + L2 envtest all pass (results/unit-layer.json, results/integration-layer.json); image tags / vLLM entrypoint / external anchors confirmed (results/external-evidence.txt). Residue: live GPU end-to-end run not repeated (docs-only PR, author's kind-cluster run report accepted; L3 skipped per round policy).",
+    "match": ["TestDocManifestsParseAsYAML", "TestEnZhManifestParity", "TestHeredocsExpansionSafe", "TestRelativeLinksResolve", "TestDocClaimsMatchSource", "TestCrossReferencedStepsExist", "TestRuntimeSampleDeltaIsOnlyQuota", "TestEnvtestAppliesDocManifests"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./docs/verification/vllm-curvine-sample-codex/harness/ -run 'TestDoc|TestEnZh|TestHeredocs|TestRelativeLinks|TestCrossReferenced|TestRuntimeSample|TestReferenced' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "KUBEBUILDER_ASSETS=${KUBEBUILDER_ASSETS:-$(ls -d /home/ecs-user/envtest-assets/k8s/1.31.0-linux-amd64 /usr/local/kubebuilder/bin 2>/dev/null | head -1)} go test ./docs/verification/vllm-curvine-sample-codex/harness/ -run 'TestEnvtest' -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestReferencedCurvineDocCarriesDependencyFixes"],
+      "note": "Merge-order dependency on PR #6252. RED at head 33c1eef (referenced doc still has unquoted CacheRuntimeClass heredoc + nonexistent curvine/curvine:0.3.6-alpha tag). Flips green once #6252 is in the tree. Harness-bites proven both directions; see README."
+    }
+  ],
+  "liveNote": "L3 (skipped this round per policy): on a GPU kind cluster, follow docs/en/samples/cacheruntime/vllm_with_curvine.md end to end; expect Dataset Bound, DataLoad Complete with ~953MiB cached, vLLM answering /v1/chat/completions, 2 replicas sharing one PVC."
+}

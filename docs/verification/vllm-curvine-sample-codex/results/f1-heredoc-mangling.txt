@@ -1,0 +1,5 @@
+== F1 mechanism: base-doc step 4 heredoc mangles $VARS (run at base ff99142f) ==
+expanded -> CURVINE_CONF_DIR="/conf"
+expanded -> CURVINE_DATA_DIR="/data"
+expanded -> image: curvine/curvine:0.3.6-alpha
+literal ${CURVINE_HOME} survives: False
