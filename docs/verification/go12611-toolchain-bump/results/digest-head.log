@@ -1,0 +1,4 @@
+CHECK C4-digest-registry pass  mirror.gcr.io 1.26.11-bookworm -> sha256:dc40a13b61304647ed7e5d581d246b86413dfc29d63c6d018310feb93cd98fc0
+CHECK C4-digest-dockerhub pass  registry-1.docker.io 1.26.11-bookworm -> sha256:dc40a13b61304647ed7e5d581d246b86413dfc29d63c6d018310feb93cd98fc0
+CHECK C4-digest-platforms pass  linux platforms: linux/386 linux/amd64 linux/arm/v7 linux/arm64/v8 linux/ppc64le
+CHECK C4-digest-dockerfiles pass  12/12 Dockerfiles pin golang:1.26.11-bookworm@sha256:dc40a13b61304647ed7e5d581d246b86413dfc29d63c6d018310feb93cd98fc0 consistently

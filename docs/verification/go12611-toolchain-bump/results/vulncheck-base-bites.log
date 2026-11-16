@@ -1,0 +1,14 @@
+  (GOTOOLCHAIN=go1.26.10)
+CHECK C1-vuln fail  GO-2026-6859 still reported at symbol level
+Vulnerability #1: GO-2026-6859
+    Found in: net/http@go1.26.10
+    Fixed in: net/http@go1.26.11
+Vulnerability #2: GO-2025-4240
+    Found in: k8s.io/kubernetes@v1.29.15
+    Fixed in: k8s.io/kubernetes@v1.32.10
+Vulnerability #3: GO-2025-3915
+    Found in: k8s.io/kubernetes@v1.29.15
+    Fixed in: k8s.io/kubernetes@v1.31.12
+Vulnerability #4: GO-2025-3547
+    Found in: k8s.io/kubernetes@v1.29.15
+    Fixed in: N/A

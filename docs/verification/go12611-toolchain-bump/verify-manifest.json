@@ -1,0 +1,31 @@
+{
+  "topic": "go12611-toolchain-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6255",
+  "harnessPaths": ["docs/verification/go12611-toolchain-bump"],
+  "premise": {
+    "id": "P0",
+    "claim": "govulncheck v1.9.0 (DB 2026-11-11) reports GO-2026-6859 / CVE-2026-97054 (HTTP/1 server crash due to a MaxBytesReader header race in net/http) as reachable at symbol level on go1.26.10; go1.26.11 has the fix",
+    "reportedComponent": "Go standard library net/http as compiled into fluid binaries (e.g. utils.NewPprofServer -> http.Server.ListenAndServe)",
+    "patchedComponent": "go.mod toolchain go1.26.10 -> go1.26.11, 12 Dockerfiles (golang:1.26.11-bookworm@sha256:dc40a13b...), GO_VERSION in 3 GitHub workflows, Travis 1.26.11, CircleCI comment",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "base f432bdc + GOTOOLCHAIN=go1.26.10: govulncheck reports GO-2026-6859 (Found in net/http@go1.26.10, Fixed in net/http@go1.26.11, traces via http.CanonicalHeaderKey / http.Client.Do / pprof.init); head + go1.26.11: stdlib finding gone, only the 4 pre-existing module-level k8s.io/kubernetes advisories remain — see results/p0-govulncheck-base.log and results/p0-govulncheck-head.log"
+  },
+  "layers": {
+    "unit": {
+      "kind": "shell",
+      "cmd": "bash docs/verification/go12611-toolchain-bump/scripts/check-digest.sh && bash docs/verification/go12611-toolchain-bump/scripts/check-vuln.sh && bash docs/verification/go12611-toolchain-bump/scripts/check-consistency.sh && bash docs/verification/go12611-toolchain-bump/scripts/run-unit-tests.sh"
+    }
+  },
+  "findings": [
+    { "id": "C4-digest", "polarity": "contract", "layer": "unit", "match": ["CHECK C4-digest"] },
+    { "id": "C5-consistency", "polarity": "contract", "layer": "unit", "match": ["CHECK C5-consistency"] },
+    { "id": "C1-vuln", "polarity": "contract", "layer": "unit", "match": ["CHECK C1-vuln"] },
+    { "id": "C2-build", "polarity": "contract", "layer": "unit", "match": ["CHECK C2-build"] },
+    { "id": "C2-unit", "polarity": "contract", "layer": "unit", "match": ["CHECK C2-unit"] }
+  ],
+  "driver": "bash docs/verification/go12611-toolchain-bump/scripts/re-verify.sh",
+  "liveNote": "L3 not needed for a toolchain bump; the CI kind-e2e x6 and backward-compat x6 jobs on the PR head are the e2e evidence (all SUCCESS at e2d5e04)."
+}

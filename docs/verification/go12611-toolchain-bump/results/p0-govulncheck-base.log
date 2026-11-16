@@ -1,0 +1,383 @@
+=== Symbol Results ===
+
+Vulnerability #1: GO-2026-6859
+    HTTP/1 server crash due to MaxBytesReader header race in net/http
+  More info: https://pkg.go.dev/vuln/GO-2026-6859
+  Standard library
+    Found in: net/http@go1.26.10
+    Fixed in: net/http@go1.26.11
+    Example traces found:
+      #1: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.CanonicalHeaderKey
+      #2: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Client.Do
+      #3: pkg/utils/kubelet/client.go:137:27: kubelet.KubeletClient.GetNodeRunningPods calls http.Client.Get
+      #4: pkg/utils/pprof.go:23:2: utils.init calls pprof.init, which eventually calls http.HandleFunc
+      #5: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Add
+      #6: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls http.Header.Del
+      #7: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Get
+      #8: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.Header.Set
+      #9: pkg/utils/kubelet/node_auth_client.go:18:40: kubelet.InitNodeAuthorizedClient calls kubernetes.NewForConfig, which eventually calls http.NewRequest
+      #10: pkg/utils/kubeclient/exec.go:215:31: kubeclient.doExecute calls remotecommand.spdyStreamExecutor.StreamWithContext, which eventually calls http.NewRequestWithContext
+      #11: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.ReadResponse
+      #12: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Request.Write
+      #13: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Response.Write
+      #14: pkg/utils/pprof.go:41:14: utils.NewPprofServer calls http.ServeMux.Handle
+      #15: pkg/utils/pprof.go:35:17: utils.NewPprofServer calls http.ServeMux.HandleFunc
+      #16: pkg/utils/pprof.go:63:40: utils.NewPprofServer calls http.Server.ListenAndServe
+      #17: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.Server.Serve
+      #18: pkg/utils/pprof.go:58:35: utils.NewPprofServer calls http.Server.Shutdown
+      #19: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.body.Close
+      #20: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.body.Read
+      #21: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.bodyEOFSignal.Close
+      #22: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.bodyEOFSignal.Read
+      #23: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.bodyLocked.Read
+      #24: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.bufioFlushWriter.Write
+      #25: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.cancelTimerBody.Close
+      #26: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.cancelTimerBody.Read
+      #27: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.checkConnErrorWriter.Write
+      #28: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.chunkWriter.Write
+      #29: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.connReader.Read
+      #30: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2transportResponseBody.Read, which eventually calls http.expectContinueReader.Close
+      #31: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.expectContinueReader.Read
+      #32: pkg/ddc/vineyard/operations/base.go:81:23: operations.ReportSummary calls http.gzipReader.Close
+      #33: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.gzipReader.Read
+      #34: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.loggingConn.Read
+      #35: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.loggingConn.Write
+      #36: pkg/ddc/vineyard/operations/base.go:84:25: operations.VineyardFileUtils.ReportSummary calls io.ReadAll, which eventually calls http.maxBytesReader.Read
+      #37: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls http.onceCloseListener.Close
+      #38: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.persistConn.Read
+      #39: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.persistConnWriter.ReadFrom
+      #40: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.persistConnWriter.Write
+      #41: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.http2transportResponseBody.Read, which eventually calls http.readTrackingBody.Close
+      #42: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readTrackingBody.Read
+      #43: pkg/utils/kubelet/client.go:125:19: kubelet.ReadAll calls http.readWriteCloserBody.Read
+      #44: pkg/utils/helm/utils.go:109:40: helm.CheckRelease calls exec.Cmd.CombinedOutput, which eventually calls http.response.ReadFrom
+      #45: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.response.Write
+      #46: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.response.WriteHeader
+      #47: pkg/csi/plugins/controller.go:128:27: plugins.sanitizeVolumeID calls io.WriteString, which calls http.response.WriteString
+      #48: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which calls http.timeoutWriter.Write
+      #49: cmd/csi/app/csi.go:96:13: app.ErrorAndExit calls fmt.Fprintf, which eventually calls http.timeoutWriter.WriteHeader
+      #50: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls http.transportReadFromServerError.Error
+
+Vulnerability #2: GO-2025-4240
+    Half-blind Server Side Request Forgery in kube-controller-manager through
+    in-tree Portworx StorageClass in k8s.io/kubernetes
+  More info: https://pkg.go.dev/vuln/GO-2025-4240
+  Module: k8s.io/kubernetes
+    Found in: k8s.io/kubernetes@v1.29.15
+    Fixed in: k8s.io/kubernetes@v1.32.10
+    Example traces found:
+      #1: pkg/ddc/base/portallocator/bitmap_allocator.go:58:25: portallocator.BitMapAllocator.Allocate calls portallocator.PortAllocator.Allocate, which calls allocator.AllocationBitmap.Allocate
+      #2: pkg/ddc/base/portallocator/bitmap_allocator.go:81:43: portallocator.BitMapAllocator.AllocateBatch calls portallocator.PortAllocator.AllocateNext, which calls allocator.AllocationBitmap.AllocateNext
+      #3: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release, which eventually calls allocator.AllocationBitmap.Free
+      #4: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release, which calls allocator.AllocationBitmap.Release
+      #5: pkg/ddc/base/portallocator/bitmap_allocator.go:44:36: portallocator.newBitMapAllocator calls allocator.NewAllocationMap
+      #6: pkg/ddc/base/portallocator/bitmap_allocator.go:25:2: portallocator.init calls allocator.init
+      #7: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Binding.DeepCopyObject
+      #8: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ComponentStatus.DeepCopyObject
+      #9: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ComponentStatusList.DeepCopyObject
+      #10: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ConfigMap.DeepCopyObject
+      #11: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ConfigMapList.DeepCopyObject
+      #12: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Endpoints.DeepCopyObject
+      #13: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.EndpointsList.DeepCopyObject
+      #14: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Event.DeepCopyObject
+      #15: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.EventList.DeepCopyObject
+      #16: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.LimitRange.DeepCopyObject
+      #17: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.LimitRangeList.DeepCopyObject
+      #18: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.List.DeepCopyObject
+      #19: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Namespace.DeepCopyObject
+      #20: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NamespaceList.DeepCopyObject
+      #21: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Node.DeepCopyObject
+      #22: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NodeList.DeepCopyObject
+      #23: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NodeProxyOptions.DeepCopyObject
+      #24: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ObjectReference.DeepCopyObject
+      #25: pkg/utils/transformer/owner_reference.go:46:40: transformer.GenerateOwnerReferenceFromObject calls apiutil.GVKForObject, which calls core.ObjectReference.GetObjectKind
+      #26: pkg/utils/transformer/owner_reference.go:46:40: transformer.GenerateOwnerReferenceFromObject calls apiutil.GVKForObject, which calls core.ObjectReference.GroupVersionKind
+      #27: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls core.ObjectReference.SetGroupVersionKind
+      #28: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolume.DeepCopyObject
+      #29: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeClaim.DeepCopyObject
+      #30: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeClaimList.DeepCopyObject
+      #31: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeList.DeepCopyObject
+      #32: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Pod.DeepCopyObject
+      #33: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodAttachOptions.DeepCopyObject
+      #34: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodExecOptions.DeepCopyObject
+      #35: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodList.DeepCopyObject
+      #36: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodLogOptions.DeepCopyObject
+      #37: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodPortForwardOptions.DeepCopyObject
+      #38: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodProxyOptions.DeepCopyObject
+      #39: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodStatusResult.DeepCopyObject
+      #40: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodTemplate.DeepCopyObject
+      #41: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodTemplateList.DeepCopyObject
+      #42: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.RangeAllocation.DeepCopyObject
+      #43: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ReplicationController.DeepCopyObject
+      #44: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ReplicationControllerList.DeepCopyObject
+      #45: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ResourceQuota.DeepCopyObject
+      #46: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ResourceQuotaList.DeepCopyObject
+      #47: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Secret.DeepCopyObject
+      #48: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.SecretList.DeepCopyObject
+      #49: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.SerializedReference.DeepCopyObject
+      #50: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Service.DeepCopyObject
+      #51: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceAccount.DeepCopyObject
+      #52: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceAccountList.DeepCopyObject
+      #53: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceList.DeepCopyObject
+      #54: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceProxyOptions.DeepCopyObject
+      #55: cmd/dataset/app/dataset.go:90:32: app.init#1 calls runtime.SchemeBuilder.AddToScheme, which calls core.addKnownTypes
+      #56: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init, which calls core.init
+      #57: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init, which calls features.init
+      #58: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls fieldpath.SplitMaybeSubscriptedPath
+      #59: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls fieldpath.init
+      #60: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls hash.DeepHashObject
+      #61: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls hash.init
+      #62: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls pod.GetPodReadyCondition
+      #63: pkg/ddc/juicefs/utils.go:137:25: juicefs.JuiceFSEngine.GetRunningPodsOfStatefulSet calls pod.IsPodReady
+      #64: pkg/utils/kubeclient/pod.go:28:2: kubeclient.init calls pod.init
+      #65: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls portallocator.ErrNotInRange.Error
+      #66: pkg/ddc/base/portallocator/bitmap_allocator.go:43:33: portallocator.newBitMapAllocator calls portallocator.New
+      #67: pkg/ddc/base/portallocator/bitmap_allocator.go:58:25: portallocator.BitMapAllocator.Allocate calls portallocator.PortAllocator.Allocate
+      #68: pkg/ddc/base/portallocator/bitmap_allocator.go:81:43: portallocator.BitMapAllocator.AllocateBatch calls portallocator.PortAllocator.AllocateNext
+      #69: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release
+      #70: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init
+      #71: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls slice.init
+
+Vulnerability #3: GO-2025-3915
+    Kubernetes Nodes can delete themselves by adding an OwnerReference in
+    k8s.io/kubernetes
+  More info: https://pkg.go.dev/vuln/GO-2025-3915
+  Module: k8s.io/kubernetes
+    Found in: k8s.io/kubernetes@v1.29.15
+    Fixed in: k8s.io/kubernetes@v1.31.12
+    Example traces found:
+      #1: pkg/ddc/base/portallocator/bitmap_allocator.go:58:25: portallocator.BitMapAllocator.Allocate calls portallocator.PortAllocator.Allocate, which calls allocator.AllocationBitmap.Allocate
+      #2: pkg/ddc/base/portallocator/bitmap_allocator.go:81:43: portallocator.BitMapAllocator.AllocateBatch calls portallocator.PortAllocator.AllocateNext, which calls allocator.AllocationBitmap.AllocateNext
+      #3: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release, which eventually calls allocator.AllocationBitmap.Free
+      #4: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release, which calls allocator.AllocationBitmap.Release
+      #5: pkg/ddc/base/portallocator/bitmap_allocator.go:44:36: portallocator.newBitMapAllocator calls allocator.NewAllocationMap
+      #6: pkg/ddc/base/portallocator/bitmap_allocator.go:25:2: portallocator.init calls allocator.init
+      #7: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Binding.DeepCopyObject
+      #8: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ComponentStatus.DeepCopyObject
+      #9: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ComponentStatusList.DeepCopyObject
+      #10: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ConfigMap.DeepCopyObject
+      #11: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ConfigMapList.DeepCopyObject
+      #12: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Endpoints.DeepCopyObject
+      #13: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.EndpointsList.DeepCopyObject
+      #14: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Event.DeepCopyObject
+      #15: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.EventList.DeepCopyObject
+      #16: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.LimitRange.DeepCopyObject
+      #17: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.LimitRangeList.DeepCopyObject
+      #18: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.List.DeepCopyObject
+      #19: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Namespace.DeepCopyObject
+      #20: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NamespaceList.DeepCopyObject
+      #21: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Node.DeepCopyObject
+      #22: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NodeList.DeepCopyObject
+      #23: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NodeProxyOptions.DeepCopyObject
+      #24: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ObjectReference.DeepCopyObject
+      #25: pkg/utils/transformer/owner_reference.go:46:40: transformer.GenerateOwnerReferenceFromObject calls apiutil.GVKForObject, which calls core.ObjectReference.GetObjectKind
+      #26: pkg/utils/transformer/owner_reference.go:46:40: transformer.GenerateOwnerReferenceFromObject calls apiutil.GVKForObject, which calls core.ObjectReference.GroupVersionKind
+      #27: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls core.ObjectReference.SetGroupVersionKind
+      #28: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolume.DeepCopyObject
+      #29: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeClaim.DeepCopyObject
+      #30: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeClaimList.DeepCopyObject
+      #31: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeList.DeepCopyObject
+      #32: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Pod.DeepCopyObject
+      #33: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodAttachOptions.DeepCopyObject
+      #34: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodExecOptions.DeepCopyObject
+      #35: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodList.DeepCopyObject
+      #36: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodLogOptions.DeepCopyObject
+      #37: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodPortForwardOptions.DeepCopyObject
+      #38: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodProxyOptions.DeepCopyObject
+      #39: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodStatusResult.DeepCopyObject
+      #40: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodTemplate.DeepCopyObject
+      #41: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodTemplateList.DeepCopyObject
+      #42: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.RangeAllocation.DeepCopyObject
+      #43: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ReplicationController.DeepCopyObject
+      #44: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ReplicationControllerList.DeepCopyObject
+      #45: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ResourceQuota.DeepCopyObject
+      #46: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ResourceQuotaList.DeepCopyObject
+      #47: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Secret.DeepCopyObject
+      #48: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.SecretList.DeepCopyObject
+      #49: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.SerializedReference.DeepCopyObject
+      #50: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Service.DeepCopyObject
+      #51: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceAccount.DeepCopyObject
+      #52: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceAccountList.DeepCopyObject
+      #53: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceList.DeepCopyObject
+      #54: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceProxyOptions.DeepCopyObject
+      #55: cmd/dataset/app/dataset.go:90:32: app.init#1 calls runtime.SchemeBuilder.AddToScheme, which calls core.addKnownTypes
+      #56: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init, which calls core.init
+      #57: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init, which calls features.init
+      #58: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls fieldpath.SplitMaybeSubscriptedPath
+      #59: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls fieldpath.init
+      #60: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls hash.DeepHashObject
+      #61: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls hash.init
+      #62: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls pod.GetPodReadyCondition
+      #63: pkg/ddc/juicefs/utils.go:137:25: juicefs.JuiceFSEngine.GetRunningPodsOfStatefulSet calls pod.IsPodReady
+      #64: pkg/utils/kubeclient/pod.go:28:2: kubeclient.init calls pod.init
+      #65: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls portallocator.ErrNotInRange.Error
+      #66: pkg/ddc/base/portallocator/bitmap_allocator.go:43:33: portallocator.newBitMapAllocator calls portallocator.New
+      #67: pkg/ddc/base/portallocator/bitmap_allocator.go:58:25: portallocator.BitMapAllocator.Allocate calls portallocator.PortAllocator.Allocate
+      #68: pkg/ddc/base/portallocator/bitmap_allocator.go:81:43: portallocator.BitMapAllocator.AllocateBatch calls portallocator.PortAllocator.AllocateNext
+      #69: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release
+      #70: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init
+      #71: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls slice.init
+
+Vulnerability #4: GO-2025-3547
+    Kubernetes kube-apiserver Vulnerable to Race Condition in k8s.io/kubernetes
+  More info: https://pkg.go.dev/vuln/GO-2025-3547
+  Module: k8s.io/kubernetes
+    Found in: k8s.io/kubernetes@v1.29.15
+    Fixed in: N/A
+    Example traces found:
+      #1: pkg/ddc/base/portallocator/bitmap_allocator.go:58:25: portallocator.BitMapAllocator.Allocate calls portallocator.PortAllocator.Allocate, which calls allocator.AllocationBitmap.Allocate
+      #2: pkg/ddc/base/portallocator/bitmap_allocator.go:81:43: portallocator.BitMapAllocator.AllocateBatch calls portallocator.PortAllocator.AllocateNext, which calls allocator.AllocationBitmap.AllocateNext
+      #3: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release, which eventually calls allocator.AllocationBitmap.Free
+      #4: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release, which calls allocator.AllocationBitmap.Release
+      #5: pkg/ddc/base/portallocator/bitmap_allocator.go:44:36: portallocator.newBitMapAllocator calls allocator.NewAllocationMap
+      #6: pkg/ddc/base/portallocator/bitmap_allocator.go:25:2: portallocator.init calls allocator.init
+      #7: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Binding.DeepCopyObject
+      #8: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ComponentStatus.DeepCopyObject
+      #9: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ComponentStatusList.DeepCopyObject
+      #10: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ConfigMap.DeepCopyObject
+      #11: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ConfigMapList.DeepCopyObject
+      #12: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Endpoints.DeepCopyObject
+      #13: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.EndpointsList.DeepCopyObject
+      #14: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Event.DeepCopyObject
+      #15: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.EventList.DeepCopyObject
+      #16: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.LimitRange.DeepCopyObject
+      #17: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.LimitRangeList.DeepCopyObject
+      #18: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.List.DeepCopyObject
+      #19: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Namespace.DeepCopyObject
+      #20: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NamespaceList.DeepCopyObject
+      #21: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Node.DeepCopyObject
+      #22: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NodeList.DeepCopyObject
+      #23: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NodeProxyOptions.DeepCopyObject
+      #24: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ObjectReference.DeepCopyObject
+      #25: pkg/utils/transformer/owner_reference.go:46:40: transformer.GenerateOwnerReferenceFromObject calls apiutil.GVKForObject, which calls core.ObjectReference.GetObjectKind
+      #26: pkg/utils/transformer/owner_reference.go:46:40: transformer.GenerateOwnerReferenceFromObject calls apiutil.GVKForObject, which calls core.ObjectReference.GroupVersionKind
+      #27: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls core.ObjectReference.SetGroupVersionKind
+      #28: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolume.DeepCopyObject
+      #29: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeClaim.DeepCopyObject
+      #30: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeClaimList.DeepCopyObject
+      #31: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeList.DeepCopyObject
+      #32: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Pod.DeepCopyObject
+      #33: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodAttachOptions.DeepCopyObject
+      #34: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodExecOptions.DeepCopyObject
+      #35: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodList.DeepCopyObject
+      #36: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodLogOptions.DeepCopyObject
+      #37: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodPortForwardOptions.DeepCopyObject
+      #38: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodProxyOptions.DeepCopyObject
+      #39: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodStatusResult.DeepCopyObject
+      #40: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodTemplate.DeepCopyObject
+      #41: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodTemplateList.DeepCopyObject
+      #42: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.RangeAllocation.DeepCopyObject
+      #43: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ReplicationController.DeepCopyObject
+      #44: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ReplicationControllerList.DeepCopyObject
+      #45: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ResourceQuota.DeepCopyObject
+      #46: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ResourceQuotaList.DeepCopyObject
+      #47: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Secret.DeepCopyObject
+      #48: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.SecretList.DeepCopyObject
+      #49: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.SerializedReference.DeepCopyObject
+      #50: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Service.DeepCopyObject
+      #51: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceAccount.DeepCopyObject
+      #52: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceAccountList.DeepCopyObject
+      #53: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceList.DeepCopyObject
+      #54: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceProxyOptions.DeepCopyObject
+      #55: cmd/dataset/app/dataset.go:90:32: app.init#1 calls runtime.SchemeBuilder.AddToScheme, which calls core.addKnownTypes
+      #56: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init, which calls core.init
+      #57: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init, which calls features.init
+      #58: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls fieldpath.SplitMaybeSubscriptedPath
+      #59: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls fieldpath.init
+      #60: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls hash.DeepHashObject
+      #61: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls hash.init
+      #62: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls pod.GetPodReadyCondition
+      #63: pkg/ddc/juicefs/utils.go:137:25: juicefs.JuiceFSEngine.GetRunningPodsOfStatefulSet calls pod.IsPodReady
+      #64: pkg/utils/kubeclient/pod.go:28:2: kubeclient.init calls pod.init
+      #65: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls portallocator.ErrNotInRange.Error
+      #66: pkg/ddc/base/portallocator/bitmap_allocator.go:43:33: portallocator.newBitMapAllocator calls portallocator.New
+      #67: pkg/ddc/base/portallocator/bitmap_allocator.go:58:25: portallocator.BitMapAllocator.Allocate calls portallocator.PortAllocator.Allocate
+      #68: pkg/ddc/base/portallocator/bitmap_allocator.go:81:43: portallocator.BitMapAllocator.AllocateBatch calls portallocator.PortAllocator.AllocateNext
+      #69: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release
+      #70: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init
+      #71: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls slice.init
+
+Vulnerability #5: GO-2025-3521
+    Kubernetes GitRepo Volume Inadvertent Local Repository Access in
+    k8s.io/kubernetes
+  More info: https://pkg.go.dev/vuln/GO-2025-3521
+  Module: k8s.io/kubernetes
+    Found in: k8s.io/kubernetes@v1.29.15
+    Fixed in: N/A
+    Example traces found:
+      #1: pkg/ddc/base/portallocator/bitmap_allocator.go:58:25: portallocator.BitMapAllocator.Allocate calls portallocator.PortAllocator.Allocate, which calls allocator.AllocationBitmap.Allocate
+      #2: pkg/ddc/base/portallocator/bitmap_allocator.go:81:43: portallocator.BitMapAllocator.AllocateBatch calls portallocator.PortAllocator.AllocateNext, which calls allocator.AllocationBitmap.AllocateNext
+      #3: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release, which eventually calls allocator.AllocationBitmap.Free
+      #4: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release, which calls allocator.AllocationBitmap.Release
+      #5: pkg/ddc/base/portallocator/bitmap_allocator.go:44:36: portallocator.newBitMapAllocator calls allocator.NewAllocationMap
+      #6: pkg/ddc/base/portallocator/bitmap_allocator.go:25:2: portallocator.init calls allocator.init
+      #7: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Binding.DeepCopyObject
+      #8: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ComponentStatus.DeepCopyObject
+      #9: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ComponentStatusList.DeepCopyObject
+      #10: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ConfigMap.DeepCopyObject
+      #11: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ConfigMapList.DeepCopyObject
+      #12: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Endpoints.DeepCopyObject
+      #13: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.EndpointsList.DeepCopyObject
+      #14: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Event.DeepCopyObject
+      #15: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.EventList.DeepCopyObject
+      #16: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.LimitRange.DeepCopyObject
+      #17: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.LimitRangeList.DeepCopyObject
+      #18: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.List.DeepCopyObject
+      #19: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Namespace.DeepCopyObject
+      #20: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NamespaceList.DeepCopyObject
+      #21: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Node.DeepCopyObject
+      #22: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NodeList.DeepCopyObject
+      #23: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.NodeProxyOptions.DeepCopyObject
+      #24: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ObjectReference.DeepCopyObject
+      #25: pkg/utils/transformer/owner_reference.go:46:40: transformer.GenerateOwnerReferenceFromObject calls apiutil.GVKForObject, which calls core.ObjectReference.GetObjectKind
+      #26: pkg/utils/transformer/owner_reference.go:46:40: transformer.GenerateOwnerReferenceFromObject calls apiutil.GVKForObject, which calls core.ObjectReference.GroupVersionKind
+      #27: pkg/ddc/thin/referencedataset/engine.go:222:35: referencedataset.ReferenceDatasetEngine.Shutdown calls client.subResourceClient.Update, which eventually calls core.ObjectReference.SetGroupVersionKind
+      #28: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolume.DeepCopyObject
+      #29: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeClaim.DeepCopyObject
+      #30: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeClaimList.DeepCopyObject
+      #31: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PersistentVolumeList.DeepCopyObject
+      #32: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Pod.DeepCopyObject
+      #33: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodAttachOptions.DeepCopyObject
+      #34: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodExecOptions.DeepCopyObject
+      #35: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodList.DeepCopyObject
+      #36: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodLogOptions.DeepCopyObject
+      #37: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodPortForwardOptions.DeepCopyObject
+      #38: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodProxyOptions.DeepCopyObject
+      #39: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodStatusResult.DeepCopyObject
+      #40: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodTemplate.DeepCopyObject
+      #41: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.PodTemplateList.DeepCopyObject
+      #42: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.RangeAllocation.DeepCopyObject
+      #43: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ReplicationController.DeepCopyObject
+      #44: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ReplicationControllerList.DeepCopyObject
+      #45: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ResourceQuota.DeepCopyObject
+      #46: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ResourceQuotaList.DeepCopyObject
+      #47: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Secret.DeepCopyObject
+      #48: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.SecretList.DeepCopyObject
+      #49: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.SerializedReference.DeepCopyObject
+      #50: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.Service.DeepCopyObject
+      #51: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceAccount.DeepCopyObject
+      #52: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceAccountList.DeepCopyObject
+      #53: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceList.DeepCopyObject
+      #54: pkg/application/inject/fuse/injector.go:76:25: fuse.Injector.inject calls core.ServiceProxyOptions.DeepCopyObject
+      #55: cmd/dataset/app/dataset.go:90:32: app.init#1 calls runtime.SchemeBuilder.AddToScheme, which calls core.addKnownTypes
+      #56: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init, which calls core.init
+      #57: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init, which calls features.init
+      #58: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls fieldpath.SplitMaybeSubscriptedPath
+      #59: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls fieldpath.init
+      #60: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls hash.DeepHashObject
+      #61: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls hash.init
+      #62: pkg/utils/compatibility/batch.go:56:9: compatibility.IsBatchV1CronJobSupported calls sync.Once.Do, which eventually calls pod.GetPodReadyCondition
+      #63: pkg/ddc/juicefs/utils.go:137:25: juicefs.JuiceFSEngine.GetRunningPodsOfStatefulSet calls pod.IsPodReady
+      #64: pkg/utils/kubeclient/pod.go:28:2: kubeclient.init calls pod.init
+      #65: pkg/utils/kubeclient/volume.go:199:66: kubeclient.DeletePersistentVolumeClaimWithContext calls portallocator.ErrNotInRange.Error
+      #66: pkg/ddc/base/portallocator/bitmap_allocator.go:43:33: portallocator.newBitMapAllocator calls portallocator.New
+      #67: pkg/ddc/base/portallocator/bitmap_allocator.go:58:25: portallocator.BitMapAllocator.Allocate calls portallocator.PortAllocator.Allocate
+      #68: pkg/ddc/base/portallocator/bitmap_allocator.go:81:43: portallocator.BitMapAllocator.AllocateBatch calls portallocator.PortAllocator.AllocateNext
+      #69: pkg/ddc/base/portallocator/bitmap_allocator.go:62:24: portallocator.BitMapAllocator.Release calls portallocator.PortAllocator.Release
+      #70: pkg/ddc/base/portallocator/bitmap_allocator.go:26:2: portallocator.init calls portallocator.init
+      #71: cmd/cache/app/cache.go:39:2: app.init calls advancedstatefulset.init, which eventually calls slice.init
+
+Your code is affected by 5 vulnerabilities from 1 module and the Go standard library.
+This scan found no other vulnerabilities in packages you import or modules you
+require.
+Use '-show verbose' for more details.
