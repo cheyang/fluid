@@ -2,7 +2,7 @@
   "topic": "vllm-curvine-docs-claude",
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6253",
   "baseSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
-  "headSha": "33c1eef59404f55d4f582a0cec84af62fb2e1d79",
+  "headSha": "46cd54726b3877b051cfc19d2d485098af3f34fe",
   "harnessPaths": [
     "docs/verification/vllm-curvine-docs-claude"
   ],
@@ -16,7 +16,9 @@
     "layer": "unit",
     "verdict": "confirmed",
     "evidence": "git grep -il vllm <base> -- docs/ = no hits; existing samples use busybox write/read jobs (results/unit.out: P0_no_prior_vllm_sample)",
-    "match": ["P0_no_prior_vllm_sample"]
+    "match": [
+      "P0_no_prior_vllm_sample"
+    ]
   },
   "layers": {
     "unit": {
@@ -25,7 +27,7 @@
     },
     "integration": {
       "kind": "script",
-      "cmd": "python3 docs/verification/vllm-curvine-docs-claude/scripts/check_doc_claims.py --repo-root . --ref WORKTREE",
+      "cmd": "python3 docs/verification/vllm-curvine-docs-claude/scripts/check_doc_claims.py --repo-root . --ref WORKTREE; bash docs/verification/vllm-curvine-docs-claude/scripts/f1-heredoc-repro.sh",
       "needsNetwork": "Docker Hub registry API + raw.githubusercontent.com (vllm@v0.33.0)"
     }
   },
@@ -50,9 +52,10 @@
       "id": "F1",
       "polarity": "contract",
       "layer": "integration",
-      "summary": "Merge-order dependency: Step 1 delegates to curvine_cache_runtime.md, whose CacheRuntimeClass deploys curvine/curvine:0.3.6-alpha — that tag does not exist on Docker Hub (all curvine tags are v-prefixed). Sample is unrunnable until #6252 (which fixes the tag) merges. Currently RED at head; expected to go green once #6252 lands.",
+      "summary": "Merge-order dependency: Step 1 delegates to curvine_cache_runtime.md, whose CacheRuntimeClass heredoc deploys curvine/curvine:0.3.6-alpha (tag does not exist on Docker Hub; real tag is v0.3.6-alpha) and is an unquoted cat<<EOF that mangles ${CURVINE_HOME} into empty strings when the reader runs it. Sample is unrunnable until #6252 merges. RED at heads 33c1eef and 46cd547; expected green once #6252 lands.",
       "match": [
-        "C6_walkthrough_images_pullable"
+        "C6_walkthrough_images_pullable",
+        "F1_heredoc"
       ]
     },
     {

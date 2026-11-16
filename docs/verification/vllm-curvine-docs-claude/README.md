@@ -39,6 +39,35 @@ Docs-only PR → premise carve-out applies, validated informally:
 
 ## Summary of results
 
+### Round 2 (2026-11-17) — head `46cd54726b3877b051cfc19d2d485098af3f34fe`
+
+Delta since round 1 (`33c1eef..46cd547`, one commit, "require kubectl 1.23 and harden the
+MinIO port-forward"): the author fixed both round-1 nits — Prerequisites now states
+`kubectl` 1.23+ for `--for=jsonpath` (F4), and the Step-2 port-forward now saves the PID
+(`PF_PID=$!`, `kill "$PF_PID"`) and bounds the readiness wait with `timeout 60` (F3),
+mirrored in zh. No manifest or delegation changes; C3/C7 re-run green.
+
+| ID | Claim | Layer | Verdict | Evidence |
+|----|-------|-------|---------|----------|
+| D1 | every code-checkable doc claim matches the repo (8 checks) | 1 | all pass at new head | `results/reverify/unit.out` |
+| F1 | delegated setup still broken on master: image tag 404 + unquoted heredoc; #6252 still OPEN | 2 | **Still-broken** | `results/reverify/integration.out` (`curvine/curvine:0.3.6-alpha -> 404`) + `results/f1-heredoc-repro.out` (CURVINE_CONF_DIR mangled to `/conf`) |
+| F2 | vLLM v0.33.0 entrypoint is `vllm serve`; `VLLM_PORT` URI guard exists | 2 | pass | `results/reverify/integration.out` (`C9 … pass`) |
+
+F1 evidence re-confirmed at the new head, both mechanisms:
+1. `scripts/f1-heredoc-repro.sh 46cd547` → unquoted `cat<<EOF` in the referenced
+   `curvine_cache_runtime.md` expands `${CURVINE_HOME}` away with the variable unset
+   (`CURVINE_CONF_DIR="/conf"`, `CURVINE_DATA_DIR="/data"`, `CURVINE_LOG_DIR="/logs"`).
+   Harness-bites: applying #6252's quoted-delimiter fix flips it green; reverting flips it
+   red again; production diff left clean.
+2. `C6_walkthrough_images_pullable` → `curvine/curvine:0.3.6-alpha` 404 (v-prefixed tag is 200).
+3. `gh pr view 6252` → state `OPEN` (head `41f1061`), not merged; the referenced doc at
+   both this PR head and current `origin/master` still carries both defects.
+
+Round-1 nits fixed by the delta (status `fixed`): F3 (port-forward PID + bounded wait,
+`vllm_with_curvine.md:53-69`), F4 (kubectl 1.23 in Prerequisites, line 15).
+
+### Round 1 (2026-11-16) — head `33c1eef59404f55d4f582a0cec84af62fb2e1d79`
+
 Observed at head `33c1eef59404f55d4f582a0cec84af62fb2e1d79` (base `ff99142f`):
 
 | ID | Claim | Layer | Verdict | Evidence |
