@@ -1,0 +1,13 @@
+# F3 fix check — bounded readiness loop (doc line 55-56, mirrored zh)
+# simulate: nothing listening on 127.0.0.1:19000; doc uses 'timeout 60'; here 3s to keep the check fast
+exit=124 elapsed=3s (124=bounded timeout; old 'until...done' would spin forever)
+
+# PID-based kill (doc line 54/69)
+kill "$PF_PID" -> killed exactly the background job (rc=0)
+
+# F4 fix check — Prerequisites line
+# F4 fix check — Prerequisites line
+# NOTE: grep runs against PR head 46cd547 (worktree holds round-1 base; re-verify grafts the head)
+15:4. `kubectl` (1.23 or later, for `kubectl wait --for=jsonpath`) and `curl` (7.75.0 or later, for `--aws-sigv4`) are available locally.
+15:4. 本地可以执行 `kubectl`（1.23 及以上，需要 `kubectl wait --for=jsonpath`）和 `curl`（7.75.0 及以上，需要 `--aws-sigv4`）。
+(zh line 15, en line 15 → both languages state kubectl>=1.23)
