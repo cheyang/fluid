@@ -23,7 +23,7 @@
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "go test ./pkg/ddc/alluxio/ -run 'TestVerify' -v"
+      "cmd": "go test ./pkg/ddc/alluxio/ -run 'TestVerify' -json"
     }
   },
   "findings": [
