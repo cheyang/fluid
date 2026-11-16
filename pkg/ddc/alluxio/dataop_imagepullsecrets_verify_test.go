@@ -43,12 +43,12 @@ import (
 	"github.com/fluid-cloudnative/fluid/pkg/ddc/base"
 	cruntime "github.com/fluid-cloudnative/fluid/pkg/runtime"
 	"github.com/fluid-cloudnative/fluid/pkg/utils/fake"
+	goyaml "gopkg.in/yaml.v2"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/utils/ptr"
 	"sigs.k8s.io/yaml"
-	goyaml "gopkg.in/yaml.v2"
 )
 
 const (
@@ -83,7 +83,10 @@ func verifyDataLoad() *datav1alpha1.DataLoad {
 func genDataLoadValueFile(t *testing.T, objs []runtime.Object, dataload *datav1alpha1.DataLoad) *cdataload.DataLoadValue {
 	t.Helper()
 	client := fake.NewFakeClientWithScheme(testScheme, objs...)
-	engine := &AlluxioEngine{Client: client, Log: fake.NullLogger()}
+	// Since bf852650 the runtime lookup goes through e.getRuntime(), keyed on the
+	// engine's name/namespace (== the target dataset's, per the operation
+	// controller), not on dataload.Spec.Dataset. Mirror that here.
+	engine := &AlluxioEngine{Client: client, Log: fake.NullLogger(), name: verifyDatasetName, namespace: verifyDatasetNamespace}
 	ctx := cruntime.ReconcileRequestContext{Client: client, Log: fake.NullLogger()}
 
 	valueFileName, err := engine.generateDataLoadValueFile(ctx, dataload)
@@ -165,7 +168,7 @@ func TestVerifyDataLoadMissingRuntimeNowErrors(t *testing.T) {
 		},
 	}
 	client := fake.NewFakeClientWithScheme(testScheme, objs...)
-	engine := &AlluxioEngine{Client: client, Log: fake.NullLogger()}
+	engine := &AlluxioEngine{Client: client, Log: fake.NullLogger(), name: verifyDatasetName, namespace: verifyDatasetNamespace}
 	ctx := cruntime.ReconcileRequestContext{Client: client, Log: fake.NullLogger()}
 
 	_, err := engine.generateDataLoadValueFile(ctx, verifyDataLoad())
@@ -267,5 +270,62 @@ func TestVerifyDataBackupFallsBackToEnvImagePullSecrets(t *testing.T) {
 	got := value.DataBackup.ImagePullSecrets
 	if len(got) != 1 || got[0].Name != verifyEnvSecret {
 		t.Errorf("expected databackup imagePullSecrets=[%s], got %v", verifyEnvSecret, got)
+	}
+}
+
+// Contract (round 2, for the bf852650 revision): generateDataLoadValueFile now looks the
+// runtime up via e.getRuntime(), i.e. a FRESH cache-backed read keyed on the engine's
+// name/namespace (which the operation controller sets to the target dataset's
+// name/namespace). Pin two things about that switch:
+//  1. the read is fresh: a stale e.runtime field (old secrets) must NOT leak into the
+//     value file when the API server holds a newer runtime object;
+//  2. the lookup key is the engine/dataset identity: the DataLoad's dataset ref
+//     (dataload.Spec.Dataset) resolves to the same runtime object as before the switch.
+//
+// Passes on both 34a73186 (utils.GetAlluxioRuntime by dataset ref) and bf852650
+// (e.getRuntime by engine identity); fails if either lookup becomes stale or diverges.
+func TestVerifyDataLoadRuntimeLookupFreshAndKeyedByDataset(t *testing.T) {
+	os.Unsetenv(common.EnvImagePullSecretsKey)
+
+	staleSecret := "stale-secret"
+	freshSecret := "fresh-secret"
+
+	objs := verifyDataLoadObjs([]corev1.LocalObjectReference{{Name: freshSecret}})
+	client := fake.NewFakeClientWithScheme(testScheme, objs...)
+	engine := &AlluxioEngine{
+		Client:    client,
+		Log:       fake.NullLogger(),
+		name:      verifyDatasetName,
+		namespace: verifyDatasetNamespace,
+		// stale cached runtime: the value file must NOT use these secrets
+		runtime: &datav1alpha1.AlluxioRuntime{
+			ObjectMeta: metav1.ObjectMeta{Name: verifyDatasetName, Namespace: verifyDatasetNamespace},
+			Spec:       datav1alpha1.AlluxioRuntimeSpec{ImagePullSecrets: []corev1.LocalObjectReference{{Name: staleSecret}}},
+		},
+	}
+	ctx := cruntime.ReconcileRequestContext{Client: client, Log: fake.NullLogger()}
+
+	valueFileName, err := engine.generateDataLoadValueFile(ctx, verifyDataLoad())
+	if err != nil {
+		t.Fatalf("generateDataLoadValueFile returned error: %v", err)
+	}
+	defer os.Remove(valueFileName)
+
+	data, err := os.ReadFile(valueFileName)
+	if err != nil {
+		t.Fatalf("failed to read generated value file %s: %v", valueFileName, err)
+	}
+	value := &cdataload.DataLoadValue{}
+	if err := yaml.Unmarshal(data, value); err != nil {
+		t.Fatalf("failed to unmarshal generated value file: %v\ncontent:\n%s", err, string(data))
+	}
+	got := value.DataLoadInfo.ImagePullSecrets
+	if len(got) != 1 || got[0].Name != freshSecret {
+		t.Errorf("expected fresh runtime secret [%s] from the API lookup, got %v (stale e.runtime must not be used)", freshSecret, got)
+	}
+	for _, s := range got {
+		if s.Name == staleSecret {
+			t.Errorf("stale e.runtime secret %s leaked into the value file: %v", staleSecret, got)
+		}
 	}
 }

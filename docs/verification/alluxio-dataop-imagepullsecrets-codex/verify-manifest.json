@@ -15,7 +15,10 @@
     "layer": "unit",
     "verdict": "confirmed",
     "evidence": "On base ff99142f the runtime-secrets contract tests fail (dataload/databackup value files contain no imagePullSecrets when only the runtime sets them); on head 34a7318 they pass. See results/base-harness.txt vs results/head-harness.txt.",
-    "match": ["TestVerifyDataLoadUsesRuntimeImagePullSecrets", "TestVerifyDataBackupUsesRuntimeImagePullSecrets"]
+    "match": [
+      "TestVerifyDataLoadUsesRuntimeImagePullSecrets",
+      "TestVerifyDataBackupUsesRuntimeImagePullSecrets"
+    ]
   },
   "layers": {
     "unit": {
@@ -24,12 +27,67 @@
     }
   },
   "findings": [
-    { "id": "A1-load-runtime-secrets", "polarity": "contract", "layer": "unit", "match": ["TestVerifyDataLoadUsesRuntimeImagePullSecrets"] },
-    { "id": "A2-load-env-fallback", "polarity": "contract", "layer": "unit", "match": ["TestVerifyDataLoadFallsBackToEnvImagePullSecrets"] },
-    { "id": "A3-load-replace-not-merge", "polarity": "contract", "layer": "unit", "match": ["TestVerifyDataLoadRuntimeSecretsReplaceEnv"] },
-    { "id": "A4-backup-runtime-secrets", "polarity": "contract", "layer": "unit", "match": ["TestVerifyDataBackupUsesRuntimeImagePullSecrets"] },
-    { "id": "A5-backup-env-fallback", "polarity": "contract", "layer": "unit", "match": ["TestVerifyDataBackupFallsBackToEnvImagePullSecrets"] },
-    { "id": "A6-missing-runtime-errors", "polarity": "contract", "layer": "unit", "match": ["TestVerifyDataLoadMissingRuntimeNowErrors"] }
+    {
+      "id": "A1-load-runtime-secrets",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyDataLoadUsesRuntimeImagePullSecrets"
+      ]
+    },
+    {
+      "id": "A2-load-env-fallback",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyDataLoadFallsBackToEnvImagePullSecrets"
+      ]
+    },
+    {
+      "id": "A3-load-replace-not-merge",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyDataLoadRuntimeSecretsReplaceEnv"
+      ]
+    },
+    {
+      "id": "A4-backup-runtime-secrets",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyDataBackupUsesRuntimeImagePullSecrets"
+      ]
+    },
+    {
+      "id": "A5-backup-env-fallback",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyDataBackupFallsBackToEnvImagePullSecrets"
+      ]
+    },
+    {
+      "id": "A6-missing-runtime-errors",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyDataLoadMissingRuntimeNowErrors"
+      ]
+    },
+    {
+      "id": "A7-runtime-lookup-fresh-keyed-by-dataset",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyDataLoadRuntimeLookupFreshAndKeyedByDataset"
+      ],
+      "note": "added in round 2 for the bf852650 revision: pins that e.getRuntime() reads the runtime fresh from the API (stale e.runtime must not leak) and is keyed on the engine/dataset identity"
+    }
   ],
-  "liveNote": "L3 not run (skipped per debate setup): on a real cluster, create an AlluxioRuntime with spec.imagePullSecrets and no controller IMAGE_PULL_SECRETS, run a DataLoad, and check the loader job's pod spec lists the runtime secret (PR section IV)."
+  "liveNote": "L3 not run (skipped per debate setup): on a real cluster, create an AlluxioRuntime with spec.imagePullSecrets and no controller IMAGE_PULL_SECRETS, run a DataLoad, and check the loader job's pod spec lists the runtime secret (PR section IV).",
+  "round2": {
+    "head": "bf85265045c6391cb9a1d62cc20ae4d1ac186342",
+    "harnessUpdate": "bf852650 switched generateDataLoadValueFile's runtime lookup from utils.GetAlluxioRuntime(r.Client, dataload.Spec.Dataset.Name/Namespace) to e.getRuntime() (keyed on engine name/namespace). The harness engine previously set no name/namespace, so A1-A3 failed with alluxioruntimes...\"\" not found and A6 false-passed. Fixed the harness engine to carry the dataset identity (mirrors the PR's own update to TestGenerateDataLoadValueFile)."
+  }
 }
