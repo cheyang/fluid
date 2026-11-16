@@ -1,0 +1,16 @@
+# F1 heredoc repro — round 2 (2026-11-17), head 46cd54726b3877b051cfc19d2d485098af3f34fe
+
+$ bash scripts/f1-heredoc-repro.sh 46cd54726b3877b051cfc19d2d485098af3f34fe
+--- reader's resulting file (excerpt) ---
+  14:        CURVINE_CONF_DIR="/conf"
+  15:        CURVINE_DATA_DIR="/data"
+  16:        CURVINE_LOG_DIR="/logs"
+F1_heredoc	fail	unquoted heredoc: CURVINE_HOME expands empty, CURVINE_CONF_DIR mangled to "/conf"
+exit=1
+
+# harness-bites: with #6252's quoted-delimiter fix applied to the referenced doc
+$ bash scripts/f1-heredoc-repro.sh   # worktree with fix
+F1_heredoc	pass	quoted delimiter — no expansion
+exit=0
+
+# fix reverted: reproduction returns (exit 1), production diff clean (git checkout)
