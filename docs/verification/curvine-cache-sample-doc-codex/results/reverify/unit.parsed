@@ -1,0 +1,12 @@
+DocContractEN/CacheRuntimeClassVars	pass
+DocContractEN/ReadJobCmdSubst	pass
+DocContractEN/ReadRefJobCmdSubst	pass
+DocContractEN/BucketJobEscapeContract	pass
+DocContractEN/GeneratedYAMLValid	pass
+DocContractEN/ImageTagVPrefix	pass
+DocContractZH/CacheRuntimeClassVars	pass
+DocContractZH/ReadJobCmdSubst	pass
+DocContractZH/ReadRefJobCmdSubst	pass
+DocContractZH/BucketJobEscapeContract	pass
+DocContractZH/GeneratedYAMLValid	pass
+DocContractZH/ImageTagVPrefix	pass
