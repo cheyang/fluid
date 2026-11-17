@@ -1,0 +1,11 @@
+# zapcompat harness on NEW BASE 5e64735 (zap 1.27.0) — round 2
+# expect A1/A2/A5 PASS, A3/A4 FAIL (differential: vendored tree moved base->head)
+
+--- PASS: TestHarnessFluidLoggerPathWorks (0.00s)
+--- PASS: TestHarnessLevelStringsStillAccepted (0.00s)
+--- FAIL: TestHarnessWarningLevelNewlyAccepted (0.00s)
+--- FAIL: TestHarnessNilObjectNoPanic (0.00s)
+--- PASS: TestHarnessVendoredZapVersionConsistent (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/zapcompat	0.003s
+FAIL

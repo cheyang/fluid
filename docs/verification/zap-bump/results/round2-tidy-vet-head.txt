@@ -1,0 +1,5 @@
+# go mod tidy -diff / go vet on NEW HEAD 32aab5b — round 2
+## go mod tidy -diff (expect: no output = zero drift)
+tidy exit: 0
+## go vet ./pkg/... ./cmd/... ./api/... (expect: silent = clean)
+vet exit: 0

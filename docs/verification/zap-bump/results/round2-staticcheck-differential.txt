@@ -1,0 +1,22 @@
+# F3 staticcheck differential — round 2 (2026-11-18)
+# cmd: bash docs/verification/zap-bump/scripts/check-staticcheck-baseline.sh 32aab5b 5e64735 dcb76167b
+# NOTE: capture stdout and stderr separately (a child writes 'exit:0' on stderr)
+
+[F3] staticcheck differential (staticcheck: true)
+[F3] head  (32aab5bc2fe517a1b58feee064ab22443ba86535): ST1019-present=1
+[F3] base  (5e6473599f78263a49e521854d80f918a1a10bb0): ST1019-present=1
+[F3] verdict: baseline-attributed (identical failure on base and head) — NOT introduced by this PR
+[F3] fix   (dcb76167b): ST1019-present=0
+[F3] remedy confirmed: rebasing this PR onto >= dcb76167b clears the red check
+
+## raw staticcheck output per ref (captured 2026-11-18, staticcheck 2025.1.1/0.6.1, go1.26.10 — CI's exact versions)
+### head 32aab5b:
+pkg/utils/dataset/lifecycle/node_test.go:36:2: package "sigs.k8s.io/controller-runtime/pkg/client" is being imported more than once (ST1019)
+	pkg/utils/dataset/lifecycle/node_test.go:37:2: other import of "sigs.k8s.io/controller-runtime/pkg/client"
+exit: 1
+### new base 5e64735:
+pkg/utils/dataset/lifecycle/node_test.go:36:2: package "sigs.k8s.io/controller-runtime/pkg/client" is being imported more than once (ST1019)
+	pkg/utils/dataset/lifecycle/node_test.go:37:2: other import of "sigs.k8s.io/controller-runtime/pkg/client"
+exit: 1
+### master tip dcb76167b:
+exit: 0

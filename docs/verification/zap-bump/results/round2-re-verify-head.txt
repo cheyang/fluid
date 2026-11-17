@@ -1,0 +1,29 @@
+[re-verify] resolving current PR head: https://github.com/fluid-cloudnative/fluid/pull/6241
+[re-verify] target ref: FETCH_HEAD
+32aab5bc2fe517a1b58feee064ab22443ba86535
+[re-verify] last-reviewed: 35c388d5a797a2442e1b98996975a31008e8f295
+[re-verify] incremental delta 35c388d5a797a2442e1b98996975a31008e8f295..FETCH_HEAD:
+32aab5bc2 chore(deps): bump go.uber.org/zap from 1.27.0 to 1.28.0
+5e6473599 chore(deps): bump sigs.k8s.io/yaml from 1.4.0 to 1.6.0 (#6240)
+ee1e1d1fd docs(cacheruntime): fix heredocs and image tag in the Curvine sample (#6252)
+6f55f846d fix(lifecycle): refresh outdated capacity labels on cache nodes (#6244)
+f432bdc87 fix(cache): merge CacheRuntime resources onto the CacheRuntimeClass baseline (#6177)
+[re-verify] grafting harness onto FETCH_HEAD in a temp worktree
+[re-verify] unit layer: zapcompat harness
+=== RUN   TestHarnessFluidLoggerPathWorks
+--- PASS: TestHarnessFluidLoggerPathWorks (0.00s)
+=== RUN   TestHarnessLevelStringsStillAccepted
+--- PASS: TestHarnessLevelStringsStillAccepted (0.00s)
+=== RUN   TestHarnessWarningLevelNewlyAccepted
+--- PASS: TestHarnessWarningLevelNewlyAccepted (0.00s)
+=== RUN   TestHarnessNilObjectNoPanic
+--- PASS: TestHarnessNilObjectNoPanic (0.00s)
+=== RUN   TestHarnessVendoredZapVersionConsistent
+--- PASS: TestHarnessVendoredZapVersionConsistent (0.00s)
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/zapcompat	0.003s
+[re-verify] supply-chain layer: vendor fidelity vs upstream module
+[fidelity] go.mod declares go.uber.org/zap v1.28.0
+[fidelity] go.sum h1 entry matches checksum DB: h1:IZzaP1Fv73/T/pBMLk4VutPl36uNC+OSUh3JLG3FIjo=
+[fidelity] verdict: PASS (vendor tree byte-identical to upstream v1.28.0)
+[re-verify] compile layer: build the repo at the target ref
+[re-verify] verdict: all contract checks green on FETCH_HEAD

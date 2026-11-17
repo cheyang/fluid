@@ -1,8 +1,8 @@
 # Verification — zap-bump (PR #6241) — Reviewer A (Claude)
 
 PR: https://github.com/fluid-cloudnative/fluid/pull/6241
-Head: `35c388d5a797a2442e1b98996975a31008e8f295`
-Base: `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5`
+Head: `32aab5bc2fe517a1b58feee064ab22443ba86535` (round 2; round 1 was `35c388d5a797a2442e1b98996975a31008e8f295`)
+Base: `5e6473599f78263a49e521854d80f918a1a10bb0` (round 2; round 1 was `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5`)
 Branch: `verify/zap-bump-claude` (this branch; production code untouched — additive harness only)
 
 PR type: Dependabot bump `go.uber.org/zap` 1.27.0 → 1.28.0 (go.mod, go.sum,
@@ -71,6 +71,66 @@ mistake them for regressions.
 - `zapcore.Level.UnmarshalText`'s acceptance set strictly grew (uppercase spellings
   now handled by the ToLower fallback; "warning" added) — verified superset by A2/A3.
 
+## Round 2 (2026-11-18) — incremental re-review of the rebased head
+
+The PR was rebased (force-push): head `35c388d5` → `32aab5bc`, merge-base
+`ff99142f` → `5e647359` ( Dependabot picked up master's `sigs.k8s.io/yaml`
+1.4.0→1.6.0 bump, #6244/#6177/#6252, and re-applied the zap commit).
+
+**The PR's own content is unchanged by the rebase**: `git diff 35c388d..32aab5b
+-- vendor/go.uber.org/zap` is empty, go.mod's zap line is identical, and the
+PR diff (merge-base…head) is still exactly the 18 zap-bump files. No fluid
+source is touched. (evidence: round-2 re-verify log)
+
+Re-verified on the new head, all green (`results/round2-re-verify-head.txt`):
+A1–A5 zapcompat PASS, vendor fidelity PASS (byte-identical to upstream v1.28.0,
+checksum DB match), `go build ./...` PASS, `go mod tidy -diff` zero drift,
+`go vet ./pkg/... ./cmd/... ./api/...` clean (`results/round2-tidy-vet-head.txt`).
+Differential re-confirmed on the **new** base: A3/A4 red on `5e64735` (zap
+1.27.0) → green on head (`results/round2-unit-newbase-zapcompat.txt`).
+Blast radius re-checked at the new head: zero non-vendor references to
+`zap.Object/WithLazy/NewLazyWith/RegisterSink/DictObject/BufferedWriteSyncer/CheckPreWriteHook`;
+`go.uber.org/multierr` stays v1.11.0.
+
+### F3 (new this round): CI staticcheck is red — baseline, not this PR
+
+The round's only new signal: the GitHub `staticcheck` check on the head is
+**FAILURE** (all 19 other checks green, incl. build/unittest/lint/kind-e2e):
+
+```
+pkg/utils/dataset/lifecycle/node_test.go:36:2: package "sigs.k8s.io/controller-runtime/pkg/client" is being imported more than once (ST1019)
+	pkg/utils/dataset/lifecycle/node_test.go:37:2: other import of "sigs.k8s.io/controller-runtime/pkg/client"
+```
+
+Differential attribution (`results/round2-staticcheck-differential.txt`,
+`scripts/check-staticcheck-baseline.sh`; staticcheck 2025.1.1/0.6.1 on go1.26.10
+— the CI's exact versions):
+
+| ref | ST1019 present |
+| --- | --- |
+| head `32aab5bc` | **yes** (exit 1) |
+| new base `5e647359` | **yes** (exit 1, byte-identical error) |
+| master tip `dcb76167b` | no (exit 0) |
+
+Provenance: the duplicate import entered master via `6f55f846d` (#6244) and
+reached this PR through the rebase; the PR's file list never touches
+`node_test.go`. GitHub's own runs corroborate: `staticcheck` on commit
+`5e647359` = FAILURE, on master tip = SUCCESS (fixed there by `1321a217d`
+/#6257, which deleted the duplicate import). **Verdict: pre-existing /
+baseline, not introduced by this PR.** Remedy (already available upstream):
+rebase this PR onto current master (≥ `1321a217d`) — verified clean on the
+master tip; the zap diff contributes no staticcheck findings of its own.
+Branch protection requires no specific status checks, so the red X does not
+mechanically block merge, but the project's check suite should be green.
+
+### F1 re-check (unchanged, still environment-only)
+
+The same 5 packages fail locally on the new head as on the old head/base
+(`results/round2-f1-failing-pkgs-head.txt`: TestAlluxio, TestCacheEngine,
+TestDestroyWorker ×2, TestCheckMountPointBroken — the `ddc-helm`-binary and
+fake-client/mount fixture issues). GitHub's `unittest` check is SUCCESS on
+this head. Still not a PR finding; never gating.
+
 ## How to run
 
 ```bash
@@ -80,6 +140,8 @@ bash docs/verification/zap-bump/scripts/verify-vendor-fidelity.sh
 go build ./...
 # or everything at once against the current PR head:
 bash docs/verification/zap-bump/scripts/re-verify.sh
+# F3 staticcheck differential (head base [fix-ref]); capture stdout/stderr separately:
+bash docs/verification/zap-bump/scripts/check-staticcheck-baseline.sh <head> <base> [master-tip]
 ```
 
 ## Continuing after the fix / next round

@@ -1,0 +1,18 @@
+# F1 re-check: previously env-failing packages on NEW HEAD 32aab5b — round 2
+# (same 5 packages red as on old head and old base; GH CI 'unittest' check = SUCCESS on this head)
+
+--- pkg/ddc/alluxio:
+--- FAIL: TestAlluxio (6.06s)
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	10.086s
+--- pkg/ddc/cache/engine:
+--- FAIL: TestCacheEngine (0.24s)
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.269s
+--- pkg/ddc/jindo:
+--- FAIL: TestDestroyWorker (0.00s)
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindo	12.049s
+--- pkg/ddc/jindofsx:
+--- FAIL: TestDestroyWorker (0.00s)
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	15.059s
+--- pkg/utils:
+--- FAIL: TestCheckMountPointBroken (0.00s)
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	112.072s
