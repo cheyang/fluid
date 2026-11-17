@@ -31,7 +31,7 @@
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "go test ./pkg/ddc/juicefs/ -run 'TestVerifyPr6245(HelmRenderScenarios|CRDSchemaCheck|APIDocPlacement)' -count=1 -json"
+      "cmd": "go test ./pkg/ddc/juicefs/ -run 'TestVerifyPr6245(HelmRenderScenarios|CRDSchemaCheck|APIDocPlacement|DocsFreshness)' -count=1 -json"
     }
   },
   "findings": [
