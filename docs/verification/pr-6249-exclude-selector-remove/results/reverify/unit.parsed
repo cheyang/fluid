@@ -1,3 +1,5 @@
+C1: excluded node keeps all labels after removeScheduleInfoFromNode	pass
+C2: non-excluded node still loses the runtime label	pass
 should add exclusive labels to node	skipped
 should add share mode labels to node	skipped
 should add capacity labels to node	skipped
@@ -13,8 +15,15 @@ should return false	skipped
 should remove fluid labels and keep other labels	skipped
 should remove all fluid labels	skipped
 should remove all fluid labels including capacity labels	skipped
+should write the current capacity labels	skipped
+should remove the stale tier label	skipped
+should leave the node alone	skipped
+should repair outdated capacity labels and not patch again once they match	skipped
+should leave nodes matching the exclude selector untouched	skipped
 should remove the runtime label from a node that isn't excluded	skipped
 should leave a node matching the exclude selector untouched	skipped
+should remove the runtime label when the exclude selector doesn't match the node	skipped
+should only clean up the node that isn't excluded when the workers leave	skipped
 should calculate correct differences	skipped
 should return empty differences	skipped
 should return all nodes as differences	skipped
@@ -22,5 +31,3 @@ should successfully add or remove schedule info on proper nodes	skipped
 Should not return error and nodeExcludeSelector should be nil	skipped
 Should parse the selector correctly	skipped
 Should return error	skipped
-C1: excluded node keeps all labels after removeScheduleInfoFromNode	pass
-C2: non-excluded node still loses the runtime label	pass

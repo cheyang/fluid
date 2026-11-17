@@ -1,6 +1,6 @@
 [
   {
-    "SuitePath": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle",
+    "SuitePath": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle",
     "SuiteDescription": "Lifecycle Suite",
     "SuiteLabels": [],
     "SuiteSemVerConstraints": [],
@@ -8,14 +8,14 @@
     "SuiteHasProgrammaticFocus": false,
     "SpecialSuiteFailureReasons": null,
     "PreRunStats": {
-      "TotalSpecs": 26,
+      "TotalSpecs": 33,
       "SpecsThatWillRun": 2
     },
-    "StartTime": "2026-11-16T06:56:41.945521052+08:00",
-    "EndTime": "2026-11-16T06:56:41.947475102+08:00",
-    "RunTime": 1954030,
+    "StartTime": "2026-11-18T07:54:04.31011828+08:00",
+    "EndTime": "2026-11-18T07:54:04.312073979+08:00",
+    "RunTime": 1955679,
     "SuiteConfig": {
-      "RandomSeed": 1794783401,
+      "RandomSeed": 1794959644,
       "RandomizeAllSpecs": false,
       "FocusStrings": [
         "PR6249ExcludeSelectorRemoveHarness"
@@ -45,22 +45,258 @@
     "SpecReports": [
       {
         "ContainerHierarchyTexts": [
+          "PR6249ExcludeSelectorRemoveHarness"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+            "LineNumber": 41
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "verify-pr-6249"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+          "LineNumber": 73
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "C1: excluded node keeps all labels after removeScheduleInfoFromNode",
+        "State": "passed",
+        "StartTime": "2026-11-18T07:54:04.310633558+08:00",
+        "EndTime": "2026-11-18T07:54:04.311277731+08:00",
+        "RunTime": 644173,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 49
+            },
+            "TimelineLocation": {
+              "Order": 1,
+              "Time": "2026-11-18T07:54:04.310654869+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 49
+            },
+            "TimelineLocation": {
+              "Order": 3,
+              "Time": "2026-11-18T07:54:04.310980811+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "Duration": 325941,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 73
+            },
+            "TimelineLocation": {
+              "Order": 4,
+              "Time": "2026-11-18T07:54:04.31098234+08:00"
+            },
+            "Message": "C1: excluded node keeps all labels after removeScheduleInfoFromNode",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 73
+            },
+            "TimelineLocation": {
+              "Order": 6,
+              "Time": "2026-11-18T07:54:04.311263081+08:00"
+            },
+            "Message": "C1: excluded node keeps all labels after removeScheduleInfoFromNode",
+            "Duration": 280741,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 68
+            },
+            "TimelineLocation": {
+              "Order": 7,
+              "Time": "2026-11-18T07:54:04.31126597+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 68
+            },
+            "TimelineLocation": {
+              "Order": 9,
+              "Time": "2026-11-18T07:54:04.311273961+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "Duration": 7980,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6249ExcludeSelectorRemoveHarness"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+            "LineNumber": 41
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "verify-pr-6249"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+          "LineNumber": 89
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "C2: non-excluded node still loses the runtime label",
+        "State": "passed",
+        "StartTime": "2026-11-18T07:54:04.311295692+08:00",
+        "EndTime": "2026-11-18T07:54:04.311946275+08:00",
+        "RunTime": 650583,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 49
+            },
+            "TimelineLocation": {
+              "Order": 10,
+              "Time": "2026-11-18T07:54:04.311297482+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 49
+            },
+            "TimelineLocation": {
+              "Order": 12,
+              "Time": "2026-11-18T07:54:04.311438997+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "Duration": 141515,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 89
+            },
+            "TimelineLocation": {
+              "Order": 13,
+              "Time": "2026-11-18T07:54:04.311439587+08:00"
+            },
+            "Message": "C2: non-excluded node still loses the runtime label",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 89
+            },
+            "TimelineLocation": {
+              "Order": 15,
+              "Time": "2026-11-18T07:54:04.311937245+08:00"
+            },
+            "Message": "C2: non-excluded node still loses the runtime label",
+            "Duration": 497658,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 68
+            },
+            "TimelineLocation": {
+              "Order": 16,
+              "Time": "2026-11-18T07:54:04.311939294+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 68
+            },
+            "TimelineLocation": {
+              "Order": 18,
+              "Time": "2026-11-18T07:54:04.311945475+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "Duration": 6170,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
           "Dataset Lifecycle Node Tests",
           "Test labelCacheNode()",
           "when given exclusive placement mode runtime"
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 65
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 67
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 66
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 68
           }
         ],
         "ContainerHierarchyLabels": [
@@ -77,14 +313,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 81
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 83
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should add exclusive labels to node",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945585195+08:00",
+        "StartTime": "2026-11-18T07:54:04.311955385+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -100,16 +336,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 65
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 67
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 100
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 102
           }
         ],
         "ContainerHierarchyLabels": [
@@ -126,14 +362,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 115
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 117
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should add share mode labels to node",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945608215+08:00",
+        "StartTime": "2026-11-18T07:54:04.311963395+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -149,16 +385,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 65
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 67
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 134
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 136
           }
         ],
         "ContainerHierarchyLabels": [
@@ -175,14 +411,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 169
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 171
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should add capacity labels to node",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945611816+08:00",
+        "StartTime": "2026-11-18T07:54:04.311967495+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -198,16 +434,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 188
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 190
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 189
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 191
           }
         ],
         "ContainerHierarchyLabels": [
@@ -224,14 +460,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 190
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 192
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should decrease dataset number to 1",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945615485+08:00",
+        "StartTime": "2026-11-18T07:54:04.311972696+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -247,16 +483,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 188
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 190
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 209
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 211
           }
         ],
         "ContainerHierarchyLabels": [
@@ -273,14 +509,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 210
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 212
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should delete dataset-num label",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945617976+08:00",
+        "StartTime": "2026-11-18T07:54:04.311975956+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -296,16 +532,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 188
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 190
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 228
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 230
           }
         ],
         "ContainerHierarchyLabels": [
@@ -322,14 +558,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 229
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 231
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return error",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945620506+08:00",
+        "StartTime": "2026-11-18T07:54:04.311979296+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -345,16 +581,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 188
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 190
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 241
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 243
           }
         ],
         "ContainerHierarchyLabels": [
@@ -371,14 +607,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 242
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 244
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should not modify labels",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945622486+08:00",
+        "StartTime": "2026-11-18T07:54:04.311982716+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -394,16 +630,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 256
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 258
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 257
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 259
           }
         ],
         "ContainerHierarchyLabels": [
@@ -420,14 +656,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 258
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 260
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should increase dataset number",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945624516+08:00",
+        "StartTime": "2026-11-18T07:54:04.311986636+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -443,16 +679,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 256
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 258
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 276
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 278
           }
         ],
         "ContainerHierarchyLabels": [
@@ -469,14 +705,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 277
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 279
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should add dataset-num label with value 1",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945626526+08:00",
+        "StartTime": "2026-11-18T07:54:04.311990196+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -492,16 +728,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 296
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 298
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 297
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 299
           }
         ],
         "ContainerHierarchyLabels": [
@@ -518,14 +754,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 298
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 300
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return true",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945630256+08:00",
+        "StartTime": "2026-11-18T07:54:04.311993036+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -541,16 +777,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 296
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 298
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 313
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 315
           }
         ],
         "ContainerHierarchyLabels": [
@@ -567,14 +803,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 314
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 316
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return false",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945632486+08:00",
+        "StartTime": "2026-11-18T07:54:04.311998017+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -590,16 +826,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 296
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 298
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 329
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 331
           }
         ],
         "ContainerHierarchyLabels": [
@@ -616,14 +852,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 330
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 332
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return false",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945635096+08:00",
+        "StartTime": "2026-11-18T07:54:04.312002347+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -639,16 +875,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 344
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 346
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 345
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 347
           }
         ],
         "ContainerHierarchyLabels": [
@@ -665,14 +901,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 368
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 370
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should remove fluid labels and keep other labels",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945637126+08:00",
+        "StartTime": "2026-11-18T07:54:04.312006617+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -688,16 +924,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 344
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 346
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 394
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 396
           }
         ],
         "ContainerHierarchyLabels": [
@@ -714,14 +950,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 415
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 417
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should remove all fluid labels",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945640017+08:00",
+        "StartTime": "2026-11-18T07:54:04.312010337+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -737,16 +973,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 344
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 346
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 437
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 439
           }
         ],
         "ContainerHierarchyLabels": [
@@ -763,14 +999,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 481
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 483
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should remove all fluid labels including capacity labels",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945641846+08:00",
+        "StartTime": "2026-11-18T07:54:04.312014217+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -781,16 +1017,163 @@
       {
         "ContainerHierarchyTexts": [
           "Dataset Lifecycle Node Tests",
-          "Test removeScheduleInfoFromNode()"
+          "Test syncCapacityInfoOnNode()",
+          "when the node was labelled with an empty tiered store"
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 507
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 509
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 538
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 548
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should write the current capacity labels",
+        "State": "skipped",
+        "StartTime": "2026-11-18T07:54:04.312022477+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test syncCapacityInfoOnNode()",
+          "when the node has a label for a tier the runtime no longer has"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 509
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 560
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 582
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove the stale tier label",
+        "State": "skipped",
+        "StartTime": "2026-11-18T07:54:04.312026408+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test syncCapacityInfoOnNode()",
+          "when the node doesn't have the runtime label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 509
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 593
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 599
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should leave the node alone",
+        "State": "skipped",
+        "StartTime": "2026-11-18T07:54:04.312029598+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test SyncScheduleInfoToCacheNodes refreshing capacity labels"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 609
           }
         ],
         "ContainerHierarchyLabels": [
@@ -805,14 +1188,98 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 531
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 677
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should repair outdated capacity labels and not patch again once they match",
+        "State": "skipped",
+        "StartTime": "2026-11-18T07:54:04.312033338+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test SyncScheduleInfoToCacheNodes refreshing capacity labels"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 609
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 691
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should leave nodes matching the exclude selector untouched",
+        "State": "skipped",
+        "StartTime": "2026-11-18T07:54:04.312037158+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test removeScheduleInfoFromNode()"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 704
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 729
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should remove the runtime label from a node that isn't excluded",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945728529+08:00",
+        "StartTime": "2026-11-18T07:54:04.312040288+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -827,12 +1294,12 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 507
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 704
           }
         ],
         "ContainerHierarchyLabels": [
@@ -847,14 +1314,98 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 539
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 737
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should leave a node matching the exclude selector untouched",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.94574194+08:00",
+        "StartTime": "2026-11-18T07:54:04.312043148+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test removeScheduleInfoFromNode()"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 704
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 747
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove the runtime label when the exclude selector doesn't match the node",
+        "State": "skipped",
+        "StartTime": "2026-11-18T07:54:04.312045568+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test removeScheduleInfoFromNode()"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 704
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 757
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should only clean up the node that isn't excluded when the workers leave",
+        "State": "skipped",
+        "StartTime": "2026-11-18T07:54:04.312048038+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -870,16 +1421,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 550
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 785
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 551
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 786
           }
         ],
         "ContainerHierarchyLabels": [
@@ -896,14 +1447,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 552
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 787
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should calculate correct differences",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945769821+08:00",
+        "StartTime": "2026-11-18T07:54:04.312051629+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -919,16 +1470,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 550
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 785
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 563
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 798
           }
         ],
         "ContainerHierarchyLabels": [
@@ -945,14 +1496,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 564
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 799
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return empty differences",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945776091+08:00",
+        "StartTime": "2026-11-18T07:54:04.312054489+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -968,16 +1519,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 550
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 785
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 575
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 810
           }
         ],
         "ContainerHierarchyLabels": [
@@ -994,14 +1545,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 576
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 811
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return all nodes as differences",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945782802+08:00",
+        "StartTime": "2026-11-18T07:54:04.312057049+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1017,16 +1568,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 588
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 823
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 652
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 887
           }
         ],
         "ContainerHierarchyLabels": [
@@ -1043,14 +1594,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 666
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 901
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should successfully add or remove schedule info on proper nodes",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945789162+08:00",
+        "StartTime": "2026-11-18T07:54:04.312060299+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1066,16 +1617,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 740
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 975
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 744
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 979
           }
         ],
         "ContainerHierarchyLabels": [
@@ -1092,14 +1643,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 745
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 980
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "Should not return error and nodeExcludeSelector should be nil",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945796432+08:00",
+        "StartTime": "2026-11-18T07:54:04.312064179+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1115,16 +1666,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 740
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 975
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 752
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 987
           }
         ],
         "ContainerHierarchyLabels": [
@@ -1141,14 +1692,14 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 753
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 988
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "Should parse the selector correctly",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945813083+08:00",
+        "StartTime": "2026-11-18T07:54:04.312067289+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1164,16 +1715,16 @@
         ],
         "ContainerHierarchyLocations": [
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 42
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 740
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 975
           },
           {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 768
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 1003
           }
         ],
         "ContainerHierarchyLabels": [
@@ -1190,256 +1741,20 @@
         ],
         "LeafNodeType": "It",
         "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 769
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 1004
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "Should return error",
         "State": "skipped",
-        "StartTime": "2026-11-16T06:56:41.945891575+08:00",
+        "StartTime": "2026-11-18T07:54:04.312071249+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
         "NumAttempts": 0,
         "MaxFlakeAttempts": 0,
         "MaxMustPassRepeatedly": 0
-      },
-      {
-        "ContainerHierarchyTexts": [
-          "PR6249ExcludeSelectorRemoveHarness"
-        ],
-        "ContainerHierarchyLocations": [
-          {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-            "LineNumber": 41
-          }
-        ],
-        "ContainerHierarchyLabels": [
-          [
-            "verify-pr-6249"
-          ]
-        ],
-        "ContainerHierarchySemVerConstraints": [
-          []
-        ],
-        "LeafNodeType": "It",
-        "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-          "LineNumber": 73
-        },
-        "LeafNodeLabels": [],
-        "LeafNodeSemVerConstraints": [],
-        "LeafNodeText": "C1: excluded node keeps all labels after removeScheduleInfoFromNode",
-        "State": "passed",
-        "StartTime": "2026-11-16T06:56:41.945937607+08:00",
-        "EndTime": "2026-11-16T06:56:41.946723625+08:00",
-        "RunTime": 786028,
-        "ParallelProcess": 1,
-        "NumAttempts": 1,
-        "MaxFlakeAttempts": 0,
-        "MaxMustPassRepeatedly": 0,
-        "SpecEvents": [
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 49
-            },
-            "TimelineLocation": {
-              "Order": 1,
-              "Time": "2026-11-16T06:56:41.945942167+08:00"
-            },
-            "Message": "PR6249ExcludeSelectorRemoveHarness",
-            "NodeType": "BeforeEach"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 49
-            },
-            "TimelineLocation": {
-              "Order": 3,
-              "Time": "2026-11-16T06:56:41.946388493+08:00"
-            },
-            "Message": "PR6249ExcludeSelectorRemoveHarness",
-            "Duration": 446326,
-            "NodeType": "BeforeEach"
-          },
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 73
-            },
-            "TimelineLocation": {
-              "Order": 4,
-              "Time": "2026-11-16T06:56:41.946391963+08:00"
-            },
-            "Message": "C1: excluded node keeps all labels after removeScheduleInfoFromNode",
-            "NodeType": "It"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 73
-            },
-            "TimelineLocation": {
-              "Order": 6,
-              "Time": "2026-11-16T06:56:41.946711484+08:00"
-            },
-            "Message": "C1: excluded node keeps all labels after removeScheduleInfoFromNode",
-            "Duration": 319521,
-            "NodeType": "It"
-          },
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 68
-            },
-            "TimelineLocation": {
-              "Order": 7,
-              "Time": "2026-11-16T06:56:41.946714365+08:00"
-            },
-            "Message": "PR6249ExcludeSelectorRemoveHarness",
-            "NodeType": "AfterEach"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 68
-            },
-            "TimelineLocation": {
-              "Order": 9,
-              "Time": "2026-11-16T06:56:41.946722285+08:00"
-            },
-            "Message": "PR6249ExcludeSelectorRemoveHarness",
-            "Duration": 7930,
-            "NodeType": "AfterEach"
-          }
-        ]
-      },
-      {
-        "ContainerHierarchyTexts": [
-          "PR6249ExcludeSelectorRemoveHarness"
-        ],
-        "ContainerHierarchyLocations": [
-          {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-            "LineNumber": 41
-          }
-        ],
-        "ContainerHierarchyLabels": [
-          [
-            "verify-pr-6249"
-          ]
-        ],
-        "ContainerHierarchySemVerConstraints": [
-          []
-        ],
-        "LeafNodeType": "It",
-        "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-          "LineNumber": 89
-        },
-        "LeafNodeLabels": [],
-        "LeafNodeSemVerConstraints": [],
-        "LeafNodeText": "C2: non-excluded node still loses the runtime label",
-        "State": "passed",
-        "StartTime": "2026-11-16T06:56:41.946751296+08:00",
-        "EndTime": "2026-11-16T06:56:41.947468182+08:00",
-        "RunTime": 716895,
-        "ParallelProcess": 1,
-        "NumAttempts": 1,
-        "MaxFlakeAttempts": 0,
-        "MaxMustPassRepeatedly": 0,
-        "SpecEvents": [
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 49
-            },
-            "TimelineLocation": {
-              "Order": 10,
-              "Time": "2026-11-16T06:56:41.946754256+08:00"
-            },
-            "Message": "PR6249ExcludeSelectorRemoveHarness",
-            "NodeType": "BeforeEach"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 49
-            },
-            "TimelineLocation": {
-              "Order": 12,
-              "Time": "2026-11-16T06:56:41.946942043+08:00"
-            },
-            "Message": "PR6249ExcludeSelectorRemoveHarness",
-            "Duration": 187797,
-            "NodeType": "BeforeEach"
-          },
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 89
-            },
-            "TimelineLocation": {
-              "Order": 13,
-              "Time": "2026-11-16T06:56:41.946942643+08:00"
-            },
-            "Message": "C2: non-excluded node still loses the runtime label",
-            "NodeType": "It"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 89
-            },
-            "TimelineLocation": {
-              "Order": 15,
-              "Time": "2026-11-16T06:56:41.947458681+08:00"
-            },
-            "Message": "C2: non-excluded node still loses the runtime label",
-            "Duration": 516038,
-            "NodeType": "It"
-          },
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 68
-            },
-            "TimelineLocation": {
-              "Order": 16,
-              "Time": "2026-11-16T06:56:41.947460471+08:00"
-            },
-            "Message": "PR6249ExcludeSelectorRemoveHarness",
-            "NodeType": "AfterEach"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 68
-            },
-            "TimelineLocation": {
-              "Order": 18,
-              "Time": "2026-11-16T06:56:41.947467251+08:00"
-            },
-            "Message": "PR6249ExcludeSelectorRemoveHarness",
-            "Duration": 6780,
-            "NodeType": "AfterEach"
-          }
-        ]
       }
     ]
   }

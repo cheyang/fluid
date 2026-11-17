@@ -110,7 +110,7 @@ bites check were re-run against the NEW base.
 
 | check | result | evidence |
 |-------|--------|----------|
-| re-verify.sh (C1/C2 grafted onto 964c8ef22) | F-fix FIXED (pass=2 fail=0) | results/reverify/unit.out |
+| re-verify.sh (C1/C2 grafted onto 964c8ef22) | F-fix FIXED (pass=2 fail=0); persisted report shows the 33-spec grafted suite | results/reverify/unit.out, results/reverify/ginkgo-report.json |
 | full pkg/utils/dataset/lifecycle suite on head | 31/31 pass (new base 27 + 4 PR-owned) | results/round3-head-full-package.txt |
 | premise on NEW base: C1/C2 grafted onto 5e6473599 | C1 FAILS (bug still reproduces), C2 PASSES | results/round3-base-harness.txt |
 | bites on NEW base: base node.go + head node_test.go | 2 selector-matching specs FAIL, 2 control specs PASS | results/round3-base-pr-own-specs.txt |
@@ -121,3 +121,11 @@ product confirmation, not docs), but its SHOULD item — the operator-facing sen
 now exists at charts/fluid/fluid/values.yaml:88, and the worker.go comment pins down why
 TearDownWorkers must NOT check the selector. CI on 964c8ef22 is all green (incl. the
 kind-e2e and backward-compat matrices); PR open, mergeable.
+
+Harness note (infrastructure, not a PR issue): this branch's re-verify.sh persisted
+results into the repo BEFORE its exit trap ran `git checkout -f` back to the branch,
+so tracked results/reverify/* files were silently reverted to their committed content
+each run (the verdicts were always computed from the fresh temp-dir report and were
+correct; only the persisted artifacts were stale). Commit "fix re-verify.sh persist
+vs cleanup ordering" backs the fresh results up and restores them after the checkout;
+the round-3 reverify/ artifacts are the first genuinely fresh ones.
