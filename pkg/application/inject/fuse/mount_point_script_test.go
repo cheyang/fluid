@@ -110,6 +110,39 @@ var _ = Describe("Fuse Injector", func() {
 			})
 		})
 
+		Context("when multiple runtime infos are provided", func() {
+			It("should deterministically select the first runtime info's namespace based on key order", func() {
+				riZ, err := base.BuildRuntimeInfo("z-pvc", "ns-z", "jindo")
+				Expect(err).NotTo(HaveOccurred())
+				riA, err := base.BuildRuntimeInfo("a-pvc", "ns-a", "alluxio")
+				Expect(err).NotTo(HaveOccurred())
+				riM, err := base.BuildRuntimeInfo("m-pvc", "ns-m", "juicefs")
+				Expect(err).NotTo(HaveOccurred())
+
+				multiRuntimeInfos := map[string]base.RuntimeInfoInterface{
+					"z-pvc": riZ,
+					"a-pvc": riA,
+					"m-pvc": riM,
+				}
+				podSpecs := &mutator.MutatingPodSpecs{
+					MetaObj: metav1.ObjectMeta{
+						Name: "test-pod",
+					},
+					Volumes:    []corev1.Volume{},
+					Containers: []corev1.Container{},
+				}
+
+				// a-pvc is lexicographically first, so ns-a is used to ensure the ConfigMap exists
+				err = injector.injectCheckMountReadyScript(podSpecs, multiRuntimeInfos)
+				Expect(err).To(BeNil())
+
+				cmList := &corev1.ConfigMapList{}
+				err = fakeClient.List(context.TODO(), cmList, client.InNamespace("ns-a"))
+				Expect(err).To(BeNil())
+				Expect(len(cmList.Items)).To(Equal(1))
+			})
+		})
+
 		Context("when pod has GenerateName instead of Name", func() {
 			It("should use GenerateName for logging", func() {
 				podSpecs := &mutator.MutatingPodSpecs{
@@ -381,19 +414,31 @@ var _ = Describe("Fuse Injector", func() {
 
 	Describe("assembleMountInfos", func() {
 		Context("when given path to runtime type map", func() {
-			It("should return colon-separated strings", func() {
+			It("should return colon-separated strings in deterministic key-sorted order", func() {
 				path2RuntimeTypeMap := map[string]string{
 					"/data1": "alluxio",
 					"/data2": "juicefs",
 				}
 
 				mountPathStr, mountTypeStr := assembleMountInfos(path2RuntimeTypeMap)
-				Expect(mountPathStr).To(ContainSubstring("/data1"))
-				Expect(mountPathStr).To(ContainSubstring("/data2"))
-				Expect(mountPathStr).To(ContainSubstring(":"))
-				Expect(mountTypeStr).To(ContainSubstring("alluxio"))
-				Expect(mountTypeStr).To(ContainSubstring("juicefs"))
-				Expect(mountTypeStr).To(ContainSubstring(":"))
+				Expect(mountPathStr).To(Equal("/data1:/data2"))
+				Expect(mountTypeStr).To(Equal("alluxio:juicefs"))
+			})
+		})
+
+		Context("when given multiple paths in random map order", func() {
+			It("should consistently return deterministic sorted colon-separated strings", func() {
+				path2RuntimeTypeMap := map[string]string{
+					"/var/data/z": "jindo",
+					"/var/data/a": "alluxio",
+					"/var/data/m": "juicefs",
+				}
+
+				for i := 0; i < 50; i++ {
+					mountPathStr, mountTypeStr := assembleMountInfos(path2RuntimeTypeMap)
+					Expect(mountPathStr).To(Equal("/var/data/a:/var/data/m:/var/data/z"))
+					Expect(mountTypeStr).To(Equal("alluxio:juicefs:jindo"))
+				}
 			})
 		})
 

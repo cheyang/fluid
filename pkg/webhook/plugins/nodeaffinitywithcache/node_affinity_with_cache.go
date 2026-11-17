@@ -212,7 +212,8 @@ func getRequiredAndPreferredSchedulingRuntimes(pod *corev1.Pod, runtimeInfos map
 
 	// get the pod specified bound dataset
 	boundDataSetNames := map[string]bool{}
-	for key, value := range pod.Labels {
+	for _, key := range utils.OrderedKeys(pod.Labels) {
+		value := pod.Labels[key]
 		// if it matches, return array with length 2, and the second element is the match
 		matchString := common.LabelAnnotationPodSchedRegex.FindStringSubmatch(key)
 		if len(matchString) == 2 && value == "required" {
@@ -225,11 +226,11 @@ func getRequiredAndPreferredSchedulingRuntimes(pod *corev1.Pod, runtimeInfos map
 	requiredRuntimes = map[string]base.RuntimeInfoInterface{}
 
 	// copy instead of use origin runtimeInfos
-	for name, runtimeInfo := range runtimeInfos {
-		preferredRuntimes[name] = runtimeInfo
+	for _, name := range utils.OrderedKeys(runtimeInfos) {
+		preferredRuntimes[name] = runtimeInfos[name]
 	}
 
-	for name := range boundDataSetNames {
+	for _, name := range utils.OrderedKeys(boundDataSetNames) {
 		// labeled dataset has no runtime(maybe wrong name), logging info instead of return error
 		runtimeInfo, ok := runtimeInfos[name]
 		if !ok {
