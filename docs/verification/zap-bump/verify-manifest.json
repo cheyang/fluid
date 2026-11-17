@@ -98,7 +98,7 @@
         "scripts/check-staticcheck-baseline.sh"
       ],
       "round": 2,
-      "notes": "staticcheck FAILURE on head 32aab5b (ST1019 in pkg/utils/dataset/lifecycle/node_test.go:36-37, duplicate import of sigs.k8s.io/controller-runtime/pkg/client). Byte-identical failure on new base 5e647359 (introduced there by master 6f55f846d / #6244); fixed on master tip dcb76167b by 1321a217d / #6257. PR file list never touches the file -> introducedByPR: false, origin preexisting. Remedy: rebase onto >= 1321a217d. GitHub check-runs corroborate: 5e647359 staticcheck FAILURE, dcb76167b SUCCESS. Evidence: results/round2-staticcheck-differential.txt, results/round2-ci-rollup.json."
+      "notes": "staticcheck FAILURE on head 32aab5b (ST1019 in pkg/utils/dataset/lifecycle/node_test.go:36-37, duplicate import of sigs.k8s.io/controller-runtime/pkg/client). Byte-identical failure on new base 5e647359 (introduced there by master 6f55f846d / #6244); fixed on master tip dcb76167b by 1321a217d / #6257. PR file list never touches the file -> introducedByPR: false, origin preexisting. Remedy: rebase onto >= 1321a217d. GitHub check-runs corroborate: 5e647359 staticcheck FAILURE, dcb76167b SUCCESS. Evidence: results/round2-staticcheck-differential.txt, results/round2-ci-rollup.json. Round-2 completion: staticcheck on PREVIOUS head 35c388d = clean (exit 0, results/round2-staticcheck-previoushead.txt) -> verification triple {base: fail, previous: pass, head: fail}: the red arrived with the rebase onto broken master, but the defect itself lives on the base (preexisting, introducedByPR: false)."
     }
   ],
   "liveNote": "No live layer needed: this PR changes no fluid runtime behavior directly (fluid's own zap call sites are AddCaller/NewProductionEncoderConfig/NewDevelopmentEncoderConfig/NewConsoleEncoder/CapitalLevelEncoder/ISO8601TimeEncoder \u2014 all untouched upstream). Controller-runtime, the only vendored-graph consumer of the changed zap APIs, uses none of the changed symbols except zapcore.Level (via its own lowercase levelStrings map, unaffected). Per round policy the live/KUBECONFIG layer is skipped.",
@@ -118,7 +118,9 @@
       "results/round2-unit-newbase-zapcompat.txt",
       "results/round2-tidy-vet-head.txt",
       "results/round2-f1-failing-pkgs-head.txt",
-      "results/round2-ci-rollup.json"
+      "results/round2-ci-rollup.json",
+      "results/round2-staticcheck-previoushead.txt",
+      "results/round2-f1-failing-pkgs-newbase.txt"
     ]
   }
 }
