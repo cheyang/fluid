@@ -1,0 +1,7 @@
+TestLifecycle	pass
+TestPortallocator	pass
+TestBase	pass
+TestLoggingErrorExceptConflict	pass
+TestGetPersistentVolumeName	pass
+TestNewTemplateEngine	pass
+TestID	pass

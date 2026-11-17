@@ -1,0 +1,5 @@
+TestDefaultLogToStderrRoutesAllSeverities	pass
+TestAlsoLogToStderrKeepsInfoOnStderr	pass
+TestFileModeStderrThresholdStillFilters	pass
+TestStructuredKVDeDuplication	pass
+TestErrorSPrintsErrKeyValue	pass
