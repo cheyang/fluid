@@ -1,3 +1,5 @@
+keeps the runtime label on an excluded node when its worker leaves (PR6249 contract)	pass
+still removes the runtime label when the selector does not match the node (PR6249 contract)	pass
 should add exclusive labels to node	pass
 should add share mode labels to node	pass
 should add capacity labels to node	pass
@@ -13,6 +15,11 @@ should return false	pass
 should remove fluid labels and keep other labels	pass
 should remove all fluid labels	pass
 should remove all fluid labels including capacity labels	pass
+should write the current capacity labels	pass
+should remove the stale tier label	pass
+should leave the node alone	pass
+should repair outdated capacity labels and not patch again once they match	pass
+should leave nodes matching the exclude selector untouched	pass
 should remove the runtime label from a node that isn't excluded	pass
 should leave a node matching the exclude selector untouched	pass
 should remove the runtime label when the exclude selector doesn't match the node	pass
@@ -24,5 +31,3 @@ should successfully add or remove schedule info on proper nodes	pass
 Should not return error and nodeExcludeSelector should be nil	pass
 Should parse the selector correctly	pass
 Should return error	pass
-keeps the runtime label on an excluded node when its worker leaves (PR6249 contract)	pass
-still removes the runtime label when the selector does not match the node (PR6249 contract)	pass

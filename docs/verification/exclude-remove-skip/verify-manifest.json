@@ -14,8 +14,10 @@
     "runsAgainst": "base",
     "layer": "unit",
     "verdict": "confirmed",
-    "evidence": "contract spec 'keeps the runtime label on an excluded node when its worker leaves' grafted onto base ff99142 FAILS (vk-node labels reduced to {type: virtual-kubelet}); same spec passes on head 145a2c13 — results/base-run.txt, results/head-run.txt",
-    "match": ["keeps the runtime label on an excluded node when its worker leaves"]
+    "evidence": "contract spec 'keeps the runtime label on an excluded node when its worker leaves' grafted onto base ff99142 FAILS (vk-node labels reduced to {type: virtual-kubelet}); same spec passes on head 145a2c13 \u2014 results/base-run.txt, results/head-run.txt",
+    "match": [
+      "keeps the runtime label on an excluded node when its worker leaves"
+    ]
   },
   "layers": {
     "unit": {
@@ -29,13 +31,26 @@
       "id": "issue-6246-removal-skip",
       "polarity": "contract",
       "layer": "unit",
-      "match": ["keeps the runtime label on an excluded node when its worker leaves"]
+      "match": [
+        "keeps the runtime label on an excluded node when its worker leaves"
+      ]
     },
     {
       "id": "issue-6246-no-false-skip",
       "polarity": "contract",
       "layer": "unit",
-      "match": ["still removes the runtime label when the selector does not match"]
+      "match": [
+        "still removes the runtime label when the selector does not match"
+      ]
+    },
+    {
+      "id": "pr6249-add-path-skip-guard",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "does not add schedule info to an excluded node when a worker lands on it"
+      ],
+      "note": "added round 3 (head 964c8ef22): isNodeExcluded now guards add/capacity/remove; this pins the add call site. Contract must pass on base and head."
     }
   ],
   "liveNote": "L3 not run this round: the claim is deterministic label bookkeeping fully exercised by the fake-client ginkgo layer; a live cluster would repeat the same code path. If wanted: set FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR, label a node before excluding it, scale the runtime down, expect the excluded node's fluid.io/s-* labels to survive."

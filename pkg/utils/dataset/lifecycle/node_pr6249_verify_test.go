@@ -33,6 +33,11 @@ package lifecycle
 //
 //   - V2 (CONTRACT): a selector configured but NOT matching the node must not block
 //     the removal (exercises the Matches==false branch of the new check).
+//
+//   - V3 (CONTRACT, round 3): a node already excluded when its worker pod arrives must
+//     not be labelled by the add path either. Since 964c8ef22 all three guards (add,
+//     capacity refresh, removal) share isNodeExcluded, this pins the add call site that
+//     the PR's refactor now owns. Passes on base and head alike.
 
 import (
 	"context"
@@ -144,6 +149,34 @@ var _ = Describe("PR6249 verification: exclude selector vs schedule info removal
 		Expect(err).To(BeNil())
 		Expect(gotVKNode.Labels).NotTo(HaveKey(runtimeInfo.GetRuntimeLabelName()),
 			"a non-matching selector must leave the removal path active")
+	})
+
+	// V3 (CONTRACT, added in round 3 after commit 964c8ef22 unified the add/capacity/remove
+	// guards behind isNodeExcluded): an excluded node must not be label-patched by the ADD
+	// path either. The selector is set BEFORE the worker pods arrive, so the excluded node
+	// is in the to-add set and only the guard can stop the patch. Passes on base (the add
+	// guard from #5285 predates this PR) and must stay passing on head: a refactor of the
+	// shared helper that broke the add call site would flip this red.
+	It("does not add schedule info to an excluded node when a worker lands on it (PR6249 add-path guard)", func() {
+		By("excluding the vk node before its worker pod arrives")
+		nodeExcludeSelector = labels.SelectorFromSet(labels.Set{"type": "virtual-kubelet"})
+
+		Expect(client.Create(context.TODO(), workerPod("hbase", 0, "node-0"))).To(Succeed())
+		Expect(client.Create(context.TODO(), workerPod("hbase", 1, "vk-node"))).To(Succeed())
+
+		Expect(SyncScheduleInfoToCacheNodes(runtimeInfo, client)).To(Succeed())
+
+		By("the non-excluded node gets the runtime label (control group)")
+		gotNode0, err := kubeclient.GetNode(client, "node-0")
+		Expect(err).To(BeNil())
+		Expect(gotNode0.Labels).To(HaveKeyWithValue(runtimeInfo.GetRuntimeLabelName(), "true"),
+			"the add path must still label non-excluded nodes")
+
+		By("the excluded node is not labelled by the add path")
+		gotVKNode, err := kubeclient.GetNode(client, "vk-node")
+		Expect(err).To(BeNil())
+		Expect(gotVKNode.Labels).NotTo(HaveKey(runtimeInfo.GetRuntimeLabelName()),
+			"an excluded node must not be label-patched by the add path")
 	})
 })
 
