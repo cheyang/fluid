@@ -52,6 +52,8 @@ keep the old credentials); PASSES on the fixed code.
 package juicefs
 
 import (
+	"context"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -67,6 +69,7 @@ import (
 	k8sruntime "k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/net"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/yaml"
 
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
@@ -128,9 +131,10 @@ func TestJuicefsSyncImagePullSecretsPropagation(t *testing.T) {
 		stsOverride, dsOverride []string
 
 		// expectations
-		wantWorker, wantFuse         []string
-		wantCMGlobal, wantCMWorker   []string
-		wantFuseGenerationBumped     bool
+		wantWorker, wantFuse          []string
+		wantCMGlobal, wantCMWorker    []string
+		wantFuseGenerationBumped      bool
+		wantFuseGenerationStable      bool
 	}{
 		{
 			name:       "runtime-wide secrets added reach both components and the configmap",
@@ -187,9 +191,13 @@ func TestJuicefsSyncImagePullSecretsPropagation(t *testing.T) {
 		{
 			// upgrade path: a configmap written by the pre-feature controller records
 			// no secrets at all while the env default is set (the chart already put
-			// the env secrets on the pods at creation). The first sync after the
-			// controller upgrade records the env default and (observed, one-time)
-			// bumps the fuse generation.
+			// the env secrets on the pods at creation). Round-4 update (head
+			// be3337d compares desired secrets against the LIVE template, not the
+			// saved value): the first sync after the controller upgrade still
+			// records the env default in the configmap, but since the live pods
+			// already carry it, the fuse generation must NOT be bumped — a pure
+			// bookkeeping catch-up no longer rolls fuse pods. (At d7e3168 this
+			// scenario observed a one-time spurious bump; the fix removes it.)
 			name:            "configmap predating the feature with env default set records the env default",
 			envSecrets:      "env-secret",
 			oldCMNoSecrets:  true,
@@ -197,7 +205,7 @@ func TestJuicefsSyncImagePullSecretsPropagation(t *testing.T) {
 			dsOverride:      []string{"env-secret"},
 			wantWorker:      []string{"env-secret"}, wantFuse: []string{"env-secret"},
 			wantCMGlobal:    []string{"env-secret"},
-			wantFuseGenerationBumped: true,
+			wantFuseGenerationStable: true,
 		},
 	}
 
@@ -258,8 +266,8 @@ func TestJuicefsSyncImagePullSecretsPropagation(t *testing.T) {
 			mockedObjects.WorkerSts.Spec.Template.Spec.ImagePullSecrets = oldWorkerEffective
 			mockedObjects.FuseDs.Spec.UpdateStrategy.Type = appsv1.OnDeleteDaemonSetStrategyType
 			mockedObjects.FuseDs.Spec.Template.Spec.ImagePullSecrets = oldFuseEffective
-			if c.wantFuseGenerationBumped {
-				// pre-existing generation, so a bump is observable
+			if c.wantFuseGenerationBumped || c.wantFuseGenerationStable {
+				// pre-existing generation, so a bump (or its absence) is observable
 				mockedObjects.FuseDs.Spec.Template.Labels[common.LabelRuntimeFuseGeneration] = "1"
 			}
 
@@ -309,6 +317,8 @@ func TestJuicefsSyncImagePullSecretsPropagation(t *testing.T) {
 			gotGeneration := updatedDs.Spec.Template.Labels[common.LabelRuntimeFuseGeneration]
 			if c.wantFuseGenerationBumped {
 				assert.Equal(t, "2", gotGeneration, "fuse generation must be bumped so fuse pods roll")
+			} else if c.wantFuseGenerationStable {
+				assert.Equal(t, "1", gotGeneration, "fuse generation must not be bumped when the live fuse template already carries the desired secrets (bookkeeping-only catch-up)")
 			} else {
 				assert.NotEqual(t, "2", gotGeneration, "fuse generation must not be bumped when fuse secrets do not change")
 			}
@@ -332,6 +342,203 @@ func TestJuicefsSyncImagePullSecretsPropagation(t *testing.T) {
 				"second sync must not bump the fuse generation again")
 		})
 	}
+}
+
+/*
+Round-4 harness additions (delta d7e3168..be3337d, "fix(juicefs): compare image
+pull secrets against the live templates").
+
+Round 3 recorded three recorded-state-vs-cluster desync edges in the new sync
+bookkeeping (F-worker-lost-update-missing-scriptcm, F-sync-strategy-flip-advance,
+F-sync-override-not-recorded). The round-4 delta closes the *permanence* of all
+three by comparing the desired secrets against the LIVE pod template instead of
+the saved value, and by recording component overrides unconditionally.
+
+Each test below drives the FULL JuiceFSEngine.SyncRuntime entry point over the
+multi-reconcile sequence that produced the round-3 divergence, then asserts the
+workload converges on a later reconcile. Polarity: contract tests — each FAILS
+on the previous head d7e3168 (divergence permanent), PASSES on be3337d.
+*/
+
+// syncDesyncFixture seeds a fake cluster in the previous steady state
+// (configmap + live templates carrying oldGlobal) and hands back an engine
+// whose runtime CR already carries the user's edit (newGlobal / newWorker).
+// workerStrategy is the live worker StatefulSet update strategy;
+// includeWorkerScript controls whether the worker-script configmap exists
+// (its absence is the round-3 F-worker-lost-update-missing-scriptcm trigger).
+func syncDesyncFixture(t *testing.T, oldGlobal, newGlobal, newWorker []string, workerStrategy appsv1.StatefulSetUpdateStrategyType, includeWorkerScript bool) (*JuiceFSEngine, client.Client, mockedObjects) {
+	t.Helper()
+
+	dataset, runtime := mockFluidObjectsForTests(types.NamespacedName{Namespace: "fluid", Name: "jfsdemo"})
+	runtime.Spec.ImagePullSecrets = refs(oldGlobal...)
+
+	engine := mockJuiceFSEngineForTests(dataset, runtime)
+	mockedObjects := mockJuiceFSObjectsForTests(dataset, runtime, engine)
+
+	require.NoError(t, setupRuntimePortAllocatorForTest())
+
+	jfsSecret := &corev1.Secret{
+		ObjectMeta: metav1.ObjectMeta{Name: "jfs-secret", Namespace: "fluid"},
+		Data: map[string][]byte{
+			"token":      []byte("token"),
+			"access-key": []byte("ak"),
+			"secret-key": []byte("sk"),
+		},
+	}
+	seedClient := fake.NewFakeClientWithScheme(datav1alpha1.UnitTestScheme, dataset.DeepCopy(), runtime.DeepCopy(), jfsSecret)
+	engine.Client = seedClient
+
+	// the old configmap value is the real transform() output for the OLD spec
+	oldValue, err := engine.transform(runtime)
+	require.NoError(t, err)
+	oldData, err := yaml.Marshal(oldValue)
+	require.NoError(t, err)
+
+	mockedObjects.WorkerSts.Spec.UpdateStrategy.Type = workerStrategy
+	mockedObjects.WorkerSts.Spec.Template.Spec.ImagePullSecrets = refs(oldGlobal...)
+	mockedObjects.FuseDs.Spec.UpdateStrategy.Type = appsv1.OnDeleteDaemonSetStrategyType
+	mockedObjects.FuseDs.Spec.Template.Spec.ImagePullSecrets = refs(oldGlobal...)
+	mockedObjects.FuseDs.Spec.Template.Labels[common.LabelRuntimeFuseGeneration] = "1"
+
+	valuesConfigmap := &corev1.ConfigMap{
+		ObjectMeta: metav1.ObjectMeta{Name: engine.getHelmValuesConfigMapName(), Namespace: "fluid"},
+		Data:       map[string]string{"data": string(oldData)},
+	}
+
+	// the user's edit: the runtime CR now carries the NEW spec
+	runtime.Spec.ImagePullSecrets = refs(newGlobal...)
+	runtime.Spec.Worker.ImagePullSecrets = refs(newWorker...)
+
+	resources := []k8sruntime.Object{
+		dataset.DeepCopy(),
+		runtime.DeepCopy(),
+		mockedObjects.WorkerSts.DeepCopy(),
+		mockedObjects.FuseDs.DeepCopy(),
+		mockedObjects.PersistentVolume,
+		mockedObjects.PersistentVolumeClaim,
+		jfsSecret.DeepCopy(),
+		valuesConfigmap.DeepCopy(),
+	}
+	for name, v := range mockedObjects.ConfigMaps {
+		if !includeWorkerScript && name == fmt.Sprintf("%s-worker-script", runtime.Name) {
+			continue
+		}
+		resources = append(resources, v.DeepCopy())
+	}
+
+	fakeClient := fake.NewFakeClientWithScheme(datav1alpha1.UnitTestScheme, resources...)
+	engine.Client = fakeClient
+	engine.runtimeInfo.SetFuseName(engine.getFuseName())
+	return engine, fakeClient, mockedObjects
+}
+
+// F-worker-lost-update-missing-scriptcm: when the worker-script configmap is
+// missing, the first sync advances the values configmap without updating the
+// worker StatefulSet (the transient divergence — still observable at head, see
+// the round-4 findings). The PERMANENCE is what the fix removes: once the
+// configmap comes back, the next reconcile must converge the worker template,
+// because the comparison is against the live template rather than the saved
+// value. At d7e3168 the second reconcile was a no-op and the worker stayed on
+// the old credentials forever.
+func TestJuicefsSyncSecretsMissingScriptConfigmapRecovers(t *testing.T) {
+	t.Setenv(common.EnvImagePullSecretsKey, "")
+
+	engine, client, mockedObjects := syncDesyncFixture(t, []string{"g1"}, []string{"g2"}, nil, appsv1.OnDeleteStatefulSetStrategyType, false)
+
+	workerScriptCm := &corev1.ConfigMap{}
+	for name, v := range mockedObjects.ConfigMaps {
+		if name == fmt.Sprintf("%s-worker-script", "jfsdemo") {
+			workerScriptCm = v.DeepCopy()
+		}
+	}
+	require.NotEmpty(t, workerScriptCm.Name, "fixture must hold the worker-script configmap for the recovery step")
+
+	// pass 1: the script configmap is missing; syncWorkerSpec early-returns
+	// after the in-memory bookkeeping. No error surfaces.
+	_, err := engine.SyncRuntime(cruntime.ReconcileRequestContext{})
+	require.NoError(t, err, "SyncRuntime must not error while the script configmap is missing")
+	sts, err := kubeclient.GetStatefulSet(client, mockedObjects.WorkerSts.Name, mockedObjects.WorkerSts.Namespace)
+	require.NoError(t, err)
+	assert.Equal(t, []string{"g1"}, namesOf(sts.Spec.Template.Spec.ImagePullSecrets),
+		"pass 1: the worker sts is not updated while the script configmap is missing (known transient divergence)")
+
+	// pass 2: the abnormal cluster state clears; the worker must converge.
+	require.NoError(t, client.Create(context.TODO(), workerScriptCm))
+	_, err = engine.SyncRuntime(cruntime.ReconcileRequestContext{})
+	require.NoError(t, err)
+	sts, err = kubeclient.GetStatefulSet(client, mockedObjects.WorkerSts.Name, mockedObjects.WorkerSts.Namespace)
+	require.NoError(t, err)
+	assert.Equal(t, []string{"g2"}, namesOf(sts.Spec.Template.Spec.ImagePullSecrets),
+		"pass 2: once the script configmap is back, the worker sts must catch up to the new secrets (permanent at d7e3168, fixed at be3337d)")
+}
+
+// F-sync-strategy-flip-advance: with a non-OnDelete worker update strategy the
+// first sync flips the strategy and returns, while the values configmap
+// advances. The next reconcile must then converge the worker template.
+// At d7e3168 the worker stayed on the old credentials permanently.
+func TestJuicefsSyncSecretsStrategyFlipCatchesUp(t *testing.T) {
+	t.Setenv(common.EnvImagePullSecretsKey, "")
+
+	engine, client, mockedObjects := syncDesyncFixture(t, []string{"g1"}, []string{"g2"}, nil, appsv1.RollingUpdateStatefulSetStrategyType, true)
+
+	// pass 1: strategy is not OnDelete; syncWorkerSpec flips it and returns.
+	_, err := engine.SyncRuntime(cruntime.ReconcileRequestContext{})
+	require.NoError(t, err)
+	sts, err := kubeclient.GetStatefulSet(client, mockedObjects.WorkerSts.Name, mockedObjects.WorkerSts.Namespace)
+	require.NoError(t, err)
+	assert.Equal(t, appsv1.OnDeleteStatefulSetStrategyType, sts.Spec.UpdateStrategy.Type, "pass 1: the strategy is flipped to OnDelete")
+
+	// pass 2: the sts update event reconciles again; the worker must converge.
+	_, err = engine.SyncRuntime(cruntime.ReconcileRequestContext{})
+	require.NoError(t, err)
+	sts, err = kubeclient.GetStatefulSet(client, mockedObjects.WorkerSts.Name, mockedObjects.WorkerSts.Namespace)
+	require.NoError(t, err)
+	assert.Equal(t, []string{"g2"}, namesOf(sts.Spec.Template.Spec.ImagePullSecrets),
+		"pass 2: after the strategy flip, the worker sts must catch up to the new secrets (permanent at d7e3168, fixed at be3337d)")
+}
+
+// F-sync-override-not-recorded: rotating the runtime-wide secrets a->b while
+// adding a worker override set to a is an effective no-op for the worker, but
+// the override must still be recorded; removing the override later must then
+// drop the worker onto b. At d7e3168 the override was never recorded, so the
+// removal left the worker pulling with a permanently.
+func TestJuicefsSyncSecretsRotationThenOverrideRemoval(t *testing.T) {
+	t.Setenv(common.EnvImagePullSecretsKey, "")
+
+	engine, client, mockedObjects := syncDesyncFixture(t, []string{"a"}, []string{"b"}, []string{"a"}, appsv1.OnDeleteStatefulSetStrategyType, true)
+
+	// pass 1: rotation plus override. The worker template legitimately stays on
+	// a (its effective list did not change) — but the override must be recorded.
+	_, err := engine.SyncRuntime(cruntime.ReconcileRequestContext{})
+	require.NoError(t, err)
+	sts, err := kubeclient.GetStatefulSet(client, mockedObjects.WorkerSts.Name, mockedObjects.WorkerSts.Namespace)
+	require.NoError(t, err)
+	assert.Equal(t, []string{"a"}, namesOf(sts.Spec.Template.Spec.ImagePullSecrets), "pass 1: worker keeps its effective list")
+	cm, err := engine.GetValuesConfigMap()
+	require.NoError(t, err)
+	synced := &JuiceFS{}
+	require.NoError(t, yaml.Unmarshal([]byte(cm.Data["data"]), synced))
+	assert.Equal(t, []string{"b"}, namesOf(synced.ImagePullSecrets), "pass 1: configmap records the rotated global secrets")
+	assert.Equal(t, []string{"a"}, namesOf(synced.Worker.ImagePullSecrets),
+		"pass 1: configmap records the worker override even though the effective list did not change (not recorded at d7e3168)")
+
+	// pass 2: the user removes the override; the worker must fall back to b.
+	// getRuntime() re-fetches the CR from the client, so updating it suffices.
+	edited := &datav1alpha1.JuiceFSRuntime{}
+	require.NoError(t, client.Get(context.TODO(), types.NamespacedName{Namespace: "fluid", Name: "jfsdemo"}, edited))
+	edited.Spec.Worker.ImagePullSecrets = nil
+	require.NoError(t, client.Update(context.TODO(), edited))
+	_, err = engine.SyncRuntime(cruntime.ReconcileRequestContext{})
+	require.NoError(t, err)
+	sts, err = kubeclient.GetStatefulSet(client, mockedObjects.WorkerSts.Name, mockedObjects.WorkerSts.Namespace)
+	require.NoError(t, err)
+	assert.Equal(t, []string{"b"}, namesOf(sts.Spec.Template.Spec.ImagePullSecrets),
+		"pass 2: removing the override must move the worker to the runtime-wide secrets (stuck on a at d7e3168)")
+	cm, err = engine.GetValuesConfigMap()
+	require.NoError(t, err)
+	synced = &JuiceFS{}
+	require.NoError(t, yaml.Unmarshal([]byte(cm.Data["data"]), synced))
+	assert.Nil(t, namesOf(synced.Worker.ImagePullSecrets), "pass 2: configmap clears the removed override")
 }
 
 // TestJuicefsSampleDocsSyncClaim pins the round-3 docs consistency requirement:
