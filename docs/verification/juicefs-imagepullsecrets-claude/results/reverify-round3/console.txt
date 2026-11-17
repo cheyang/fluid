@@ -1,0 +1,26 @@
+re-verify: manifest = docs/verification/juicefs-imagepullsecrets-claude/verify-manifest.json
+re-verify: resolving PR head via 'git fetch https://github.com/fluid-cloudnative/fluid.git pull/6245/head' (machine-independent)
+re-verify: current head = d7e316803a0e4b667ad4f9a19d10c605579e1ad1
+re-verify: last-reviewed = 3271f28d7c3bc126d221422abdb9e6e0048eb9c9  (review delta = 3271f28d7c3bc126d221422abdb9e6e0048eb9c9..d7e316803a0e4b667ad4f9a19d10c605579e1ad1)
+re-verify: fixed-ref=d7e316803a0e4b667ad4f9a19d10c605579e1ad1  harness-from=verify/juicefs-imagepullsecrets-claude
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'integration' (ginkgo)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+C1-hierarchical-precedence-controller contract  integration  FIXED          pass=7 fail=0 miss=0
+C2-chart-render-fallback contract  integration  FIXED          pass=5 fail=0 miss=0
+C3-env-default-back-compat contract  integration  FIXED          pass=1 fail=0 miss=0
+C4-apidoc-row-placement contract  unit         FIXED          pass=1 fail=0 miss=0
+C5-sync-propagation contract  unit         FIXED          pass=1 fail=0 miss=0
+C6-sample-docs-sync-claim contract  unit         STILL-BROKEN   pass=0 fail=1 miss=0
+
+Live layer (manual): L3 (live cluster) intentionally not run this round: pipeline configured for unit + integration layers only. The chart rendering inside the ginkgo scenarios covers the helm layer without a cluster.
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/juicefs-imagepullsecrets-claude/results/reverify
+
+Review delta this round: 3271f28d7c3bc126d221422abdb9e6e0048eb9c9..d7e316803a0e4b667ad4f9a19d10c605579e1ad1
+After reviewing that delta, advance the marker for the next round:
+  echo d7e316803a0e4b667ad4f9a19d10c605579e1ad1 > docs/verification/juicefs-imagepullsecrets-claude/.last-reviewed && git add docs/verification/juicefs-imagepullsecrets-claude/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: not all findings fixed.
