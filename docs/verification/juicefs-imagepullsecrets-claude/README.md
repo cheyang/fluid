@@ -205,3 +205,52 @@ runtime" (zh) — now contradicted by the sync commit. Contract test: RED on hea
 Polarity: C5's previous-head run doubles as the harness-bites check (removing
 the sync code = the round-2 head, where all scenarios fail). C6 bites by being
 RED on the committed docs.
+
+## Round 4 (delta d7e3168..be3337d, "fix(juicefs): compare image pull secrets against the live templates")
+
+One commit answering round 3's three desync findings (Copilot-flagged, both
+reviewers confirmed by tracing): `checkAndSetWorkerChanges` /
+`checkAndSetFuseChanges` now compare the desired effective secrets against the
+**live pod template** instead of the saved value, component overrides are
+recorded unconditionally, and `SyncRuntime` commits the configmap when only an
+override changed (`overridesChanged`). The harness runs via
+`scripts/re-verify.sh` (grafts onto the current PR head `be3337dd`).
+
+Harness updates this round (production code still untouched):
+
+- **New** `TestJuicefsSyncSecretsMissingScriptConfigmapRecovers` (C7,
+  F-worker-lost-update-missing-scriptcm): pass 1 with the worker-script
+  configmap missing observes the transient divergence (sts keeps `[g1]`,
+  configmap records `[g2]`, no error); after the configmap is restored, pass 2
+  converges the sts to `[g2]`. **RED on d7e3168** (pass 2 was a no-op — the
+  permanence round 3 flagged), **GREEN on be3337d**.
+- **New** `TestJuicefsSyncSecretsStrategyFlipCatchesUp` (C8,
+  F-sync-strategy-flip-advance): pass 1 with a RollingUpdate worker strategy
+  flips the strategy and returns; pass 2 converges the worker template. **RED
+  on d7e3168**, **GREEN on be3337d**.
+- **New** `TestJuicefsSyncSecretsRotationThenOverrideRemoval` (C9,
+  F-sync-override-not-recorded): rotation a→b + worker override `a` records the
+  override (pass 1); removing the override drops the worker onto `b` (pass 2).
+  **RED on d7e3168** on both facets (override never recorded; worker stuck on
+  `a`), **GREEN on be3337d**.
+- **Harness-update** on the round-3 scenario "configmap predating the feature
+  with env default set records the env default": it now asserts the fuse
+  generation is **NOT** bumped (a bookkeeping-only catch-up no longer rolls
+  fuse pods, since the live template already carries the desired secrets). The
+  updated expectation fails on d7e3168 (where the bump was observed), so it
+  still bites; the author confirms the change is intentional.
+
+| claim | verdict | evidence |
+| --- | --- | --- |
+| C1/C2/C3 (precedence, chart fallback, env back-compat) | **unchanged, green** on be3337d | `results/reverify-round4/console-head.txt` |
+| C4-apidoc-row-placement | **FIXED** (unchanged from round 3) | same |
+| C5-sync-propagation | **FIXED** — all 8 scenarios pass with the round-4 expectations; the three new desync recovery tests pass | `results/reverify-round4/` |
+| C6-sample-docs-sync-claim | **OPEN** — `docs/{en,zh}/samples/image_pull_secrets.md` still end the JuiceFSRuntime section with "changing them … needs the runtime to be recreated" (en:108 / zh:104); the fix commit did not touch the docs. This is round 3's single pre-merge MUST, still unmet. | `results/reverify-round4/console-head.txt` |
+| C7/C8/C9 desync recovery | **FIXED** on be3337d (RED on d7e3168) | `results/reverify-round4/previous-head-desync-repro.txt` |
+| Full package suite on head | 183/183 ginkgo specs pass, `go build ./...` clean, `go test ./api/...` ok; the only red is the C6 docs reproduction; the author's `TestSyncImagePullSecrets` (7 scenarios) + `TestSyncImagePullSecretsRotationThenOverrideRemoval` pass | `results/reverify-round4/full-package-head.txt` |
+
+Residual (nit, non-gating): while the worker-script configmap is missing, the
+values configmap still advances past the worker StatefulSet and no error is
+surfaced — but the divergence is now **transient and self-healing** (every
+reconcile retries; convergence proven by C7), which is what round 3 actually
+asked for. CI at head (SonarCloud, DCO) green.

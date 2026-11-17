@@ -1,0 +1,75 @@
+2026/11/18 05:45:09 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestJuicefsSyncSecretsMissingScriptConfigmapRecovers
+    sync_imagepullsecrets_harness_test.go:471: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:471
+        	Error:      	Not equal: 
+        	            	expected: []string{"g2"}
+        	            	actual  : []string{"g1"}
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,3 +1,3 @@
+        	            	 ([]string) (len=1) {
+        	            	- (string) (len=2) "g2"
+        	            	+ (string) (len=2) "g1"
+        	            	 }
+        	Test:       	TestJuicefsSyncSecretsMissingScriptConfigmapRecovers
+        	Messages:   	pass 2: once the script configmap is back, the worker sts must catch up to the new secrets (permanent at d7e3168, fixed at be3337d)
+--- FAIL: TestJuicefsSyncSecretsMissingScriptConfigmapRecovers (0.00s)
+=== RUN   TestJuicefsSyncSecretsStrategyFlipCatchesUp
+    sync_imagepullsecrets_harness_test.go:496: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:496
+        	Error:      	Not equal: 
+        	            	expected: []string{"g2"}
+        	            	actual  : []string{"g1"}
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,3 +1,3 @@
+        	            	 ([]string) (len=1) {
+        	            	- (string) (len=2) "g2"
+        	            	+ (string) (len=2) "g1"
+        	            	 }
+        	Test:       	TestJuicefsSyncSecretsStrategyFlipCatchesUp
+        	Messages:   	pass 2: after the strategy flip, the worker sts must catch up to the new secrets (permanent at d7e3168, fixed at be3337d)
+--- FAIL: TestJuicefsSyncSecretsStrategyFlipCatchesUp (0.00s)
+=== RUN   TestJuicefsSyncSecretsRotationThenOverrideRemoval
+    sync_imagepullsecrets_harness_test.go:522: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:522
+        	Error:      	Not equal: 
+        	            	expected: []string{"a"}
+        	            	actual  : []string(nil)
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,4 +1,2 @@
+        	            	-([]string) (len=1) {
+        	            	- (string) (len=1) "a"
+        	            	-}
+        	            	+([]string) <nil>
+        	            	 
+        	Test:       	TestJuicefsSyncSecretsRotationThenOverrideRemoval
+        	Messages:   	pass 1: configmap records the worker override even though the effective list did not change (not recorded at d7e3168)
+    sync_imagepullsecrets_harness_test.go:535: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:535
+        	Error:      	Not equal: 
+        	            	expected: []string{"b"}
+        	            	actual  : []string{"a"}
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,3 +1,3 @@
+        	            	 ([]string) (len=1) {
+        	            	- (string) (len=1) "b"
+        	            	+ (string) (len=1) "a"
+        	            	 }
+        	Test:       	TestJuicefsSyncSecretsRotationThenOverrideRemoval
+        	Messages:   	pass 2: removing the override must move the worker to the runtime-wide secrets (stuck on a at d7e3168)
+--- FAIL: TestJuicefsSyncSecretsRotationThenOverrideRemoval (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	0.025s
+FAIL

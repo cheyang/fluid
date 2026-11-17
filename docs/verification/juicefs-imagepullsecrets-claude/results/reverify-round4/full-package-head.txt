@@ -1,0 +1,141 @@
+2026/11/18 05:45:51 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+[31m[0m[33m[0m[32m
+0 total assertions[0m
+
+Running Suite: Juicefs Suite - /home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs
+=========================================================================================================
+Random Seed: [1m1794951951[0m
+
+Will run [1m183[0m of [1m183[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0mjuicefs/fuse:v2.0.0
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14801, 14152]}
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [15609, 15218]}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 79.263µs	{"name": "test"}
+[38;5;10m•[0m2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14680, 14564]}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 57.902µs	{"name": "test"}
+[38;5;10m•[0m2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [15614, 15944]}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 38.981µs	{"name": "test"}
+[38;5;10m•[0m2026-11-18T05:46:03+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 28.931µs	{"name": "test"}
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m2026-11-18T05:46:03+08:00	INFO	utils	Succeed in finding the object	{"runtime": {"metadata":{"name":"hbase","namespace":"fluid","resourceVersion":"999","creationTimestamp":null},"spec":{"juicefsVersion":{},"initUsers":{"resources":{}},"master":{"resources":{},"podMetadata":{}},"worker":{"resources":{},"podMetadata":{}},"jobWorker":{"resources":{},"podMetadata":{}},"fuse":{"resources":{},"podMetadata":{}},"tieredstore":{},"podMetadata":{},"management":{"cleanCachePolicy":{},"metadataSyncPolicy":{}}},"status":{"valueFile":"","masterPhase":"","workerPhase":"","desiredWorkerNumberScheduled":0,"currentWorkerNumberScheduled":0,"workerNumberReady":0,"desiredMasterNumberScheduled":0,"currentMasterNumberScheduled":0,"masterNumberReady":0,"fusePhase":"","currentFuseNumberScheduled":0,"desiredFuseNumberScheduled":0,"fuseNumberReady":0}}}
+[38;5;10m•[0m2026-11-18T05:46:03+08:00	DEBUG	utils	Object not exists yet, skip.	{"runtime": {"metadata":{"creationTimestamp":null},"spec":{"juicefsVersion":{},"initUsers":{"resources":{}},"master":{"resources":{},"podMetadata":{}},"worker":{"resources":{},"podMetadata":{}},"jobWorker":{"resources":{},"podMetadata":{}},"fuse":{"resources":{},"podMetadata":{}},"tieredstore":{},"podMetadata":{},"management":{"cleanCachePolicy":{},"metadataSyncPolicy":{}}},"status":{"valueFile":"","masterPhase":"","workerPhase":"","desiredWorkerNumberScheduled":0,"currentWorkerNumberScheduled":0,"workerNumberReady":0,"desiredMasterNumberScheduled":0,"currentMasterNumberScheduled":0,"masterNumberReady":0,"fusePhase":"","currentFuseNumberScheduled":0,"desiredFuseNumberScheduled":0,"fuseNumberReady":0}}}
+[38;5;10m•[0m2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14876, 14922]}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 46.942µs	{"name": "test"}
+[38;5;10m•[0m2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [15809, 14185]}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 94.673µs	{"name": "test"}
+[38;5;10m•[0m2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14401, 14350]}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 114.484µs	{"name": "test"}
+[38;5;10m•[0m2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14751, 15193]}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 94.523µs	{"name": "test"}
+[38;5;10m•[0m2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [15544, 15894]}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 93.363µs	{"name": "test"}
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m2026-11-18T05:46:03+08:00	DEBUG	test	Nothing to do for syncing
+2026-11-18T05:46:03+08:00	DEBUG	test	Update runtime status	{"runtime": "fluid/test"}
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m2026-11-18T05:46:03+08:00	INFO	test1	workers are not ready
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;10m[1mRan 183 of 183 Specs in 0.221 seconds[0m
+[38;5;10m[1mSUCCESS![0m -- [38;5;10m[1m183 Passed[0m | [38;5;9m[1m0 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+2026-11-18T05:46:03+08:00	DEBUG	kubeclient	Skip deleting the configmap because it was not found	{"name": "test--values", "namespace": "fluid"}
+2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": []}
+2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [104, 101]}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 65.972µs	{"name": "test"}
+2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [85, 68]}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 44.922µs	{"name": "test"}
+2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [71, 64]}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 22.151µs	{"name": "test"}
+2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [74, 58]}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 21.231µs	{"name": "test"}
+<nil>
+2026-11-18T05:46:03+08:00	DEBUG	kubeclient	Skip deleting the configmap because it was not found	{"name": "test--values", "namespace": "fluid"}
+2026-11-18T05:46:03+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [46, 59]}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 40.901µs	{"name": "test"}
+2026-11-18T05:46:03+08:00	INFO	dataset.lifecycle	Placement Mode	{"runtime": "test", "namespace": "big-data", "mode": "Exclusive"}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	polling up-to-date cache status when scheduling took 13.331µs	{"nodeToLabel": "node1"}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	LabelCacheNode took 371.243µs	{"runtime": "test", "namespace": "big-data", "node": "node1"}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	SyncScheduleInfoToCacheNodes took 600.532µs	{"name": "test", "namespace": "big-data"}
+2026-11-18T05:46:03+08:00	INFO	dataset.lifecycle	Placement Mode	{"runtime": "test2", "namespace": "big-data", "mode": "Exclusive"}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	polling up-to-date cache status when scheduling took 8.5µs	{"nodeToLabel": "node2"}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	LabelCacheNode took 199.517µs	{"runtime": "test2", "namespace": "big-data", "node": "node2"}
+2026-11-18T05:46:03+08:00	INFO	dataset.lifecycle	Placement Mode	{"runtime": "test2", "namespace": "big-data", "mode": "Exclusive"}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	polling up-to-date cache status when scheduling took 8.17µs	{"nodeToLabel": "node3"}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	LabelCacheNode took 185.547µs	{"runtime": "test2", "namespace": "big-data", "node": "node3"}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	SyncScheduleInfoToCacheNodes took 513.368µs	{"name": "test2", "namespace": "big-data"}
+2026-11-18T05:46:03+08:00	INFO	dataset.lifecycle	Placement Mode	{"runtime": "test3", "namespace": "big-data", "mode": "Exclusive"}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	polling up-to-date cache status when scheduling took 7.28µs	{"nodeToLabel": "node4"}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	LabelCacheNode took 179.446µs	{"runtime": "test3", "namespace": "big-data", "node": "node4"}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	SyncScheduleInfoToCacheNodes took 280.39µs	{"name": "test3", "namespace": "big-data"}
+2026-11-18T05:46:03+08:00	INFO	dataset.lifecycle	check node labels	{"runtime": "test4", "namespace": "big-data", "labelNames": ["fluid.io/s-juicefs-big-data-test4", "fluid.io/s-h-juicefs-t-big-data-test4", "fluid.io/s-h-juicefs-d-big-data-test4", "fluid.io/s-h-juicefs-m-big-data-test4", "fluid.io/s-big-data-test4"]}
+2026-11-18T05:46:03+08:00	INFO	dataset.lifecycle	Destroy worker	{"runtime": "test4", "namespace": "big-data", "Dataset": "test4", "deleted worker node": "node6", "removed or updated labels": ["fluid.io/s-juicefs-big-data-test4", "fluid.io/s-h-juicefs-t-big-data-test4", "fluid.io/s-h-juicefs-d-big-data-test4", "fluid.io/s-h-juicefs-m-big-data-test4", "fluid.io/s-big-data-test4"]}
+2026-11-18T05:46:03+08:00	DEBUG	utils.time	SyncScheduleInfoToCacheNodes took 265.789µs	{"name": "test4", "namespace": "big-data"}
+2026-11-18T05:46:03+08:00	DEBUG	kubeclient	Skip deleting the configmap because it was not found	{"name": "test-worker-script", "namespace": "fluid"}
+2026-11-18T05:46:03+08:00	DEBUG	kubeclient	Skip deleting the configmap because it was not found	{"name": "test-fuse-script", "namespace": "fluid"}
+2026-11-18T05:46:03+08:00	DEBUG	kubeclient	SKip deleteing the serviceAccount due to it's not found	{"name": "test-loader", "namespace": "fluid"}
+2026-11-18T05:46:03+08:00	DEBUG	kubeclient	SKip deleteing the role due to it's not found	{"name": "test-loader", "namespace": "fluid"}
+2026-11-18T05:46:03+08:00	DEBUG	kubeclient	SKip deleteing the rolebinding due to it's not found	{"name": "test-loader", "namespace": "fluid"}
+[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m[0m[33m[0m[32m
+5 total assertions[0m
+
+2026-11-18T05:46:03+08:00	DEBUG	kubeclient	Skip deleting the configmap because it was not found	{"name": "test--values", "namespace": "fluid"}
+2026-11-18T05:46:03+08:00	DEBUG	kubeclient	ExecWithOptions	{"ExecWithOptions": "{Command: [df --block-size=1], Namespace: fluid, PodName: test, ContainerName: juicefs-worker, CaptureStdout: true, CaptureStderr: true, PreserveWhitespace: false}"}
+2026-11-18T05:46:03+08:00	DEBUG	kubeclient	ExecWithOptions	{"ExecWithOptions": "{Command: [df --block-size=1], Namespace: fluid, PodName: test, ContainerName: juicefs-worker, CaptureStdout: true, CaptureStderr: true, PreserveWhitespace: false}"}
+2026-11-18T05:46:03+08:00	DEBUG	kubeclient	ExecWithOptions	{"ExecWithOptions": "{Command: [df --block-size=1], Namespace: fluid, PodName: test, ContainerName: juicefs-worker, CaptureStdout: true, CaptureStderr: true, PreserveWhitespace: false}"}
+[31m[0m[33m[0m[32m
+5 total assertions[0m
+
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 271.94µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 204.907µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 41.862µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 257.359µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 205.887µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 50.342µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 243.859µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 200.227µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 40.442µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 230.138µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 204.517µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 38.431µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 256.269µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 194.827µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 39.132µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 222.537µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 218.797µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 38.621µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 259.439µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 206.857µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 38.261µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 218.308µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 191.737µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 37.061µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 335.642µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 214.768µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 41.752µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 228.628µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 227.228µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 45.842µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 223.518µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 679.154µs	{"name": "jfsdemo"}
+2026-11-18T05:46:04+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 46.422µs	{"name": "jfsdemo"}
+--- FAIL: TestJuicefsSampleDocsSyncClaim (0.00s)
+    sync_imagepullsecrets_harness_test.go:563: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:563
+        	Error:      	"# image pull secrets\n\n\nif the images of fluid runtime is in private docker registry, it's necessary to set image pull secret.\nfor related knowledge of image pull secret,     \nplease refer to [pull an image from a private registry\n](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)\n\nfluid supports setting image pull secrets when you deploy fluid service using helm charts\n\nyou can set the image pull secrets to `values.yaml` like the following example\n```yaml\n# fluid helm charts values.yaml \n# default imagepullsecrets value is empty\nimage:\n  imagepullsecrets: []\n\n# set values like this \n# suppose you have two image pull secret keys `test-1` and `test-2` in your cluster\nimage:\n  imagepullsecrets: \n  - name: test-1\n  - name: test-2\n```\n\nafter setting `values.yaml` image pull secrets, when you have deployed the fluid service,  \nyou can see that controller itself already uses image pull secrets\n\n\n\nalluxio controller yaml intercepts information\n```yaml\napiversion: apps/v1\nkind: deployment\nmetadata:\n  name: alluxioruntime-controller\n  namespace: fluid-system\nspec:\n  template:\n    spec:\n      containers:\n      - image: fluidcloudnative/alluxioruntime-controller:\n        name: manager\n      dnspolicy: clusterfirst\n      imagepullsecrets:\n      - name: test-1\n      - name: test-2\n```\n\nfluid also supports passing the image pull secrets through the controller to the runtime service that the controller pulls up\n\nif you want to specify the image pull key for the runtime, you can do so by editing the environment variables in the deployment associated with the runtime controller that you have created.\n\nhere is a brief yaml configuration example. when properly configured, the deployment will apply the image pull secret you specified.\n\n```yaml\n- name: image_pull_secrets\n  value: test-1,test-2\n```\n\nin the above yaml file, `image_pull_secrets` is the name of the environment variable, and `test-1,test-2` are the image pull keys you wish to specify, separated by commas.\n\n\n\n\nalluxio runtime master yaml intercepts information\n```yaml\napiversion: apps/v1\nkind: statefulset\nmetadata:\n  name: demo-master\n  namespace: test\nspec:\n  template:\n    spec:\n      containers:\n      - image: fluidcloudnative/alluxio:release-2.8.1-snapshot-0433ade\n        imagepullpolicy: ifnotpresent\n        name: alluxio-master\n      imagepullsecrets:\n      - name: test1\n      - name: test2\n\n```\nin conclusion, image pull secrets setting successfully\n\n\n## setting image pull secrets in juicefsruntime\n\njuicefsruntime can also set image pull secrets in its spec, so different runtimes can pull from different private registries without changing the controller. `spec.imagepullsecrets` applies to the worker and fuse, and `spec.worker.imagepullsecrets` or `spec.fuse.imagepullsecrets` override it for that component. when none of them is set, the `image_pull_secrets` value of the controller is used as before.\n\n```yaml\napiversion: data.fluid.io/v1alpha1\nkind: juicefsruntime\nmetadata:\n  name: jfsdemo\nspec:\n  imagepullsecrets:\n  - name: test-1\n  worker:\n    imagepullsecrets:\n    - name: worker-registry\n  fuse:\n    imagepullsecrets:\n    - name: fuse-registry\n```\n\n`spec.master.imagepullsecrets` and `spec.jobworker.imagepullsecrets` have no effect for now. the secrets are applied when the runtime's worker and fuse are created, so changing them on an existing runtime needs the runtime to be recreated.\n" should not contain "needs the runtime to be recreated"
+        	Test:       	TestJuicefsSampleDocsSyncClaim
+        	Messages:   	docs/en still claims changing imagePullSecrets requires recreating the runtime, but the sync path now propagates the change
+    sync_imagepullsecrets_harness_test.go:565: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:565
+        	Error:      	"# 从私有仓库拉取镜像\n\n如果 fluid 镜像存储在私有镜像仓库, 部署 fluid 需要设置镜像拉取密钥  \n关于镜像拉取密钥,请参考[从私有仓库拉取镜像](https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/pull-image-private-registry/)\n\n使用 helm charts 部署 fluid 支持设置镜像拉取密钥\n\n通过在 `values.yaml` 设置密钥, 如下\n```yaml\n# fluid helm charts values.yaml \n# imagepullsecrets 默认值是空\nimage:\n  imagepullsecrets: []\n\n# 设置密钥\n# 假设有两个密钥 `test-1` 和 `test-2`\nimage:\n  imagepullsecrets: \n  - name: test-1\n  - name: test-2\n```\n\n通过 `values.yaml` 设置密钥, 完成 fluid 服务部署以后,  \n可以看到在 controller 里面以后包含我们前面设置的密钥 \n\nalluxio controller yaml 截取信息\n```yaml\napiversion: apps/v1\nkind: deployment\nmetadata:\n  name: alluxioruntime-controller\n  namespace: fluid-system\nspec:\n  template:\n    spec:\n      containers:\n      - image: fluidcloudnative/alluxioruntime-controller:\n        name: manager\n      dnspolicy: clusterfirst\n      imagepullsecrets:\n      - name: test-1\n      - name: test-2\n```\n\n\n如果你想指定runtime镜像拉取密钥，可以通过编辑你已经创建的对应runtime controller对应的deployment中的环境变量。runtime controller是由deployment资源创建和管理的，它主要用来管理kubernetes应用的生命周期，以确保指定数量的应用副本在集群中始终正常运行。\n\n这是一个短小的yaml配置示例，正确配置后deployment将作用于你指定的image pull secret。\n\n```yaml\n- name: image_pull_secrets\n  value: test-1,test-2\n```\n\n> 在上述yaml文件中， image_pull_secrets 是环境变量名，test-1,test-2 是你想要指定的镜像拉取密钥，并且以逗号分隔。\n\n\n同时 fluid 也支持 controller 在拉起对应 runtime 服务时, 使用前面配置的镜像拉取密钥   \ncontroller 会传递密钥到 runtime 的服务中\n\nalluxio runtime master yaml 截取信息\n```yaml\napiversion: apps/v1\nkind: statefulset\nmetadata:\n  name: demo-master\n  namespace: test\nspec:\n  template:\n    spec:\n      containers:\n      - image: fluidcloudnative/alluxio:release-2.8.1-snapshot-0433ade\n        imagepullpolicy: ifnotpresent\n        name: alluxio-master\n      imagepullsecrets:\n      - name: test1\n      - name: test2\n\n```\n\n综上, 镜像拉取密钥设置成功\n\n\n## 在 juicefsruntime 中设置镜像拉取密钥\n\njuicefsruntime 也可以在 spec 中设置镜像拉取密钥，这样不同的 runtime 可以从不同的私有镜像仓库拉取镜像，而不需要修改 controller。`spec.imagepullsecrets` 作用于 worker 和 fuse，`spec.worker.imagepullsecrets` 和 `spec.fuse.imagepullsecrets` 可以为对应组件单独覆盖。如果都没有设置，则和之前一样使用 controller 的 `image_pull_secrets`。\n\n```yaml\napiversion: data.fluid.io/v1alpha1\nkind: juicefsruntime\nmetadata:\n  name: jfsdemo\nspec:\n  imagepullsecrets:\n  - name: test-1\n  worker:\n    imagepullsecrets:\n    - name: worker-registry\n  fuse:\n    imagepullsecrets:\n    - name: fuse-registry\n```\n\n`spec.master.imagepullsecrets` 和 `spec.jobworker.imagepullsecrets` 目前不生效。密钥在创建 runtime 的 worker 和 fuse 时生效，修改已有 runtime 的密钥需要重新创建 runtime。\n" should not contain "需要重新创建 runtime"
+        	Test:       	TestJuicefsSampleDocsSyncClaim
+        	Messages:   	docs/zh still claims changing imagePullSecrets requires recreating the runtime, but the sync path now propagates the change
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	12.365s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs/operations	0.013s
+FAIL

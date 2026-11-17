@@ -2,7 +2,7 @@
   "topic": "juicefs-imagepullsecrets",
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6245",
   "reviewer": "claude",
-  "headSha": "d7e316803a0e4b667ad4f9a19d10c605579e1ad1",
+  "headSha": "be3337dd00b5356cae2571d540f3b27d2c9e9ade",
   "baseSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
   "harnessPaths": [
     "docs/verification/juicefs-imagepullsecrets-claude",
@@ -87,7 +87,7 @@
       "id": "C5-sync-propagation",
       "polarity": "contract",
       "layer": "unit",
-      "claim": "Editing imagePullSecrets on an EXISTING JuiceFSRuntime propagates through the sync path (JuiceFSEngine.SyncRuntime, the entry point base/syncs.go calls on every reconcile): the worker StatefulSet and fuse DaemonSet pod templates get the new effective secrets (component > runtime > env, removal reverts to the env default / clears), the fuse generation label is bumped so fuse pods roll, the values configmap records what was synced, a change confined to one component does not touch the other, and a no-op sync re-bumps nothing. Round-2 state: F-copilot-sync-path-no-propagation / #6248 (the allowlist omitted imagePullSecrets; the contract test fails on 3271f28 - results/reverify-round3/previous-head-sync-repro.txt - and passes on d7e3168).",
+      "claim": "Editing imagePullSecrets on an EXISTING JuiceFSRuntime propagates through the sync path (JuiceFSEngine.SyncRuntime, the entry point base/syncs.go calls on every reconcile): the worker StatefulSet and fuse DaemonSet pod templates get the new effective secrets (component > runtime > env, removal reverts to the env default / clears), the fuse generation label is bumped exactly when the live fuse template's secrets change, the values configmap records what was synced (including component overrides even when the effective list is unchanged), a change confined to one component does not touch the other, and a no-op sync re-bumps nothing. Round-4 harness-update: the 'configmap predating the feature' scenario now asserts the fuse generation is NOT bumped for a bookkeeping-only catch-up (the live template already carries the desired secrets); that expectation fails on d7e3168, so it bites.",
       "match": [
         "TestJuicefsSyncImagePullSecretsPropagation"
       ],
@@ -97,11 +97,41 @@
       "id": "C6-sample-docs-sync-claim",
       "polarity": "contract",
       "layer": "unit",
-      "claim": "docs/{en,zh}/samples/image_pull_secrets.md must not keep claiming that changing imagePullSecrets on an existing runtime 'needs the runtime to be recreated' (en) / '\u9700\u8981\u91cd\u65b0\u521b\u5efa runtime' (zh), because commit d7e3168 propagates such changes to the worker StatefulSet and (with a generation bump) the fuse DaemonSet. RED on head d7e3168 (stale claim present in both languages); GREEN once the sentence is updated.",
+      "claim": "docs/{en,zh}/samples/image_pull_secrets.md must not keep claiming that changing imagePullSecrets on an existing runtime 'needs the runtime to be recreated' (en) / '需要重新创建 runtime' (zh), because commit d7e3168 propagates such changes to the worker StatefulSet and (with a generation bump) the fuse DaemonSet. RED on head d7e3168 (stale claim present in both languages); GREEN once the sentence is updated.",
       "match": [
         "TestJuicefsSampleDocsSyncClaim"
       ],
       "firstSeenRound": 3
+    },
+    {
+      "id": "C7-desync-missing-script-cm-recovery",
+      "polarity": "contract",
+      "layer": "unit",
+      "claim": "F-worker-lost-update-missing-scriptcm (round 3, preexisting mechanism, PR-introduced field): while the worker-script configmap is missing, syncWorkerSpec early-returns after the in-memory bookkeeping, so the values configmap advances past the worker StatefulSet. The PERMANENCE must be gone: once the script configmap is restored, the next SyncRuntime must converge the worker template (the comparison is against the live template, not the saved value). RED on d7e3168 (second reconcile a no-op, worker stuck on the old secrets), GREEN on be3337d.",
+      "match": [
+        "TestJuicefsSyncSecretsMissingScriptConfigmapRecovers"
+      ],
+      "firstSeenRound": 4
+    },
+    {
+      "id": "C8-desync-strategy-flip-catches-up",
+      "polarity": "contract",
+      "layer": "unit",
+      "claim": "F-sync-strategy-flip-advance (round 3, PR-introduced): with a non-OnDelete worker update strategy the first sync flips the strategy and returns while the values configmap advances; the next reconcile must then converge the worker template. RED on d7e3168 (worker stuck on the old secrets permanently), GREEN on be3337d.",
+      "match": [
+        "TestJuicefsSyncSecretsStrategyFlipCatchesUp"
+      ],
+      "firstSeenRound": 4
+    },
+    {
+      "id": "C9-desync-rotation-then-override-removal",
+      "polarity": "contract",
+      "layer": "unit",
+      "claim": "F-sync-override-not-recorded (round 3, PR-introduced): rotating the runtime-wide secrets a->b while adding a worker override set to a is an effective no-op for the worker, but the override must be recorded in the values configmap; removing the override later must then drop the worker onto b. RED on d7e3168 (override never recorded; after removal the worker stays on a permanently), GREEN on be3337d. End-to-end version of the author's leaf-level TestSyncImagePullSecretsRotationThenOverrideRemoval.",
+      "match": [
+        "TestJuicefsSyncSecretsRotationThenOverrideRemoval"
+      ],
+      "firstSeenRound": 4
     }
   ],
   "liveNote": "L3 (live cluster) intentionally not run this round: pipeline configured for unit + integration layers only. The chart rendering inside the ginkgo scenarios covers the helm layer without a cluster.",

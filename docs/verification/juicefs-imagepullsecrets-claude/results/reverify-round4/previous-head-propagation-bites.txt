@@ -1,0 +1,20 @@
+2026/11/18 05:45:18 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+--- FAIL: TestJuicefsSyncImagePullSecretsPropagation (0.03s)
+    --- FAIL: TestJuicefsSyncImagePullSecretsPropagation/configmap_predating_the_feature_with_env_default_set_records_the_env_default (0.00s)
+        sync_imagepullsecrets_harness_test.go:321: 
+            	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:321
+            	Error:      	Not equal: 
+            	            	expected: "1"
+            	            	actual  : "2"
+            	            	
+            	            	Diff:
+            	            	--- Expected
+            	            	+++ Actual
+            	            	@@ -1 +1 @@
+            	            	-1
+            	            	+2
+            	Test:       	TestJuicefsSyncImagePullSecretsPropagation/configmap_predating_the_feature_with_env_default_set_records_the_env_default
+            	Messages:   	fuse generation must not be bumped when the live fuse template already carries the desired secrets (bookkeeping-only catch-up)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	0.039s
+FAIL
