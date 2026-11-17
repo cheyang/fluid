@@ -1,0 +1,27 @@
+== diff -r upstream v1.28.0 vs vendored (excluding upstream-only dev files) ==
+== files only in upstream (not vendored) ==
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0: .github
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0: array_test.go
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0/buffer: buffer_test.go
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0/buffer: pool_test.go
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0: clock_test.go
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0: common_test.go
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0: config_test.go
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0: encoder_test.go
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0: error_test.go
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0: example_test.go
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0: field_test.go
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0: flag_test.go
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0: global_test.go
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0: go.mod
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0: go.sum
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0: http_handler_test.go
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0: increase_level_test.go
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0/internal/color: color_test.go
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0/internal/exit: exit_test.go
+Only in /home/ecs-user/go/pkg/mod/go.uber.org/zap@v1.28.0/internal/pool: pool_test.go
+== files only in vendor ==
+== go.sum zap entries at head ==
+go.uber.org/zap v1.19.0/go.mod h1:xg/QME4nWcxGxrpdeYfq7UvYrLh66cuVKdrbD1XF/NI=
+go.uber.org/zap v1.28.0 h1:IZzaP1Fv73/T/pBMLk4VutPl36uNC+OSUh3JLG3FIjo=
+go.uber.org/zap v1.28.0/go.mod h1:rDLpOi171uODNm/mxFcuYWxDsqWSAVkFdX4XojSKg/Q=

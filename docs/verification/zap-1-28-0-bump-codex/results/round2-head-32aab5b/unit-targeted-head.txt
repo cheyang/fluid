@@ -1,0 +1,8 @@
+--- FAIL: TestAlluxio (6.06s)
+--- FAIL: TestCacheEngine (0.25s)
+--- FAIL: TestHelm (0.00s)
+FAIL
+FAIL	./pkg/utils/mount/... [setup failed]
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	10.115s
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.281s
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/helm	0.015s

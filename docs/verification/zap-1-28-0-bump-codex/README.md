@@ -57,3 +57,53 @@ run `bash docs/verification/zap-1-28-0-bump-codex/scripts/re-verify.sh` (it
 auto-fetches the current PR #6241 head). All findings are contract polarity:
 green = good. If a future zap bump changes level parsing or logger setup,
 update the tests additively and note it as Harness-update."
+
+## Round 2 (incremental, 2026-11-18) — head `32aab5bc2fe5`, base `5e6473599f78`
+
+Dependabot force-pushed a rebase (`35c388d` -> `32aab5b`); the zap patch hunks
+are byte-identical (only git blob index lines differ). The base moved
+`ff99142` -> `5e64735`, pulling in #6240 (sigs.k8s.io/yaml 1.6.0), #6244
+(cache-node capacity labels), #6252 (docs).
+
+Re-verification (`scripts/re-verify.sh <sha>`, now with shell-layer support):
+
+| claim | new base `5e64735` | new head `32aab5b` | verdict |
+| --- | --- | --- | --- |
+| C1 build/verify/vet | pass | pass (`all modules verified`, vet clean on all `./cmd/...`) | pass |
+| C2 level parsing | FAIL only on `"warning"` alias (expected delta) | pass | pass, differential preserved |
+| C3 logger shape | pass | pass | pass |
+| C4 nil-Object | FAIL (panic, interface conversion) | pass | fix confirmed present on new base->head |
+| C5 lazyWith race | pass (short run) | pass under `-race` | pass |
+
+Raw: `results/round2-head-32aab5b/`, `results/round2-base-5e64735/`.
+`go mod tidy` no-op at head; vendored zap tree byte-identical to upstream
+v1.28.0 (diff vs module cache, `results/round2-head-32aab5b/vendor-fidelity.txt`);
+zap go.sum h1 unchanged from round 1 (`IZzaP1Fv...`); vendor tree identical to
+previous head (`git ls-tree` diff empty).
+
+### CI failure this round is base-caused, not PR-caused (F3)
+
+`staticcheck` fails on the head with ST1019 in
+`pkg/utils/dataset/lifecycle/node_test.go` (duplicate import of
+`sigs.k8s.io/controller-runtime/pkg/client`, unaliased + `ctrlclient`).
+Attribution, all evidence in `results/round2-head-32aab5b/ci-staticcheck-attribution.txt`:
+
+- Introduced by base commit `6f55f846d` (#6244) — the file had 1 import line at
+  `ff99142`/`35c388d`, 2 at `5e64735`/`32aab5b`.
+- CI `staticcheck` fails on the base commit `5e64735` itself (master run
+  44003825813) and on the PR head (job 133775273253); identical message.
+- Reproduced locally at head with staticcheck v0.7.0-dev
+  (`staticcheck-lifecycle.txt`; note: released 2025.1.1 cannot decode Go 1.27
+  export data, use a master build).
+- Fixed on master by `1321a217d` (#6257, removes the unaliased import);
+  master `dcb76167b` staticcheck green (CI + local
+  `staticcheck-lifecycle-master-dcb76167b.txt` empty).
+- Unblock path: rebase the PR onto master >= `1321a217d` (`@dependabot rebase`).
+
+### F1 spot re-check (round 2)
+
+Targeted unit run on the previously failing areas
+(`pkg/utils/helm`, `pkg/ddc/alluxio`, `pkg/utils/mount/...`, `pkg/ddc/cache/engine`):
+timing-normalized failing set identical on `5e64735` and `32aab5b`
+(`unit-targeted-base.txt` vs `unit-targeted-head.txt`) — still
+environment-only (ddc-helm binary, fake-client/mount fixtures), CI unittest green.

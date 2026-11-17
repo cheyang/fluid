@@ -1,0 +1,3 @@
+go build -mod=vendor ./...	pass
+go mod verify	pass
+go vet -mod=vendor ./cmd/...	pass

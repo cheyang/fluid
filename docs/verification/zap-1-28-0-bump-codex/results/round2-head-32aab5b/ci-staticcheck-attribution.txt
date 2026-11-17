@@ -1,0 +1,16 @@
+== CI check-runs: staticcheck on PR base 5e64735 (master CI) ==
+failure staticcheck (2026-11-17T02:35:25Z) https://github.com/fluid-cloudnative/fluid/actions/runs/44003825813/job/133774166655
+
+== CI check-runs: staticcheck on current master dcb76167b (post-#6257) ==
+success staticcheck (2026-11-17T08:47:58Z)
+
+== CI staticcheck failure log excerpt on PR head 32aab5b (job 133775273253) ==
+pkg/utils/dataset/lifecycle/node_test.go:36:2: package "sigs.k8s.io/controller-runtime/pkg/client" is being imported more than once (ST1019)
+	node_test.go:37:2: other import of "sigs.k8s.io/controller-runtime/pkg/client"
+
+== dup-import counts per revision (git grep on the file) ==
+ff99142f9ec5c32a0c9166de023cb8936f0e5ae5: 1
+35c388d5a797a2442e1b98996975a31008e8f295: 1
+5e6473599f78263a49e521854d80f918a1a10bb0: 2
+32aab5bc2fe517a1b58feee064ab22443ba86535: 2
+dcb76167b: 1
