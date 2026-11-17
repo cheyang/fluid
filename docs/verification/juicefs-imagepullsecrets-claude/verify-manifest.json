@@ -2,12 +2,13 @@
   "topic": "juicefs-imagepullsecrets",
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6245",
   "reviewer": "claude",
-  "headSha": "3271f28d7c3bc126d221422abdb9e6e0048eb9c9",
+  "headSha": "d7e316803a0e4b667ad4f9a19d10c605579e1ad1",
   "baseSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
   "harnessPaths": [
     "docs/verification/juicefs-imagepullsecrets-claude",
     "pkg/ddc/juicefs/imagepullsecrets_harness_test.go",
-    "pkg/ddc/juicefs/imagepullsecrets_apidoc_harness_test.go"
+    "pkg/ddc/juicefs/imagepullsecrets_apidoc_harness_test.go",
+    "pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go"
   ],
   "premise": {
     "id": "P0",
@@ -81,8 +82,28 @@
         "TestJuicefsApiDocImagePullSecretsPlacement"
       ],
       "firstSeenRound": 2
+    },
+    {
+      "id": "C5-sync-propagation",
+      "polarity": "contract",
+      "layer": "unit",
+      "claim": "Editing imagePullSecrets on an EXISTING JuiceFSRuntime propagates through the sync path (JuiceFSEngine.SyncRuntime, the entry point base/syncs.go calls on every reconcile): the worker StatefulSet and fuse DaemonSet pod templates get the new effective secrets (component > runtime > env, removal reverts to the env default / clears), the fuse generation label is bumped so fuse pods roll, the values configmap records what was synced, a change confined to one component does not touch the other, and a no-op sync re-bumps nothing. Round-2 state: F-copilot-sync-path-no-propagation / #6248 (the allowlist omitted imagePullSecrets; the contract test fails on 3271f28 - results/reverify-round3/previous-head-sync-repro.txt - and passes on d7e3168).",
+      "match": [
+        "TestJuicefsSyncImagePullSecretsPropagation"
+      ],
+      "firstSeenRound": 3
+    },
+    {
+      "id": "C6-sample-docs-sync-claim",
+      "polarity": "contract",
+      "layer": "unit",
+      "claim": "docs/{en,zh}/samples/image_pull_secrets.md must not keep claiming that changing imagePullSecrets on an existing runtime 'needs the runtime to be recreated' (en) / '\u9700\u8981\u91cd\u65b0\u521b\u5efa runtime' (zh), because commit d7e3168 propagates such changes to the worker StatefulSet and (with a generation bump) the fuse DaemonSet. RED on head d7e3168 (stale claim present in both languages); GREEN once the sentence is updated.",
+      "match": [
+        "TestJuicefsSampleDocsSyncClaim"
+      ],
+      "firstSeenRound": 3
     }
   ],
   "liveNote": "L3 (live cluster) intentionally not run this round: pipeline configured for unit + integration layers only. The chart rendering inside the ginkgo scenarios covers the helm layer without a cluster.",
-  "previousHeadSha": "6711374b5ccbdf0371069b4cc9c0ca9593891528"
+  "previousHeadSha": "3271f28d7c3bc126d221422abdb9e6e0048eb9c9"
 }

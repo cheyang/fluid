@@ -1,11 +1,13 @@
 # Verification — juicefs hierarchical imagePullSecrets (PR #6245, Reviewer A / Claude)
 
 Branch: `verify/juicefs-imagepullsecrets-claude`, rebased onto PR head
-`3271f28d7c3bc126d221422abdb9e6e0048eb9c9` (base `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5`;
-round 1 reviewed head `6711374b5ccbdf0371069b4cc9c0ca9593891528`).
+`d7e316803a0e4b667ad4f9a19d10c605579e1ad1` (base `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5`;
+round 1 head `6711374b5ccbdf0371069b4cc9c0ca9593891528`, round 2 head
+`3271f28d7c3bc126d221422abdb9e6e0048eb9c9`).
 Production code is **untouched** — the only additions are this directory,
-`pkg/ddc/juicefs/imagepullsecrets_harness_test.go` and
-`pkg/ddc/juicefs/imagepullsecrets_apidoc_harness_test.go`.
+`pkg/ddc/juicefs/imagepullsecrets_harness_test.go`,
+`pkg/ddc/juicefs/imagepullsecrets_apidoc_harness_test.go` and
+`pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go` (round 3).
 
 ## Premise (P0) — CONFIRMED
 
@@ -157,3 +159,49 @@ Kickoff prompt for a fresh agent:
 > docs/verification/juicefs-imagepullsecrets-claude/README.md and
 > verify-manifest.json, run scripts/re-verify.sh, and report the per-claim
 > verdicts plus the last-reviewed..head delta review.
+
+## Round 3 (delta 3271f28..d7e3168: "regenerate api_doc.md" + "sync image pull secrets to worker and fuse on runtime updates")
+
+Two commits. `16cd329f` regenerates `docs/{en,zh}/dev/api_doc.md` with the pinned
+toolchain — exactly the fix round 2 asked for. `d7e3168` implements the sync-path
+propagation of imagePullSecrets (round-2 deferred item / tracking issue #6248):
+`checkAndSetWorkerChanges` / `checkAndSetFuseChanges` gain an imagePullSecrets
+block (component list wins over the runtime-wide one, `apiequality.Semantic`
+comparison), the fuse path bumps the fuse generation (same treatment as a fuse
+image change, so fuse pods roll), and `SyncRuntime` records the runtime-wide
+secrets in the values configmap.
+
+New harness file `pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go`:
+`TestJuicefsSyncImagePullSecretsPropagation` drives the FULL controller entry
+point (`JuiceFSEngine.SyncRuntime`, the function `pkg/ddc/base/syncs.go` calls
+on every reconcile) against a fake cluster seeded with the previous state
+(old configmap value produced by the real `transform()` on the old spec), then
+edits the runtime CR the way a user would. Eight scenarios:
+
+| scenario | outcome |
+| --- | --- |
+| runtime-wide secrets added | both pod templates updated, fuse generation bumped, configmap recorded |
+| worker override removed | worker falls back to runtime-wide |
+| fuse override replaced | only fuse changes, generation bumped |
+| secrets removed entirely | both templates cleared |
+| spec removed, env default set | pods revert to the env default (creation-path replacement semantics) |
+| global changed under a worker override | worker pods keep the override, fuse moves, configmap records the new global |
+| no change | nothing written, no generation bump, idempotent on second sync |
+| configmap predating the feature + env default | env default recorded; **observed: one-time fuse generation bump (fuse pod roll) on the first reconcile after controller upgrade** — the pod templates end up with the same secrets the pods already pulled with |
+
+Plus `TestJuicefsSampleDocsSyncClaim`: `docs/{en,zh}/samples/image_pull_secrets.md`
+still end their JuiceFSRuntime section with "changing them on an existing runtime
+needs the runtime to be recreated" (en) / "修改已有 runtime 的密钥需要重新创建
+runtime" (zh) — now contradicted by the sync commit. Contract test: RED on head
+(the docs sentence must be updated), GREEN after.
+
+| claim | verdict | evidence |
+| --- | --- | --- |
+| C4-apidoc-row-placement (round 2) | **FIXED** — regeneration committed; `TestJuicefsApiDocImagePullSecretsPlacement` green on head | `results/reverify-round3/` |
+| C5-sync-propagation (#6248) | **FIXED** — contract test fails on 3271f28 (all 8 scenarios) and passes on d7e3168 | `results/reverify-round3/previous-head-sync-repro.txt`, `results/reverify-round3/head-sync-propagation.txt` |
+| C6-sample-docs-sync-claim | **OPEN** — stale "recreate the runtime" claim in both languages | `results/reverify-round3/head-sync-propagation.txt` |
+| C1/C2/C3 + full package suite | unchanged, green on head (incl. the author's new `TestSyncImagePullSecrets`) | `results/reverify-round3/` |
+
+Polarity: C5's previous-head run doubles as the harness-bites check (removing
+the sync code = the round-2 head, where all scenarios fail). C6 bites by being
+RED on the committed docs.

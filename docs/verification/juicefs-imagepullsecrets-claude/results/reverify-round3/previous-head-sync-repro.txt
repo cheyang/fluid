@@ -1,0 +1,324 @@
+2026/11/17 08:35:27 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestJuicefsSyncImagePullSecretsPropagation
+=== RUN   TestJuicefsSyncImagePullSecretsPropagation/runtime-wide_secrets_added_reach_both_components_and_the_configmap
+    sync_imagepullsecrets_harness_test.go:268: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:268
+        	Error:      	Not equal: 
+        	            	expected: []string{"a", "b"}
+        	            	actual  : []string(nil)
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,5 +1,2 @@
+        	            	-([]string) (len=2) {
+        	            	- (string) (len=1) "a",
+        	            	- (string) (len=1) "b"
+        	            	-}
+        	            	+([]string) <nil>
+        	            	 
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/runtime-wide_secrets_added_reach_both_components_and_the_configmap
+        	Messages:   	worker sts pod template imagePullSecrets
+    sync_imagepullsecrets_harness_test.go:275: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:275
+        	Error:      	Not equal: 
+        	            	expected: []string{"a", "b"}
+        	            	actual  : []string(nil)
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,5 +1,2 @@
+        	            	-([]string) (len=2) {
+        	            	- (string) (len=1) "a",
+        	            	- (string) (len=1) "b"
+        	            	-}
+        	            	+([]string) <nil>
+        	            	 
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/runtime-wide_secrets_added_reach_both_components_and_the_configmap
+        	Messages:   	fuse ds pod template imagePullSecrets
+    sync_imagepullsecrets_harness_test.go:279: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:279
+        	Error:      	Not equal: 
+        	            	expected: "2"
+        	            	actual  : "1"
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1 +1 @@
+        	            	-2
+        	            	+1
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/runtime-wide_secrets_added_reach_both_components_and_the_configmap
+        	Messages:   	fuse generation must be bumped so fuse pods roll
+    sync_imagepullsecrets_harness_test.go:290: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:290
+        	Error:      	Not equal: 
+        	            	expected: []string{"a", "b"}
+        	            	actual  : []string(nil)
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,5 +1,2 @@
+        	            	-([]string) (len=2) {
+        	            	- (string) (len=1) "a",
+        	            	- (string) (len=1) "b"
+        	            	-}
+        	            	+([]string) <nil>
+        	            	 
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/runtime-wide_secrets_added_reach_both_components_and_the_configmap
+        	Messages:   	configmap runtime-level secrets
+=== RUN   TestJuicefsSyncImagePullSecretsPropagation/worker_override_removed_falls_back_to_the_runtime-wide_secrets
+    sync_imagepullsecrets_harness_test.go:268: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:268
+        	Error:      	Not equal: 
+        	            	expected: []string{"g"}
+        	            	actual  : []string{"w"}
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,3 +1,3 @@
+        	            	 ([]string) (len=1) {
+        	            	- (string) (len=1) "g"
+        	            	+ (string) (len=1) "w"
+        	            	 }
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/worker_override_removed_falls_back_to_the_runtime-wide_secrets
+        	Messages:   	worker sts pod template imagePullSecrets
+    sync_imagepullsecrets_harness_test.go:291: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:291
+        	Error:      	Not equal: 
+        	            	expected: []string(nil)
+        	            	actual  : []string{"w"}
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,2 +1,4 @@
+        	            	-([]string) <nil>
+        	            	+([]string) (len=1) {
+        	            	+ (string) (len=1) "w"
+        	            	+}
+        	            	 
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/worker_override_removed_falls_back_to_the_runtime-wide_secrets
+        	Messages:   	configmap worker-level secrets
+=== RUN   TestJuicefsSyncImagePullSecretsPropagation/fuse_override_replaced_only_changes_fuse_and_bumps_its_generation
+    sync_imagepullsecrets_harness_test.go:275: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:275
+        	Error:      	Not equal: 
+        	            	expected: []string{"f2"}
+        	            	actual  : []string{"f1"}
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,3 +1,3 @@
+        	            	 ([]string) (len=1) {
+        	            	- (string) (len=2) "f2"
+        	            	+ (string) (len=2) "f1"
+        	            	 }
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/fuse_override_replaced_only_changes_fuse_and_bumps_its_generation
+        	Messages:   	fuse ds pod template imagePullSecrets
+    sync_imagepullsecrets_harness_test.go:279: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:279
+        	Error:      	Not equal: 
+        	            	expected: "2"
+        	            	actual  : "1"
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1 +1 @@
+        	            	-2
+        	            	+1
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/fuse_override_replaced_only_changes_fuse_and_bumps_its_generation
+        	Messages:   	fuse generation must be bumped so fuse pods roll
+=== RUN   TestJuicefsSyncImagePullSecretsPropagation/secrets_removed_entirely_clears_both_pod_templates
+    sync_imagepullsecrets_harness_test.go:268: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:268
+        	Error:      	Not equal: 
+        	            	expected: []string(nil)
+        	            	actual  : []string{"g"}
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,2 +1,4 @@
+        	            	-([]string) <nil>
+        	            	+([]string) (len=1) {
+        	            	+ (string) (len=1) "g"
+        	            	+}
+        	            	 
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/secrets_removed_entirely_clears_both_pod_templates
+        	Messages:   	worker sts pod template imagePullSecrets
+    sync_imagepullsecrets_harness_test.go:275: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:275
+        	Error:      	Not equal: 
+        	            	expected: []string(nil)
+        	            	actual  : []string{"g"}
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,2 +1,4 @@
+        	            	-([]string) <nil>
+        	            	+([]string) (len=1) {
+        	            	+ (string) (len=1) "g"
+        	            	+}
+        	            	 
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/secrets_removed_entirely_clears_both_pod_templates
+        	Messages:   	fuse ds pod template imagePullSecrets
+    sync_imagepullsecrets_harness_test.go:279: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:279
+        	Error:      	Not equal: 
+        	            	expected: "2"
+        	            	actual  : "1"
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1 +1 @@
+        	            	-2
+        	            	+1
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/secrets_removed_entirely_clears_both_pod_templates
+        	Messages:   	fuse generation must be bumped so fuse pods roll
+    sync_imagepullsecrets_harness_test.go:290: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:290
+        	Error:      	Not equal: 
+        	            	expected: []string(nil)
+        	            	actual  : []string{"g"}
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,2 +1,4 @@
+        	            	-([]string) <nil>
+        	            	+([]string) (len=1) {
+        	            	+ (string) (len=1) "g"
+        	            	+}
+        	            	 
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/secrets_removed_entirely_clears_both_pod_templates
+        	Messages:   	configmap runtime-level secrets
+=== RUN   TestJuicefsSyncImagePullSecretsPropagation/spec_secrets_removed_with_env_default_set_reverts_pods_to_the_env_default
+    sync_imagepullsecrets_harness_test.go:268: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:268
+        	Error:      	Not equal: 
+        	            	expected: []string{"env-secret"}
+        	            	actual  : []string{"x"}
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,3 +1,3 @@
+        	            	 ([]string) (len=1) {
+        	            	- (string) (len=10) "env-secret"
+        	            	+ (string) (len=1) "x"
+        	            	 }
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/spec_secrets_removed_with_env_default_set_reverts_pods_to_the_env_default
+        	Messages:   	worker sts pod template imagePullSecrets
+    sync_imagepullsecrets_harness_test.go:275: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:275
+        	Error:      	Not equal: 
+        	            	expected: []string{"env-secret"}
+        	            	actual  : []string{"x"}
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,3 +1,3 @@
+        	            	 ([]string) (len=1) {
+        	            	- (string) (len=10) "env-secret"
+        	            	+ (string) (len=1) "x"
+        	            	 }
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/spec_secrets_removed_with_env_default_set_reverts_pods_to_the_env_default
+        	Messages:   	fuse ds pod template imagePullSecrets
+    sync_imagepullsecrets_harness_test.go:279: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:279
+        	Error:      	Not equal: 
+        	            	expected: "2"
+        	            	actual  : "1"
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1 +1 @@
+        	            	-2
+        	            	+1
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/spec_secrets_removed_with_env_default_set_reverts_pods_to_the_env_default
+        	Messages:   	fuse generation must be bumped so fuse pods roll
+    sync_imagepullsecrets_harness_test.go:290: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:290
+        	Error:      	Not equal: 
+        	            	expected: []string{"env-secret"}
+        	            	actual  : []string{"x"}
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,3 +1,3 @@
+        	            	 ([]string) (len=1) {
+        	            	- (string) (len=10) "env-secret"
+        	            	+ (string) (len=1) "x"
+        	            	 }
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/spec_secrets_removed_with_env_default_set_reverts_pods_to_the_env_default
+        	Messages:   	configmap runtime-level secrets
+=== RUN   TestJuicefsSyncImagePullSecretsPropagation/worker_override_isolates_the_worker_while_the_runtime-wide_change_moves_only_fuse
+    sync_imagepullsecrets_harness_test.go:275: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:275
+        	Error:      	Not equal: 
+        	            	expected: []string{"g2"}
+        	            	actual  : []string{"g"}
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,3 +1,3 @@
+        	            	 ([]string) (len=1) {
+        	            	- (string) (len=2) "g2"
+        	            	+ (string) (len=1) "g"
+        	            	 }
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/worker_override_isolates_the_worker_while_the_runtime-wide_change_moves_only_fuse
+        	Messages:   	fuse ds pod template imagePullSecrets
+    sync_imagepullsecrets_harness_test.go:279: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:279
+        	Error:      	Not equal: 
+        	            	expected: "2"
+        	            	actual  : "1"
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1 +1 @@
+        	            	-2
+        	            	+1
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/worker_override_isolates_the_worker_while_the_runtime-wide_change_moves_only_fuse
+        	Messages:   	fuse generation must be bumped so fuse pods roll
+    sync_imagepullsecrets_harness_test.go:290: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/claude/wt-pr6245-r3-claude/pkg/ddc/juicefs/sync_imagepullsecrets_harness_test.go:290
+        	Error:      	Not equal: 
+        	            	expected: []string{"g2"}
+        	            	actual  : []string{"g"}
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1,3 +1,3 @@
+        	            	 ([]string) (len=1) {
+        	            	- (string) (len=2) "g2"
+        	            	+ (string) (len=1) "g"
+        	            	 }
+        	Test:       	TestJuicefsSyncImagePullSecretsPropagation/worker_override_isolates_the_worker_while_the_runtime-wide_change_moves_only_fuse
+        	Messages:   	configmap runtime-level secrets
+=== RUN   TestJuicefsSyncImagePullSecretsPropagation/no_change_leaves_the_workloads_and_the_configmap_alone
+--- FAIL: TestJuicefsSyncImagePullSecretsPropagation (0.02s)
+    --- FAIL: TestJuicefsSyncImagePullSecretsPropagation/runtime-wide_secrets_added_reach_both_components_and_the_configmap (0.00s)
+    --- FAIL: TestJuicefsSyncImagePullSecretsPropagation/worker_override_removed_falls_back_to_the_runtime-wide_secrets (0.00s)
+    --- FAIL: TestJuicefsSyncImagePullSecretsPropagation/fuse_override_replaced_only_changes_fuse_and_bumps_its_generation (0.00s)
+    --- FAIL: TestJuicefsSyncImagePullSecretsPropagation/secrets_removed_entirely_clears_both_pod_templates (0.00s)
+    --- FAIL: TestJuicefsSyncImagePullSecretsPropagation/spec_secrets_removed_with_env_default_set_reverts_pods_to_the_env_default (0.00s)
+    --- FAIL: TestJuicefsSyncImagePullSecretsPropagation/worker_override_isolates_the_worker_while_the_runtime-wide_change_moves_only_fuse (0.00s)
+    --- PASS: TestJuicefsSyncImagePullSecretsPropagation/no_change_leaves_the_workloads_and_the_configmap_alone (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	0.032s
+FAIL
