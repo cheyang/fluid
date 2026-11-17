@@ -2,7 +2,7 @@
 
 Reviewer: Codex (Reviewer B). PR: https://github.com/fluid-cloudnative/fluid/pull/6249
 Fixes: https://github.com/fluid-cloudnative/fluid/issues/6246
-Base: `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5` — Head reviewed: `145a2c1334643913f827e0755e01d92b336ea7cd`
+Base: `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5` — Head reviewed: `eb313c44a08c63f0eb482e8a6c09330927e8246a` (round 2; round 1: `145a2c1334643913f827e0755e01d92b336ea7cd`)
 
 ## Premise verdict (P0): CONFIRMED
 
@@ -76,3 +76,21 @@ The harness is a contract suite for this behavior: after any future change to
 invert). `re-verify.sh` (above) grafts the harness onto the current PR head
 auto-discovered from `manifest.pr` and prints FIXED / STILL-BROKEN per finding.
 `.last-reviewed` records the reviewed head for the next incremental round.
+
+## Round 2 — incremental review of 145a2c13..eb313c44 (2026-11-17)
+
+Head advanced to `eb313c44a08c63f0eb482e8a6c09330927e8246a` (one test-only commit:
+`nodeExcludeSelector = nil` pinned in the removal Describe's BeforeEach, a new
+non-matching-selector spec, and a new entry-point spec driving
+`SyncScheduleInfoToCacheNodes` with an excluded node plus a non-excluded control).
+
+| check | result | evidence |
+|-------|--------|----------|
+| re-verify.sh (C1/C2 grafted onto eb313c44) | F-fix FIXED (pass=2 fail=0) | results/reverify/unit.out |
+| full pkg/utils/dataset/lifecycle suite on head | 26/26 pass (prev head: 24) | results/round2-head-full-package.txt |
+| harness-bites on the PR's own new specs: base node.go + head node_test.go | the entry-point spec and the matching-selector spec FAIL on base, non-matching specs PASS (expected polarity) | results/round2-base-pr-own-specs.txt |
+
+Round-1 findings resolved by this delta: F-MT-ENTRY-01 (entry-point coverage now
+in the PR) and F-NIT-SELECTOR-STATE-01 (BeforeEach pin + non-matching selector
+case) are both verified fixed. F-QR-STALE-LABELS-01 (maintainer semantic
+question) and the pre-existing e2e-coverage gap are unchanged by a test-only delta.
