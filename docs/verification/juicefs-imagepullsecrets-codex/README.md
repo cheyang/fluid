@@ -1,7 +1,7 @@
 # Verification — PR #6245: hierarchical imagePullSecrets for JuiceFSRuntime
 
-Reviewer: Codex (Reviewer B). Round: incremental (round 2).
-Head under review: `3271f28d7c3bc126d221422abdb9e6e0048eb9c9` (base `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5`, previous head `6711374b5ccbdf0371069b4cc9c0ca9593891528`).
+Reviewer: Codex (Reviewer B). Round: incremental (round 4).
+Head under review: `be3337dd00b5356cae2571d540f3b27d2c9e9ade` (base `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5`, previous head `d7e316803a0e4b667ad4f9a19d10c605579e1ad1`).
 
 ## Premise (P0) — CONFIRMED
 
@@ -108,3 +108,45 @@ is rebased onto d7e316803, so `go test ./pkg/ddc/juicefs -run TestVerifyPr6245`
 runs everything directly; note the full package run on this branch FAILS only
 on the two intentional repro tests - the clean-head suite is green
 (results/reverify/pkg-suite-round3-clean-head.txt).
+
+## Round 4 (incremental, head be3337dd00) — observed vs expected
+
+Delta `d7e316803..be3337dd00`: single commit `be3337dd0` "fix(juicefs):
+compare image pull secrets against the live templates" - exactly the fix
+direction round 3 pre-accepted for the recorded-state-vs-cluster desync class.
+`checkAndSetWorkerChanges` / `checkAndSetFuseChanges` now diff the desired
+effective secrets against the LIVE pod template (not the recorded value) and
+record the raw per-component override unconditionally; the caller persists the
+configmap when `changed || overridesChanged`. The PR's own test gains the two
+missing scenarios (skipped-sync catch-up, rotation+override) plus
+`TestSyncImagePullSecretsRotationThenOverrideRemoval`.
+
+| ID | expected | observed | verdict |
+|----|----------|----------|---------|
+| A1-A7 | still pass | all pass (results/reverify-round4-head.json) | contracts hold |
+| AC9-sync-propagation | add/override-shield/remove still converge, idempotent | 3/3 pass on head | contracts hold |
+| F1 (canary) | flips only if master/jobWorker wired | still passing = still inert | STILL-PRESENT (documented, by design) |
+| F-apidoc-rows-misplaced | rows in own type tables | pass | still fixed |
+| F-worker-lost-update-missing-scriptcm | drift never lost: keeps reporting changed=true while blocked, worker converges once the worker-script cm returns | FIXED - TestVerifyPr6245WorkerSecretsRetryAndConvergeWhenScriptConfigmapMissing GREEN on head; RED on previous head d7e316803 (pass 2 was a false no-op; results/bites-round4-previous-head.txt). Contract re-scoped from "apply-or-error" to the round-3 pre-accepted live-template fix; the configmap leading the live template while blocked is now harmless bookkeeping. The pre-existing early-return hole for the OTHER eight synced fields is unchanged and out of this PR's scope. | fixed |
+| F-sync-strategy-flip-advance | worker catches up on the reconcile after the strategy flip | FIXED - TestVerifyPr6245WorkerCatchesUpAfterStrategyFlip GREEN on head; RED on d7e316803 (worker stuck on [a]) | fixed |
+| F-sync-override-not-recorded | rotation a->b + override a records the override; later removal falls back to b | FIXED - TestVerifyPr6245RotationThenOverrideRemovalConverges GREEN on head; RED on d7e316803 (override lost, worker stuck on [a]); PR's own TestSyncImagePullSecretsRotationThenOverrideRemoval also green | fixed |
+| F-docs-recreate-note-stale | samples must not claim recreate-to-change | still RED (results/reverify-round4-head.json) - delta touches no docs | STILL-BROKEN (minor, docs-only; the remaining pre-merge MUST) |
+
+Full package run at head with the harness grafted: the ONLY failing test is
+TestVerifyPr6245DocsFreshness (the intentional stale-docs contract); every
+repo test passes including the author's updated TestSyncImagePullSecrets
+(results/repo-suite-round4-head.txt, single failure attributed via -json).
+
+Note (behavior change, intentional): because the secrets diff is now taken
+against the live template, the controller continuously enforces pod-template
+imagePullSecrets - out-of-band manual edits to the worker sts / fuse ds
+secrets are reverted on the next reconcile. Other synced fields still diff
+recorded-vs-spec; secrets are now the only drift-corrected field. Safe
+direction, consistent with controller semantics.
+
+New tests this round (all in
+`pkg/ddc/juicefs/sync_image_pull_secrets_verify_test.go`):
+TestVerifyPr6245WorkerSecretsRetryAndConvergeWhenScriptConfigmapMissing
+(replaces TestVerifyPr6245WorkerSecretsLostWhenScriptConfigmapMissing),
+TestVerifyPr6245WorkerCatchesUpAfterStrategyFlip,
+TestVerifyPr6245RotationThenOverrideRemovalConverges.

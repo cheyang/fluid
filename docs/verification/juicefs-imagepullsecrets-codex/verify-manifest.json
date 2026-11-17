@@ -3,7 +3,7 @@
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6245",
   "reviewer": "codex",
   "baseSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
-  "headSha": "d7e316803a0e4b667ad4f9a19d10c605579e1ad1",
+  "headSha": "be3337dd00b5356cae2571d540f3b27d2c9e9ade",
   "harnessPaths": [
     "docs/verification/juicefs-imagepullsecrets-codex",
     "pkg/ddc/juicefs/transform_image_pull_secrets_verify_test.go",
@@ -122,8 +122,9 @@
       "polarity": "contract",
       "layer": "unit",
       "match": [
-        "TestVerifyPr6245WorkerSecretsLostWhenScriptConfigmapMissing"
-      ]
+        "TestVerifyPr6245WorkerSecretsRetryAndConvergeWhenScriptConfigmapMissing"
+      ],
+      "note": "round 4: contract re-scoped from \"apply-in-one-pass-or-error\" to the round-3 pre-accepted alternative fix (compare against the live templates): drift is never lost - every pass keeps reporting changed=true while blocked, and the worker converges once the worker-script configmap returns. RED on d7e316803, GREEN on be3337dd00."
     },
     {
       "id": "F-docs-recreate-note-stale",
@@ -132,6 +133,24 @@
       "match": [
         "TestVerifyPr6245DocsFreshness"
       ]
+    },
+    {
+      "id": "F-sync-strategy-flip-advance",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPr6245WorkerCatchesUpAfterStrategyFlip"
+      ],
+      "note": "round 4: a non-OnDelete worker strategy defers the template sync one pass; the worker must catch up on the next reconcile via the live-template diff. RED on d7e316803, GREEN on be3337dd00."
+    },
+    {
+      "id": "F-sync-override-not-recorded",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPr6245RotationThenOverrideRemovalConverges"
+      ],
+      "note": "round 4: rotation a->b plus a worker override pinned to a must record the override even when the effective list is unchanged, so a later override removal falls back to b. RED on d7e316803, GREEN on be3337dd00."
     }
   ],
   "liveNote": "L3 (skipped per debate policy): on a real cluster, create a JuiceFSRuntime with spec.imagePullSecrets and worker/fuse overrides and inspect the resulting worker StatefulSet / fuse DaemonSet pod specs."

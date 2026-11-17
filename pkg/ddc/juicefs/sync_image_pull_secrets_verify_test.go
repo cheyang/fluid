@@ -229,6 +229,21 @@ func (f *verifySyncFixture) recordedValue(t *testing.T) *JuiceFS {
 	return v
 }
 
+// latestValue re-runs the engine transform for the current CR state (used to
+// rebuild fixtures that must match what a fresh SyncRuntime would compute).
+func (f *verifySyncFixture) latestValue(t *testing.T) *JuiceFS {
+	t.Helper()
+	rt := &datav1alpha1.JuiceFSRuntime{}
+	if err := f.client.Get(context.TODO(), types.NamespacedName{Name: f.engine.name, Namespace: f.engine.namespace}, rt); err != nil {
+		t.Fatalf("get runtime: %v", err)
+	}
+	v, err := f.engine.transform(rt)
+	if err != nil {
+		t.Fatalf("transform: %v", err)
+	}
+	return v
+}
+
 func TestVerifyPr6245SyncRuntimePropagatesSecrets(t *testing.T) {
 	old := constructBaseRuntimeValue()
 	fx := buildVerifySyncEngine(t, "verifysync", "default", datav1alpha1.JuiceFSRuntimeSpec{
@@ -316,36 +331,174 @@ func TestVerifyPr6245SyncRuntimeSecretsRemoved(t *testing.T) {
 	}
 }
 
-// Contract test for the lost-update path: with the worker-script configmap
-// missing, syncWorkerSpec early-returns after checkAndSetWorkerChanges flagged
-// the secrets change but before the sts update; SyncRuntime still saves the
-// mutated value, so recorded state diverges from the cluster. RED on head
-// d7e316803: the worker sts keeps the old secrets while the configmap claims
-// the new ones, and a second SyncRuntime is a no-op (divergence is permanent).
-func TestVerifyPr6245WorkerSecretsLostWhenScriptConfigmapMissing(t *testing.T) {
+// Contract test for the lost-update path (round 3 finding
+// F-worker-lost-update-missing-scriptcm), re-scoped in round 4: head
+// be3337dd00 fixes the permanence by comparing desired secrets against the
+// LIVE pod template instead of the recorded value. The accepted contract is
+// no longer "apply in one pass or surface an error" but "the drift is never
+// lost": while the worker-script configmap is missing the worker sts cannot be
+// updated, yet every SyncRuntime must keep reporting the drift (changed=true,
+// so the reconcile retries), and once the blocker clears the worker must
+// converge - the recorded value leading the live template by one pass is
+// harmless bookkeeping because diffing no longer trusts it.
+//
+// RED on previous head d7e316803: there pass 2 detects nothing (recorded value
+// already matches the spec) and pass 3 leaves the worker on [g1] forever.
+func TestVerifyPr6245WorkerSecretsRetryAndConvergeWhenScriptConfigmapMissing(t *testing.T) {
 	old := constructBaseRuntimeValue()
 	old.ImagePullSecrets = refs("g1")
 	fx := buildVerifySyncEngine(t, "verifylost", "default", datav1alpha1.JuiceFSRuntimeSpec{
 		ImagePullSecrets: refs("g2"),
 	}, old, true)
 
+	// pass 1: worker update blocked by the missing script configmap
 	changed, err := fx.engine.SyncRuntime(cruntime.ReconcileRequestContext{})
 	if err != nil {
-		// Acceptable fix direction: surface the failure and do NOT advance the
-		// recorded value, so a later reconcile retries the worker sync.
-		if got := fx.recordedValue(t).ImagePullSecrets; !refsEqual(got, refs("g1")) {
-			t.Fatalf("SyncRuntime errored (%v) yet recorded value advanced to %v - divergence", err, got)
-		}
-		return
+		t.Fatalf("SyncRuntime: %v", err)
 	}
 	if !changed {
-		t.Logf("SyncRuntime changed = false (secrets change dropped silently)")
+		t.Errorf("pass 1: changed = false, want true (fuse synced, worker drift pending)")
+	}
+	if got := fx.workerPodSecrets(t); !refsEqual(got, refs("g1")) {
+		t.Fatalf("pass 1: worker pod secrets = %v, want [g1] (script cm missing blocks the sts update)", got)
 	}
 
+	// pass 2: blocker still present - the drift must still be detected (the
+	// pre-fix code reported changed=false here and never retried)
+	changed, err = fx.engine.SyncRuntime(cruntime.ReconcileRequestContext{})
+	if err != nil {
+		t.Fatalf("pass 2 SyncRuntime: %v", err)
+	}
+	if !changed {
+		t.Fatalf("pass 2: changed = false - the pending worker secrets update was LOST " +
+			"(recorded value masks the live-template drift); want true (keeps retrying)")
+	}
+	if got := fx.workerPodSecrets(t); !refsEqual(got, refs("g1")) {
+		t.Fatalf("pass 2: worker pod secrets = %v, want [g1] (still blocked)", got)
+	}
+
+	// blocker cleared: restore the worker-script configmap, the next pass must
+	// converge the worker
+	lv := fx.latestValue(t)
+	scriptCM := &corev1.ConfigMap{
+		ObjectMeta: metav1.ObjectMeta{Name: fx.engine.getWorkerScriptName(), Namespace: "default"},
+		Data:       map[string]string{"script.sh": "#!/bin/bash\n\n" + lv.Worker.Command},
+	}
+	if err := fx.client.Create(context.TODO(), scriptCM); err != nil {
+		t.Fatalf("restore worker script cm: %v", err)
+	}
+	if _, err := fx.engine.SyncRuntime(cruntime.ReconcileRequestContext{}); err != nil {
+		t.Fatalf("pass 3 SyncRuntime: %v", err)
+	}
 	if got := fx.workerPodSecrets(t); !refsEqual(got, refs("g2")) {
-		t.Fatalf("LOST UPDATE: worker sts secrets = %v, want [g2]; recorded value claims %v - "+
-			"syncWorkerSpec returns before Client.Update when the worker-script configmap is missing, "+
-			"but SyncRuntime still persists the mutated value", got, fx.recordedValue(t).ImagePullSecrets)
+		t.Fatalf("pass 3: worker pod secrets = %v, want [g2] (must converge once the blocker clears)", got)
+	}
+
+	// pass 4: converged, no-op
+	changed, err = fx.engine.SyncRuntime(cruntime.ReconcileRequestContext{})
+	if err != nil {
+		t.Fatalf("pass 4 SyncRuntime: %v", err)
+	}
+	if changed {
+		t.Errorf("pass 4: changed = true, want false (converged)")
+	}
+}
+
+// Contract test for round 3 finding F-sync-strategy-flip-advance: when the
+// worker StatefulSet has a non-OnDelete update strategy (abnormal - the chart
+// ships OnDelete), syncWorkerSpec flips the strategy and skips the template
+// sync for that pass while the recorded global value advances. The worker
+// must catch up on the NEXT reconcile (triggered by the strategy update
+// event) because the diff is taken against the live template.
+//
+// RED on previous head d7e316803: the second pass compared the recorded value
+// against the spec, saw no diff, and left the worker on [a] permanently.
+func TestVerifyPr6245WorkerCatchesUpAfterStrategyFlip(t *testing.T) {
+	old := constructBaseRuntimeValue()
+	old.ImagePullSecrets = refs("a")
+	fx := buildVerifySyncEngine(t, "verifyflip", "default", datav1alpha1.JuiceFSRuntimeSpec{
+		ImagePullSecrets: refs("b"),
+	}, old, false)
+
+	// abnormal state: worker sts on RollingUpdate
+	sts := &appsv1.StatefulSet{}
+	if err := fx.client.Get(context.TODO(), types.NamespacedName{Name: fx.engine.getWorkerName(), Namespace: "default"}, sts); err != nil {
+		t.Fatalf("get worker sts: %v", err)
+	}
+	sts.Spec.UpdateStrategy = appsv1.StatefulSetUpdateStrategy{Type: appsv1.RollingUpdateStatefulSetStrategyType}
+	if err := fx.client.Update(context.TODO(), sts); err != nil {
+		t.Fatalf("flip worker sts strategy: %v", err)
+	}
+
+	// pass 1: strategy flipped to OnDelete, worker template not synced this pass
+	if _, err := fx.engine.SyncRuntime(cruntime.ReconcileRequestContext{}); err != nil {
+		t.Fatalf("pass 1 SyncRuntime: %v", err)
+	}
+	if got := fx.workerPodSecrets(t); !refsEqual(got, refs("a")) {
+		t.Fatalf("pass 1: worker pod secrets = %v, want [a] (sync deferred by the strategy flip)", got)
+	}
+
+	// pass 2 (the reconcile the strategy update event triggers): worker must converge
+	if _, err := fx.engine.SyncRuntime(cruntime.ReconcileRequestContext{}); err != nil {
+		t.Fatalf("pass 2 SyncRuntime: %v", err)
+	}
+	if got := fx.workerPodSecrets(t); !refsEqual(got, refs("b")) {
+		t.Fatalf("pass 2: worker pod secrets = %v, want [b] (catch-up via the live-template diff)", got)
+	}
+}
+
+// Contract test for round 3 finding F-sync-override-not-recorded: rotating the
+// runtime-wide secrets a->b while adding a worker override pinned to a keeps
+// the worker on a (no effective change), and the override must still be
+// recorded - so that a later override removal falls the worker back to b.
+//
+// RED on previous head d7e316803: the override was only persisted when the
+// effective list changed, so pass 1 recorded no worker override and pass 2
+// left the worker on [a] permanently.
+func TestVerifyPr6245RotationThenOverrideRemovalConverges(t *testing.T) {
+	old := constructBaseRuntimeValue()
+	old.ImagePullSecrets = refs("a")
+	fx := buildVerifySyncEngine(t, "verifyrot", "default", datav1alpha1.JuiceFSRuntimeSpec{
+		ImagePullSecrets: refs("b"),
+		Worker:           datav1alpha1.JuiceFSCompTemplateSpec{ImagePullSecrets: refs("a")},
+	}, old, false)
+
+	// pass 1: effective worker list unchanged (override a == old global a)
+	if _, err := fx.engine.SyncRuntime(cruntime.ReconcileRequestContext{}); err != nil {
+		t.Fatalf("pass 1 SyncRuntime: %v", err)
+	}
+	if got := fx.workerPodSecrets(t); !refsEqual(got, refs("a")) {
+		t.Errorf("pass 1: worker pod secrets = %v, want [a] (override shields the worker)", got)
+	}
+	if got := fx.fusePodSecrets(t); !refsEqual(got, refs("b")) {
+		t.Errorf("pass 1: fuse pod secrets = %v, want [b]", got)
+	}
+	recorded := fx.recordedValue(t)
+	if !refsEqual(recorded.Worker.ImagePullSecrets, refs("a")) {
+		t.Fatalf("pass 1: recorded worker override = %v, want [a] - the override edit was LOST "+
+			"(only effective-list changes were persisted)", recorded.Worker.ImagePullSecrets)
+	}
+	if !refsEqual(recorded.ImagePullSecrets, refs("b")) {
+		t.Errorf("pass 1: recorded global secrets = %v, want [b]", recorded.ImagePullSecrets)
+	}
+
+	// remove the override; the worker must fall back to the global b
+	rt := &datav1alpha1.JuiceFSRuntime{}
+	if err := fx.client.Get(context.TODO(), types.NamespacedName{Name: "verifyrot", Namespace: "default"}, rt); err != nil {
+		t.Fatalf("get runtime: %v", err)
+	}
+	rt.Spec.Worker.ImagePullSecrets = nil
+	if err := fx.client.Update(context.TODO(), rt); err != nil {
+		t.Fatalf("remove worker override: %v", err)
+	}
+	if _, err := fx.engine.SyncRuntime(cruntime.ReconcileRequestContext{}); err != nil {
+		t.Fatalf("pass 2 SyncRuntime: %v", err)
+	}
+	if got := fx.workerPodSecrets(t); !refsEqual(got, refs("b")) {
+		t.Fatalf("pass 2: worker pod secrets = %v, want [b] (override removed, fall back to the global list)", got)
+	}
+	if got := fx.recordedValue(t).Worker.ImagePullSecrets; len(got) != 0 {
+		t.Errorf("pass 2: recorded worker override = %v, want empty", got)
 	}
 }
 

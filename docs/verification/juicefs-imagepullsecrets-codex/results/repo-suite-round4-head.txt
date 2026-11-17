@@ -1,0 +1,124 @@
+2026/11/18 05:53:12 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+
+0 total assertions
+
+Running Suite: Juicefs Suite - /tmp/wt-pr6245-head/pkg/ddc/juicefs
+==================================================================
+Random Seed: [1m1794952392[0m
+
+Will run [1m177[0m of [1m177[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [15433, 15457]}
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14912, 14699]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 219.578µs	{"name": "test"}
+[38;5;10m•[0m2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14601, 15283]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 50.762µs	{"name": "test"}
+[38;5;10m•[0m2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14180, 15397]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 42.132µs	{"name": "test"}
+[38;5;10m•[0m2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 32.581µs	{"name": "test"}
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0mjuicefs/fuse:v2.0.0
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;10m[1mRan 177 of 177 Specs in 0.045 seconds[0m
+[38;5;10m[1mSUCCESS![0m -- [38;5;10m[1m177 Passed[0m | [38;5;9m[1m0 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+2026-11-18T05:53:24+08:00	DEBUG	kubeclient	Skip deleting the configmap because it was not found	{"name": "test--values", "namespace": "fluid"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": []}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [29, 36]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 63.032µs	{"name": "test"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [42, 81]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 99.933µs	{"name": "test"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [15, 33]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 49.092µs	{"name": "test"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [63, 90]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 26.96µs	{"name": "test"}
+<nil>
+2026-11-18T05:53:24+08:00	DEBUG	kubeclient	Skip deleting the configmap because it was not found	{"name": "test--values", "namespace": "fluid"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [106, 98]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 42.262µs	{"name": "test"}
+2026-11-18T05:53:24+08:00	INFO	dataset.lifecycle	Placement Mode	{"runtime": "test", "namespace": "big-data", "mode": "Exclusive"}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	polling up-to-date cache status when scheduling took 12.48µs	{"nodeToLabel": "node1"}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	LabelCacheNode took 356.042µs	{"runtime": "test", "namespace": "big-data", "node": "node1"}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	SyncScheduleInfoToCacheNodes took 590.411µs	{"name": "test", "namespace": "big-data"}
+2026-11-18T05:53:24+08:00	INFO	dataset.lifecycle	Placement Mode	{"runtime": "test2", "namespace": "big-data", "mode": "Exclusive"}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	polling up-to-date cache status when scheduling took 7.691µs	{"nodeToLabel": "node2"}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	LabelCacheNode took 170.216µs	{"runtime": "test2", "namespace": "big-data", "node": "node2"}
+2026-11-18T05:53:24+08:00	INFO	dataset.lifecycle	Placement Mode	{"runtime": "test2", "namespace": "big-data", "mode": "Exclusive"}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	polling up-to-date cache status when scheduling took 7.631µs	{"nodeToLabel": "node3"}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	LabelCacheNode took 159.266µs	{"runtime": "test2", "namespace": "big-data", "node": "node3"}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	SyncScheduleInfoToCacheNodes took 442.716µs	{"name": "test2", "namespace": "big-data"}
+2026-11-18T05:53:24+08:00	INFO	dataset.lifecycle	Placement Mode	{"runtime": "test3", "namespace": "big-data", "mode": "Exclusive"}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	polling up-to-date cache status when scheduling took 7.601µs	{"nodeToLabel": "node4"}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	LabelCacheNode took 161.416µs	{"runtime": "test3", "namespace": "big-data", "node": "node4"}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	SyncScheduleInfoToCacheNodes took 266.24µs	{"name": "test3", "namespace": "big-data"}
+2026-11-18T05:53:24+08:00	INFO	dataset.lifecycle	check node labels	{"runtime": "test4", "namespace": "big-data", "labelNames": ["fluid.io/s-juicefs-big-data-test4", "fluid.io/s-h-juicefs-t-big-data-test4", "fluid.io/s-h-juicefs-d-big-data-test4", "fluid.io/s-h-juicefs-m-big-data-test4", "fluid.io/s-big-data-test4"]}
+2026-11-18T05:53:24+08:00	INFO	dataset.lifecycle	Destroy worker	{"runtime": "test4", "namespace": "big-data", "Dataset": "test4", "deleted worker node": "node6", "removed or updated labels": ["fluid.io/s-juicefs-big-data-test4", "fluid.io/s-h-juicefs-t-big-data-test4", "fluid.io/s-h-juicefs-d-big-data-test4", "fluid.io/s-h-juicefs-m-big-data-test4", "fluid.io/s-big-data-test4"]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	SyncScheduleInfoToCacheNodes took 227.208µs	{"name": "test4", "namespace": "big-data"}
+2026-11-18T05:53:24+08:00	DEBUG	kubeclient	Skip deleting the configmap because it was not found	{"name": "test-worker-script", "namespace": "fluid"}
+2026-11-18T05:53:24+08:00	DEBUG	kubeclient	Skip deleting the configmap because it was not found	{"name": "test-fuse-script", "namespace": "fluid"}
+2026-11-18T05:53:24+08:00	DEBUG	kubeclient	SKip deleteing the serviceAccount due to it's not found	{"name": "test-loader", "namespace": "fluid"}
+2026-11-18T05:53:24+08:00	DEBUG	kubeclient	SKip deleteing the role due to it's not found	{"name": "test-loader", "namespace": "fluid"}
+2026-11-18T05:53:24+08:00	DEBUG	kubeclient	SKip deleteing the rolebinding due to it's not found	{"name": "test-loader", "namespace": "fluid"}
+.....
+5 total assertions
+
+2026-11-18T05:53:24+08:00	DEBUG	kubeclient	Skip deleting the configmap because it was not found	{"name": "test--values", "namespace": "fluid"}
+2026-11-18T05:53:24+08:00	DEBUG	kubeclient	ExecWithOptions	{"ExecWithOptions": "{Command: [df --block-size=1], Namespace: fluid, PodName: test, ContainerName: juicefs-worker, CaptureStdout: true, CaptureStderr: true, PreserveWhitespace: false}"}
+2026-11-18T05:53:24+08:00	DEBUG	kubeclient	ExecWithOptions	{"ExecWithOptions": "{Command: [df --block-size=1], Namespace: fluid, PodName: test, ContainerName: juicefs-worker, CaptureStdout: true, CaptureStderr: true, PreserveWhitespace: false}"}
+2026-11-18T05:53:24+08:00	DEBUG	kubeclient	ExecWithOptions	{"ExecWithOptions": "{Command: [df --block-size=1], Namespace: fluid, PodName: test, ContainerName: juicefs-worker, CaptureStdout: true, CaptureStderr: true, PreserveWhitespace: false}"}
+
+5 total assertions
+
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [15756, 14600]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 83.203µs	{"name": "verifysync"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [15424, 14794]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 29.781µs	{"name": "verifysync"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14167, 15986]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 33.741µs	{"name": "verifysync"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14459, 15107]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 43.321µs	{"name": "verifyshield"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14565, 14485]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 23.871µs	{"name": "verifyshield"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [15813, 14725]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 54.882µs	{"name": "verifyremove"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14432, 15846]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 22.661µs	{"name": "verifyremove"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [15627, 14613]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 50.002µs	{"name": "verifylost"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [15878, 14048]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 25.86µs	{"name": "verifylost"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [15585, 15492]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 34.721µs	{"name": "verifylost"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [15948, 14804]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 36.731µs	{"name": "verifylost"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14318, 15995]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 24.501µs	{"name": "verifylost"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14180, 15389]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 235.658µs	{"name": "verifylost"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14738, 15435]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 75.303µs	{"name": "verifyflip"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [15761, 14008]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 28.751µs	{"name": "verifyflip"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14654, 15179]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 37.182µs	{"name": "verifyflip"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [14000, 14001]}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14811, 15151]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 46.181µs	{"name": "verifyrot"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [15152, 15775]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 25.092µs	{"name": "verifyrot"}
+2026-11-18T05:53:24+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 2, "allocated ports": [14396, 15028]}
+2026-11-18T05:53:24+08:00	DEBUG	utils.time	JuiceFSRuntime.Transform took 31.701µs	{"name": "verifyrot"}
+--- FAIL: TestVerifyPr6245DocsFreshness (0.00s)
+    sync_image_pull_secrets_verify_test.go:526: docs_staleness_check.sh failed: exit status 1
+        STALE: docs/en/samples/image_pull_secrets.md still claims changing secrets needs runtime recreation (SyncRuntime propagates them since round 3)
+        STALE: docs/zh/samples/image_pull_secrets.md still claims changing secrets needs runtime recreation
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	13.344s
+FAIL
