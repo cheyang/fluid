@@ -1,0 +1,10 @@
+PR's own specs on pure head eb313c44 (no harness grafted) — 2026-11-17
+cmd: go test ./pkg/utils/dataset/lifecycle/... -run TestLifecycle -count=1 -ginkgo.json-report=head-r2-pr-own-ginkgo-report.json
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.025s
+PreRunStats:
+{"TotalSpecs":26,"SpecsThatWillRun":26}
+states:
+     26 passed
+new specs from PR commit eb313c44:
+should remove the runtime label when the exclude selector doesn't match the node
+should only clean up the node that isn't excluded when the workers leave

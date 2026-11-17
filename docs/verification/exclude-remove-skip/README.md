@@ -86,6 +86,33 @@ head (bug fixed) — head = base + exactly this PR's patch, so the "apply the pr
 watch the contract go green" step is the head run itself. Production code in the harness branch
 is untouched (`git diff 145a2c13 -- pkg/` is empty).
 
+## Round 2 (2026-11-17, head eb313c44)
+
+The PR gained one test-only commit (`eb313c44a` "test(lifecycle): cover the exclude selector on
+removal through SyncScheduleInfoToCacheNodes") that adds the entry-point coverage and the
+non-matching-selector case the round-1 review asked for — the same shapes as this harness.
+
+Re-verify (`scripts/re-verify.sh`, no args → resolves head eb313c44, grafts harness):
+
+| ID | Verdict | Detail |
+|----|---------|--------|
+| issue-6246-removal-skip | FIXED | contract spec passed on head |
+| issue-6246-no-false-skip | FIXED | contract spec passed on head |
+
+Full package suite with harness grafted: **28/28 specs passed** (`results/reverify/` —
+26 PR-owned incl. the two new specs from eb313c44, plus the 2 harness contracts).
+PR's own suite on pure head without harness: **26/26 passed**
+(`results/head-r2-run.txt`, `results/head-r2-pr-own-ginkgo-report.json`).
+Delta `145a2c13..eb313c44` is test-only; production code (`pkg/`) unchanged, harness
+`git diff eb313c44 -- pkg/` restricted to the additive `node_pr6249_verify_test.go`.
+
+Harness fix this round: `re-verify.sh` previously copied raw results into the in-repo
+`results/reverify/` dir *before* the exit trap restored the tree, so the tracked
+`ginkgo-report.json` was silently reverted to the committed round-1 version (the
+round-2 run initially looked like the new specs never executed — they had, the
+persisted artifact was just stale). The copy now happens inside the trap, after the
+restore.
+
 ## Continuing after the fix (possibly on another machine)
 
 The harness lives on branch `verify/exclude-remove-skip-claude` (production code untouched), so

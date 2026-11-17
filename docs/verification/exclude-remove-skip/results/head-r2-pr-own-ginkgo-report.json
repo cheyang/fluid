@@ -1,0 +1,4171 @@
+[
+  {
+    "SuitePath": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle",
+    "SuiteDescription": "Lifecycle Suite",
+    "SuiteLabels": [],
+    "SuiteSemVerConstraints": [],
+    "SuiteSucceeded": true,
+    "SuiteHasProgrammaticFocus": false,
+    "SpecialSuiteFailureReasons": null,
+    "PreRunStats": {
+      "TotalSpecs": 26,
+      "SpecsThatWillRun": 26
+    },
+    "StartTime": "2026-11-17T08:10:15.701341875+08:00",
+    "EndTime": "2026-11-17T08:10:15.711562389+08:00",
+    "RunTime": 10220504,
+    "SuiteConfig": {
+      "RandomSeed": 1794874215,
+      "RandomizeAllSpecs": false,
+      "FocusStrings": null,
+      "SkipStrings": null,
+      "FocusFiles": null,
+      "SkipFiles": null,
+      "LabelFilter": "",
+      "SemVerFilter": "",
+      "FailOnPending": false,
+      "FailOnEmpty": false,
+      "FailFast": false,
+      "FlakeAttempts": 0,
+      "MustPassRepeatedly": 0,
+      "DryRun": false,
+      "PollProgressAfter": 0,
+      "PollProgressInterval": 0,
+      "Timeout": 3600000000000,
+      "EmitSpecProgress": false,
+      "OutputInterceptorMode": "",
+      "SourceRoots": null,
+      "GracePeriod": 30000000000,
+      "ParallelProcess": 1,
+      "ParallelTotal": 1,
+      "ParallelHost": ""
+    },
+    "SpecReports": [
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given exclusive placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 65
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 66
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 81
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add exclusive labels to node",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.701427728+08:00",
+        "EndTime": "2026-11-17T08:10:15.703186911+08:00",
+        "RunTime": 1759183,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 1,
+              "Time": "2026-11-17T08:10:15.701453169+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 3,
+              "Time": "2026-11-17T08:10:15.701741369+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 288200,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 67
+            },
+            "TimelineLocation": {
+              "Order": 4,
+              "Time": "2026-11-17T08:10:15.701742799+08:00"
+            },
+            "Message": "when given exclusive placement mode runtime",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 67
+            },
+            "TimelineLocation": {
+              "Order": 6,
+              "Time": "2026-11-17T08:10:15.70175074+08:00"
+            },
+            "Message": "when given exclusive placement mode runtime",
+            "Duration": 7931,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 7,
+              "Time": "2026-11-17T08:10:15.701751169+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 9,
+              "Time": "2026-11-17T08:10:15.701829522+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 78353,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 81
+            },
+            "TimelineLocation": {
+              "Order": 10,
+              "Time": "2026-11-17T08:10:15.701830022+08:00"
+            },
+            "Message": "should add exclusive labels to node",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 81
+            },
+            "TimelineLocation": {
+              "Order": 12,
+              "Time": "2026-11-17T08:10:15.703183571+08:00"
+            },
+            "Message": "should add exclusive labels to node",
+            "Duration": 1353549,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given share placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 65
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 100
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 115
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add share mode labels to node",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.703206941+08:00",
+        "EndTime": "2026-11-17T08:10:15.703674808+08:00",
+        "RunTime": 467867,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 13,
+              "Time": "2026-11-17T08:10:15.703210381+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 15,
+              "Time": "2026-11-17T08:10:15.703417979+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 207598,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 101
+            },
+            "TimelineLocation": {
+              "Order": 16,
+              "Time": "2026-11-17T08:10:15.703418919+08:00"
+            },
+            "Message": "when given share placement mode runtime",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 101
+            },
+            "TimelineLocation": {
+              "Order": 18,
+              "Time": "2026-11-17T08:10:15.703426219+08:00"
+            },
+            "Message": "when given share placement mode runtime",
+            "Duration": 7300,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 19,
+              "Time": "2026-11-17T08:10:15.703426719+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 21,
+              "Time": "2026-11-17T08:10:15.70345135+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 24631,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 115
+            },
+            "TimelineLocation": {
+              "Order": 22,
+              "Time": "2026-11-17T08:10:15.70345171+08:00"
+            },
+            "Message": "should add share mode labels to node",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 115
+            },
+            "TimelineLocation": {
+              "Order": 24,
+              "Time": "2026-11-17T08:10:15.703673758+08:00"
+            },
+            "Message": "should add share mode labels to node",
+            "Duration": 222058,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test labelCacheNode()",
+          "when given runtime with tiered store"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 65
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 134
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 169
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add capacity labels to node",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.703682728+08:00",
+        "EndTime": "2026-11-17T08:10:15.704070432+08:00",
+        "RunTime": 387704,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 25,
+              "Time": "2026-11-17T08:10:15.703684529+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 27,
+              "Time": "2026-11-17T08:10:15.703835594+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 151056,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 135
+            },
+            "TimelineLocation": {
+              "Order": 28,
+              "Time": "2026-11-17T08:10:15.703836164+08:00"
+            },
+            "Message": "when given runtime with tiered store",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 135
+            },
+            "TimelineLocation": {
+              "Order": 30,
+              "Time": "2026-11-17T08:10:15.703851064+08:00"
+            },
+            "Message": "when given runtime with tiered store",
+            "Duration": 14900,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 31,
+              "Time": "2026-11-17T08:10:15.703851404+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 33,
+              "Time": "2026-11-17T08:10:15.703869865+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 18451,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 169
+            },
+            "TimelineLocation": {
+              "Order": 34,
+              "Time": "2026-11-17T08:10:15.703870205+08:00"
+            },
+            "Message": "should add capacity labels to node",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 169
+            },
+            "TimelineLocation": {
+              "Order": 36,
+              "Time": "2026-11-17T08:10:15.704069652+08:00"
+            },
+            "Message": "should add capacity labels to node",
+            "Duration": 199447,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has dataset-num label with value 2"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 188
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 189
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 190
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should decrease dataset number to 1",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.704076592+08:00",
+        "EndTime": "2026-11-17T08:10:15.704238758+08:00",
+        "RunTime": 162166,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 37,
+              "Time": "2026-11-17T08:10:15.704080323+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 39,
+              "Time": "2026-11-17T08:10:15.704217477+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 137165,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 40,
+              "Time": "2026-11-17T08:10:15.704218028+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 42,
+              "Time": "2026-11-17T08:10:15.704229688+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 11660,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 190
+            },
+            "TimelineLocation": {
+              "Order": 43,
+              "Time": "2026-11-17T08:10:15.704230008+08:00"
+            },
+            "Message": "should decrease dataset number to 1",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 190
+            },
+            "TimelineLocation": {
+              "Order": 45,
+              "Time": "2026-11-17T08:10:15.704238128+08:00"
+            },
+            "Message": "should decrease dataset number to 1",
+            "Duration": 8120,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has dataset-num label with value 1"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 188
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 209
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 210
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should delete dataset-num label",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.704242638+08:00",
+        "EndTime": "2026-11-17T08:10:15.704404624+08:00",
+        "RunTime": 161986,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 46,
+              "Time": "2026-11-17T08:10:15.704243658+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 48,
+              "Time": "2026-11-17T08:10:15.704383743+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 140085,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 49,
+              "Time": "2026-11-17T08:10:15.704384243+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 51,
+              "Time": "2026-11-17T08:10:15.704393824+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 9571,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 210
+            },
+            "TimelineLocation": {
+              "Order": 52,
+              "Time": "2026-11-17T08:10:15.704394444+08:00"
+            },
+            "Message": "should delete dataset-num label",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 210
+            },
+            "TimelineLocation": {
+              "Order": 54,
+              "Time": "2026-11-17T08:10:15.704404074+08:00"
+            },
+            "Message": "should delete dataset-num label",
+            "Duration": 9620,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has invalid dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 188
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 228
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 229
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return error",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.704409084+08:00",
+        "EndTime": "2026-11-17T08:10:15.70456075+08:00",
+        "RunTime": 151676,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 55,
+              "Time": "2026-11-17T08:10:15.704410254+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 57,
+              "Time": "2026-11-17T08:10:15.704540119+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 129865,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 58,
+              "Time": "2026-11-17T08:10:15.704540599+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 60,
+              "Time": "2026-11-17T08:10:15.704551729+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 11130,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 229
+            },
+            "TimelineLocation": {
+              "Order": 61,
+              "Time": "2026-11-17T08:10:15.704552059+08:00"
+            },
+            "Message": "should return error",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 229
+            },
+            "TimelineLocation": {
+              "Order": 63,
+              "Time": "2026-11-17T08:10:15.70456021+08:00"
+            },
+            "Message": "should return error",
+            "Duration": 8161,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test DecreaseDatasetNum()",
+          "when node has no dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 188
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 241
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 242
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should not modify labels",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.70456511+08:00",
+        "EndTime": "2026-11-17T08:10:15.704713185+08:00",
+        "RunTime": 148075,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 64,
+              "Time": "2026-11-17T08:10:15.70456618+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 66,
+              "Time": "2026-11-17T08:10:15.704697065+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 130885,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 67,
+              "Time": "2026-11-17T08:10:15.704697594+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 69,
+              "Time": "2026-11-17T08:10:15.704706145+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 8551,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 242
+            },
+            "TimelineLocation": {
+              "Order": 70,
+              "Time": "2026-11-17T08:10:15.704706475+08:00"
+            },
+            "Message": "should not modify labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 242
+            },
+            "TimelineLocation": {
+              "Order": 72,
+              "Time": "2026-11-17T08:10:15.704712725+08:00"
+            },
+            "Message": "should not modify labels",
+            "Duration": 6240,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test increaseDatasetNum",
+          "when node has existing dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 256
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 257
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 258
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should increase dataset number",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.704716075+08:00",
+        "EndTime": "2026-11-17T08:10:15.70485967+08:00",
+        "RunTime": 143605,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 73,
+              "Time": "2026-11-17T08:10:15.704717185+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 75,
+              "Time": "2026-11-17T08:10:15.70484473+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 127545,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 76,
+              "Time": "2026-11-17T08:10:15.70484513+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 78,
+              "Time": "2026-11-17T08:10:15.70485317+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 8040,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 258
+            },
+            "TimelineLocation": {
+              "Order": 79,
+              "Time": "2026-11-17T08:10:15.70485347+08:00"
+            },
+            "Message": "should increase dataset number",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 258
+            },
+            "TimelineLocation": {
+              "Order": 81,
+              "Time": "2026-11-17T08:10:15.70485924+08:00"
+            },
+            "Message": "should increase dataset number",
+            "Duration": 5760,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test increaseDatasetNum",
+          "when node has no dataset-num label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 256
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 276
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 277
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should add dataset-num label with value 1",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.70486284+08:00",
+        "EndTime": "2026-11-17T08:10:15.705015796+08:00",
+        "RunTime": 152956,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 82,
+              "Time": "2026-11-17T08:10:15.704863471+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 84,
+              "Time": "2026-11-17T08:10:15.704999585+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 136114,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 85,
+              "Time": "2026-11-17T08:10:15.704999985+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 87,
+              "Time": "2026-11-17T08:10:15.705008385+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 8400,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 277
+            },
+            "TimelineLocation": {
+              "Order": 88,
+              "Time": "2026-11-17T08:10:15.705008705+08:00"
+            },
+            "Message": "should add dataset-num label with value 1",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 277
+            },
+            "TimelineLocation": {
+              "Order": 90,
+              "Time": "2026-11-17T08:10:15.705015276+08:00"
+            },
+            "Message": "should add dataset-num label with value 1",
+            "Duration": 6571,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has runtime label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 296
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 297
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 298
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return true",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.705020726+08:00",
+        "EndTime": "2026-11-17T08:10:15.705162981+08:00",
+        "RunTime": 142255,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 91,
+              "Time": "2026-11-17T08:10:15.705022396+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 93,
+              "Time": "2026-11-17T08:10:15.705148001+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 125595,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 94,
+              "Time": "2026-11-17T08:10:15.70514867+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 96,
+              "Time": "2026-11-17T08:10:15.705156121+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 7461,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 298
+            },
+            "TimelineLocation": {
+              "Order": 97,
+              "Time": "2026-11-17T08:10:15.705156441+08:00"
+            },
+            "Message": "should return true",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 298
+            },
+            "TimelineLocation": {
+              "Order": 99,
+              "Time": "2026-11-17T08:10:15.705162501+08:00"
+            },
+            "Message": "should return true",
+            "Duration": 6060,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has no runtime label"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 296
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 313
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 314
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.705166251+08:00",
+        "EndTime": "2026-11-17T08:10:15.705326937+08:00",
+        "RunTime": 160696,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 100,
+              "Time": "2026-11-17T08:10:15.705167021+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 102,
+              "Time": "2026-11-17T08:10:15.705310176+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 143155,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 103,
+              "Time": "2026-11-17T08:10:15.705310736+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 105,
+              "Time": "2026-11-17T08:10:15.705320667+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 9931,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 314
+            },
+            "TimelineLocation": {
+              "Order": 106,
+              "Time": "2026-11-17T08:10:15.705320987+08:00"
+            },
+            "Message": "should return false",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 314
+            },
+            "TimelineLocation": {
+              "Order": 108,
+              "Time": "2026-11-17T08:10:15.705326437+08:00"
+            },
+            "Message": "should return false",
+            "Duration": 5450,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test hasRuntimeLabel",
+          "when node has no labels"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 296
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 329
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 330
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return false",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.705331177+08:00",
+        "EndTime": "2026-11-17T08:10:15.705479132+08:00",
+        "RunTime": 147965,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 109,
+              "Time": "2026-11-17T08:10:15.705332927+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 111,
+              "Time": "2026-11-17T08:10:15.705455192+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 122255,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 112,
+              "Time": "2026-11-17T08:10:15.705455552+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 114,
+              "Time": "2026-11-17T08:10:15.705468442+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 12881,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 330
+            },
+            "TimelineLocation": {
+              "Order": 115,
+              "Time": "2026-11-17T08:10:15.705468932+08:00"
+            },
+            "Message": "should return false",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 330
+            },
+            "TimelineLocation": {
+              "Order": 117,
+              "Time": "2026-11-17T08:10:15.705478542+08:00"
+            },
+            "Message": "should return false",
+            "Duration": 9620,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given exclusive placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 344
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 345
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 368
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove fluid labels and keep other labels",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.705482702+08:00",
+        "EndTime": "2026-11-17T08:10:15.705836075+08:00",
+        "RunTime": 353383,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 118,
+              "Time": "2026-11-17T08:10:15.705484342+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 120,
+              "Time": "2026-11-17T08:10:15.705607897+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 123555,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 346
+            },
+            "TimelineLocation": {
+              "Order": 121,
+              "Time": "2026-11-17T08:10:15.705608697+08:00"
+            },
+            "Message": "when given exclusive placement mode runtime",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 346
+            },
+            "TimelineLocation": {
+              "Order": 123,
+              "Time": "2026-11-17T08:10:15.705613997+08:00"
+            },
+            "Message": "when given exclusive placement mode runtime",
+            "Duration": 5300,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 124,
+              "Time": "2026-11-17T08:10:15.705614357+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 126,
+              "Time": "2026-11-17T08:10:15.705625218+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 10861,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 368
+            },
+            "TimelineLocation": {
+              "Order": 127,
+              "Time": "2026-11-17T08:10:15.705625707+08:00"
+            },
+            "Message": "should remove fluid labels and keep other labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 368
+            },
+            "TimelineLocation": {
+              "Order": 129,
+              "Time": "2026-11-17T08:10:15.705835225+08:00"
+            },
+            "Message": "should remove fluid labels and keep other labels",
+            "Duration": 209507,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given share placement mode runtime"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 344
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 394
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 415
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove all fluid labels",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.705841965+08:00",
+        "EndTime": "2026-11-17T08:10:15.706150736+08:00",
+        "RunTime": 308771,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 130,
+              "Time": "2026-11-17T08:10:15.705843475+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 132,
+              "Time": "2026-11-17T08:10:15.70598136+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 137875,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 395
+            },
+            "TimelineLocation": {
+              "Order": 133,
+              "Time": "2026-11-17T08:10:15.70598191+08:00"
+            },
+            "Message": "when given share placement mode runtime",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 395
+            },
+            "TimelineLocation": {
+              "Order": 135,
+              "Time": "2026-11-17T08:10:15.70598638+08:00"
+            },
+            "Message": "when given share placement mode runtime",
+            "Duration": 4470,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 136,
+              "Time": "2026-11-17T08:10:15.705986851+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 138,
+              "Time": "2026-11-17T08:10:15.705997811+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 10960,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 415
+            },
+            "TimelineLocation": {
+              "Order": 139,
+              "Time": "2026-11-17T08:10:15.705998231+08:00"
+            },
+            "Message": "should remove all fluid labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 415
+            },
+            "TimelineLocation": {
+              "Order": 141,
+              "Time": "2026-11-17T08:10:15.706150076+08:00"
+            },
+            "Message": "should remove all fluid labels",
+            "Duration": 151855,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test unlabelCacheNode()",
+          "when given runtime with tiered store"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 344
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 437
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 481
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove all fluid labels including capacity labels",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.706155317+08:00",
+        "EndTime": "2026-11-17T08:10:15.706503679+08:00",
+        "RunTime": 348362,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 142,
+              "Time": "2026-11-17T08:10:15.706156846+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 144,
+              "Time": "2026-11-17T08:10:15.706291731+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 134895,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 438
+            },
+            "TimelineLocation": {
+              "Order": 145,
+              "Time": "2026-11-17T08:10:15.706292541+08:00"
+            },
+            "Message": "when given runtime with tiered store",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 438
+            },
+            "TimelineLocation": {
+              "Order": 147,
+              "Time": "2026-11-17T08:10:15.706302222+08:00"
+            },
+            "Message": "when given runtime with tiered store",
+            "Duration": 9681,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 148,
+              "Time": "2026-11-17T08:10:15.706302542+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 150,
+              "Time": "2026-11-17T08:10:15.706313422+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 10870,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 481
+            },
+            "TimelineLocation": {
+              "Order": 151,
+              "Time": "2026-11-17T08:10:15.706313762+08:00"
+            },
+            "Message": "should remove all fluid labels including capacity labels",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 481
+            },
+            "TimelineLocation": {
+              "Order": 153,
+              "Time": "2026-11-17T08:10:15.706502659+08:00"
+            },
+            "Message": "should remove all fluid labels including capacity labels",
+            "Duration": 188897,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test removeScheduleInfoFromNode()"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 507
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 532
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove the runtime label from a node that isn't excluded",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.706509139+08:00",
+        "EndTime": "2026-11-17T08:10:15.706854591+08:00",
+        "RunTime": 345442,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 154,
+              "Time": "2026-11-17T08:10:15.706511349+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 156,
+              "Time": "2026-11-17T08:10:15.706643164+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 131815,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 157,
+              "Time": "2026-11-17T08:10:15.706643604+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 159,
+              "Time": "2026-11-17T08:10:15.706652014+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 8400,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 160,
+              "Time": "2026-11-17T08:10:15.706652324+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 162,
+              "Time": "2026-11-17T08:10:15.706659474+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 7140,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 522
+            },
+            "TimelineLocation": {
+              "Order": 163,
+              "Time": "2026-11-17T08:10:15.706659824+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 522
+            },
+            "TimelineLocation": {
+              "Order": 165,
+              "Time": "2026-11-17T08:10:15.706669115+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 9291,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 532
+            },
+            "TimelineLocation": {
+              "Order": 166,
+              "Time": "2026-11-17T08:10:15.706669435+08:00"
+            },
+            "Message": "should remove the runtime label from a node that isn't excluded",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 532
+            },
+            "TimelineLocation": {
+              "Order": 168,
+              "Time": "2026-11-17T08:10:15.706847961+08:00"
+            },
+            "Message": "should remove the runtime label from a node that isn't excluded",
+            "Duration": 178536,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 528
+            },
+            "TimelineLocation": {
+              "Order": 169,
+              "Time": "2026-11-17T08:10:15.706849521+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 528
+            },
+            "TimelineLocation": {
+              "Order": 171,
+              "Time": "2026-11-17T08:10:15.706853411+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 3900,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test removeScheduleInfoFromNode()"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 507
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 540
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should leave a node matching the exclude selector untouched",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.706859362+08:00",
+        "EndTime": "2026-11-17T08:10:15.707050508+08:00",
+        "RunTime": 191146,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 172,
+              "Time": "2026-11-17T08:10:15.706861142+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 174,
+              "Time": "2026-11-17T08:10:15.706994256+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 133105,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 175,
+              "Time": "2026-11-17T08:10:15.706994826+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 177,
+              "Time": "2026-11-17T08:10:15.707000916+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 6101,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 178,
+              "Time": "2026-11-17T08:10:15.707001367+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 180,
+              "Time": "2026-11-17T08:10:15.707007917+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 6560,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 522
+            },
+            "TimelineLocation": {
+              "Order": 181,
+              "Time": "2026-11-17T08:10:15.707008357+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 522
+            },
+            "TimelineLocation": {
+              "Order": 183,
+              "Time": "2026-11-17T08:10:15.707016847+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 8500,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 540
+            },
+            "TimelineLocation": {
+              "Order": 184,
+              "Time": "2026-11-17T08:10:15.707017307+08:00"
+            },
+            "Message": "should leave a node matching the exclude selector untouched",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 540
+            },
+            "TimelineLocation": {
+              "Order": 186,
+              "Time": "2026-11-17T08:10:15.707044618+08:00"
+            },
+            "Message": "should leave a node matching the exclude selector untouched",
+            "Duration": 27321,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 528
+            },
+            "TimelineLocation": {
+              "Order": 187,
+              "Time": "2026-11-17T08:10:15.707045788+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 528
+            },
+            "TimelineLocation": {
+              "Order": 189,
+              "Time": "2026-11-17T08:10:15.707049568+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 3780,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test removeScheduleInfoFromNode()"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 507
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 550
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should remove the runtime label when the exclude selector doesn't match the node",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.707056669+08:00",
+        "EndTime": "2026-11-17T08:10:15.707400701+08:00",
+        "RunTime": 344042,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 190,
+              "Time": "2026-11-17T08:10:15.707058258+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 192,
+              "Time": "2026-11-17T08:10:15.707186213+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 127944,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 193,
+              "Time": "2026-11-17T08:10:15.707186633+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 195,
+              "Time": "2026-11-17T08:10:15.707194203+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 7571,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 196,
+              "Time": "2026-11-17T08:10:15.707194654+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 198,
+              "Time": "2026-11-17T08:10:15.707202244+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 7600,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 522
+            },
+            "TimelineLocation": {
+              "Order": 199,
+              "Time": "2026-11-17T08:10:15.707202594+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 522
+            },
+            "TimelineLocation": {
+              "Order": 201,
+              "Time": "2026-11-17T08:10:15.707208214+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 5630,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 550
+            },
+            "TimelineLocation": {
+              "Order": 202,
+              "Time": "2026-11-17T08:10:15.707208674+08:00"
+            },
+            "Message": "should remove the runtime label when the exclude selector doesn't match the node",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 550
+            },
+            "TimelineLocation": {
+              "Order": 204,
+              "Time": "2026-11-17T08:10:15.70739515+08:00"
+            },
+            "Message": "should remove the runtime label when the exclude selector doesn't match the node",
+            "Duration": 186487,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 528
+            },
+            "TimelineLocation": {
+              "Order": 205,
+              "Time": "2026-11-17T08:10:15.70739615+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 528
+            },
+            "TimelineLocation": {
+              "Order": 207,
+              "Time": "2026-11-17T08:10:15.707400161+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 4021,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test removeScheduleInfoFromNode()"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 507
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 560
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should only clean up the node that isn't excluded when the workers leave",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.707405201+08:00",
+        "EndTime": "2026-11-17T08:10:15.708056034+08:00",
+        "RunTime": 650823,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 208,
+              "Time": "2026-11-17T08:10:15.707406881+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 210,
+              "Time": "2026-11-17T08:10:15.707553126+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 146245,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 211,
+              "Time": "2026-11-17T08:10:15.707553666+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 510
+            },
+            "TimelineLocation": {
+              "Order": 213,
+              "Time": "2026-11-17T08:10:15.707560127+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 6461,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 214,
+              "Time": "2026-11-17T08:10:15.707560436+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 216,
+              "Time": "2026-11-17T08:10:15.707567957+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 7531,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 522
+            },
+            "TimelineLocation": {
+              "Order": 217,
+              "Time": "2026-11-17T08:10:15.707568287+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 522
+            },
+            "TimelineLocation": {
+              "Order": 219,
+              "Time": "2026-11-17T08:10:15.707574497+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 6200,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 560
+            },
+            "TimelineLocation": {
+              "Order": 220,
+              "Time": "2026-11-17T08:10:15.707574947+08:00"
+            },
+            "Message": "should only clean up the node that isn't excluded when the workers leave",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 560
+            },
+            "TimelineLocation": {
+              "Order": 222,
+              "Time": "2026-11-17T08:10:15.708048304+08:00"
+            },
+            "Message": "should only clean up the node that isn't excluded when the workers leave",
+            "Duration": 473347,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 528
+            },
+            "TimelineLocation": {
+              "Order": 223,
+              "Time": "2026-11-17T08:10:15.708049814+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 528
+            },
+            "TimelineLocation": {
+              "Order": 225,
+              "Time": "2026-11-17T08:10:15.708055124+08:00"
+            },
+            "Message": "Test removeScheduleInfoFromNode()",
+            "Duration": 5310,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given current and previous node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 588
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 589
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 590
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should calculate correct differences",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.708062284+08:00",
+        "EndTime": "2026-11-17T08:10:15.7082115+08:00",
+        "RunTime": 149216,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 226,
+              "Time": "2026-11-17T08:10:15.708063504+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 228,
+              "Time": "2026-11-17T08:10:15.708195069+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 131565,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 229,
+              "Time": "2026-11-17T08:10:15.708195589+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 231,
+              "Time": "2026-11-17T08:10:15.708202749+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 7170,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 590
+            },
+            "TimelineLocation": {
+              "Order": 232,
+              "Time": "2026-11-17T08:10:15.708203199+08:00"
+            },
+            "Message": "should calculate correct differences",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 590
+            },
+            "TimelineLocation": {
+              "Order": 234,
+              "Time": "2026-11-17T08:10:15.70821078+08:00"
+            },
+            "Message": "should calculate correct differences",
+            "Duration": 7581,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given identical node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 588
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 601
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 602
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return empty differences",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.70821567+08:00",
+        "EndTime": "2026-11-17T08:10:15.708378645+08:00",
+        "RunTime": 162975,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 235,
+              "Time": "2026-11-17T08:10:15.708217+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 237,
+              "Time": "2026-11-17T08:10:15.708362015+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 145015,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 238,
+              "Time": "2026-11-17T08:10:15.708362665+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 240,
+              "Time": "2026-11-17T08:10:15.708369035+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 6360,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 602
+            },
+            "TimelineLocation": {
+              "Order": 241,
+              "Time": "2026-11-17T08:10:15.708369485+08:00"
+            },
+            "Message": "should return empty differences",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 602
+            },
+            "TimelineLocation": {
+              "Order": 243,
+              "Time": "2026-11-17T08:10:15.708378056+08:00"
+            },
+            "Message": "should return empty differences",
+            "Duration": 8570,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test calculateNodeDifferences",
+          "when given completely different node lists"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 588
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 613
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 614
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should return all nodes as differences",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.708383596+08:00",
+        "EndTime": "2026-11-17T08:10:15.708936516+08:00",
+        "RunTime": 552929,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 244,
+              "Time": "2026-11-17T08:10:15.708384546+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 246,
+              "Time": "2026-11-17T08:10:15.708805711+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 421165,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 247,
+              "Time": "2026-11-17T08:10:15.708809621+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 249,
+              "Time": "2026-11-17T08:10:15.708876083+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 66452,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 614
+            },
+            "TimelineLocation": {
+              "Order": 250,
+              "Time": "2026-11-17T08:10:15.708891324+08:00"
+            },
+            "Message": "should return all nodes as differences",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 614
+            },
+            "TimelineLocation": {
+              "Order": 252,
+              "Time": "2026-11-17T08:10:15.708933275+08:00"
+            },
+            "Message": "should return all nodes as differences",
+            "Duration": 41961,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test SyncScheduleInfoToCacheNodes",
+          "when calling SyncScheduleInfoToCacheNodes several times to mock runtime scaling"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 626
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 690
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 704
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should successfully add or remove schedule info on proper nodes",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.709024728+08:00",
+        "EndTime": "2026-11-17T08:10:15.710958837+08:00",
+        "RunTime": 1934109,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 253,
+              "Time": "2026-11-17T08:10:15.709040179+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 255,
+              "Time": "2026-11-17T08:10:15.709311759+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 271580,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 633
+            },
+            "TimelineLocation": {
+              "Order": 256,
+              "Time": "2026-11-17T08:10:15.709312779+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 633
+            },
+            "TimelineLocation": {
+              "Order": 258,
+              "Time": "2026-11-17T08:10:15.709329319+08:00"
+            },
+            "Message": "Test SyncScheduleInfoToCacheNodes",
+            "Duration": 16530,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 692
+            },
+            "TimelineLocation": {
+              "Order": 259,
+              "Time": "2026-11-17T08:10:15.70932981+08:00"
+            },
+            "Message": "when calling SyncScheduleInfoToCacheNodes several times to mock runtime scaling",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 692
+            },
+            "TimelineLocation": {
+              "Order": 261,
+              "Time": "2026-11-17T08:10:15.7093356+08:00"
+            },
+            "Message": "when calling SyncScheduleInfoToCacheNodes several times to mock runtime scaling",
+            "Duration": 5790,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 262,
+              "Time": "2026-11-17T08:10:15.70933597+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 264,
+              "Time": "2026-11-17T08:10:15.709362971+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 27001,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 704
+            },
+            "TimelineLocation": {
+              "Order": 265,
+              "Time": "2026-11-17T08:10:15.709363341+08:00"
+            },
+            "Message": "should successfully add or remove schedule info on proper nodes",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 705
+            },
+            "TimelineLocation": {
+              "Order": 266,
+              "Time": "2026-11-17T08:10:15.709371761+08:00"
+            },
+            "Message": "scaling two pods to node-0 and node-1, the two nodes should have runtime labels"
+          },
+          {
+            "SpecEventType": "By (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 705
+            },
+            "TimelineLocation": {
+              "Order": 267,
+              "Time": "2026-11-17T08:10:15.710026274+08:00"
+            },
+            "Message": "scaling two pods to node-0 and node-1, the two nodes should have runtime labels",
+            "Duration": 654503
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 727
+            },
+            "TimelineLocation": {
+              "Order": 268,
+              "Time": "2026-11-17T08:10:15.710028674+08:00"
+            },
+            "Message": "scaling out a third pod to node-2, all pods should have runtime labels"
+          },
+          {
+            "SpecEventType": "By (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 727
+            },
+            "TimelineLocation": {
+              "Order": 269,
+              "Time": "2026-11-17T08:10:15.710323425+08:00"
+            },
+            "Message": "scaling out a third pod to node-2, all pods should have runtime labels",
+            "Duration": 294741
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 740
+            },
+            "TimelineLocation": {
+              "Order": 270,
+              "Time": "2026-11-17T08:10:15.710325285+08:00"
+            },
+            "Message": "scaling in pods on node-1 and node-2, only node-0 should have runtime labels"
+          },
+          {
+            "SpecEventType": "By (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 740
+            },
+            "TimelineLocation": {
+              "Order": 271,
+              "Time": "2026-11-17T08:10:15.71074127+08:00"
+            },
+            "Message": "scaling in pods on node-1 and node-2, only node-0 should have runtime labels",
+            "Duration": 415985
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 762
+            },
+            "TimelineLocation": {
+              "Order": 272,
+              "Time": "2026-11-17T08:10:15.71074277+08:00"
+            },
+            "Message": "scaling in the last pod node node-0, now all nodes should not have runtime labels"
+          },
+          {
+            "SpecEventType": "By (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 762
+            },
+            "TimelineLocation": {
+              "Order": 273,
+              "Time": "2026-11-17T08:10:15.710951717+08:00"
+            },
+            "Message": "scaling in the last pod node node-0, now all nodes should not have runtime labels",
+            "Duration": 208947
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 704
+            },
+            "TimelineLocation": {
+              "Order": 275,
+              "Time": "2026-11-17T08:10:15.710956937+08:00"
+            },
+            "Message": "should successfully add or remove schedule info on proper nodes",
+            "Duration": 1593607,
+            "NodeType": "It"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR is not set"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 778
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 782
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 783
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should not return error and nodeExcludeSelector should be nil",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.710970588+08:00",
+        "EndTime": "2026-11-17T08:10:15.711157155+08:00",
+        "RunTime": 186567,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 276,
+              "Time": "2026-11-17T08:10:15.710972578+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 278,
+              "Time": "2026-11-17T08:10:15.711111743+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 139165,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 279,
+              "Time": "2026-11-17T08:10:15.711112333+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 281,
+              "Time": "2026-11-17T08:10:15.711136744+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 24411,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 783
+            },
+            "TimelineLocation": {
+              "Order": 282,
+              "Time": "2026-11-17T08:10:15.711137114+08:00"
+            },
+            "Message": "Should not return error and nodeExcludeSelector should be nil",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 783
+            },
+            "TimelineLocation": {
+              "Order": 284,
+              "Time": "2026-11-17T08:10:15.711145434+08:00"
+            },
+            "Message": "Should not return error and nodeExcludeSelector should be nil",
+            "Duration": 8320,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 779
+            },
+            "TimelineLocation": {
+              "Order": 285,
+              "Time": "2026-11-17T08:10:15.711146914+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 779
+            },
+            "TimelineLocation": {
+              "Order": 287,
+              "Time": "2026-11-17T08:10:15.711156195+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "Duration": 9281,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR has valid label selector"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 778
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 790
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 791
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should parse the selector correctly",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.711162895+08:00",
+        "EndTime": "2026-11-17T08:10:15.711364282+08:00",
+        "RunTime": 201387,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 288,
+              "Time": "2026-11-17T08:10:15.711163885+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 290,
+              "Time": "2026-11-17T08:10:15.71130155+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 137655,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 291,
+              "Time": "2026-11-17T08:10:15.71130199+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 293,
+              "Time": "2026-11-17T08:10:15.71132006+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 18070,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 791
+            },
+            "TimelineLocation": {
+              "Order": 294,
+              "Time": "2026-11-17T08:10:15.71132039+08:00"
+            },
+            "Message": "Should parse the selector correctly",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 791
+            },
+            "TimelineLocation": {
+              "Order": 296,
+              "Time": "2026-11-17T08:10:15.711356122+08:00"
+            },
+            "Message": "Should parse the selector correctly",
+            "Duration": 35732,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 779
+            },
+            "TimelineLocation": {
+              "Order": 297,
+              "Time": "2026-11-17T08:10:15.711357522+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 779
+            },
+            "TimelineLocation": {
+              "Order": 299,
+              "Time": "2026-11-17T08:10:15.711363392+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "Duration": 5870,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test parseNodeExcludeSelectorFromEnv",
+          "when FLUID_SCHEDULE_INFO_EXCLUDE_NODE_SELECTOR has invalid label selector"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 42
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 778
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 806
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          [],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 807
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "Should return error",
+        "State": "passed",
+        "StartTime": "2026-11-17T08:10:15.711370202+08:00",
+        "EndTime": "2026-11-17T08:10:15.711559559+08:00",
+        "RunTime": 189357,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 300,
+              "Time": "2026-11-17T08:10:15.711371442+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 50
+            },
+            "TimelineLocation": {
+              "Order": 302,
+              "Time": "2026-11-17T08:10:15.711510827+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 139385,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 303,
+              "Time": "2026-11-17T08:10:15.711511287+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 61
+            },
+            "TimelineLocation": {
+              "Order": 305,
+              "Time": "2026-11-17T08:10:15.711526228+08:00"
+            },
+            "Message": "Dataset Lifecycle Node Tests",
+            "Duration": 14931,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 807
+            },
+            "TimelineLocation": {
+              "Order": 306,
+              "Time": "2026-11-17T08:10:15.711526548+08:00"
+            },
+            "Message": "Should return error",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 807
+            },
+            "TimelineLocation": {
+              "Order": 308,
+              "Time": "2026-11-17T08:10:15.711553529+08:00"
+            },
+            "Message": "Should return error",
+            "Duration": 26991,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 779
+            },
+            "TimelineLocation": {
+              "Order": 309,
+              "Time": "2026-11-17T08:10:15.711554429+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/claude/wt-pr6249-r2-claude/pkg/utils/dataset/lifecycle/node_test.go",
+              "LineNumber": 779
+            },
+            "TimelineLocation": {
+              "Order": 311,
+              "Time": "2026-11-17T08:10:15.711559049+08:00"
+            },
+            "Message": "Test parseNodeExcludeSelectorFromEnv",
+            "Duration": 4620,
+            "NodeType": "AfterEach"
+          }
+        ]
+      }
+    ]
+  }
+]
