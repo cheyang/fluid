@@ -3,11 +3,12 @@
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6245",
   "reviewer": "codex",
   "baseSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
-  "headSha": "3271f28d7c3bc126d221422abdb9e6e0048eb9c9",
+  "headSha": "d7e316803a0e4b667ad4f9a19d10c605579e1ad1",
   "harnessPaths": [
     "docs/verification/juicefs-imagepullsecrets-codex",
     "pkg/ddc/juicefs/transform_image_pull_secrets_verify_test.go",
-    "pkg/ddc/juicefs/transform_image_pull_secrets_helm_verify_test.go"
+    "pkg/ddc/juicefs/transform_image_pull_secrets_helm_verify_test.go",
+    "pkg/ddc/juicefs/sync_image_pull_secrets_verify_test.go"
   ],
   "premise": {
     "id": "P0",
@@ -104,6 +105,32 @@
       "layer": "integration",
       "match": [
         "TestVerifyPr6245APIDocPlacement"
+      ]
+    },
+    {
+      "id": "AC9-sync-propagation",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPr6245SyncRuntimePropagatesSecrets",
+        "TestVerifyPr6245SyncRuntimeOverrideShieldsComponent",
+        "TestVerifyPr6245SyncRuntimeSecretsRemoved"
+      ]
+    },
+    {
+      "id": "F-worker-lost-update-missing-scriptcm",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPr6245WorkerSecretsLostWhenScriptConfigmapMissing"
+      ]
+    },
+    {
+      "id": "F-docs-recreate-note-stale",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestVerifyPr6245DocsFreshness"
       ]
     }
   ],
