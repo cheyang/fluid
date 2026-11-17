@@ -1,0 +1,15 @@
+=== RUN   TestDefaultLogToStderrRoutesAllSeverities
+--- PASS: TestDefaultLogToStderrRoutesAllSeverities (0.00s)
+=== RUN   TestAlsoLogToStderrKeepsInfoOnStderr
+--- PASS: TestAlsoLogToStderrKeepsInfoOnStderr (0.00s)
+=== RUN   TestFileModeStderrThresholdStillFilters
+--- PASS: TestFileModeStderrThresholdStillFilters (0.00s)
+=== RUN   TestStructuredKVDeDuplication
+    klog_behavior_test.go:146: expected exactly 1 key= pair after de-duplication, got 2:
+        I1118 07:05:01.903099 1813032 klog_behavior_test.go:143] "K4 dedup message" key=1 key=2
+--- FAIL: TestStructuredKVDeDuplication (0.00s)
+=== RUN   TestErrorSPrintsErrKeyValue
+--- PASS: TestErrorSPrintsErrKeyValue (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/klogbehavior	0.002s
+FAIL

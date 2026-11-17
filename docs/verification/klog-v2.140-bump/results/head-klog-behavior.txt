@@ -1,0 +1,12 @@
+=== RUN   TestDefaultLogToStderrRoutesAllSeverities
+--- PASS: TestDefaultLogToStderrRoutesAllSeverities (0.00s)
+=== RUN   TestAlsoLogToStderrKeepsInfoOnStderr
+--- PASS: TestAlsoLogToStderrKeepsInfoOnStderr (0.00s)
+=== RUN   TestFileModeStderrThresholdStillFilters
+--- PASS: TestFileModeStderrThresholdStillFilters (0.00s)
+=== RUN   TestStructuredKVDeDuplication
+--- PASS: TestStructuredKVDeDuplication (0.00s)
+=== RUN   TestErrorSPrintsErrKeyValue
+--- PASS: TestErrorSPrintsErrKeyValue (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/klogbehavior	0.003s
