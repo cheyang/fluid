@@ -1,0 +1,21 @@
+2026/11/17 08:33:03 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPr6245HelmRenderScenarios
+--- PASS: TestVerifyPr6245HelmRenderScenarios (0.64s)
+=== RUN   TestVerifyPr6245CRDSchemaCheck
+--- PASS: TestVerifyPr6245CRDSchemaCheck (0.52s)
+=== RUN   TestVerifyPr6245APIDocPlacement
+--- PASS: TestVerifyPr6245APIDocPlacement (0.01s)
+=== RUN   TestVerifyPr6245EnvDefaultStillApplies
+--- PASS: TestVerifyPr6245EnvDefaultStillApplies (0.00s)
+=== RUN   TestVerifyPr6245RuntimeOverridesEnv
+--- PASS: TestVerifyPr6245RuntimeOverridesEnv (0.00s)
+=== RUN   TestVerifyPr6245WorkerAndFuseOverrides
+--- PASS: TestVerifyPr6245WorkerAndFuseOverrides (0.00s)
+=== RUN   TestVerifyPr6245HelmValuesShape
+--- PASS: TestVerifyPr6245HelmValuesShape (0.00s)
+=== RUN   TestVerifyPr6245MasterAndJobWorkerSecretsInert
+--- PASS: TestVerifyPr6245MasterAndJobWorkerSecretsInert (0.00s)
+=== RUN   TestVerifyPr6245DeepCopyIsolated
+--- PASS: TestVerifyPr6245DeepCopyIsolated (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	1.189s

@@ -1,0 +1,1 @@
+clean head d7e316803 (no harness grafted): go build ./... clean; go test ./pkg/ddc/juicefs/... -count=1 => ok github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs 12.158s; ok .../operations 0.012s; PR test TestSyncImagePullSecrets PASS (5 subtests); bites: PR test fails when fuse secrets block is removed.

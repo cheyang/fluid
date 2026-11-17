@@ -80,3 +80,31 @@ JuiceFS rows into the stale committed file, one section off each time.
 
 Full suite on head: `go build ./...` clean, `go test ./pkg/ddc/juicefs/...` ok
 (round-2 run in a detached head worktree).
+
+## Round 3 (incremental, head d7e316803) — observed vs expected
+
+Delta `3271f28d..d7e316803`: (1) api_doc.md regenerated with the pinned tool
+(fixes F-apidoc-rows-misplaced); (2) **new behavior** — imagePullSecrets wired
+into `SyncRuntime` (worker + fuse leaf diffs, fuse generation bump, caller
+records the runtime-wide value once both are synced) plus the PR's own
+`TestSyncImagePullSecrets`. This closes the round-1 sync-path gap in-PR.
+
+| ID | expected | observed | verdict |
+|----|----------|----------|---------|
+| A1-A7 | still pass | all pass (results/reverify/unit-round3.parsed) | contracts hold |
+| F-apidoc-rows-misplaced | rows in own type tables | FIXED - committed api_doc.md byte-identical to crd-ref-docs v0.3.0 regen (results/apidoc-regen-vs-committed-round3.diff empty) | fixed |
+| F1 (canary) | flips only if master/jobWorker wired | still passing = still inert | STILL-PRESENT (documented, by design) |
+| AC9-sync-propagation (new) | add/override-shield/remove converge pods + configmap, idempotent, fuse generation bumped once | all 3 pass; bites-verified (results/bites-round3.txt sabotage A/B) | confirmed |
+| F-worker-lost-update-missing-scriptcm (new) | worker sts updated or sync retried | RED: with the worker-script configmap missing, syncWorkerSpec returns changed=true before Client.Update; SyncRuntime persists the mutated value; sts stays stale and the next reconcile sees no diff (results/reverify/unit-round3.parsed) | STILL-BROKEN (minor; pre-existing early-return structure, new field inherits it) |
+| F-docs-recreate-note-stale (new) | samples must not claim recreate-to-change | RED: docs/{en,zh}/samples/image_pull_secrets.md still say changing secrets needs recreating the runtime (scripts/docs_staleness_check.sh exit 1; bites-verified) | STILL-BROKEN (minor, docs-only) |
+
+Fix-direction proof for the lost-update: making syncWorkerSpec return an error
+when the worker command is unavailable flips the repro green and keeps every
+other harness test green (results/bites-round3.txt).
+
+New tests: `pkg/ddc/juicefs/sync_image_pull_secrets_verify_test.go`
+(S1/S2/S3 contracts + lost-update repro + docs-freshness wrapper). The branch
+is rebased onto d7e316803, so `go test ./pkg/ddc/juicefs -run TestVerifyPr6245`
+runs everything directly; note the full package run on this branch FAILS only
+on the two intentional repro tests - the clean-head suite is green
+(results/reverify/pkg-suite-round3-clean-head.txt).

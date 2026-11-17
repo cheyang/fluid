@@ -1,0 +1,32 @@
+re-verify: manifest = docs/verification/juicefs-imagepullsecrets-codex/verify-manifest.json
+re-verify: resolving PR head via 'git fetch https://github.com/fluid-cloudnative/fluid.git pull/6245/head' (machine-independent)
+re-verify: current head = d7e316803a0e4b667ad4f9a19d10c605579e1ad1
+re-verify: last-reviewed = 3271f28d7c3bc126d221422abdb9e6e0048eb9c9  (review delta = 3271f28d7c3bc126d221422abdb9e6e0048eb9c9..d7e316803a0e4b667ad4f9a19d10c605579e1ad1)
+re-verify: fixed-ref=d7e316803a0e4b667ad4f9a19d10c605579e1ad1  harness-from=verify/juicefs-imagepullsecrets-codex
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'integration' (gotest)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+A1     contract  unit         FIXED          pass=1 fail=0 miss=0
+A2     contract  unit         FIXED          pass=1 fail=0 miss=0
+A3     contract  unit         FIXED          pass=1 fail=0 miss=0
+A4     contract  unit         FIXED          pass=1 fail=0 miss=0
+A5     contract  unit         FIXED          pass=1 fail=0 miss=0
+F1     canary    unit         STILL-PRESENT  pass=1 fail=0 miss=0
+A6     contract  integration  FIXED          pass=1 fail=0 miss=0
+A7     contract  integration  FIXED          pass=1 fail=0 miss=0
+F-apidoc-rows-misplaced contract  integration  FIXED          pass=1 fail=0 miss=0
+AC9-sync-propagation contract  unit         FIXED          pass=3 fail=0 miss=0
+F-worker-lost-update-missing-scriptcm contract  unit         STILL-BROKEN   pass=0 fail=1 miss=0
+F-docs-recreate-note-stale contract  integration  STILL-BROKEN   pass=0 fail=1 miss=0
+
+Live layer (manual): L3 (skipped per debate policy): on a real cluster, create a JuiceFSRuntime with spec.imagePullSecrets and worker/fuse overrides and inspect the resulting worker StatefulSet / fuse DaemonSet pod specs.
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/juicefs-imagepullsecrets-codex/results/reverify
+
+Review delta this round: 3271f28d7c3bc126d221422abdb9e6e0048eb9c9..d7e316803a0e4b667ad4f9a19d10c605579e1ad1
+After reviewing that delta, advance the marker for the next round:
+  echo d7e316803a0e4b667ad4f9a19d10c605579e1ad1 > docs/verification/juicefs-imagepullsecrets-codex/.last-reviewed && git add docs/verification/juicefs-imagepullsecrets-codex/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: not all findings fixed.

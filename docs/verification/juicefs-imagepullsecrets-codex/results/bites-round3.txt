@@ -1,0 +1,17 @@
+Round-3 harness-bites evidence (all on head d7e316803, production code reverted after each):
+
+Sabotage A (drop worker secrets block in checkAndSetWorkerChanges):
+  TestVerifyPr6245SyncRuntimePropagatesSecrets FAIL, TestVerifyPr6245SyncRuntimeSecretsRemoved FAIL
+  (OverrideShields still passes - it asserts the worker is NOT updated.)
+Sabotage B (drop the caller's globalSecretsChanged recording):
+  all three AC9 tests FAIL (recorded global never converges).
+Fix-direction for F-worker-lost-update-missing-scriptcm (return an error from
+syncWorkerSpec when the worker command is unavailable instead of returning
+changed=true): TestVerifyPr6245WorkerSecretsLostWhenScriptConfigmap flips PASS
+(recorded value stays at the old global, sync is retried). All other harness
+tests stay green under the fix.
+PR's own TestSyncImagePullSecrets bites: FAILs when the fuse secrets block is removed.
+docs_staleness_check.sh: exit 1 on head (both languages stale), exit 0 after
+removing the recreate-to-change sentence (bites check).
+apidoc regen fidelity: committed docs/zh/dev/api_doc.md == crd-ref-docs v0.3.0
+output at head, byte-identical (apidoc-regen-vs-committed-round3.diff is empty).
