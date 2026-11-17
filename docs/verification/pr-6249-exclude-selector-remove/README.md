@@ -2,7 +2,7 @@
 
 Reviewer: Codex (Reviewer B). PR: https://github.com/fluid-cloudnative/fluid/pull/6249
 Fixes: https://github.com/fluid-cloudnative/fluid/issues/6246
-Base: `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5` — Head reviewed: `eb313c44a08c63f0eb482e8a6c09330927e8246a` (round 2; round 1: `145a2c1334643913f827e0755e01d92b336ea7cd`)
+Base: `5e6473599f78263a49e521854d80f918a1a10bb0` (round 3 rebase; rounds 1-2: `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5`) — Head reviewed: `964c8ef2230a4eb18ec5c440884f40097eac2079` (round 3; round 2: `eb313c44a08c63f0eb482e8a6c09330927e8246a`, round 1: `145a2c1334643913f827e0755e01d92b336ea7cd`)
 
 ## Premise verdict (P0): CONFIRMED
 
@@ -94,3 +94,30 @@ Round-1 findings resolved by this delta: F-MT-ENTRY-01 (entry-point coverage now
 in the PR) and F-NIT-SELECTOR-STATE-01 (BeforeEach pin + non-matching selector
 case) are both verified fixed. F-QR-STALE-LABELS-01 (maintainer semantic
 question) and the pre-existing e2e-coverage gap are unchanged by a test-only delta.
+
+## Round 3 — incremental review of eb313c44..964c8ef22 (2026-11-18)
+
+The PR was rebased (`ff99142f` -> `5e6473599`, which pulls in #6244's capacity-refresh
+path with its own exclude-selector check) and gained one commit `964c8ef22`: the three
+inline selector checks (add / capacity refresh / removal) are funnelled into a shared
+`isNodeExcluded(nodeLabels, nodeName, caller)` helper with byte-identical log strings,
+plus comments on `Helper.TearDownWorkers` (pkg/ctrl/worker.go) and
+`runtime.syncScheduleInfoNodeExcludeSelector` (charts/fluid/fluid/values.yaml)
+documenting that labels left on a node before it was excluded stay until the runtime is
+deleted — the operator-facing note round 2 asked for. The four PR-owned specs are
+byte-identical to round 2 (pure rebase). Because the base moved, the premise and the
+bites check were re-run against the NEW base.
+
+| check | result | evidence |
+|-------|--------|----------|
+| re-verify.sh (C1/C2 grafted onto 964c8ef22) | F-fix FIXED (pass=2 fail=0) | results/reverify/unit.out |
+| full pkg/utils/dataset/lifecycle suite on head | 31/31 pass (new base 27 + 4 PR-owned) | results/round3-head-full-package.txt |
+| premise on NEW base: C1/C2 grafted onto 5e6473599 | C1 FAILS (bug still reproduces), C2 PASSES | results/round3-base-harness.txt |
+| bites on NEW base: base node.go + head node_test.go | 2 selector-matching specs FAIL, 2 control specs PASS | results/round3-base-pr-own-specs.txt |
+| refactor equivalence | all `nodeExcludeSelector.Matches` call sites route through `isNodeExcluded`; guard order (Get -> exclude -> hasRuntimeLabel) unchanged; `go build ./pkg/ctrl/... ./pkg/utils/dataset/...` OK | this table, head tree inspection |
+
+F-QR-STALE-LABELS-01: the semantic question stays open for the maintainer (it asks for
+product confirmation, not docs), but its SHOULD item — the operator-facing sentence —
+now exists at charts/fluid/fluid/values.yaml:88, and the worker.go comment pins down why
+TearDownWorkers must NOT check the selector. CI on 964c8ef22 is all green (incl. the
+kind-e2e and backward-compat matrices); PR open, mergeable.

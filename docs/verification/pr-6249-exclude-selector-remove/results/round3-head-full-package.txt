@@ -1,0 +1,3 @@
+# round3: full package suite on PR head 964c8ef2230a4eb18ec5c440884f40097eac2079 (new base 5e647359)
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.026s
+specs total: 31, passed: 31, failed: 0

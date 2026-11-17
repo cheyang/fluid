@@ -1,0 +1,6 @@
+# round3 bites check: PR head node_test.go against NEW base node.go (5e647359)
+# expect: the two selector-matching specs FAIL, the two control specs PASS
+  [FAIL] Dataset Lifecycle Node Tests Test removeScheduleInfoFromNode() [It] should leave a node matching the exclude selector untouched [pkg.utils.dataset.lifecycle.node_test.go]
+  [FAIL] Dataset Lifecycle Node Tests Test removeScheduleInfoFromNode() [It] should only clean up the node that isn't excluded when the workers leave [pkg.utils.dataset.lifecycle.node_test.go]
+Ran 4 of 31 Specs in 0.004 seconds
+FAIL! -- 2 Passed | 2 Failed | 0 Pending | 27 Skipped

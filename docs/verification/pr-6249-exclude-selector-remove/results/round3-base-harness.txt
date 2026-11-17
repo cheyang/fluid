@@ -1,0 +1,5 @@
+# round3: premise re-verification on NEW base 5e6473599f78263a49e521854d80f918a1a10bb0 (base moved ff99142 -> 5e647359 by rebase)
+# harness C1/C2 grafted onto new base; expect C1 FAIL (bug reproduces), C2 PASS
+  [FAIL] PR6249ExcludeSelectorRemoveHarness [It] C1: excluded node keeps all labels after removeScheduleInfoFromNode [verify-pr-6249]
+Ran 2 of 29 Specs in 0.002 seconds
+FAIL! -- 1 Passed | 1 Failed | 0 Pending | 27 Skipped
