@@ -1,0 +1,23 @@
+== round 3 (head 964c8ef2, base 5e647359 after rebase onto #6244) ==
+
+1) pure head, full package suite:
+   31/31 PASS (27 pre-existing incl. #6244 capacity specs + 4 PR-owned removal specs)
+
+2) NEW base 5e647359 + head node_test.go (PR's own specs, premise re-check):
+should leave nodes matching the exclude selector untouched -> passed
+should remove the runtime label from a node that isn't excluded -> passed
+should leave a node matching the exclude selector untouched -> failed
+should remove the runtime label when the exclude selector doesn't match the node -> passed
+should only clean up the node that isn't excluded when the workers leave -> failed
+Should parse the selector correctly -> passed
+   -> premise #6246 reproduces on the NEW base (2 specs fail: runtime label stripped)
+
+3) NEW base 5e647359 + harness (polarity, ginkgo):
+keeps the runtime label on an excluded node when its worker leaves (PR6249 contract) -> failed
+still removes the runtime label when the selector does not match the node (PR6249 contract) -> passed
+does not add schedule info to an excluded node when a worker lands on it (PR6249 add-path guard) -> passed
+   -> V1 red on base (repro), V2/V3 green on base (correct no-false-skip / add-guard polarity)
+
+4) re-verify.sh on head 964c8ef2 (harness grafted):
+   issue-6246-removal-skip FIXED; issue-6246-no-false-skip FIXED; pr6249-add-path-skip-guard FIXED (V3 added this round)
+   raw: results/reverify/ginkgo-report.json, results/reverify/unit.parsed

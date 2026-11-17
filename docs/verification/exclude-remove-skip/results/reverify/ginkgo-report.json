@@ -8,14 +8,14 @@
     "SuiteHasProgrammaticFocus": false,
     "SpecialSuiteFailureReasons": null,
     "PreRunStats": {
-      "TotalSpecs": 33,
-      "SpecsThatWillRun": 33
+      "TotalSpecs": 34,
+      "SpecsThatWillRun": 34
     },
-    "StartTime": "2026-11-18T07:34:18.739582276+08:00",
-    "EndTime": "2026-11-18T07:34:18.753032885+08:00",
-    "RunTime": 13450619,
+    "StartTime": "2026-11-18T07:36:42.877815673+08:00",
+    "EndTime": "2026-11-18T07:36:42.89232541+08:00",
+    "RunTime": 14509736,
     "SuiteConfig": {
-      "RandomSeed": 1794958458,
+      "RandomSeed": 1794958602,
       "RandomizeAllSpecs": false,
       "FocusStrings": null,
       "SkipStrings": null,
@@ -41,344 +41,6 @@
       "ParallelHost": ""
     },
     "SpecReports": [
-      {
-        "ContainerHierarchyTexts": [
-          "PR6249 verification: exclude selector vs schedule info removal"
-        ],
-        "ContainerHierarchyLocations": [
-          {
-            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-            "LineNumber": 58
-          }
-        ],
-        "ContainerHierarchyLabels": [
-          [
-            "pr6249-verify"
-          ]
-        ],
-        "ContainerHierarchySemVerConstraints": [
-          []
-        ],
-        "LeafNodeType": "It",
-        "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-          "LineNumber": 101
-        },
-        "LeafNodeLabels": [],
-        "LeafNodeSemVerConstraints": [],
-        "LeafNodeText": "keeps the runtime label on an excluded node when its worker leaves (PR6249 contract)",
-        "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.739707161+08:00",
-        "EndTime": "2026-11-18T07:34:18.741668371+08:00",
-        "RunTime": 1961210,
-        "ParallelProcess": 1,
-        "NumAttempts": 1,
-        "MaxFlakeAttempts": 0,
-        "MaxMustPassRepeatedly": 0,
-        "SpecEvents": [
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 66
-            },
-            "TimelineLocation": {
-              "Order": 1,
-              "Time": "2026-11-18T07:34:18.739724341+08:00"
-            },
-            "Message": "PR6249 verification: exclude selector vs schedule info removal",
-            "NodeType": "BeforeEach"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 66
-            },
-            "TimelineLocation": {
-              "Order": 3,
-              "Time": "2026-11-18T07:34:18.740113175+08:00"
-            },
-            "Message": "PR6249 verification: exclude selector vs schedule info removal",
-            "Duration": 388823,
-            "NodeType": "BeforeEach"
-          },
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 93
-            },
-            "TimelineLocation": {
-              "Order": 4,
-              "Time": "2026-11-18T07:34:18.740114795+08:00"
-            },
-            "Message": "PR6249 verification: exclude selector vs schedule info removal",
-            "NodeType": "JustBeforeEach"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 93
-            },
-            "TimelineLocation": {
-              "Order": 6,
-              "Time": "2026-11-18T07:34:18.740188408+08:00"
-            },
-            "Message": "PR6249 verification: exclude selector vs schedule info removal",
-            "Duration": 73623,
-            "NodeType": "JustBeforeEach"
-          },
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 101
-            },
-            "TimelineLocation": {
-              "Order": 7,
-              "Time": "2026-11-18T07:34:18.740188938+08:00"
-            },
-            "Message": "keeps the runtime label on an excluded node when its worker leaves (PR6249 contract)",
-            "NodeType": "It"
-          },
-          {
-            "SpecEventType": "By",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 102
-            },
-            "TimelineLocation": {
-              "Order": 8,
-              "Time": "2026-11-18T07:34:18.740197248+08:00"
-            },
-            "Message": "labelling both nodes before the operator excludes the vk node"
-          },
-          {
-            "SpecEventType": "By",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 114
-            },
-            "TimelineLocation": {
-              "Order": 9,
-              "Time": "2026-11-18T07:34:18.741395121+08:00"
-            },
-            "Message": "excluding the vk node, then scaling the runtime off both nodes"
-          },
-          {
-            "SpecEventType": "By",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 121
-            },
-            "TimelineLocation": {
-              "Order": 10,
-              "Time": "2026-11-18T07:34:18.741630829+08:00"
-            },
-            "Message": "the non-excluded node loses the runtime label (control group)"
-          },
-          {
-            "SpecEventType": "By",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 127
-            },
-            "TimelineLocation": {
-              "Order": 11,
-              "Time": "2026-11-18T07:34:18.741638469+08:00"
-            },
-            "Message": "the excluded node keeps the runtime label (the contract PR #6249 introduces)"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 101
-            },
-            "TimelineLocation": {
-              "Order": 13,
-              "Time": "2026-11-18T07:34:18.74165279+08:00"
-            },
-            "Message": "keeps the runtime label on an excluded node when its worker leaves (PR6249 contract)",
-            "Duration": 1463852,
-            "NodeType": "It"
-          },
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 97
-            },
-            "TimelineLocation": {
-              "Order": 14,
-              "Time": "2026-11-18T07:34:18.74165846+08:00"
-            },
-            "Message": "PR6249 verification: exclude selector vs schedule info removal",
-            "NodeType": "AfterEach"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 97
-            },
-            "TimelineLocation": {
-              "Order": 16,
-              "Time": "2026-11-18T07:34:18.741667061+08:00"
-            },
-            "Message": "PR6249 verification: exclude selector vs schedule info removal",
-            "Duration": 8610,
-            "NodeType": "AfterEach"
-          }
-        ]
-      },
-      {
-        "ContainerHierarchyTexts": [
-          "PR6249 verification: exclude selector vs schedule info removal"
-        ],
-        "ContainerHierarchyLocations": [
-          {
-            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-            "LineNumber": 58
-          }
-        ],
-        "ContainerHierarchyLabels": [
-          [
-            "pr6249-verify"
-          ]
-        ],
-        "ContainerHierarchySemVerConstraints": [
-          []
-        ],
-        "LeafNodeType": "It",
-        "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-          "LineNumber": 134
-        },
-        "LeafNodeLabels": [],
-        "LeafNodeSemVerConstraints": [],
-        "LeafNodeText": "still removes the runtime label when the selector does not match the node (PR6249 contract)",
-        "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.741684171+08:00",
-        "EndTime": "2026-11-18T07:34:18.742377286+08:00",
-        "RunTime": 693105,
-        "ParallelProcess": 1,
-        "NumAttempts": 1,
-        "MaxFlakeAttempts": 0,
-        "MaxMustPassRepeatedly": 0,
-        "SpecEvents": [
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 66
-            },
-            "TimelineLocation": {
-              "Order": 17,
-              "Time": "2026-11-18T07:34:18.741686241+08:00"
-            },
-            "Message": "PR6249 verification: exclude selector vs schedule info removal",
-            "NodeType": "BeforeEach"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 66
-            },
-            "TimelineLocation": {
-              "Order": 19,
-              "Time": "2026-11-18T07:34:18.741840687+08:00"
-            },
-            "Message": "PR6249 verification: exclude selector vs schedule info removal",
-            "Duration": 154446,
-            "NodeType": "BeforeEach"
-          },
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 93
-            },
-            "TimelineLocation": {
-              "Order": 20,
-              "Time": "2026-11-18T07:34:18.741841317+08:00"
-            },
-            "Message": "PR6249 verification: exclude selector vs schedule info removal",
-            "NodeType": "JustBeforeEach"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 93
-            },
-            "TimelineLocation": {
-              "Order": 22,
-              "Time": "2026-11-18T07:34:18.741867548+08:00"
-            },
-            "Message": "PR6249 verification: exclude selector vs schedule info removal",
-            "Duration": 26231,
-            "NodeType": "JustBeforeEach"
-          },
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 134
-            },
-            "TimelineLocation": {
-              "Order": 23,
-              "Time": "2026-11-18T07:34:18.741868058+08:00"
-            },
-            "Message": "still removes the runtime label when the selector does not match the node (PR6249 contract)",
-            "NodeType": "It"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 134
-            },
-            "TimelineLocation": {
-              "Order": 25,
-              "Time": "2026-11-18T07:34:18.742366815+08:00"
-            },
-            "Message": "still removes the runtime label when the selector does not match the node (PR6249 contract)",
-            "Duration": 498757,
-            "NodeType": "It"
-          },
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 97
-            },
-            "TimelineLocation": {
-              "Order": 26,
-              "Time": "2026-11-18T07:34:18.742368575+08:00"
-            },
-            "Message": "PR6249 verification: exclude selector vs schedule info removal",
-            "NodeType": "AfterEach"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
-              "LineNumber": 97
-            },
-            "TimelineLocation": {
-              "Order": 28,
-              "Time": "2026-11-18T07:34:18.742376416+08:00"
-            },
-            "Message": "PR6249 verification: exclude selector vs schedule info removal",
-            "Duration": 7840,
-            "NodeType": "AfterEach"
-          }
-        ]
-      },
       {
         "ContainerHierarchyTexts": [
           "Dataset Lifecycle Node Tests",
@@ -420,9 +82,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should add exclusive labels to node",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.742387486+08:00",
-        "EndTime": "2026-11-18T07:34:18.74278008+08:00",
-        "RunTime": 392594,
+        "StartTime": "2026-11-18T07:36:42.878120274+08:00",
+        "EndTime": "2026-11-18T07:36:42.879297846+08:00",
+        "RunTime": 1177562,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -435,8 +97,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 29,
-              "Time": "2026-11-18T07:34:18.742389546+08:00"
+              "Order": 1,
+              "Time": "2026-11-18T07:36:42.878265869+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -448,11 +110,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 31,
-              "Time": "2026-11-18T07:34:18.742549052+08:00"
+              "Order": 3,
+              "Time": "2026-11-18T07:36:42.878537768+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 159516,
+            "Duration": 271899,
             "NodeType": "BeforeEach"
           },
           {
@@ -462,8 +124,8 @@
               "LineNumber": 69
             },
             "TimelineLocation": {
-              "Order": 32,
-              "Time": "2026-11-18T07:34:18.742549732+08:00"
+              "Order": 4,
+              "Time": "2026-11-18T07:36:42.878539168+08:00"
             },
             "Message": "when given exclusive placement mode runtime",
             "NodeType": "BeforeEach"
@@ -475,11 +137,11 @@
               "LineNumber": 69
             },
             "TimelineLocation": {
-              "Order": 34,
-              "Time": "2026-11-18T07:34:18.742556022+08:00"
+              "Order": 6,
+              "Time": "2026-11-18T07:36:42.878547539+08:00"
             },
             "Message": "when given exclusive placement mode runtime",
-            "Duration": 6300,
+            "Duration": 8360,
             "NodeType": "BeforeEach"
           },
           {
@@ -489,8 +151,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 35,
-              "Time": "2026-11-18T07:34:18.742556682+08:00"
+              "Order": 7,
+              "Time": "2026-11-18T07:36:42.878547969+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -502,11 +164,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 37,
-              "Time": "2026-11-18T07:34:18.742572063+08:00"
+              "Order": 9,
+              "Time": "2026-11-18T07:36:42.878618061+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 15371,
+            "Duration": 70082,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -516,8 +178,8 @@
               "LineNumber": 83
             },
             "TimelineLocation": {
-              "Order": 38,
-              "Time": "2026-11-18T07:34:18.742572603+08:00"
+              "Order": 10,
+              "Time": "2026-11-18T07:36:42.878618481+08:00"
             },
             "Message": "should add exclusive labels to node",
             "NodeType": "It"
@@ -529,11 +191,11 @@
               "LineNumber": 83
             },
             "TimelineLocation": {
-              "Order": 40,
-              "Time": "2026-11-18T07:34:18.74277887+08:00"
+              "Order": 12,
+              "Time": "2026-11-18T07:36:42.879294795+08:00"
             },
             "Message": "should add exclusive labels to node",
-            "Duration": 206267,
+            "Duration": 676314,
             "NodeType": "It"
           }
         ]
@@ -579,9 +241,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should add share mode labels to node",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.742786401+08:00",
-        "EndTime": "2026-11-18T07:34:18.743171534+08:00",
-        "RunTime": 385133,
+        "StartTime": "2026-11-18T07:36:42.879336977+08:00",
+        "EndTime": "2026-11-18T07:36:42.879742662+08:00",
+        "RunTime": 405685,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -594,8 +256,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 41,
-              "Time": "2026-11-18T07:34:18.74278815+08:00"
+              "Order": 13,
+              "Time": "2026-11-18T07:36:42.879338947+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -607,11 +269,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 43,
-              "Time": "2026-11-18T07:34:18.742955747+08:00"
+              "Order": 15,
+              "Time": "2026-11-18T07:36:42.879506683+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 167597,
+            "Duration": 167736,
             "NodeType": "BeforeEach"
           },
           {
@@ -621,8 +283,8 @@
               "LineNumber": 103
             },
             "TimelineLocation": {
-              "Order": 44,
-              "Time": "2026-11-18T07:34:18.742956356+08:00"
+              "Order": 16,
+              "Time": "2026-11-18T07:36:42.879507673+08:00"
             },
             "Message": "when given share placement mode runtime",
             "NodeType": "BeforeEach"
@@ -634,11 +296,11 @@
               "LineNumber": 103
             },
             "TimelineLocation": {
-              "Order": 46,
-              "Time": "2026-11-18T07:34:18.742961297+08:00"
+              "Order": 18,
+              "Time": "2026-11-18T07:36:42.879513933+08:00"
             },
             "Message": "when given share placement mode runtime",
-            "Duration": 4951,
+            "Duration": 6260,
             "NodeType": "BeforeEach"
           },
           {
@@ -648,8 +310,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 47,
-              "Time": "2026-11-18T07:34:18.742961637+08:00"
+              "Order": 19,
+              "Time": "2026-11-18T07:36:42.879514293+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -661,11 +323,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 49,
-              "Time": "2026-11-18T07:34:18.742975167+08:00"
+              "Order": 21,
+              "Time": "2026-11-18T07:36:42.879529704+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 13530,
+            "Duration": 15421,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -675,8 +337,8 @@
               "LineNumber": 117
             },
             "TimelineLocation": {
-              "Order": 50,
-              "Time": "2026-11-18T07:34:18.742975597+08:00"
+              "Order": 22,
+              "Time": "2026-11-18T07:36:42.879530324+08:00"
             },
             "Message": "should add share mode labels to node",
             "NodeType": "It"
@@ -688,11 +350,11 @@
               "LineNumber": 117
             },
             "TimelineLocation": {
-              "Order": 52,
-              "Time": "2026-11-18T07:34:18.743170554+08:00"
+              "Order": 24,
+              "Time": "2026-11-18T07:36:42.879741811+08:00"
             },
             "Message": "should add share mode labels to node",
-            "Duration": 194967,
+            "Duration": 211487,
             "NodeType": "It"
           }
         ]
@@ -738,9 +400,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should add capacity labels to node",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.743177574+08:00",
-        "EndTime": "2026-11-18T07:34:18.743564108+08:00",
-        "RunTime": 386534,
+        "StartTime": "2026-11-18T07:36:42.879750112+08:00",
+        "EndTime": "2026-11-18T07:36:42.880131015+08:00",
+        "RunTime": 380913,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -753,8 +415,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 53,
-              "Time": "2026-11-18T07:34:18.743178835+08:00"
+              "Order": 25,
+              "Time": "2026-11-18T07:36:42.879751562+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -766,11 +428,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 55,
-              "Time": "2026-11-18T07:34:18.7433439+08:00"
+              "Order": 27,
+              "Time": "2026-11-18T07:36:42.879902727+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 165065,
+            "Duration": 151165,
             "NodeType": "BeforeEach"
           },
           {
@@ -780,8 +442,8 @@
               "LineNumber": 137
             },
             "TimelineLocation": {
-              "Order": 56,
-              "Time": "2026-11-18T07:34:18.74334459+08:00"
+              "Order": 28,
+              "Time": "2026-11-18T07:36:42.879903417+08:00"
             },
             "Message": "when given runtime with tiered store",
             "NodeType": "BeforeEach"
@@ -793,11 +455,11 @@
               "LineNumber": 137
             },
             "TimelineLocation": {
-              "Order": 58,
-              "Time": "2026-11-18T07:34:18.743358421+08:00"
+              "Order": 30,
+              "Time": "2026-11-18T07:36:42.879917518+08:00"
             },
             "Message": "when given runtime with tiered store",
-            "Duration": 13831,
+            "Duration": 14101,
             "NodeType": "BeforeEach"
           },
           {
@@ -807,8 +469,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 59,
-              "Time": "2026-11-18T07:34:18.743358881+08:00"
+              "Order": 31,
+              "Time": "2026-11-18T07:36:42.879917868+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -820,11 +482,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 61,
-              "Time": "2026-11-18T07:34:18.743370931+08:00"
+              "Order": 33,
+              "Time": "2026-11-18T07:36:42.879929548+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 12050,
+            "Duration": 11690,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -834,8 +496,8 @@
               "LineNumber": 171
             },
             "TimelineLocation": {
-              "Order": 62,
-              "Time": "2026-11-18T07:34:18.743371261+08:00"
+              "Order": 34,
+              "Time": "2026-11-18T07:36:42.879929978+08:00"
             },
             "Message": "should add capacity labels to node",
             "NodeType": "It"
@@ -847,11 +509,11 @@
               "LineNumber": 171
             },
             "TimelineLocation": {
-              "Order": 64,
-              "Time": "2026-11-18T07:34:18.743563388+08:00"
+              "Order": 36,
+              "Time": "2026-11-18T07:36:42.880130265+08:00"
             },
             "Message": "should add capacity labels to node",
-            "Duration": 192127,
+            "Duration": 200297,
             "NodeType": "It"
           }
         ]
@@ -897,9 +559,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should decrease dataset number to 1",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.743571158+08:00",
-        "EndTime": "2026-11-18T07:34:18.743731684+08:00",
-        "RunTime": 160536,
+        "StartTime": "2026-11-18T07:36:42.880140365+08:00",
+        "EndTime": "2026-11-18T07:36:42.880323452+08:00",
+        "RunTime": 183087,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -912,8 +574,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 65,
-              "Time": "2026-11-18T07:34:18.743572309+08:00"
+              "Order": 37,
+              "Time": "2026-11-18T07:36:42.880141716+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -925,11 +587,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 67,
-              "Time": "2026-11-18T07:34:18.743702733+08:00"
+              "Order": 39,
+              "Time": "2026-11-18T07:36:42.880300231+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 130425,
+            "Duration": 158525,
             "NodeType": "BeforeEach"
           },
           {
@@ -939,8 +601,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 68,
-              "Time": "2026-11-18T07:34:18.743703183+08:00"
+              "Order": 40,
+              "Time": "2026-11-18T07:36:42.880300831+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -952,11 +614,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 70,
-              "Time": "2026-11-18T07:34:18.743721634+08:00"
+              "Order": 42,
+              "Time": "2026-11-18T07:36:42.880312112+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 18461,
+            "Duration": 11291,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -966,8 +628,8 @@
               "LineNumber": 192
             },
             "TimelineLocation": {
-              "Order": 71,
-              "Time": "2026-11-18T07:34:18.743721984+08:00"
+              "Order": 43,
+              "Time": "2026-11-18T07:36:42.880312472+08:00"
             },
             "Message": "should decrease dataset number to 1",
             "NodeType": "It"
@@ -979,11 +641,11 @@
               "LineNumber": 192
             },
             "TimelineLocation": {
-              "Order": 73,
-              "Time": "2026-11-18T07:34:18.743730854+08:00"
+              "Order": 45,
+              "Time": "2026-11-18T07:36:42.880322722+08:00"
             },
             "Message": "should decrease dataset number to 1",
-            "Duration": 8870,
+            "Duration": 10260,
             "NodeType": "It"
           }
         ]
@@ -1029,9 +691,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should delete dataset-num label",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.743738154+08:00",
-        "EndTime": "2026-11-18T07:34:18.74390085+08:00",
-        "RunTime": 162696,
+        "StartTime": "2026-11-18T07:36:42.880328662+08:00",
+        "EndTime": "2026-11-18T07:36:42.880485448+08:00",
+        "RunTime": 156776,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -1044,8 +706,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 74,
-              "Time": "2026-11-18T07:34:18.743740135+08:00"
+              "Order": 46,
+              "Time": "2026-11-18T07:36:42.880329922+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -1057,11 +719,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 76,
-              "Time": "2026-11-18T07:34:18.743879089+08:00"
+              "Order": 48,
+              "Time": "2026-11-18T07:36:42.880467587+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 138964,
+            "Duration": 137665,
             "NodeType": "BeforeEach"
           },
           {
@@ -1071,8 +733,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 77,
-              "Time": "2026-11-18T07:34:18.743879709+08:00"
+              "Order": 49,
+              "Time": "2026-11-18T07:36:42.880468027+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -1084,11 +746,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 79,
-              "Time": "2026-11-18T07:34:18.74389369+08:00"
+              "Order": 51,
+              "Time": "2026-11-18T07:36:42.880478498+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 13981,
+            "Duration": 10461,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -1098,8 +760,8 @@
               "LineNumber": 212
             },
             "TimelineLocation": {
-              "Order": 80,
-              "Time": "2026-11-18T07:34:18.74389426+08:00"
+              "Order": 52,
+              "Time": "2026-11-18T07:36:42.880478848+08:00"
             },
             "Message": "should delete dataset-num label",
             "NodeType": "It"
@@ -1111,11 +773,11 @@
               "LineNumber": 212
             },
             "TimelineLocation": {
-              "Order": 82,
-              "Time": "2026-11-18T07:34:18.74390022+08:00"
+              "Order": 54,
+              "Time": "2026-11-18T07:36:42.880484788+08:00"
             },
             "Message": "should delete dataset-num label",
-            "Duration": 5960,
+            "Duration": 5950,
             "NodeType": "It"
           }
         ]
@@ -1161,9 +823,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return error",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.74390546+08:00",
-        "EndTime": "2026-11-18T07:34:18.744050406+08:00",
-        "RunTime": 144946,
+        "StartTime": "2026-11-18T07:36:42.880489758+08:00",
+        "EndTime": "2026-11-18T07:36:42.880644163+08:00",
+        "RunTime": 154395,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -1176,8 +838,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 83,
-              "Time": "2026-11-18T07:34:18.74390656+08:00"
+              "Order": 55,
+              "Time": "2026-11-18T07:36:42.880491328+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -1189,11 +851,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 85,
-              "Time": "2026-11-18T07:34:18.744031545+08:00"
+              "Order": 57,
+              "Time": "2026-11-18T07:36:42.880622583+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 124995,
+            "Duration": 131245,
             "NodeType": "BeforeEach"
           },
           {
@@ -1203,8 +865,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 86,
-              "Time": "2026-11-18T07:34:18.744031945+08:00"
+              "Order": 58,
+              "Time": "2026-11-18T07:36:42.880623073+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -1216,11 +878,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 88,
-              "Time": "2026-11-18T07:34:18.744042505+08:00"
+              "Order": 60,
+              "Time": "2026-11-18T07:36:42.880634053+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 10560,
+            "Duration": 10980,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -1230,8 +892,8 @@
               "LineNumber": 231
             },
             "TimelineLocation": {
-              "Order": 89,
-              "Time": "2026-11-18T07:34:18.744042825+08:00"
+              "Order": 61,
+              "Time": "2026-11-18T07:36:42.880634393+08:00"
             },
             "Message": "should return error",
             "NodeType": "It"
@@ -1243,11 +905,11 @@
               "LineNumber": 231
             },
             "TimelineLocation": {
-              "Order": 91,
-              "Time": "2026-11-18T07:34:18.744049646+08:00"
+              "Order": 63,
+              "Time": "2026-11-18T07:36:42.880643654+08:00"
             },
             "Message": "should return error",
-            "Duration": 6821,
+            "Duration": 9270,
             "NodeType": "It"
           }
         ]
@@ -1293,9 +955,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should not modify labels",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.744055106+08:00",
-        "EndTime": "2026-11-18T07:34:18.744206551+08:00",
-        "RunTime": 151445,
+        "StartTime": "2026-11-18T07:36:42.880648294+08:00",
+        "EndTime": "2026-11-18T07:36:42.880790649+08:00",
+        "RunTime": 142355,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -1308,8 +970,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 92,
-              "Time": "2026-11-18T07:34:18.744055916+08:00"
+              "Order": 64,
+              "Time": "2026-11-18T07:36:42.880649654+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -1321,11 +983,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 94,
-              "Time": "2026-11-18T07:34:18.74419096+08:00"
+              "Order": 66,
+              "Time": "2026-11-18T07:36:42.880773398+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 135055,
+            "Duration": 123754,
             "NodeType": "BeforeEach"
           },
           {
@@ -1335,8 +997,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 95,
-              "Time": "2026-11-18T07:34:18.74419146+08:00"
+              "Order": 67,
+              "Time": "2026-11-18T07:36:42.880773858+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -1348,11 +1010,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 97,
-              "Time": "2026-11-18T07:34:18.744200331+08:00"
+              "Order": 69,
+              "Time": "2026-11-18T07:36:42.880782908+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 8881,
+            "Duration": 9050,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -1362,8 +1024,8 @@
               "LineNumber": 244
             },
             "TimelineLocation": {
-              "Order": 98,
-              "Time": "2026-11-18T07:34:18.744200651+08:00"
+              "Order": 70,
+              "Time": "2026-11-18T07:36:42.880783759+08:00"
             },
             "Message": "should not modify labels",
             "NodeType": "It"
@@ -1375,11 +1037,11 @@
               "LineNumber": 244
             },
             "TimelineLocation": {
-              "Order": 100,
-              "Time": "2026-11-18T07:34:18.744206051+08:00"
+              "Order": 72,
+              "Time": "2026-11-18T07:36:42.880790189+08:00"
             },
             "Message": "should not modify labels",
-            "Duration": 5410,
+            "Duration": 6440,
             "NodeType": "It"
           }
         ]
@@ -1425,9 +1087,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should increase dataset number",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.744210891+08:00",
-        "EndTime": "2026-11-18T07:34:18.744366497+08:00",
-        "RunTime": 155606,
+        "StartTime": "2026-11-18T07:36:42.880794209+08:00",
+        "EndTime": "2026-11-18T07:36:42.880956835+08:00",
+        "RunTime": 162636,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -1440,8 +1102,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 101,
-              "Time": "2026-11-18T07:34:18.744212021+08:00"
+              "Order": 73,
+              "Time": "2026-11-18T07:36:42.880800679+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -1453,11 +1115,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 103,
-              "Time": "2026-11-18T07:34:18.744346846+08:00"
+              "Order": 75,
+              "Time": "2026-11-18T07:36:42.880926153+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 134825,
+            "Duration": 125474,
             "NodeType": "BeforeEach"
           },
           {
@@ -1467,8 +1129,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 104,
-              "Time": "2026-11-18T07:34:18.744347466+08:00"
+              "Order": 76,
+              "Time": "2026-11-18T07:36:42.880926673+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -1480,11 +1142,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 106,
-              "Time": "2026-11-18T07:34:18.744358326+08:00"
+              "Order": 78,
+              "Time": "2026-11-18T07:36:42.880939314+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 10860,
+            "Duration": 12641,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -1494,8 +1156,8 @@
               "LineNumber": 260
             },
             "TimelineLocation": {
-              "Order": 107,
-              "Time": "2026-11-18T07:34:18.744358666+08:00"
+              "Order": 79,
+              "Time": "2026-11-18T07:36:42.880939684+08:00"
             },
             "Message": "should increase dataset number",
             "NodeType": "It"
@@ -1507,11 +1169,11 @@
               "LineNumber": 260
             },
             "TimelineLocation": {
-              "Order": 109,
-              "Time": "2026-11-18T07:34:18.744365967+08:00"
+              "Order": 81,
+              "Time": "2026-11-18T07:36:42.880953614+08:00"
             },
             "Message": "should increase dataset number",
-            "Duration": 7301,
+            "Duration": 13941,
             "NodeType": "It"
           }
         ]
@@ -1557,9 +1219,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should add dataset-num label with value 1",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.744370917+08:00",
-        "EndTime": "2026-11-18T07:34:18.744509422+08:00",
-        "RunTime": 138505,
+        "StartTime": "2026-11-18T07:36:42.880966875+08:00",
+        "EndTime": "2026-11-18T07:36:42.88111347+08:00",
+        "RunTime": 146595,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -1572,8 +1234,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 110,
-              "Time": "2026-11-18T07:34:18.744371697+08:00"
+              "Order": 82,
+              "Time": "2026-11-18T07:36:42.880967735+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -1585,11 +1247,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 112,
-              "Time": "2026-11-18T07:34:18.744493641+08:00"
+              "Order": 84,
+              "Time": "2026-11-18T07:36:42.8810965+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 121944,
+            "Duration": 128765,
             "NodeType": "BeforeEach"
           },
           {
@@ -1599,8 +1261,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 113,
-              "Time": "2026-11-18T07:34:18.744494021+08:00"
+              "Order": 85,
+              "Time": "2026-11-18T07:36:42.88109699+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -1612,11 +1274,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 115,
-              "Time": "2026-11-18T07:34:18.744502651+08:00"
+              "Order": 87,
+              "Time": "2026-11-18T07:36:42.8811056+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 8641,
+            "Duration": 8610,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -1626,8 +1288,8 @@
               "LineNumber": 279
             },
             "TimelineLocation": {
-              "Order": 116,
-              "Time": "2026-11-18T07:34:18.744502962+08:00"
+              "Order": 88,
+              "Time": "2026-11-18T07:36:42.88110593+08:00"
             },
             "Message": "should add dataset-num label with value 1",
             "NodeType": "It"
@@ -1639,11 +1301,11 @@
               "LineNumber": 279
             },
             "TimelineLocation": {
-              "Order": 118,
-              "Time": "2026-11-18T07:34:18.744508992+08:00"
+              "Order": 90,
+              "Time": "2026-11-18T07:36:42.88111288+08:00"
             },
             "Message": "should add dataset-num label with value 1",
-            "Duration": 6021,
+            "Duration": 6950,
             "NodeType": "It"
           }
         ]
@@ -1689,9 +1351,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return true",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.744512792+08:00",
-        "EndTime": "2026-11-18T07:34:18.744657477+08:00",
-        "RunTime": 144685,
+        "StartTime": "2026-11-18T07:36:42.88111898+08:00",
+        "EndTime": "2026-11-18T07:36:42.881277016+08:00",
+        "RunTime": 158036,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -1704,8 +1366,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 119,
-              "Time": "2026-11-18T07:34:18.744514122+08:00"
+              "Order": 91,
+              "Time": "2026-11-18T07:36:42.88111972+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -1717,11 +1379,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 121,
-              "Time": "2026-11-18T07:34:18.744635046+08:00"
+              "Order": 93,
+              "Time": "2026-11-18T07:36:42.881251975+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 120924,
+            "Duration": 132255,
             "NodeType": "BeforeEach"
           },
           {
@@ -1731,8 +1393,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 122,
-              "Time": "2026-11-18T07:34:18.744635606+08:00"
+              "Order": 94,
+              "Time": "2026-11-18T07:36:42.881252435+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -1744,11 +1406,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 124,
-              "Time": "2026-11-18T07:34:18.744649647+08:00"
+              "Order": 96,
+              "Time": "2026-11-18T07:36:42.881269356+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 14041,
+            "Duration": 16921,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -1758,8 +1420,8 @@
               "LineNumber": 300
             },
             "TimelineLocation": {
-              "Order": 125,
-              "Time": "2026-11-18T07:34:18.744649967+08:00"
+              "Order": 97,
+              "Time": "2026-11-18T07:36:42.881269696+08:00"
             },
             "Message": "should return true",
             "NodeType": "It"
@@ -1771,11 +1433,11 @@
               "LineNumber": 300
             },
             "TimelineLocation": {
-              "Order": 127,
-              "Time": "2026-11-18T07:34:18.744657047+08:00"
+              "Order": 99,
+              "Time": "2026-11-18T07:36:42.881276296+08:00"
             },
             "Message": "should return true",
-            "Duration": 7070,
+            "Duration": 6610,
             "NodeType": "It"
           }
         ]
@@ -1821,9 +1483,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return false",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.744660697+08:00",
-        "EndTime": "2026-11-18T07:34:18.744796992+08:00",
-        "RunTime": 136295,
+        "StartTime": "2026-11-18T07:36:42.881280676+08:00",
+        "EndTime": "2026-11-18T07:36:42.881421591+08:00",
+        "RunTime": 140905,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -1836,8 +1498,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 128,
-              "Time": "2026-11-18T07:34:18.744661527+08:00"
+              "Order": 100,
+              "Time": "2026-11-18T07:36:42.881282066+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -1849,11 +1511,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 130,
-              "Time": "2026-11-18T07:34:18.744780941+08:00"
+              "Order": 102,
+              "Time": "2026-11-18T07:36:42.881406181+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 119404,
+            "Duration": 124105,
             "NodeType": "BeforeEach"
           },
           {
@@ -1863,8 +1525,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 131,
-              "Time": "2026-11-18T07:34:18.744781372+08:00"
+              "Order": 103,
+              "Time": "2026-11-18T07:36:42.881406691+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -1876,11 +1538,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 133,
-              "Time": "2026-11-18T07:34:18.744790602+08:00"
+              "Order": 105,
+              "Time": "2026-11-18T07:36:42.881414931+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 9240,
+            "Duration": 8240,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -1890,8 +1552,8 @@
               "LineNumber": 316
             },
             "TimelineLocation": {
-              "Order": 134,
-              "Time": "2026-11-18T07:34:18.744791022+08:00"
+              "Order": 106,
+              "Time": "2026-11-18T07:36:42.881415261+08:00"
             },
             "Message": "should return false",
             "NodeType": "It"
@@ -1903,11 +1565,11 @@
               "LineNumber": 316
             },
             "TimelineLocation": {
-              "Order": 136,
-              "Time": "2026-11-18T07:34:18.744796482+08:00"
+              "Order": 108,
+              "Time": "2026-11-18T07:36:42.881420911+08:00"
             },
             "Message": "should return false",
-            "Duration": 5460,
+            "Duration": 5650,
             "NodeType": "It"
           }
         ]
@@ -1953,9 +1615,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return false",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.744800522+08:00",
-        "EndTime": "2026-11-18T07:34:18.744948378+08:00",
-        "RunTime": 147856,
+        "StartTime": "2026-11-18T07:36:42.881424911+08:00",
+        "EndTime": "2026-11-18T07:36:42.881572616+08:00",
+        "RunTime": 147705,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -1968,8 +1630,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 137,
-              "Time": "2026-11-18T07:34:18.744801202+08:00"
+              "Order": 109,
+              "Time": "2026-11-18T07:36:42.881426171+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -1981,11 +1643,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 139,
-              "Time": "2026-11-18T07:34:18.744930247+08:00"
+              "Order": 111,
+              "Time": "2026-11-18T07:36:42.881556046+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 129045,
+            "Duration": 129865,
             "NodeType": "BeforeEach"
           },
           {
@@ -1995,8 +1657,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 140,
-              "Time": "2026-11-18T07:34:18.744930807+08:00"
+              "Order": 112,
+              "Time": "2026-11-18T07:36:42.881556536+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -2008,11 +1670,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 142,
-              "Time": "2026-11-18T07:34:18.744941077+08:00"
+              "Order": 114,
+              "Time": "2026-11-18T07:36:42.881566136+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 10270,
+            "Duration": 9600,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -2022,8 +1684,8 @@
               "LineNumber": 332
             },
             "TimelineLocation": {
-              "Order": 143,
-              "Time": "2026-11-18T07:34:18.744941387+08:00"
+              "Order": 115,
+              "Time": "2026-11-18T07:36:42.881566466+08:00"
             },
             "Message": "should return false",
             "NodeType": "It"
@@ -2035,11 +1697,11 @@
               "LineNumber": 332
             },
             "TimelineLocation": {
-              "Order": 145,
-              "Time": "2026-11-18T07:34:18.744947778+08:00"
+              "Order": 117,
+              "Time": "2026-11-18T07:36:42.881572096+08:00"
             },
             "Message": "should return false",
-            "Duration": 6391,
+            "Duration": 5620,
             "NodeType": "It"
           }
         ]
@@ -2085,9 +1747,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should remove fluid labels and keep other labels",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.744952498+08:00",
-        "EndTime": "2026-11-18T07:34:18.745314651+08:00",
-        "RunTime": 362144,
+        "StartTime": "2026-11-18T07:36:42.881576037+08:00",
+        "EndTime": "2026-11-18T07:36:42.88194746+08:00",
+        "RunTime": 371423,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -2100,8 +1762,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 146,
-              "Time": "2026-11-18T07:34:18.744955078+08:00"
+              "Order": 118,
+              "Time": "2026-11-18T07:36:42.881577567+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -2113,11 +1775,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 148,
-              "Time": "2026-11-18T07:34:18.745082642+08:00"
+              "Order": 120,
+              "Time": "2026-11-18T07:36:42.881700361+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 127564,
+            "Duration": 122794,
             "NodeType": "BeforeEach"
           },
           {
@@ -2127,8 +1789,8 @@
               "LineNumber": 348
             },
             "TimelineLocation": {
-              "Order": 149,
-              "Time": "2026-11-18T07:34:18.745083112+08:00"
+              "Order": 121,
+              "Time": "2026-11-18T07:36:42.881701031+08:00"
             },
             "Message": "when given exclusive placement mode runtime",
             "NodeType": "BeforeEach"
@@ -2140,11 +1802,11 @@
               "LineNumber": 348
             },
             "TimelineLocation": {
-              "Order": 151,
-              "Time": "2026-11-18T07:34:18.745088452+08:00"
+              "Order": 123,
+              "Time": "2026-11-18T07:36:42.881707381+08:00"
             },
             "Message": "when given exclusive placement mode runtime",
-            "Duration": 5351,
+            "Duration": 6351,
             "NodeType": "BeforeEach"
           },
           {
@@ -2154,8 +1816,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 152,
-              "Time": "2026-11-18T07:34:18.745088792+08:00"
+              "Order": 124,
+              "Time": "2026-11-18T07:36:42.881707832+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -2167,11 +1829,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 154,
-              "Time": "2026-11-18T07:34:18.745107503+08:00"
+              "Order": 126,
+              "Time": "2026-11-18T07:36:42.881718232+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 18711,
+            "Duration": 10391,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -2181,8 +1843,8 @@
               "LineNumber": 370
             },
             "TimelineLocation": {
-              "Order": 155,
-              "Time": "2026-11-18T07:34:18.745107813+08:00"
+              "Order": 127,
+              "Time": "2026-11-18T07:36:42.881718572+08:00"
             },
             "Message": "should remove fluid labels and keep other labels",
             "NodeType": "It"
@@ -2194,11 +1856,11 @@
               "LineNumber": 370
             },
             "TimelineLocation": {
-              "Order": 157,
-              "Time": "2026-11-18T07:34:18.745313891+08:00"
+              "Order": 129,
+              "Time": "2026-11-18T07:36:42.88194661+08:00"
             },
             "Message": "should remove fluid labels and keep other labels",
-            "Duration": 206087,
+            "Duration": 228048,
             "NodeType": "It"
           }
         ]
@@ -2244,9 +1906,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should remove all fluid labels",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.745320221+08:00",
-        "EndTime": "2026-11-18T07:34:18.745640782+08:00",
-        "RunTime": 320561,
+        "StartTime": "2026-11-18T07:36:42.8819533+08:00",
+        "EndTime": "2026-11-18T07:36:42.882288542+08:00",
+        "RunTime": 335242,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -2259,8 +1921,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 158,
-              "Time": "2026-11-18T07:34:18.745321761+08:00"
+              "Order": 130,
+              "Time": "2026-11-18T07:36:42.88195484+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -2272,11 +1934,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 160,
-              "Time": "2026-11-18T07:34:18.745446105+08:00"
+              "Order": 132,
+              "Time": "2026-11-18T07:36:42.882089445+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 124344,
+            "Duration": 134615,
             "NodeType": "BeforeEach"
           },
           {
@@ -2286,8 +1948,8 @@
               "LineNumber": 397
             },
             "TimelineLocation": {
-              "Order": 161,
-              "Time": "2026-11-18T07:34:18.745446555+08:00"
+              "Order": 133,
+              "Time": "2026-11-18T07:36:42.882090005+08:00"
             },
             "Message": "when given share placement mode runtime",
             "NodeType": "BeforeEach"
@@ -2299,11 +1961,11 @@
               "LineNumber": 397
             },
             "TimelineLocation": {
-              "Order": 163,
-              "Time": "2026-11-18T07:34:18.745455016+08:00"
+              "Order": 135,
+              "Time": "2026-11-18T07:36:42.882095075+08:00"
             },
             "Message": "when given share placement mode runtime",
-            "Duration": 8470,
+            "Duration": 5070,
             "NodeType": "BeforeEach"
           },
           {
@@ -2313,8 +1975,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 164,
-              "Time": "2026-11-18T07:34:18.745455365+08:00"
+              "Order": 136,
+              "Time": "2026-11-18T07:36:42.882095995+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -2326,11 +1988,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 166,
-              "Time": "2026-11-18T07:34:18.745465376+08:00"
+              "Order": 138,
+              "Time": "2026-11-18T07:36:42.882108786+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 10000,
+            "Duration": 12781,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -2340,8 +2002,8 @@
               "LineNumber": 417
             },
             "TimelineLocation": {
-              "Order": 167,
-              "Time": "2026-11-18T07:34:18.745465686+08:00"
+              "Order": 139,
+              "Time": "2026-11-18T07:36:42.882109136+08:00"
             },
             "Message": "should remove all fluid labels",
             "NodeType": "It"
@@ -2353,11 +2015,11 @@
               "LineNumber": 417
             },
             "TimelineLocation": {
-              "Order": 169,
-              "Time": "2026-11-18T07:34:18.745640112+08:00"
+              "Order": 141,
+              "Time": "2026-11-18T07:36:42.882287772+08:00"
             },
             "Message": "should remove all fluid labels",
-            "Duration": 174416,
+            "Duration": 178626,
             "NodeType": "It"
           }
         ]
@@ -2403,9 +2065,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should remove all fluid labels including capacity labels",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.745645762+08:00",
-        "EndTime": "2026-11-18T07:34:18.746584686+08:00",
-        "RunTime": 938924,
+        "StartTime": "2026-11-18T07:36:42.882297042+08:00",
+        "EndTime": "2026-11-18T07:36:42.882637925+08:00",
+        "RunTime": 340883,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -2418,8 +2080,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 170,
-              "Time": "2026-11-18T07:34:18.745646662+08:00"
+              "Order": 142,
+              "Time": "2026-11-18T07:36:42.882298593+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -2431,11 +2093,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 172,
-              "Time": "2026-11-18T07:34:18.74615145+08:00"
+              "Order": 144,
+              "Time": "2026-11-18T07:36:42.882440338+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 504778,
+            "Duration": 141736,
             "NodeType": "BeforeEach"
           },
           {
@@ -2445,8 +2107,8 @@
               "LineNumber": 440
             },
             "TimelineLocation": {
-              "Order": 173,
-              "Time": "2026-11-18T07:34:18.746165651+08:00"
+              "Order": 145,
+              "Time": "2026-11-18T07:36:42.882440958+08:00"
             },
             "Message": "when given runtime with tiered store",
             "NodeType": "BeforeEach"
@@ -2458,11 +2120,11 @@
               "LineNumber": 440
             },
             "TimelineLocation": {
-              "Order": 175,
-              "Time": "2026-11-18T07:34:18.746186082+08:00"
+              "Order": 147,
+              "Time": "2026-11-18T07:36:42.882451428+08:00"
             },
             "Message": "when given runtime with tiered store",
-            "Duration": 20431,
+            "Duration": 10470,
             "NodeType": "BeforeEach"
           },
           {
@@ -2472,8 +2134,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 176,
-              "Time": "2026-11-18T07:34:18.746186931+08:00"
+              "Order": 148,
+              "Time": "2026-11-18T07:36:42.882451818+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -2485,11 +2147,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 178,
-              "Time": "2026-11-18T07:34:18.746297695+08:00"
+              "Order": 150,
+              "Time": "2026-11-18T07:36:42.882462338+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 110764,
+            "Duration": 10530,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -2499,8 +2161,8 @@
               "LineNumber": 483
             },
             "TimelineLocation": {
-              "Order": 179,
-              "Time": "2026-11-18T07:34:18.746300015+08:00"
+              "Order": 151,
+              "Time": "2026-11-18T07:36:42.882462738+08:00"
             },
             "Message": "should remove all fluid labels including capacity labels",
             "NodeType": "It"
@@ -2512,11 +2174,11 @@
               "LineNumber": 483
             },
             "TimelineLocation": {
-              "Order": 181,
-              "Time": "2026-11-18T07:34:18.746582776+08:00"
+              "Order": 153,
+              "Time": "2026-11-18T07:36:42.882637214+08:00"
             },
             "Message": "should remove all fluid labels including capacity labels",
-            "Duration": 282761,
+            "Duration": 174487,
             "NodeType": "It"
           }
         ]
@@ -2562,9 +2224,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should write the current capacity labels",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.746603326+08:00",
-        "EndTime": "2026-11-18T07:34:18.746971479+08:00",
-        "RunTime": 368164,
+        "StartTime": "2026-11-18T07:36:42.882643235+08:00",
+        "EndTime": "2026-11-18T07:36:42.882993487+08:00",
+        "RunTime": 350262,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -2577,8 +2239,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 182,
-              "Time": "2026-11-18T07:34:18.746606577+08:00"
+              "Order": 154,
+              "Time": "2026-11-18T07:36:42.882645615+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -2590,11 +2252,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 184,
-              "Time": "2026-11-18T07:34:18.746748091+08:00"
+              "Order": 156,
+              "Time": "2026-11-18T07:36:42.88278334+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 141525,
+            "Duration": 137725,
             "NodeType": "BeforeEach"
           },
           {
@@ -2604,8 +2266,8 @@
               "LineNumber": 512
             },
             "TimelineLocation": {
-              "Order": 185,
-              "Time": "2026-11-18T07:34:18.746748842+08:00"
+              "Order": 157,
+              "Time": "2026-11-18T07:36:42.88278429+08:00"
             },
             "Message": "Test syncCapacityInfoOnNode()",
             "NodeType": "BeforeEach"
@@ -2617,11 +2279,11 @@
               "LineNumber": 512
             },
             "TimelineLocation": {
-              "Order": 187,
-              "Time": "2026-11-18T07:34:18.746756632+08:00"
+              "Order": 159,
+              "Time": "2026-11-18T07:36:42.88279194+08:00"
             },
             "Message": "Test syncCapacityInfoOnNode()",
-            "Duration": 7790,
+            "Duration": 7650,
             "NodeType": "BeforeEach"
           },
           {
@@ -2631,8 +2293,8 @@
               "LineNumber": 539
             },
             "TimelineLocation": {
-              "Order": 188,
-              "Time": "2026-11-18T07:34:18.746757002+08:00"
+              "Order": 160,
+              "Time": "2026-11-18T07:36:42.88279252+08:00"
             },
             "Message": "when the node was labelled with an empty tiered store",
             "NodeType": "BeforeEach"
@@ -2644,11 +2306,11 @@
               "LineNumber": 539
             },
             "TimelineLocation": {
-              "Order": 190,
-              "Time": "2026-11-18T07:34:18.746761952+08:00"
+              "Order": 162,
+              "Time": "2026-11-18T07:36:42.88280384+08:00"
             },
             "Message": "when the node was labelled with an empty tiered store",
-            "Duration": 4950,
+            "Duration": 11320,
             "NodeType": "BeforeEach"
           },
           {
@@ -2658,8 +2320,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 191,
-              "Time": "2026-11-18T07:34:18.746762282+08:00"
+              "Order": 163,
+              "Time": "2026-11-18T07:36:42.882804311+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -2671,11 +2333,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 193,
-              "Time": "2026-11-18T07:34:18.746770462+08:00"
+              "Order": 165,
+              "Time": "2026-11-18T07:36:42.882811571+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 8170,
+            "Duration": 7261,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -2685,8 +2347,8 @@
               "LineNumber": 532
             },
             "TimelineLocation": {
-              "Order": 194,
-              "Time": "2026-11-18T07:34:18.746770822+08:00"
+              "Order": 166,
+              "Time": "2026-11-18T07:36:42.882812051+08:00"
             },
             "Message": "Test syncCapacityInfoOnNode()",
             "NodeType": "JustBeforeEach"
@@ -2698,11 +2360,11 @@
               "LineNumber": 532
             },
             "TimelineLocation": {
-              "Order": 196,
-              "Time": "2026-11-18T07:34:18.746780413+08:00"
+              "Order": 168,
+              "Time": "2026-11-18T07:36:42.882822341+08:00"
             },
             "Message": "Test syncCapacityInfoOnNode()",
-            "Duration": 9581,
+            "Duration": 10280,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -2712,8 +2374,8 @@
               "LineNumber": 548
             },
             "TimelineLocation": {
-              "Order": 197,
-              "Time": "2026-11-18T07:34:18.746780753+08:00"
+              "Order": 169,
+              "Time": "2026-11-18T07:36:42.882822781+08:00"
             },
             "Message": "should write the current capacity labels",
             "NodeType": "It"
@@ -2725,11 +2387,11 @@
               "LineNumber": 548
             },
             "TimelineLocation": {
-              "Order": 199,
-              "Time": "2026-11-18T07:34:18.746970379+08:00"
+              "Order": 171,
+              "Time": "2026-11-18T07:36:42.882992577+08:00"
             },
             "Message": "should write the current capacity labels",
-            "Duration": 189626,
+            "Duration": 169796,
             "NodeType": "It"
           }
         ]
@@ -2775,9 +2437,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should remove the stale tier label",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.74697852+08:00",
-        "EndTime": "2026-11-18T07:34:18.747306042+08:00",
-        "RunTime": 327522,
+        "StartTime": "2026-11-18T07:36:42.882998757+08:00",
+        "EndTime": "2026-11-18T07:36:42.883333699+08:00",
+        "RunTime": 334942,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -2790,8 +2452,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 200,
-              "Time": "2026-11-18T07:34:18.74698123+08:00"
+              "Order": 172,
+              "Time": "2026-11-18T07:36:42.883000878+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -2803,11 +2465,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 202,
-              "Time": "2026-11-18T07:34:18.747111584+08:00"
+              "Order": 174,
+              "Time": "2026-11-18T07:36:42.883131132+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 130354,
+            "Duration": 130245,
             "NodeType": "BeforeEach"
           },
           {
@@ -2817,8 +2479,8 @@
               "LineNumber": 512
             },
             "TimelineLocation": {
-              "Order": 203,
-              "Time": "2026-11-18T07:34:18.747112184+08:00"
+              "Order": 175,
+              "Time": "2026-11-18T07:36:42.883131722+08:00"
             },
             "Message": "Test syncCapacityInfoOnNode()",
             "NodeType": "BeforeEach"
@@ -2830,11 +2492,11 @@
               "LineNumber": 512
             },
             "TimelineLocation": {
-              "Order": 205,
-              "Time": "2026-11-18T07:34:18.747119175+08:00"
+              "Order": 177,
+              "Time": "2026-11-18T07:36:42.883137642+08:00"
             },
             "Message": "Test syncCapacityInfoOnNode()",
-            "Duration": 6980,
+            "Duration": 5910,
             "NodeType": "BeforeEach"
           },
           {
@@ -2844,8 +2506,8 @@
               "LineNumber": 561
             },
             "TimelineLocation": {
-              "Order": 206,
-              "Time": "2026-11-18T07:34:18.747119645+08:00"
+              "Order": 178,
+              "Time": "2026-11-18T07:36:42.883138132+08:00"
             },
             "Message": "when the node has a label for a tier the runtime no longer has",
             "NodeType": "BeforeEach"
@@ -2857,11 +2519,11 @@
               "LineNumber": 561
             },
             "TimelineLocation": {
-              "Order": 208,
-              "Time": "2026-11-18T07:34:18.747126655+08:00"
+              "Order": 180,
+              "Time": "2026-11-18T07:36:42.883145252+08:00"
             },
             "Message": "when the node has a label for a tier the runtime no longer has",
-            "Duration": 7010,
+            "Duration": 7121,
             "NodeType": "BeforeEach"
           },
           {
@@ -2871,8 +2533,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 209,
-              "Time": "2026-11-18T07:34:18.747127095+08:00"
+              "Order": 181,
+              "Time": "2026-11-18T07:36:42.883145703+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -2884,11 +2546,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 211,
-              "Time": "2026-11-18T07:34:18.747134055+08:00"
+              "Order": 183,
+              "Time": "2026-11-18T07:36:42.883157663+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 6960,
+            "Duration": 11960,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -2898,8 +2560,8 @@
               "LineNumber": 532
             },
             "TimelineLocation": {
-              "Order": 212,
-              "Time": "2026-11-18T07:34:18.747134385+08:00"
+              "Order": 184,
+              "Time": "2026-11-18T07:36:42.883158103+08:00"
             },
             "Message": "Test syncCapacityInfoOnNode()",
             "NodeType": "JustBeforeEach"
@@ -2911,11 +2573,11 @@
               "LineNumber": 532
             },
             "TimelineLocation": {
-              "Order": 214,
-              "Time": "2026-11-18T07:34:18.747140736+08:00"
+              "Order": 186,
+              "Time": "2026-11-18T07:36:42.883166213+08:00"
             },
             "Message": "Test syncCapacityInfoOnNode()",
-            "Duration": 6351,
+            "Duration": 8110,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -2925,8 +2587,8 @@
               "LineNumber": 582
             },
             "TimelineLocation": {
-              "Order": 215,
-              "Time": "2026-11-18T07:34:18.747141185+08:00"
+              "Order": 187,
+              "Time": "2026-11-18T07:36:42.883166653+08:00"
             },
             "Message": "should remove the stale tier label",
             "NodeType": "It"
@@ -2938,11 +2600,11 @@
               "LineNumber": 582
             },
             "TimelineLocation": {
-              "Order": 217,
-              "Time": "2026-11-18T07:34:18.747305121+08:00"
+              "Order": 189,
+              "Time": "2026-11-18T07:36:42.883332889+08:00"
             },
             "Message": "should remove the stale tier label",
-            "Duration": 163925,
+            "Duration": 166236,
             "NodeType": "It"
           }
         ]
@@ -2988,9 +2650,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should leave the node alone",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.747311871+08:00",
-        "EndTime": "2026-11-18T07:34:18.747495568+08:00",
-        "RunTime": 183697,
+        "StartTime": "2026-11-18T07:36:42.883448454+08:00",
+        "EndTime": "2026-11-18T07:36:42.884176439+08:00",
+        "RunTime": 727976,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -3003,8 +2665,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 218,
-              "Time": "2026-11-18T07:34:18.747314272+08:00"
+              "Order": 190,
+              "Time": "2026-11-18T07:36:42.883479995+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -3016,11 +2678,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 220,
-              "Time": "2026-11-18T07:34:18.747450507+08:00"
+              "Order": 192,
+              "Time": "2026-11-18T07:36:42.884063455+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 136235,
+            "Duration": 583461,
             "NodeType": "BeforeEach"
           },
           {
@@ -3030,8 +2692,8 @@
               "LineNumber": 512
             },
             "TimelineLocation": {
-              "Order": 221,
-              "Time": "2026-11-18T07:34:18.747451107+08:00"
+              "Order": 193,
+              "Time": "2026-11-18T07:36:42.884066285+08:00"
             },
             "Message": "Test syncCapacityInfoOnNode()",
             "NodeType": "BeforeEach"
@@ -3043,11 +2705,11 @@
               "LineNumber": 512
             },
             "TimelineLocation": {
-              "Order": 223,
-              "Time": "2026-11-18T07:34:18.747456837+08:00"
+              "Order": 195,
+              "Time": "2026-11-18T07:36:42.884086946+08:00"
             },
             "Message": "Test syncCapacityInfoOnNode()",
-            "Duration": 5721,
+            "Duration": 20650,
             "NodeType": "BeforeEach"
           },
           {
@@ -3057,8 +2719,8 @@
               "LineNumber": 594
             },
             "TimelineLocation": {
-              "Order": 224,
-              "Time": "2026-11-18T07:34:18.747457187+08:00"
+              "Order": 196,
+              "Time": "2026-11-18T07:36:42.884087576+08:00"
             },
             "Message": "when the node doesn't have the runtime label",
             "NodeType": "BeforeEach"
@@ -3070,11 +2732,11 @@
               "LineNumber": 594
             },
             "TimelineLocation": {
-              "Order": 226,
-              "Time": "2026-11-18T07:34:18.747461167+08:00"
+              "Order": 198,
+              "Time": "2026-11-18T07:36:42.884093986+08:00"
             },
             "Message": "when the node doesn't have the runtime label",
-            "Duration": 3980,
+            "Duration": 6410,
             "NodeType": "BeforeEach"
           },
           {
@@ -3084,8 +2746,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 227,
-              "Time": "2026-11-18T07:34:18.747461797+08:00"
+              "Order": 199,
+              "Time": "2026-11-18T07:36:42.884094566+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -3097,11 +2759,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 229,
-              "Time": "2026-11-18T07:34:18.747467877+08:00"
+              "Order": 201,
+              "Time": "2026-11-18T07:36:42.884104367+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 6080,
+            "Duration": 9801,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -3111,8 +2773,8 @@
               "LineNumber": 532
             },
             "TimelineLocation": {
-              "Order": 230,
-              "Time": "2026-11-18T07:34:18.747468347+08:00"
+              "Order": 202,
+              "Time": "2026-11-18T07:36:42.884104837+08:00"
             },
             "Message": "Test syncCapacityInfoOnNode()",
             "NodeType": "JustBeforeEach"
@@ -3124,11 +2786,11 @@
               "LineNumber": 532
             },
             "TimelineLocation": {
-              "Order": 232,
-              "Time": "2026-11-18T07:34:18.747475057+08:00"
+              "Order": 204,
+              "Time": "2026-11-18T07:36:42.884117027+08:00"
             },
             "Message": "Test syncCapacityInfoOnNode()",
-            "Duration": 6721,
+            "Duration": 12190,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -3138,8 +2800,8 @@
               "LineNumber": 599
             },
             "TimelineLocation": {
-              "Order": 233,
-              "Time": "2026-11-18T07:34:18.747475397+08:00"
+              "Order": 205,
+              "Time": "2026-11-18T07:36:42.884117457+08:00"
             },
             "Message": "should leave the node alone",
             "NodeType": "It"
@@ -3151,11 +2813,11 @@
               "LineNumber": 599
             },
             "TimelineLocation": {
-              "Order": 235,
-              "Time": "2026-11-18T07:34:18.747494958+08:00"
+              "Order": 207,
+              "Time": "2026-11-18T07:36:42.884174629+08:00"
             },
             "Message": "should leave the node alone",
-            "Duration": 19571,
+            "Duration": 57162,
             "NodeType": "It"
           }
         ]
@@ -3194,9 +2856,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should repair outdated capacity labels and not patch again once they match",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.747500268+08:00",
-        "EndTime": "2026-11-18T07:34:18.748018867+08:00",
-        "RunTime": 518609,
+        "StartTime": "2026-11-18T07:36:42.8841941+08:00",
+        "EndTime": "2026-11-18T07:36:42.885075331+08:00",
+        "RunTime": 881231,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -3209,8 +2871,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 236,
-              "Time": "2026-11-18T07:34:18.747504458+08:00"
+              "Order": 208,
+              "Time": "2026-11-18T07:36:42.88419786+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -3222,11 +2884,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 238,
-              "Time": "2026-11-18T07:34:18.747635823+08:00"
+              "Order": 210,
+              "Time": "2026-11-18T07:36:42.884362976+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 131365,
+            "Duration": 165116,
             "NodeType": "BeforeEach"
           },
           {
@@ -3236,8 +2898,8 @@
               "LineNumber": 615
             },
             "TimelineLocation": {
-              "Order": 239,
-              "Time": "2026-11-18T07:34:18.747636313+08:00"
+              "Order": 211,
+              "Time": "2026-11-18T07:36:42.884363656+08:00"
             },
             "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
             "NodeType": "BeforeEach"
@@ -3249,11 +2911,11 @@
               "LineNumber": 615
             },
             "TimelineLocation": {
-              "Order": 241,
-              "Time": "2026-11-18T07:34:18.747650024+08:00"
+              "Order": 213,
+              "Time": "2026-11-18T07:36:42.884376796+08:00"
             },
             "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
-            "Duration": 13711,
+            "Duration": 13140,
             "NodeType": "BeforeEach"
           },
           {
@@ -3263,8 +2925,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 242,
-              "Time": "2026-11-18T07:34:18.747650354+08:00"
+              "Order": 214,
+              "Time": "2026-11-18T07:36:42.884377167+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -3276,11 +2938,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 244,
-              "Time": "2026-11-18T07:34:18.747658074+08:00"
+              "Order": 216,
+              "Time": "2026-11-18T07:36:42.884385487+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 7730,
+            "Duration": 8320,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -3290,8 +2952,8 @@
               "LineNumber": 638
             },
             "TimelineLocation": {
-              "Order": 245,
-              "Time": "2026-11-18T07:34:18.747658394+08:00"
+              "Order": 217,
+              "Time": "2026-11-18T07:36:42.884385927+08:00"
             },
             "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
             "NodeType": "JustBeforeEach"
@@ -3303,11 +2965,11 @@
               "LineNumber": 638
             },
             "TimelineLocation": {
-              "Order": 247,
-              "Time": "2026-11-18T07:34:18.747682725+08:00"
+              "Order": 219,
+              "Time": "2026-11-18T07:36:42.884425328+08:00"
             },
             "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
-            "Duration": 24331,
+            "Duration": 39401,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -3317,8 +2979,8 @@
               "LineNumber": 677
             },
             "TimelineLocation": {
-              "Order": 248,
-              "Time": "2026-11-18T07:34:18.747683065+08:00"
+              "Order": 220,
+              "Time": "2026-11-18T07:36:42.884425688+08:00"
             },
             "Message": "should repair outdated capacity labels and not patch again once they match",
             "NodeType": "It"
@@ -3330,11 +2992,11 @@
               "LineNumber": 677
             },
             "TimelineLocation": {
-              "Order": 250,
-              "Time": "2026-11-18T07:34:18.748010916+08:00"
+              "Order": 222,
+              "Time": "2026-11-18T07:36:42.885064291+08:00"
             },
             "Message": "should repair outdated capacity labels and not patch again once they match",
-            "Duration": 327851,
+            "Duration": 638603,
             "NodeType": "It"
           },
           {
@@ -3344,8 +3006,8 @@
               "LineNumber": 673
             },
             "TimelineLocation": {
-              "Order": 251,
-              "Time": "2026-11-18T07:34:18.748012627+08:00"
+              "Order": 223,
+              "Time": "2026-11-18T07:36:42.885066451+08:00"
             },
             "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
             "NodeType": "AfterEach"
@@ -3357,11 +3019,11 @@
               "LineNumber": 673
             },
             "TimelineLocation": {
-              "Order": 253,
-              "Time": "2026-11-18T07:34:18.748017837+08:00"
+              "Order": 225,
+              "Time": "2026-11-18T07:36:42.885074301+08:00"
             },
             "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
-            "Duration": 5210,
+            "Duration": 7860,
             "NodeType": "AfterEach"
           }
         ]
@@ -3400,9 +3062,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should leave nodes matching the exclude selector untouched",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.748025727+08:00",
-        "EndTime": "2026-11-18T07:34:18.748300897+08:00",
-        "RunTime": 275160,
+        "StartTime": "2026-11-18T07:36:42.885084452+08:00",
+        "EndTime": "2026-11-18T07:36:42.885405993+08:00",
+        "RunTime": 321541,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -3415,8 +3077,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 254,
-              "Time": "2026-11-18T07:34:18.748027697+08:00"
+              "Order": 226,
+              "Time": "2026-11-18T07:36:42.885088312+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -3428,11 +3090,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 256,
-              "Time": "2026-11-18T07:34:18.748176232+08:00"
+              "Order": 228,
+              "Time": "2026-11-18T07:36:42.885235817+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 148535,
+            "Duration": 147505,
             "NodeType": "BeforeEach"
           },
           {
@@ -3442,8 +3104,8 @@
               "LineNumber": 615
             },
             "TimelineLocation": {
-              "Order": 257,
-              "Time": "2026-11-18T07:34:18.748176693+08:00"
+              "Order": 229,
+              "Time": "2026-11-18T07:36:42.885236927+08:00"
             },
             "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
             "NodeType": "BeforeEach"
@@ -3455,11 +3117,11 @@
               "LineNumber": 615
             },
             "TimelineLocation": {
-              "Order": 259,
-              "Time": "2026-11-18T07:34:18.748184603+08:00"
+              "Order": 231,
+              "Time": "2026-11-18T07:36:42.885246007+08:00"
             },
             "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
-            "Duration": 7910,
+            "Duration": 9081,
             "NodeType": "BeforeEach"
           },
           {
@@ -3469,8 +3131,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 260,
-              "Time": "2026-11-18T07:34:18.748184933+08:00"
+              "Order": 232,
+              "Time": "2026-11-18T07:36:42.885246478+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -3482,11 +3144,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 262,
-              "Time": "2026-11-18T07:34:18.748192493+08:00"
+              "Order": 234,
+              "Time": "2026-11-18T07:36:42.885267328+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 7560,
+            "Duration": 20860,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -3496,8 +3158,8 @@
               "LineNumber": 638
             },
             "TimelineLocation": {
-              "Order": 263,
-              "Time": "2026-11-18T07:34:18.748192833+08:00"
+              "Order": 235,
+              "Time": "2026-11-18T07:36:42.885267868+08:00"
             },
             "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
             "NodeType": "JustBeforeEach"
@@ -3509,11 +3171,11 @@
               "LineNumber": 638
             },
             "TimelineLocation": {
-              "Order": 265,
-              "Time": "2026-11-18T07:34:18.748209163+08:00"
+              "Order": 237,
+              "Time": "2026-11-18T07:36:42.885299259+08:00"
             },
             "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
-            "Duration": 16330,
+            "Duration": 31401,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -3523,8 +3185,8 @@
               "LineNumber": 691
             },
             "TimelineLocation": {
-              "Order": 266,
-              "Time": "2026-11-18T07:34:18.748209494+08:00"
+              "Order": 238,
+              "Time": "2026-11-18T07:36:42.885299699+08:00"
             },
             "Message": "should leave nodes matching the exclude selector untouched",
             "NodeType": "It"
@@ -3536,11 +3198,11 @@
               "LineNumber": 691
             },
             "TimelineLocation": {
-              "Order": 268,
-              "Time": "2026-11-18T07:34:18.748293826+08:00"
+              "Order": 240,
+              "Time": "2026-11-18T07:36:42.885397873+08:00"
             },
             "Message": "should leave nodes matching the exclude selector untouched",
-            "Duration": 84332,
+            "Duration": 98174,
             "NodeType": "It"
           },
           {
@@ -3550,8 +3212,8 @@
               "LineNumber": 673
             },
             "TimelineLocation": {
-              "Order": 269,
-              "Time": "2026-11-18T07:34:18.748295167+08:00"
+              "Order": 241,
+              "Time": "2026-11-18T07:36:42.885399383+08:00"
             },
             "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
             "NodeType": "AfterEach"
@@ -3563,11 +3225,11 @@
               "LineNumber": 673
             },
             "TimelineLocation": {
-              "Order": 271,
-              "Time": "2026-11-18T07:34:18.748300267+08:00"
+              "Order": 243,
+              "Time": "2026-11-18T07:36:42.885405173+08:00"
             },
             "Message": "Test SyncScheduleInfoToCacheNodes refreshing capacity labels",
-            "Duration": 5110,
+            "Duration": 5780,
             "NodeType": "AfterEach"
           }
         ]
@@ -3606,9 +3268,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should remove the runtime label from a node that isn't excluded",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.748306547+08:00",
-        "EndTime": "2026-11-18T07:34:18.74866714+08:00",
-        "RunTime": 360593,
+        "StartTime": "2026-11-18T07:36:42.885412603+08:00",
+        "EndTime": "2026-11-18T07:36:42.885819148+08:00",
+        "RunTime": 406555,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -3621,8 +3283,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 272,
-              "Time": "2026-11-18T07:34:18.748308097+08:00"
+              "Order": 244,
+              "Time": "2026-11-18T07:36:42.885415104+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -3634,11 +3296,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 274,
-              "Time": "2026-11-18T07:34:18.748446842+08:00"
+              "Order": 246,
+              "Time": "2026-11-18T07:36:42.885565879+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 138735,
+            "Duration": 150766,
             "NodeType": "BeforeEach"
           },
           {
@@ -3648,8 +3310,8 @@
               "LineNumber": 707
             },
             "TimelineLocation": {
-              "Order": 275,
-              "Time": "2026-11-18T07:34:18.748447292+08:00"
+              "Order": 247,
+              "Time": "2026-11-18T07:36:42.885566529+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
             "NodeType": "BeforeEach"
@@ -3661,11 +3323,11 @@
               "LineNumber": 707
             },
             "TimelineLocation": {
-              "Order": 277,
-              "Time": "2026-11-18T07:34:18.748456252+08:00"
+              "Order": 249,
+              "Time": "2026-11-18T07:36:42.885575219+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
-            "Duration": 8950,
+            "Duration": 8680,
             "NodeType": "BeforeEach"
           },
           {
@@ -3675,8 +3337,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 278,
-              "Time": "2026-11-18T07:34:18.748456582+08:00"
+              "Order": 250,
+              "Time": "2026-11-18T07:36:42.885575569+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -3688,11 +3350,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 280,
-              "Time": "2026-11-18T07:34:18.748462863+08:00"
+              "Order": 252,
+              "Time": "2026-11-18T07:36:42.88558317+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 6290,
+            "Duration": 7601,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -3702,8 +3364,8 @@
               "LineNumber": 719
             },
             "TimelineLocation": {
-              "Order": 281,
-              "Time": "2026-11-18T07:34:18.748463203+08:00"
+              "Order": 253,
+              "Time": "2026-11-18T07:36:42.88558361+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
             "NodeType": "JustBeforeEach"
@@ -3715,11 +3377,11 @@
               "LineNumber": 719
             },
             "TimelineLocation": {
-              "Order": 283,
-              "Time": "2026-11-18T07:34:18.748469703+08:00"
+              "Order": 255,
+              "Time": "2026-11-18T07:36:42.88559114+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
-            "Duration": 6500,
+            "Duration": 7540,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -3729,8 +3391,8 @@
               "LineNumber": 729
             },
             "TimelineLocation": {
-              "Order": 284,
-              "Time": "2026-11-18T07:34:18.748470023+08:00"
+              "Order": 256,
+              "Time": "2026-11-18T07:36:42.88559149+08:00"
             },
             "Message": "should remove the runtime label from a node that isn't excluded",
             "NodeType": "It"
@@ -3742,11 +3404,11 @@
               "LineNumber": 729
             },
             "TimelineLocation": {
-              "Order": 286,
-              "Time": "2026-11-18T07:34:18.74866148+08:00"
+              "Order": 258,
+              "Time": "2026-11-18T07:36:42.885811678+08:00"
             },
             "Message": "should remove the runtime label from a node that isn't excluded",
-            "Duration": 191447,
+            "Duration": 220197,
             "NodeType": "It"
           },
           {
@@ -3756,8 +3418,8 @@
               "LineNumber": 725
             },
             "TimelineLocation": {
-              "Order": 287,
-              "Time": "2026-11-18T07:34:18.7486627+08:00"
+              "Order": 259,
+              "Time": "2026-11-18T07:36:42.885812847+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
             "NodeType": "AfterEach"
@@ -3769,11 +3431,11 @@
               "LineNumber": 725
             },
             "TimelineLocation": {
-              "Order": 289,
-              "Time": "2026-11-18T07:34:18.74866654+08:00"
+              "Order": 261,
+              "Time": "2026-11-18T07:36:42.885818428+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
-            "Duration": 3840,
+            "Duration": 5591,
             "NodeType": "AfterEach"
           }
         ]
@@ -3812,9 +3474,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should leave a node matching the exclude selector untouched",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.7486735+08:00",
-        "EndTime": "2026-11-18T07:34:18.748867607+08:00",
-        "RunTime": 194107,
+        "StartTime": "2026-11-18T07:36:42.885824938+08:00",
+        "EndTime": "2026-11-18T07:36:42.886016845+08:00",
+        "RunTime": 191907,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -3827,8 +3489,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 290,
-              "Time": "2026-11-18T07:34:18.74867478+08:00"
+              "Order": 262,
+              "Time": "2026-11-18T07:36:42.885827358+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -3840,11 +3502,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 292,
-              "Time": "2026-11-18T07:34:18.748820595+08:00"
+              "Order": 264,
+              "Time": "2026-11-18T07:36:42.885965043+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 145815,
+            "Duration": 137675,
             "NodeType": "BeforeEach"
           },
           {
@@ -3854,8 +3516,8 @@
               "LineNumber": 707
             },
             "TimelineLocation": {
-              "Order": 293,
-              "Time": "2026-11-18T07:34:18.748821015+08:00"
+              "Order": 265,
+              "Time": "2026-11-18T07:36:42.885965563+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
             "NodeType": "BeforeEach"
@@ -3867,11 +3529,11 @@
               "LineNumber": 707
             },
             "TimelineLocation": {
-              "Order": 295,
-              "Time": "2026-11-18T07:34:18.748827145+08:00"
+              "Order": 267,
+              "Time": "2026-11-18T07:36:42.885972793+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
-            "Duration": 6120,
+            "Duration": 7230,
             "NodeType": "BeforeEach"
           },
           {
@@ -3881,8 +3543,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 296,
-              "Time": "2026-11-18T07:34:18.748827465+08:00"
+              "Order": 268,
+              "Time": "2026-11-18T07:36:42.885973153+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -3894,11 +3556,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 298,
-              "Time": "2026-11-18T07:34:18.748834036+08:00"
+              "Order": 270,
+              "Time": "2026-11-18T07:36:42.885981793+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 6560,
+            "Duration": 8641,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -3908,8 +3570,8 @@
               "LineNumber": 719
             },
             "TimelineLocation": {
-              "Order": 299,
-              "Time": "2026-11-18T07:34:18.748834356+08:00"
+              "Order": 271,
+              "Time": "2026-11-18T07:36:42.885982134+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
             "NodeType": "JustBeforeEach"
@@ -3921,11 +3583,11 @@
               "LineNumber": 719
             },
             "TimelineLocation": {
-              "Order": 301,
-              "Time": "2026-11-18T07:34:18.748840316+08:00"
+              "Order": 273,
+              "Time": "2026-11-18T07:36:42.885988624+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
-            "Duration": 5950,
+            "Duration": 6490,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -3935,8 +3597,8 @@
               "LineNumber": 737
             },
             "TimelineLocation": {
-              "Order": 302,
-              "Time": "2026-11-18T07:34:18.748840636+08:00"
+              "Order": 274,
+              "Time": "2026-11-18T07:36:42.885988974+08:00"
             },
             "Message": "should leave a node matching the exclude selector untouched",
             "NodeType": "It"
@@ -3948,11 +3610,11 @@
               "LineNumber": 737
             },
             "TimelineLocation": {
-              "Order": 304,
-              "Time": "2026-11-18T07:34:18.748861997+08:00"
+              "Order": 276,
+              "Time": "2026-11-18T07:36:42.886011655+08:00"
             },
             "Message": "should leave a node matching the exclude selector untouched",
-            "Duration": 21361,
+            "Duration": 22691,
             "NodeType": "It"
           },
           {
@@ -3962,8 +3624,8 @@
               "LineNumber": 725
             },
             "TimelineLocation": {
-              "Order": 305,
-              "Time": "2026-11-18T07:34:18.748863437+08:00"
+              "Order": 277,
+              "Time": "2026-11-18T07:36:42.886012595+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
             "NodeType": "AfterEach"
@@ -3975,11 +3637,11 @@
               "LineNumber": 725
             },
             "TimelineLocation": {
-              "Order": 307,
-              "Time": "2026-11-18T07:34:18.748867087+08:00"
+              "Order": 279,
+              "Time": "2026-11-18T07:36:42.886016345+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
-            "Duration": 3650,
+            "Duration": 3750,
             "NodeType": "AfterEach"
           }
         ]
@@ -4018,9 +3680,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should remove the runtime label when the exclude selector doesn't match the node",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.748872267+08:00",
-        "EndTime": "2026-11-18T07:34:18.749197249+08:00",
-        "RunTime": 324982,
+        "StartTime": "2026-11-18T07:36:42.886021465+08:00",
+        "EndTime": "2026-11-18T07:36:42.886382368+08:00",
+        "RunTime": 360893,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -4033,8 +3695,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 308,
-              "Time": "2026-11-18T07:34:18.748873377+08:00"
+              "Order": 280,
+              "Time": "2026-11-18T07:36:42.886022585+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -4046,11 +3708,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 310,
-              "Time": "2026-11-18T07:34:18.749000452+08:00"
+              "Order": 282,
+              "Time": "2026-11-18T07:36:42.88616001+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 127075,
+            "Duration": 137425,
             "NodeType": "BeforeEach"
           },
           {
@@ -4060,8 +3722,8 @@
               "LineNumber": 707
             },
             "TimelineLocation": {
-              "Order": 311,
-              "Time": "2026-11-18T07:34:18.749000882+08:00"
+              "Order": 283,
+              "Time": "2026-11-18T07:36:42.88616044+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
             "NodeType": "BeforeEach"
@@ -4073,11 +3735,11 @@
               "LineNumber": 707
             },
             "TimelineLocation": {
-              "Order": 313,
-              "Time": "2026-11-18T07:34:18.749005422+08:00"
+              "Order": 285,
+              "Time": "2026-11-18T07:36:42.88616762+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
-            "Duration": 4540,
+            "Duration": 7180,
             "NodeType": "BeforeEach"
           },
           {
@@ -4087,8 +3749,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 314,
-              "Time": "2026-11-18T07:34:18.749005762+08:00"
+              "Order": 286,
+              "Time": "2026-11-18T07:36:42.88616796+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -4100,11 +3762,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 316,
-              "Time": "2026-11-18T07:34:18.749012542+08:00"
+              "Order": 288,
+              "Time": "2026-11-18T07:36:42.886175131+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 6770,
+            "Duration": 7171,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -4114,8 +3776,8 @@
               "LineNumber": 719
             },
             "TimelineLocation": {
-              "Order": 317,
-              "Time": "2026-11-18T07:34:18.749012862+08:00"
+              "Order": 289,
+              "Time": "2026-11-18T07:36:42.886175591+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
             "NodeType": "JustBeforeEach"
@@ -4127,11 +3789,11 @@
               "LineNumber": 719
             },
             "TimelineLocation": {
-              "Order": 319,
-              "Time": "2026-11-18T07:34:18.749019832+08:00"
+              "Order": 291,
+              "Time": "2026-11-18T07:36:42.886181381+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
-            "Duration": 6960,
+            "Duration": 5790,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -4141,8 +3803,8 @@
               "LineNumber": 747
             },
             "TimelineLocation": {
-              "Order": 320,
-              "Time": "2026-11-18T07:34:18.749020152+08:00"
+              "Order": 292,
+              "Time": "2026-11-18T07:36:42.886181731+08:00"
             },
             "Message": "should remove the runtime label when the exclude selector doesn't match the node",
             "NodeType": "It"
@@ -4154,11 +3816,11 @@
               "LineNumber": 747
             },
             "TimelineLocation": {
-              "Order": 322,
-              "Time": "2026-11-18T07:34:18.749191878+08:00"
+              "Order": 294,
+              "Time": "2026-11-18T07:36:42.886376728+08:00"
             },
             "Message": "should remove the runtime label when the exclude selector doesn't match the node",
-            "Duration": 171737,
+            "Duration": 194997,
             "NodeType": "It"
           },
           {
@@ -4168,8 +3830,8 @@
               "LineNumber": 725
             },
             "TimelineLocation": {
-              "Order": 323,
-              "Time": "2026-11-18T07:34:18.749193078+08:00"
+              "Order": 295,
+              "Time": "2026-11-18T07:36:42.886377728+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
             "NodeType": "AfterEach"
@@ -4181,11 +3843,11 @@
               "LineNumber": 725
             },
             "TimelineLocation": {
-              "Order": 325,
-              "Time": "2026-11-18T07:34:18.749196789+08:00"
+              "Order": 297,
+              "Time": "2026-11-18T07:36:42.886381828+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
-            "Duration": 3711,
+            "Duration": 4090,
             "NodeType": "AfterEach"
           }
         ]
@@ -4224,9 +3886,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should only clean up the node that isn't excluded when the workers leave",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.749204399+08:00",
-        "EndTime": "2026-11-18T07:34:18.749600333+08:00",
-        "RunTime": 395934,
+        "StartTime": "2026-11-18T07:36:42.886387258+08:00",
+        "EndTime": "2026-11-18T07:36:42.886806903+08:00",
+        "RunTime": 419645,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -4239,8 +3901,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 326,
-              "Time": "2026-11-18T07:34:18.749206409+08:00"
+              "Order": 298,
+              "Time": "2026-11-18T07:36:42.886389258+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -4252,11 +3914,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 328,
-              "Time": "2026-11-18T07:34:18.749344524+08:00"
+              "Order": 300,
+              "Time": "2026-11-18T07:36:42.886530533+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 138115,
+            "Duration": 141265,
             "NodeType": "BeforeEach"
           },
           {
@@ -4266,8 +3928,8 @@
               "LineNumber": 707
             },
             "TimelineLocation": {
-              "Order": 329,
-              "Time": "2026-11-18T07:34:18.749344924+08:00"
+              "Order": 301,
+              "Time": "2026-11-18T07:36:42.886531093+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
             "NodeType": "BeforeEach"
@@ -4279,11 +3941,11 @@
               "LineNumber": 707
             },
             "TimelineLocation": {
-              "Order": 331,
-              "Time": "2026-11-18T07:34:18.749351264+08:00"
+              "Order": 303,
+              "Time": "2026-11-18T07:36:42.886536973+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
-            "Duration": 6330,
+            "Duration": 5880,
             "NodeType": "BeforeEach"
           },
           {
@@ -4293,8 +3955,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 332,
-              "Time": "2026-11-18T07:34:18.749351594+08:00"
+              "Order": 304,
+              "Time": "2026-11-18T07:36:42.886537804+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -4306,11 +3968,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 334,
-              "Time": "2026-11-18T07:34:18.749358604+08:00"
+              "Order": 306,
+              "Time": "2026-11-18T07:36:42.886545794+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 7011,
+            "Duration": 7990,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -4320,8 +3982,8 @@
               "LineNumber": 719
             },
             "TimelineLocation": {
-              "Order": 335,
-              "Time": "2026-11-18T07:34:18.749359035+08:00"
+              "Order": 307,
+              "Time": "2026-11-18T07:36:42.886546134+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
             "NodeType": "JustBeforeEach"
@@ -4333,11 +3995,11 @@
               "LineNumber": 719
             },
             "TimelineLocation": {
-              "Order": 337,
-              "Time": "2026-11-18T07:34:18.749364995+08:00"
+              "Order": 309,
+              "Time": "2026-11-18T07:36:42.886552044+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
-            "Duration": 5960,
+            "Duration": 5910,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -4347,8 +4009,8 @@
               "LineNumber": 757
             },
             "TimelineLocation": {
-              "Order": 338,
-              "Time": "2026-11-18T07:34:18.749365325+08:00"
+              "Order": 310,
+              "Time": "2026-11-18T07:36:42.886552404+08:00"
             },
             "Message": "should only clean up the node that isn't excluded when the workers leave",
             "NodeType": "It"
@@ -4360,11 +4022,11 @@
               "LineNumber": 757
             },
             "TimelineLocation": {
-              "Order": 340,
-              "Time": "2026-11-18T07:34:18.749594683+08:00"
+              "Order": 312,
+              "Time": "2026-11-18T07:36:42.886795113+08:00"
             },
             "Message": "should only clean up the node that isn't excluded when the workers leave",
-            "Duration": 229358,
+            "Duration": 242708,
             "NodeType": "It"
           },
           {
@@ -4374,8 +4036,8 @@
               "LineNumber": 725
             },
             "TimelineLocation": {
-              "Order": 341,
-              "Time": "2026-11-18T07:34:18.749595683+08:00"
+              "Order": 313,
+              "Time": "2026-11-18T07:36:42.886802043+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
             "NodeType": "AfterEach"
@@ -4387,11 +4049,11 @@
               "LineNumber": 725
             },
             "TimelineLocation": {
-              "Order": 343,
-              "Time": "2026-11-18T07:34:18.749599413+08:00"
+              "Order": 315,
+              "Time": "2026-11-18T07:36:42.886806153+08:00"
             },
             "Message": "Test removeScheduleInfoFromNode()",
-            "Duration": 3730,
+            "Duration": 4120,
             "NodeType": "AfterEach"
           }
         ]
@@ -4437,9 +4099,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should calculate correct differences",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.749605963+08:00",
-        "EndTime": "2026-11-18T07:34:18.749747038+08:00",
-        "RunTime": 141065,
+        "StartTime": "2026-11-18T07:36:42.886812953+08:00",
+        "EndTime": "2026-11-18T07:36:42.886962959+08:00",
+        "RunTime": 150006,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -4452,8 +4114,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 344,
-              "Time": "2026-11-18T07:34:18.749607303+08:00"
+              "Order": 316,
+              "Time": "2026-11-18T07:36:42.886814033+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -4465,11 +4127,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 346,
-              "Time": "2026-11-18T07:34:18.749732708+08:00"
+              "Order": 318,
+              "Time": "2026-11-18T07:36:42.886945428+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 125415,
+            "Duration": 131405,
             "NodeType": "BeforeEach"
           },
           {
@@ -4479,8 +4141,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 347,
-              "Time": "2026-11-18T07:34:18.749733098+08:00"
+              "Order": 319,
+              "Time": "2026-11-18T07:36:42.886947298+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -4492,11 +4154,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 349,
-              "Time": "2026-11-18T07:34:18.749738918+08:00"
+              "Order": 321,
+              "Time": "2026-11-18T07:36:42.886954568+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 5820,
+            "Duration": 7270,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -4506,8 +4168,8 @@
               "LineNumber": 787
             },
             "TimelineLocation": {
-              "Order": 350,
-              "Time": "2026-11-18T07:34:18.749739248+08:00"
+              "Order": 322,
+              "Time": "2026-11-18T07:36:42.886954938+08:00"
             },
             "Message": "should calculate correct differences",
             "NodeType": "It"
@@ -4519,11 +4181,11 @@
               "LineNumber": 787
             },
             "TimelineLocation": {
-              "Order": 352,
-              "Time": "2026-11-18T07:34:18.749746378+08:00"
+              "Order": 324,
+              "Time": "2026-11-18T07:36:42.886962068+08:00"
             },
             "Message": "should calculate correct differences",
-            "Duration": 7130,
+            "Duration": 7141,
             "NodeType": "It"
           }
         ]
@@ -4569,9 +4231,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return empty differences",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.749751009+08:00",
-        "EndTime": "2026-11-18T07:34:18.749897524+08:00",
-        "RunTime": 146525,
+        "StartTime": "2026-11-18T07:36:42.886969979+08:00",
+        "EndTime": "2026-11-18T07:36:42.887118264+08:00",
+        "RunTime": 148285,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -4584,8 +4246,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 353,
-              "Time": "2026-11-18T07:34:18.749751758+08:00"
+              "Order": 325,
+              "Time": "2026-11-18T07:36:42.886971279+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -4597,11 +4259,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 355,
-              "Time": "2026-11-18T07:34:18.749883663+08:00"
+              "Order": 327,
+              "Time": "2026-11-18T07:36:42.887104933+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 131894,
+            "Duration": 133655,
             "NodeType": "BeforeEach"
           },
           {
@@ -4611,8 +4273,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 356,
-              "Time": "2026-11-18T07:34:18.749884053+08:00"
+              "Order": 328,
+              "Time": "2026-11-18T07:36:42.887105444+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -4624,11 +4286,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 358,
-              "Time": "2026-11-18T07:34:18.749891054+08:00"
+              "Order": 330,
+              "Time": "2026-11-18T07:36:42.887111334+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 7001,
+            "Duration": 5890,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -4638,8 +4300,8 @@
               "LineNumber": 799
             },
             "TimelineLocation": {
-              "Order": 359,
-              "Time": "2026-11-18T07:34:18.749891374+08:00"
+              "Order": 331,
+              "Time": "2026-11-18T07:36:42.887111694+08:00"
             },
             "Message": "should return empty differences",
             "NodeType": "It"
@@ -4651,11 +4313,11 @@
               "LineNumber": 799
             },
             "TimelineLocation": {
-              "Order": 361,
-              "Time": "2026-11-18T07:34:18.749897034+08:00"
+              "Order": 333,
+              "Time": "2026-11-18T07:36:42.887117614+08:00"
             },
             "Message": "should return empty differences",
-            "Duration": 5660,
+            "Duration": 5930,
             "NodeType": "It"
           }
         ]
@@ -4701,9 +4363,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return all nodes as differences",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.749900854+08:00",
-        "EndTime": "2026-11-18T07:34:18.750032519+08:00",
-        "RunTime": 131665,
+        "StartTime": "2026-11-18T07:36:42.887121654+08:00",
+        "EndTime": "2026-11-18T07:36:42.88728379+08:00",
+        "RunTime": 162126,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -4716,8 +4378,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 362,
-              "Time": "2026-11-18T07:34:18.749901934+08:00"
+              "Order": 334,
+              "Time": "2026-11-18T07:36:42.887122564+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -4729,11 +4391,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 364,
-              "Time": "2026-11-18T07:34:18.750018968+08:00"
+              "Order": 336,
+              "Time": "2026-11-18T07:36:42.887266419+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 117044,
+            "Duration": 143845,
             "NodeType": "BeforeEach"
           },
           {
@@ -4743,8 +4405,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 365,
-              "Time": "2026-11-18T07:34:18.750019358+08:00"
+              "Order": 337,
+              "Time": "2026-11-18T07:36:42.887267029+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -4756,11 +4418,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 367,
-              "Time": "2026-11-18T07:34:18.750025688+08:00"
+              "Order": 339,
+              "Time": "2026-11-18T07:36:42.88727662+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 6330,
+            "Duration": 9591,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -4770,8 +4432,8 @@
               "LineNumber": 811
             },
             "TimelineLocation": {
-              "Order": 368,
-              "Time": "2026-11-18T07:34:18.750026008+08:00"
+              "Order": 340,
+              "Time": "2026-11-18T07:36:42.88727695+08:00"
             },
             "Message": "should return all nodes as differences",
             "NodeType": "It"
@@ -4783,11 +4445,11 @@
               "LineNumber": 811
             },
             "TimelineLocation": {
-              "Order": 370,
-              "Time": "2026-11-18T07:34:18.750032079+08:00"
+              "Order": 342,
+              "Time": "2026-11-18T07:36:42.88728308+08:00"
             },
             "Message": "should return all nodes as differences",
-            "Duration": 6080,
+            "Duration": 6140,
             "NodeType": "It"
           }
         ]
@@ -4833,9 +4495,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should successfully add or remove schedule info on proper nodes",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.750035759+08:00",
-        "EndTime": "2026-11-18T07:34:18.751607744+08:00",
-        "RunTime": 1571996,
+        "StartTime": "2026-11-18T07:36:42.88728878+08:00",
+        "EndTime": "2026-11-18T07:36:42.8889819+08:00",
+        "RunTime": 1693181,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -4848,8 +4510,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 371,
-              "Time": "2026-11-18T07:34:18.750037239+08:00"
+              "Order": 343,
+              "Time": "2026-11-18T07:36:42.88729107+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -4861,11 +4523,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 373,
-              "Time": "2026-11-18T07:34:18.750155973+08:00"
+              "Order": 345,
+              "Time": "2026-11-18T07:36:42.887426655+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 118724,
+            "Duration": 135585,
             "NodeType": "BeforeEach"
           },
           {
@@ -4875,8 +4537,8 @@
               "LineNumber": 830
             },
             "TimelineLocation": {
-              "Order": 374,
-              "Time": "2026-11-18T07:34:18.750156383+08:00"
+              "Order": 346,
+              "Time": "2026-11-18T07:36:42.887427105+08:00"
             },
             "Message": "Test SyncScheduleInfoToCacheNodes",
             "NodeType": "BeforeEach"
@@ -4888,11 +4550,11 @@
               "LineNumber": 830
             },
             "TimelineLocation": {
-              "Order": 376,
-              "Time": "2026-11-18T07:34:18.750166253+08:00"
+              "Order": 348,
+              "Time": "2026-11-18T07:36:42.887437265+08:00"
             },
             "Message": "Test SyncScheduleInfoToCacheNodes",
-            "Duration": 9870,
+            "Duration": 10160,
             "NodeType": "BeforeEach"
           },
           {
@@ -4902,8 +4564,8 @@
               "LineNumber": 889
             },
             "TimelineLocation": {
-              "Order": 377,
-              "Time": "2026-11-18T07:34:18.750166633+08:00"
+              "Order": 349,
+              "Time": "2026-11-18T07:36:42.887437756+08:00"
             },
             "Message": "when calling SyncScheduleInfoToCacheNodes several times to mock runtime scaling",
             "NodeType": "BeforeEach"
@@ -4915,11 +4577,11 @@
               "LineNumber": 889
             },
             "TimelineLocation": {
-              "Order": 379,
-              "Time": "2026-11-18T07:34:18.750171853+08:00"
+              "Order": 351,
+              "Time": "2026-11-18T07:36:42.887442326+08:00"
             },
             "Message": "when calling SyncScheduleInfoToCacheNodes several times to mock runtime scaling",
-            "Duration": 5210,
+            "Duration": 4570,
             "NodeType": "BeforeEach"
           },
           {
@@ -4929,8 +4591,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 380,
-              "Time": "2026-11-18T07:34:18.750172184+08:00"
+              "Order": 352,
+              "Time": "2026-11-18T07:36:42.887442886+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -4942,11 +4604,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 382,
-              "Time": "2026-11-18T07:34:18.750191594+08:00"
+              "Order": 354,
+              "Time": "2026-11-18T07:36:42.887461016+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 19401,
+            "Duration": 18130,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -4956,8 +4618,8 @@
               "LineNumber": 901
             },
             "TimelineLocation": {
-              "Order": 383,
-              "Time": "2026-11-18T07:34:18.750191924+08:00"
+              "Order": 355,
+              "Time": "2026-11-18T07:36:42.887461526+08:00"
             },
             "Message": "should successfully add or remove schedule info on proper nodes",
             "NodeType": "It"
@@ -4969,8 +4631,8 @@
               "LineNumber": 902
             },
             "TimelineLocation": {
-              "Order": 384,
-              "Time": "2026-11-18T07:34:18.750197304+08:00"
+              "Order": 356,
+              "Time": "2026-11-18T07:36:42.887469006+08:00"
             },
             "Message": "scaling two pods to node-0 and node-1, the two nodes should have runtime labels"
           },
@@ -4981,11 +4643,11 @@
               "LineNumber": 902
             },
             "TimelineLocation": {
-              "Order": 385,
-              "Time": "2026-11-18T07:34:18.750677771+08:00"
+              "Order": 357,
+              "Time": "2026-11-18T07:36:42.887982195+08:00"
             },
             "Message": "scaling two pods to node-0 and node-1, the two nodes should have runtime labels",
-            "Duration": 480478
+            "Duration": 513188
           },
           {
             "SpecEventType": "By",
@@ -4994,8 +4656,8 @@
               "LineNumber": 924
             },
             "TimelineLocation": {
-              "Order": 386,
-              "Time": "2026-11-18T07:34:18.750679691+08:00"
+              "Order": 358,
+              "Time": "2026-11-18T07:36:42.887984355+08:00"
             },
             "Message": "scaling out a third pod to node-2, all pods should have runtime labels"
           },
@@ -5006,11 +4668,11 @@
               "LineNumber": 924
             },
             "TimelineLocation": {
-              "Order": 387,
-              "Time": "2026-11-18T07:34:18.750972232+08:00"
+              "Order": 359,
+              "Time": "2026-11-18T07:36:42.888310016+08:00"
             },
             "Message": "scaling out a third pod to node-2, all pods should have runtime labels",
-            "Duration": 292541
+            "Duration": 325661
           },
           {
             "SpecEventType": "By",
@@ -5019,8 +4681,8 @@
               "LineNumber": 937
             },
             "TimelineLocation": {
-              "Order": 388,
-              "Time": "2026-11-18T07:34:18.750976112+08:00"
+              "Order": 360,
+              "Time": "2026-11-18T07:36:42.888311516+08:00"
             },
             "Message": "scaling in pods on node-1 and node-2, only node-0 should have runtime labels"
           },
@@ -5031,11 +4693,11 @@
               "LineNumber": 937
             },
             "TimelineLocation": {
-              "Order": 389,
-              "Time": "2026-11-18T07:34:18.751396237+08:00"
+              "Order": 361,
+              "Time": "2026-11-18T07:36:42.888762103+08:00"
             },
             "Message": "scaling in pods on node-1 and node-2, only node-0 should have runtime labels",
-            "Duration": 420115
+            "Duration": 450597
           },
           {
             "SpecEventType": "By",
@@ -5044,8 +4706,8 @@
               "LineNumber": 959
             },
             "TimelineLocation": {
-              "Order": 390,
-              "Time": "2026-11-18T07:34:18.751397687+08:00"
+              "Order": 362,
+              "Time": "2026-11-18T07:36:42.888763783+08:00"
             },
             "Message": "scaling in the last pod node node-0, now all nodes should not have runtime labels"
           },
@@ -5056,11 +4718,11 @@
               "LineNumber": 959
             },
             "TimelineLocation": {
-              "Order": 391,
-              "Time": "2026-11-18T07:34:18.751602375+08:00"
+              "Order": 363,
+              "Time": "2026-11-18T07:36:42.88897589+08:00"
             },
             "Message": "scaling in the last pod node node-0, now all nodes should not have runtime labels",
-            "Duration": 204688
+            "Duration": 212117
           },
           {
             "SpecEventType": "Node (End)",
@@ -5069,11 +4731,11 @@
               "LineNumber": 901
             },
             "TimelineLocation": {
-              "Order": 393,
-              "Time": "2026-11-18T07:34:18.751606584+08:00"
+              "Order": 365,
+              "Time": "2026-11-18T07:36:42.88898012+08:00"
             },
             "Message": "should successfully add or remove schedule info on proper nodes",
-            "Duration": 1414660,
+            "Duration": 1518594,
             "NodeType": "It"
           }
         ]
@@ -5119,9 +4781,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "Should not return error and nodeExcludeSelector should be nil",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.751615215+08:00",
-        "EndTime": "2026-11-18T07:34:18.752359641+08:00",
-        "RunTime": 744426,
+        "StartTime": "2026-11-18T07:36:42.888990111+08:00",
+        "EndTime": "2026-11-18T07:36:42.889158247+08:00",
+        "RunTime": 168136,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -5134,8 +4796,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 394,
-              "Time": "2026-11-18T07:34:18.751616785+08:00"
+              "Order": 366,
+              "Time": "2026-11-18T07:36:42.888992811+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -5147,11 +4809,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 396,
-              "Time": "2026-11-18T07:34:18.752113542+08:00"
+              "Order": 368,
+              "Time": "2026-11-18T07:36:42.889123945+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 496757,
+            "Duration": 131135,
             "NodeType": "BeforeEach"
           },
           {
@@ -5161,8 +4823,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 397,
-              "Time": "2026-11-18T07:34:18.752128333+08:00"
+              "Order": 369,
+              "Time": "2026-11-18T07:36:42.889124405+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -5174,11 +4836,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 399,
-              "Time": "2026-11-18T07:34:18.752293959+08:00"
+              "Order": 371,
+              "Time": "2026-11-18T07:36:42.889141406+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 165626,
+            "Duration": 17000,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -5188,8 +4850,8 @@
               "LineNumber": 980
             },
             "TimelineLocation": {
-              "Order": 400,
-              "Time": "2026-11-18T07:34:18.752299949+08:00"
+              "Order": 372,
+              "Time": "2026-11-18T07:36:42.889141856+08:00"
             },
             "Message": "Should not return error and nodeExcludeSelector should be nil",
             "NodeType": "It"
@@ -5201,11 +4863,11 @@
               "LineNumber": 980
             },
             "TimelineLocation": {
-              "Order": 402,
-              "Time": "2026-11-18T07:34:18.752339431+08:00"
+              "Order": 374,
+              "Time": "2026-11-18T07:36:42.889148196+08:00"
             },
             "Message": "Should not return error and nodeExcludeSelector should be nil",
-            "Duration": 39482,
+            "Duration": 6340,
             "NodeType": "It"
           },
           {
@@ -5215,8 +4877,8 @@
               "LineNumber": 976
             },
             "TimelineLocation": {
-              "Order": 403,
-              "Time": "2026-11-18T07:34:18.752343451+08:00"
+              "Order": 375,
+              "Time": "2026-11-18T07:36:42.889149366+08:00"
             },
             "Message": "Test parseNodeExcludeSelectorFromEnv",
             "NodeType": "AfterEach"
@@ -5228,11 +4890,11 @@
               "LineNumber": 976
             },
             "TimelineLocation": {
-              "Order": 405,
-              "Time": "2026-11-18T07:34:18.752357921+08:00"
+              "Order": 377,
+              "Time": "2026-11-18T07:36:42.889157507+08:00"
             },
             "Message": "Test parseNodeExcludeSelectorFromEnv",
-            "Duration": 14470,
+            "Duration": 8141,
             "NodeType": "AfterEach"
           }
         ]
@@ -5278,9 +4940,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "Should parse the selector correctly",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.752426924+08:00",
-        "EndTime": "2026-11-18T07:34:18.752797957+08:00",
-        "RunTime": 371033,
+        "StartTime": "2026-11-18T07:36:42.889163127+08:00",
+        "EndTime": "2026-11-18T07:36:42.889358004+08:00",
+        "RunTime": 194877,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -5293,8 +4955,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 406,
-              "Time": "2026-11-18T07:34:18.752430594+08:00"
+              "Order": 378,
+              "Time": "2026-11-18T07:36:42.889164637+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -5306,11 +4968,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 408,
-              "Time": "2026-11-18T07:34:18.752688243+08:00"
+              "Order": 380,
+              "Time": "2026-11-18T07:36:42.889305262+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 257649,
+            "Duration": 140625,
             "NodeType": "BeforeEach"
           },
           {
@@ -5320,8 +4982,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 409,
-              "Time": "2026-11-18T07:34:18.752689043+08:00"
+              "Order": 381,
+              "Time": "2026-11-18T07:36:42.889305792+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -5333,11 +4995,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 411,
-              "Time": "2026-11-18T07:34:18.752739555+08:00"
+              "Order": 383,
+              "Time": "2026-11-18T07:36:42.889322083+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 50502,
+            "Duration": 16281,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -5347,8 +5009,8 @@
               "LineNumber": 988
             },
             "TimelineLocation": {
-              "Order": 412,
-              "Time": "2026-11-18T07:34:18.752740945+08:00"
+              "Order": 384,
+              "Time": "2026-11-18T07:36:42.889322443+08:00"
             },
             "Message": "Should parse the selector correctly",
             "NodeType": "It"
@@ -5360,11 +5022,11 @@
               "LineNumber": 988
             },
             "TimelineLocation": {
-              "Order": 414,
-              "Time": "2026-11-18T07:34:18.752789717+08:00"
+              "Order": 386,
+              "Time": "2026-11-18T07:36:42.889352094+08:00"
             },
             "Message": "Should parse the selector correctly",
-            "Duration": 48762,
+            "Duration": 29661,
             "NodeType": "It"
           },
           {
@@ -5374,8 +5036,8 @@
               "LineNumber": 976
             },
             "TimelineLocation": {
-              "Order": 415,
-              "Time": "2026-11-18T07:34:18.752790927+08:00"
+              "Order": 387,
+              "Time": "2026-11-18T07:36:42.889352974+08:00"
             },
             "Message": "Test parseNodeExcludeSelectorFromEnv",
             "NodeType": "AfterEach"
@@ -5387,11 +5049,11 @@
               "LineNumber": 976
             },
             "TimelineLocation": {
-              "Order": 417,
-              "Time": "2026-11-18T07:34:18.752797227+08:00"
+              "Order": 389,
+              "Time": "2026-11-18T07:36:42.889357464+08:00"
             },
             "Message": "Test parseNodeExcludeSelectorFromEnv",
-            "Duration": 6300,
+            "Duration": 4490,
             "NodeType": "AfterEach"
           }
         ]
@@ -5437,9 +5099,9 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "Should return error",
         "State": "passed",
-        "StartTime": "2026-11-18T07:34:18.752814558+08:00",
-        "EndTime": "2026-11-18T07:34:18.753027845+08:00",
-        "RunTime": 213287,
+        "StartTime": "2026-11-18T07:36:42.889362664+08:00",
+        "EndTime": "2026-11-18T07:36:42.890132732+08:00",
+        "RunTime": 770068,
         "ParallelProcess": 1,
         "NumAttempts": 1,
         "MaxFlakeAttempts": 0,
@@ -5452,8 +5114,8 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 418,
-              "Time": "2026-11-18T07:34:18.752816188+08:00"
+              "Order": 390,
+              "Time": "2026-11-18T07:36:42.889364544+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "BeforeEach"
@@ -5465,11 +5127,11 @@
               "LineNumber": 52
             },
             "TimelineLocation": {
-              "Order": 420,
-              "Time": "2026-11-18T07:34:18.752966503+08:00"
+              "Order": 392,
+              "Time": "2026-11-18T07:36:42.889840271+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 150325,
+            "Duration": 475727,
             "NodeType": "BeforeEach"
           },
           {
@@ -5479,8 +5141,8 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 421,
-              "Time": "2026-11-18T07:34:18.752967613+08:00"
+              "Order": 393,
+              "Time": "2026-11-18T07:36:42.889877002+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
             "NodeType": "JustBeforeEach"
@@ -5492,11 +5154,11 @@
               "LineNumber": 63
             },
             "TimelineLocation": {
-              "Order": 423,
-              "Time": "2026-11-18T07:34:18.752988564+08:00"
+              "Order": 395,
+              "Time": "2026-11-18T07:36:42.889970936+08:00"
             },
             "Message": "Dataset Lifecycle Node Tests",
-            "Duration": 20951,
+            "Duration": 93934,
             "NodeType": "JustBeforeEach"
           },
           {
@@ -5506,8 +5168,8 @@
               "LineNumber": 1004
             },
             "TimelineLocation": {
-              "Order": 424,
-              "Time": "2026-11-18T07:34:18.752988924+08:00"
+              "Order": 396,
+              "Time": "2026-11-18T07:36:42.889971926+08:00"
             },
             "Message": "Should return error",
             "NodeType": "It"
@@ -5519,11 +5181,11 @@
               "LineNumber": 1004
             },
             "TimelineLocation": {
-              "Order": 426,
-              "Time": "2026-11-18T07:34:18.753019525+08:00"
+              "Order": 398,
+              "Time": "2026-11-18T07:36:42.890119751+08:00"
             },
             "Message": "Should return error",
-            "Duration": 30601,
+            "Duration": 147815,
             "NodeType": "It"
           },
           {
@@ -5533,8 +5195,8 @@
               "LineNumber": 976
             },
             "TimelineLocation": {
-              "Order": 427,
-              "Time": "2026-11-18T07:34:18.753020815+08:00"
+              "Order": 399,
+              "Time": "2026-11-18T07:36:42.890122561+08:00"
             },
             "Message": "Test parseNodeExcludeSelectorFromEnv",
             "NodeType": "AfterEach"
@@ -5546,11 +5208,530 @@
               "LineNumber": 976
             },
             "TimelineLocation": {
-              "Order": 429,
-              "Time": "2026-11-18T07:34:18.753026725+08:00"
+              "Order": 401,
+              "Time": "2026-11-18T07:36:42.890131581+08:00"
             },
             "Message": "Test parseNodeExcludeSelectorFromEnv",
-            "Duration": 5910,
+            "Duration": 9020,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6249 verification: exclude selector vs schedule info removal"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+            "LineNumber": 63
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pr6249-verify"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+          "LineNumber": 106
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "keeps the runtime label on an excluded node when its worker leaves (PR6249 contract)",
+        "State": "passed",
+        "StartTime": "2026-11-18T07:36:42.890147492+08:00",
+        "EndTime": "2026-11-18T07:36:42.891161898+08:00",
+        "RunTime": 1014406,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 71
+            },
+            "TimelineLocation": {
+              "Order": 402,
+              "Time": "2026-11-18T07:36:42.890150182+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 71
+            },
+            "TimelineLocation": {
+              "Order": 404,
+              "Time": "2026-11-18T07:36:42.890325378+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "Duration": 175186,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 98
+            },
+            "TimelineLocation": {
+              "Order": 405,
+              "Time": "2026-11-18T07:36:42.890326198+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 98
+            },
+            "TimelineLocation": {
+              "Order": 407,
+              "Time": "2026-11-18T07:36:42.890346109+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "Duration": 19921,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 106
+            },
+            "TimelineLocation": {
+              "Order": 408,
+              "Time": "2026-11-18T07:36:42.890346559+08:00"
+            },
+            "Message": "keeps the runtime label on an excluded node when its worker leaves (PR6249 contract)",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 107
+            },
+            "TimelineLocation": {
+              "Order": 409,
+              "Time": "2026-11-18T07:36:42.890352379+08:00"
+            },
+            "Message": "labelling both nodes before the operator excludes the vk node"
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 119
+            },
+            "TimelineLocation": {
+              "Order": 410,
+              "Time": "2026-11-18T07:36:42.890910879+08:00"
+            },
+            "Message": "excluding the vk node, then scaling the runtime off both nodes"
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 126
+            },
+            "TimelineLocation": {
+              "Order": 411,
+              "Time": "2026-11-18T07:36:42.891131627+08:00"
+            },
+            "Message": "the non-excluded node loses the runtime label (control group)"
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 132
+            },
+            "TimelineLocation": {
+              "Order": 412,
+              "Time": "2026-11-18T07:36:42.891138417+08:00"
+            },
+            "Message": "the excluded node keeps the runtime label (the contract PR #6249 introduces)"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 106
+            },
+            "TimelineLocation": {
+              "Order": 414,
+              "Time": "2026-11-18T07:36:42.891152198+08:00"
+            },
+            "Message": "keeps the runtime label on an excluded node when its worker leaves (PR6249 contract)",
+            "Duration": 805649,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 102
+            },
+            "TimelineLocation": {
+              "Order": 415,
+              "Time": "2026-11-18T07:36:42.891154108+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 102
+            },
+            "TimelineLocation": {
+              "Order": 417,
+              "Time": "2026-11-18T07:36:42.891161058+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "Duration": 6950,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6249 verification: exclude selector vs schedule info removal"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+            "LineNumber": 63
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pr6249-verify"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+          "LineNumber": 139
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "still removes the runtime label when the selector does not match the node (PR6249 contract)",
+        "State": "passed",
+        "StartTime": "2026-11-18T07:36:42.891172778+08:00",
+        "EndTime": "2026-11-18T07:36:42.891824082+08:00",
+        "RunTime": 651314,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 71
+            },
+            "TimelineLocation": {
+              "Order": 418,
+              "Time": "2026-11-18T07:36:42.891174898+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 71
+            },
+            "TimelineLocation": {
+              "Order": 420,
+              "Time": "2026-11-18T07:36:42.891329174+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "Duration": 154276,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 98
+            },
+            "TimelineLocation": {
+              "Order": 421,
+              "Time": "2026-11-18T07:36:42.891329744+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 98
+            },
+            "TimelineLocation": {
+              "Order": 423,
+              "Time": "2026-11-18T07:36:42.891347135+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "Duration": 17391,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 139
+            },
+            "TimelineLocation": {
+              "Order": 424,
+              "Time": "2026-11-18T07:36:42.891347485+08:00"
+            },
+            "Message": "still removes the runtime label when the selector does not match the node (PR6249 contract)",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 139
+            },
+            "TimelineLocation": {
+              "Order": 426,
+              "Time": "2026-11-18T07:36:42.891815881+08:00"
+            },
+            "Message": "still removes the runtime label when the selector does not match the node (PR6249 contract)",
+            "Duration": 468386,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 102
+            },
+            "TimelineLocation": {
+              "Order": 427,
+              "Time": "2026-11-18T07:36:42.891817392+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 102
+            },
+            "TimelineLocation": {
+              "Order": 429,
+              "Time": "2026-11-18T07:36:42.891822952+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "Duration": 5560,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6249 verification: exclude selector vs schedule info removal"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+            "LineNumber": 63
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pr6249-verify"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+          "LineNumber": 160
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "does not add schedule info to an excluded node when a worker lands on it (PR6249 add-path guard)",
+        "State": "passed",
+        "StartTime": "2026-11-18T07:36:42.891832232+08:00",
+        "EndTime": "2026-11-18T07:36:42.892319689+08:00",
+        "RunTime": 487457,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 71
+            },
+            "TimelineLocation": {
+              "Order": 430,
+              "Time": "2026-11-18T07:36:42.891833922+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 71
+            },
+            "TimelineLocation": {
+              "Order": 432,
+              "Time": "2026-11-18T07:36:42.891990058+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "Duration": 156126,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 98
+            },
+            "TimelineLocation": {
+              "Order": 433,
+              "Time": "2026-11-18T07:36:42.891990798+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 98
+            },
+            "TimelineLocation": {
+              "Order": 435,
+              "Time": "2026-11-18T07:36:42.892006328+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "Duration": 15521,
+            "NodeType": "JustBeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 160
+            },
+            "TimelineLocation": {
+              "Order": 436,
+              "Time": "2026-11-18T07:36:42.892006818+08:00"
+            },
+            "Message": "does not add schedule info to an excluded node when a worker lands on it (PR6249 add-path guard)",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 161
+            },
+            "TimelineLocation": {
+              "Order": 437,
+              "Time": "2026-11-18T07:36:42.892011818+08:00"
+            },
+            "Message": "excluding the vk node before its worker pod arrives"
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 169
+            },
+            "TimelineLocation": {
+              "Order": 438,
+              "Time": "2026-11-18T07:36:42.892292308+08:00"
+            },
+            "Message": "the non-excluded node gets the runtime label (control group)"
+          },
+          {
+            "SpecEventType": "By",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 175
+            },
+            "TimelineLocation": {
+              "Order": 439,
+              "Time": "2026-11-18T07:36:42.892302849+08:00"
+            },
+            "Message": "the excluded node is not labelled by the add path"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 160
+            },
+            "TimelineLocation": {
+              "Order": 441,
+              "Time": "2026-11-18T07:36:42.892311739+08:00"
+            },
+            "Message": "does not add schedule info to an excluded node when a worker lands on it (PR6249 add-path guard)",
+            "Duration": 304921,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 102
+            },
+            "TimelineLocation": {
+              "Order": 442,
+              "Time": "2026-11-18T07:36:42.892313469+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-16/pr-6249/wt-6249-head-claude/pkg/utils/dataset/lifecycle/node_pr6249_verify_test.go",
+              "LineNumber": 102
+            },
+            "TimelineLocation": {
+              "Order": 444,
+              "Time": "2026-11-18T07:36:42.892318709+08:00"
+            },
+            "Message": "PR6249 verification: exclude selector vs schedule info removal",
+            "Duration": 5240,
             "NodeType": "AfterEach"
           }
         ]

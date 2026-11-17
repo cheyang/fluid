@@ -144,3 +144,40 @@ contract spec; the PR head fixed it. Read docs/verification/exclude-remove-skip/
 confirm both contract specs pass, and report the observed-vs-expected table. Clean up scoped
 test resources; do not run cluster-wide destructive actions; do not merge, approve or label.
 ```
+
+## Round 3 — head `964c8ef2` (rebase onto master `5e647359` + `isNodeExcluded` refactor)
+
+The PR was force-rebased onto the new master (which now contains #6244's capacity-label
+refresh — itself carrying an exclude guard in `syncCapacityInfoOnNode`) and gained one
+production commit: `964c8ef22` extracts `isNodeExcluded(nodeLabels, nodeName, caller)` and
+re-points all three guards (add / capacity refresh / removal) at it, plus documents the
+stale-label-until-teardown semantic in `pkg/ctrl/worker.go` (TearDownWorkers comment) and
+`charts/fluid/fluid/values.yaml` (operator-facing note). Both are comment-only.
+
+Checks run this round (all on the NEW base/head pair):
+
+| Check | Result |
+|-------|--------|
+| re-verify.sh (harness grafted on head `964c8ef2`) | all 3 contracts FIXED — `results/reverify/` |
+| Pure head, full package suite | 31/31 PASS — `results/r3-head-pure-ginkgo.json` |
+| NEW base `5e647359` + PR's own `node_test.go` | the 2 excluded-node specs FAIL (premise #6246 reproduces on the new base); non-matching-selector spec passes (correct polarity) — `results/r3-base-pr-specs-ginkgo.json` |
+| NEW base `5e647359` + harness | V1 fails (repro), V2/V3 pass — `results/r3-base-harness-ginkgo.json` |
+
+The base moved (`ff99142` → `5e647359`), so the premise was re-confirmed against the new
+base rather than carried over: on `5e647359` an excluded node still loses
+`fluid.io/s-alluxio-fluid-hbase` when its worker leaves — the two failing specs are the
+exact #6246 symptom, observed via both the PR's own specs and this harness.
+
+The refactor itself is behavior-preserving: `isNodeExcluded` keeps the same nil-check /
+`Matches` / V(1)-log sequence each inline guard had (log text is byte-identical), and
+#6244's capacity specs plus this PR's removal specs — both exercising the shared helper —
+are green on head. New harness contract **V3** (`pr6249-add-path-skip-guard`) pins the one
+call site that previously had no behavioral coverage (`addScheduleInfoFromNode`'s guard,
+added by #5285 with parse-level specs only): an excluded node that a worker lands on must
+not be labelled. It passes on base and head — a refactor that dropped the add call site
+would flip it red.
+
+Round-3 delta also closes the round-2 SHOULD item: the stale-label trade-off is now
+documented operator-facing (values.yaml comment + TearDownWorkers comment), and the
+maintainer (cheyang) approved at `eb313c44` and re-checked after the rebase
+("Still good to merge", 2026-11-17).

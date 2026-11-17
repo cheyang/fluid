@@ -1,5 +1,3 @@
-keeps the runtime label on an excluded node when its worker leaves (PR6249 contract)	pass
-still removes the runtime label when the selector does not match the node (PR6249 contract)	pass
 should add exclusive labels to node	pass
 should add share mode labels to node	pass
 should add capacity labels to node	pass
@@ -31,3 +29,6 @@ should successfully add or remove schedule info on proper nodes	pass
 Should not return error and nodeExcludeSelector should be nil	pass
 Should parse the selector correctly	pass
 Should return error	pass
+keeps the runtime label on an excluded node when its worker leaves (PR6249 contract)	pass
+still removes the runtime label when the selector does not match the node (PR6249 contract)	pass
+does not add schedule info to an excluded node when a worker lands on it (PR6249 add-path guard)	pass
