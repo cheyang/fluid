@@ -15,7 +15,10 @@
     "layer": "unit",
     "verdict": "confirmed",
     "evidence": "On base (zap 1.27.0) the same harness fails: zap.Object(nil) panics and level alias 'warning' is unrecognized (results/base-unit.txt); on head both pass (results/head-unit-race.json). Bump delivers the claimed fixes and builds cleanly (results/head-build.txt, results/head-go-mod-verify.txt).",
-    "match": ["TestObjectNilMarshalerDoesNotPanic", "TestLevelUnmarshalCompatibility"]
+    "match": [
+      "TestObjectNilMarshalerDoesNotPanic",
+      "TestLevelUnmarshalCompatibility"
+    ]
   },
   "layers": {
     "unit": {
@@ -24,15 +27,52 @@
     },
     "integration": {
       "kind": "shell",
-      "cmd": "go build -mod=vendor ./... && go mod verify | tail -1 && go vet -mod=vendor ./cmd/fluidapp/... ./cmd/dataset/... ./cmd/csi/..."
+      "cmd": "go build -mod=vendor ./... && go mod verify | tail -1 && go vet -mod=vendor ./cmd/..."
     }
   },
   "findings": [
-    { "id": "C2-level-parse-compat", "polarity": "contract", "layer": "unit", "match": ["TestLevelUnmarshalCompatibility"] },
-    { "id": "C3-fluid-prod-logger-shape", "polarity": "contract", "layer": "unit", "match": ["TestFluidProductionLoggerShape"] },
-    { "id": "C4-object-nil-no-panic", "polarity": "contract", "layer": "unit", "match": ["TestObjectNilMarshalerDoesNotPanic"] },
-    { "id": "C5-lazywith-no-race", "polarity": "contract", "layer": "unit", "match": ["TestLazyWithConcurrentUse"] },
-    { "id": "C1-vendored-build-and-hashes", "polarity": "contract", "layer": "integration", "match": ["go build -mod=vendor ./...", "go mod verify", "go vet -mod=vendor ./cmd/..."] }
+    {
+      "id": "C2-level-parse-compat",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestLevelUnmarshalCompatibility"
+      ]
+    },
+    {
+      "id": "C3-fluid-prod-logger-shape",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestFluidProductionLoggerShape"
+      ]
+    },
+    {
+      "id": "C4-object-nil-no-panic",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestObjectNilMarshalerDoesNotPanic"
+      ]
+    },
+    {
+      "id": "C5-lazywith-no-race",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestLazyWithConcurrentUse"
+      ]
+    },
+    {
+      "id": "C1-vendored-build-and-hashes",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "go build -mod=vendor ./...",
+        "go mod verify",
+        "go vet -mod=vendor ./cmd/..."
+      ]
+    }
   ],
   "liveNote": "L3 skipped per debate policy (no KUBECONFIG layer). In a live check, run any fluid controller binary and confirm startup logs render with capital levels and ISO8601 timestamps."
 }

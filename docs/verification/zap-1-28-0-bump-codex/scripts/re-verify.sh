@@ -166,6 +166,14 @@ run_layer() {
     jq -r '.[].SpecReports[]? | select((.LeafNodeText//"")!="" )
            | "\(.LeafNodeText)\t\(.State)"' "$report" 2>/dev/null \
       | sed 's/\tpassed/\tpass/; s/\tfailed/\tfail/' || echo "__PARSE_ERROR__"
+  elif [ "$kind" = "shell" ]; then
+    # shell layer: run the command once; every match string of every finding in
+    # this layer passes iff the command exits 0 (match strings name the check).
+    rc=0
+    bash -c "$cmd" >"$out" 2>&1 || rc=$?
+    verdict=fail; [ "$rc" -eq 0 ] && verdict=pass
+    jq -r --arg l "$layer" '.findings[] | select(.layer==$l) | .match[]' "$MANIFEST" \
+      | while IFS= read -r m; do [ -n "$m" ] && printf '%s\t%s\n' "$m" "$verdict"; done
   fi
 }
 
