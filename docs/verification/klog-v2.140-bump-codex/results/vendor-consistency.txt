@@ -1,0 +1,12 @@
+== module version per go.mod ==
+k8s.io/klog/v2 v2.140.0
+== go mod verify ==
+all modules verified
+== fetching pristine module bits from proxy ==
+== comparing every vendored file against pristine module ==
+all vendored klog files are bit-identical to k8s.io/klog/v2 v2.140.0
+== modules.txt entry ==
+# k8s.io/klog/v2 v2.140.0
+## explicit; go 1.21
+== full vendored build ==
+vendor-consistency: OK

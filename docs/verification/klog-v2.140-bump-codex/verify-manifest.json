@@ -1,0 +1,92 @@
+{
+  "topic": "klog-v2.140-bump-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6259",
+  "harnessPaths": [
+    "docs/verification/klog-v2.140-bump-codex",
+    "pkg/utils/klogcompatverify/klog_compat_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: bump k8s.io/klog/v2 from 2.130.1 to 2.140.0. Upstream delta: klog#415 key/value de-duplication, klog#432 stderrthreshold honored when logtostderr is set (opt-in via new -legacy_stderr_threshold_behavior flag) + new -alsologtostderrthreshold flag, klog#413 strconv.AppendQuote formatting, klog#430 textlogger optional header, klog#431/#433 ktesting fixes.",
+    "reportedComponent": "third-party dependency k8s.io/klog/v2 (used by fluid transitively via k8s.io/* libraries; fluid's own controllers log through zap; cmd/csi/app/csi.go sets the logtostderr flag)",
+    "patchedComponent": "go.mod, go.sum, vendor/modules.txt, vendor/k8s.io/klog/v2",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Base run (klog 2.130.1, results/klog-behavior-base.json): duplicate keys render twice (dup=\"first\" dup=\"second\") and -legacy_stderr_threshold_behavior does not exist, so the bump genuinely delivers the advertised upstream changes. Compat contracts pass identically on base and head, so defaults are preserved.",
+    "match": [
+      "TestDuplicateKeysDedupLastWins",
+      "TestLegacyStderrThresholdOptIn"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -race -count=1 -json ./pkg/utils/klogcompatverify/"
+    },
+    "integration": {
+      "kind": "shell",
+      "cmd": "bash docs/verification/klog-v2.140-bump-codex/scripts/vendor-consistency.sh"
+    }
+  },
+  "findings": [
+    {
+      "id": "C1-vendored-build-hashes-and-bits",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "vendor-consistency.sh"
+      ]
+    },
+    {
+      "id": "C2-logtostderr-default-unfiltered",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestLogToStderrDefaultUnfiltered"
+      ]
+    },
+    {
+      "id": "C3-alsologtostderr-default-compat",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestAlsoLogToStderrThresholdDefaultCompat"
+      ]
+    },
+    {
+      "id": "C4-logr-callsite-overrides-withvalues",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestCallSiteOverridesWithValues"
+      ]
+    },
+    {
+      "id": "C5-odd-kv-missing-value",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestOddKeyValueCountMissing"
+      ]
+    },
+    {
+      "id": "C6-dedup-last-wins-delivered",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestDuplicateKeysDedupLastWins"
+      ]
+    },
+    {
+      "id": "C7-stderrthreshold-optin-delivered",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestLegacyStderrThresholdOptIn"
+      ]
+    }
+  ],
+  "liveNote": "L3 skipped per debate policy (no KUBECONFIG layer). In a live check, deploy the fluid CSI plugin and controllers and confirm startup logs still render on stderr with no new klog flags required; -legacy_stderr_threshold_behavior and -alsologtostderrthreshold are optional and unreachable from fluid's CLI (klog.InitFlags is never called)."
+}
