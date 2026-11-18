@@ -66,7 +66,7 @@
       "layer": "integration",
       "match": [
         "TestDataload",
-        "TestDatamigrate"
+        "TestDataMigrate"
       ],
       "note": "Fake-client status-handler suites of both GenerateNodeAffinity callers (dataload, datamigrate) stay green: 45/45 + full datamigrate suite."
     }
