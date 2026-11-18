@@ -1,0 +1,55 @@
+{
+  "topic": "pr6265-cache-engine-tests",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6265",
+  "harnessPaths": [
+    "docs/verification/pr6265-cache-engine-tests"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "CheckRuntimeReady, GetDataOperationValueFile, findDataOperationSpec (data_operation.go), validateRuntimeClassTopology (validate.go) and Shutdown (shutdown.go) in pkg/ddc/cache/engine 'have no test anywhere in the repo' (issue #6263)",
+    "reportedComponent": "pkg/ddc/cache/engine (generic CacheRuntime engine)",
+    "patchedComponent": "pkg/ddc/cache/engine (test files only: data_operation_test.go, shutdown_test.go, validate_test.go)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "on base dcb76167 grep over pkg/ddc/cache/engine/*_test.go finds zero references to the five functions (results/base-comparison.txt); issue #6263 is OPEN and names exactly these functions/files; PR touches exactly those files",
+    "match": ["grep -rn 'CheckRuntimeReady\\|GetDataOperationValueFile\\|findDataOperationSpec\\|validateRuntimeClassTopology' pkg/ddc/cache/engine/*_test.go"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "ginkgo",
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine -count=1 -run TestCacheEngine -args -ginkgo.focus='CacheEngine data operation helpers|validateRuntimeClassTopology|CacheEngine.Shutdown' -ginkgo.json-report=$GINKGO_REPORT.unit",
+      "report": "$GINKGO_REPORT.unit"
+    },
+    "integration": {
+      "kind": "ginkgo",
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine -count=1 -gcflags=all=-l -args -ginkgo.json-report=$GINKGO_REPORT.integration",
+      "report": "$GINKGO_REPORT.integration"
+    }
+  },
+  "findings": [
+    { "id": "A1", "polarity": "contract", "layer": "unit",
+      "match": [
+        "master-worker partially ready",
+        "returns false when the runtime cannot be fetched",
+        "routes DataLoad operations to the DataLoad generator",
+        "routes DataProcess operations to the DataProcess generator",
+        "includes the operation object's resource in the NotSupported error",
+        "returns the matching operation spec",
+        "returns nil when no operation spec matches",
+        "rejects a topology without a master, worker, or client",
+        "cleans fuse and worker labels from nodes",
+        "returns an error when runtime information cannot be fetched"
+      ],
+      "note": "The specs added by this PR must pass on the head (this PR IS the tests). One representative It-text per covered function/branch." },
+    { "id": "A2", "polarity": "contract", "layer": "integration",
+      "match": [
+        "should get cache states successfully with mocked Execute",
+        "should return parsed CacheRuntimeMountUfsOutput with valid JSON output",
+        "cleans fuse and worker labels from nodes"
+      ],
+      "note": "Full-package suite must stay green with -gcflags=all=-l (gomonkey needs inlining off on go1.27; CI pins go1.26.11 where plain make test is green). Sentinels: two pre-existing gomonkey specs + one new Shutdown spec." }
+  ],
+  "liveNote": "L3 skipped per round setup (no KUBECONFIG layer). Also run the mutation gate manually: bash docs/verification/pr6265-cache-engine-tests/scripts/mutation-bites.sh — all 5 production mutations must turn the new specs red."
+}

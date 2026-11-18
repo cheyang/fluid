@@ -1,0 +1,6 @@
+bit ok: M1 CheckRuntimeReady PartialReady -> 2 failed spec lines
+bit ok: M2 findDataOperationSpec no match -> 2 failed spec lines
+bit ok: M3 GetDataOperationValueFile misroute -> 2 failed spec lines
+bit ok: M4 validateRuntimeClassTopology empty topology -> 2 failed spec lines
+bit ok: M5 Shutdown skips TearDownWorkers -> 2 failed spec lines
+ALL 5 MUTATIONS DETECTED

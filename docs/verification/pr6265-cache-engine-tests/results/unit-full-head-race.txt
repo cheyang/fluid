@@ -1,0 +1,4 @@
+# head c6c73f6b, FLUID_UNIT_TEST=true, -race, FULL package (gomonkey suites need -gcflags=all=-l on go1.27; see base comparison)
+grep: warning: stray \ before t
+[38;5;9m[1mRan 418 of 434 Specs in 0.675 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m406 Passed[0m | [38;5;9m[1m12 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m16 Skipped[0m
