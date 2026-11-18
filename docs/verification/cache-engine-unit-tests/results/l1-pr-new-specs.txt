@@ -1,0 +1,5 @@
+# PR #6264 new specs in isolation (PR head ef7ecf5f0)
+# cmd: go test ./pkg/ddc/cache/engine/... -ginkgo.focus="CacheEngine data operations|validateRuntimeClassTopology" -v
+Ran 23 of 434 Specs in 0.004 seconds
+SUCCESS! -- 23 Passed | 0 Failed | 0 Pending | 411 Skipped
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.034s

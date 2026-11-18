@@ -1,0 +1,64 @@
+{
+  "topic": "cache-engine-unit-tests",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6264",
+  "harnessPaths": [
+    "docs/verification/cache-engine-unit-tests",
+    "pkg/ddc/cache/engine/data_operation_harness_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "PR body: 'Adds unit tests for the CacheRuntime engine functions that had none, as listed in #6263' — CheckRuntimeReady, GetDataOperationValueFile, findDataOperationSpec, validateRuntimeClassTopology; issue #6263: 'a regression in either one breaks DataLoad and friends without any test going red'",
+    "reportedComponent": "pkg/ddc/cache/engine (data_operation.go, validate.go, shutdown.go)",
+    "patchedComponent": "pkg/ddc/cache/engine — test files only (data_operation_test.go, validate_test.go); Shutdown deferred to a follow-up as the issue itself suggests",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "git grep on merge base dcb76167b0143a239addc6bed83ed50b45267631: zero test references to CheckRuntimeReady/GetDataOperationValueFile/findDataOperationSpec; validateRuntimeClassTopology had only indirect negative coverage (transform_test.go x4, cm_test.go x1, all asserting the 'at least one component' error) and no positive cases. The 23 new specs pass on head (results/l1-pr-new-specs.txt).",
+    "match": ["l1-pr-new-specs.txt"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run 'TestDataOperationValueFileHappyPath|TestDataLoadValueFileNotSupportedWhenSpecMissing' -json"
+    },
+    "ginkgo": {
+      "kind": "ginkgo",
+      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=all=-l ./pkg/ddc/cache/engine/ -run TestCacheEngine -ginkgo.focus='CacheEngine data operations|validateRuntimeClassTopology' -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    }
+  },
+  "findings": [
+    {
+      "id": "T1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestDataOperationValueFileHappyPath", "TestDataLoadValueFileNotSupportedWhenSpecMissing"]
+    },
+    {
+      "id": "PR-SPECS",
+      "polarity": "contract",
+      "layer": "ginkgo",
+      "match": [
+        "returns false when the runtime does not exist",
+        "routes DataLoad to the DataLoad value file generator",
+        "routes DataProcess to the DataProcess value file generator",
+        "rejects a class without a topology",
+        "returns the spec with the matching name"
+      ]
+    }
+  ],
+  "liveNote": "L3 not applicable: tests-only PR, no runtime behavior change to observe on a cluster. For the gap evidence while T1 is open, run scripts/mutation-check-t1.sh (expected: PR specs stay green under the happy-path mutation, harness tests go red).",
+  "roundLedger": {
+    "reviewer": "claude",
+    "round": "initial",
+    "headSha": "ef7ecf5f06fdc67ef950bfe2737e1e509be2bb5b",
+    "baseSha": "dcb76167b0143a239addc6bed83ed50b45267631",
+    "findingsStatus": {
+      "T1": { "status": "open", "origin": "initial-pr", "severity": "minor", "evidenceKind": "differential", "evidence": "results/mutation-t1.txt" },
+      "T2": { "status": "open", "origin": "initial-pr", "severity": "nit", "evidenceKind": "code-path", "evidence": "data_operation.go:41-57 table lacks RuntimePhaseNone rows" },
+      "T3": { "status": "open", "origin": "initial-pr", "severity": "nit", "evidenceKind": "code-path", "evidence": "data_operation_test.go fakeOperation.GetTargetDataset returns (nil, nil)" },
+      "PRE1": { "status": "refuted-as-pr-issue", "origin": "preexisting", "severity": "minor", "evidenceKind": "differential", "evidence": "results/l1-plain-gotest-base.txt == results/l1-plain-gotest-head.txt (same 12 gomonkey failures); canonical invocation green (results/l1-full-suite-make-style.txt)", "introducedByPR": false }
+    }
+  }
+}

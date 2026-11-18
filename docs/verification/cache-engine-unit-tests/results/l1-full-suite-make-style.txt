@@ -1,0 +1,5 @@
+# Full package suite, project-canonical invocation (Makefile: FLUID_UNIT_TEST=true + -gcflags=all=-N -l)
+# cmd: FLUID_UNIT_TEST=true go test -gcflags="all=-l" ./pkg/ddc/cache/engine/... -v
+Ran 418 of 434 Specs in 0.148 seconds
+SUCCESS! -- 418 Passed | 0 Failed | 0 Pending | 16 Skipped
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.186s

@@ -1,0 +1,17 @@
+== mutation applied to generateDataLoadValueFile happy path ==
+
+== (a) PR's new specs under mutation (expect: ALL GREEN -> the gap) ==
+Ran 23 of 434 Specs in 0.004 seconds
+SUCCESS! -- 23 Passed | 0 Failed | 0 Pending | 411 Skipped
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.023s
+
+== (b) reviewer harness under mutation (expect: FAIL -> harness bites) ==
+--- FAIL: TestDataOperationValueFileHappyPath (0.00s)
+--- FAIL: TestDataLoadValueFileNotSupportedWhenSpecMissing (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.014s
+FAIL
+harness caught the mutation (expected)
+
+== production file restored; diff status: ==
+(empty = clean)
