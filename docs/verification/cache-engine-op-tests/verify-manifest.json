@@ -1,0 +1,80 @@
+{
+  "topic": "cache-engine-op-tests",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6264",
+  "harnessPaths": [
+    "docs/verification/cache-engine-op-tests"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Adds unit tests for the CacheRuntime engine functions that had none, as listed in #6263 (tests-only PR; no bug symptom claimed)",
+    "reportedComponent": "pkg/ddc/cache/engine test coverage",
+    "patchedComponent": "pkg/ddc/cache/engine test coverage",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Scope carve-out (tests-only). Coverage claim validated: git grep at base dcb76167 shows no existing tests for CheckRuntimeReady/GetDataOperationValueFile/findDataOperationSpec/validateRuntimeClassTopology in pkg/ddc/cache/engine.",
+    "match": []
+  },
+  "layers": {
+    "unit": {
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -count=1 -args -ginkgo.focus='CacheEngine data operations|validateRuntimeClassTopology' -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    }
+  },
+  "findings": [
+    {
+      "id": "V1a",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "master-worker, both ready",
+        "master-worker, worker partially ready",
+        "master-worker, worker not ready",
+        "master-worker, master not ready",
+        "master-worker, master only partially ready",
+        "master-worker, nothing set up yet",
+        "master disabled, worker ready",
+        "master disabled, worker partially ready",
+        "master disabled, worker not ready",
+        "returns false when the runtime does not exist"
+      ]
+    },
+    {
+      "id": "V1b",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "DataBackup",
+        "DataMigrate",
+        "unknown operation type",
+        "routes DataLoad to the DataLoad value file generator",
+        "routes DataProcess to the DataProcess value file generator"
+      ]
+    },
+    {
+      "id": "V1c",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "returns the spec with the matching name",
+        "returns nil when no spec matches",
+        "returns nil for an empty list"
+      ]
+    },
+    {
+      "id": "V1d",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "rejects a class without a topology",
+        "rejects a topology with no components",
+        "master only",
+        "worker only",
+        "client only"
+      ]
+    }
+  ],
+  "liveNote": "No live layer: tests-only PR over functions that use a fake client; nothing cluster-dependent."
+}

@@ -1,0 +1,61 @@
+2026/11/18 13:53:37 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestCacheEngine
+Running Suite: Cache Engine Suite - /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-6264-verify/pkg/ddc/cache/engine
+[cache_engine] 
+===========================================================================================================================================
+Random Seed: 1794981217
+
+Will run 23 of 434 specs
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS•••••SSSSSSSSSSSSSSSSSSSSSSSSS••••••••••••••••••SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+Ran 23 of 434 Specs in 0.004 seconds
+SUCCESS! -- 23 Passed | 0 Failed | 0 Pending | 411 Skipped
+--- PASS: TestCacheEngine (0.01s)
+=== RUN   TestCreateConfigMapInRuntimeClassWithCanceledContext
+--- PASS: TestCreateConfigMapInRuntimeClassWithCanceledContext (0.00s)
+=== RUN   TestCreateConfigMapInRuntimeClassCreatesMissingConfigMap
+--- PASS: TestCreateConfigMapInRuntimeClassCreatesMissingConfigMap (0.00s)
+=== RUN   TestCreateRuntimeValueConfigMapCreatesMissingConfigMap
+--- PASS: TestCreateRuntimeValueConfigMapCreatesMissingConfigMap (0.00s)
+=== RUN   TestGenerateRuntimeConfigDataWithCanceledContext
+--- PASS: TestGenerateRuntimeConfigDataWithCanceledContext (0.00s)
+=== RUN   TestSyncRuntimeValueConfigMapWithCanceledContext
+--- PASS: TestSyncRuntimeValueConfigMapWithCanceledContext (0.00s)
+=== RUN   TestSyncRuntimeValueConfigMapSkipsUnchangedData
+--- PASS: TestSyncRuntimeValueConfigMapSkipsUnchangedData (0.00s)
+=== RUN   TestGenerateRuntimeConfigDataWithMissingComponentTopology
+=== RUN   TestGenerateRuntimeConfigDataWithMissingComponentTopology/master_topology_undefined
+=== RUN   TestGenerateRuntimeConfigDataWithMissingComponentTopology/worker_topology_undefined
+=== RUN   TestGenerateRuntimeConfigDataWithMissingComponentTopology/client_topology_undefined
+--- PASS: TestGenerateRuntimeConfigDataWithMissingComponentTopology (0.00s)
+    --- PASS: TestGenerateRuntimeConfigDataWithMissingComponentTopology/master_topology_undefined (0.00s)
+    --- PASS: TestGenerateRuntimeConfigDataWithMissingComponentTopology/worker_topology_undefined (0.00s)
+    --- PASS: TestGenerateRuntimeConfigDataWithMissingComponentTopology/client_topology_undefined (0.00s)
+=== RUN   TestGenerateRuntimeConfigDataWithoutAnyComponent
+=== RUN   TestGenerateRuntimeConfigDataWithoutAnyComponent/topology_declares_no_component
+=== RUN   TestGenerateRuntimeConfigDataWithoutAnyComponent/topology_is_nil
+--- PASS: TestGenerateRuntimeConfigDataWithoutAnyComponent (0.00s)
+    --- PASS: TestGenerateRuntimeConfigDataWithoutAnyComponent/topology_declares_no_component (0.00s)
+    --- PASS: TestGenerateRuntimeConfigDataWithoutAnyComponent/topology_is_nil (0.00s)
+=== RUN   TestGenerateDataLoadValueFileWithNilTopology
+--- PASS: TestGenerateDataLoadValueFileWithNilTopology (0.00s)
+=== RUN   TestRuntimeShExportsAbsentComponentsUnderNounset
+--- PASS: TestRuntimeShExportsAbsentComponentsUnderNounset (0.00s)
+=== RUN   TestGenerateRuntimeConfigDataIncludesRuntimeSh
+--- PASS: TestGenerateRuntimeConfigDataIncludesRuntimeSh (0.00s)
+=== RUN   TestGenerateRuntimeShQuotesHostileValues
+--- PASS: TestGenerateRuntimeShQuotesHostileValues (0.00s)
+=== RUN   TestGenerateRuntimeShIsDeterministic
+--- PASS: TestGenerateRuntimeShIsDeterministic (0.00s)
+=== RUN   TestGenerateRuntimeShWithoutAnyEnabledComponent
+--- PASS: TestGenerateRuntimeShWithoutAnyEnabledComponent (0.00s)
+=== RUN   TestGenerateRuntimeShExportsTieredStoreLevels
+--- PASS: TestGenerateRuntimeShExportsTieredStoreLevels (0.00s)
+=== RUN   TestRuntimeShCoversEveryConfigField
+--- PASS: TestRuntimeShCoversEveryConfigField (0.00s)
+=== RUN   TestRuntimeShExportsEveryComponentAlike
+--- PASS: TestRuntimeShExportsEveryComponentAlike (0.00s)
+=== RUN   TestCreateVolumeWithClientDisabled
+--- PASS: TestCreateVolumeWithClientDisabled (1.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.036s

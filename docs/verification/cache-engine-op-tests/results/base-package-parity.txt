@@ -1,0 +1,8 @@
+== base dcb76167 ==
+Ran 395 of 411 Specs in 0.236 seconds
+FAIL! -- 383 Passed | 12 Failed | 0 Pending | 16 Skipped
+--- FAIL: TestCacheEngine (0.24s)
+== head ef7ecf5 ==
+Ran 418 of 434 Specs in 0.236 seconds
+FAIL! -- 406 Passed | 12 Failed | 0 Pending | 16 Skipped
+--- FAIL: TestCacheEngine (0.24s)
