@@ -37,7 +37,9 @@
     { "id": "B3", "polarity": "contract", "layer": "integration", "match": ["TestVerifySumExceedsLimitReturnsError", "TestVerifyJindoCacheSumExceedsLimitReturnsError"] },
     { "id": "B4", "polarity": "contract", "layer": "integration", "match": ["TestVerifySingleQuotaStillWorks"] },
     { "id": "B5", "polarity": "contract", "layer": "integration", "match": ["TestVerifyQuotaListWithSpaces"] },
-    { "id": "B6", "polarity": "contract", "layer": "unit", "match": ["TestSumQuotasContract"] }
+    { "id": "B6", "polarity": "contract", "layer": "unit", "match": ["TestSumQuotasContract"] },
+    { "id": "F1", "polarity": "contract", "layer": "integration", "note": "round-2 ledger id: Mi-denominated quotaList must sum as Mi in both engines (blocker at 22d2d07, fix 305e466)", "match": ["TestVerifyQuotaListMiUnitsSum", "TestVerifyJindoCacheQuotaListMiUnitsSum", "TestVerifyMiUnitsSumExceedsLimitReturnsError"] },
+    { "id": "F5", "polarity": "contract", "layer": "integration", "note": "round-2 ledger id: single-value Mi quota path (pre-existing at base, fixed by 305e466 via shared SumQuotas)", "match": ["TestVerifySingleQuotaMiUnits"] }
   ],
   "liveNote": "L3 (skipped this round, no KUBECONFIG): create a JindoRuntime with MEM tier + quotaList '10Gi,5Gi' on a real cluster; expect successful setup with worker memory request 15Gi and no controller panic. Invalid quota: reconcile error event instead of controller crash."
 }

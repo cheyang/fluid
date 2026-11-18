@@ -58,6 +58,40 @@ func TestVerifyJindoCacheQuotaListSummedRequest(t *testing.T) {
 	}
 }
 
+// C4 (round 2, F1): a Mi-denominated quotaList must sum as Mi, not as
+// milli-bytes. transform hands "2048Mi,2048Mi" down as "2048m,2048m"; the
+// worker memory request must be 4096Mi (== 4Gi). On head 22d2d07c (round 1)
+// this produced "4096m" (~4 bytes) silently.
+func TestVerifyJindoCacheQuotaListMiUnitsSum(t *testing.T) {
+	dataset, jindoruntime := mockFluidObjectsForTests(types.NamespacedName{Namespace: "fluid", Name: "jindo-demo"})
+	jindoruntime.Spec.TieredStore = datav1alpha1.TieredStore{
+		Levels: []datav1alpha1.Level{{
+			MediumType: common.Memory,
+			Path:       "/dev/shm,/mnt/ram",
+			QuotaList:  "2048Mi,2048Mi",
+		}},
+	}
+	jindoruntime.Spec.Worker.Resources = corev1.ResourceRequirements{
+		Limits: corev1.ResourceList{corev1.ResourceMemory: resource.MustParse("8Gi")},
+	}
+	engine := mockJindoCacheEngineForTests(dataset, jindoruntime)
+	engine.Client = fake.NewFakeClientWithScheme(datav1alpha1.UnitTestScheme, dataset.DeepCopy(), jindoruntime.DeepCopy())
+
+	value := Jindo{}
+	err := engine.transformWorkerResources(jindoruntime, &value, "2048m,2048m")
+	if err != nil {
+		t.Fatalf("expected no error, got %v", err)
+	}
+	got := value.Worker.Resources.Requests[corev1.ResourceMemory]
+	gotQty, parseErr := resource.ParseQuantity(got)
+	if parseErr != nil {
+		t.Fatalf("worker memory request %q is not a quantity: %v", got, parseErr)
+	}
+	if want := resource.MustParse("4Gi"); gotQty.Cmp(want) != 0 {
+		t.Errorf("worker memory request = %q, want 4Gi (4096Mi)", got)
+	}
+}
+
 // C2: invalid quota in the list returns an error instead of panicking.
 func TestVerifyJindoCacheInvalidQuotaReturnsError(t *testing.T) {
 	dataset, jindoruntime := mockFluidObjectsForTests(types.NamespacedName{Namespace: "fluid", Name: "jindo-demo"})

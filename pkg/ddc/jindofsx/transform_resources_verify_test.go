@@ -136,6 +136,84 @@ func TestVerifyQuotaListWithSpaces(t *testing.T) {
 	}
 }
 
+// C6 (round 2, F1): a Mi-denominated quotaList must sum as Mi, not as
+// milli-bytes. transform() hands "2048Mi,2048Mi" down as "2048m,2048m";
+// the worker memory request must be 4096Mi (== 4Gi) and must be persisted
+// into the runtime spec. On head 22d2d07c (round 1) this produced "4096m"
+// (~4 bytes) silently; on base the input panicked.
+func TestVerifyQuotaListMiUnitsSum(t *testing.T) {
+	rt := newQuotaListRuntime("hbase-mi", "fluid", "8Gi", "2048Mi,2048Mi")
+	client := fake.NewFakeClientWithScheme(testScheme, rt.DeepCopy())
+	engine := &JindoFSxEngine{
+		name:      "hbase-mi",
+		namespace: "fluid",
+		Client:    client,
+		Log:       fake.NullLogger(),
+	}
+	value := &Jindo{}
+
+	err := engine.transformWorkerResources(rt, value, "2048m,2048m")
+	if err != nil {
+		t.Fatalf("expected no error, got %v", err)
+	}
+	got := value.Worker.Resources.Requests.Memory
+	gotQty, parseErr := resource.ParseQuantity(got)
+	if parseErr != nil {
+		t.Fatalf("worker memory request %q is not a quantity: %v", got, parseErr)
+	}
+	if want := resource.MustParse("4Gi"); gotQty.Cmp(want) != 0 {
+		t.Errorf("worker memory request = %q, want 4Gi (4096Mi); a milli-byte value like \"4096m\" means the m->Mi restoration is missing", got)
+	}
+
+	var updated datav1alpha1.JindoRuntime
+	if err := client.Get(context.TODO(), types.NamespacedName{Name: "hbase-mi", Namespace: "fluid"}, &updated); err != nil {
+		t.Fatalf("failed to get updated runtime: %v", err)
+	}
+	persisted, ok := updated.Spec.Worker.Resources.Requests[corev1.ResourceMemory]
+	if !ok || persisted.Cmp(resource.MustParse("4Gi")) != 0 {
+		t.Errorf("persisted runtime worker memory request = %v (ok=%t), want 4Gi (4096Mi)", persisted, ok)
+	}
+}
+
+// C7 (round 2, F5): the single-value Mi quota path shares the same
+// restoration; "512Mi" handed down as "512m" must yield a 512Mi request
+// (round 1: 512 milli-bytes, pre-existing at base too).
+func TestVerifySingleQuotaMiUnits(t *testing.T) {
+	rt := newQuotaListRuntime("spark-mi", "fluid", "8Gi", "512Mi")
+	client := fake.NewFakeClientWithScheme(testScheme, rt.DeepCopy())
+	engine := &JindoFSxEngine{
+		name:      "spark-mi",
+		namespace: "fluid",
+		Client:    client,
+		Log:       fake.NullLogger(),
+	}
+	value := &Jindo{}
+
+	err := engine.transformWorkerResources(rt, value, "512m")
+	if err != nil {
+		t.Fatalf("expected no error, got %v", err)
+	}
+	got := value.Worker.Resources.Requests.Memory
+	gotQty, parseErr := resource.ParseQuantity(got)
+	if parseErr != nil {
+		t.Fatalf("worker memory request %q is not a quantity: %v", got, parseErr)
+	}
+	if want := resource.MustParse("512Mi"); gotQty.Cmp(want) != 0 {
+		t.Errorf("worker memory request = %q, want 512Mi", got)
+	}
+}
+
+// C8 (round 2, F1 guard): with the m->Mi restoration in place, a Mi-denominated
+// sum CAN exceed the worker memory limit, so the guard must be able to fire.
+func TestVerifyMiUnitsSumExceedsLimitReturnsError(t *testing.T) {
+	rt := newQuotaListRuntime("flink-mi", "fluid", "2Gi", "2048Mi,2048Mi")
+	engine := &JindoFSxEngine{Log: fake.NullLogger()}
+	err := engine.transformWorkerResources(rt, &Jindo{}, "2048m,2048m")
+	if err == nil || !strings.Contains(err.Error(), "greater than") {
+		t.Errorf("expected error containing %q, got %v", "greater than", err)
+	}
+}
+
 // C4: summed quota above the worker memory limit must return an error, not panic.
 func TestVerifySumExceedsLimitReturnsError(t *testing.T) {
 	rt := newQuotaListRuntime("spark", "fluid", "12Gi", "10Gi,5Gi")

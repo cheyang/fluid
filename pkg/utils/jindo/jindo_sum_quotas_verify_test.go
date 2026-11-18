@@ -23,10 +23,13 @@ import (
 // Reviewer harness for PR #6261 (fluid-cloudnative/fluid), finding-independent
 // unit layer for SumQuotas.
 //
-// Polarity: contract tests. Green = correct behavior. "milli semantics" rows
-// document pre-existing behavior of the jindo unit round-trip ("Mi" is turned
-// into "m" upstream and never restored, so k8s parses it as milli), which this
-// PR neither introduces nor fixes.
+// Polarity: contract tests. Green = correct behavior.
+//
+// Round 2 (head 305e466f): the PR now maps a trailing "m" back to "Mi" inside
+// SumQuotas (jindo rewrites Mi->m upstream). The round-1 row "milli parses as
+// milli" asserted the then-current behavior and FLIPPED when the fix landed —
+// it is inverted here per the canary/flip policy and joined by explicit Mi rows
+// covering the F1/F5 contracts.
 func TestSumQuotasContract(t *testing.T) {
 	tests := []struct {
 		name    string
@@ -39,9 +42,14 @@ func TestSumQuotasContract(t *testing.T) {
 		{"CRD-documented format with spaces", "100Gi, 50Gi", "150Gi", false},
 		{"decimal SI suffixes", "10G,5G", "15G", false},
 		{"mixed binary suffixes canonicalize", "1Gi,512Mi", "1536Mi", false},
-		{"milli parses as milli (pre-existing m/Mi ambiguity)", "100m,200m", "300m", false},
+		// F1: jindo's Mi->m rewrite must be read back as Mi, not milli-bytes.
+		{"jindo m suffix is Mi (F1, flipped in round 2)", "100m,200m", "300Mi", false},
+		{"jindo m suffix list (F1)", "2048m,2048m", "4096Mi", false},
+		{"single jindo m value (F5)", "512m", "512Mi", false},
+		{"mixed g and m after jindo rewrite", "1g,512m", "", true},
 		{"negative parses (no sign validation)", "-1Gi,2Gi", "1Gi", false},
-		{"jindo lowercase g is not a k8s quantity", "10g,5g", "", true},
+		{"negative m element still sums (F4 unchanged)", "10Mi,-5m", "5Mi", false},
+		{"jindo lowercase g alone is not a k8s quantity", "10g,5g", "", true},
 		{"invalid token", "10Gi,abc", "", true},
 		{"empty string is an error", "", "", true},
 		{"empty element is an error", "10Gi,,5Gi", "", true},
