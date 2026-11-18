@@ -621,6 +621,30 @@ func TestPluginsProfileMerge_NonMapValuesProfileRendersAsBefore(t *testing.T) {
 	}
 }
 
+// TestPluginsProfileMerge_ListClientlessCrashLoopCanary is the B-F9 CANARY (round 5): it
+// pins the CURRENT, questionable behavior so a fix flips it red (invert it then). With
+// the fallback gated on hasKey, a values `clientless: []` (a list — a type error, not an
+// empty group) is kept verbatim; the rendered profile then fails the webhook's yaml.v2
+// parse (cannot unmarshal !!seq into plugins.Clientless) and RegisterMutatingHandlers
+// exits the webhook process, so every rule with failurePolicy Fail blocks its pods while
+// the Deployment crash-loops. 41b47141's truthiness gate had accidentally repaired exactly
+// this shape. The same exposure pre-exists unchanged for `serverful: []` / `serverless:
+// []` (no fallback touches them): the chart has no values.schema.json for pluginsProfile
+// groups. Correct handling is under discussion (template-side kindIs guard with a loud
+// `fail`, or schema validation), hence a canary, not a contract.
+func TestPluginsProfileMerge_ListClientlessCrashLoopCanary(t *testing.T) {
+	vp := "plugins:\n  serverless:\n    withDataset:\n    - FuseSidecar\n    withoutDataset: []\n  clientless: []\n"
+	rendered := newChartRendererWithValuesProfile(t, "", false, vp).renderProfile(t)
+	var parsed plugins.PluginsProfile
+	err := yamlv2.Unmarshal([]byte(rendered), &parsed)
+	if err == nil {
+		t.Fatalf("canary flipped: clientless: [] now parses for the webhook (%+v) — invert this canary and pin the new behavior", parsed.Plugins.Clientless)
+	}
+	if !strings.Contains(err.Error(), "cannot unmarshal !!seq") {
+		t.Fatalf("canary flipped with an unexpected parse error: %v", err)
+	}
+}
+
 // TestWebhookChecksumAnnotation: webhook.yaml must carry a checksum/plugins-profile
 // annotation so the Deployment rolls (and reloads the profile) when the rendered profile
 // changes. Two contracts, rendered the same way webhook.yaml computes the checksum:

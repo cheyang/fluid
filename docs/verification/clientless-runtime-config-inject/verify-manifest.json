@@ -190,6 +190,14 @@
    "match": [
     "TestClientlessSelectorMatchesCode"
    ]
+  },
+  {
+   "id": "B-F9",
+   "polarity": "canary",
+   "layer": "integration",
+   "match": [
+    "TestPluginsProfileMerge_ListClientlessCrashLoopCanary"
+   ]
   }
  ],
  "liveNote": "No live layer in this round (debate setup skips KUBECONFIG). With a cluster, the upgrade path behind F1 can be shown end to end: helm install the base chart, helm upgrade to this PR's chart with default values, and confirm the webhook-plugins ConfigMap gains the clientless group and the webhook Deployment rolls (checksum/plugins-profile changes)."
