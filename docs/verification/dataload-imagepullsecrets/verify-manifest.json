@@ -1,0 +1,70 @@
+{
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6266",
+  "reviewer": "claude",
+  "headSha": "4fac0265a36800fa4a87cc22991eb0be8556742c",
+  "baseSha": "dcb76167b0143a239addc6bed83ed50b45267631",
+  "topic": "dataload-imagepullsecrets",
+  "premise": {
+    "id": "P0",
+    "claim": "On the base branch, a JindoFSX/JindoCache DataLoad whose JindoRuntime sets spec.imagePullSecrets still generates job values with only the controller env secret (IMAGE_PULL_SECRETS), while the runtime's own master/worker/fuse pods honor spec.imagePullSecrets — so a DataLoad on a private-registry runtime fails to pull its image (issue #6247 symptom, Jindo variant).",
+    "runsAgainst": "base",
+    "verdict": "Confirmed",
+    "evidence": "Differential: harness contract test TestVerifyImagePullSecretsPriority and the PR's own TestDataLoadImagePullSecrets both FAIL on base (got [{env-secret}], want [{runtime-secret}]) and PASS on head; results/premise-differential-base.txt",
+    "layer": "unit"
+  },
+  "findings": [
+    {
+      "id": "f1",
+      "title": "Runtime imagePullSecrets replace env default for Jindo DataLoad",
+      "claim": "genDataLoadValue uses runtime.Spec.ImagePullSecrets when set (replacing, not merging with, the env default) and keeps the env fallback when the runtime list is empty, in both jindofsx and jindocache.",
+      "tests": [
+        "pkg/ddc/jindofsx/load_data_verify_test.go::TestVerifyImagePullSecretsPriority",
+        "pkg/ddc/jindofsx/load_data_verify_test.go::TestVerifyDataLoadValuesYAMLEncoding",
+        "pkg/ddc/jindocache/load_data_verify_test.go::TestVerifyImagePullSecretsPriority",
+        "PR tests: jindofsx/jindocache load_data_test.go::TestDataLoadImagePullSecrets"
+      ],
+      "polarity": "contract",
+      "layer": "unit",
+      "harnessBites": "fails on base, passes on head (results/premise-differential-base.txt)"
+    },
+    {
+      "id": "f2",
+      "title": "Legacy 'jindo' engine impl still ignores runtime imagePullSecrets (coverage gap)",
+      "claim": "pkg/ddc/jindo (selectable via JINDO_ENGINE_TYPE=jindo, same JindoRuntime CRD; its runtime chart honors spec.imagePullSecrets) still builds DataLoad values from the env only, so the exact bug this PR fixes persists in the third Jindo engine.",
+      "tests": [
+        "pkg/ddc/jindo/load_data_verify_test.go::TestVerifyLegacyJindoImagePullSecrets"
+      ],
+      "polarity": "contract",
+      "layer": "unit",
+      "harnessBites": "fails on head (reproduction); passes with the same one-line fix applied then reverted (results/f2-bites-check.txt)",
+      "currently": "reproduced on head — reviewer rates it a non-blocking gap (legacy engine), author may scope it out deliberately"
+    },
+    {
+      "id": "f3",
+      "title": "POSIX path switch is behavior-neutral on Linux",
+      "claim": "The filepath->path switch in NormalizeSubPath, UFSPathBuilder, and IsValidMountRoot changes no Linux-visible behavior; it fixes container-path semantics for non-Linux dev hosts only.",
+      "tests": [
+        "pkg/utils/posix_paths_verify_test.go::TestVerifyNormalizeSubPathPOSIXSemantics",
+        "pkg/utils/posix_paths_verify_test.go::TestVerifyUFSPathBuilderPOSIXSemantics",
+        "pkg/utils/validation/posix_verify_test.go::TestVerifyIsValidMountRootPOSIXSemantics"
+      ],
+      "polarity": "contract",
+      "layer": "unit",
+      "harnessBites": "passes identically on base and head on Linux (results/f3-base-vs-head.txt) — no regression, no behavior change"
+    },
+    {
+      "id": "f4",
+      "title": "Chart plumbing: generated values reach the DataLoad job pod",
+      "claim": "genDataLoadValue's YAML lands under dataloader.imagePullSecrets and the fluid-dataloader charts render it into the job pod spec.",
+      "tests": [
+        "pkg/ddc/jindofsx/load_data_verify_test.go::TestVerifyDataLoadValuesYAMLEncoding (yaml key contract)",
+        "scripts/render_dataload_chart.sh (helm template integration)"
+      ],
+      "polarity": "contract",
+      "layer": "integration",
+      "harnessBites": "helm render PASS with secret, absent without (results/chart-render-*.yaml)"
+    }
+  ],
+  "liveNote": "L3 (live cluster) not run per round policy: create a JindoRuntime with spec.imagePullSecrets referencing a private registry, run a DataLoad, confirm the job pod carries the runtime secret (kubectl get pod -o jsonpath='{.spec.imagePullSecrets}').",
+  "reverify": "bash docs/verification/dataload-imagepullsecrets/scripts/re-verify.sh [<fixed-ref>]"
+}

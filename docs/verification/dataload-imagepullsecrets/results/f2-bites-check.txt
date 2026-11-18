@@ -1,0 +1,11 @@
+# f2 bites check: contract test FAILS on head (reproduction of the legacy jindo gap)
+2026/11/18 14:59:06 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+--- FAIL: TestVerifyLegacyJindoImagePullSecrets (0.00s)
+    load_data_verify_test.go:67: legacy jindo engine: runtime secrets ignored, got [{env-secret}], want [{runtime-secret}]
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindo	0.013s
+FAIL
+# ...and PASSES once the same runtime-first fix is applied to pkg/ddc/jindo/load_data.go (then reverted)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindo	0.014s
+# production code restored (empty diff vs head):
+0

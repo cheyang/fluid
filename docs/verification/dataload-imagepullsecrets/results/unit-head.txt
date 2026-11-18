@@ -1,0 +1,16 @@
+# focused harness + PR tests on head 4fac0265a
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	0.012s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	0.014s
+2026/11/18 15:00:22 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+--- FAIL: TestVerifyLegacyJindoImagePullSecrets (0.00s)
+    load_data_verify_test.go:67: legacy jindo engine: runtime secrets ignored, got [{env-secret}], want [{runtime-secret}]
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindo	0.014s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.014s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/validation	0.003s
+FAIL
+
+# NOTE: full-package sweep additionally shows TestDestroyWorker (jindofsx, jindo),
+# TestCheckMountPointBroken (pkg/utils), TestHelm (pkg/utils/helm) failing on HEAD.
+# All of these fail identically on the BASE dcb76167 (verified in a base worktree):
+# pre-existing environment failures, not caused by this PR. See full-sweep-head.txt.

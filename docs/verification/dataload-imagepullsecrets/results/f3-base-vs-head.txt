@@ -1,0 +1,65 @@
+# P0 differential: production load_data.go reverted to base dcb76167, harness + PR tests run against it
+2026/11/18 14:58:59 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+--- FAIL: TestDataLoadImagePullSecrets (0.00s)
+    load_data_test.go:603: with runtime secrets got [{env-secret}], want [{runtime-secret}]
+--- FAIL: TestVerifyImagePullSecretsPriority (0.00s)
+    load_data_verify_test.go:66: runtime+env set: got [{env-secret}], want [{runtime-secret}] (runtime must replace env default)
+--- FAIL: TestVerifyDataLoadValuesYAMLEncoding (0.00s)
+    load_data_verify_test.go:127: yaml missing runtime-secret under dataloader.imagePullSecrets, got:
+        dataloader:
+          backoffLimit: 3
+          image: fluid:v0.0.1
+          imagePullSecrets:
+          - name: env-secret
+          options:
+            loadMemorydata: "false"
+          policy: ""
+          resources: {}
+          targetDataset: test-dataset
+        name: test-dataload
+        owner:
+          apiVersion: data.fluid.io/v1alpha1
+          blockOwnerDeletion: false
+          controller: true
+          enabled: true
+          kind: DataLoad
+          name: test-dataload
+          uid: ""
+        ownerDatasetId: fluid-test-dataset
+    load_data_verify_test.go:130: env secret leaked into values despite runtime secrets being set, got:
+        dataloader:
+          backoffLimit: 3
+          image: fluid:v0.0.1
+          imagePullSecrets:
+          - name: env-secret
+          options:
+            loadMemorydata: "false"
+          policy: ""
+          resources: {}
+          targetDataset: test-dataset
+        name: test-dataload
+        owner:
+          apiVersion: data.fluid.io/v1alpha1
+          blockOwnerDeletion: false
+          controller: true
+          enabled: true
+          kind: DataLoad
+          name: test-dataload
+          uid: ""
+        ownerDatasetId: fluid-test-dataset
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	0.013s
+2026/11/18 14:58:59 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+--- FAIL: TestDataLoadImagePullSecrets (0.00s)
+    load_data_test.go:603: with runtime secrets got [{env-secret}], want [{runtime-secret}]
+--- FAIL: TestVerifyImagePullSecretsPriority (0.00s)
+    load_data_verify_test.go:64: runtime+env set: got [{env-secret}], want [{runtime-secret}] (runtime must replace env default)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	0.014s
+FAIL
+# C2 on base path code:
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.013s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/validation	0.003s
+# restored head; C2 on head:
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.013s
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/validation	0.003s
