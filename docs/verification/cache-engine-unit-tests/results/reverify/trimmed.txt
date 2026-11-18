@@ -1,0 +1,15 @@
+# re-verify.sh round 1 raw output (trimmed to signal; ginkgo-report.json dropped for size)
+# layer unit (go test -json, Test filter)
+{"Time":"2026-11-18T13:54:37.752019375+08:00","Action":"run","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine","Test":"TestDataOperationValueFileHappyPath"}
+{"Time":"2026-11-18T13:54:37.752021015+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine","Test":"TestDataOperationValueFileHappyPath","Output":"=== RUN   TestDataOperationValueFileHappyPath\n","OutputType":"frame"}
+{"Time":"2026-11-18T13:54:37.752024535+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine","Test":"TestDataOperationValueFileHappyPath","Output":"--- PASS: TestDataOperationValueFileHappyPath (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-18T13:54:37.752026345+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine","Test":"TestDataOperationValueFileHappyPath","Elapsed":0}
+{"Time":"2026-11-18T13:54:37.752031555+08:00","Action":"run","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine","Test":"TestDataLoadValueFileNotSupportedWhenSpecMissing"}
+{"Time":"2026-11-18T13:54:37.752033005+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine","Test":"TestDataLoadValueFileNotSupportedWhenSpecMissing","Output":"=== RUN   TestDataLoadValueFileNotSupportedWhenSpecMissing\n","OutputType":"frame"}
+{"Time":"2026-11-18T13:54:37.752035055+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine","Test":"TestDataLoadValueFileNotSupportedWhenSpecMissing","Output":"--- PASS: TestDataLoadValueFileNotSupportedWhenSpecMissing (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-18T13:54:37.752037545+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine","Test":"TestDataLoadValueFileNotSupportedWhenSpecMissing","Elapsed":0}
+{"Time":"2026-11-18T13:54:37.752039665+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-11-18T13:54:37.752041276+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine","Output":"ok  \tgithub.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine\t(cached)\n"}
+
+# layer ginkgo (focused PR specs)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.036s
