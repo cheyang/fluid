@@ -118,3 +118,31 @@ graft the harness onto the current PR head, run
 scripts/re-verify.sh, confirm all contract tests are green, run the harness-bites
 check against f432bdc8, and report an observed-vs-expected table.
 ```
+
+## Round 2 (head 50933d0b, incremental from cc3947c0)
+
+The author pushed `50933d0bb` ("only release and record events for waiting operations"),
+addressing the round-1 follow-ups. The harness was extended additively
+(`pr6254_round2_verify_test.go`, production code still untouched) with four new
+contract tests:
+
+| ID  | contract | test | prev head cc3947c0 | head 50933d0b |
+| --- | --- | --- | --- | --- |
+| V4  | non-waiting ops (flag nil/false, no runAfter) are left untouched: no write, no event, no requeue | TestPR6254NonWaitingUntouched | FAIL (rv 999→1000 on nil-flag entries) | PASS |
+| V5  | released waiting op gets exactly one DataOperationWaitingEnded event ("spec.runAfter was removed") | TestPR6254WaitingEndedEventRemoval | FAIL (0 events) | PASS |
+| V6  | event on the preceding-op-completed path names the completed op; none when not waiting | TestPR6254WaitingEndedEventCompletion | FAIL (0 events) | PASS |
+| V7  | controller-level same-name collision: waiting DataLoad released, non-waiting DataBackup untouched, exactly one event | TestPR6254SameNameCrossKindUntouched | FAIL (DataBackup written) | PASS |
+
+The prev-head failures are the bites check AND the revision differential (same valid
+contract red on cc3947c0, green on 50933d0b). On base f432bdc8 the same fixtures panic
+(nil-runAfter dereference), so V4–V7 are also red there. Full `re-verify.sh` output for
+this round: all of V1–V7 FIXED (results/reverify/). Full package suite with the harness
+grafted on 50933d0b: `./pkg/controllers/v1alpha1/dataflow/`, `./pkg/common/...`,
+`./api/...` all ok. go vet clean.
+
+Residual (nit, pre-existing on base, probe not committed): on the preceding-op-completed
+path a NON-waiting op whose runAfter points at a completed op still gets one inert status
+write (resourceVersion bump, waitingFor.operationComplete nil→false, no event, no log) —
+`isWaitingForPrecedingOperation` gates only the nil-runAfter path, not the fall-through.
+Reachable via a same-name cross-kind collision where the other-kind object has runAfter
+set. Behavior-identical to base; recorded in the round-2 findings ledger.

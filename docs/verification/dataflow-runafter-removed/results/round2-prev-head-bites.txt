@@ -1,0 +1,24 @@
+--- FAIL: TestPR6254NonWaitingUntouched (0.00s)
+    --- FAIL: TestPR6254NonWaitingUntouched/DataLoad_never_waited_(flag_nil) (0.00s)
+        pr6254_round2_verify_test.go:167: non-waiting operation was written: resourceVersion 999 -> 1000
+    --- FAIL: TestPR6254NonWaitingUntouched/DataBackup_never_waited_(flag_nil) (0.00s)
+        pr6254_round2_verify_test.go:167: non-waiting operation was written: resourceVersion 999 -> 1000
+    --- FAIL: TestPR6254NonWaitingUntouched/DataProcess_never_waited_(flag_nil) (0.00s)
+        pr6254_round2_verify_test.go:167: non-waiting operation was written: resourceVersion 999 -> 1000
+--- FAIL: TestPR6254WaitingEndedEventRemoval (0.00s)
+    --- FAIL: TestPR6254WaitingEndedEventRemoval/DataLoad (0.00s)
+        pr6254_round2_verify_test.go:237: expected exactly one event for a released waiting DataLoad, got 0: []
+    --- FAIL: TestPR6254WaitingEndedEventRemoval/DataBackup (0.00s)
+        pr6254_round2_verify_test.go:237: expected exactly one event for a released waiting DataBackup, got 0: []
+    --- FAIL: TestPR6254WaitingEndedEventRemoval/DataMigrate (0.00s)
+        pr6254_round2_verify_test.go:237: expected exactly one event for a released waiting DataMigrate, got 0: []
+    --- FAIL: TestPR6254WaitingEndedEventRemoval/DataProcess (0.00s)
+        pr6254_round2_verify_test.go:237: expected exactly one event for a released waiting DataProcess, got 0: []
+--- FAIL: TestPR6254WaitingEndedEventCompletion (0.00s)
+    --- FAIL: TestPR6254WaitingEndedEventCompletion/waiting_operation_gets_the_event (0.00s)
+        pr6254_round2_verify_test.go:296: expected exactly one event, got 0: []
+--- FAIL: TestPR6254SameNameCrossKindUntouched (0.00s)
+    pr6254_round2_verify_test.go:395: same-name non-waiting DataBackup was written: resourceVersion 999 -> 1000
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataflow	0.014s
+FAIL
