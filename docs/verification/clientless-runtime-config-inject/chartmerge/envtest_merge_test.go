@@ -56,6 +56,15 @@ func findEnvtestAssets() string {
 			return candidate
 		}
 	}
+	// the setup-envtest local store: newest version wins
+	if home, err := os.UserHomeDir(); err == nil {
+		matches, _ := filepath.Glob(filepath.Join(home, ".local/share/kubebuilder-envtest/k8s/*"))
+		for i := len(matches) - 1; i >= 0; i-- {
+			if _, err := os.Stat(filepath.Join(matches[i], "kube-apiserver")); err == nil {
+				return matches[i]
+			}
+		}
+	}
 	return ""
 }
 
