@@ -47,6 +47,10 @@ echo "re-verify: last-reviewed = ${LAST_REVIEWED:-<none>}  (review delta = ${LAS
 RUNTIME_DIR="$(mktemp -d)"
 RESULTS_DIR="$TOPIC_DIR/results/reverify"
 mkdir -p "$RESULTS_DIR"
+# copy the manifest outside the repo: `git checkout -f <fixed-ref>` removes the
+# in-repo harness (it exists only on the harness branch) before re-grafting
+cp "$MANIFEST" "$RUNTIME_DIR/manifest.json"
+MANIFEST="$RUNTIME_DIR/manifest.json"
 ORIG_REF="$(git symbolic-ref --quiet --short HEAD || git rev-parse HEAD)"
 HARNESS_SRC="$(git rev-parse HEAD)"
 cleanup() { git checkout -f "$ORIG_REF" >/dev/null 2>&1 || true; rm -rf "$RUNTIME_DIR" 2>/dev/null || true; }
@@ -55,6 +59,7 @@ trap cleanup EXIT
 git checkout -f "$FIXED_REF" >/dev/null 2>&1 || { echo "re-verify: cannot checkout $FIXED_REF" >&2; exit 2; }
 HPATHS=()
 while IFS= read -r p; do [ -n "$p" ] && HPATHS+=("$p"); done < <(jq -r '.harnessPaths[]' "$MANIFEST")
+[ "${#HPATHS[@]}" -gt 0 ] || { echo "re-verify: no harnessPaths in manifest" >&2; exit 2; }
 git checkout "$HARNESS_SRC" -- "${HPATHS[@]}" 2>/dev/null || { echo "re-verify: failed to graft harness paths" >&2; exit 2; }
 
 echo "re-verify: running unit + integration layers"
