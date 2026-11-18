@@ -1,0 +1,4 @@
+reverify/
+*.log
+!head/*.log
+!base/*.log
