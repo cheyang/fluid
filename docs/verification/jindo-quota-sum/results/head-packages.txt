@@ -1,0 +1,28 @@
+# Full jindo-related package runs on PR head 22d2d07 (2026-11-18T02:10:23Z)
+
+$ go test ./pkg/ddc/jindofsx/ ./pkg/ddc/jindocache/ ./pkg/utils/jindo/ ./pkg/ddc/jindo/
+6 total assertions[0m
+
+Running Suite: Jindo Suite - /home/ecs-user/.pr-debate/homes/claude/wt-6261-claude/pkg/ddc/jindo
+================================================================================================
+Random Seed: [1m1794967824[0m
+
+Will run [1m21[0m of [1m21[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;10m[1mRan 21 of 21 Specs in 0.003 seconds[0m
+[38;5;10m[1mSUCCESS![0m -- [38;5;10m[1m21 Passed[0m | [38;5;9m[1m0 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+--- FAIL: TestDestroyWorker (0.00s)
+    shutdown_test.go:191: fail to exec the function with the error jindoruntimes.data.fluid.io "spark" not found
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:191: fail to exec the function with the error jindoruntimes.data.fluid.io "hadoop" not found
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindo	12.049s
+FAIL

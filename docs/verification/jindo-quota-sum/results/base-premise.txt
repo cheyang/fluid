@@ -1,0 +1,42 @@
+# P0 premise repro on BASE 1321a217d78ab99c0cb76d2ea334d593a3765509 (2026-11-18T02:11:18Z)
+
+$ go test ./pkg/ddc/jindofsx/ -run TestPremiseQuotaListMustNotPanic -v
+2026/11/18 10:11:19 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestPremiseQuotaListMustNotPanic
+--- FAIL: TestPremiseQuotaListMustNotPanic (0.00s)
+panic: cannot parse '10Gi,5Gi': quantities must match the regular expression '^([+-]?[0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$' [recovered, repanicked]
+
+goroutine 148 [running]:
+testing.tRunner.func1.2({0x2a0ab60, 0x2f52d98aa4c0})
+	/usr/local/go/src/testing/testing.go:2123 +0x232
+testing.tRunner.func1()
+	/usr/local/go/src/testing/testing.go:2126 +0x329
+panic({0x2a0ab60?, 0x2f52d98aa4c0?})
+	/usr/local/go/src/runtime/panic.go:859 +0x125
+k8s.io/apimachinery/pkg/api/resource.MustParse({0x2f52d99d4de8, 0x8})
+	/home/ecs-user/.pr-debate/homes/claude/wt-6261-base/vendor/k8s.io/apimachinery/pkg/api/resource/quantity.go:139 +0x188
+github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx.(*JindoFSxEngine).transformWorkerResources(0x2f52d95717b8, 0x2f52d95719c8, 0x2f52d9571288, {0x18797d3, 0x6})
+	/home/ecs-user/.pr-debate/homes/claude/wt-6261-base/pkg/ddc/jindofsx/transform.go:679 +0x6c5
+github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx.TestPremiseQuotaListMustNotPanic(0x2f52d973cfc8)
+	/home/ecs-user/.pr-debate/homes/claude/wt-6261-base/pkg/ddc/jindofsx/premise_repro_test.go:59 +0x2d0
+testing.tRunner(0x2f52d973cfc8, 0x2e0e730)
+	/usr/local/go/src/testing/testing.go:2193 +0xea
+created by testing.(*T).Run in goroutine 1
+	/usr/local/go/src/testing/testing.go:2258 +0x4d4
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	0.015s
+FAIL
+
+# Base attribution runs:
+$ go test ./pkg/ddc/jindofsx/ (TestDestroyWorker)
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:191: fail to exec the function with the error jindoruntimes.data.fluid.io "hadoop" not found
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	0.013s
+FAIL

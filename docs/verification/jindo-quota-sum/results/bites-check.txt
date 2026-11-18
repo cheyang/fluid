@@ -1,0 +1,24 @@
+# Harness-bites check (2026-11-18T10:20:00Z)
+# Production files temporarily reverted to base 1321a217 inside the head worktree:
+#   git checkout 1321a217 -- pkg/ddc/jindofsx/transform.go \
+#       pkg/ddc/jindocache/transform_resources.go pkg/utils/jindo/jindo.go
+# Results below; production files were then restored (git checkout HEAD -- ...).
+
+$ go test ./pkg/ddc/jindofsx/ -run 'TestVerify'
+--- FAIL: TestVerifyQuotaListSummedRequest (0.00s)
+panic: cannot parse '10Gi,5Gi': quantities must match the regular expression
+'^([+-]?[0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$' [recovered, repanicked]
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	0.016s
+
+$ go test ./pkg/ddc/jindocache/ -run 'TestVerifyJindoCache'
+--- FAIL: TestVerifyJindoCacheQuotaListSummedRequest (0.00s)
+panic: cannot parse '10Gi,5Gi': quantities must match the regular expression
+'^([+-]?[0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$' [recovered, repanicked]
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	0.016s
+
+$ go test ./pkg/utils/jindo/ -run TestSumQuotasContract
+pkg/utils/jindo/jindo_sum_quotas_verify_test.go:50:15: undefined: SumQuotas
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/jindo	[build failed]
+
+# Conclusion: the tests bite on pre-fix code (panic / build failure), and pass
+# on the PR head. git diff HEAD -- <production files> is empty after restore.

@@ -1,0 +1,35 @@
+# L1/L2 harness run on PR head 22d2d07c7c275a3baff2def3d24526ae8b74b380 (2026-11-18T02:10:10Z)
+
+$ go test ./pkg/utils/jindo/ -run TestSumQuotasContract -v
+=== RUN   TestSumQuotasContract
+--- PASS: TestSumQuotasContract (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/jindo	(cached)
+
+$ go test ./pkg/ddc/jindofsx/ -run 'TestVerify|TestTransformWorkerResourcesWithQuotaList' -v
+2026/11/18 10:08:10 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestTransformWorkerResourcesWithQuotaList
+--- PASS: TestTransformWorkerResourcesWithQuotaList (0.00s)
+=== RUN   TestVerifyQuotaListSummedRequest
+--- PASS: TestVerifyQuotaListSummedRequest (1.00s)
+=== RUN   TestVerifySingleQuotaStillWorks
+--- PASS: TestVerifySingleQuotaStillWorks (1.00s)
+=== RUN   TestVerifyQuotaListWithSpaces
+--- PASS: TestVerifyQuotaListWithSpaces (1.00s)
+=== RUN   TestVerifySumExceedsLimitReturnsError
+--- PASS: TestVerifySumExceedsLimitReturnsError (0.00s)
+=== RUN   TestVerifyInvalidQuotaReturnsError
+--- PASS: TestVerifyInvalidQuotaReturnsError (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	(cached)
+
+$ go test ./pkg/ddc/jindocache/ -run 'TestVerifyJindoCache' -v
+2026/11/18 10:07:49 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyJindoCacheQuotaListSummedRequest
+--- PASS: TestVerifyJindoCacheQuotaListSummedRequest (1.00s)
+=== RUN   TestVerifyJindoCacheInvalidQuotaReturnsError
+--- PASS: TestVerifyJindoCacheInvalidQuotaReturnsError (0.00s)
+=== RUN   TestVerifyJindoCacheSumExceedsLimitReturnsError
+--- PASS: TestVerifyJindoCacheSumExceedsLimitReturnsError (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	(cached)
