@@ -1,0 +1,47 @@
+{
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6267",
+  "topic": "troubleshooting-goosefs",
+  "reviewer": "claude",
+  "headSha": "f95486bd313aca075f6d6bb1426e951ff3085340",
+  "baseSha": "dcb76167b0143a239addc6bed83ed50b45267631",
+  "premise": {
+    "id": "P0",
+    "claim": "Troubleshooting guides (en/zh) document `wget .../tools/diagnose-fluid-goosefs.sh`, which was removed with the GooseFS runtime deprecation (#5703), so the documented command 404s.",
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": [
+      "git: tools/diagnose-fluid-goosefs.sh absent from base tree dcb76167b; deleted by commit 6dff0aaba (ddc: deprecate goosefs runtime #5703)",
+      "HTTP: https://raw.githubusercontent.com/fluid-cloudnative/fluid/master/tools/diagnose-fluid-goosefs.sh -> 404 (2026-11-18); the three sibling script URLs -> 200",
+      "contract check C1 fails on base (goosefs referenced, missing from tree) and passes on head"
+    ]
+  },
+  "findings": [
+    {
+      "id": "P0",
+      "tests": ["scripts/check_troubleshooting_links.py::C1"],
+      "polarity": "contract",
+      "layer": "unit",
+      "status": "fixed"
+    },
+    {
+      "id": "N1-curvine-undocumented",
+      "claim": "tools/diagnose-fluid-curvine.sh exists but is not mentioned in the troubleshooting guides (pre-existing gap, not touched by this PR).",
+      "tests": [],
+      "polarity": "none",
+      "layer": "none",
+      "status": "not-run",
+      "note": "Pre-existing nit (introducedByPR=false); no harness — informational only, does not gate."
+    },
+    {
+      "id": "N2-stale-goosefs-mentions",
+      "claim": "Other GooseFS mentions remain in docs (concepts.md, dashboard/overview.md, install.md CRD listing) — pre-existing, out of this PR's scope.",
+      "tests": [],
+      "polarity": "none",
+      "layer": "none",
+      "status": "not-run",
+      "note": "Pre-existing nit (introducedByPR=false); no harness — informational only, does not gate."
+    }
+  ],
+  "liveNote": "Optional --http flag HEAD-checks the documented raw.githubusercontent.com URLs; requires network. Without it the check is deterministic repo-only."
+}

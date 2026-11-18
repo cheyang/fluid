@@ -1,0 +1,9 @@
+# results — base dcb76167b0143a239addc6bed83ed50b45267631 (harness-bites check)
+
+referenced scripts: ['tools/diagnose-fluid-alluxio.sh', 'tools/diagnose-fluid-goosefs.sh', 'tools/diagnose-fluid-jindo.sh', 'tools/diagnose-fluid-juicefs.sh']
+(skip HTTP layer; pass --http to HEAD-check the raw URLs)
+FAIL
+ - C1: tools/diagnose-fluid-goosefs.sh referenced in docs/en/userguide/troubleshooting.md,docs/en/userguide/troubleshooting.md,docs/zh/userguide/troubleshooting.md but missing from tree
+ - C2: docs/zh/userguide/troubleshooting.md still references diagnose-fluid-goosefs
+ - C2: docs/en/userguide/troubleshooting.md still references diagnose-fluid-goosefs
+exit=1

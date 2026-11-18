@@ -1,0 +1,13 @@
+# results — head f95486bd313aca075f6d6bb1426e951ff3085340 (PR #6267), run from repo root
+
+$ python3 docs/verification/troubleshooting-goosefs-claude/scripts/check_troubleshooting_links.py --http
+referenced scripts: ['tools/diagnose-fluid-alluxio.sh', 'tools/diagnose-fluid-jindo.sh', 'tools/diagnose-fluid-juicefs.sh']
+HTTP 200 https://raw.githubusercontent.com/fluid-cloudnative/fluid/master/tools/diagnose-fluid-alluxio.sh
+HTTP 200 https://raw.githubusercontent.com/fluid-cloudnative/fluid/master/tools/diagnose-fluid-jindo.sh
+HTTP 200 https://raw.githubusercontent.com/fluid-cloudnative/fluid/master/tools/diagnose-fluid-juicefs.sh
+PASS: all troubleshooting diagnose-script links resolve in-tree; no goosefs refs remain in docs
+exit=0
+
+# HTTP premise spot-check (raw master URLs, 2026-11-18)
+diagnose-fluid-goosefs.sh -> 404 (removed by #5703 / commit 6dff0aaba)
+diagnose-fluid-alluxio.sh / -juicefs.sh / -jindo.sh -> 200
