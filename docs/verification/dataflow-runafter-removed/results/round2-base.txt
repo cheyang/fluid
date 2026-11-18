@@ -1,0 +1,28 @@
+--- FAIL: TestPR6254NonWaitingUntouched (0.00s)
+    --- FAIL: TestPR6254NonWaitingUntouched/DataLoad_never_waited_(flag_nil) (0.00s)
+        panic.go:336: reconcile panicked (expected release without panic): runtime error: invalid memory address or nil pointer dereference
+    --- FAIL: TestPR6254NonWaitingUntouched/DataLoad_already_stopped_waiting_(flag_false) (0.00s)
+        panic.go:336: reconcile panicked (expected release without panic): runtime error: invalid memory address or nil pointer dereference
+    --- FAIL: TestPR6254NonWaitingUntouched/DataBackup_never_waited_(flag_nil) (0.00s)
+        panic.go:336: reconcile panicked (expected release without panic): runtime error: invalid memory address or nil pointer dereference
+    --- FAIL: TestPR6254NonWaitingUntouched/DataMigrate_already_stopped_waiting_(flag_false) (0.00s)
+        panic.go:336: reconcile panicked (expected release without panic): runtime error: invalid memory address or nil pointer dereference
+    --- FAIL: TestPR6254NonWaitingUntouched/DataProcess_never_waited_(flag_nil) (0.00s)
+        panic.go:336: reconcile panicked (expected release without panic): runtime error: invalid memory address or nil pointer dereference
+--- FAIL: TestPR6254WaitingEndedEventRemoval (0.00s)
+    --- FAIL: TestPR6254WaitingEndedEventRemoval/DataLoad (0.00s)
+        panic.go:336: reconcile panicked (expected release without panic): runtime error: invalid memory address or nil pointer dereference
+    --- FAIL: TestPR6254WaitingEndedEventRemoval/DataBackup (0.00s)
+        panic.go:336: reconcile panicked (expected release without panic): runtime error: invalid memory address or nil pointer dereference
+    --- FAIL: TestPR6254WaitingEndedEventRemoval/DataMigrate (0.00s)
+        panic.go:336: reconcile panicked (expected release without panic): runtime error: invalid memory address or nil pointer dereference
+    --- FAIL: TestPR6254WaitingEndedEventRemoval/DataProcess (0.00s)
+        panic.go:336: reconcile panicked (expected release without panic): runtime error: invalid memory address or nil pointer dereference
+--- FAIL: TestPR6254WaitingEndedEventCompletion (0.00s)
+    --- FAIL: TestPR6254WaitingEndedEventCompletion/waiting_operation_gets_the_event (0.00s)
+        pr6254_round2_verify_test.go:296: expected exactly one event, got 0: []
+--- FAIL: TestPR6254SameNameCrossKindUntouched (0.00s)
+    panic.go:336: DataFlowReconciler.Reconcile panicked (expected release without panic): runtime error: invalid memory address or nil pointer dereference
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataflow	0.012s
+FAIL
