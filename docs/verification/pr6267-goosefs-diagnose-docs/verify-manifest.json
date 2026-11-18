@@ -1,0 +1,30 @@
+{
+  "topic": "pr6267-goosefs-diagnose-docs",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6267",
+  "harnessPaths": [
+    "docs/verification/pr6267-goosefs-diagnose-docs"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "The troubleshooting guide (English and Chinese) still tells users to download tools/diagnose-fluid-goosefs.sh, but that script was removed when the GooseFS runtime was deprecated in #5703, so the wget command returns 404.",
+    "reportedComponent": "docs/{en,zh}/userguide/troubleshooting.md vs tools/",
+    "patchedComponent": "docs/{en,zh}/userguide/troubleshooting.md",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base dcb76167, TestTroubleshootingDocsReferenceExistingScripts fails: both docs reference tools/diagnose-fluid-goosefs.sh, which is absent from tools/ (removed by 6dff0aaba, PR #5703). See results/base-reverify.out.",
+    "match": ["TestTroubleshootingDocsReferenceExistingScripts"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./docs/verification/pr6267-goosefs-diagnose-docs/ -run 'TestTroubleshootingDocsReferenceExistingScripts|TestNoStaleGooseFSDiagnoseReference' -json"
+    }
+  },
+  "findings": [
+    { "id": "D1", "polarity": "contract", "layer": "unit", "match": ["TestTroubleshootingDocsReferenceExistingScripts"] },
+    { "id": "D2", "polarity": "contract", "layer": "unit", "match": ["TestNoStaleGooseFSDiagnoseReference"] }
+  ],
+  "liveNote": "None: docs-only PR. Unit layer is sufficient; integration/live layers add nothing for a markdown reference fix."
+}
