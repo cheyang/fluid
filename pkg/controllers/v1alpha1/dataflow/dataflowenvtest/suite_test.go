@@ -111,7 +111,7 @@ var _ = Describe("PR6254 L2: release a waiting operation whose runAfter is gone 
 		Expect(updated.Status.Phase).To(Equal(common.PhasePending))
 	})
 
-	It("P0-xkind + F1-canary: waiting DataLoad keeps waiting; non-waiting same-name DataBackup gets the spurious write", func() {
+	It("P0-xkind + F1-contract: waiting DataLoad keeps waiting; non-waiting same-name DataBackup stays untouched", func() {
 		name := "l2-xkind"
 		preceding := &datav1alpha1.DataLoad{ObjectMeta: metav1.ObjectMeta{Name: "l2-preceding", Namespace: namespace}}
 		Expect(k8sClient.Create(context.TODO(), preceding)).To(Succeed())
@@ -150,8 +150,9 @@ var _ = Describe("PR6254 L2: release a waiting operation whose runAfter is gone 
 
 		updatedBackup := &datav1alpha1.DataBackup{}
 		Expect(k8sClient.Get(context.TODO(), req.NamespacedName, updatedBackup)).To(Succeed())
-		// canary: spurious write on the non-waiting object (F1)
-		Expect(updatedBackup.Status.WaitingFor.OperationComplete).To(HaveValue(BeFalse()),
-			"canary: expected the spurious status write to still happen on a real API server")
+		// contract (F1 fixed at 50933d0b): no spurious write on the non-waiting object;
+		// the flag must stay nil on a real API server.
+		Expect(updatedBackup.Status.WaitingFor.OperationComplete).To(BeNil(),
+			"non-waiting same-name object must not get a waitingFor write on a real API server")
 	})
 })

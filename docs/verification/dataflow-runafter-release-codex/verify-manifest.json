@@ -16,7 +16,10 @@
     "layer": "unit",
     "verdict": "confirmed",
     "evidence": "On base f432bdc8 the P0 contract specs panic with 'invalid memory address or nil pointer dereference' (results/l1-unit-base-p0-focus.txt, results/l2-envtest-base.txt); on head cc3947c0 they pass and waitingFor.operationComplete is cleared (results/l1-unit-head.txt, results/l2-envtest-head.txt). Replaying the PR's own new tests on base fails 35 Passed | 6 Failed, matching the PR body (results/l1-unit-base-pr-tests-replay.txt).",
-    "match": ["P0-contract", "P0-xkind-contract"]
+    "match": [
+      "P0-contract",
+      "P0-xkind-contract"
+    ]
   },
   "layers": {
     "unit": {
@@ -31,10 +34,49 @@
     }
   },
   "findings": [
-    { "id": "P0", "polarity": "contract", "layer": "unit", "match": ["P0-contract", "P0-xkind-contract"] },
-    { "id": "F1", "polarity": "canary", "layer": "unit", "match": ["F1-canary"] },
-    { "id": "P0-L2", "polarity": "contract", "layer": "integration", "match": ["P0-contract"] },
-    { "id": "F1-L2", "polarity": "canary", "layer": "integration", "match": ["F1-canary"] }
+    {
+      "id": "P0",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "P0-contract",
+        "P0-xkind-contract"
+      ]
+    },
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "F1-contract"
+      ],
+      "note": "Was a canary on cc3947c0 (spurious write on non-waiting same-name objects). Head 50933d0b added the waiting guard; the canary flipped red, so it was inverted to this contract test asserting the untouched invariant."
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "F2-contract"
+      ],
+      "note": "Release must record DataOperationWaitingEnded on both release paths (runAfter removed; preceding completed) and only for operations that were waiting. Added in the 50933d0b round; RED on cc3947c0's operations.go."
+    },
+    {
+      "id": "P0-L2",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "P0-contract"
+      ]
+    },
+    {
+      "id": "F1-L2",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "F1-contract"
+      ]
+    }
   ],
-  "liveNote": "L3 skipped per debate round policy (unit + integration only). The PR's own curvine e2e (verify_dataload_runafter_removed in test/gha-e2e/curvine/test.sh) covers the real-cluster layer on 5 k8s versions and was green at head cc3947c0."
+  "liveNote": "L3 skipped per debate round policy (unit + integration only). The PR's own curvine e2e (verify_dataload_runafter_removed in test/gha-e2e/curvine/test.sh) covers the real-cluster layer and is green on all 5 CI kind jobs at head 50933d0b (run 44041271456)."
 }

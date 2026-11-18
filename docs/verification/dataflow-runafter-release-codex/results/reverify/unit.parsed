@@ -1,0 +1,51 @@
+should return wrapped error when client Get fails for DataMigrate	skipped
+should record an event when the preceding operation completed	skipped
+should not record an event for an operation that is not waiting	skipped
+should skip reconciling and not requeue	skipped
+should clear WaitingFor.OperationComplete and not requeue	skipped
+should request requeue and record a waiting event	skipped
+should skip reconciling and not requeue	skipped
+should clear WaitingFor.OperationComplete and not requeue	skipped
+should succeed when updateStatusFn inner Get returns NotFound	skipped
+should succeed without calling Status().Update	skipped
+should record a warning event and request requeue	skipped
+should record a normal waiting event and request requeue	skipped
+should clear WaitingFor.OperationComplete and not requeue	skipped
+should skip reconciling and not requeue	skipped
+should succeed without calling Status().Update	skipped
+should return wrapped error when client Get fails for DataBackup	skipped
+should return an error when the underlying client Get fails	skipped
+should return an error and request requeue	skipped
+should return wrapped error when client Get fails for DataProcess	skipped
+should succeed without calling Status().Update (reflect.DeepEqual skips update)	skipped
+should return the builder unchanged when no resource kinds are registered	skipped
+should return false when no resource kinds are registered	skipped
+should succeed (no error, no requeue) when updateStatusFn inner Get returns NotFound	skipped
+DataLoad	skipped
+DataBackup	skipped
+DataMigrate	skipped
+DataProcess	skipped
+should request requeue and return the error when releasing the operation fails	skipped
+DataLoad that never waited	skipped
+DataBackup that already stopped waiting	skipped
+DataMigrate that never waited	skipped
+DataProcess that already stopped waiting	skipped
+should return the expected controller name	skipped
+should create a non-nil reconciler with correct fields	skipped
+should return no error and no requeue when no operation objects exist for a given name	skipped
+should requeue when a DataLoad with RunAfter exists and preceding op is not complete	skipped
+should not requeue when a DataLoad with RunAfter exists and preceding op is complete	skipped
+should not panic and should release a DataLoad whose RunAfter was removed while it was waiting	skipped
+should leave a same-name operation of another kind that is not waiting untouched	skipped
+should return wrapped error when client Get fails for DataLoad	skipped
+P0-contract: Reconcile releases a waiting DataLoad whose runAfter is gone, without panicking	pass
+P0-xkind-contract: a waiting DataLoad must not crash on a same-named non-waiting DataBackup without runAfter	pass
+F1-canary: a non-waiting same-named object of another kind gets a spurious waitingFor=false write	fail
+should succeed without calling Status().Update	skipped
+should record a warning and requeue	skipped
+should record a warning and requeue	skipped
+should record a warning and requeue	skipped
+should look up the preceding op in the specified namespace and not requeue when complete	skipped
+should skip reconciling and not requeue	skipped
+should clear WaitingFor.OperationComplete and not requeue	skipped
+should request requeue and record a waiting event	skipped
