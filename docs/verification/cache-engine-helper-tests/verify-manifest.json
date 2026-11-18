@@ -41,6 +41,7 @@
         "master-disabled worker partially ready",
         "master-disabled worker not ready",
         "master-worker ready",
+        "master-worker partially ready",
         "master-worker master not ready",
         "master-worker worker not ready",
         "returns false when the runtime cannot be fetched",

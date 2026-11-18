@@ -41,8 +41,9 @@ bash docs/verification/cache-engine-helper-tests/scripts/re-verify.sh
 ```
 
 `re-verify.sh` auto-resolves the PR head from `verify-manifest.json.pr`, grafts this harness
-onto it, and runs the ginkgo layer. Finding `PR-SPECS` is a **contract** (all listed specs must
-pass); finding `PKG-GREEN` additionally runs the whole package suite. The mutation-bite script
+onto it, and runs the `unit` layer (the PR's 23 focused specs) and the `integration` layer (the
+whole package suite). Finding `PR-SPECS` is a **contract** (all listed specs must pass); finding
+`PKG-GREEN` additionally requires the full package to stay green. The mutation-bite script
 is the manual bite-check recorded in `liveNote`.
 
 Polarity: all findings are contract tests — green means the PR's tests still pass; there is no
