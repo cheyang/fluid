@@ -1,0 +1,11 @@
+=== RUN   TestVAssembleMountInfosDeterministic
+--- PASS: TestVAssembleMountInfosDeterministic (0.00s)
+=== RUN   TestVInjectCheckMountReadyScriptNamespaceDeterministic
+--- PASS: TestVInjectCheckMountReadyScriptNamespaceDeterministic (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse	0.017s
+2026/11/18 13:20:29 WARNING: env variable FILE_PREFETCHER_IMAGE is not set, file prefetcher image is required in Pod's annotation
+=== RUN   TestVDefaultFileListDeterministic
+--- PASS: TestVDefaultFileListDeterministic (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/fileprefetcher	0.013s

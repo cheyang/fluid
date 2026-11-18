@@ -1,0 +1,10 @@
+# go vet + gofmt on touched packages (head ac9e3e127)
+go vet: clean (no output above)
+gofmt: clean (no files listed above)
+
+# 5 sequential repeat runs (ginkgo rejects -count>1)
+4
+4
+4
+4
+4

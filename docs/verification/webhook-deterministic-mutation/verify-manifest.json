@@ -1,0 +1,58 @@
+{
+  "topic": "webhook-deterministic-mutation",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6262",
+  "harnessPaths": [
+    "docs/verification/webhook-deterministic-mutation",
+    "pkg/application/inject/fuse/premise_determinism_test.go",
+    "pkg/webhook/plugins/fileprefetcher/premise_determinism_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Unordered Go map iteration in webhook plugins and the FUSE application injector makes pod spec mutations (postStart command args, chosen check-mount ConfigMap namespace, prefetcher default fileList env) non-deterministic across webhook invocations, causing mutation diffs / test flakiness.",
+    "reportedComponent": "pkg/webhook/plugins/* and pkg/application/inject/fuse",
+    "patchedComponent": "pkg/webhook/plugins/{datasetusageinjector,fileprefetcher,mountpropagationinjector,nodeaffinitywithcache} and pkg/application/inject/fuse/mount_point_script.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "results/base-differential.log: on base dcb76167, 3 distinct assembleMountInfos outputs over 200 invocations, ConfigMap namespace varied (ns-a:3/ns-m:6/ns-z:31) over 40 invocations, 3 distinct fileprefetcher GlobPaths over 100 invocations; all three contract tests pass on head ac9e3e127 (results/head-harness.log).",
+    "match": [
+      "TestVAssembleMountInfosDeterministic",
+      "TestVInjectCheckMountReadyScriptNamespaceDeterministic",
+      "TestVDefaultFileListDeterministic"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 -run 'TestV' -json ./pkg/application/inject/fuse/ ./pkg/webhook/plugins/fileprefetcher/"
+    }
+  },
+  "findings": [
+    {
+      "id": "P0-a",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVAssembleMountInfosDeterministic"]
+    },
+    {
+      "id": "P0-b",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVInjectCheckMountReadyScriptNamespaceDeterministic"]
+    },
+    {
+      "id": "P0-c",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVDefaultFileListDeterministic"]
+    },
+    {
+      "id": "F1-namespace-test-single-invocation",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVInjectCheckMountReadyScriptNamespaceDeterministic"]
+    }
+  ],
+  "liveNote": "L3 skipped per review setup (no KUBECONFIG). Determinism claims are fully decidable at the unit layer; no live signal would add evidence."
+}

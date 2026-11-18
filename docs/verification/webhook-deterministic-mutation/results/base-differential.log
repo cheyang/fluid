@@ -1,0 +1,15 @@
+=== RUN   TestVAssembleMountInfosDeterministic
+    premise_determinism_test.go:81: assembleMountInfos is non-deterministic: observed 3 distinct outputs over 200 invocations: map[/var/data/a:/var/data/m:/var/data/z:alluxio:juicefs:jindo /var/data/m:/var/data/z:/var/data/a:juicefs:jindo:alluxio /var/data/z:/var/data/a:/var/data/m:jindo:alluxio:juicefs]
+--- FAIL: TestVAssembleMountInfosDeterministic (0.00s)
+=== RUN   TestVInjectCheckMountReadyScriptNamespaceDeterministic
+    premise_determinism_test.go:144: ConfigMap created in non-deterministic namespaces: map[ns-a:4 ns-m:5 ns-z:31]
+--- FAIL: TestVInjectCheckMountReadyScriptNamespaceDeterministic (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse	0.017s
+2026/11/18 13:20:31 WARNING: env variable FILE_PREFETCHER_IMAGE is not set, file prefetcher image is required in Pod's annotation
+=== RUN   TestVDefaultFileListDeterministic
+    premise_determinism_test.go:89: default file list is non-deterministic: 3 distinct GlobPaths values over 100 invocations: map[/data/vol-a/**;/data/vol-m/**;/data/vol-z/**:true /data/vol-m/**;/data/vol-z/**;/data/vol-a/**:true /data/vol-z/**;/data/vol-a/**;/data/vol-m/**:true]
+--- FAIL: TestVDefaultFileListDeterministic (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/fileprefetcher	0.011s
+FAIL
