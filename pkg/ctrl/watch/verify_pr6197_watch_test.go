@@ -37,7 +37,7 @@ func TestVerifyPR6197ClientlessPodNotWatched(t *testing.T) {
 			Name:      "app",
 			Namespace: "verify",
 			Labels: map[string]string{
-				common.LabelAnnotationInject: common.True,
+				common.InjectClientless: common.True,
 				common.InjectSidecarDone:     common.True,
 			},
 		},

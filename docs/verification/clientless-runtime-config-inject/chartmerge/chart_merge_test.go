@@ -491,6 +491,118 @@ func TestPluginsProfileMerge_ForceReplaceValuesFallback(t *testing.T) {
 	}
 }
 
+// TestPluginsProfileMerge_ExplicitFalseyClientlessIsKept is the A-F5 contract (round 5,
+// commit bcd497c7a): the values-side fallback must gate on key PRESENCE, not truthiness.
+// A user who sets webhook.pluginsProfile.plugins.clientless to an empty map or null is
+// explicitly turning the clientless plugins off; silently replacing that with the chart's
+// default group (the 41b47141 truthiness behavior) reverses an explicit user value.
+// Red on 41b47141 (truthiness fallback installed the default group), green at 9c8d0e9f
+// (hasKey keeps the explicit falsey value). Covers the fresh render, the upgrade merge
+// over a legacy stored profile, and forceReplace.
+func TestPluginsProfileMerge_ExplicitFalseyClientlessIsKept(t *testing.T) {
+	profileWithFalsey := func(value string) string {
+		return "plugins:\n  serverless:\n    withDataset:\n    - FuseSidecar\n    withoutDataset: []\n  clientless: " + value + "\n"
+	}
+	cases := map[string]string{
+		"empty map": profileWithFalsey("{}"),
+		"null":      profileWithFalsey("null"),
+	}
+	for name, vp := range cases {
+		t.Run("fresh/"+name, func(t *testing.T) {
+			rendered := profileAsMap(t, newChartRendererWithValuesProfile(t, "", false, vp).renderProfile(t))
+			pluginsMap := rendered["plugins"].(map[string]interface{})
+			got, present := pluginsMap["clientless"]
+			if !present {
+				t.Fatalf("an explicit falsey clientless value must be kept, not dropped: %v", pluginsMap)
+			}
+			if reflect.DeepEqual(got, valuesClientlessGroup(t)) {
+				t.Fatalf("A-F5 STILL PRESENT: an explicit falsey clientless value was silently replaced by the chart default")
+			}
+			if name == "empty map" {
+				if m, ok := got.(map[string]interface{}); !ok || len(m) != 0 {
+					t.Fatalf("clientless: {} must be kept as an empty map, got %v", got)
+				}
+			} else if got != nil {
+				t.Fatalf("clientless: null must be kept as null, got %v", got)
+			}
+			// the webhook must parse the result into an empty (off) clientless group
+			var parsed plugins.PluginsProfile
+			if err := yamlv2.Unmarshal([]byte(newChartRendererWithValuesProfile(t, "", false, vp).renderProfile(t)), &parsed); err != nil {
+				t.Fatalf("rendered profile with an explicit falsey clientless does not parse: %v", err)
+			}
+			if len(parsed.Plugins.Clientless.WithDataset) != 0 || len(parsed.Plugins.Clientless.WithoutDataset) != 0 {
+				t.Fatalf("explicit falsey clientless should mean no clientless plugins (off), got %+v", parsed.Plugins.Clientless)
+			}
+		})
+		t.Run("upgrade-merge/"+name, func(t *testing.T) {
+			merged := profileAsMap(t, newChartRendererWithValuesProfile(t, legacyProfile, false, vp).renderProfile(t))
+			got, present := merged["plugins"].(map[string]interface{})["clientless"]
+			if !present {
+				t.Fatalf("upgrade merge dropped the explicit clientless key: %v", merged)
+			}
+			if reflect.DeepEqual(got, valuesClientlessGroup(t)) {
+				t.Fatalf("A-F5 STILL PRESENT on the upgrade merge: explicit falsey clientless replaced by the chart default")
+			}
+		})
+		t.Run("forceReplace/"+name, func(t *testing.T) {
+			forced := profileAsMap(t, newChartRendererWithValuesProfile(t, legacyProfile, true, vp).renderProfile(t))
+			got, present := forced["plugins"].(map[string]interface{})["clientless"]
+			if !present || reflect.DeepEqual(got, valuesClientlessGroup(t)) {
+				t.Fatalf("forceReplace must also keep the explicit falsey clientless value, got present=%v value=%v", present, got)
+			}
+		})
+	}
+}
+
+// TestPluginsProfileMerge_MissingKeyStillFallsBack is the A-F5 control: only a MISSING
+// key may fall back. Green on every head since 41b47141.
+func TestPluginsProfileMerge_MissingKeyStillFallsBack(t *testing.T) {
+	vp := "plugins:\n  serverless:\n    withDataset:\n    - FuseSidecar\n    withoutDataset: []\n"
+	rendered := profileAsMap(t, newChartRendererWithValuesProfile(t, "", false, vp).renderProfile(t))
+	got := rendered["plugins"].(map[string]interface{})["clientless"]
+	if !reflect.DeepEqual(got, valuesClientlessGroup(t)) {
+		t.Fatalf("a missing clientless key must still fall back to the chart default, got %v", got)
+	}
+}
+
+// TestClientlessSelectorMatchesCode pins the round-5 label rename (9c8d0e9fc, A-Q1): the
+// webhook rule's objectSelector must select exactly the label the handler routes on, and
+// the retired bare fluid.io/inject selector must be gone from the chart. The constant is
+// not imported so this file keeps compiling on the previous head (where the rename does
+// not exist yet) and the differential stays a clean red rather than a build error: red on
+// 41b47141 (selector is fluid.io/inject), green at 9c8d0e9f. The code side of the pair
+// (common.InjectClientless has the same value) is pinned by the handler harness, which
+// routes on that constant.
+func TestClientlessSelectorMatchesCode(t *testing.T) {
+	const wantLabel = "clientless.fluid.io/inject" // == common.InjectClientless at head
+	root := repoRoot(t)
+	src, err := os.ReadFile(filepath.Join(root, "charts/fluid/fluid/templates/webhook/webhookconfiguration.yaml"))
+	if err != nil {
+		t.Fatalf("read webhookconfiguration.yaml: %v", err)
+	}
+	want := wantLabel + `: "true"`
+	if !strings.Contains(string(src), want) {
+		t.Fatalf("the clientless webhook rule must select %s:\n%s", want, src)
+	}
+	for _, line := range strings.Split(string(src), "\n") {
+		trimmed := strings.TrimSpace(line)
+		if strings.HasPrefix(trimmed, "fluid.io/inject:") {
+			t.Fatalf("the retired bare fluid.io/inject selector is still rendered: %q", trimmed)
+		}
+	}
+	helmPath, err := exec.LookPath("helm")
+	if err != nil {
+		t.Skip("helm binary not available; template-source assertions above already ran")
+	}
+	out, err := exec.Command(helmPath, "template", "fluid", filepath.Join(root, "charts/fluid/fluid")).Output()
+	if err != nil {
+		t.Fatalf("helm template failed: %v", err)
+	}
+	if !strings.Contains(string(out), want) {
+		t.Fatalf("helm-rendered webhook configuration does not select %s", want)
+	}
+}
+
 // TestPluginsProfileMerge_NonMapValuesProfileRendersAsBefore is the 41b47141 guard: a
 // null or non-map values profile is left for the pre-existing paths, rendering exactly as
 // before the fallback (no template error, no invented content). Green on every head.

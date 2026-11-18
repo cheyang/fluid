@@ -1,159 +1,196 @@
 {
-  "topic": "clientless-runtime-config-inject",
-  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6197",
-  "harnessPaths": [
-    "docs/verification/clientless-runtime-config-inject",
-    "pkg/webhook/handler/mutating/verify_pr6197_codex_test.go",
-    "pkg/ctrl/watch/verify_pr6197_watch_test.go"
-  ],
-  "premise": {
-    "id": "P0",
-    "claim": "Cache systems with no FUSE client (e.g. Mooncake) give app pods no way to learn the runtime config: 'app pod that mounts the PVC stays in ContainerCreating forever'; apps 'talk to the cache service directly' but the master address had to be hardcoded. Stage 1 (runtime.sh in the runtime-config ConfigMap, #6191) is already merged. Additionally the webhook ClusterRole lacks cacheruntimes, so base.GetRuntimeInfo blocks ~15s and pod creation fails for CacheRuntime datasets.",
-    "reportedComponent": "webhook (pod admission) + cache runtime engine",
-    "patchedComponent": "pkg/webhook (mutating handler, new RuntimeConfigInjector plugin), charts/fluid/fluid (webhook rule, plugin profile, RBAC), pkg/ddc/cache/engine (constant reuse)",
-    "componentMatch": true,
-    "runsAgainst": "base",
-    "layer": "unit",
-    "verdict": "confirmed",
-    "evidence": "merge-base e0fc4c1 already contains generateRuntimeSh (pkg/ddc/cache/engine/cm.go) i.e. stage 1 exists; base chart has 0 occurrences of 'clientless' in webhookconfiguration.yaml and 0 of 'cacheruntimes' in the webhook ClusterRole (results/helm-template-checks.txt); base.GetRuntimeInfo reads CacheRuntime through the webhook's cached client (pkg/ddc/base/runtime.go:633, handler registered with mgr.GetClient() in pkg/webhook/handler/register.go:52)",
-    "match": [
-      "helm-template-checks.txt"
-    ]
+ "topic": "clientless-runtime-config-inject",
+ "pr": "https://github.com/fluid-cloudnative/fluid/pull/6197",
+ "harnessPaths": [
+  "docs/verification/clientless-runtime-config-inject",
+  "pkg/webhook/handler/mutating/verify_pr6197_codex_test.go",
+  "pkg/ctrl/watch/verify_pr6197_watch_test.go",
+  "pkg/webhook/utils/verify_pr6197_runtimeinfo_test.go",
+  "pkg/controllers/v1alpha1/dataset/verify_pr6197_dataset_name_test.go",
+  "pkg/application/inject/fuse/verify_pr6197_cm_read_test.go"
+ ],
+ "premise": {
+  "id": "P0",
+  "claim": "Cache systems with no FUSE client (e.g. Mooncake) give app pods no way to learn the runtime config: 'app pod that mounts the PVC stays in ContainerCreating forever'; apps 'talk to the cache service directly' but the master address had to be hardcoded. Stage 1 (runtime.sh in the runtime-config ConfigMap, #6191) is already merged. Additionally the webhook ClusterRole lacks cacheruntimes, so base.GetRuntimeInfo blocks ~15s and pod creation fails for CacheRuntime datasets.",
+  "reportedComponent": "webhook (pod admission) + cache runtime engine",
+  "patchedComponent": "pkg/webhook (mutating handler, new RuntimeConfigInjector plugin), charts/fluid/fluid (webhook rule, plugin profile, RBAC), pkg/ddc/cache/engine (constant reuse)",
+  "componentMatch": true,
+  "runsAgainst": "base",
+  "layer": "unit",
+  "verdict": "confirmed",
+  "evidence": "merge-base e0fc4c1 already contains generateRuntimeSh (pkg/ddc/cache/engine/cm.go) i.e. stage 1 exists; base chart has 0 occurrences of 'clientless' in webhookconfiguration.yaml and 0 of 'cacheruntimes' in the webhook ClusterRole (results/helm-template-checks.txt); base.GetRuntimeInfo reads CacheRuntime through the webhook's cached client (pkg/ddc/base/runtime.go:633, handler registered with mgr.GetClient() in pkg/webhook/handler/register.go:52)",
+  "match": [
+   "helm-template-checks.txt"
+  ]
+ },
+ "layers": {
+  "unit": {
+   "kind": "ginkgo",
+   "cmd": "go test -count=1 -gcflags=all=-l ./pkg/webhook/handler/mutating/ -run TestMutating -args -ginkgo.v -ginkgo.json-report=$GINKGO_REPORT",
+   "report": "$GINKGO_REPORT"
   },
-  "layers": {
-    "unit": {
-      "kind": "ginkgo",
-      "cmd": "go test -count=1 -gcflags=all=-l ./pkg/webhook/handler/mutating/ -run TestMutating -args -ginkgo.v -ginkgo.json-report=$GINKGO_REPORT",
-      "report": "$GINKGO_REPORT"
-    },
-    "integration": {
-      "kind": "gotest",
-      "cmd": "go test -count=1 -json -run 'TestPluginsProfileMerge|TestWebhookChecksumAnnotation|TestLegacyProfileFixtureMatchesBase|TestHelmTemplateFreshInstall|TestHelmUpgradeMerges|TestVerifyPR6197' ./docs/verification/clientless-runtime-config-inject/chartmerge/ ./pkg/ctrl/watch/"
-    }
+  "integration": {
+   "kind": "gotest",
+   "cmd": "go test -count=1 -json -run 'TestPluginsProfileMerge|TestWebhookChecksumAnnotation|TestLegacyProfileFixtureMatchesBase|TestHelmTemplateFreshInstall|TestHelmUpgradeMerges|TestClientlessSelectorMatchesCode|TestVerifyPR6197' ./docs/verification/clientless-runtime-config-inject/chartmerge/ ./pkg/ctrl/watch/ ./pkg/webhook/utils/ ./pkg/controllers/v1alpha1/dataset/ ./pkg/application/inject/fuse/"
+  }
+ },
+ "findings": [
+  {
+   "id": "P0-ctrl",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "injects the runtime config volume, mount and env into the app pod"
+   ]
   },
-  "findings": [
-    {
-      "id": "P0-ctrl",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "injects the runtime config volume, mount and env into the app pod"
-      ]
-    },
-    {
-      "id": "F1",
-      "polarity": "contract",
-      "layer": "integration",
-      "match": [
-        "TestPluginsProfileMerge_UpgradeLegacyProfile",
-        "TestPluginsProfileMerge_PreservesUserCustomizations",
-        "TestPluginsProfileMerge_KeepsProfileThatAlreadyHasClientless",
-        "TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable",
-        "TestPluginsProfileMerge_SecondUpgradeIsStable",
-        "TestWebhookChecksumAnnotation",
-        "TestHelmUpgradeMergesClientlessProfileAgainstRealApiServer"
-      ]
-    },
-    {
-      "id": "F2",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "a 50-char dataset is now rejected at admission instead of silently skipped"
-      ]
-    },
-    {
-      "id": "F3",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "a missing runtime config ConfigMap rejects the pod",
-        "a ConfigMap without runtime.sh rejects the pod",
-        "a missing dataset still rejects the pod"
-      ]
-    },
-    {
-      "id": "F4",
-      "polarity": "contract",
-      "layer": "integration",
-      "match": [
-        "TestVerifyPR6197ClientlessPodNotWatched",
-        "TestVerifyPR6197FuseSidecarPodStillWatched"
-      ]
-    },
-    {
-      "id": "F5",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "the rejection message names the dataset and the name-length reason"
-      ],
-      "note": "canary flipped at 268012a5 (commit c01cbcce carries per-dataset reasons into the aggregate denial); promoted from characterization to contract"
-    },
-    {
-      "id": "A-F1",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "is rejected with the runtime type named, not 'configmap may not be ready yet'"
-      ],
-      "note": "Reviewer A finding, independently contracted by reviewer B: non-cache dataset in fluid.io/datasets is denied naming the runtime type (fix 89d26fe2). Red on 6d3a6d7e, green on 268012a5."
-    },
-    {
-      "id": "A-F2",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "is rejected naming the invalid volume name instead of producing an API-server-invalid pod"
-      ],
-      "note": "Reviewer A finding, independently contracted by reviewer B: PVC-resolved dataset 'demo.v1' is denied naming the invalid volume name (fix c76c0a72). Red on 6d3a6d7e (pod admitted with an API-server-invalid volume), green on 268012a5."
-    },
-    {
-      "id": "A-N1",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "an app container named fluid-fuse-proxy is injected while fluid-fuse-0 is skipped"
-      ],
-      "note": "Reviewer A finding, independently contracted by reviewer B: only fluid's own fuse sidecar names (fluid-fuse, fluid-fuse-<digits>) are skipped (fix 9d9bd872). Red on 6d3a6d7e, green on 268012a5."
-    },
-    {
-      "id": "B-F6",
-      "polarity": "contract",
-      "layer": "integration",
-      "match": [
-        "TestWebhookChecksumAnnotation",
-        "TestHelmUpgradeMergesClientlessProfileAgainstRealApiServer"
-      ],
-      "note": "checksum no longer churns on the second upgrade (fix 16c5509e+760f5369, trimSuffix before indent). TestWebhookChecksumAnnotation reframed to the no-churn contract; the envtest test now does a real-helm second upgrade storing the profile with its block-scalar trailing newline. Red on 6d3a6d7e, green on 268012a5."
-    },
-    {
-      "id": "A-F3",
-      "polarity": "contract",
-      "layer": "integration",
-      "match": [
-        "TestPluginsProfileMerge_ValuesFallbackAddsClientless",
-        "TestPluginsProfileMerge_ValuesFallbackFeedsTheUpgradeMerge",
-        "TestPluginsProfileMerge_ValuesClientlessWinsOverFallback",
-        "TestPluginsProfileMerge_ForceReplaceValuesFallback",
-        "TestPluginsProfileMerge_NonMapValuesProfileRendersAsBefore",
-        "TestHelmTemplateFreshInstallValuesFallback",
-        "TestHelmUpgradeMergesClientlessDefaultWhenValuesLackIt"
-      ],
-      "note": "Reviewer A finding (chart: rule without plugin behind it when values lack a clientless group). Fixed at 41b47141 by be4e30d3 (chart-default clientless fallback merged into a values profile that lacks it, and into the upgrade merge which previously wrote clientless: null under --reuse-values) + 41b47141 (null/non-map values profiles render as before). Contracts red on 268012a5, green at 41b47141; the values-own-group and non-map guard cases are green on both."
-    },
-    {
-      "id": "B-F7",
-      "polarity": "contract",
-      "layer": "unit",
-      "match": [
-        "rejects a volume projecting the config ConfigMap with its own items",
-        "rejects a volume projecting the config ConfigMap with a non-default mode",
-        "rejects a volume projecting the config ConfigMap marked optional",
-        "still accepts the volume exactly as the api server defaults it"
-      ],
-      "note": "Found in the round-4 delta review: the injection silently replaced a same-named volume of the same ConfigMap, dropping the app's own items/mode/optional projection. Author-fixed in the same delta (7f5b625c) with a typed RejectPodError; reject contracts red on 268012a5, green at 41b47141; the api-server-defaulted acceptance control is green on both heads."
-    }
-  ],
-  "liveNote": "No live layer in this round (debate setup skips KUBECONFIG). With a cluster, the upgrade path behind F1 can be shown end to end: helm install the base chart, helm upgrade to this PR's chart with default values, and confirm the webhook-plugins ConfigMap gains the clientless group and the webhook Deployment rolls (checksum/plugins-profile changes)."
+  {
+   "id": "F1",
+   "polarity": "contract",
+   "layer": "integration",
+   "match": [
+    "TestPluginsProfileMerge_UpgradeLegacyProfile",
+    "TestPluginsProfileMerge_PreservesUserCustomizations",
+    "TestPluginsProfileMerge_KeepsProfileThatAlreadyHasClientless",
+    "TestPluginsProfileMerge_KeptVerbatimWhenUnmergeable",
+    "TestPluginsProfileMerge_SecondUpgradeIsStable",
+    "TestWebhookChecksumAnnotation",
+    "TestHelmUpgradeMergesClientlessProfileAgainstRealApiServer"
+   ]
+  },
+  {
+   "id": "F2",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "a 50-char dataset is now rejected at admission instead of silently skipped"
+   ]
+  },
+  {
+   "id": "F3",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "a missing runtime config ConfigMap rejects the pod",
+    "a ConfigMap without runtime.sh rejects the pod",
+    "a missing dataset still rejects the pod"
+   ]
+  },
+  {
+   "id": "F4",
+   "polarity": "contract",
+   "layer": "integration",
+   "match": [
+    "TestVerifyPR6197ClientlessPodNotWatched",
+    "TestVerifyPR6197FuseSidecarPodStillWatched"
+   ]
+  },
+  {
+   "id": "F5",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "the rejection message names the dataset and the name-length reason"
+   ],
+   "note": "canary flipped at 268012a5 (commit c01cbcce carries per-dataset reasons into the aggregate denial); promoted from characterization to contract"
+  },
+  {
+   "id": "A-F1",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "is rejected with the runtime type named, not 'configmap may not be ready yet'"
+   ],
+   "note": "Reviewer A finding, independently contracted by reviewer B: non-cache dataset in fluid.io/datasets is denied naming the runtime type (fix 89d26fe2). Red on 6d3a6d7e, green on 268012a5."
+  },
+  {
+   "id": "A-F2",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "is rejected naming the invalid volume name instead of producing an API-server-invalid pod"
+   ],
+   "note": "Reviewer A finding, independently contracted by reviewer B: PVC-resolved dataset 'demo.v1' is denied naming the invalid volume name (fix c76c0a72). Red on 6d3a6d7e (pod admitted with an API-server-invalid volume), green on 268012a5."
+  },
+  {
+   "id": "A-N1",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "an app container named fluid-fuse-proxy is injected while fluid-fuse-0 is skipped"
+   ],
+   "note": "Reviewer A finding, independently contracted by reviewer B: only fluid's own fuse sidecar names (fluid-fuse, fluid-fuse-<digits>) are skipped (fix 9d9bd872). Red on 6d3a6d7e, green on 268012a5."
+  },
+  {
+   "id": "B-F6",
+   "polarity": "contract",
+   "layer": "integration",
+   "match": [
+    "TestWebhookChecksumAnnotation",
+    "TestHelmUpgradeMergesClientlessProfileAgainstRealApiServer"
+   ],
+   "note": "checksum no longer churns on the second upgrade (fix 16c5509e+760f5369, trimSuffix before indent). TestWebhookChecksumAnnotation reframed to the no-churn contract; the envtest test now does a real-helm second upgrade storing the profile with its block-scalar trailing newline. Red on 6d3a6d7e, green on 268012a5."
+  },
+  {
+   "id": "A-F3",
+   "polarity": "contract",
+   "layer": "integration",
+   "match": [
+    "TestPluginsProfileMerge_ValuesFallbackAddsClientless",
+    "TestPluginsProfileMerge_ValuesFallbackFeedsTheUpgradeMerge",
+    "TestPluginsProfileMerge_ValuesClientlessWinsOverFallback",
+    "TestPluginsProfileMerge_ForceReplaceValuesFallback",
+    "TestPluginsProfileMerge_NonMapValuesProfileRendersAsBefore",
+    "TestHelmTemplateFreshInstallValuesFallback",
+    "TestHelmUpgradeMergesClientlessDefaultWhenValuesLackIt"
+   ],
+   "note": "Reviewer A finding (chart: rule without plugin behind it when values lack a clientless group). Fixed at 41b47141 by be4e30d3 (chart-default clientless fallback merged into a values profile that lacks it, and into the upgrade merge which previously wrote clientless: null under --reuse-values) + 41b47141 (null/non-map values profiles render as before). Contracts red on 268012a5, green at 41b47141; the values-own-group and non-map guard cases are green on both."
+  },
+  {
+   "id": "B-F7",
+   "polarity": "contract",
+   "layer": "unit",
+   "match": [
+    "rejects a volume projecting the config ConfigMap with its own items",
+    "rejects a volume projecting the config ConfigMap with a non-default mode",
+    "rejects a volume projecting the config ConfigMap marked optional",
+    "still accepts the volume exactly as the api server defaults it"
+   ],
+   "note": "Found in the round-4 delta review: the injection silently replaced a same-named volume of the same ConfigMap, dropping the app's own items/mode/optional projection. Author-fixed in the same delta (7f5b625c) with a typed RejectPodError; reject contracts red on 268012a5, green at 41b47141; the api-server-defaulted acceptance control is green on both heads."
+  },
+  {
+   "id": "A-F5",
+   "polarity": "contract",
+   "layer": "integration",
+   "match": [
+    "TestPluginsProfileMerge_ExplicitFalseyClientlessIsKept",
+    "TestPluginsProfileMerge_MissingKeyStillFallsBack"
+   ]
+  },
+  {
+   "id": "A-F6",
+   "polarity": "contract",
+   "layer": "integration",
+   "match": [
+    "TestVerifyPR6197DigitLeadingDatasetRejectedEverywhere",
+    "TestVerifyPR6197NonDNS1035DatasetNeverReconciles"
+   ]
+  },
+  {
+   "id": "A-F4",
+   "polarity": "contract",
+   "layer": "integration",
+   "match": [
+    "TestVerifyPR6197FusePathReadsConfigMapsThroughPluginClient"
+   ]
+  },
+  {
+   "id": "A-Q1-RENAME",
+   "polarity": "contract",
+   "layer": "integration",
+   "match": [
+    "TestClientlessSelectorMatchesCode"
+   ]
+  }
+ ],
+ "liveNote": "No live layer in this round (debate setup skips KUBECONFIG). With a cluster, the upgrade path behind F1 can be shown end to end: helm install the base chart, helm upgrade to this PR's chart with default values, and confirm the webhook-plugins ConfigMap gains the clientless group and the webhook Deployment rolls (checksum/plugins-profile changes)."
 }

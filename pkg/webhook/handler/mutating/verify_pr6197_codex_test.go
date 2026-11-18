@@ -133,7 +133,7 @@ func clientlessAdmissionRequest(namespace, datasetsAnnotation string) admission.
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      "app",
 			Namespace: namespace,
-			Labels:    map[string]string{common.LabelAnnotationInject: common.True},
+			Labels:    map[string]string{common.InjectClientless: common.True},
 			Annotations: map[string]string{
 				common.LabelAnnotationDatasets: datasetsAnnotation,
 			},
@@ -333,7 +333,7 @@ var _ = Describe("PR6197 verification: clientless runtime config injection", fun
 				ObjectMeta: metav1.ObjectMeta{
 					Name:      "app-pvc",
 					Namespace: "big-data",
-					Labels:    map[string]string{common.LabelAnnotationInject: common.True},
+					Labels:    map[string]string{common.InjectClientless: common.True},
 				},
 				Spec: corev1.PodSpec{
 					Volumes: []corev1.Volume{{
@@ -392,7 +392,7 @@ var _ = Describe("PR6197 verification: clientless runtime config injection", fun
 				ObjectMeta: metav1.ObjectMeta{
 					Name:      "app-pvc-alx",
 					Namespace: "big-data",
-					Labels:    map[string]string{common.LabelAnnotationInject: common.True},
+					Labels:    map[string]string{common.InjectClientless: common.True},
 				},
 				Spec: corev1.PodSpec{
 					Volumes: []corev1.Volume{{
@@ -473,7 +473,7 @@ var _ = Describe("PR6197 verification: clientless runtime config injection", fun
 				ObjectMeta: metav1.ObjectMeta{
 					Name:      "app-pvc-dot",
 					Namespace: "big-data",
-					Labels:    map[string]string{common.LabelAnnotationInject: common.True},
+					Labels:    map[string]string{common.InjectClientless: common.True},
 				},
 				Spec: corev1.PodSpec{
 					Volumes: []corev1.Volume{{
@@ -522,7 +522,7 @@ var _ = Describe("PR6197 verification: clientless runtime config injection", fun
 				ObjectMeta: metav1.ObjectMeta{
 					Name:      "app-custom-vol",
 					Namespace: "big-data",
-					Labels:    map[string]string{common.LabelAnnotationInject: common.True},
+					Labels:    map[string]string{common.InjectClientless: common.True},
 					Annotations: map[string]string{
 						common.LabelAnnotationDatasets: "demo",
 					},
@@ -640,7 +640,7 @@ var _ = Describe("PR6197 verification: clientless runtime config injection", fun
 				ObjectMeta: metav1.ObjectMeta{
 					Name:      "app-fusey",
 					Namespace: "big-data",
-					Labels:    map[string]string{common.LabelAnnotationInject: common.True},
+					Labels:    map[string]string{common.InjectClientless: common.True},
 					Annotations: map[string]string{
 						common.LabelAnnotationDatasets: "demo",
 					},
