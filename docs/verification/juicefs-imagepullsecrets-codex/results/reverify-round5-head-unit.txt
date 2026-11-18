@@ -1,0 +1,17 @@
+# round-5 re-verify on head 2150b49ef89d1718ce59279a466c5733ea9f8d53, layer=unit (parsed from results/reverify/unit.out; the tracked .parsed files in results/reverify/ are stale round-2 artifacts restored by the harness checkout-restore step - use the .out files instead)
+pass	TestVerifyPr6245SyncRuntimePropagatesSecrets
+pass	TestVerifyPr6245SyncRuntimeOverrideShieldsComponent
+pass	TestVerifyPr6245SyncRuntimeSecretsRemoved
+pass	TestVerifyPr6245WorkerSecretsRetryAndConvergeWhenScriptConfigmapMissing
+pass	TestVerifyPr6245WorkerCatchesUpAfterStrategyFlip
+pass	TestVerifyPr6245RotationThenOverrideRemovalConverges
+pass	TestVerifyPr6245DocsFreshness
+pass	TestVerifyPr6245HelmRenderScenarios
+pass	TestVerifyPr6245CRDSchemaCheck
+pass	TestVerifyPr6245APIDocPlacement
+pass	TestVerifyPr6245EnvDefaultStillApplies
+pass	TestVerifyPr6245RuntimeOverridesEnv
+pass	TestVerifyPr6245WorkerAndFuseOverrides
+pass	TestVerifyPr6245HelmValuesShape
+pass	TestVerifyPr6245MasterAndJobWorkerSecretsInert
+pass	TestVerifyPr6245DeepCopyIsolated

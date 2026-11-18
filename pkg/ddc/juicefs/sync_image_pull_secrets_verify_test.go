@@ -526,3 +526,106 @@ func TestVerifyPr6245DocsFreshness(t *testing.T) {
 		t.Fatalf("docs_staleness_check.sh failed: %v\n%s", err, out)
 	}
 }
+
+// ---------------------------------------------------------------------------
+// Round 5 (head 2150b49ef): F-docs-fuse-restart-overstated.
+//
+// The round-5 docs commit replaced the stale "needs the runtime to be
+// recreated" sentence with "the fuse pods are restarted" (en) /
+// "fuse pod 会重启" (zh). That overstates what the sync path does on the
+// default configuration:
+//
+//   - charts/juicefs renders the fuse DaemonSet with updateStrategy OnDelete
+//     (values.yaml fuse.updateStrategy.type), and syncFuseSpec forcibly flips
+//     any other strategy back to OnDelete before touching the template
+//     (sync_runtime.go, early return after UpdateDaemonSetUpdateStrategy).
+//     With OnDelete, the API server never restarts running pods on a template
+//     update - the new secrets reach a fuse pod only when that pod is
+//     recreated.
+//   - The fuse generation bump is not a rollout trigger either: the label is
+//     consumed only by the CSI node server's NodeUnstage lazy clean
+//     (nodeserver.go getCleanFuseFunc / checkIfFuseNeedUpdate), and only under
+//     cleanPolicy OnFuseChanged or OnDemand. SetupFuseCleanPolicy maps the
+//     zero value (NoneCleanPolicy, what a JuiceFSRuntime gets when
+//     spec.fuse.cleanPolicy is unset) to OnRuntimeDeleted, under which the CSI
+//     never cleans fuse pods eagerly.
+//
+// So on a default runtime, changing imagePullSecrets updates the fuse
+// DaemonSet template and bumps the generation, but the running fuse pods keep
+// the old secrets until they are recreated for another reason - exactly like
+// the worker pods the same sentence describes correctly.
+
+// TestVerifyPr6245FuseSyncNeverRestartsRunningPods pins the mechanism (GREEN
+// on head): the default fuse clean policy is OnRuntimeDeleted and the sync
+// path enforces an OnDelete fuse DaemonSet, so no sync pass can restart a
+// running fuse pod.
+func TestVerifyPr6245FuseSyncNeverRestartsRunningPods(t *testing.T) {
+	// Part A: a JuiceFSRuntime that leaves spec.fuse.cleanPolicy unset gets
+	// OnRuntimeDeleted (this is the exact call base.GetRuntimeInfo makes in
+	// pkg/ddc/base/runtime.go). Under OnRuntimeDeleted the CSI node server
+	// never cleans fuse pods on a generation change, so the generation bump
+	// SyncRuntime performs cannot restart fuse pods.
+	rt := &datav1alpha1.JuiceFSRuntime{}
+	if rt.Spec.Fuse.CleanPolicy != datav1alpha1.NoneCleanPolicy {
+		t.Fatalf("zero-value JuiceFSRuntime spec.fuse.cleanPolicy = %q, want NoneCleanPolicy", rt.Spec.Fuse.CleanPolicy)
+	}
+	info, err := base.BuildRuntimeInfo("verifypolicy", "default", "juicefs")
+	if err != nil {
+		t.Fatalf("BuildRuntimeInfo: %v", err)
+	}
+	info.SetupFuseCleanPolicy(rt.Spec.Fuse.CleanPolicy)
+	if got := info.GetFuseCleanPolicy(); got != datav1alpha1.OnRuntimeDeletedCleanPolicy {
+		t.Errorf("default fuse clean policy = %q, want %q (OnRuntimeDeleted = CSI never cleans fuse pods eagerly)", got, datav1alpha1.OnRuntimeDeletedCleanPolicy)
+	}
+
+	// Part B: even when the fuse DaemonSet starts out RollingUpdate, the sync
+	// path flips it to OnDelete before applying template changes, and the
+	// secrets change then lands on the template only - running pods are never
+	// restarted by a template update under OnDelete.
+	fx := buildVerifySyncEngine(t, "verifyfuseroll", "default", datav1alpha1.JuiceFSRuntimeSpec{
+		ImagePullSecrets: refs("reg-a"),
+	}, constructBaseRuntimeValue(), false)
+	dsKey := types.NamespacedName{Name: fx.engine.getFuseName(), Namespace: fx.engine.namespace}
+	ds := &appsv1.DaemonSet{}
+	if err := fx.client.Get(context.TODO(), dsKey, ds); err != nil {
+		t.Fatalf("get fuse ds: %v", err)
+	}
+	ds.Spec.UpdateStrategy.Type = appsv1.RollingUpdateDaemonSetStrategyType
+	if err := fx.client.Update(context.TODO(), ds); err != nil {
+		t.Fatalf("set fuse ds strategy RollingUpdate: %v", err)
+	}
+
+	// Pass 1 flips the strategy and defers the template sync (early return);
+	// pass 2 applies the template change under the enforced OnDelete strategy.
+	for pass := 1; pass <= 2; pass++ {
+		if _, err := fx.engine.SyncRuntime(cruntime.ReconcileRequestContext{}); err != nil {
+			t.Fatalf("SyncRuntime pass %d: %v", pass, err)
+		}
+	}
+
+	if err := fx.client.Get(context.TODO(), dsKey, ds); err != nil {
+		t.Fatalf("re-get fuse ds: %v", err)
+	}
+	if got := ds.Spec.UpdateStrategy.Type; got != appsv1.OnDeleteDaemonSetStrategyType {
+		t.Errorf("fuse ds update strategy after sync = %q, want %q (with OnDelete a template update never restarts running pods)", got, appsv1.OnDeleteDaemonSetStrategyType)
+	}
+	if got := ds.Spec.Template.Spec.ImagePullSecrets; !refsEqual(got, refs("reg-a")) {
+		t.Errorf("fuse pod template secrets = %v, want [reg-a] (template converged under OnDelete without restarting pods)", got)
+	}
+}
+
+// TestVerifyPr6245DocsFuseRestartClaim is the contract test for
+// F-docs-fuse-restart-overstated: the sample docs must not claim that a
+// secrets change restarts the fuse pods. RED on head 2150b49ef (both language
+// samples claim exactly that); GREEN once the sentence describes the actual
+// behavior (template updated on the next sync; fuse pods pick up the new
+// secrets when they are recreated, or lazily via cleanPolicy OnFuseChanged).
+func TestVerifyPr6245DocsFuseRestartClaim(t *testing.T) {
+	root := pr6245RepoRoot(t)
+	script := filepath.Join(root, "docs/verification/juicefs-imagepullsecrets-codex/scripts/docs_fuse_restart_claim_check.sh")
+	cmd := exec.Command("bash", script, root)
+	cmd.Dir = root
+	if out, err := cmd.CombinedOutput(); err != nil {
+		t.Fatalf("docs_fuse_restart_claim_check.sh failed: %v\n%s", err, out)
+	}
+}

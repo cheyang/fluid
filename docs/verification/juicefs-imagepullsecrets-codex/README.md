@@ -150,3 +150,54 @@ TestVerifyPr6245WorkerSecretsRetryAndConvergeWhenScriptConfigmapMissing
 (replaces TestVerifyPr6245WorkerSecretsLostWhenScriptConfigmapMissing),
 TestVerifyPr6245WorkerCatchesUpAfterStrategyFlip,
 TestVerifyPr6245RotationThenOverrideRemovalConverges.
+
+## Round 5 (incremental, head 2150b49ef) — observed vs expected
+
+Delta `be3337dd00..2150b49ef`: single docs commit `2150b49ef` replacing the
+stale "needs the runtime to be recreated" sentence in
+docs/{en,zh}/samples/image_pull_secrets.md. PR body also updated: now
+references `fixes #6248` and the special notes answer the carried question
+Q-env-default-now-live-synced (env default live-sync is intentional;
+out-of-band pod-secret edits are reverted).
+
+Branch hygiene fix this round: the round-4 harness commit had been stacked on
+the round-3 (d7e316803-based) tree instead of be3337dd00, so the branch's own
+copies of pkg/ddc/juicefs/sync_runtime.go and sync_image_pull_secrets_test.go
+were the pre-fix versions (merge-base with be3337dd00 was d7e316803). This
+never affected re-verify RESULTS (re-verify.sh grafts only the harnessPaths
+onto the real head), but the branch tree itself was stale; a corrective commit
+restores every non-harness file to head 2150b49ef so the branch diff against
+head is harness-only again. The stale tracked *.parsed files under
+results/reverify/ are a second known quirk (the persist cp runs before the
+cleanup checkout restores tracked files); the authoritative raw output is the
+untracked unit.out / integration.out plus the round-named copies.
+
+| ID | expected | observed | verdict |
+|----|----------|----------|---------|
+| A1-A7, AC9, AC10 contracts | still pass | all pass (results/reverify-round5-head-unit.txt, reverify-round5-head-integration.txt) | contracts hold |
+| F1 (canary) | flips only if master/jobWorker wired | still passing = still inert | STILL-PRESENT (documented, by design) |
+| F-docs-recreate-note-stale | recreate-claim gone from both samples | GREEN on head; sentence present at be3337dd (grep control, both languages), absent at 2150b49ef | FIXED |
+| A11-fuse-rollout-is-lazy | default clean policy = OnRuntimeDeleted; sync enforces OnDelete fuse ds (flips RollingUpdate back), template converges without pod restart | PASS on head (TestVerifyPr6245FuseSyncNeverRestartsRunningPods) | confirmed mechanism pin |
+| F-docs-fuse-restart-overstated | samples must not claim a secrets change restarts fuse pods | RED on head: en "the fuse pods are restarted", zh "fuse pod 会重启" (results/reverify-round5-head-integration.txt) | STILL-BROKEN (new, minor, docs-only) |
+
+F-docs-fuse-restart-overstated mechanism (independently verified, matches the
+Copilot flag on this head): charts/juicefs renders the fuse DaemonSet
+updateStrategy OnDelete (values.yaml default) and syncFuseSpec forcibly flips
+any other strategy to OnDelete before syncing the template, so a template
+update never restarts running pods; the fuse generation bump recycles fuse
+pods only lazily via CSI NodeUnstage (nodeserver.go getCleanFuseFunc /
+checkIfFuseNeedUpdate) and only under cleanPolicy OnFuseChanged/OnDemand -
+SetupFuseCleanPolicy maps the unset policy to OnRuntimeDeleted (no eager
+clean). So on a default runtime the running fuse pods keep the old secrets
+until recreated, exactly like the worker pods the same sentence describes
+correctly. Harness-bites: the doc contract is RED on head, GREEN on a scratch
+tree with the sentence reworded to the lazy/on-recreate behavior, and the
+claim is absent at the previous head (control). Suggested fix: one clause -
+"...takes effect on the next sync; the worker and fuse pods pick up the new
+secrets when they are recreated (fuse pods are recreated lazily when
+application pods churn if spec.fuse.cleanPolicy is OnFuseChanged)".
+
+Repo suite on clean head 2150b49ef: go build ./... clean,
+go test ./pkg/ddc/juicefs/ ok (results/repo-suite-round5-head.txt). CI green
+at head (all 22 checks incl. unittest, kind-e2e, backward-compat; verified
+read-only via gh).

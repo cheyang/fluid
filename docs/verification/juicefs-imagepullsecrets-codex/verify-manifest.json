@@ -3,7 +3,7 @@
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6245",
   "reviewer": "codex",
   "baseSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
-  "headSha": "be3337dd00b5356cae2571d540f3b27d2c9e9ade",
+  "headSha": "2150b49ef89d1718ce59279a466c5733ea9f8d53",
   "harnessPaths": [
     "docs/verification/juicefs-imagepullsecrets-codex",
     "pkg/ddc/juicefs/transform_image_pull_secrets_verify_test.go",
@@ -31,7 +31,7 @@
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "go test ./pkg/ddc/juicefs/ -run 'TestVerifyPr6245(HelmRenderScenarios|CRDSchemaCheck|APIDocPlacement|DocsFreshness)' -count=1 -json"
+      "cmd": "go test ./pkg/ddc/juicefs/ -run 'TestVerifyPr6245(HelmRenderScenarios|CRDSchemaCheck|APIDocPlacement|DocsFreshness|DocsFuseRestartClaim)' -count=1 -json"
     }
   },
   "findings": [
@@ -151,6 +151,24 @@
         "TestVerifyPr6245RotationThenOverrideRemovalConverges"
       ],
       "note": "round 4: rotation a->b plus a worker override pinned to a must record the override even when the effective list is unchanged, so a later override removal falls back to b. RED on d7e316803, GREEN on be3337dd00."
+    },
+    {
+      "id": "A11-fuse-rollout-is-lazy",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPr6245FuseSyncNeverRestartsRunningPods"
+      ],
+      "note": "round 5: pins the fuse rollout mechanism the docs must describe - default clean policy is OnRuntimeDeleted (CSI never cleans fuse pods eagerly) and syncFuseSpec enforces an OnDelete fuse DaemonSet, so a secrets sync updates the template and bumps the generation without restarting running fuse pods. GREEN on head 2150b49ef."
+    },
+    {
+      "id": "F-docs-fuse-restart-overstated",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestVerifyPr6245DocsFuseRestartClaim"
+      ],
+      "note": "round 5: the docs commit 2150b49ef replaced the stale recreate-claim with 'the fuse pods are restarted' / 'fuse pod \u4f1a\u91cd\u542f', which is inaccurate on the default configuration (OnDelete ds + OnRuntimeDeleted clean policy; see A11-fuse-rollout-is-lazy). RED on head 2150b49ef, GREEN once the sentence describes the lazy/on-replace behavior."
     }
   ],
   "liveNote": "L3 (skipped per debate policy): on a real cluster, create a JuiceFSRuntime with spec.imagePullSecrets and worker/fuse overrides and inspect the resulting worker StatefulSet / fuse DaemonSet pod specs."

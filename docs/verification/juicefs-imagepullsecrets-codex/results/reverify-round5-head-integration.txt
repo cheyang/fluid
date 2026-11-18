@@ -1,0 +1,5 @@
+# round-5 re-verify on head 2150b49ef89d1718ce59279a466c5733ea9f8d53, layer=integration (parsed from results/reverify/integration.out; the tracked .parsed files in results/reverify/ are stale round-2 artifacts restored by the harness checkout-restore step - use the .out files instead)
+pass	TestVerifyPr6245DocsFreshness
+pass	TestVerifyPr6245HelmRenderScenarios
+pass	TestVerifyPr6245CRDSchemaCheck
+pass	TestVerifyPr6245APIDocPlacement
