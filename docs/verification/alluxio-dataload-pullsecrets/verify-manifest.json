@@ -66,6 +66,10 @@
     "2": {
       "head": "bf85265045c6391cb9a1d62cc20ae4d1ac186342",
       "verdict": "P0/F1/F2 fixed; harness fixture updated for e.getRuntime() engine-field lookup (additive); author's new in-repo tests bite (results/round2/author-tests-bites-check.txt); no new findings"
+    },
+    "3": {
+      "head": "9667daf6bce4f7324c038594203497210d2e4a73",
+      "verdict": "rebase onto new base dcb76167 (yaml 1.4.0->1.6.0 included; zero PR-adjacent files changed by base movement) + F5 fix commit; all contracts re-verified Fixed on head, base polarity preserved on new base; F5 fixed (new env-fallback subtest bites, results/round3/bites-m1-remove-env-fallback.out); no new findings"
     }
   }
 }

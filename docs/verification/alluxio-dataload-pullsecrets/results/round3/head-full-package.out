@@ -1,0 +1,395 @@
+2026/11/18 12:52:47 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestAlluxio
+Running Suite: Alluxio Suite - /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/wt-6250-r3-claude/pkg/ddc/alluxio
+[38;5;204m[alluxio][0m 
+===============================================================================================================================
+Random Seed: [1m1794977567[0m
+
+Will run [1m150[0m of [1m150[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.020 seconds][0m
+[0mAlluxioEngine Metadata Synchronization Tests [38;5;243mTest AlluxioEngine.syncMetadataInternal() [0mwhen given AlluxioEngine works as expected [38;5;9m[1m[It] should successfully sync metadata and update dataset status[0m [38;5;204m[pkg.ddc.alluxio.metadata_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/wt-6250-r3-claude/pkg/ddc/alluxio/metadata_test.go:205[0m
+
+  [38;5;9m[FAILED] Expected
+      <*errors.errorString | 0x2936f7544ab0>: 
+      GetMetadataInfoFailed
+      {
+          s: "GetMetadataInfoFailed",
+      }
+  to be nil[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/wt-6250-r3-claude/pkg/ddc/alluxio/metadata_test.go:233[0m [38;5;243m@ 11/18/26 12:52:53.722[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;9m[1mSummarizing 1 Failure:[0m
+  [38;5;9m[FAIL][0m [0mAlluxioEngine Metadata Synchronization Tests [38;5;243mTest AlluxioEngine.syncMetadataInternal() [0mwhen given AlluxioEngine works as expected [38;5;9m[1m[It] should successfully sync metadata and update dataset status[0m [38;5;204m[pkg.ddc.alluxio.metadata_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/wt-6250-r3-claude/pkg/ddc/alluxio/metadata_test.go:233[0m
+
+[38;5;9m[1mRan 150 of 150 Specs in 6.053 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m149 Passed[0m | [38;5;9m[1m1 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+--- FAIL: TestAlluxio (6.06s)
+=== RUN   TestGetAPIGatewayStatus
+--- PASS: TestGetAPIGatewayStatus (0.00s)
+=== RUN   TestQueryAPIGatewayEndpoint
+--- PASS: TestQueryAPIGatewayEndpoint (0.00s)
+=== RUN   TestGenerateDataBackupValueFile
+=== RUN   TestGenerateDataBackupValueFile/valid_databackup_with_single_master
+=== RUN   TestGenerateDataBackupValueFile/runtime_imagePullSecrets_reach_the_value_file
+=== RUN   TestGenerateDataBackupValueFile/env_imagePullSecrets_without_runtime_secrets
+=== RUN   TestGenerateDataBackupValueFile/valid_databackup_with_RunAs
+--- PASS: TestGenerateDataBackupValueFile (0.00s)
+    --- PASS: TestGenerateDataBackupValueFile/valid_databackup_with_single_master (0.00s)
+    --- PASS: TestGenerateDataBackupValueFile/runtime_imagePullSecrets_reach_the_value_file (0.00s)
+    --- PASS: TestGenerateDataBackupValueFile/env_imagePullSecrets_without_runtime_secrets (0.00s)
+    --- PASS: TestGenerateDataBackupValueFile/valid_databackup_with_RunAs (0.00s)
+=== RUN   TestGenerateDataBackupValueFileInvalidObject
+--- PASS: TestGenerateDataBackupValueFileInvalidObject (0.00s)
+=== RUN   TestGenerateDataBackupValueFileRuntimeNotFound
+--- PASS: TestGenerateDataBackupValueFileRuntimeNotFound (0.00s)
+=== RUN   TestPatchDatasetStatus
+--- PASS: TestPatchDatasetStatus (0.00s)
+=== RUN   TestInvokeCleanCache
+--- PASS: TestInvokeCleanCache (0.00s)
+=== RUN   TestAlluxioEngine_getGracefulShutdownLimits
+=== RUN   TestAlluxioEngine_getGracefulShutdownLimits/no_clean_cache_policy
+=== RUN   TestAlluxioEngine_getGracefulShutdownLimits/clean_cache_policy
+=== RUN   TestAlluxioEngine_getGracefulShutdownLimits/test_err
+--- PASS: TestAlluxioEngine_getGracefulShutdownLimits (0.00s)
+    --- PASS: TestAlluxioEngine_getGracefulShutdownLimits/no_clean_cache_policy (0.00s)
+    --- PASS: TestAlluxioEngine_getGracefulShutdownLimits/clean_cache_policy (0.00s)
+    --- PASS: TestAlluxioEngine_getGracefulShutdownLimits/test_err (0.00s)
+=== RUN   TestAlluxioEngine_getCleanCacheGracePeriodSeconds
+=== RUN   TestAlluxioEngine_getCleanCacheGracePeriodSeconds/no_clean_cache_policy
+=== RUN   TestAlluxioEngine_getCleanCacheGracePeriodSeconds/clean_cache_policy
+=== RUN   TestAlluxioEngine_getCleanCacheGracePeriodSeconds/test_err
+--- PASS: TestAlluxioEngine_getCleanCacheGracePeriodSeconds (0.00s)
+    --- PASS: TestAlluxioEngine_getCleanCacheGracePeriodSeconds/no_clean_cache_policy (0.00s)
+    --- PASS: TestAlluxioEngine_getCleanCacheGracePeriodSeconds/clean_cache_policy (0.00s)
+    --- PASS: TestAlluxioEngine_getCleanCacheGracePeriodSeconds/test_err (0.00s)
+=== RUN   TestBuild
+--- PASS: TestBuild (0.00s)
+=== RUN   TestCheckFuseHealthy
+--- PASS: TestCheckFuseHealthy (0.00s)
+=== RUN   TestGenerateDataLoadValueFile
+--- PASS: TestGenerateDataLoadValueFile (0.00s)
+=== RUN   Test_genDataLoadValue
+--- PASS: Test_genDataLoadValue (0.00s)
+=== RUN   TestCheckRuntimeReady
+--- PASS: TestCheckRuntimeReady (0.00s)
+=== RUN   TestGenerateDataLoadValueFileImagePullSecrets
+=== RUN   TestGenerateDataLoadValueFileImagePullSecrets/runtime_secrets_replace_the_env_default
+=== RUN   TestGenerateDataLoadValueFileImagePullSecrets/env_default_without_runtime_secrets
+--- PASS: TestGenerateDataLoadValueFileImagePullSecrets (0.00s)
+    --- PASS: TestGenerateDataLoadValueFileImagePullSecrets/runtime_secrets_replace_the_env_default (0.00s)
+    --- PASS: TestGenerateDataLoadValueFileImagePullSecrets/env_default_without_runtime_secrets (0.00s)
+=== RUN   TestGetConfigmapName
+--- PASS: TestGetConfigmapName (0.00s)
+=== RUN   TestShouldSetupMaster
+--- PASS: TestShouldSetupMaster (0.00s)
+=== RUN   TestSetupMaster
+--- PASS: TestSetupMaster (0.00s)
+=== RUN   TestSyncScheduleInfoToCacheNodes
+--- PASS: TestSyncScheduleInfoToCacheNodes (0.00s)
+=== RUN   TestGetReservedPorts
+--- PASS: TestGetReservedPorts (0.00s)
+=== RUN   Test_parsePortsFromConfigMap
+=== RUN   Test_parsePortsFromConfigMap/parsePortsFromConfigMap
+--- PASS: Test_parsePortsFromConfigMap (0.00s)
+    --- PASS: Test_parsePortsFromConfigMap/parsePortsFromConfigMap (0.00s)
+=== RUN   TestAlluxioEngine_generateDataProcessValueFile
+=== RUN   TestAlluxioEngine_generateDataProcessValueFile/TestNotOfTypeDataProcess
+=== RUN   TestAlluxioEngine_generateDataProcessValueFile/TestTargetDatasetNotFound
+=== RUN   TestAlluxioEngine_generateDataProcessValueFile/TestGenerateDataProcessValueFile
+--- PASS: TestAlluxioEngine_generateDataProcessValueFile (0.00s)
+    --- PASS: TestAlluxioEngine_generateDataProcessValueFile/TestNotOfTypeDataProcess (0.00s)
+    --- PASS: TestAlluxioEngine_generateDataProcessValueFile/TestTargetDatasetNotFound (0.00s)
+    --- PASS: TestAlluxioEngine_generateDataProcessValueFile/TestGenerateDataProcessValueFile (0.00s)
+=== RUN   TestParseReportSummary
+--- PASS: TestParseReportSummary (0.00s)
+=== RUN   TestParseReportMetric
+--- PASS: TestParseReportMetric (0.00s)
+=== RUN   TestGetRuntimeInfo
+--- PASS: TestGetRuntimeInfo (0.00s)
+=== RUN   TestShutdown
+--- PASS: TestShutdown (0.00s)
+=== RUN   TestDestroyWorker
+--- PASS: TestDestroyWorker (0.00s)
+=== RUN   TestAlluxioEngineCleanAll
+=== RUN   TestAlluxioEngineCleanAll/spark
+--- PASS: TestAlluxioEngineCleanAll (0.00s)
+    --- PASS: TestAlluxioEngineCleanAll/spark (0.00s)
+=== RUN   TestAlluxioEngineReleasePorts
+=== RUN   TestAlluxioEngineReleasePorts/spark
+--- PASS: TestAlluxioEngineReleasePorts (0.00s)
+    --- PASS: TestAlluxioEngineReleasePorts/spark (0.00s)
+=== RUN   TestAlluxioEngineCleanupCache
+=== RUN   TestAlluxioEngineCleanupCache/spark
+--- PASS: TestAlluxioEngineCleanupCache (0.00s)
+    --- PASS: TestAlluxioEngineCleanupCache/spark (0.00s)
+=== RUN   TestAlluxioEngineDestroyMaster
+=== RUN   TestAlluxioEngineDestroyMaster/spark
+--- PASS: TestAlluxioEngineDestroyMaster (0.00s)
+    --- PASS: TestAlluxioEngineDestroyMaster/spark (0.00s)
+=== RUN   TestAlluxioEngine_SyncRuntime
+=== RUN   TestAlluxioEngine_SyncRuntime/default
+--- PASS: TestAlluxioEngine_SyncRuntime (0.00s)
+    --- PASS: TestAlluxioEngine_SyncRuntime/default (0.00s)
+=== RUN   TestTransformFuseWithNoArgs
+--- PASS: TestTransformFuseWithNoArgs (0.00s)
+=== RUN   TestTransformFuseWithArgs
+--- PASS: TestTransformFuseWithArgs (0.00s)
+=== RUN   TestTransformFuseWithNetwork
+--- PASS: TestTransformFuseWithNetwork (0.00s)
+=== RUN   TestTransformInitUsersWithoutRunAs
+--- PASS: TestTransformInitUsersWithoutRunAs (0.00s)
+=== RUN   TestTransformInitUsersWithRunAs
+--- PASS: TestTransformInitUsersWithRunAs (0.00s)
+=== RUN   TestTransformInitUsersImageOverwrite
+--- PASS: TestTransformInitUsersImageOverwrite (0.00s)
+=== RUN   TestTransformPermission
+--- PASS: TestTransformPermission (0.00s)
+=== RUN   TestTransformResourcesForMaster
+--- PASS: TestTransformResourcesForMaster (0.00s)
+=== RUN   TestTransformResourcesForWorkerNoValue
+--- PASS: TestTransformResourcesForWorkerNoValue (0.00s)
+=== RUN   TestTransformResourcesForWorkerWithTieredStore
+--- PASS: TestTransformResourcesForWorkerWithTieredStore (1.00s)
+=== RUN   TestTransformResourcesForWorkerWithValue
+--- PASS: TestTransformResourcesForWorkerWithValue (1.00s)
+=== RUN   TestTransformResourcesForWorkerWithOnlyRequest
+--- PASS: TestTransformResourcesForWorkerWithOnlyRequest (1.00s)
+=== RUN   TestTransformResourcesForWorkerWithOnlyLimit
+--- PASS: TestTransformResourcesForWorkerWithOnlyLimit (1.00s)
+=== RUN   TestTransformResourcesForFuseNoValue
+--- PASS: TestTransformResourcesForFuseNoValue (0.00s)
+=== RUN   TestTransformResourcesForFuseWithValue
+--- PASS: TestTransformResourcesForFuseWithValue (0.00s)
+=== RUN   TestTransformFuse
+2026-11-18T12:52:57+08:00	INFO	mountRoot	{"path": "/alluxio"}
+2026-11-18T12:52:57+08:00	INFO	Check if the alluxio version not less than 2.8	{"version": "2.3.0-SNAPSHOT-2c41226", "isNewFuseArgVersion": false}
+2026-11-18T12:52:57+08:00	INFO	Error:	{"err": "datasets.data.fluid.io \"hbase\" not found"}
+2026-11-18T12:52:57+08:00	INFO	skip setting memory limit
+--- PASS: TestTransformFuse (0.00s)
+=== RUN   TestTransformMaster
+--- PASS: TestTransformMaster (0.00s)
+=== RUN   TestTransformWorkers
+--- PASS: TestTransformWorkers (0.00s)
+=== RUN   TestGenerateStaticPorts
+--- PASS: TestGenerateStaticPorts (0.00s)
+=== RUN   TestTransformShortCircuit
+--- PASS: TestTransformShortCircuit (0.00s)
+=== RUN   TestTransformPodMetadata
+--- PASS: TestTransformPodMetadata (0.00s)
+=== RUN   TestGetMediumTypeFromVolumeSource
+--- PASS: TestGetMediumTypeFromVolumeSource (0.00s)
+=== RUN   TestAlluxioEngine_allocateSinglePort
+=== RUN   TestAlluxioEngine_allocateSinglePort/test_set_Properties
+=== RUN   TestAlluxioEngine_allocateSinglePort/test_unset_Properties
+=== RUN   TestAlluxioEngine_allocateSinglePort/test_set_runtime
+--- PASS: TestAlluxioEngine_allocateSinglePort (0.00s)
+    --- PASS: TestAlluxioEngine_allocateSinglePort/test_set_Properties (0.00s)
+    --- PASS: TestAlluxioEngine_allocateSinglePort/test_unset_Properties (0.00s)
+    --- PASS: TestAlluxioEngine_allocateSinglePort/test_set_runtime (0.00s)
+=== RUN   TestAlluxioEngine_allocatePorts
+=== RUN   TestAlluxioEngine_allocatePorts/test_set_Properties
+2026-11-18T12:52:57+08:00	INFO	RuntimePortAllocator	Found reserved ports	{"ports": [20001, 20002, 20003]}
+2026-11-18T12:52:57+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 10, "allocated ports": [20444, 20597, 20892, 20235, 20911, 20996, 20189, 20293, 20749, 20587]}
+=== RUN   TestAlluxioEngine_allocatePorts/test_set_runtime_Properties
+2026-11-18T12:52:57+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 10, "allocated ports": [20560, 20142, 20896, 20854, 20976, 20909, 20605, 20026, 20312, 20214]}
+=== RUN   TestAlluxioEngine_allocatePorts/test_set_runtime_NoProperties
+2026-11-18T12:52:57+08:00	INFO	RuntimePortAllocator	Successfully allocated ports	{"expeceted port num": 10, "allocated ports": [20931, 20202, 20389, 20613, 20799, 20087, 20788, 20388, 20238, 20809]}
+--- PASS: TestAlluxioEngine_allocatePorts (0.00s)
+    --- PASS: TestAlluxioEngine_allocatePorts/test_set_Properties (0.00s)
+    --- PASS: TestAlluxioEngine_allocatePorts/test_set_runtime_Properties (0.00s)
+    --- PASS: TestAlluxioEngine_allocatePorts/test_set_runtime_NoProperties (0.00s)
+=== RUN   TestTransformMasterProperties
+--- PASS: TestTransformMasterProperties (0.00s)
+=== RUN   TestTransformWorkerProperties
+--- PASS: TestTransformWorkerProperties (0.00s)
+=== RUN   TestTransformFuseProperties
+2026-11-18T12:52:57+08:00	INFO	mountRoot	{"path": "/alluxio"}
+2026-11-18T12:52:57+08:00	INFO	Check if the alluxio version not less than 2.8	{"version": "2.3.0-SNAPSHOT-2c41226", "isNewFuseArgVersion": false}
+2026-11-18T12:52:57+08:00	INFO	Error:	{"err": "datasets.data.fluid.io \"test\" not found"}
+2026-11-18T12:52:57+08:00	INFO	skip setting memory limit
+--- PASS: TestTransformFuseProperties (0.00s)
+=== RUN   TestGenerateNonNativeMountsInfo
+--- PASS: TestGenerateNonNativeMountsInfo (0.00s)
+=== RUN   TestTransformMasterMountConfigMap
+--- PASS: TestTransformMasterMountConfigMap (0.00s)
+=== RUN   TestTransformDatasetToVolume
+--- PASS: TestTransformDatasetToVolume (0.00s)
+=== RUN   TestTransformDatasetToPVC
+--- PASS: TestTransformDatasetToPVC (0.00s)
+=== RUN   TestTransformDatasetWithAffinity
+--- PASS: TestTransformDatasetWithAffinity (0.00s)
+=== RUN   TestUsedStorageBytes
+=== RUN   TestUsedStorageBytes/test
+--- PASS: TestUsedStorageBytes (0.00s)
+    --- PASS: TestUsedStorageBytes/test (0.00s)
+=== RUN   TestFreeStorageBytes
+=== RUN   TestFreeStorageBytes/test
+--- PASS: TestFreeStorageBytes (0.00s)
+    --- PASS: TestFreeStorageBytes/test (0.00s)
+=== RUN   TestTotalStorageBytes
+=== RUN   TestTotalStorageBytes/test
+--- PASS: TestTotalStorageBytes (0.00s)
+    --- PASS: TestTotalStorageBytes/test (0.00s)
+=== RUN   TestTotalFileNums
+=== RUN   TestTotalFileNums/test
+--- PASS: TestTotalFileNums (0.00s)
+    --- PASS: TestTotalFileNums/test (0.00s)
+=== RUN   TestFindUnmountedUFS
+=== RUN   TestFindUnmountedUFS/test
+=== RUN   TestFindUnmountedUFS/test#01
+=== RUN   TestFindUnmountedUFS/test#02
+--- PASS: TestFindUnmountedUFS (0.00s)
+    --- PASS: TestFindUnmountedUFS/test (0.00s)
+    --- PASS: TestFindUnmountedUFS/test#01 (0.00s)
+    --- PASS: TestFindUnmountedUFS/test#02 (0.00s)
+=== RUN   TestUpdateMountTime
+=== RUN   TestUpdateMountTime/test
+--- PASS: TestUpdateMountTime (0.00s)
+    --- PASS: TestUpdateMountTime/test (0.00s)
+=== RUN   TestIsFluidNativeScheme
+--- PASS: TestIsFluidNativeScheme (0.00s)
+=== RUN   TestAlluxioEngine_getInitUserDir
+=== RUN   TestAlluxioEngine_getInitUserDir/test
+--- PASS: TestAlluxioEngine_getInitUserDir (0.00s)
+    --- PASS: TestAlluxioEngine_getInitUserDir/test (0.00s)
+=== RUN   TestAlluxioEngine_getInitUsersArgs
+=== RUN   TestAlluxioEngine_getInitUsersArgs/test
+--- PASS: TestAlluxioEngine_getInitUsersArgs (0.00s)
+    --- PASS: TestAlluxioEngine_getInitUsersArgs/test (0.00s)
+=== RUN   TestMountRootWithEnvSet
+--- PASS: TestMountRootWithEnvSet (0.00s)
+=== RUN   TestMountRootWithoutEnvSet
+--- PASS: TestMountRootWithoutEnvSet (0.00s)
+=== RUN   Test_isPortInUsed
+=== RUN   Test_isPortInUsed/test
+--- PASS: Test_isPortInUsed (0.00s)
+    --- PASS: Test_isPortInUsed/test (0.00s)
+=== RUN   Test_lookUpUsedCapacity
+=== RUN   Test_lookUpUsedCapacity/test_lookUpUsedCapacity_ip
+=== RUN   Test_lookUpUsedCapacity/test_lookUpUsedCapacity_hostname
+--- PASS: Test_lookUpUsedCapacity (0.00s)
+    --- PASS: Test_lookUpUsedCapacity/test_lookUpUsedCapacity_ip (0.00s)
+    --- PASS: Test_lookUpUsedCapacity/test_lookUpUsedCapacity_hostname (0.00s)
+=== RUN   TestGetDataSetFileNum
+=== RUN   TestGetDataSetFileNum/test0
+--- PASS: TestGetDataSetFileNum (0.00s)
+    --- PASS: TestGetDataSetFileNum/test0 (0.00s)
+=== RUN   TestGetRuntime
+=== RUN   TestGetRuntime/test
+--- PASS: TestGetRuntime (0.00s)
+    --- PASS: TestGetRuntime/test (0.00s)
+=== RUN   TestGetMasterPod
+=== RUN   TestGetMasterPod/test
+--- PASS: TestGetMasterPod (0.00s)
+    --- PASS: TestGetMasterPod/test (0.00s)
+=== RUN   TestGetMasterStatefulset
+=== RUN   TestGetMasterStatefulset/test
+--- PASS: TestGetMasterStatefulset (0.00s)
+    --- PASS: TestGetMasterStatefulset/test (0.00s)
+=== RUN   TestGetDaemonset
+=== RUN   TestGetDaemonset/test
+--- PASS: TestGetDaemonset (0.00s)
+    --- PASS: TestGetDaemonset/test (0.00s)
+=== RUN   TestGetMasterPodInfo
+=== RUN   TestGetMasterPodInfo/test
+--- PASS: TestGetMasterPodInfo (0.00s)
+    --- PASS: TestGetMasterPodInfo/test (0.00s)
+=== RUN   TestGetMasterStatefulsetName
+=== RUN   TestGetMasterStatefulsetName/test
+--- PASS: TestGetMasterStatefulsetName (0.00s)
+    --- PASS: TestGetMasterStatefulsetName/test (0.00s)
+=== RUN   TestGetWorkerDaemonsetName
+=== RUN   TestGetWorkerDaemonsetName/test
+--- PASS: TestGetWorkerDaemonsetName (0.00s)
+    --- PASS: TestGetWorkerDaemonsetName/test (0.00s)
+=== RUN   TestGetFuseDaemonsetName
+=== RUN   TestGetFuseDaemonsetName/test
+--- PASS: TestGetFuseDaemonsetName (0.00s)
+    --- PASS: TestGetFuseDaemonsetName/test (0.00s)
+=== RUN   TestGetMountPoint
+=== RUN   TestGetMountPoint/test
+--- PASS: TestGetMountPoint (0.00s)
+    --- PASS: TestGetMountPoint/test (0.00s)
+=== RUN   TestGetInitTierPathsEnv
+=== RUN   TestGetInitTierPathsEnv/test
+--- PASS: TestGetInitTierPathsEnv (0.00s)
+    --- PASS: TestGetInitTierPathsEnv/test (0.00s)
+=== RUN   TestGetMountRoot
+=== RUN   TestGetMountRoot/test
+--- PASS: TestGetMountRoot (0.00s)
+    --- PASS: TestGetMountRoot/test (0.00s)
+=== RUN   TestParseRuntimeImage
+=== RUN   TestParseRuntimeImage/test0
+=== RUN   TestParseRuntimeImage/test1
+=== RUN   TestParseRuntimeImage/test2
+--- PASS: TestParseRuntimeImage (0.00s)
+    --- PASS: TestParseRuntimeImage/test0 (0.00s)
+    --- PASS: TestParseRuntimeImage/test1 (0.00s)
+    --- PASS: TestParseRuntimeImage/test2 (0.00s)
+=== RUN   TestParseFuseImage
+=== RUN   TestParseFuseImage/test0
+=== RUN   TestParseFuseImage/test0#01
+=== RUN   TestParseFuseImage/test2
+--- PASS: TestParseFuseImage (0.00s)
+    --- PASS: TestParseFuseImage/test0 (0.00s)
+    --- PASS: TestParseFuseImage/test0#01 (0.00s)
+    --- PASS: TestParseFuseImage/test2 (0.00s)
+=== RUN   TestGetMetadataInfoFile
+=== RUN   TestGetMetadataInfoFile/test
+--- PASS: TestGetMetadataInfoFile (0.00s)
+    --- PASS: TestGetMetadataInfoFile/test (0.00s)
+=== RUN   TestGetMetadataFileName
+=== RUN   TestGetMetadataFileName/test
+--- PASS: TestGetMetadataFileName (0.00s)
+    --- PASS: TestGetMetadataFileName/test (0.00s)
+=== RUN   TestGetMetadataInfoFileName
+=== RUN   TestGetMetadataInfoFileName/test
+--- PASS: TestGetMetadataInfoFileName (0.00s)
+    --- PASS: TestGetMetadataInfoFileName/test (0.00s)
+=== RUN   TestGetWorkerUsedCapacity
+=== RUN   TestGetWorkerUsedCapacity/test
+--- PASS: TestGetWorkerUsedCapacity (0.00s)
+    --- PASS: TestGetWorkerUsedCapacity/test (0.00s)
+=== RUN   TestDataOperationImagePullSecrets
+--- PASS: TestDataOperationImagePullSecrets (0.00s)
+=== RUN   TestAlluxioEngineValidate
+=== RUN   TestAlluxioEngineValidate/emptyOwnerDatasetUID
+=== RUN   TestAlluxioEngineValidate/placementModeNotSet
+=== RUN   TestAlluxioEngineValidate/fullyConfiguredRuntimeInfo
+--- PASS: TestAlluxioEngineValidate (0.00s)
+    --- PASS: TestAlluxioEngineValidate/emptyOwnerDatasetUID (0.00s)
+    --- PASS: TestAlluxioEngineValidate/placementModeNotSet (0.00s)
+    --- PASS: TestAlluxioEngineValidate/fullyConfiguredRuntimeInfo (0.00s)
+=== RUN   TestSetupWorkers
+=== RUN   TestSetupWorkers/test0
+2026-11-18T12:52:57+08:00	DEBUG	spark	Nothing to do for syncing
+2026-11-18T12:52:57+08:00	DEBUG	spark	Update runtime status	{"runtime": "big-data/spark"}
+=== RUN   TestSetupWorkers/test1
+2026-11-18T12:52:57+08:00	DEBUG	hadoop	Nothing to do for syncing
+2026-11-18T12:52:57+08:00	DEBUG	hadoop	Update runtime status	{"runtime": "big-data/hadoop"}
+--- PASS: TestSetupWorkers (0.00s)
+    --- PASS: TestSetupWorkers/test0 (0.00s)
+    --- PASS: TestSetupWorkers/test1 (0.00s)
+=== RUN   TestShouldSetupWorkers
+=== RUN   TestShouldSetupWorkers/test0
+=== RUN   TestShouldSetupWorkers/test1
+=== RUN   TestShouldSetupWorkers/test2
+=== RUN   TestShouldSetupWorkers/test3
+--- PASS: TestShouldSetupWorkers (0.00s)
+    --- PASS: TestShouldSetupWorkers/test0 (0.00s)
+    --- PASS: TestShouldSetupWorkers/test1 (0.00s)
+    --- PASS: TestShouldSetupWorkers/test2 (0.00s)
+    --- PASS: TestShouldSetupWorkers/test3 (0.00s)
+=== RUN   TestGetWorkerSelectors
+=== RUN   TestGetWorkerSelectors/test0
+--- PASS: TestGetWorkerSelectors (0.00s)
+    --- PASS: TestGetWorkerSelectors/test0 (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	10.086s
+FAIL

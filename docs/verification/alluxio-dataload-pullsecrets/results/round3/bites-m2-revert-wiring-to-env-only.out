@@ -1,0 +1,26 @@
+2026/11/18 12:52:04 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestGenerateDataBackupValueFile
+=== RUN   TestGenerateDataBackupValueFile/valid_databackup_with_single_master
+=== RUN   TestGenerateDataBackupValueFile/runtime_imagePullSecrets_reach_the_value_file
+    backup_data_test.go:176: expected imagePullSecrets [{runtime-secret}], got [{env-secret}]
+=== RUN   TestGenerateDataBackupValueFile/env_imagePullSecrets_without_runtime_secrets
+=== RUN   TestGenerateDataBackupValueFile/valid_databackup_with_RunAs
+--- FAIL: TestGenerateDataBackupValueFile (0.00s)
+    --- PASS: TestGenerateDataBackupValueFile/valid_databackup_with_single_master (0.00s)
+    --- FAIL: TestGenerateDataBackupValueFile/runtime_imagePullSecrets_reach_the_value_file (0.00s)
+    --- PASS: TestGenerateDataBackupValueFile/env_imagePullSecrets_without_runtime_secrets (0.00s)
+    --- PASS: TestGenerateDataBackupValueFile/valid_databackup_with_RunAs (0.00s)
+=== RUN   TestGenerateDataBackupValueFileInvalidObject
+--- PASS: TestGenerateDataBackupValueFileInvalidObject (0.00s)
+=== RUN   TestGenerateDataBackupValueFileRuntimeNotFound
+--- PASS: TestGenerateDataBackupValueFileRuntimeNotFound (0.00s)
+=== RUN   TestGenerateDataLoadValueFileImagePullSecrets
+=== RUN   TestGenerateDataLoadValueFileImagePullSecrets/runtime_secrets_replace_the_env_default
+    load_data_test.go:591: expected imagePullSecrets [{runtime-secret}], got [{env-secret}]
+=== RUN   TestGenerateDataLoadValueFileImagePullSecrets/env_default_without_runtime_secrets
+--- FAIL: TestGenerateDataLoadValueFileImagePullSecrets (0.00s)
+    --- FAIL: TestGenerateDataLoadValueFileImagePullSecrets/runtime_secrets_replace_the_env_default (0.00s)
+    --- PASS: TestGenerateDataLoadValueFileImagePullSecrets/env_default_without_runtime_secrets (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	0.018s
+FAIL

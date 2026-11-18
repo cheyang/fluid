@@ -188,3 +188,60 @@ kind-e2e ×6 k8s versions, backward-compat ×5, staticcheck, lint).
   on #6247 (2026-11-16) listing JuiceFS (post-#6245), jindo/jindofsx/jindocache DataLoad,
   and Alluxio DataProcess as what's left.
 - No new findings on the delta.
+
+---
+
+## Round 3 (incremental, changed base) — head `9667daf6b` (2026-11-18)
+
+Delta reviewed: `bf8526504..9667daf6b`. The PR was **rebased onto the new master** `dcb76167b`
+(old base `ff99142f9`); the base movement contains a Go 1.26.10→1.26.11 toolchain bump, a
+`sigs.k8s.io/yaml` 1.4.0→1.6.0 upgrade (vendored as `go.yaml.in/yaml/v2` — the library that
+marshals the value files under test), CI/Dockerfile security remediations, and unrelated
+`pkg/ddc/cache` engine work. On top of the rebase there is one new PR commit:
+`9667daf6 test(alluxio): cover the env imagePullSecrets fallback for DataBackup` — the round-2
+SHOULD item (F5).
+
+Changed-base checks:
+- `git diff --name-only ff99142f9 dcb76167b -- pkg/ddc/alluxio pkg/ddc/base pkg/ddc/jindo
+  pkg/ddc/jindofsx pkg/ddc/jindocache charts/fluid-dataload charts/fluid-databackup` → **0 files**;
+  no affected caller changed shape.
+- The PR's production files (`load_data.go`, `backup_data.go`, `utils.go`) are **byte-identical**
+  between `bf8526504` and `9667daf6b`; the only content delta is the 66-line test addition.
+- Base-polarity control re-run **on the new base** `dcb76167b` (which carries yaml 1.6.0):
+  P0 red (runtime-secrets tests fail on base — correct differential), F1 2 red / 2 green
+  (fallback green on base — correct), F2 red (missing-runtime error absent on base) —
+  `results/round3/base-control.txt`. The yaml upgrade did not disturb any contract on either
+  side of the diff.
+
+Re-verify on head `9667daf6b`: all contracts **Fixed** (P0 2/2, F1 4/4, F2 1/1) —
+`results/round3/head-reverify.txt`, `results/round3/harness-unit-on-head.out`.
+
+F5 fix verification (the new in-repo DataBackup env-fallback subtest
+`env_imagePullSecrets_without_runtime_secrets`):
+- passes on head (`results/round3/pr-own-tests.out`);
+- **bites**: mutating `dataOperationImagePullSecrets` to drop the env fallback fails exactly the
+  two env-fallback subtests (backup + load) and nothing else —
+  `results/round3/bites-m1-remove-env-fallback.out`;
+- call-site revert simulation (wiring back to env-only) fails exactly the two runtime-secrets
+  subtests (`runtime_imagePullSecrets_reach_the_value_file`,
+  `runtime_secrets_replace_the_env_default`) and nothing else —
+  `results/round3/bites-m2-revert-wiring-to-env-only.out`. The commit also adds
+  `envSecrets: "env-secret"` to the existing runtime-secrets backup case, so that case now
+  asserts replace-not-merge, not just presence.
+
+Full package sweep: head 149/150 specs, base `dcb76167b` 149/150 — the single failure is the
+same known pre-existing local flake (`metadata_test.go` GetMetadataInfoFailed) on both sides;
+delta vs base is empty (`results/round3/head-full-package.out`,
+`results/round3/base-full-package.out`). `go build ./...` and `go vet ./pkg/ddc/alluxio/` clean.
+GitHub CI on `9667daf6b`: 25/25 checks pass (unittest, lint, staticcheck, build ×2, kind-e2e ×5,
+backward-compat ×5, Analyze, CodeQL, SonarCloud ×2, codecov ×2, DCO); PR OPEN and MERGEABLE.
+
+F3/F4 facts re-checked at the new head: `pkg/ddc/jindo|jindofsx|jindocache/load_data.go` still
+env-only; zero `imagepullsecret` matches under `pkg/ddc/alluxio/process_data.go` /
+`charts/fluid-dataprocess`; the #6247 tracking comment (2026-11-16) is still present and covers
+both. No new findings on the delta.
+
+### Ledger outcome (round 3)
+
+- **F5 (DataBackup env-fallback subtest)**: fixed by commit `9667daf6` — the new subtest passes
+  and is bite-proven in both directions. No open findings remain in any category.
