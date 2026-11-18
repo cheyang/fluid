@@ -1,0 +1,3 @@
+# Full pkg/dataflow suite on PR head 79ba4d90 (incl. PR's own updated tests)
+# cmd: go test ./pkg/dataflow/ -v
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataflow	(cached)

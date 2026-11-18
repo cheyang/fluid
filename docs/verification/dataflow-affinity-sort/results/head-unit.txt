@@ -1,0 +1,21 @@
+# F1/F2 contract tests on PR head 79ba4d90 (fix present)
+# cmd: go test ./pkg/dataflow/ -run 'TestVerifyF1|TestVerifyF2' -v
+=== RUN   TestVerifyF1_MatchExpressionsSortedAndStable
+--- PASS: TestVerifyF1_MatchExpressionsSortedAndStable (0.00s)
+=== RUN   TestVerifyF2_NonPrefixAndEdgePathsUnchanged
+=== RUN   TestVerifyF2_NonPrefixAndEdgePathsUnchanged/nil_job_returns_nil_nil
+=== RUN   TestVerifyF2_NonPrefixAndEdgePathsUnchanged/inject_annotation_absent_returns_nil_nil
+=== RUN   TestVerifyF2_NonPrefixAndEdgePathsUnchanged/inject_annotation_not_true_returns_nil_nil
+=== RUN   TestVerifyF2_NonPrefixAndEdgePathsUnchanged/slash-form_sibling_annotations_are_not_collected
+=== RUN   TestVerifyF2_NonPrefixAndEdgePathsUnchanged/single_customized_label
+=== RUN   TestVerifyF2_NonPrefixAndEdgePathsUnchanged/empty_value_annotation_still_emitted
+--- PASS: TestVerifyF2_NonPrefixAndEdgePathsUnchanged (0.00s)
+    --- PASS: TestVerifyF2_NonPrefixAndEdgePathsUnchanged/nil_job_returns_nil_nil (0.00s)
+    --- PASS: TestVerifyF2_NonPrefixAndEdgePathsUnchanged/inject_annotation_absent_returns_nil_nil (0.00s)
+    --- PASS: TestVerifyF2_NonPrefixAndEdgePathsUnchanged/inject_annotation_not_true_returns_nil_nil (0.00s)
+    --- PASS: TestVerifyF2_NonPrefixAndEdgePathsUnchanged/slash-form_sibling_annotations_are_not_collected (0.00s)
+    --- PASS: TestVerifyF2_NonPrefixAndEdgePathsUnchanged/single_customized_label (0.00s)
+    --- PASS: TestVerifyF2_NonPrefixAndEdgePathsUnchanged/empty_value_annotation_still_emitted (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataflow	0.011s
+exit=0

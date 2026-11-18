@@ -1,0 +1,36 @@
+{
+  "topic": "dataflow-affinity-sort",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6258",
+  "harnessPaths": [
+    "docs/verification/dataflow-affinity-sort",
+    "pkg/dataflow/affinity_sort_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #6238: \"Because Go map iteration order is randomized, multiple injected affinity annotations can yield non-deterministic MatchExpressions ordering on the generated affinity\" in pkg/dataflow/helper.go GenerateNodeAffinity.",
+    "reportedComponent": "pkg/dataflow/helper.go GenerateNodeAffinity (line 50 on base)",
+    "patchedComponent": "pkg/dataflow/helper.go GenerateNodeAffinity (loop over job annotations)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Bug-canary on base 5e64735: 4 distinct MatchExpressions orderings observed in 200 calls (results/premise-base.txt); F1 contract test FAILS on base (reproduction).",
+    "match": ["TestVerifyP0_BaseMapIterationNondeterministic"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/dataflow/ -run 'TestVerifyF1_MatchExpressionsSortedAndStable|TestVerifyF2_NonPrefixAndEdgePathsUnchanged' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/dataflow/ -json"
+    }
+  },
+  "findings": [
+    { "id": "C1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyF1_MatchExpressionsSortedAndStable"] },
+    { "id": "C2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyF2_NonPrefixAndEdgePathsUnchanged"] },
+    { "id": "C3", "polarity": "contract", "layer": "integration", "match": ["TestGenerateNodeLabels", "TestGenerateNodeAffinitySortsCustomizedAffinityAnnotations"] }
+  ],
+  "liveNote": "L3 not applicable: the change is a pure-function ordering fix with no cluster dependency; the unit layer fully decides the claim. No live/KUBECONFIG layer was run for this review by policy."
+}

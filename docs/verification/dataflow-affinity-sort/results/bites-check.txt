@@ -1,0 +1,11 @@
+# Harness-bites check: fix temporarily reverted on head (production edit, then restored)
+# cmd: go test ./pkg/dataflow/ -run 'TestVerifyF1' -v
+=== RUN   TestVerifyF1_MatchExpressionsSortedAndStable
+    affinity_sort_verify_test.go:114: iteration 0: GenerateNodeAffinity() ordering/stability mismatch.
+        got:  {z-label In [z-value]} {a-label In [a-value]} {k8s.rack In [rack-value]} {kubernetes.io/hostname In [host-value]} {m-label In [m-value]} {topology.kubernetes.io/zone In [zone-value]} 
+        want: {a-label In [a-value]} {k8s.rack In [rack-value]} {kubernetes.io/hostname In [host-value]} {m-label In [m-value]} {topology.kubernetes.io/zone In [zone-value]} {z-label In [z-value]} 
+--- FAIL: TestVerifyF1_MatchExpressionsSortedAndStable (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/dataflow	0.012s
+FAIL
+exit=1
