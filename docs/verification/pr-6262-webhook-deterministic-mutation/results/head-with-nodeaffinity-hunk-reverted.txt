@@ -1,0 +1,15 @@
+--- PASS: TestNewPluginAndGetName (0.00s)
+--- PASS: TestGetPreferredSchedulingTerm (0.00s)
+--- PASS: TestMutateOnlyRequired (0.00s)
+--- PASS: TestMutateOnlyPrefer (0.00s)
+--- PASS: TestMutateBothRequiredAndPrefer (0.00s)
+--- PASS: TestTieredLocalityMutatePodWithDatasetSched (0.00s)
+--- PASS: TestTieredLocalityMutatePodMergesExistingRequiredTerms (0.00s)
+--- PASS: TestTieredLocalityMutatePodSkipsEmptyExistingRequiredTerms (0.00s)
+--- PASS: TestTieredLocalityMutatePodWithPreferredTerms (0.00s)
+--- PASS: TestTieredLocalitySkipMutateWhenPodAlreadyHasPreferred (0.00s)
+--- PASS: TestTieredLocalitySkipMutateWhenPluginArgEmpty (0.00s)
+--- PASS: TestTieredLocalityDeterministicOrdering (0.00s)
+--- PASS: TestHasRepeatedLocality (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/nodeaffinitywithcache	0.017s

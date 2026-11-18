@@ -17,7 +17,7 @@
     "runsAgainst": "base",
     "layer": "unit",
     "verdict": "confirmed",
-    "evidence": "results/base-harness.out: on base dcb7616 TestVerifyAssembleMountInfosDeterministic, TestVerifyNamespaceSelectionDeterministic, TestVerifySidecarContainerDeterministic and TestVerifyDefaultFileListDeterministic all FAIL with visibly scrambled orders; on head ac9e3e1 all pass (results/head-harness.out)",
+    "evidence": "results/base-harness.txt: on base dcb7616 TestVerifyAssembleMountInfosDeterministic, TestVerifyNamespaceSelectionDeterministic, TestVerifySidecarContainerDeterministic and TestVerifyDefaultFileListDeterministic all FAIL with visibly scrambled orders; on head ac9e3e1 all pass (results/head-harness.txt)",
     "match": ["TestVerifyAssembleMountInfosDeterministic", "TestVerifyNamespaceSelectionDeterministic", "TestVerifySidecarContainerDeterministic", "TestVerifyDefaultFileListDeterministic"]
   },
   "layers": {
@@ -36,14 +36,14 @@
       "polarity": "contract",
       "layer": "unit",
       "match": ["TestVerifyRequiredPreferredPartitionOrderIndependent"],
-      "note": "INVARIANCE probe, not a bug-fix contract: passes on BOTH base and head because the nodeaffinitywithcache hunk only sorts map-populating loops whose outputs (maps) carry no order and whose consumers already sort. Pass = claim 'no observable effect' holds. Cross-check: results/head-with-nodeaffinity-hunk-reverted.out shows the full package suite (incl. TestTieredLocalityDeterministicOrdering) green with the hunk reverted."
+      "note": "INVARIANCE probe, not a bug-fix contract: passes on BOTH base and head because the nodeaffinitywithcache hunk only sorts map-populating loops whose outputs (maps) carry no order and whose consumers already sort. Pass = claim 'no observable effect' holds. Cross-check: results/head-with-nodeaffinity-hunk-reverted.txt shows the full package suite (incl. TestTieredLocalityDeterministicOrdering) green with the hunk reverted."
     },
     {
       "id": "F2",
       "polarity": "contract",
       "layer": "unit",
       "match": ["TestVerifyMountPropagationMutateOrderIndependent"],
-      "note": "INVARIANCE probe: passes on BOTH base and head because datasetNames order only feeds utils.ContainsString membership checks. Pass = claim 'no observable effect' holds. Cross-check: results/base-pr-mountpropagation-test.out shows the PR's own new spec passing against BASE plugin code (order-blind test)."
+      "note": "INVARIANCE probe: passes on BOTH base and head because datasetNames order only feeds utils.ContainsString membership checks. Pass = claim 'no observable effect' holds. Cross-check: results/base-pr-mountpropagation-test.txt shows the PR's own new spec passing against BASE plugin code (order-blind test)."
     },
     {
       "id": "R1",

@@ -1,0 +1,21 @@
+=== RUN   TestVerifyAssembleMountInfosDeterministic
+--- PASS: TestVerifyAssembleMountInfosDeterministic (0.00s)
+=== RUN   TestVerifyNamespaceSelectionDeterministic
+--- PASS: TestVerifyNamespaceSelectionDeterministic (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse	0.016s
+2026/11/18 13:29:04 WARNING: env variable FILE_PREFETCHER_IMAGE is not set, file prefetcher image is required in Pod's annotation
+=== RUN   TestVerifySidecarContainerDeterministic
+--- PASS: TestVerifySidecarContainerDeterministic (0.00s)
+=== RUN   TestVerifyDefaultFileListDeterministic
+--- PASS: TestVerifyDefaultFileListDeterministic (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/fileprefetcher	0.014s
+=== RUN   TestVerifyRequiredPreferredPartitionOrderIndependent
+--- PASS: TestVerifyRequiredPreferredPartitionOrderIndependent (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/nodeaffinitywithcache	0.014s
+=== RUN   TestVerifyMountPropagationMutateOrderIndependent
+--- PASS: TestVerifyMountPropagationMutateOrderIndependent (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/mountpropagationinjector	0.014s

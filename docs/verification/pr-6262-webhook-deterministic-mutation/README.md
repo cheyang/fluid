@@ -28,17 +28,17 @@ string/slice ordering, fully decidable in-process):
 | Patched component | same |
 | Component match | Yes |
 | **Verdict** | **Confirmed** |
-| Evidence | `results/base-harness.out`: all four contract tests FAIL on base `dcb7616` with scrambled orders; `results/head-harness.out`: all pass on head |
+| Evidence | `results/base-harness.txt`: all four contract tests FAIL on base `dcb7616` with scrambled orders; `results/head-harness.txt`: all pass on head |
 
 ## Summary of results
 
 | ID | Claim | Layer | Verdict | Evidence |
 |----|-------|-------|---------|----------|
-| P0 | map iteration order leaks into pod mutations on base | 1 | Confirmed | base: assembleMountInfos returned `/var/data/m:/var/data/q:...` (scrambled) at iteration 0; namespace pick hit all 3 namespaces in 30 runs; prefetcher env/volumeMount/fileList orders varied (results/base-harness.out) |
-| F1 | `getRequiredAndPreferredSchedulingRuntimes` sorting hunk is a behavioral no-op (returns maps; consumers already sort via `utils.OrderedKeys`) | 1 | Confirmed (invariance) | probe passes on base AND head; full package suite green with the hunk reverted (results/head-with-nodeaffinity-hunk-reverted.out) |
-| F2 | `mountpropagationinjector` sorting hunk is a behavioral no-op, and the PR's new "deterministic order" spec is order-blind | 1 | Confirmed (invariance) | probe passes on base AND head; PR's own new spec passes against BASE plugin code — 5/5 specs green (results/base-pr-mountpropagation-test.out) |
-| R1 | fixes in mount_point_script.go / file_prefetcher.go hold | 1 | Pass at head | results/head-harness.out |
-| R2 | PR's own suites pass at head | 2 | Pass | results/head-full-suite.out |
+| P0 | map iteration order leaks into pod mutations on base | 1 | Confirmed | base: assembleMountInfos returned `/var/data/m:/var/data/q:...` (scrambled) at iteration 0; namespace pick hit all 3 namespaces in 30 runs; prefetcher env/volumeMount/fileList orders varied (results/base-harness.txt) |
+| F1 | `getRequiredAndPreferredSchedulingRuntimes` sorting hunk is a behavioral no-op (returns maps; consumers already sort via `utils.OrderedKeys`) | 1 | Confirmed (invariance) | probe passes on base AND head; full package suite green with the hunk reverted (results/head-with-nodeaffinity-hunk-reverted.txt) |
+| F2 | `mountpropagationinjector` sorting hunk is a behavioral no-op, and the PR's new "deterministic order" spec is order-blind | 1 | Confirmed (invariance) | probe passes on base AND head; PR's own new spec passes against BASE plugin code — 5/5 specs green (results/base-pr-mountpropagation-test.txt) |
+| R1 | fixes in mount_point_script.go / file_prefetcher.go hold | 1 | Pass at head | results/head-harness.txt |
+| R2 | PR's own suites pass at head | 2 | Pass | results/head-full-suite.txt |
 
 ## Per-finding detail
 

@@ -1,0 +1,15 @@
+=== RUN   TestMountpropagationinjector
+Running Suite: Mountpropagationinjector Suite - /tmp/pr6262-base/pkg/webhook/plugins/mountpropagationinjector
+=============================================================================================================
+Random Seed: [1m1794979786[0m
+
+Will run [1m5[0m of [1m5[0m specs
+[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m[38;5;10m•[0m
+
+[38;5;10m[1mRan 5 of 5 Specs in 0.000 seconds[0m
+[38;5;10m[1mSUCCESS![0m -- [38;5;10m[1m5 Passed[0m | [38;5;9m[1m0 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+--- PASS: TestMountpropagationinjector (0.00s)
+=== RUN   TestVerifyMountPropagationMutateOrderIndependent
+--- PASS: TestVerifyMountPropagationMutateOrderIndependent (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/mountpropagationinjector	0.014s
