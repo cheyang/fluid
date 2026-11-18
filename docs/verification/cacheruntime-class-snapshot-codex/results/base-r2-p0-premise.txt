@@ -1,0 +1,8 @@
+2026/11/18 15:48:06 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+--- FAIL: TestVerifyPR6242ClassEditDoesNotReachExistingRuntime (0.03s)
+    verify_pr6242_class_pinning_test.go:176: worker AdvancedStatefulSet changed after a CacheRuntimeClass edit (rv 999 -> 1000): the class edit reached an existing runtime
+    verify_pr6242_class_pinning_test.go:179: master AdvancedStatefulSet changed after a CacheRuntimeClass edit (rv 999 -> 1000): the class edit reached an existing runtime
+    verify_pr6242_class_pinning_test.go:182: runtime config ConfigMap changed after a CacheRuntimeClass edit (rv 1 -> 2)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.046s
+FAIL
