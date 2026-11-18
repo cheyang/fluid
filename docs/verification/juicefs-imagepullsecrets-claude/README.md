@@ -254,3 +254,37 @@ values configmap still advances past the worker StatefulSet and no error is
 surfaced — but the divergence is now **transient and self-healing** (every
 reconcile retries; convergence proven by C7), which is what round 3 actually
 asked for. CI at head (SonarCloud, DCO) green.
+
+## Round 5 (delta be3337d..2150b49, "docs: describe how image pull secret changes reach existing JuiceFS runtimes")
+
+One commit, docs-only (`docs/{en,zh}/samples/image_pull_secrets.md`, one sentence
+each) — exactly the round-3/4 pre-merge MUST: the stale "changing them on an
+existing runtime needs the runtime to be recreated" / "修改已有 runtime 的密钥
+需要重新创建 runtime" claims are gone, replaced with the actual behavior
+(next-sync propagation, fuse pods restarted, worker pods pick the secrets up as
+they are replaced, controller env default included, controller-owned so direct
+sts/ds edits are reverted). The PR body also now carries `fixes #6248`
+(auto-close on merge, verified via `closingIssuesReferences`) and a
+special-notes paragraph declaring the env-default live-sync intentional and the
+manual-edit enforcement — answering round 4's Q1.
+
+Doc-sentence factual check against the code at head (round 5 review): worker sts
+updateStrategy is OnDelete in `charts/juicefs` ("as they are replaced" is
+accurate); the fuse roll rides the standard generation/clean-policy mechanism
+verified since round 3; transform.go:134-137 + the live-template diff cover the
+env-default and enforcement sentences; zh is a faithful translation.
+
+| claim | verdict | evidence |
+| --- | --- | --- |
+| C6-sample-docs-sync-claim | **FIXED** — `TestJuicefsSampleDocsSyncClaim` RED on be3337d (round 4) → GREEN on 2150b49 (the only red in round 4's package sweep is gone) | `results/reverify-round5/console.txt`, `results/reverify-round5/unit.out` |
+| C1/C2/C3/C4/C5/C7/C8/C9 | **unchanged, green** on 2150b49 (re-verify.sh: all findings FIXED, pass counts identical to round 4) | `results/reverify-round5/` |
+| Full repo suite on clean head | `go build ./...` clean; `go test ./pkg/ddc/juicefs/...` ok (both packages); `go test ./api/...` ok; no red anywhere | `results/reverify-round5/full-package-head.txt` |
+| CI at head | 23/23 checks SUCCESS at 2150b49 incl. build, unittest, lint, staticcheck, CodeQL, SonarCloud, DCO, codecov and the full kind-e2e-test + backward-compat-test matrices (v1.22–v1.33); PR OPEN, MERGEABLE | `results/reverify-round5/ci-head.txt` |
+
+All round-4 action items are settled: [MUST] docs sentence — done; [MUST] CI
+green on final head — done; [SHOULD] #6248 auto-close — done via `fixes #6248`;
+[SHOULD] env-default/enforcement disclosure — done (PR body + docs). Still open,
+all non-gating: maintainer decision on an in-repo chart-render test (round-1
+consensus: acceptable to merge without, Alluxio #4242 precedent), the nit about
+surfacing an error while the worker command configmap is missing, and Q2 (fuse
+negative assertion in the author's leaf test).

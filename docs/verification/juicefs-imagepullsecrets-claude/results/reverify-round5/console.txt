@@ -1,0 +1,31 @@
+re-verify: manifest = docs/verification/juicefs-imagepullsecrets-claude/verify-manifest.json
+re-verify: resolving PR head via 'git fetch https://github.com/fluid-cloudnative/fluid.git pull/6245/head' (machine-independent)
+re-verify: current head = 2150b49ef89d1718ce59279a466c5733ea9f8d53
+re-verify: last-reviewed = be3337dd00b5356cae2571d540f3b27d2c9e9ade  (review delta = be3337dd00b5356cae2571d540f3b27d2c9e9ade..2150b49ef89d1718ce59279a466c5733ea9f8d53)
+re-verify: fixed-ref=2150b49ef89d1718ce59279a466c5733ea9f8d53  harness-from=verify/juicefs-imagepullsecrets-claude
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'integration' (ginkgo)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+C1-hierarchical-precedence-controller contract  integration  FIXED          pass=7 fail=0 miss=0
+C2-chart-render-fallback contract  integration  FIXED          pass=5 fail=0 miss=0
+C3-env-default-back-compat contract  integration  FIXED          pass=1 fail=0 miss=0
+C4-apidoc-row-placement contract  unit         FIXED          pass=1 fail=0 miss=0
+C5-sync-propagation contract  unit         FIXED          pass=1 fail=0 miss=0
+C6-sample-docs-sync-claim contract  unit         FIXED          pass=1 fail=0 miss=0
+C7-desync-missing-script-cm-recovery contract  unit         FIXED          pass=1 fail=0 miss=0
+C8-desync-strategy-flip-catches-up contract  unit         FIXED          pass=1 fail=0 miss=0
+C9-desync-rotation-then-override-removal contract  unit         FIXED          pass=1 fail=0 miss=0
+
+Live layer (manual): L3 (live cluster) intentionally not run this round: pipeline configured for unit + integration layers only. The chart rendering inside the ginkgo scenarios covers the helm layer without a cluster.
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/juicefs-imagepullsecrets-claude/results/reverify
+
+Review delta this round: be3337dd00b5356cae2571d540f3b27d2c9e9ade..2150b49ef89d1718ce59279a466c5733ea9f8d53
+After reviewing that delta, advance the marker for the next round:
+  echo 2150b49ef89d1718ce59279a466c5733ea9f8d53 > docs/verification/juicefs-imagepullsecrets-claude/.last-reviewed && git add docs/verification/juicefs-imagepullsecrets-claude/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: all findings fixed.
+
+[exited with code 0]

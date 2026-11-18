@@ -1,0 +1,5 @@
+BUILD_OK
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	12.162s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs/operations	0.012s
+
+[exited with code 0]

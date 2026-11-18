@@ -1,0 +1,25 @@
+# gh pr view 6245 --repo fluid-cloudnative/fluid (read-only, 2026-11-19)
+head: 2150b49ef89d1718ce59279a466c5733ea9f8d53  state: OPEN  mergeable: MERGEABLE
+closingIssuesReferences: #4222, #6248 (PR body now carries 'fixes #6248' -> auto-closes on merge)
+SUCCESS	Analyze (go)
+SUCCESS	backward-compat-test (v1.33.2)
+SUCCESS	kind-e2e-test (v1.33.2)
+SUCCESS	staticcheck
+SUCCESS	backward-compat-test (v1.30.13)
+SUCCESS	kind-e2e-test (v1.30.13)
+SUCCESS	backward-compat-test (v1.28.15)
+SUCCESS	kind-e2e-test (v1.28.15)
+SUCCESS	backward-compat-test (v1.24.17)
+SUCCESS	kind-e2e-test (v1.24.17)
+SUCCESS	backward-compat-test (v1.22.17)
+SUCCESS	kind-e2e-test (v1.22.17)
+SUCCESS	lint
+SUCCESS	build (ubuntu-latest)
+SUCCESS	build (ubuntu-24.04-arm)
+SUCCESS	unittest
+SUCCESS	CodeQL
+SUCCESS	SonarCloud
+SUCCESS	DCO
+SUCCESS	SonarCloud Code Analysis
+SUCCESS	codecov/patch
+SUCCESS	codecov/project
