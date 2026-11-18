@@ -181,3 +181,33 @@ Round-3 delta also closes the round-2 SHOULD item: the stale-label trade-off is 
 documented operator-facing (values.yaml comment + TearDownWorkers comment), and the
 maintainer (cheyang) approved at `eb313c44` and re-checked after the rebase
 ("Still good to merge", 2026-11-17).
+
+## Round 4 — head `b1d9294c` (test-only: add-path coverage ported into the PR)
+
+One new commit, `b1d9294cc` ("test(lifecycle): cover the exclude selector on the add path"),
+45 added lines in `node_test.go` only — no production change. It adds the Describe
+"Test addScheduleInfoToNode()" with two specs that implement exactly the round-3 optional
+nit (F-NIT-ADD-PATH-COVERAGE-01 / harness V3's shape):
+
+- "should only label the node that doesn't match the exclude selector" — selector
+  `type=virtual-kubelet`, excluded-node keeps exactly `{type: virtual-kubelet}` (strict
+  `Equal` catches any patch), real-node (control group) gains the runtime label.
+- "should label every node without an exclude selector" — nil-selector branch.
+
+Checks run this round:
+
+| Check | Result |
+|-------|--------|
+| re-verify.sh (harness grafted on head `b1d9294c`) | all 3 contracts FIXED — `results/r4-reverify/` |
+| Pure head, full package suite | 33/33 PASS (27 pre-existing + 4 PR removal + 2 new add-path) — `results/r4-head-pure/` |
+| Base `5e647359` + PR's own `node_test.go` | the 2 removal excluded-node specs FAIL (premise #6246 still reproduces); **both new add-path specs PASS** (correct polarity: the add guard predates the PR, this contract must never be red on base) — `results/r4-base-pr-specs/` |
+| Bites check (add-path guard deleted from head's `node.go`) | exactly "should only label the node that doesn't match the exclude selector" FAILS → the new spec genuinely pins the add call site; production restored, diff empty, build OK — `results/r4-bites-check/` |
+
+The new specs follow the file's established fixture discipline: fresh fake client per spec
+(`resources = nil`), `nodeExcludeSelector` pinned nil in BeforeEach and reset in AfterEach,
+node names mirroring the removal Describe. Fixture ordering verified: outer JustBeforeEach
+builds the client before the Describe's JustBeforeEach creates the nodes on it.
+
+CI on head `b1d9294c`: 22/22 checks pass (unittest, staticcheck, lint, build ×2,
+kind-e2e ×5, backward-compat ×5, CodeQL, Analyze, SonarCloud ×2, DCO, codecov ×2);
+PR OPEN / MERGEABLE. Copilot's pass on this head found no open issues.
