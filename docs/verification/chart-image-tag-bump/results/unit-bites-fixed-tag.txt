@@ -1,0 +1,19 @@
+=== RUN   TestDefaultVersionImagesExistOnDockerHub
+    chart_image_tag_test.go:117: defaultVersion="v1.1.0-dcb76167"; 12 managed images
+    chart_image_tag_test.go:124: fluidcloudnative/fluid-csi:v1.1.0-dcb76167 -> HTTP 200
+    chart_image_tag_test.go:124: fluidcloudnative/vineyardruntime-controller:v1.1.0-dcb76167 -> HTTP 200
+    chart_image_tag_test.go:124: fluidcloudnative/juicefsruntime-controller:v1.1.0-dcb76167 -> HTTP 200
+    chart_image_tag_test.go:124: fluidcloudnative/thinruntime-controller:v1.1.0-dcb76167 -> HTTP 200
+    chart_image_tag_test.go:124: fluidcloudnative/efcruntime-controller:v1.1.0-dcb76167 -> HTTP 200
+    chart_image_tag_test.go:124: fluidcloudnative/cacheruntime-controller:v1.1.0-dcb76167 -> HTTP 200
+    chart_image_tag_test.go:124: fluidcloudnative/alluxioruntime-controller:v1.1.0-dcb76167 -> HTTP 200
+    chart_image_tag_test.go:124: fluidcloudnative/jindoruntime-controller:v1.1.0-dcb76167 -> HTTP 200
+    chart_image_tag_test.go:124: fluidcloudnative/fluid-webhook:v1.1.0-dcb76167 -> HTTP 200
+    chart_image_tag_test.go:124: fluidcloudnative/application-controller:v1.1.0-dcb76167 -> HTTP 200
+    chart_image_tag_test.go:124: fluidcloudnative/fluid-crd-upgrader:v1.1.0-dcb76167 -> HTTP 200
+    chart_image_tag_test.go:124: fluidcloudnative/dataset-controller:v1.1.0-dcb76167 -> HTTP 200
+--- PASS: TestDefaultVersionImagesExistOnDockerHub (6.77s)
+=== RUN   TestChartAppVersionConsistentWithDefaultVersion
+--- PASS: TestChartAppVersionConsistentWithDefaultVersion (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/docs/verification/chart-image-tag-bump/harness	6.770s

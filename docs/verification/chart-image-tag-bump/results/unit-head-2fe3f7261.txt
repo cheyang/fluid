@@ -1,0 +1,37 @@
+=== RUN   TestDefaultVersionImagesExistOnDockerHub
+    chart_image_tag_test.go:117: defaultVersion="v1.1.0-dcb76167b"; 12 managed images
+    chart_image_tag_test.go:124: fluidcloudnative/fluid-crd-upgrader:v1.1.0-dcb76167b -> HTTP 404
+    chart_image_tag_test.go:124: fluidcloudnative/dataset-controller:v1.1.0-dcb76167b -> HTTP 404
+    chart_image_tag_test.go:124: fluidcloudnative/fluid-csi:v1.1.0-dcb76167b -> HTTP 404
+    chart_image_tag_test.go:124: fluidcloudnative/cacheruntime-controller:v1.1.0-dcb76167b -> HTTP 404
+    chart_image_tag_test.go:124: fluidcloudnative/efcruntime-controller:v1.1.0-dcb76167b -> HTTP 404
+    chart_image_tag_test.go:124: fluidcloudnative/alluxioruntime-controller:v1.1.0-dcb76167b -> HTTP 404
+    chart_image_tag_test.go:124: fluidcloudnative/jindoruntime-controller:v1.1.0-dcb76167b -> HTTP 404
+    chart_image_tag_test.go:124: fluidcloudnative/juicefsruntime-controller:v1.1.0-dcb76167b -> HTTP 404
+    chart_image_tag_test.go:124: fluidcloudnative/thinruntime-controller:v1.1.0-dcb76167b -> HTTP 404
+    chart_image_tag_test.go:124: fluidcloudnative/vineyardruntime-controller:v1.1.0-dcb76167b -> HTTP 404
+    chart_image_tag_test.go:124: fluidcloudnative/application-controller:v1.1.0-dcb76167b -> HTTP 404
+    chart_image_tag_test.go:124: fluidcloudnative/fluid-webhook:v1.1.0-dcb76167b -> HTTP 404
+    chart_image_tag_test.go:131: defaultVersion "v1.1.0-dcb76167b" is NOT PUBLISHED for 12/12 managed images:
+          fluidcloudnative/fluid-crd-upgrader:v1.1.0-dcb76167b (HTTP 404)
+          fluidcloudnative/dataset-controller:v1.1.0-dcb76167b (HTTP 404)
+          fluidcloudnative/fluid-csi:v1.1.0-dcb76167b (HTTP 404)
+          fluidcloudnative/cacheruntime-controller:v1.1.0-dcb76167b (HTTP 404)
+          fluidcloudnative/efcruntime-controller:v1.1.0-dcb76167b (HTTP 404)
+          fluidcloudnative/alluxioruntime-controller:v1.1.0-dcb76167b (HTTP 404)
+          fluidcloudnative/jindoruntime-controller:v1.1.0-dcb76167b (HTTP 404)
+          fluidcloudnative/juicefsruntime-controller:v1.1.0-dcb76167b (HTTP 404)
+          fluidcloudnative/thinruntime-controller:v1.1.0-dcb76167b (HTTP 404)
+          fluidcloudnative/vineyardruntime-controller:v1.1.0-dcb76167b (HTTP 404)
+          fluidcloudnative/application-controller:v1.1.0-dcb76167b (HTTP 404)
+          fluidcloudnative/fluid-webhook:v1.1.0-dcb76167b (HTTP 404)
+        a default helm install of this chart will ImagePullBackOff
+--- FAIL: TestDefaultVersionImagesExistOnDockerHub (5.49s)
+=== RUN   TestChartAppVersionConsistentWithDefaultVersion
+--- PASS: TestChartAppVersionConsistentWithDefaultVersion (0.00s)
+=== RUN   TestHeadCommitSignoffMatchesAuthor
+    chart_image_tag_test.go:183: commit HEAD: DCO sign-off mismatch — author is "cheyang <cheyang.cy@alibaba-inc.com>" but no matching "Signed-off-by: cheyang <cheyang.cy@alibaba-inc.com>" line exists in the commit body
+--- FAIL: TestHeadCommitSignoffMatchesAuthor (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/docs/verification/chart-image-tag-bump/harness	5.496s
+FAIL

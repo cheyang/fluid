@@ -1,0 +1,4 @@
+=== RUN   TestHeadCommitSignoffMatchesAuthor
+--- PASS: TestHeadCommitSignoffMatchesAuthor (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/docs/verification/chart-image-tag-bump/harness	0.004s

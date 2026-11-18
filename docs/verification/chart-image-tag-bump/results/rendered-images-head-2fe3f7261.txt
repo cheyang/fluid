@@ -1,0 +1,27 @@
+defaultVersion=v1.1.0-dcb76167b
+--- rendered images carrying the defaultVersion tag:
+fluidcloudnative/alluxioruntime-controller:v1.1.0-dcb76167b
+fluidcloudnative/application-controller:v1.1.0-dcb76167b
+fluidcloudnative/cacheruntime-controller:v1.1.0-dcb76167b
+fluidcloudnative/dataset-controller:v1.1.0-dcb76167b
+fluidcloudnative/efcruntime-controller:v1.1.0-dcb76167b
+fluidcloudnative/fluid-crd-upgrader:v1.1.0-dcb76167b
+fluidcloudnative/fluid-csi:v1.1.0-dcb76167b
+fluidcloudnative/fluid-webhook:v1.1.0-dcb76167b
+fluidcloudnative/jindoruntime-controller:v1.1.0-dcb76167b
+fluidcloudnative/juicefsruntime-controller:v1.1.0-dcb76167b
+fluidcloudnative/thinruntime-controller:v1.1.0-dcb76167b
+fluidcloudnative/vineyardruntime-controller:v1.1.0-dcb76167b
+fluidcloudnative/alluxioruntime-controller:v1.1.0-dcb76167b -> HTTP 404
+fluidcloudnative/application-controller:v1.1.0-dcb76167b -> HTTP 404
+fluidcloudnative/cacheruntime-controller:v1.1.0-dcb76167b -> HTTP 404
+fluidcloudnative/dataset-controller:v1.1.0-dcb76167b -> HTTP 404
+fluidcloudnative/efcruntime-controller:v1.1.0-dcb76167b -> HTTP 404
+fluidcloudnative/fluid-crd-upgrader:v1.1.0-dcb76167b -> HTTP 404
+fluidcloudnative/fluid-csi:v1.1.0-dcb76167b -> HTTP 404
+fluidcloudnative/fluid-webhook:v1.1.0-dcb76167b -> HTTP 404
+fluidcloudnative/jindoruntime-controller:v1.1.0-dcb76167b -> HTTP 404
+fluidcloudnative/juicefsruntime-controller:v1.1.0-dcb76167b -> HTTP 404
+fluidcloudnative/thinruntime-controller:v1.1.0-dcb76167b -> HTTP 404
+fluidcloudnative/vineyardruntime-controller:v1.1.0-dcb76167b -> HTTP 404
+RESULT: FAIL — rendered chart references image tag(s) that do not exist on Docker Hub
