@@ -1,0 +1,70 @@
+{
+  "topic": "cache-engine-helper-tests",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6265",
+  "harnessPaths": [
+    "docs/verification/cache-engine-helper-tests"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #6263 (OPEN, 2026-11-17): \"Unit tests for the parts of the generic CacheRuntime engine (pkg/ddc/cache/engine) that have none yet\" — CheckRuntimeReady, GetDataOperationValueFile, findDataOperationSpec, validateRuntimeClassTopology, Shutdown; \"a regression in either one breaks DataLoad and friends without any test going red\".",
+    "reportedComponent": "pkg/ddc/cache/engine (data_operation.go, validate.go, shutdown.go)",
+    "patchedComponent": "pkg/ddc/cache/engine — test files only (data_operation_test.go, validate_test.go, shutdown_test.go); no production code changes",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "git grep on merge base dcb76167b0143a239addc6bed83ed50b45267631: zero references to CheckRuntimeReady / GetDataOperationValueFile / findDataOperationSpec / Shutdown in any *_test.go of pkg/ddc/cache/engine; validateRuntimeClassTopology had no direct references in tests (only indirect error-path assertions via transform/cm tests). The 23 new specs pass on the PR head (results/l1-pr-new-specs.txt) and all 10 production-code mutations are caught (results/l1-mutation-bite.txt).",
+    "match": ["l1-pr-new-specs.txt", "l1-mutation-bite.txt"]
+  },
+  "layers": {
+    "ginkgo": {
+      "kind": "ginkgo",
+      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=all=-l ./pkg/ddc/cache/engine/ -run TestCacheEngine -ginkgo.focus='CacheEngine data operation helpers|validateRuntimeClassTopology|CacheEngine.Shutdown' -ginkgo.json-report=$GINKGO_REPORT -count=1",
+      "report": "$GINKGO_REPORT"
+    },
+    "fullpkg": {
+      "kind": "ginkgo",
+      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=all=-l ./pkg/ddc/cache/engine/ -run TestCacheEngine -ginkgo.json-report=$GINKGO_REPORT -count=1",
+      "report": "$GINKGO_REPORT"
+    }
+  },
+  "findings": [
+    {
+      "id": "PR-SPECS",
+      "polarity": "contract",
+      "layer": "ginkgo",
+      "match": [
+        "master-disabled worker ready",
+        "master-disabled worker partially ready",
+        "master-disabled worker not ready",
+        "master-worker ready",
+        "master-worker master not ready",
+        "master-worker worker not ready",
+        "returns false when the runtime cannot be fetched",
+        "routes DataLoad operations to the DataLoad generator",
+        "routes DataProcess operations to the DataProcess generator",
+        "DataMigrate",
+        "DataBackup",
+        "unknown operation",
+        "includes the operation object's resource in the NotSupported error",
+        "returns the matching operation spec",
+        "returns nil when no operation spec matches",
+        "rejects a runtime class without a topology",
+        "rejects a topology without a master, worker, or client",
+        "cleans fuse and worker labels from nodes",
+        "returns an error when runtime information cannot be fetched"
+      ]
+    },
+    {
+      "id": "PKG-GREEN",
+      "polarity": "contract",
+      "layer": "fullpkg",
+      "match": [
+        "cleans fuse and worker labels from nodes",
+        "rejects a runtime class without a topology",
+        "returns the matching operation spec"
+      ]
+    }
+  ],
+  "liveNote": "Bite-check (manual, not part of re-verify pass/fail): run scripts/mutation-bite.sh from the repo root — every mutation M1..M10 must be CAUGHT and both baselines green. This is the evidence that the PR's tests detect regressions in the code they cover, not just pass vacuously."
+}

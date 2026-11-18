@@ -1,0 +1,15 @@
+=== baseline (unmutated) ===
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.031s
+MUTATION M1-worker-partialready-dropped: CAUGHT (tests fail as they should) -> FAIL
+MUTATION M2-master-phase-ignored: CAUGHT (tests fail as they should) -> FAIL
+MUTATION M3-master-disabled-always-ready: CAUGHT (tests fail as they should) -> FAIL
+MUTATION M4-missing-runtime-ready: CAUGHT (tests fail as they should) -> FAIL
+MUTATION M5-dataload-route-broken: CAUGHT (tests fail as they should) -> FAIL
+MUTATION M6-unknown-type-no-error: CAUGHT (tests fail as they should) -> FAIL
+MUTATION M7-findopspec-never-matches: CAUGHT (tests fail as they should) -> FAIL
+MUTATION M8-validate-accepts-empty: CAUGHT (tests fail as they should) -> FAIL
+MUTATION M9-shutdown-skips-fuse-cleanup: CAUGHT (tests fail as they should) -> FAIL
+MUTATION M10-shutdown-skips-worker-teardown: CAUGHT (tests fail as they should) -> FAIL
+=== final baseline (all restored) ===
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.031s
+?? docs/verification/
