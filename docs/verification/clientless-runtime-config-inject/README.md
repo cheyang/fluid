@@ -143,6 +143,49 @@ Full-matrix re-verify at 41b47141: all 12 manifest findings FIXED (exit 0)
 (`results/reverify-head-41b47141-round4/`; the previous-head RED run is in
 `results/reverify-prevhead-268012a5-round4/`). CI at 41b47141: all 22 checks SUCCESS.
 
+## Summary of results (round 5, head 9c8d0e9f; delta 41b47141..9c8d0e9f)
+
+The delta is four commits answering the round-4 open items: bcd497c7a gates the
+values-side fallback on `hasKey` instead of truthiness (A-F5), bdd955926 adds the code
+comment justifying the cached-client ConfigMap read (A-F4), dd4aeb81e documents the
+DNS-1035 dataset-name rejection and justifies it in code (A-F6), and 9c8d0e9fc renames the
+opt-in label `fluid.io/inject` to `clientless.fluid.io/inject` (the actionable half of
+A-Q1) and updates every consumer, the chart rule, and the docs.
+
+Harness note: the rename removed `common.LabelAnnotationInject`, so every manifest finding
+initially came back Harness-update (compile). The two harness files that referenced it now
+use `common.InjectClientless`. Four contracts were added (below). The envtest asset
+discovery also learned to scan the setup-envtest local store
+(`~/.local/share/kubebuilder-envtest/k8s/*`) — the hard-coded /tmp paths from round 4 were
+machine-local and had been cleaned.
+
+New contracts and their polarity:
+
+| ID | What it pins | 41b47141 | 9c8d0e9f |
+|----|--------------|----------|----------|
+| A-F5 (falsey `clientless: {}` / `null` silently replaced by the chart default) | `TestPluginsProfileMerge_ExplicitFalseyClientlessIsKept`: the explicit falsey value is kept on the fresh render, in the upgrade merge over a legacy stored profile, and under forceReplace, and parses into an empty (off) clientless group; control `TestPluginsProfileMerge_MissingKeyStillFallsBack` | RED (truthiness installed the default group) / GREEN control | GREEN (2/2) |
+| A-F6 (annotation path rejects digit-leading names the PVC path "accepted") | justification verified, not just documented: `TestVerifyPR6197DigitLeadingDatasetRejectedEverywhere` (annotation path rejects `20-hbase` with the documented DNS-1035 reason; the PVC path rejects it as not-bound) and `TestVerifyPR6197NonDNS1035DatasetNeverReconciles` (`DatasetReconciler.reconcileDataset` errors on the name BEFORE any progress — no finalizer, never Bound; pre-existing since #2233). The round-4 asymmetry scenario cannot occur: the PVC path only "accepted" a state the controller never produces | GREEN (claim holds on both heads — pre-existing gate) | GREEN (2/2) |
+| A-F4 (first clientless admission starts a cluster-wide ConfigMap informer via the cached client) | `TestVerifyPR6197FusePathReadsConfigMapsThroughPluginClient`: the fuse injection path (`injectCheckMountReadyScript`, reached by every serverless pod that mounts a dataset) issues a ConfigMap Get through the plugin's client — in production the webhook's `mgr.GetClient()`, the same cached client — so the informer pre-exists in any cluster that uses fuse injection and the clientless read adds no new one (the author's comment claim, proven) | GREEN (pre-existing fuse behavior) | GREEN (1/1) |
+| A-Q1 label rename | `TestClientlessSelectorMatchesCode`: the chart rule's objectSelector is exactly `clientless.fluid.io/inject: "true"` (the value of `common.InjectClientless`, which the handler harness routes on) and the retired bare `fluid.io/inject:` selector line is gone; cross-checked with a real `helm template` render | RED (selector was `fluid.io/inject`) | GREEN (1/1) |
+
+Noted consequence (new minor B-F9, no harness contract — verdict by probe): with the gate
+now on `hasKey`, a values `clientless: []` (a list, a type error) is kept verbatim again,
+and the rendered profile fails the webhook's yaml.v2 parse (`cannot unmarshal !!seq into
+plugins.Clientless`) → `RegisterMutatingHandlers` os.Exit(1) → webhook crash-loop with
+failurePolicy Fail on every rule. 41b47141's truthiness had accidentally repaired exactly
+this shape. The same crash-loop exposure pre-exists unchanged for `serverful: []` /
+`serverless: []` (no fallback touches them), so this is one instance of a pre-existing
+class: the chart has no values.schema.json for pluginsProfile groups. Suggested: a
+`kindIs "map"` / null guard with a loud `fail`, or schema validation.
+
+Full-matrix re-verify at 9c8d0e9f: all 16 manifest findings FIXED, exit 0
+(`results/reverify-head-9c8d0e9f-round5.txt`; previous-head control run:
+`results/reverify-prevhead-41b47141-round5-integration.out` — the A-F5 and rename
+contracts are RED there, the A-F6/A-F4 justification contracts are GREEN there as
+designed; the unit layer is Harness-update on the old head because the harness now
+references `common.InjectClientless`, which only exists at the new head). CI at 9c8d0e9f:
+all 22 checks pass (gh pr checks 6197, 2026-11-18).
+
 ## Continuing after the fix
 
 On any machine:
