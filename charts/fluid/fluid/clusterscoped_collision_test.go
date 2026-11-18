@@ -29,11 +29,14 @@ package fluid
 //
 // Test map (see docs/verification/multi-release-rbac/):
 //   F1: TestClusterScopedObjectsDisjointAcrossReleases
-//       (distinct release names, default values — CSIDriver/MWC still collide on PR head)
+//       (distinct release names, default values — RED on head da020a3 by design:
+//        the re-scoped PR keeps historical fixed names unless a prefix is set,
+//        and the CSIDriver/MWC singletons are shared either way; #6134's full
+//        contract remains unmet, which the PR body now declares out of scope)
 //   F2: TestClusterScopedObjectsDisjointForSameReleaseNameInTwoNamespaces
-//       (same release name in two namespaces — RBAC names still collide on PR head)
-//   G1: TestClusterScopedRBACReleaseScopedAcrossReleases
-//       (control/guard: the RBAC renaming itself works; green on PR head, red on base)
+//       (same release name in two namespaces — same red, same reason)
+//   G1: superseded in round 2 by TestClusterScopedOptInPrefixDisjointAcrossReleases
+//       (optin_prefix_test.go) and TestClusterScopedDefaultRenderMatchesMergeBase
 
 import (
 	"os/exec"
@@ -44,18 +47,18 @@ import (
 )
 
 var clusterScopedKinds = map[string]bool{
-	"ClusterRole":                  true,
-	"ClusterRoleBinding":           true,
-	"CustomResourceDefinition":     true,
-	"CSIDriver":                    true,
-	"MutatingWebhookConfiguration": true,
+	"ClusterRole":                    true,
+	"ClusterRoleBinding":             true,
+	"CustomResourceDefinition":       true,
+	"CSIDriver":                      true,
+	"MutatingWebhookConfiguration":   true,
 	"ValidatingWebhookConfiguration": true,
-	"PriorityClass":                true,
-	"StorageClass":                 true,
-	"APIService":                   true,
-	"IngressClass":                 true,
-	"RuntimeClass":                 true,
-	"Namespace":                    true,
+	"PriorityClass":                  true,
+	"StorageClass":                   true,
+	"APIService":                     true,
+	"IngressClass":                   true,
+	"RuntimeClass":                   true,
+	"Namespace":                      true,
 }
 
 type clusterObject struct {
@@ -172,69 +175,7 @@ func TestClusterScopedObjectsDisjointForSameReleaseNameInTwoNamespaces(t *testin
 	}
 }
 
-// G1 (control/guard): for two different release names, every ClusterRole and
-// ClusterRoleBinding name must be release-scoped, each ClusterRoleBinding's
-// roleRef must resolve to a ClusterRole of the same release, and the RBAC
-// objects must be disjoint across the releases. Green on the PR head, RED on
-// the merge base — this is the differential proof that the RBAC part of the
-// PR does fix what it claims.
-func TestClusterScopedRBACReleaseScopedAcrossReleases(t *testing.T) {
-	releases := []struct {
-		name, ns string
-	}{
-		{"team-a", "team-a-ns"},
-		{"team-b", "team-b-ns"},
-	}
-	var rbacSets []map[clusterObject]bool
-	for _, r := range releases {
-		manifest := renderChart(t, r.name, r.ns)
-		rbac := map[clusterObject]bool{}
-		roles := map[string]bool{}
-		for _, doc := range docSplitRe.Split(manifest, -1) {
-			km := kindRe.FindStringSubmatch(doc)
-			if km == nil {
-				continue
-			}
-			switch km[1] {
-			case "ClusterRole":
-				nm := nameRe.FindStringSubmatch(doc)
-				if nm == nil {
-					t.Fatalf("ClusterRole without metadata name in release %s", r.name)
-				}
-				if !strings.Contains(nm[1], r.name) {
-					t.Errorf("release %s: ClusterRole %q is not release-scoped", r.name, nm[1])
-				}
-				rbac[clusterObject{"ClusterRole", nm[1]}] = true
-				roles[nm[1]] = true
-			case "ClusterRoleBinding":
-				nm := nameRe.FindStringSubmatch(doc)
-				if nm == nil {
-					t.Fatalf("ClusterRoleBinding without metadata name in release %s", r.name)
-				}
-				if !strings.Contains(nm[1], r.name) {
-					t.Errorf("release %s: ClusterRoleBinding %q is not release-scoped", r.name, nm[1])
-				}
-				rr := roleRefRe.FindStringSubmatch(doc)
-				if rr == nil {
-					t.Fatalf("ClusterRoleBinding %q has no roleRef.name in release %s", nm[1], r.name)
-				}
-				if !strings.Contains(rr[1], r.name) {
-					t.Errorf("release %s: ClusterRoleBinding %q references non-release-scoped ClusterRole %q", r.name, nm[1], rr[1])
-				}
-				if !roles[rr[1]] {
-					t.Errorf("release %s: ClusterRoleBinding %q roleRef %q does not match any ClusterRole rendered for this release", r.name, nm[1], rr[1])
-				}
-				rbac[clusterObject{"ClusterRoleBinding", nm[1]}] = true
-			}
-		}
-		if len(rbac) == 0 {
-			t.Fatalf("release %s rendered no cluster-scoped RBAC objects", r.name)
-		}
-		rbacSets = append(rbacSets, rbac)
-	}
-	for o := range rbacSets[0] {
-		if rbacSets[1][o] {
-			t.Errorf("RBAC object %s collides across releases team-a and team-b", o)
-		}
-	}
-}
+// G1 (round-1 guard, SUPERSEDED in round 2): the contract "cluster RBAC is
+// release-scoped by default" was replaced by da020a3's opt-in design — see
+// TestClusterScopedOptInPrefixDisjointAcrossReleases in optin_prefix_test.go
+// for the round-2 guard (opt-in prefix => prefixed, resolvable, disjoint).
