@@ -1,0 +1,63 @@
+{
+  "topic": "dataflow-affinity-sort",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6258",
+  "headSha": "79ba4d90aae5544101855982325975b72c8e4205",
+  "baseSha": "5e6473599f78263a49e521854d80f918a1a10bb0",
+  "harnessPaths": [
+    "docs/verification/dataflow-affinity-sort",
+    "pkg/dataflow/zz_verify_affinity_order_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "GenerateNodeAffinity in pkg/dataflow/helper.go iterates the job annotations map with 'for key, value := range annotations', so multiple injected affinity annotations yield non-deterministic MatchExpressions ordering on the generated affinity (issue #6238).",
+    "reportedComponent": "pkg/dataflow/helper.go GenerateNodeAffinity",
+    "patchedComponent": "pkg/dataflow/helper.go GenerateNodeAffinity",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Contract test grafted unchanged onto base 5e647359 FAILS at iteration 0 with unsorted output [zone region hostname rack a-first]; the prefix-collision control passes on base, so the red is not a harness artifact. See results/unit-base-harness.txt.",
+    "match": ["TestVerifyGenerateNodeAffinityDeterministicSortedOrder"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/dataflow/ -run 'TestVerifyGenerateNodeAffinity|TestGenerateNodeAffinitySortsCustomizedAffinityAnnotations|TestGenerateNodeLabels' -count=1 -v"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/controllers/v1alpha1/dataload/... ./pkg/controllers/v1alpha1/datamigrate/... -count=1"
+    }
+  },
+  "findings": [
+    {
+      "id": "A1-deterministic-sorted-order",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyGenerateNodeAffinityDeterministicSortedOrder"],
+      "note": "Core acceptance: MatchExpressions are exactly the customized-affinity annotations, in sorted key order, on every call."
+    },
+    {
+      "id": "A2-prefix-collision-guard",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyGenerateNodeAffinityPrefixCollision"],
+      "note": "Slash-form scope annotations (affinity.dataflow.fluid.io/inject|labels) must never leak into MatchExpressions. Passes on base and head (pre-existing correct behavior, kept as regression guard)."
+    },
+    {
+      "id": "A3-pr-own-tests",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestGenerateNodeAffinitySortsCustomizedAffinityAnnotations", "TestGenerateNodeLabels"],
+      "note": "The PR's own new determinism test plus the strengthened strict-DeepEqual table test."
+    },
+    {
+      "id": "A4-caller-integration",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestDataload", "TestDatamigrate"],
+      "note": "Fake-client status-handler suites of both GenerateNodeAffinity callers (dataload, datamigrate) stay green: 45/45 + full datamigrate suite."
+    }
+  ],
+  "liveNote": "L3 skipped per round instructions (no KUBECONFIG layer). The change only reorders ANDed NodeSelectorRequirements inside one NodeSelectorTerm, which the kube-scheduler treats order-insensitively; there is no live-only signal to observe beyond a real dataflow run producing a stable, sorted OperationStatus.NodeAffinity."
+}

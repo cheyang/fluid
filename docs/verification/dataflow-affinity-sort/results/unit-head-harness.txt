@@ -1,0 +1,6 @@
+=== RUN   TestVerifyGenerateNodeAffinityDeterministicSortedOrder
+--- PASS: TestVerifyGenerateNodeAffinityDeterministicSortedOrder (0.00s)
+=== RUN   TestVerifyGenerateNodeAffinityPrefixCollision
+--- PASS: TestVerifyGenerateNodeAffinityPrefixCollision (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataflow	0.011s

@@ -1,0 +1,2 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataload	0.020s
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/datamigrate	0.018s
