@@ -1,0 +1,19 @@
+# re-verify.sh verdict table, updated harness vs head 50933d0b
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+P0     contract  unit         FIXED          pass=2 fail=0 miss=0
+F1     contract  unit         FIXED          pass=1 fail=0 miss=0
+F2     contract  unit         FIXED          pass=1 fail=0 miss=0
+P0-L2  contract  integration  FIXED          pass=1 fail=0 miss=0
+F1-L2  contract  integration  FIXED          pass=1 fail=0 miss=0
+
+Live layer (manual): L3 skipped per debate round policy (unit + integration only). The PR's own curvine e2e (verify_dataload_runafter_removed in test/gha-e2e/curvine/test.sh) covers the real-cluster layer and is green on all 5 CI kind jobs at head 50933d0b (run 44041271456).
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/dataflow-runafter-release-codex/results/reverify
+
+Review delta this round: cc3947c019c4e78a1dd3d43d87733b3e533b1699..50933d0bbc3f34996bd56d3a3d6eaf8139822e3a
+After reviewing that delta, advance the marker for the next round:
+  echo 50933d0bbc3f34996bd56d3a3d6eaf8139822e3a > docs/verification/dataflow-runafter-release-codex/.last-reviewed && git add docs/verification/dataflow-runafter-release-codex/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: all findings fixed.

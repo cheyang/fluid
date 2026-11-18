@@ -1,0 +1,140 @@
+Running Suite: DataFlow Controller Suite - /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow
+================================================================================================
+Random Seed: 1794971111
+
+Will run 54 of 54 specs
+•••
+------------------------------
+• [FAILED] [0.001 seconds]
+reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataLoad
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:913
+
+  [FAILED] When passed a matcher, ReceiveMatcher's channel *must* receive something.
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:909 @ 11/18/26 11:05:11.019
+------------------------------
+• [FAILED] [0.001 seconds]
+reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataBackup
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:916
+
+  [FAILED] When passed a matcher, ReceiveMatcher's channel *must* receive something.
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:909 @ 11/18/26 11:05:11.02
+------------------------------
+• [FAILED] [0.000 seconds]
+reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataMigrate
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:919
+
+  [FAILED] When passed a matcher, ReceiveMatcher's channel *must* receive something.
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:909 @ 11/18/26 11:05:11.021
+------------------------------
+• [FAILED] [0.000 seconds]
+reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataProcess
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:922
+
+  [FAILED] When passed a matcher, ReceiveMatcher's channel *must* receive something.
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:909 @ 11/18/26 11:05:11.021
+------------------------------
+•
+------------------------------
+• [FAILED] [0.000 seconds]
+reconcile a data operation whose spec.runAfter was removed while waiting should leave an operation that is not waiting untouched [It] DataLoad that never waited
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:968
+
+  [FAILED] Expected
+      <string>: 1000
+  to equal
+      <string>: 999
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:960 @ 11/18/26 11:05:11.022
+------------------------------
+•
+------------------------------
+• [FAILED] [0.000 seconds]
+reconcile a data operation whose spec.runAfter was removed while waiting should leave an operation that is not waiting untouched [It] DataMigrate that never waited
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:976
+
+  [FAILED] Expected
+      <string>: 1000
+  to equal
+      <string>: 999
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:960 @ 11/18/26 11:05:11.022
+------------------------------
+••••••••
+------------------------------
+• [FAILED] [0.000 seconds]
+record why a data operation stopped waiting for its preceding operation [It] should record an event when the preceding operation completed
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:1018
+
+  [FAILED] When passed a matcher, ReceiveMatcher's channel *must* receive something.
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:1024 @ 11/18/26 11:05:11.023
+------------------------------
+•••••••••••••
+------------------------------
+• [FAILED] [0.000 seconds]
+verify PR6254 F2: DataOperationWaitingEnded event [It] F2-contract: removal-path release records the event
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:201
+
+  [FAILED] When passed a matcher, ReceiveMatcher's channel *must* receive something.
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:211 @ 11/18/26 11:05:11.025
+------------------------------
+• [FAILED] [0.000 seconds]
+verify PR6254 F2: DataOperationWaitingEnded event [It] F2-contract: completion-path release records the event only for a waiting operation
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:216
+
+  [FAILED] When passed a matcher, ReceiveMatcher's channel *must* receive something.
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:235 @ 11/18/26 11:05:11.025
+------------------------------
+••••
+------------------------------
+• [FAILED] [0.000 seconds]
+verify PR6254: waiting operation without spec.runAfter [It] F1-contract: a non-waiting same-named object of another kind is left untouched
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:137
+
+  [FAILED] non-waiting same-name object must not get a waitingFor write
+  Expected
+      <*bool | 0x174c125255a0>: false
+  to be nil
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:167 @ 11/18/26 11:05:11.026
+------------------------------
+••••••••••
+------------------------------
+• [FAILED] [0.000 seconds]
+DataFlowReconciler Reconcile [It] should leave a same-name operation of another kind that is not waiting untouched
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/dataflow_controller_test.go:194
+
+  [FAILED] Expected
+      <string>: 1000
+  to equal
+      <string>: 999
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/dataflow_controller_test.go:249 @ 11/18/26 11:05:11.028
+------------------------------
+•••
+
+Summarizing 11 Failures:
+  [FAIL] reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataLoad
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:909
+  [FAIL] reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataBackup
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:909
+  [FAIL] reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataMigrate
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:909
+  [FAIL] reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataProcess
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:909
+  [FAIL] reconcile a data operation whose spec.runAfter was removed while waiting should leave an operation that is not waiting untouched [It] DataLoad that never waited
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:960
+  [FAIL] reconcile a data operation whose spec.runAfter was removed while waiting should leave an operation that is not waiting untouched [It] DataMigrate that never waited
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:960
+  [FAIL] record why a data operation stopped waiting for its preceding operation [It] should record an event when the preceding operation completed
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:1024
+  [FAIL] verify PR6254 F2: DataOperationWaitingEnded event [It] F2-contract: removal-path release records the event
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:211
+  [FAIL] verify PR6254 F2: DataOperationWaitingEnded event [It] F2-contract: completion-path release records the event only for a waiting operation
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:235
+  [FAIL] verify PR6254: waiting operation without spec.runAfter [It] F1-contract: a non-waiting same-named object of another kind is left untouched
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/runafter_removed_verify_test.go:167
+  [FAIL] DataFlowReconciler Reconcile [It] should leave a same-name operation of another kind that is not waiting untouched
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/dataflow_controller_test.go:249
+
+Ran 54 of 54 Specs in 0.011 seconds
+FAIL! -- 43 Passed | 11 Failed | 0 Pending | 0 Skipped
+--- FAIL: TestAPIs (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataflow	0.022s
+FAIL

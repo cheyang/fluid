@@ -1,0 +1,12 @@
+Running Suite: DataFlow Controller Suite - /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow
+================================================================================================
+Random Seed: 1794971261
+
+Will run 48 of 48 specs
+••••••••••••••••••••••••••••••••••••••••••••••••
+
+Ran 48 of 48 Specs in 0.008 seconds
+SUCCESS! -- 48 Passed | 0 Failed | 0 Pending | 0 Skipped
+--- PASS: TestAPIs (0.01s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataflow	0.020s

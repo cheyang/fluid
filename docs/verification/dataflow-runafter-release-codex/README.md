@@ -2,7 +2,7 @@
 
 Reproducible evidence for the findings raised while reviewing
 https://github.com/fluid-cloudnative/fluid/pull/6254
-(`fix(dataflow): release a waiting operation whose runAfter was removed`, head `cc3947c0`, base `f432bdc8`).
+(`fix(dataflow): release a waiting operation whose runAfter was removed`, head `50933d0b` (round 2; round 1 reviewed `cc3947c0`), base `f432bdc8`).
 
 Layers run against the **code under review** (`cc3947c0`), with the premise additionally run against **base** (`f432bdc8`):
 
@@ -13,8 +13,8 @@ Layers run against the **code under review** (`cc3947c0`), with the premise addi
 | 3. Live | skipped per round policy; the PR's own curvine e2e covers it (`verify_dataload_runafter_removed`, green on 5 k8s versions at head) | see PR body run 43818103797 |
 
 > Test polarity: contract tests (assert intended behavior) FAIL on buggy code / PASS when
-> fixed. The F1 canary asserts the *current* behavior; it FLIPS to red once the release is
-> guarded on the object actually waiting.
+> fixed. All harness specs are now CONTRACTS: the F1 canary flipped red when head `50933d0b`
+> added the waiting guard, and was inverted per polarity rules (see the round-2 section).
 
 ## Problem premise (P0)
 
@@ -39,7 +39,8 @@ red on base, `results/l1-unit-base-p0-focus.txt`). The fix removes the whole bug
 | ID | Claim | Layer | Verdict | Evidence |
 |----|-------|-------|---------|----------|
 | P0 | waiting op with nil runAfter panics the reconciler on base | 1, 2 | Confirmed | panic on base, clean release on head; `results/l1-unit-base-p0-focus.txt`, `results/l2-envtest-base.txt` vs `results/l1-unit-head.txt`, `results/l2-envtest-head.txt` |
-| F1 | nil-runAfter early return also fires for *non-waiting* same-name cross-kind objects → spurious `waitingFor.operationComplete=false` status write + misleading "stop waiting" log | 1, 2 | Confirmed (minor) | canary green on head: `results/l1-unit-head.txt`, `results/l2-envtest-head.txt`; bites check: with a waiting-guard the canary flips red while P0 stays green (`results/l1-unit-head-f1-guard-bites.txt`) |
+| F1 | nil-runAfter early return also fires for *non-waiting* same-name cross-kind objects → spurious `waitingFor.operationComplete=false` status write + misleading "stop waiting" log | 1, 2 | **Fixed** at `50933d0b` (was Confirmed minor at `cc3947c0`) | round 1: canary green on old head (`results/l1-unit-head.txt`, `results/l2-envtest-head.txt`). Round 2: canary flipped red on the new head, inverted to `F1-contract` (untouched: flag stays nil, no status write, no event); green at unit + envtest (`results/reverify/unit.parsed`, `results/reverify/integration.parsed`); bites on `cc3947c0`'s operations.go (`results/l1-unit-bites-harness-prevhead-operations.txt`) |
+| F2 | release via runAfter removal (and via preceding-op completion) recorded no Kubernetes event | 1 | **Fixed** at `50933d0b` | `DataOperationWaitingEnded` now recorded on both release paths, only for operations that were waiting; pinned by `F2-contract` specs (removal path, completion path, non-waiting control), green on head, red on `cc3947c0`'s operations.go (`results/reverify/unit.parsed`, `results/l1-unit-bites-harness-prevhead-operations.txt`) |
 
 ## Per-finding detail
 
@@ -70,6 +71,41 @@ Fix sketch (NOT applied to production here): gate the release on the fetched sta
 `F1-canary` flips to red while both P0 contract specs stay green
 (`results/l1-unit-head-f1-guard-bites.txt`: 2 Passed | 1 Failed).
 
+## Round 2 (head `50933d0b`, delta `cc3947c0..50933d0b`)
+
+The new head is a fast-forward single commit (`fix(dataflow): only release and record events
+for waiting operations`) that addresses the round-1 findings:
+
+- **F1 / MT2 fixed**: the nil-`runAfter` release is gated on the fetched waiting status
+  (`isWaitingForPrecedingOperation(opStatus)`), which also consumes the previously unused
+  `opStatus` parameter (N2). PR unit + controller tests now pin that non-waiting operations
+  are left untouched.
+- **F2 fixed**: `releaseWaitingOperation` records `DataOperationWaitingEnded` (new constant in
+  `pkg/common/constants.go`) on both release paths, only for operations that were waiting.
+- **Q1 fixed**: the `runAfter` field documents the mutability semantics on all four kinds
+  (openapi + en/zh api docs regenerated; CRDs carry no descriptions, `crd:maxDescLen=0`, so
+  `config/crd` is untouched).
+- **N1 fixed**: the e2e fails if no dataset-controller pod restart count can be read.
+
+Re-verification at `50933d0b` (`scripts/re-verify.sh`, unit + envtest layers):
+
+| ID | Verdict | Detail |
+|----|---------|--------|
+| P0 | FIXED (still green) | release without panic at both layers (`results/reverify/unit.parsed`, `results/reverify/integration.parsed`) |
+| F1 | FIXED (canary flipped → inverted to contract) | first re-verify against the new head: canary FAIL = spurious write gone; inverted `F1-contract` now green at both layers |
+| F2 | FIXED (new contracts) | 3 `F2-contract` specs green on head |
+
+Harness-bites checks for the new/changed tests, run against `cc3947c0`'s `operations.go`
+(grafted onto the head tree so `common.DataOperationWaitingEnded` still resolves):
+
+- PR's own suite: 40 Passed | 8 Failed (the 4 removal entries, 2 never-waited entries,
+  completion-path event spec, controller-level same-name spec) — matches the PR body
+  (`results/l1-unit-bites-prevhead-operations.txt`).
+- This harness: `F1-contract`, `F2-contract` (removal), `F2-contract` (completion) all red;
+  P0 contracts stay green (`results/l1-unit-bites-harness-prevhead-operations.txt`).
+
+Full pristine-head package suite: 48/48 green (`results/l1-unit-head-50933d0b.txt`).
+
 ## Continuing after the fix (possibly on another machine)
 
 The harness is on branch `verify/dataflow-runafter-release-codex` (remote `reviewfork`,
@@ -83,17 +119,17 @@ bash docs/verification/dataflow-runafter-release-codex/scripts/re-verify.sh   # 
 
 Layer 1 needs only the Go toolchain. Layer 2 needs envtest assets
 (`setup-envtest use 1.33.0`, or point `KUBEBUILDER_ASSETS` at an existing
-`.../kubebuilder-envtest/k8s/<ver>-linux-amd64`). Polarity: P0/P0-L2 contract tests should be
-GREEN; F1/F1-L2 canaries stay green while the spurious write exists and flip red when the
-release is guarded (then invert them to contract tests).
+`.../kubebuilder-envtest/k8s/<ver>-linux-amd64`). Polarity: every harness spec is a CONTRACT
+and must be GREEN on the PR head; a red contract is a regression of the merged behavior.
 
 ### Kickoff prompt for a fresh agent
 ```text
 Continue a verification task on branch verify/dataflow-runafter-release-codex (remote
 https://github.com/cheyang/fluid.git). Background: review of
 https://github.com/fluid-cloudnative/fluid/pull/6254 confirmed premise P0 (nil runAfter
-panics the DataFlow reconciler) and minor finding F1 (spurious status write on non-waiting
-same-name cross-kind objects). Read docs/verification/dataflow-runafter-release-codex/README.md
-and run scripts/re-verify.sh against the current PR head; mind the polarity table
-(F1 is a canary). Report observed vs expected per finding.
+panics the DataFlow reconciler); round-1 findings F1 (spurious write on non-waiting
+same-name objects) and F2 (no release event) were FIXED at head 50933d0b and the harness
+is now all-contract. Read docs/verification/dataflow-runafter-release-codex/README.md
+and run scripts/re-verify.sh against the current PR head (all contracts must stay green).
+Report observed vs expected per finding.
 ```

@@ -1,0 +1,106 @@
+Running Suite: DataFlow Controller Suite - /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow
+================================================================================================
+Random Seed: 1794970604
+
+Will run 48 of 48 specs
+••••
+------------------------------
+• [FAILED] [0.001 seconds]
+reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataLoad
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:913
+
+  [FAILED] When passed a matcher, ReceiveMatcher's channel *must* receive something.
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:909 @ 11/18/26 10:56:44.245
+------------------------------
+• [FAILED] [0.000 seconds]
+reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataBackup
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:916
+
+  [FAILED] When passed a matcher, ReceiveMatcher's channel *must* receive something.
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:909 @ 11/18/26 10:56:44.246
+------------------------------
+• [FAILED] [0.000 seconds]
+reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataMigrate
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:919
+
+  [FAILED] When passed a matcher, ReceiveMatcher's channel *must* receive something.
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:909 @ 11/18/26 10:56:44.246
+------------------------------
+• [FAILED] [0.000 seconds]
+reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataProcess
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:922
+
+  [FAILED] When passed a matcher, ReceiveMatcher's channel *must* receive something.
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:909 @ 11/18/26 10:56:44.247
+------------------------------
+•
+------------------------------
+• [FAILED] [0.000 seconds]
+reconcile a data operation whose spec.runAfter was removed while waiting should leave an operation that is not waiting untouched [It] DataLoad that never waited
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:968
+
+  [FAILED] Expected
+      <string>: 1000
+  to equal
+      <string>: 999
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:960 @ 11/18/26 10:56:44.247
+------------------------------
+•
+------------------------------
+• [FAILED] [0.000 seconds]
+reconcile a data operation whose spec.runAfter was removed while waiting should leave an operation that is not waiting untouched [It] DataMigrate that never waited
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:976
+
+  [FAILED] Expected
+      <string>: 1000
+  to equal
+      <string>: 999
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:960 @ 11/18/26 10:56:44.248
+------------------------------
+•••••
+------------------------------
+• [FAILED] [0.000 seconds]
+record why a data operation stopped waiting for its preceding operation [It] should record an event when the preceding operation completed
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:1018
+
+  [FAILED] When passed a matcher, ReceiveMatcher's channel *must* receive something.
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:1024 @ 11/18/26 10:56:44.248
+------------------------------
+•••••••••••••••••••••
+------------------------------
+• [FAILED] [0.000 seconds]
+DataFlowReconciler Reconcile [It] should leave a same-name operation of another kind that is not waiting untouched
+/tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/dataflow_controller_test.go:194
+
+  [FAILED] Expected
+      <string>: 1000
+  to equal
+      <string>: 999
+  In [It] at: /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/dataflow_controller_test.go:249 @ 11/18/26 10:56:44.251
+------------------------------
+••••••••
+
+Summarizing 8 Failures:
+  [FAIL] reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataLoad
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:909
+  [FAIL] reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataBackup
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:909
+  [FAIL] reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataMigrate
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:909
+  [FAIL] reconcile a data operation whose spec.runAfter was removed while waiting should release the operation without panicking [It] DataProcess
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:909
+  [FAIL] reconcile a data operation whose spec.runAfter was removed while waiting should leave an operation that is not waiting untouched [It] DataLoad that never waited
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:960
+  [FAIL] reconcile a data operation whose spec.runAfter was removed while waiting should leave an operation that is not waiting untouched [It] DataMigrate that never waited
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:960
+  [FAIL] record why a data operation stopped waiting for its preceding operation [It] should record an event when the preceding operation completed
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/operations_test.go:1024
+  [FAIL] DataFlowReconciler Reconcile [It] should leave a same-name operation of another kind that is not waiting untouched
+  /tmp/pr6254-head-r2/pkg/controllers/v1alpha1/dataflow/dataflow_controller_test.go:249
+
+Ran 48 of 48 Specs in 0.010 seconds
+FAIL! -- 40 Passed | 8 Failed | 0 Pending | 0 Skipped
+--- FAIL: TestAPIs (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataflow	0.022s
+FAIL
