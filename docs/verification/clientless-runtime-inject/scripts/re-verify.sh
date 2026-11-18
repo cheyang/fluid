@@ -3,12 +3,18 @@
 # No arguments: fetches the PR head from the manifest's "pr" URL.
 # With a ref: grafts the harness onto that ref instead.
 #
-# Round 4 (head 41b47141): the delta 268012a..41b47141 fixes A-F3 (values-side
-# clientless fallback, chart_clientless_fallback_check.py) and adds a webhook
-# rejection class for customized config-map projections (findings_claude_r4_test.go,
-# bite-verified red on 268012a). A-F5 (falsey clientless value overridden by the
-# chart default) and A-F6 (annotation path rejects digit-leading dataset names
-# that the plugin path accepts) are OPEN canaries: green = current behavior stands.
+# Round 5 (head 9c8d0e9): the delta 41b47141..9c8d0e9 switches the chart's
+# clientless fallback gate to hasKey (A-F5's suggested fix; the A-F5 canary
+# flipped and was inverted into contracts), documents the DNS-1035 dataset-name
+# class with a code-verified rationale (A-F6 fixed), documents the force-replace
+# fallback semantics in values.yaml (A-Q2/B-F8), and renames the clientless
+# routing label to clientless.fluid.io/inject (contract in
+# findings_claude_r5_test.go + the chart selector check, both red on 41b47141).
+# New canary A-F7: the list-shaped plugins.clientless values spelling reaches the
+# rendered profile and fails the webhook's yaml unmarshal at startup.
+# A-F4 (ConfigMap informer) stays open: the round-5 in-code comment claims the
+# webhook "already caches config maps for the fuse injection", which is false --
+# no other client-side ConfigMap read exists in the webhook process.
 # The "canaries" run below executes the reviewer findings suites (contract
 # polarity): green means the fixes hold, red means a regression re-opened one.
 #
@@ -72,8 +78,8 @@ python3 -I "$HERE/scripts/chart_clientless_fallback_check.py" > "$HERE/results/c
 CH4=$?
 
 echo
-echo "== reviewer findings contracts (A-F1, A-F2, A-N1, B-F5) =="
-( cd "$REPO" && go test -count=1 ./pkg/webhook/plugins/runtimeconfiginjector/ ./pkg/webhook/utils/ -args -ginkgo.focus "Reviewer findings" ) > "$HERE/results/canaries.txt" 2>&1
+echo "== reviewer findings contracts (A-F1, A-F2, A-N1, B-F5, round-5 label rename) =="
+( cd "$REPO" && go test -count=1 ./pkg/webhook/plugins/runtimeconfiginjector/ ./pkg/webhook/utils/ ./pkg/webhook/plugins/ -args -ginkgo.focus "Reviewer findings" ) > "$HERE/results/canaries.txt" 2>&1
 CAN=$?
 
 echo
@@ -96,24 +102,30 @@ else
   report B-F6 broken "checksum churn on second upgrade — see results/checksum-churn.txt"
 fi
 if [ $CH4 -eq 0 ]; then
-  report A-F3 fixed "values without a clientless group get the chart's group; null/non-map render as before (results/chart-values-fallback.txt)"
+  report A-F3 fixed "values that lack the clientless key get the chart's group (no-key model, incl. force-replace); null/non-map render as before (results/chart-values-fallback.txt)"
   report C-R4 fixed "customized config-map projection rejected, not replaced (results/canaries.txt round 4 + chart-values-fallback.txt)"
-  report A-F5 "canary ok" "falsey clientless value still overridden (open finding, current behavior — results/chart-values-fallback.txt)"
+  report A-F5 fixed "template gate is hasKey: an explicit clientless value is kept, not replaced; documented 2-key empty group opt-out works; default render byte-identical (results/chart-values-fallback.txt)"
+  report A-F6 fixed "documented in zh+en with the dataset-controller rationale (pkg/controllers/v1alpha1/dataset/dataset_controller.go:129 rejects non-DNS-1035 names before Bound); canary green, pins the denial (results/canaries.txt)"
+  report A-F7 "canary ok" "list-shaped plugins.clientless sticks into the profile and fails the webhook yaml parse at startup (open nit — results/canaries.txt round 5 + chart-values-fallback.txt)"
 else
   report A-F3 "check chart-values-fallback.txt" "chart fallback contract or its guards failed"
   report C-R4 "check chart-values-fallback.txt" "see above"
-  report A-F5 "flipped?" "the canary went red: an explicit empty list now sticks — invert it into a contract"
+  report A-F5 "check chart-values-fallback.txt" "round-5 contracts failed"
+  report A-F6 "check canaries.txt" "A-F6 canary flipped — the annotation name check changed shape"
+  report A-F7 "flipped?" "the chart or the webhook started guarding the list spelling — invert into a contract"
 fi
 if [ $CAN -eq 0 ]; then
   report A-F1 fixed "contract green: non-cache dataset rejected naming the runtime type (results/canaries.txt)"
   report A-F2 fixed "contract green: PVC-resolved name that cannot form a volume name rejected (results/canaries.txt)"
   report A-N1 fixed "contract green: only fluid-fuse / fluid-fuse-<idx> are skipped (results/canaries.txt)"
   report B-F5 fixed "contract green: annotation name denials carry the reason (results/canaries.txt)"
+  report C-LABEL fixed "contract green: routing on clientless.fluid.io/inject, old fluid.io/inject spelling inert (results/canaries.txt round 5)"
 else
   report A-F1 "regressed?" "contract suite RED — check results/canaries.txt"
   report A-F2 "regressed?" "see above"
   report A-N1 "regressed?" "see above"
   report B-F5 "regressed?" "see above"
+  report C-LABEL "regressed?" "round-5 label contracts RED — check results/canaries.txt"
 fi
 
 echo
