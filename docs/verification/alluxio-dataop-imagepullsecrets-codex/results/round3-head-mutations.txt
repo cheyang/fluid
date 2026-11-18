@@ -1,0 +1,24 @@
+=== M1 merge-instead-of-replace mutation (head 9667daf6) ===
+--- FAIL: TestGenerateDataBackupValueFile (0.00s)
+    --- FAIL: TestGenerateDataBackupValueFile/runtime_imagePullSecrets_reach_the_value_file (0.00s)
+        backup_data_test.go:176: expected imagePullSecrets [{runtime-secret}], got [{runtime-secret} {env-secret}]
+--- FAIL: TestGenerateDataLoadValueFileImagePullSecrets (0.00s)
+    --- FAIL: TestGenerateDataLoadValueFileImagePullSecrets/runtime_secrets_replace_the_env_default (0.00s)
+        load_data_test.go:591: expected imagePullSecrets [{runtime-secret}], got [{runtime-secret} {env-secret}]
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	0.017s
+FAIL
+
+=== M2 broken-env-fallback mutation (head 9667daf6) ===
+--- FAIL: TestGenerateDataBackupValueFile (0.00s)
+    --- FAIL: TestGenerateDataBackupValueFile/env_imagePullSecrets_without_runtime_secrets (0.00s)
+        backup_data_test.go:236: expected imagePullSecrets [{env-secret}], got []
+--- FAIL: TestGenerateDataLoadValueFileImagePullSecrets (0.00s)
+    --- FAIL: TestGenerateDataLoadValueFileImagePullSecrets/env_default_without_runtime_secrets (0.00s)
+        load_data_test.go:591: expected imagePullSecrets [{env-secret}], got []
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	0.017s
+FAIL
+
+=== control: unmodified head ===
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	0.015s

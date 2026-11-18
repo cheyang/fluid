@@ -112,3 +112,50 @@ Also switched the manifest's unit cmd to `go test -json` so `re-verify.sh` can p
   `go vet ./pkg/ddc/alluxio/` clean on head.
 - GitHub checks on bf852650: all green (unittest, lint, build, kind-e2e × 5 k8s versions,
   backward-compat × 5, CodeQL, SonarCloud, codecov).
+
+## Round 3 (head 9667daf6, base moved ff99142f → dcb76167, 2026-11-18)
+
+The PR was **rebased** (old commits 34a731862/bf8526504 → 416beca92/3b72b5174, tree-identical
+in `pkg/ddc/alluxio/`) plus **one new commit** `9667daf6b`
+(`test(alluxio): cover the env imagePullSecrets fallback for DataBackup`) answering F5.
+
+Delta `bf852650..9667daf6` in PR files: `backup_data_test.go` +66 only:
+
+1. New subtest `env imagePullSecrets without runtime secrets` in `TestGenerateDataBackupValueFile`:
+   runtime without secrets + `t.Setenv(common.EnvImagePullSecretsKey, "env-secret")` → asserts
+   `values.DataBackup.ImagePullSecrets == [{env-secret}]` (F5's ask).
+2. The existing `runtime imagePullSecrets reach the value file` case now also sets
+   `envSecrets: "env-secret"`, so it pins **replace-not-merge for DataBackup** too — more than
+   F5 asked.
+
+Base delta `ff99142f..dcb76167` review: vendored `sigs.k8s.io/yaml` 1.4.0 → 1.6.0 (impl swap
+goyaml.v2 → go.yaml.in/yaml/v2 — the value-file marshal path in `load_data.go` uses it),
+Go 1.26.10→1.26.11, #6257 CI/script/Dockerfile hardening, plus `pkg/common/constants.go`
+(additive const), `pkg/ddc/cache/engine/*`, `pkg/utils/dataset/lifecycle/*`. None of it touches
+the PR's files, the caller chain (`pkg/ddc/base`, `pkg/databackup`, `pkg/controllers/operation*`),
+or `pkg/utils/docker` — verified by name-diff; the harness re-run compiles and runs against the
+new vendored yaml, behaviorally covering the marshal path.
+
+### Round-3 results
+
+- `re-verify.sh` (auto-resolved head 9667daf6): A1–A7 all PASS → all findings FIXED
+  (`results/reverify/unit.parsed`).
+- Base polarity re-confirmed on the NEW base dcb76167: A1/A3/A4/A6/A7 red, A2/A5 green —
+  same shape as round 2 (`results/round3-base-polarity.txt`); premise P0 re-confirmed.
+- PR's own tests on head: all pass, incl. the new backup env-fallback subtest
+  (`results/round3-head-pr-own-tests.txt`).
+- New mutation bite-proofs for the round-3 test additions (`results/round3-head-mutations.txt`):
+  - M1 merge-instead-of-replace in `dataOperationImagePullSecrets` → fails BOTH the DataLoad and
+    the updated DataBackup runtime-secrets cases (`got [{runtime-secret} {env-secret}]`).
+  - M2 broken env fallback → fails exactly the new backup env-fallback subtest
+    (`backup_data_test.go:236`) and the load env-fallback subtest. Control run on unmodified
+    head: green.
+- Full package sweep on head: 149/150, the same pre-existing `metadata_test.go:205` flake,
+  reproduced identically on the new base dcb76167 (`results/round3-head-full-package.txt`);
+  `go build ./...` + `go vet ./pkg/ddc/alluxio/` clean (`results/round3-head-build-vet.txt`).
+- GitHub checks on 9667daf6: all SUCCESS (23 contexts incl. kind-e2e ×5, backward-compat ×5);
+  PR OPEN/MERGEABLE.
+- #6247 follow-up: author's tracking comment stands; author later narrowed DataProcess
+  ("jobProcessor.podSpec is user-supplied and can carry imagePullSecrets") — verified true for
+  that path (`job.yaml:46-47`), but the `scriptProcessor` path still renders a required user
+  image with no imagePullSecrets anywhere in the chart. Pre-existing, out of scope.

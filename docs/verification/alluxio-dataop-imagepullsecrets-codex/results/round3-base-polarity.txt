@@ -1,0 +1,18 @@
+# base polarity on NEW base dcb76167 (round 3, 2026-11-18)
+=== RUN   TestVerifyDataLoadUsesRuntimeImagePullSecrets
+--- FAIL: TestVerifyDataLoadUsesRuntimeImagePullSecrets (0.00s)
+=== RUN   TestVerifyDataLoadFallsBackToEnvImagePullSecrets
+--- PASS: TestVerifyDataLoadFallsBackToEnvImagePullSecrets (0.00s)
+=== RUN   TestVerifyDataLoadRuntimeSecretsReplaceEnv
+--- FAIL: TestVerifyDataLoadRuntimeSecretsReplaceEnv (0.00s)
+=== RUN   TestVerifyDataLoadMissingRuntimeNowErrors
+--- FAIL: TestVerifyDataLoadMissingRuntimeNowErrors (0.00s)
+=== RUN   TestVerifyDataBackupUsesRuntimeImagePullSecrets
+--- FAIL: TestVerifyDataBackupUsesRuntimeImagePullSecrets (0.00s)
+=== RUN   TestVerifyDataBackupFallsBackToEnvImagePullSecrets
+--- PASS: TestVerifyDataBackupFallsBackToEnvImagePullSecrets (0.00s)
+=== RUN   TestVerifyDataLoadRuntimeLookupFreshAndKeyedByDataset
+--- FAIL: TestVerifyDataLoadRuntimeLookupFreshAndKeyedByDataset (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	0.017s
+FAIL

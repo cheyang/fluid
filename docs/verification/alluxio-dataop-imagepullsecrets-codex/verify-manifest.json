@@ -89,5 +89,12 @@
   "round2": {
     "head": "bf85265045c6391cb9a1d62cc20ae4d1ac186342",
     "harnessUpdate": "bf852650 switched generateDataLoadValueFile's runtime lookup from utils.GetAlluxioRuntime(r.Client, dataload.Spec.Dataset.Name/Namespace) to e.getRuntime() (keyed on engine name/namespace). The harness engine previously set no name/namespace, so A1-A3 failed with alluxioruntimes...\"\" not found and A6 false-passed. Fixed the harness engine to carry the dataset identity (mirrors the PR's own update to TestGenerateDataLoadValueFile)."
+  },
+  "round3": {
+    "head": "9667daf6bce4f7324c038594203497210d2e4a73",
+    "baseMoved": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5 -> dcb76167b0143a239addc6bed83ed50b45267631 (rebase; PR file content identical except new test commit)",
+    "newCommit": "9667daf6b test(alluxio): cover the env imagePullSecrets fallback for DataBackup \u2014 closes F5; also adds envSecrets to the runtime-secrets backup case so it pins replace-not-merge for DataBackup",
+    "results": "re-verify.sh: A1-A7 all pass on 9667daf6; base polarity re-confirmed on dcb76167 (A1/A3/A4/A6/A7 red, A2/A5 green); mutation bite-proofs M1 (merge) and M2 (broken fallback) fail exactly the new/strengthened PR subtests; full suite 149/150 with the same pre-existing metadata flake on base and head; CI all green.",
+    "noHarnessChange": "the additive harness grafted onto the rebased head without modification"
   }
 }

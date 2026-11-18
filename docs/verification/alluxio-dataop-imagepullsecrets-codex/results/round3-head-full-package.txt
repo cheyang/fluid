@@ -1,0 +1,6 @@
+# full package on head 9667daf6 (round 3)
+[38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-18/pr-6250/wt-head/pkg/ddc/alluxio/metadata_test.go:205[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m149 Passed[0m | [38;5;9m[1m1 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m0 Skipped[0m
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	10.087s
+FAIL
