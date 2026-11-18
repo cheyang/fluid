@@ -1,0 +1,7 @@
+HEAD is now at 632ec0062 test(e2e): check that a CacheRuntimeClass edit does not reach curvine
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/component	0.037s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.422s
+ok  	github.com/fluid-cloudnative/fluid/pkg/common	0.017s
+ok  	github.com/fluid-cloudnative/fluid/pkg/common/features	0.007s
+
+[exited with code 0]

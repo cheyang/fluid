@@ -3,8 +3,11 @@
 Reproducible evidence for the review of https://github.com/fluid-cloudnative/fluid/pull/6242
 (CacheRuntime bound to a snapshot of its CacheRuntimeClass). Reviewer A (Claude).
 
-Layers run against the **code under review** (head `5ac1064bece2d01fdf9442f9ac8327a850b02b3d`),
-with the premise additionally run against the **base** (`ff99142f9ec5c32a0c9166de023cb8936f0e5ae5`):
+Layers run against the **code under review** (head `5ac1064bece2d01fdf9442f9ac8327a850b02b3d` in
+round 1; head `632ec0062b5847d720eab7ba4cf8699a26b7a620` after the round-2 rebase — see
+"Round 2" below), with the premise additionally run against the **base**
+(`ff99142f9ec5c32a0c9166de023cb8936f0e5ae5` in round 1; `5e6473599f78263a49e521854d80f918a1a10bb0`
+in round 2):
 
 | Layer | What it exercises | How to run |
 |-------|-------------------|------------|
@@ -129,3 +132,30 @@ scripts/re-verify.sh (unit layer only; live layer needs a kind cluster), mind th
 table (all contracts here), and report an observed-vs-expected table. Clean up scoped test
 resources; do not run cluster-wide destructive actions.
 ```
+
+## Round 2 (2026-11-18) — rebase onto new base, re-verification
+
+The PR was rebased: head `5ac1064b` → `632ec0062` (same four commits, byte-identical PR-owned
+files), base `ff99142f` → `5e6473599` (now includes #6177 as `f432bdc87`, the
+sigs.k8s.io/yaml 1.4.0→1.6.0 bump #6240, #6244, #6252). Verified:
+
+- **Base drift in blast radius is zero.** `git diff 956d78a8f 5e6473599 -- pkg/ddc/cache pkg/common`
+  is empty, i.e. the #6177 code the snapshot commits sit on is identical to what the previous
+  head was stacked on. The PR's own files are byte-identical between the two heads (md5-checked:
+  runtime_class_snapshot.go, sync.go, cacheruntime.go, curvine test.sh).
+- **Re-verify on new head**: `scripts/re-verify.sh` (auto-resolved head `632ec0062`) —
+  AC1/AC2/AC3 all pass (`results/round2-2026-11-18/reverify-head-632ec006.txt`).
+- **Full sweep on new head** (base-change re-verification, incl. the yaml 1.6 path in
+  dataload.go): `go test -gcflags=all=-l -count=1 ./pkg/ddc/cache/... ./pkg/common/...` —
+  all ok (`results/round2-2026-11-18/full-suite-head-632ec006.txt`).
+- **Premise (P0) re-confirmed on the NEW base**: the AC1 contract spec grafted onto
+  `5e6473599` FAILS (1 failed spec: the class edit reaches the worker ASTS — memory 4Gi→16Gi
+  diff printed), and passes on head `632ec0062`
+  (`results/round2-2026-11-18/p0-base-5e6473599.txt`). So even with #6177 merged into the
+  base, the #6213 premise still reproduces and this PR still fixes it.
+- **CI at this head**: all checks pass except `staticcheck`, which fails with ST1019
+  (duplicate `sigs.k8s.io/controller-runtime/pkg/client` import) in
+  `pkg/utils/dataset/lifecycle/node_test.go` — a file this PR does not touch, introduced by
+  base commit `6f55f846d` (#6244) and already fixed on master by `1321a217d` (#6257, landed
+  2026-11-17 14:47 +0800, one hour after the failing run). Not PR-attributed; a rebase onto
+  current master (or re-run) clears it.

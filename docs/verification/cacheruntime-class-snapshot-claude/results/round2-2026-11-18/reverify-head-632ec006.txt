@@ -1,0 +1,24 @@
+re-verify: manifest = docs/verification/cacheruntime-class-snapshot-claude/verify-manifest.json
+re-verify: resolving PR head via 'git fetch https://github.com/fluid-cloudnative/fluid.git pull/6242/head' (machine-independent)
+re-verify: current head = 632ec0062b5847d720eab7ba4cf8699a26b7a620
+re-verify: last-reviewed = 5ac1064bece2d01fdf9442f9ac8327a850b02b3d  (review delta = 5ac1064bece2d01fdf9442f9ac8327a850b02b3d..632ec0062b5847d720eab7ba4cf8699a26b7a620)
+re-verify: fixed-ref=632ec0062b5847d720eab7ba4cf8699a26b7a620  harness-from=verify/cacheruntime-class-snapshot-claude
+re-verify: running layer 'unit' (ginkgo)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+AC1    contract  unit         FIXED          pass=1 fail=0 miss=0
+AC2    contract  unit         FIXED          pass=1 fail=0 miss=0
+AC3    contract  unit         FIXED          pass=1 fail=0 miss=0
+
+Live layer (manual): L3 (live) was not run this round: the debate setup limits stage 2 to unit+integration. The curvine kind e2e in test/gha-e2e/curvine/test.sh (function verify_runtime_class_edit_not_propagated) covers the class-edit-isolation contract on a real cluster and passed in the kind-e2e-test workflow on head 5ac1064b across k8s v1.22-v1.33.
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/cacheruntime-class-snapshot-claude/results/reverify
+
+Review delta this round: 5ac1064bece2d01fdf9442f9ac8327a850b02b3d..632ec0062b5847d720eab7ba4cf8699a26b7a620
+After reviewing that delta, advance the marker for the next round:
+  echo 632ec0062b5847d720eab7ba4cf8699a26b7a620 > docs/verification/cacheruntime-class-snapshot-claude/.last-reviewed && git add docs/verification/cacheruntime-class-snapshot-claude/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: all findings fixed.
+
+[exited with code 0]
