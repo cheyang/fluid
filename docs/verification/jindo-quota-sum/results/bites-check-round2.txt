@@ -1,0 +1,32 @@
+# Harness-bites check (round 2): F1/F5 tests on PRE-FIX production code (22d2d07, no m->Mi mapping)
+# Expect: Mi contract tests FAIL (they bite); they pass on fixed head 305e466 (results/reverify).
+
+    jindo_sum_quotas_verify_test.go:70: jindo m suffix is Mi (F1, flipped in round 2): SumQuotas("100m,200m").String() = "300m", want "300Mi"
+    jindo_sum_quotas_verify_test.go:70: jindo m suffix list (F1): SumQuotas("2048m,2048m").String() = "4096m", want "4Gi"
+    jindo_sum_quotas_verify_test.go:70: single jindo m value (F5): SumQuotas("512m").String() = "512m", want "512Mi"
+    jindo_sum_quotas_verify_test.go:70: negative m element still sums (F4 unchanged): SumQuotas("10Mi,-5m").String() = "10485759995m", want "5Mi"
+--- FAIL: TestSumQuotasContract (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/jindo	0.012s
+FAIL
+
+=== RUN   TestVerifyQuotaListMiUnitsSum
+    transform_resources_verify_test.go:165: worker memory request = "4096m", want 4Gi (4096Mi); a milli-byte value like "4096m" means the m->Mi restoration is missing
+    transform_resources_verify_test.go:174: persisted runtime worker memory request = {{4096 -3} {<nil>} 4096m DecimalSI} (ok=true), want 4Gi (4096Mi)
+--- FAIL: TestVerifyQuotaListMiUnitsSum (1.00s)
+=== RUN   TestVerifySingleQuotaMiUnits
+    transform_resources_verify_test.go:202: worker memory request = "512m", want 512Mi
+--- FAIL: TestVerifySingleQuotaMiUnits (1.00s)
+=== RUN   TestVerifyMiUnitsSumExceedsLimitReturnsError
+--- FAIL: TestVerifyMiUnitsSumExceedsLimitReturnsError (0.00s)
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	2.018s
+FAIL
+
+    transform_resources_verify_test.go:91: worker memory request = "4096m", want 4Gi (4096Mi)
+--- FAIL: TestVerifyJindoCacheQuotaListMiUnitsSum (1.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	1.015s
+FAIL
+
+# production diff check (must be empty):
+0

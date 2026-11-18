@@ -1,0 +1,4 @@
+# Full package sweep on fixed head 305e466f + harness @round-2 (FLUID_UNIT_TEST=true)
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/jindo	0.012s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	21.061s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	50.091s

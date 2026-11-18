@@ -2,7 +2,44 @@
 
 Reproducible evidence for the findings raised while reviewing
 https://github.com/fluid-cloudnative/fluid/pull/6261
-(head `22d2d07c7c275a3baff2def3d24526ae8b74b380`, base `1321a217d78ab99c0cb76d2ea334d593a3765509`).
+(round 1 head `22d2d07c7c…`, round 2 head `305e466f49…`, base `1321a217d78ab99c0cb76d2ea334d593a3765509`).
+
+## Round 2 (head 305e466f4) — the F1 fix landed
+
+The PR added one commit, `305e466f4 fix(jindo): read the m suffix as Mi when
+summing tieredstore quotas`: `SumQuotas` now maps a trailing `m` back to `Mi`
+before `resource.ParseQuantity`, plus a helper-level regression test
+(`pkg/utils/jindo/quota_test.go`). The m→Mi restoration is centralized in the
+shared helper, so it also fixes the pre-existing single-value `quota: 512Mi`
+path (round-1 F5), which flows through the same `SumQuotas` call.
+
+`scripts/re-verify.sh` (grafted onto 305e466f4, all contract polarity):
+
+| ID | Claim | Verdict | Evidence |
+|----|-------|---------|----------|
+| B1–B5 | round-1 contracts (sum/error paths/single/spaces) | FIXED (all pass) | `results/reverify/` |
+| B6 | `SumQuotas` semantics table (incl. inverted milli row + new Mi rows) | FIXED | `results/reverify/unit.out` |
+| F1 | Mi-denominated quotaList sums as Mi in both engines (round-1 blocker) | **FIXED** — `TestVerifyQuotaListMiUnitsSum`, `TestVerifyJindoCacheQuotaListMiUnitsSum`, `TestVerifyMiUnitsSumExceedsLimitReturnsError` pass; request `4Gi`, persisted `4Gi` | `results/reverify/integration.out` |
+| F5 | single-value `512Mi` → 512Mi request (pre-existing at base) | **FIXED** — `TestVerifySingleQuotaMiUnits` passes | `results/reverify/integration.out` |
+
+Harness-bites (round 2): `results/bites-check-round2.txt` — the same F1/F5
+tests fail on pre-fix production code (22d2d07, no m→Mi mapping) with the exact
+round-1 signature (`request "4096m"`, `{{4096 -3} … 4096m DecimalSI}`
+persisted), and the unit rows return `300m/4096m/512m`. Production diff vs
+22d2d07 on this branch: empty.
+
+Full sweep: `results/head-sweep-round2.txt` — `FLUID_UNIT_TEST=true go test`
+on `./pkg/utils/jindo/ ./pkg/ddc/jindofsx/ ./pkg/ddc/jindocache/` all **ok**
+on 305e466f4 + this harness (includes the PR's own new `TestSumQuotas`).
+
+Polarity note: the round-1 unit row "milli parses as milli" asserted the
+then-current behavior and flipped when the fix landed; it is inverted to the
+new contract ("jindo m suffix is Mi") per the flip policy, and joined by the
+explicit F1/F5 rows. Residual observations (unchanged from round 1): negative
+elements still sum (F4), the master-memory heuristic still no-ops for lists
+(F6), the g→Gi restoration is still duplicated per engine (F7), the worker
+limit-check error still says "master limits memory" (F8).
+
 
 Reviewer: Claude (Reviewer A). Harness branch: `verify/jindo-quotalist-sum-claude`
 (fork `cheyang/fluid`). Production code is untouched on this branch — the diff
