@@ -1,0 +1,15 @@
+MISSING  fluidcloudnative/alluxioruntime-controller:v1.1.0-dcb76167b  (hub API HTTP 404)
+MISSING  fluidcloudnative/application-controller:v1.1.0-dcb76167b  (hub API HTTP 404)
+MISSING  fluidcloudnative/cacheruntime-controller:v1.1.0-dcb76167b  (hub API HTTP 404)
+OK       fluidcloudnative/csi-node-driver-registrar:v2.14.0
+MISSING  fluidcloudnative/dataset-controller:v1.1.0-dcb76167b  (hub API HTTP 404)
+MISSING  fluidcloudnative/efcruntime-controller:v1.1.0-dcb76167b  (hub API HTTP 404)
+MISSING  fluidcloudnative/fluid-crd-upgrader:v1.1.0-dcb76167b  (hub API HTTP 404)
+MISSING  fluidcloudnative/fluid-csi:v1.1.0-dcb76167b  (hub API HTTP 404)
+MISSING  fluidcloudnative/fluid-webhook:v1.1.0-dcb76167b  (hub API HTTP 404)
+MISSING  fluidcloudnative/jindoruntime-controller:v1.1.0-dcb76167b  (hub API HTTP 404)
+MISSING  fluidcloudnative/juicefsruntime-controller:v1.1.0-dcb76167b  (hub API HTTP 404)
+MISSING  fluidcloudnative/thinruntime-controller:v1.1.0-dcb76167b  (hub API HTTP 404)
+MISSING  fluidcloudnative/vineyardruntime-controller:v1.1.0-dcb76167b  (hub API HTTP 404)
+---
+checked: 13 images, missing: 12 (full log: /tmp/check-image-tags.out)

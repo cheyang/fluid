@@ -1,0 +1,60 @@
+{
+  "topic": "chart-image-tag",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6268",
+  "baseSha": "dcb76167b0143a239addc6bed83ed50b45267631",
+  "headSha": "2fe3f726108e6a4c2be49747a0d586ed7e4ab812",
+  "reviewer": "claude",
+  "harnessPaths": [
+    "docs/verification/chart-image-tag-claude"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "PR body: \"Bump fluid chart appVersion and default image tag to v1.1.0-dcb76167b (built from master commit dcb76167b).\"",
+    "reportedComponent": "charts/fluid/fluid (helm chart default images)",
+    "patchedComponent": "charts/fluid/fluid (Chart.yaml appVersion + values.yaml default version anchor)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "integration",
+    "verdict": "confirmed",
+    "evidence": "An image set built from master commit dcb76167b014... exists on Docker Hub, but under tag v1.1.0-dcb76167 (8-char sha prefix), pushed 2026-11-17T12:40Z; the PR was authored 2026-11-18T02:12Z. See results/P0-premise-registry.json.",
+    "match": ["check_image_tags.sh"]
+  },
+  "layers": {
+    "integration": {
+      "kind": "shell",
+      "cmd": "bash docs/verification/chart-image-tag-claude/scripts/check_image_tags.sh",
+      "cmdBase": "bash docs/verification/chart-image-tag-claude/scripts/check_image_tags.sh /tmp/base-chart/charts/fluid/fluid"
+    },
+    "unit": {
+      "kind": "shell",
+      "cmd": "bash docs/verification/chart-image-tag-claude/scripts/check_dco.sh"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["check_image_tags.sh"],
+      "status": "open",
+      "origin": "initial-pr",
+      "firstSeenSha": "2fe3f726108e6a4c2be49747a0d586ed7e4ab812",
+      "evidenceKind": "differential",
+      "verification": { "base": "pass", "previous": "not-run", "head": "fail" },
+      "evidence": "results/F1-image-tags-base.txt (13/13 OK on base) vs results/F1-image-tags-head.txt (12/13 MISSING on head, all HTTP 404)"
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["check_dco.sh"],
+      "status": "open",
+      "origin": "initial-pr",
+      "firstSeenSha": "2fe3f726108e6a4c2be49747a0d586ed7e4ab812",
+      "evidenceKind": "differential",
+      "verification": { "base": "pass", "previous": "not-run", "head": "fail" },
+      "evidence": "results/F2-dco-head.txt; DCO check run output on PR head: Expected \"cheyang <cheyang.cy@alibaba-inc.com>\", but got \"cheyang.cy <cheyang.cy@alibaba-inc.com>\""
+    }
+  ],
+  "liveNote": "No live/KUBECONFIG layer required: the failing contract is a registry-existence check, decided without a cluster. Optional L3 sanity signal after the fix: helm install in a throwaway namespace reaches Running (no ImagePullBackOff)."
+}

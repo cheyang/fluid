@@ -1,0 +1,10 @@
+P0 premise: image built from master commit dcb76167b0143a239addc6bed83ed50b45267631 exists on Docker Hub
+published tag: v1.1.0-dcb76167 (8-char prefix; pushed 2026-11-17T12:40Z, i.e. before the PR commit 2026-11-18T02:12Z)
+chart references: v1.1.0-dcb76167b (9-char prefix) -> 404
+note: git rev-parse --short is auto-length; this clone yields dcb76167b (9) for the same sha, GitHub-runner clones yield dcb76167 (8) - the abbreviation is ambiguous across machines
+
+--- hub API: dataset-controller tag v1.1.0-dcb76167 ---
+{"creator":13511667,"id":1406921949,"images":[{"architecture":"amd64","features":"","variant":null,"digest":"sha256:ef98fc36a0f9e6d247118228ea4585520f69162d1672c0949c1f9c213be7cb6b","os":"linux","os_features":"","os_version":null,"size":62183262,"status":"active","last_pulled":"2026-11-18T02:44:35.789019607Z","last_pushed":"2026-11-17T12:40:21.200377861Z"}],"last_updated":"2026-11-17T12:40:21.406438Z","last_updater":13511667,"last_updater_username":"fluidcloudnative","name":"v1.1.0-dcb76167","repository":14924331,"full_size":62183262,"v2":true,"tag_status":"active","tag_last_pulled":"2026-11-18T02:44:35.789019607Z","tag_last_pushed":"2026-11-17T12:40:21.406438Z","media_type":"application/vnd.docker.container.image.v1+json","content_type":"image","digest":"sha256:ef98fc36a0f9e6d247118228ea4585520f69162d1672c0949c1f9c213be7cb6b"}
+
+--- hub API: dataset-controller tag v1.1.0-dcb76167b ---
+{"message":"httperror 404: tag 'v1.1.0-dcb76167b' not found","errinfo":{"namespace":"fluidcloudnative","repository":"dataset-controller","tag":"v1.1.0-dcb76167b"}}

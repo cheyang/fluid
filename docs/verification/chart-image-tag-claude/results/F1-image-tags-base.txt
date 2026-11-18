@@ -1,0 +1,15 @@
+OK       fluidcloudnative/alluxioruntime-controller:v1.1.0-91a58c1d9
+OK       fluidcloudnative/application-controller:v1.1.0-91a58c1d9
+OK       fluidcloudnative/cacheruntime-controller:v1.1.0-91a58c1d9
+OK       fluidcloudnative/csi-node-driver-registrar:v2.14.0
+OK       fluidcloudnative/dataset-controller:v1.1.0-91a58c1d9
+OK       fluidcloudnative/efcruntime-controller:v1.1.0-91a58c1d9
+OK       fluidcloudnative/fluid-crd-upgrader:v1.1.0-91a58c1d9
+OK       fluidcloudnative/fluid-csi:v1.1.0-91a58c1d9
+OK       fluidcloudnative/fluid-webhook:v1.1.0-91a58c1d9
+OK       fluidcloudnative/jindoruntime-controller:v1.1.0-91a58c1d9
+OK       fluidcloudnative/juicefsruntime-controller:v1.1.0-91a58c1d9
+OK       fluidcloudnative/thinruntime-controller:v1.1.0-91a58c1d9
+OK       fluidcloudnative/vineyardruntime-controller:v1.1.0-91a58c1d9
+---
+checked: 13 images, missing: 0 (full log: /tmp/check-image-tags.out)
