@@ -1,0 +1,7 @@
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple/
+Collecting scikit-learn==1.4.0 (from -r /tmp/v6260-int-Z6HKqo/sklearn-only.txt (line 1))
+  Downloading https://mirrors.aliyun.com/pypi/packages/01/26/d8d724d986bca71328800948805494e949a1a2063797aa96df9611790619/scikit_learn-1.4.0-1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (11.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.5/11.5 MB 1.4 MB/s eta 0:00:00
+Saved /tmp/v6260-int-Z6HKqo/dl-arm64/scikit_learn-1.4.0-1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+Successfully downloaded scikit-learn
+scikit_learn-1.4.0-1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl

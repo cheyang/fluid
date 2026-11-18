@@ -1,0 +1,16 @@
+setuptools 84.2.1
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'pkg_resources'
+pkg_resources: MISSING
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/tmp/v6260-int-daeVFi/v310/lib/python3.10/site-packages/vineyard/__init__.py", line 142, in <module>
+    from . import deploy
+  File "/tmp/v6260-int-daeVFi/v310/lib/python3.10/site-packages/vineyard/deploy/__init__.py", line 21, in <module>
+    from . import ctl
+  File "/tmp/v6260-int-daeVFi/v310/lib/python3.10/site-packages/vineyard/deploy/ctl.py", line 23, in <module>
+    from vineyard.deploy.utils import find_vineyardctl_path
+  File "/tmp/v6260-int-daeVFi/v310/lib/python3.10/site-packages/vineyard/deploy/utils.py", line 29, in <module>
+    import pkg_resources
+ModuleNotFoundError: No module named 'pkg_resources'

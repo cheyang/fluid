@@ -1,0 +1,5 @@
+pinned: scikit-learn==1.5.0  hashes-in-file: 21
+pypi files for 1.5.0: 21
+covered: cp310 x86_64 wheel -> scikit_learn-1.5.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+covered: cp310 aarch64 wheel -> scikit_learn-1.5.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+PASS: file hash set == PyPI digest set for scikit-learn==1.5.0; required wheels covered

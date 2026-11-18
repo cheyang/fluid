@@ -1,0 +1,91 @@
+Using CPython 3.10.22
+Creating virtual environment with seed packages at: /tmp/v6260-int-Z6HKqo/v310
+ + packaging==26.3
+ + pip==26.3
+ + setuptools==84.2.1
+ + wheel==0.48.0
+Activate with: source /tmp/v6260-int-Z6HKqo/v310/bin/activate
+Python 3.10.22
+pip 26.3 from /tmp/v6260-int-Z6HKqo/v310/lib/python3.10/site-packages/pip (python 3.10)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple/
+Collecting argcomplete==3.7.2 (from -r /tmp/v6260/base.txt (line 17))
+  Downloading argcomplete-3.7.2-py3-none-any.whl (43 kB)
+Collecting certifi==2026.10.23 (from -r /tmp/v6260/base.txt (line 21))
+  Downloading certifi-2026.10.23-py3-none-any.whl (135 kB)
+Collecting charset-normalizer==3.5.2 (from -r /tmp/v6260/base.txt (line 25))
+  Downloading charset_normalizer-3.5.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (271 kB)
+Collecting click==8.5.1 (from -r /tmp/v6260/base.txt (line 199))
+  Downloading click-8.5.1-py3-none-any.whl (126 kB)
+Collecting etcd-distro==3.5.1 (from -r /tmp/v6260/base.txt (line 203))
+  Downloading etcd_distro-3.5.1-py2.py3-none-manylinux1_x86_64.whl (19.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 19.3/19.3 MB 1.3 MB/s  0:00:15
+Collecting idna==3.20 (from -r /tmp/v6260/base.txt (line 213))
+  Downloading idna-3.20-py3-none-any.whl (69 kB)
+Collecting joblib==1.3.2 (from -r /tmp/v6260/base.txt (line 217))
+  Downloading joblib-1.3.2-py3-none-any.whl (302 kB)
+Collecting lazy-import==0.2.2 (from -r /tmp/v6260/base.txt (line 221))
+  Downloading lazy_import-0.2.2.tar.gz (15 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting makefun==1.16.0 (from -r /tmp/v6260/base.txt (line 224))
+  Downloading makefun-1.16.0-py2.py3-none-any.whl (22 kB)
+Collecting numpy==1.26.4 (from -r /tmp/v6260/base.txt (line 228))
+  Downloading numpy-1.26.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (18.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.2/18.2 MB 1.3 MB/s  0:00:13
+Collecting pandas==2.3.3 (from -r /tmp/v6260/base.txt (line 270))
+  Downloading pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.8/12.8 MB 1.2 MB/s  0:00:10
+Collecting psutil==7.2.2 (from -r /tmp/v6260/base.txt (line 327))
+  Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+Collecting pyarrow==25.0.1 (from -r /tmp/v6260/base.txt (line 350))
+  Downloading pyarrow-25.0.1-cp310-cp310-manylinux_2_28_x86_64.whl (50.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50.1/50.1 MB 1.2 MB/s  0:00:40
+Collecting python-dateutil==3.0.0 (from -r /tmp/v6260/base.txt (line 395))
+  Downloading python_dateutil-3.0.0-py2.py3-none-any.whl (94 kB)
+Collecting pytz==2026.6 (from -r /tmp/v6260/base.txt (line 399))
+  Downloading pytz-2026.6-py2.py3-none-any.whl (506 kB)
+Collecting pyyaml==6.0.3 (from -r /tmp/v6260/base.txt (line 403))
+  Downloading pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (770 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 770.3/770.3 kB 1.4 MB/s  0:00:00
+Collecting requests==2.34.2 (from -r /tmp/v6260/base.txt (line 478))
+  Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+Collecting scikit-learn==1.4.0 (from -r /tmp/v6260/base.txt (line 481))
+  Downloading scikit_learn-1.4.0-1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (12.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.1/12.1 MB 1.3 MB/s  0:00:09
+Collecting scipy==1.15.3 (from -r /tmp/v6260/base.txt (line 523))
+  Downloading scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.7/37.7 MB 1.2 MB/s  0:00:30
+Requirement already satisfied: setuptools==84.2.1 in /tmp/v6260-int-Z6HKqo/v310/lib/python3.10/site-packages (from -r /tmp/v6260/base.txt (line 571)) (84.2.1)
+Collecting six==1.17.0 (from -r /tmp/v6260/base.txt (line 575))
+  Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+Collecting sortedcontainers==2.4.0 (from -r /tmp/v6260/base.txt (line 582))
+  Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl (29 kB)
+Collecting threadpoolctl==3.8.0 (from -r /tmp/v6260/base.txt (line 586))
+  Downloading threadpoolctl-3.8.0-py3-none-any.whl (32 kB)
+Collecting treelib==1.8.0 (from -r /tmp/v6260/base.txt (line 590))
+  Downloading treelib-1.8.0-py3-none-any.whl (30 kB)
+Collecting tzdata==2026.6 (from -r /tmp/v6260/base.txt (line 594))
+  Downloading tzdata-2026.6-py2.py3-none-any.whl (348 kB)
+Collecting urllib3==2.8.0 (from -r /tmp/v6260/base.txt (line 600))
+  Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+Collecting vineyard==0.24.2 (from -r /tmp/v6260/base.txt (line 604))
+  Downloading vineyard-0.24.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 1.4 MB/s  0:00:00
+Collecting vineyard-bdist==0.24.2 (from -r /tmp/v6260/base.txt (line 619))
+  Downloading vineyard_bdist-0.24.2-py3-none-manylinux2014_x86_64.whl (21.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 21.0/21.0 MB 1.2 MB/s  0:00:17
+Building wheels for collected packages: lazy-import
+  Building wheel for lazy-import (pyproject.toml): started
+  Building wheel for lazy-import (pyproject.toml): finished with status 'done'
+  Created wheel for lazy-import: filename=lazy_import-0.2.2-py2.py3-none-any.whl size=16552 sha256=0ad277d05470f71c4a2a06988e02bc93a03f04b0b902aeb81b581fd33db7c66f
+  Stored in directory: /tmp/pip-ephem-wheel-cache-opzky_ba/wheels/11/cc/34/404b5a4979a0f1def9d6fab6293e553ca8f279fabe8c689188
+Successfully built lazy-import
+Installing collected packages: vineyard-bdist, sortedcontainers, pytz, makefun, etcd-distro, urllib3, tzdata, threadpoolctl, six, pyyaml, pyarrow, psutil, numpy, joblib, idna, click, charset-normalizer, certifi, argcomplete, treelib, scipy, requests, python-dateutil, lazy-import, scikit-learn, pandas, vineyard
+
+Successfully installed argcomplete-3.7.2 certifi-2026.10.23 charset-normalizer-3.5.2 click-8.5.1 etcd-distro-3.5.1 idna-3.20 joblib-1.3.2 lazy-import-0.2.2 makefun-1.16.0 numpy-1.26.4 pandas-2.3.3 psutil-7.2.2 pyarrow-25.0.1 python-dateutil-3.0.0 pytz-2026.6 pyyaml-6.0.3 requests-2.34.2 scikit-learn-1.4.0 scipy-1.15.3 six-1.17.0 sortedcontainers-2.4.0 threadpoolctl-3.8.0 treelib-1.8.0 tzdata-2026.6 urllib3-2.8.0 vineyard-0.24.2 vineyard-bdist-0.24.2
+No broken requirements found.
+versions: sklearn=1.4.0 numpy=1.26.4

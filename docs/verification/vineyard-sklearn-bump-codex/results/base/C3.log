@@ -1,0 +1,22 @@
+sklearn under test: 1.4.0
+generated df_1.pkl rows=2000 cols=46
+sh: line 1: /proc/sys/vm/drop_caches: Permission denied
+Preprocessing data...
+##################################
+read dataframe pickle time:  0.0005125999450683594
+##################################
+write training and testing data time:  0.0005156993865966797
+##################################
+Preprocessing data time:  0.005584716796875
+sh: line 1: /proc/sys/vm/drop_caches: Permission denied
+Training model...
+##################################
+read x_train and y_train data time:  0.0006213188171386719
+##################################
+sh: line 1: /proc/sys/vm/drop_caches: Permission denied
+Testing model...
+##################################
+read x_test and y_test execution time:  0.0005040168762207031
+##################################
+Testing model data time:  0.021362781524658203
+pipeline ok: mean_squared_error=45484148750.70735 (finite)

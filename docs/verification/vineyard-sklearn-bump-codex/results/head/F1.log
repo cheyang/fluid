@@ -1,0 +1,3 @@
+ok: header and file agree on joblib==1.3.2
+FAIL: header documents scikit-learn==1.4.0 but the file pins scikit-learn==1.5.0
+FAIL: following the documented regeneration command would change pinned versions

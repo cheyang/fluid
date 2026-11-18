@@ -1,0 +1,81 @@
+{
+  "topic": "vineyard-sklearn-bump-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6260",
+  "harnessPaths": [
+    "docs/verification/vineyard-sklearn-bump-codex"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot security update: scikit-learn 1.4.0 pinned by samples/vineyard/requirements.txt is affected by a published advisory fixed in 1.5.0 (GHSA-jw8x-6495-233v / CVE-2024-5206).",
+    "reportedComponent": "samples/vineyard sample images (python:3.10, pip hash-locked requirements.txt)",
+    "patchedComponent": "samples/vineyard/requirements.txt (scikit-learn pin + hashes only)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "GitHub Advisory API: GHSA-jw8x-6495-233v, pip:scikit-learn, vulnerable '< 1.5.0', first_patched_version 1.5.0, severity medium. See results/head/P0.log. Note: the vulnerable component (TfidfVectorizer) is not used by the sample scripts, so this is dependency hygiene, not an active exploit fix.",
+    "match": [
+      "P0_SecurityAdvisoryMotivatesBump"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/vineyard-sklearn-bump-codex/scripts/run_unit_layer.sh"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/vineyard-sklearn-bump-codex/scripts/run_integration_layer.sh"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "F1_HeaderRegenPinMatchesLockfile"
+      ],
+      "note": "OPEN on e782cc7d: header regeneration command still pins scikit-learn==1.4.0 while the file pins 1.5.0. Fails on head, passes on base -> introduced by this PR. Fix = update the version literal in the header printf command."
+    },
+    {
+      "id": "C1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "C1_SklearnHashesMatchPyPI"
+      ],
+      "note": "Acceptance contract, passing on head: hash set for the scikit-learn entry exactly equals the PyPI digest set for the pinned version and covers cp310 manylinux x86_64/aarch64."
+    },
+    {
+      "id": "C2",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "C2a_PipInstallPy310Native",
+        "C2b_SklearnWheelAmd64Py310",
+        "C2c_SklearnWheelArm64Py310"
+      ],
+      "note": "Acceptance contract, passing on head and base: the Dockerfile pip command resolves hash-locked on python 3.10; the sklearn wheel resolves+hash-verifies for linux/amd64 and linux/arm64."
+    },
+    {
+      "id": "C3",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "C3_SamplePipelineRunsOnSklearn"
+      ],
+      "note": "Acceptance contract, passing on head and base with bit-identical MSE (45484148750.70735): the bump does not change the sample's behavior."
+    },
+    {
+      "id": "C4",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "C4_VineyardImportableInPinnedEnv"
+      ],
+      "note": "PRE-EXISTING breakage, fails identically on base and head: pinned setuptools 84.x ships no pkg_resources, so 'import vineyard' fails in the sample images. Not introduced by this PR; do not hold the PR for it. Flips to pass when the sample pins a compatible setuptools or vineyard drops pkg_resources."
+    }
+  ],
+  "liveNote": "No live layer: the change only affects manually built sample images (samples/vineyard/Makefile); no cluster/controller behavior. The vineyard IPC path (with_vineyard=True) additionally needs a live vineyard server and is out of scope; it is already unreachable at base because of the C4 import breakage."
+}

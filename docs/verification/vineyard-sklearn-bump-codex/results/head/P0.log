@@ -1,0 +1,2 @@
+advisory: GHSA-jw8x-6495-233v / CVE-2024-5206 severity=medium package=scikit-learn vulnerable='< 1.5.0' patched=1.5.0
+PASS: scikit-learn 1.4.0 is in the vulnerable range; 1.5.0 is the fix
