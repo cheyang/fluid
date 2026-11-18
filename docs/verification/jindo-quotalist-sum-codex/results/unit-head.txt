@@ -1,0 +1,23 @@
+2026/11/18 10:16:23 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyQuotaListSumNoPanic
+--- PASS: TestVerifyQuotaListSumNoPanic (1.00s)
+=== RUN   TestVerifyQuotaListMiUnitsSum
+    transform_quotalist_verify_test.go:99: expected worker memory request 4Gi (4096Mi), got "4096m"
+--- FAIL: TestVerifyQuotaListMiUnitsSum (1.00s)
+=== RUN   TestVerifyInvalidQuotaListReturnsError
+--- PASS: TestVerifyInvalidQuotaListReturnsError (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	2.017s
+2026/11/18 10:16:23 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyJindoCacheQuotaListSumNoPanic
+--- PASS: TestVerifyJindoCacheQuotaListSumNoPanic (1.00s)
+=== RUN   TestVerifyJindoCacheQuotaListMiUnitsSum
+    transform_quotalist_verify_test.go:75: expected worker memory request 4Gi (4096Mi), got "4096m"
+--- FAIL: TestVerifyJindoCacheQuotaListMiUnitsSum (1.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	2.014s
+=== RUN   TestVerifySumQuotasContracts
+--- PASS: TestVerifySumQuotasContracts (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/jindo	(cached)
+FAIL

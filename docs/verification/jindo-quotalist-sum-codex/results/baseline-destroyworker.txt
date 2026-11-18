@@ -1,0 +1,15 @@
+2026/11/18 10:16:36 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+--- FAIL: TestDestroyWorker (0.00s)
+    shutdown_test.go:191: fail to exec the function with the error jindoruntimes.data.fluid.io "spark" not found
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:191: fail to exec the function with the error jindoruntimes.data.fluid.io "hadoop" not found
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+    shutdown_test.go:200: fail to decrease the labels
+    shutdown_test.go:203: fail to decrease the labels
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	0.014s
+FAIL

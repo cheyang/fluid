@@ -1,0 +1,24 @@
+2026/11/18 10:16:34 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyQuotaListSumNoPanic
+--- FAIL: TestVerifyQuotaListSumNoPanic (0.00s)
+panic: cannot parse '10Gi,5Gi': quantities must match the regular expression '^([+-]?[0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$' [recovered, repanicked]
+
+goroutine 123 [running]:
+testing.tRunner.func1.2({0x29fd280, 0x396fd9061080})
+	/usr/local/go/src/testing/testing.go:2123 +0x232
+testing.tRunner.func1()
+	/usr/local/go/src/testing/testing.go:2126 +0x329
+panic({0x29fd280?, 0x396fd9061080?})
+	/usr/local/go/src/runtime/panic.go:859 +0x125
+k8s.io/apimachinery/pkg/api/resource.MustParse({0x396fd921e900, 0x8})
+	/tmp/pr6261-base/vendor/k8s.io/apimachinery/pkg/api/resource/quantity.go:139 +0x188
+github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx.(*JindoFSxEngine).transformWorkerResources(0x396fd92e4540, 0x396fd8fba608, 0x396fd8e7d9e8, {0x187a7dc, 0x6})
+	/tmp/pr6261-base/pkg/ddc/jindofsx/transform.go:679 +0x6c5
+github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx.TestVerifyQuotaListSumNoPanic(0x396fd92fdb08)
+	/tmp/pr6261-base/pkg/ddc/jindofsx/transform_quotalist_verify_test.go:65 +0x15e
+testing.tRunner(0x396fd92fdb08, 0x2e00f28)
+	/usr/local/go/src/testing/testing.go:2193 +0xea
+created by testing.(*T).Run in goroutine 1
+	/usr/local/go/src/testing/testing.go:2258 +0x4d4
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	0.014s
+FAIL

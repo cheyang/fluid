@@ -1,0 +1,64 @@
+{
+  "topic": "jindo-quotalist-sum-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6261",
+  "harnessPaths": [
+    "docs/verification/jindo-quotalist-sum-codex",
+    "pkg/ddc/jindofsx/transform_quotalist_verify_test.go",
+    "pkg/ddc/jindocache/transform_quotalist_verify_test.go",
+    "pkg/utils/jindo/jindo_sumquotas_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "JindoRuntime controller panics when setting quotaList in tieredstore level: panic: cannot parse '10Gi,5Gi': quantities must match the regular expression ... in jindofsx.(*JindoFSxEngine).transformWorkerResources (issue #2077)",
+    "reportedComponent": "pkg/ddc/jindofsx transformWorkerResources (JindoRuntime controller)",
+    "patchedComponent": "pkg/ddc/jindofsx/transform.go + pkg/ddc/jindocache/transform_resources.go + pkg/utils/jindo (SumQuotas)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "results/premise-base-jindofsx.txt and results/premise-base-jindocache.txt show panic: cannot parse '10Gi,5Gi' at resource.MustParse on base 1321a217d78a; same harness passes on head 22d2d07c7c (results/unit-head.txt)",
+    "match": [
+      "TestVerifyQuotaListSumNoPanic",
+      "TestVerifyJindoCacheQuotaListSumNoPanic"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/jindofsx/ ./pkg/ddc/jindocache/ ./pkg/utils/jindo/ -run 'TestVerify' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/jindofsx/ ./pkg/ddc/jindocache/ ./pkg/utils/jindo/ -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyQuotaListSumNoPanic",
+        "TestVerifyJindoCacheQuotaListSumNoPanic"
+      ]
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyQuotaListMiUnitsSum",
+        "TestVerifyJindoCacheQuotaListMiUnitsSum"
+      ]
+    },
+    {
+      "id": "F3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyInvalidQuotaListReturnsError"
+      ]
+    }
+  ],
+  "liveNote": "L3 skipped per debate policy. On a real cluster, apply a JindoRuntime with tieredstore MEM level path=/dev/shm,/mnt/ram quotaList=10Gi,5Gi: controller must not crash and the worker statefulset memory request must be 15Gi; a Mi-denominated list (2048Mi,2048Mi) must yield 4Gi, not 4096m."
+}
