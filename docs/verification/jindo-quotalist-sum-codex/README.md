@@ -1,8 +1,9 @@
 # jindo-quotalist-sum-codex — bug verification
 
 Reproducible evidence for the findings raised while reviewing
-https://github.com/fluid-cloudnative/fluid/pull/6261 (head 22d2d07c7c275a3baff2def3d24526ae8b74b380,
-base 1321a217d78ab99c0cb76d2ea334d593a3765509). Reviewer: Codex (reviewer B).
+https://github.com/fluid-cloudnative/fluid/pull/6261 (round-2 head 305e466f49d7aee3431aab3ee9deb531fb23087e,
+previous head 22d2d07c7c275a3baff2def3d24526ae8b74b380, base 1321a217d78ab99c0cb76d2ea334d593a3765509).
+Reviewer: Codex (reviewer B).
 
 Layers run against the code under review:
 
@@ -28,19 +29,45 @@ Layers run against the code under review:
 | **Verdict** | **Confirmed** |
 | Evidence | On base, the F1 tests panic with the issue's exact message: `results/premise-base-jindofsx.txt`, `results/premise-base-jindocache.txt` |
 
-## Summary of results (head 22d2d07c7c)
+## Summary of results
+
+### Round 2 (head 305e466f, delta 22d2d07c..305e466f)
+
+Round-2 delta: the author moved the `m`->`Mi` restoration into `SumQuotas` itself
+(plus a helper-level unit test file `pkg/utils/jindo/quota_test.go`). Re-verified:
+
+| ID | Claim | Layer | base 1321a217d | prev 22d2d07c | head 305e466f | Evidence |
+|----|-------|-------|----------------|---------------|---------------|----------|
+| P0 | quotaList "10Gi,5Gi" panics the controller on base | 1 | **panic (confirmed)** | pass | pass | `results/premise-base-*.txt` (round 1) |
+| A1 | fix sums Gi quota lists and persists the sum | 1 | panic | pass | **pass** | `results/reverify/` (F1/A1 rows) |
+| A2 | invalid quota element returns error instead of panic | 1 | panic | pass | **pass** | `results/reverify/` (A2 row) |
+| F1 | Mi-denominated quota lists must sum in Mi | 1 | panic | FAIL ("4096m") | **FIXED** ("4Gi") | `TestVerifyQuotaListMiUnitsSum`, `TestVerifyJindoCacheQuotaListMiUnitsSum` pass at head |
+| F5 | single-value Mi quota must yield an Mi request | 1 | FAIL ("512m") | FAIL ("512m") | **FIXED** ("512Mi") | `TestVerifySingleValueMiQuotaSum`, `TestVerifyJindoCacheSingleValueMiQuotaSum` (added round 2; base/prev pins reproduced this round) |
+| F3 | negative quota elements are silently summed | 1 | same | same | STILL-PRESENT (canary passes) | `TestVerifySumQuotasNegativeCanary`: `SumQuotas("10Gi,-5Gi")` = `"5Gi"` |
+
+Harness-update note: the round-1 root-cause demonstrator row
+`SumQuotas("2048m,2048m") == "4096m"` in `TestVerifySumQuotasContracts` encoded the
+*buggy* behavior and flipped red when the fix landed; the row was updated to the fixed
+contract ("4Gi"). A new row documents the deliberate semantic choice that a raw
+milli element ("500m", CRD-legal) is now read as 500Mi, matching how jindo reads the
+same string in the helm values.
+
+Integration layer at head: `FLUID_UNIT_TEST=true go test ./pkg/ddc/jindofsx/
+./pkg/ddc/jindocache/ ./pkg/utils/jindo/` -> all three packages `ok` (incl. the PR's
+own `TestSumQuotas`). Bare `go test` still fails `TestDestroyWorker` exactly as on
+base (pre-existing environment artifact, CI runs with `FLUID_UNIT_TEST=true`).
+
+### Round 1 (head 22d2d07c) — superseded by the table above
 
 | ID | Claim | Layer | Verdict | Evidence |
 |----|-------|-------|---------|----------|
-| P0 | quotaList "10Gi,5Gi" panics the controller on base | 1 | **Confirmed** | `panic: cannot parse '10Gi,5Gi'` in `transformWorkerResources` on base, both engines (`results/premise-base-*.txt`) |
-| A1 | fix sums Gi quota lists and persists the sum | 1 | Confirmed fixed on head | `TestVerifyQuotaListSumNoPanic`, `TestVerifyJindoCacheQuotaListSumNoPanic` PASS on head; worker request = "15Gi", CR spec updated (`results/unit-head.txt`) |
-| F1 | Mi-denominated quota lists are summed as milli-BYTES | 1 | **Confirmed bug on head** | `TestVerifyQuotaListMiUnitsSum`, `TestVerifyJindoCacheQuotaListMiUnitsSum` FAIL on head: got `"4096m"` (≈4 bytes), want `"4Gi"` (`results/unit-head.txt`) |
-| A2 | invalid quota element returns error instead of panic | 1 | Confirmed fixed on head | `TestVerifyInvalidQuotaListReturnsError` PASS (`results/unit-head.txt`) |
-| F3 | negative quota elements are silently summed | 1 | Confirmed current behavior (canary) | `TestVerifySumQuotasNegativeCanary` PASS: `SumQuotas("10Gi,-5Gi")` = `"5Gi"` |
+| A1 | fix sums Gi quota lists and persists the sum | 1 | Confirmed fixed | `results/unit-head.txt` |
+| F1 | Mi-denominated quota lists summed as milli-BYTES | 1 | Confirmed bug (fixed in round 2) | `results/unit-head.txt` |
+| A2 | invalid quota element returns error | 1 | Confirmed fixed | `results/unit-head.txt` |
 
 ## Per-finding detail
 
-### F1 — Mi quota lists sum to milli-bytes (the one open defect)
+### F1 — Mi quota lists sum to milli-bytes (FIXED at head 305e466f; round-1 analysis below kept for the record)
 
 `transform()` normalizes each quotaList element from k8s to jindo units: `Gi`→`g`,
 `Mi`→`m` (pkg/ddc/jindofsx/transform.go:99-107, same in jindocache). Before parsing,
