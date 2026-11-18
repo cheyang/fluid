@@ -1,0 +1,11 @@
+ * branch                refs/pull/6266/head -> FETCH_HEAD
+=== harness grafted onto 4fac0265a36800fa4a87cc22991eb0be8556742c (results below are on that ref) ===
+PASS (jindofsx): dataload job pod renders imagePullSecrets runtime-secret
+PASS (jindofsx): no imagePullSecrets block when none supplied
+PASS (jindocache): dataload job pod renders imagePullSecrets runtime-secret
+PASS (jindocache): no imagePullSecrets block when none supplied
+
+=== per-finding verdict (ref 4fac0265a36800fa4a87cc22991eb0be8556742c) ===
+f1: Fixed
+f2: Still-broken (legacy jindo engine still ignores runtime spec.imagePullSecrets)
+f3: Fixed (no Linux behavior change)
