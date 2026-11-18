@@ -3,7 +3,8 @@
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6254",
   "harnessPaths": [
     "docs/verification/dataflow-runafter-removed",
-    "pkg/controllers/v1alpha1/dataflow/pr6254_runafter_removed_verify_test.go"
+    "pkg/controllers/v1alpha1/dataflow/pr6254_runafter_removed_verify_test.go",
+    "pkg/controllers/v1alpha1/dataflow/pr6254_round2_verify_test.go"
   ],
   "premise": {
     "id": "P0",
@@ -31,20 +32,62 @@
       "id": "V1",
       "polarity": "contract",
       "layer": "unit",
-      "match": ["TestPR6254RunAfterRemovedReleasesAllKinds"]
+      "match": [
+        "TestPR6254RunAfterRemovedReleasesAllKinds"
+      ]
     },
     {
       "id": "V2",
       "polarity": "contract",
       "layer": "unit",
-      "match": ["TestPR6254ControllerReconcileNoPanicAndReleases"]
+      "match": [
+        "TestPR6254ControllerReconcileNoPanicAndReleases"
+      ]
     },
     {
       "id": "V3",
       "polarity": "contract",
       "layer": "unit",
-      "match": ["TestPR6254ReleaseErrorPropagatesAndRequeues"]
+      "match": [
+        "TestPR6254ReleaseErrorPropagatesAndRequeues"
+      ]
+    },
+    {
+      "id": "V4",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestPR6254NonWaitingUntouched"
+      ],
+      "note": "round-2 F1/MT2: non-waiting ops (flag nil/false, nil runAfter) left untouched (no write, no event)"
+    },
+    {
+      "id": "V5",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestPR6254WaitingEndedEventRemoval"
+      ],
+      "note": "round-2 F2: DataOperationWaitingEnded event on the runAfter-removal release path"
+    },
+    {
+      "id": "V6",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestPR6254WaitingEndedEventCompletion"
+      ],
+      "note": "round-2 F2: event on the preceding-op-completed path; no event when not waiting"
+    },
+    {
+      "id": "V7",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestPR6254SameNameCrossKindUntouched"
+      ],
+      "note": "round-2 F1/MT2 controller-level: same-name cross-kind non-waiting object untouched, exactly one event"
     }
   ],
-  "liveNote": "L3 (not run this round, no cluster): the PR's own e2e verify_dataload_runafter_removed in test/gha-e2e/curvine/test.sh covers it on a kind cluster; check DataLoad reaches Complete within 180s of removing spec.runAfter and dataset-controller restart count stays unchanged. GitHub Actions run 43818103797 (all 5 kind-e2e jobs green) is the author's evidence."
+  "liveNote": "L3 (not run this round, no cluster): the PR's e2e verify_dataload_runafter_removed in test/gha-e2e/curvine/test.sh covers the removal scenario on a kind cluster; check the DataLoad reaches Complete within 180s of removing spec.runAfter, dataset-controller restart count stays unchanged, and (round-2 N1) the case fails when no dataset-controller pod is found. Author-linked Actions run 44041271456 (head 50933d0b) passes all 5 kind-e2e jobs with the new case green."
 }
