@@ -1,0 +1,2 @@
+header recipe pins: joblib==1.3.2, scikit-learn==1.4.0
+HEADER_RECIPE_CONTRACT: PASS

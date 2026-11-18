@@ -1,0 +1,8 @@
+lockfile pin: scikit-learn==1.5.0 with 20 hashes
+PyPI scikit-learn==1.5.0 publishes 21 files
+INTEGRITY: all 20 hashes match real PyPI artifacts
+COVERAGE: x86_64 wheel scikit_learn-1.5.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl -> MISSING from lockfile
+COVERAGE: aarch64 wheel scikit_learn-1.5.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl -> present
+LOCKFILE_HASH_CONTRACT: FAIL
+  COMPLETENESS: PyPI file scikit_learn-1.5.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (sha256 2c75ea812cd8...) not listed in lockfile
+  COVERAGE: scikit_learn-1.5.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (x86_64) hash not in lockfile

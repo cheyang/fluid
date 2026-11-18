@@ -1,0 +1,7 @@
+lockfile pin: scikit-learn==1.5.0 with 21 hashes
+PyPI scikit-learn==1.5.0 publishes 21 files
+INTEGRITY: all 21 hashes match real PyPI artifacts
+COMPLETENESS: lockfile lists every published file (full regeneration semantics)
+COVERAGE: x86_64 wheel scikit_learn-1.5.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl -> present
+COVERAGE: aarch64 wheel scikit_learn-1.5.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl -> present
+LOCKFILE_HASH_CONTRACT: PASS

@@ -1,0 +1,84 @@
+{
+  "topic": "sklearn-150-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6260",
+  "reviewer": "claude",
+  "headSha": "e782cc7d3ea2c69c123851cc0b24e78b5414cfac",
+  "baseSha": "1321a217d78ab99c0cb76d2ea334d593a3765509",
+  "harnessPaths": [
+    "docs/verification/sklearn-150-bump-claude"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: \"Bumps scikit-learn from 1.4.0 to 1.5.0\" in /samples/vineyard — the sample's pinned scikit-learn is a full minor version behind (1.4.0 predates the numpy-2-compat line of releases).",
+    "reportedComponent": "samples/vineyard/requirements.txt (sample pipeline images: python:3.10, hash-locked pip deps)",
+    "patchedComponent": "samples/vineyard/requirements.txt",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "base pins scikit-learn==1.4.0 (41 hashes) while 1.5.0 is published on PyPI and installable alongside every other pin — see results/hash-check-head.txt and results/sample-path-base-1.4.0.txt",
+    "match": ["LOCKFILE_HASH_CONTRACT"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "shell",
+      "cmd": "bash docs/verification/sklearn-150-bump-claude/scripts/run-unit-layer.sh samples/vineyard/requirements.txt"
+    },
+    "integration": {
+      "kind": "shell",
+      "cmd": "bash docs/verification/sklearn-150-bump-claude/scripts/run-integration-layer.sh samples/vineyard/requirements.txt"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "title": "stale regeneration recipe in requirements.txt header (still says scikit-learn==1.4.0)",
+      "severity": "minor",
+      "status": "open",
+      "origin": "initial-pr",
+      "introducedByPR": true,
+      "evidenceKind": "differential",
+      "firstSeenSha": "e782cc7d3ea2c69c123851cc0b24e78b5414cfac",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["HEADER_RECIPE_CONTRACT"],
+      "verification": {
+        "base": "pass",
+        "previous": "not-run",
+        "head": "fail"
+      },
+      "evidence": "results/header-recipe-base-1.4.0.txt PASS vs results/header-recipe-head.txt FAIL; same check, base vs head"
+    },
+    {
+      "id": "H1",
+      "title": "guard: the 1.5.0 hash pin is genuine, complete, and covers the Dockerfile platforms (cp310 manylinux x86_64 + aarch64)",
+      "severity": "minor",
+      "status": "fixed",
+      "origin": "initial-pr",
+      "introducedByPR": false,
+      "evidenceKind": "differential",
+      "firstSeenSha": "e782cc7d3ea2c69c123851cc0b24e78b5414cfac",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["LOCKFILE_HASH_CONTRACT"],
+      "verification": { "base": "not-run", "previous": "not-run", "head": "pass" },
+      "evidence": "results/hash-check-head.txt: all 21 hashes match PyPI artifacts, full set equality, both linux platforms present; harness-bites proof in results/hash-check-mutated-bites.txt"
+    },
+    {
+      "id": "R1",
+      "title": "guard: the pinned set co-installs and the sample pipeline's sklearn/joblib/pandas code path behaves identically under 1.5.0",
+      "severity": "minor",
+      "status": "fixed",
+      "origin": "initial-pr",
+      "introducedByPR": false,
+      "evidenceKind": "differential",
+      "firstSeenSha": "e782cc7d3ea2c69c123851cc0b24e78b5414cfac",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["SAMPLE_PATH_CONTRACT", "PINNED_ENV_BUILD"],
+      "verification": { "base": "pass", "previous": "not-run", "head": "pass" },
+      "evidence": "results/sample-path-head-1.5.0.txt and results/sample-path-base-1.4.0.txt: identical MSE and identical train_test_split fingerprint (random_state=42) under both versions with the same numpy/scipy/pandas/joblib pins"
+    }
+  ],
+  "liveNote": "No live layer for this topic: the change only affects sample image contents. A docker build of samples/vineyard (make docker-build) on linux/amd64 and linux/arm64 is the closest live check and needs a docker daemon."
+}
