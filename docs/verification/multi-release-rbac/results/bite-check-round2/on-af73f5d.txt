@@ -1,0 +1,5 @@
+--- FAIL: TestClusterScopedDefaultRenderMatchesMergeBase (0.08s)
+--- FAIL: TestClusterScopedOptInPrefixDisjointAcrossReleases (0.10s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/charts/fluid/fluid	0.185s
+FAIL

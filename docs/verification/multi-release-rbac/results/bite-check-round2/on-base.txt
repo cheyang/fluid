@@ -1,0 +1,5 @@
+--- FAIL: TestClusterScopedOptInPrefixDisjointAcrossReleases (0.10s)
+--- FAIL: TestClusterScopedSharedSingletonsRemainAfterOptInPrefix (0.07s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/charts/fluid/fluid	0.173s
+FAIL

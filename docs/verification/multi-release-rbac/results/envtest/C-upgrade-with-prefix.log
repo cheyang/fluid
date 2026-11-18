@@ -1,0 +1,9 @@
+WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /tmp/fluid-6256-envtest.YItPBQ/kubeconfig
+WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /tmp/fluid-6256-envtest.YItPBQ/kubeconfig
+Release "fluid" has been upgraded. Happy Helming!
+NAME: fluid
+LAST DEPLOYED: Wed Nov 18 09:39:48 2026
+NAMESPACE: fluid-system
+STATUS: deployed
+REVISION: 2
+TEST SUITE: None

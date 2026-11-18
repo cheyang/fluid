@@ -1,0 +1,3 @@
+WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /tmp/fluid-6256-envtest.YItPBQ/kubeconfig
+WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /tmp/fluid-6256-envtest.YItPBQ/kubeconfig
+release "fluid-ctl" uninstalled

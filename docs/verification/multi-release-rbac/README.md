@@ -151,3 +151,57 @@ green), optionally run the L3 live check against a throwaway cluster, and report
 an observed-vs-expected table. Clean up scoped test resources; do not run
 cluster-wide destructive actions.
 ```
+
+---
+
+# ROUND 2 — head `da020a3f11` ("fix(chart): make RBAC prefix opt-in")
+
+The PR was re-scoped between rounds: the `Fixes #6134` closing keyword was
+dropped (bare `#6134` mention only — no auto-close on merge), the default was
+reverted to the **historical fixed RBAC names**, and a new opt-in
+`rbac.clusterScopedNamePrefix` value routes all chart ClusterRole /
+ClusterRoleBinding names and roleRefs through one helper
+(`fluid.clusterRBACName`, `templates/_helpers.tpl`). The PR body now states
+plainly: "a scoped RBAC mitigation for #6134, not complete multi-release
+support; other cluster-wide resources … may still conflict or be shared."
+
+The branch was rebased onto `da020a3f1` and the harness extended additively
+(`optin_prefix_test.go`, `scripts/envtest-install-upgrade.sh`). Production
+chart code is still untouched. The round-1 test file stays; its G1 guard was
+superseded (the contract "release-scoped by default" is intentionally gone),
+its F1/F2 contract tests stay red — #6134's full contract remains unmet, which
+the re-scoped PR now declares out of scope.
+
+| Layer | What it exercises | How to run |
+|-------|-------------------|------------|
+| 1. Integration (helm render) | `helm template` the chart: default-vs-base byte-compat, opt-in prefix disjointness, residual shared singletons | `go test ./charts/fluid/fluid/ -run 'TestClusterScoped' -v` (skips if no `helm`) |
+| 2. Integration (envtest apiserver) | real `helm install` / `helm upgrade` against a throwaway kube-apiserver with an audit log (RBAC write ordering) | `bash docs/verification/multi-release-rbac/scripts/envtest-install-upgrade.sh` (needs envtest assets; `KUBEBUILDER_ASSETS` to override) |
+
+Polarity map for round 2: contract tests `TestClusterScopedDefaultRenderMatchesMergeBase`
+and `TestClusterScopedOptInPrefixDisjointAcrossReleases` are green on head and
+red on base / on af73f5d respectively (bite-check evidence:
+`results/bite-check-round2/`). `TestClusterScopedSharedSingletonsRemainAfterOptInPrefix`
+is a **canary**: it PASSES while the declared limitation (shared CSIDriver /
+MWC) persists and must be inverted when multi-release support is completed.
+
+## Round-2 summary of results
+
+| ID | Claim | Layer | Verdict | Evidence |
+|----|-------|-------|---------|----------|
+| P0-r2 | Default-values behavior is unchanged from base (compat) | 1 | **Confirmed** — head render is byte-identical to base `f432bdc`; default upgrade performs zero RBAC writes | `optin_prefix_test.go` green; `results/envtest/D-upgrade-rbac-write-order.txt` empty |
+| G1-r2 | Opt-in prefix produces prefixed, resolvable, cross-release-disjoint cluster RBAC | 1 | **Confirmed** (green on head, red on base) | `results/bite-check-round2/on-base.txt` |
+| F1-r2 (canary) | Even with distinct prefixes a second release still cannot be installed (shared singletons) — the PR's declared scope boundary | 1 + 2 | **Confirmed** — render: exactly `CSIDriver/fuse.csi.fluid.io` + `MutatingWebhookConfiguration/fluid-pod-admission-webhook` remain; install: `INSTALLATION FAILED ... CSIDriver "fuse.csi.fluid.io" ... cannot be imported into the current release` | `results/envtest/B-install2-with-prefix.log` |
+| Upgrade ordering | Opt-in upgrade creates new (prefixed) RBAC before deleting old — "no temporary RBAC permission gap" | 2 | **Confirmed, observed** — audit log: all 22 creates (…49.98s) strictly precede all 22 deletes (…50.06s); upgrade `deployed`; 0 old fixed names left; new binding still binds `ServiceAccount/alluxioruntime-controller` in `fluid-system` | `results/envtest/C-upgrade-rbac-write-order.txt`, `C-upgrade-with-prefix.log`, `C-clusterroles-after.txt`, `C-binding-subjects.json` |
+
+## Continuing after the next round
+
+1. `bash docs/verification/multi-release-rbac/scripts/re-verify.sh` — grafts
+   this harness onto the current PR head and runs the render layer
+   (auto-resolves the head from `verify-manifest.json`'s `pr` URL).
+2. `bash docs/verification/multi-release-rbac/scripts/envtest-install-upgrade.sh`
+   — reruns the install/upgrade layer (scenarios D/A/B/C) against a fresh
+   throwaway apiserver.
+3. Interpretation: `TestClusterScopedSharedSingletonsRemainAfterOptInPrefix`
+   failing with "no shared singletons left" means multi-release support
+   actually landed — invert it into a contract test. The two round-1 F1/F2
+   tests going green means #6134's full contract finally holds.

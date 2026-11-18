@@ -1,0 +1,7 @@
+[
+  {
+    "kind": "ServiceAccount",
+    "name": "alluxioruntime-controller",
+    "namespace": "fluid-system"
+  }
+]
