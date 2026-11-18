@@ -1,2 +1,0 @@
-P0-contract: waiting DataLoad without runAfter is released via the status subresource, no panic	pass
-P0-xkind + F1-canary: waiting DataLoad keeps waiting; non-waiting same-name DataBackup gets the spurious write	fail
