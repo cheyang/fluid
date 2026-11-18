@@ -2,7 +2,7 @@
 
 Reviewer: Codex (Reviewer B). PR: https://github.com/fluid-cloudnative/fluid/pull/6249
 Fixes: https://github.com/fluid-cloudnative/fluid/issues/6246
-Base: `5e6473599f78263a49e521854d80f918a1a10bb0` (round 3 rebase; rounds 1-2: `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5`) — Head reviewed: `964c8ef2230a4eb18ec5c440884f40097eac2079` (round 3; round 2: `eb313c44a08c63f0eb482e8a6c09330927e8246a`, round 1: `145a2c1334643913f827e0755e01d92b336ea7cd`)
+Base: `5e6473599f78263a49e521854d80f918a1a10bb0` (round 3 rebase; rounds 1-2: `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5`) — Head reviewed: `b1d9294cc8f2398e7d09187783f849d1dfc057fa` (round 4; round 3: `964c8ef2230a4eb18ec5c440884f40097eac2079`, round 2: `eb313c44a08c63f0eb482e8a6c09330927e8246a`, round 1: `145a2c1334643913f827e0755e01d92b336ea7cd`)
 
 ## Premise verdict (P0): CONFIRMED
 
@@ -129,3 +129,25 @@ each run (the verdicts were always computed from the fresh temp-dir report and w
 correct; only the persisted artifacts were stale). Commit "fix re-verify.sh persist
 vs cleanup ordering" backs the fresh results up and restores them after the checkout;
 the round-3 reverify/ artifacts are the first genuinely fresh ones.
+
+## Round 4 — incremental review of 964c8ef22..b1d9294cc (2026-11-19)
+
+One commit, test-only: `b1d9294cc test(lifecycle): cover the exclude selector on the add path`
+adds `Describe("Test addScheduleInfoToNode()")` to node_test.go (node_test.go:785) with two
+specs — `should only label the node that doesn't match the exclude selector` (:806) and
+`should label every node without an exclude selector` (:821) — adopting the round-3 nit
+F-NIT-ADD-PATH-COVERAGE-01 in the PR itself. No production-code change in the delta.
+
+| check | result | evidence |
+|-------|--------|----------|
+| re-verify.sh (C1/C2 grafted onto b1d9294cc) | F-fix FIXED (pass=2 fail=0) | results/reverify/unit.out, results/reverify/ginkgo-report.json |
+| full pkg/utils/dataset/lifecycle suite on head | 33/33 pass (round-3's 31 + 2 new add-path specs) | results/round4-head-full-package.txt |
+| polarity on base: base 5e6473599 + head node_test.go | 2 removal-guard specs FAIL (bug still reproduces), BOTH new add-path specs PASS (correct: the add guard predates this PR, so these pin pre-existing behavior and must never be red on base) | results/round4-base-pr-own-specs.txt |
+| bites: head node.go minus the isNodeExcluded call in addScheduleInfoToNode | `should only label the node that doesn't match the exclude selector` FAILS; nil-selector spec PASSes; tree reverted clean | results/round4-add-guard-bites.txt |
+
+F-NIT-ADD-PATH-COVERAGE-01 is fixed by this delta: dropping the add-path guard now fails a
+spec in the PR's own test file (verified by the bites run, matching the author's comment
+2026-11-18T03:11:17Z). The pre-existing e2e-coverage gap
+(codex-pr6249-no-e2e-exclude-selector) is unchanged — still nothing under test/ or
+integration/ references the selector env. CI on b1d9294cc: 22/22 SUCCESS (incl. kind-e2e
+and backward-compat x5), PR open, mergeable.

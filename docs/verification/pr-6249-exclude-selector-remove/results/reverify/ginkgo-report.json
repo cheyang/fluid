@@ -8,14 +8,14 @@
     "SuiteHasProgrammaticFocus": false,
     "SpecialSuiteFailureReasons": null,
     "PreRunStats": {
-      "TotalSpecs": 33,
+      "TotalSpecs": 35,
       "SpecsThatWillRun": 2
     },
-    "StartTime": "2026-11-18T07:54:04.31011828+08:00",
-    "EndTime": "2026-11-18T07:54:04.312073979+08:00",
-    "RunTime": 1955679,
+    "StartTime": "2026-11-19T07:25:22.310293531+08:00",
+    "EndTime": "2026-11-19T07:25:22.312443607+08:00",
+    "RunTime": 2150076,
     "SuiteConfig": {
-      "RandomSeed": 1794959644,
+      "RandomSeed": 1795044322,
       "RandomizeAllSpecs": false,
       "FocusStrings": [
         "PR6249ExcludeSelectorRemoveHarness"
@@ -43,242 +43,6 @@
       "ParallelHost": ""
     },
     "SpecReports": [
-      {
-        "ContainerHierarchyTexts": [
-          "PR6249ExcludeSelectorRemoveHarness"
-        ],
-        "ContainerHierarchyLocations": [
-          {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-            "LineNumber": 41
-          }
-        ],
-        "ContainerHierarchyLabels": [
-          [
-            "verify-pr-6249"
-          ]
-        ],
-        "ContainerHierarchySemVerConstraints": [
-          []
-        ],
-        "LeafNodeType": "It",
-        "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-          "LineNumber": 73
-        },
-        "LeafNodeLabels": [],
-        "LeafNodeSemVerConstraints": [],
-        "LeafNodeText": "C1: excluded node keeps all labels after removeScheduleInfoFromNode",
-        "State": "passed",
-        "StartTime": "2026-11-18T07:54:04.310633558+08:00",
-        "EndTime": "2026-11-18T07:54:04.311277731+08:00",
-        "RunTime": 644173,
-        "ParallelProcess": 1,
-        "NumAttempts": 1,
-        "MaxFlakeAttempts": 0,
-        "MaxMustPassRepeatedly": 0,
-        "SpecEvents": [
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 49
-            },
-            "TimelineLocation": {
-              "Order": 1,
-              "Time": "2026-11-18T07:54:04.310654869+08:00"
-            },
-            "Message": "PR6249ExcludeSelectorRemoveHarness",
-            "NodeType": "BeforeEach"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 49
-            },
-            "TimelineLocation": {
-              "Order": 3,
-              "Time": "2026-11-18T07:54:04.310980811+08:00"
-            },
-            "Message": "PR6249ExcludeSelectorRemoveHarness",
-            "Duration": 325941,
-            "NodeType": "BeforeEach"
-          },
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 73
-            },
-            "TimelineLocation": {
-              "Order": 4,
-              "Time": "2026-11-18T07:54:04.31098234+08:00"
-            },
-            "Message": "C1: excluded node keeps all labels after removeScheduleInfoFromNode",
-            "NodeType": "It"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 73
-            },
-            "TimelineLocation": {
-              "Order": 6,
-              "Time": "2026-11-18T07:54:04.311263081+08:00"
-            },
-            "Message": "C1: excluded node keeps all labels after removeScheduleInfoFromNode",
-            "Duration": 280741,
-            "NodeType": "It"
-          },
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 68
-            },
-            "TimelineLocation": {
-              "Order": 7,
-              "Time": "2026-11-18T07:54:04.31126597+08:00"
-            },
-            "Message": "PR6249ExcludeSelectorRemoveHarness",
-            "NodeType": "AfterEach"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 68
-            },
-            "TimelineLocation": {
-              "Order": 9,
-              "Time": "2026-11-18T07:54:04.311273961+08:00"
-            },
-            "Message": "PR6249ExcludeSelectorRemoveHarness",
-            "Duration": 7980,
-            "NodeType": "AfterEach"
-          }
-        ]
-      },
-      {
-        "ContainerHierarchyTexts": [
-          "PR6249ExcludeSelectorRemoveHarness"
-        ],
-        "ContainerHierarchyLocations": [
-          {
-            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-            "LineNumber": 41
-          }
-        ],
-        "ContainerHierarchyLabels": [
-          [
-            "verify-pr-6249"
-          ]
-        ],
-        "ContainerHierarchySemVerConstraints": [
-          []
-        ],
-        "LeafNodeType": "It",
-        "LeafNodeLocation": {
-          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-          "LineNumber": 89
-        },
-        "LeafNodeLabels": [],
-        "LeafNodeSemVerConstraints": [],
-        "LeafNodeText": "C2: non-excluded node still loses the runtime label",
-        "State": "passed",
-        "StartTime": "2026-11-18T07:54:04.311295692+08:00",
-        "EndTime": "2026-11-18T07:54:04.311946275+08:00",
-        "RunTime": 650583,
-        "ParallelProcess": 1,
-        "NumAttempts": 1,
-        "MaxFlakeAttempts": 0,
-        "MaxMustPassRepeatedly": 0,
-        "SpecEvents": [
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 49
-            },
-            "TimelineLocation": {
-              "Order": 10,
-              "Time": "2026-11-18T07:54:04.311297482+08:00"
-            },
-            "Message": "PR6249ExcludeSelectorRemoveHarness",
-            "NodeType": "BeforeEach"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 49
-            },
-            "TimelineLocation": {
-              "Order": 12,
-              "Time": "2026-11-18T07:54:04.311438997+08:00"
-            },
-            "Message": "PR6249ExcludeSelectorRemoveHarness",
-            "Duration": 141515,
-            "NodeType": "BeforeEach"
-          },
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 89
-            },
-            "TimelineLocation": {
-              "Order": 13,
-              "Time": "2026-11-18T07:54:04.311439587+08:00"
-            },
-            "Message": "C2: non-excluded node still loses the runtime label",
-            "NodeType": "It"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 89
-            },
-            "TimelineLocation": {
-              "Order": 15,
-              "Time": "2026-11-18T07:54:04.311937245+08:00"
-            },
-            "Message": "C2: non-excluded node still loses the runtime label",
-            "Duration": 497658,
-            "NodeType": "It"
-          },
-          {
-            "SpecEventType": "Node",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 68
-            },
-            "TimelineLocation": {
-              "Order": 16,
-              "Time": "2026-11-18T07:54:04.311939294+08:00"
-            },
-            "Message": "PR6249ExcludeSelectorRemoveHarness",
-            "NodeType": "AfterEach"
-          },
-          {
-            "SpecEventType": "Node (End)",
-            "CodeLocation": {
-              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
-              "LineNumber": 68
-            },
-            "TimelineLocation": {
-              "Order": 18,
-              "Time": "2026-11-18T07:54:04.311945475+08:00"
-            },
-            "Message": "PR6249ExcludeSelectorRemoveHarness",
-            "Duration": 6170,
-            "NodeType": "AfterEach"
-          }
-        ]
-      },
       {
         "ContainerHierarchyTexts": [
           "Dataset Lifecycle Node Tests",
@@ -320,7 +84,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should add exclusive labels to node",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.311955385+08:00",
+        "StartTime": "2026-11-19T07:25:22.310366503+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -369,7 +133,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should add share mode labels to node",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.311963395+08:00",
+        "StartTime": "2026-11-19T07:25:22.310393144+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -418,7 +182,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should add capacity labels to node",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.311967495+08:00",
+        "StartTime": "2026-11-19T07:25:22.310399914+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -467,7 +231,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should decrease dataset number to 1",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.311972696+08:00",
+        "StartTime": "2026-11-19T07:25:22.310403885+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -516,7 +280,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should delete dataset-num label",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.311975956+08:00",
+        "StartTime": "2026-11-19T07:25:22.310406905+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -565,7 +329,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return error",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.311979296+08:00",
+        "StartTime": "2026-11-19T07:25:22.310410155+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -614,7 +378,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should not modify labels",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.311982716+08:00",
+        "StartTime": "2026-11-19T07:25:22.310412605+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -663,7 +427,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should increase dataset number",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.311986636+08:00",
+        "StartTime": "2026-11-19T07:25:22.310414975+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -712,7 +476,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should add dataset-num label with value 1",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.311990196+08:00",
+        "StartTime": "2026-11-19T07:25:22.310417245+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -761,7 +525,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return true",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.311993036+08:00",
+        "StartTime": "2026-11-19T07:25:22.310420725+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -810,7 +574,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return false",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.311998017+08:00",
+        "StartTime": "2026-11-19T07:25:22.310423315+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -859,7 +623,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return false",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312002347+08:00",
+        "StartTime": "2026-11-19T07:25:22.310425606+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -908,7 +672,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should remove fluid labels and keep other labels",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312006617+08:00",
+        "StartTime": "2026-11-19T07:25:22.310427806+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -957,7 +721,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should remove all fluid labels",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312010337+08:00",
+        "StartTime": "2026-11-19T07:25:22.310431206+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1006,7 +770,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should remove all fluid labels including capacity labels",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312014217+08:00",
+        "StartTime": "2026-11-19T07:25:22.310433276+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1055,7 +819,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should write the current capacity labels",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312022477+08:00",
+        "StartTime": "2026-11-19T07:25:22.310436066+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1104,7 +868,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should remove the stale tier label",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312026408+08:00",
+        "StartTime": "2026-11-19T07:25:22.310438996+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1153,7 +917,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should leave the node alone",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312029598+08:00",
+        "StartTime": "2026-11-19T07:25:22.310442246+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1195,7 +959,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should repair outdated capacity labels and not patch again once they match",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312033338+08:00",
+        "StartTime": "2026-11-19T07:25:22.310445876+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1237,7 +1001,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should leave nodes matching the exclude selector untouched",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312037158+08:00",
+        "StartTime": "2026-11-19T07:25:22.310448766+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1279,7 +1043,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should remove the runtime label from a node that isn't excluded",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312040288+08:00",
+        "StartTime": "2026-11-19T07:25:22.310452736+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1321,7 +1085,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should leave a node matching the exclude selector untouched",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312043148+08:00",
+        "StartTime": "2026-11-19T07:25:22.310455047+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1363,7 +1127,7 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should remove the runtime label when the exclude selector doesn't match the node",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312045568+08:00",
+        "StartTime": "2026-11-19T07:25:22.310457347+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1405,7 +1169,91 @@
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should only clean up the node that isn't excluded when the workers leave",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312048038+08:00",
+        "StartTime": "2026-11-19T07:25:22.310459637+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test addScheduleInfoToNode()"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 785
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 806
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should only label the node that doesn't match the exclude selector",
+        "State": "skipped",
+        "StartTime": "2026-11-19T07:25:22.310462357+08:00",
+        "EndTime": "0001-01-01T00:00:00Z",
+        "RunTime": 0,
+        "ParallelProcess": 1,
+        "NumAttempts": 0,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "Dataset Lifecycle Node Tests",
+          "Test addScheduleInfoToNode()"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 44
+          },
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+            "LineNumber": 785
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "pkg.utils.dataset.lifecycle.node_test.go"
+          ],
+          []
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          [],
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
+          "LineNumber": 821
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "should label every node without an exclude selector",
+        "State": "skipped",
+        "StartTime": "2026-11-19T07:25:22.310464397+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1426,11 +1274,11 @@
           },
           {
             "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 785
+            "LineNumber": 830
           },
           {
             "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 786
+            "LineNumber": 831
           }
         ],
         "ContainerHierarchyLabels": [
@@ -1448,13 +1296,13 @@
         "LeafNodeType": "It",
         "LeafNodeLocation": {
           "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 787
+          "LineNumber": 832
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should calculate correct differences",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312051629+08:00",
+        "StartTime": "2026-11-19T07:25:22.310466787+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1475,11 +1323,11 @@
           },
           {
             "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 785
+            "LineNumber": 830
           },
           {
             "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 798
+            "LineNumber": 843
           }
         ],
         "ContainerHierarchyLabels": [
@@ -1497,13 +1345,13 @@
         "LeafNodeType": "It",
         "LeafNodeLocation": {
           "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 799
+          "LineNumber": 844
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return empty differences",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312054489+08:00",
+        "StartTime": "2026-11-19T07:25:22.310470437+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1524,11 +1372,11 @@
           },
           {
             "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 785
+            "LineNumber": 830
           },
           {
             "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 810
+            "LineNumber": 855
           }
         ],
         "ContainerHierarchyLabels": [
@@ -1546,13 +1394,13 @@
         "LeafNodeType": "It",
         "LeafNodeLocation": {
           "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 811
+          "LineNumber": 856
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should return all nodes as differences",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312057049+08:00",
+        "StartTime": "2026-11-19T07:25:22.310472547+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1573,11 +1421,11 @@
           },
           {
             "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 823
+            "LineNumber": 868
           },
           {
             "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 887
+            "LineNumber": 932
           }
         ],
         "ContainerHierarchyLabels": [
@@ -1595,13 +1443,13 @@
         "LeafNodeType": "It",
         "LeafNodeLocation": {
           "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 901
+          "LineNumber": 946
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "should successfully add or remove schedule info on proper nodes",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312060299+08:00",
+        "StartTime": "2026-11-19T07:25:22.310475277+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1622,11 +1470,11 @@
           },
           {
             "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 975
+            "LineNumber": 1020
           },
           {
             "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 979
+            "LineNumber": 1024
           }
         ],
         "ContainerHierarchyLabels": [
@@ -1644,13 +1492,13 @@
         "LeafNodeType": "It",
         "LeafNodeLocation": {
           "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 980
+          "LineNumber": 1025
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "Should not return error and nodeExcludeSelector should be nil",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312064179+08:00",
+        "StartTime": "2026-11-19T07:25:22.310486648+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1671,11 +1519,11 @@
           },
           {
             "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 975
+            "LineNumber": 1020
           },
           {
             "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 987
+            "LineNumber": 1032
           }
         ],
         "ContainerHierarchyLabels": [
@@ -1693,13 +1541,13 @@
         "LeafNodeType": "It",
         "LeafNodeLocation": {
           "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 988
+          "LineNumber": 1033
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "Should parse the selector correctly",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312067289+08:00",
+        "StartTime": "2026-11-19T07:25:22.310489728+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
@@ -1720,11 +1568,11 @@
           },
           {
             "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 975
+            "LineNumber": 1020
           },
           {
             "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-            "LineNumber": 1003
+            "LineNumber": 1048
           }
         ],
         "ContainerHierarchyLabels": [
@@ -1742,19 +1590,255 @@
         "LeafNodeType": "It",
         "LeafNodeLocation": {
           "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_test.go",
-          "LineNumber": 1004
+          "LineNumber": 1049
         },
         "LeafNodeLabels": [],
         "LeafNodeSemVerConstraints": [],
         "LeafNodeText": "Should return error",
         "State": "skipped",
-        "StartTime": "2026-11-18T07:54:04.312071249+08:00",
+        "StartTime": "2026-11-19T07:25:22.310492168+08:00",
         "EndTime": "0001-01-01T00:00:00Z",
         "RunTime": 0,
         "ParallelProcess": 1,
         "NumAttempts": 0,
         "MaxFlakeAttempts": 0,
         "MaxMustPassRepeatedly": 0
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6249ExcludeSelectorRemoveHarness"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+            "LineNumber": 41
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "verify-pr-6249"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+          "LineNumber": 73
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "C1: excluded node keeps all labels after removeScheduleInfoFromNode",
+        "State": "passed",
+        "StartTime": "2026-11-19T07:25:22.310495828+08:00",
+        "EndTime": "2026-11-19T07:25:22.311384889+08:00",
+        "RunTime": 889051,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 49
+            },
+            "TimelineLocation": {
+              "Order": 1,
+              "Time": "2026-11-19T07:25:22.310499978+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 49
+            },
+            "TimelineLocation": {
+              "Order": 3,
+              "Time": "2026-11-19T07:25:22.310677964+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "Duration": 177976,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 73
+            },
+            "TimelineLocation": {
+              "Order": 4,
+              "Time": "2026-11-19T07:25:22.310679104+08:00"
+            },
+            "Message": "C1: excluded node keeps all labels after removeScheduleInfoFromNode",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 73
+            },
+            "TimelineLocation": {
+              "Order": 6,
+              "Time": "2026-11-19T07:25:22.311227634+08:00"
+            },
+            "Message": "C1: excluded node keeps all labels after removeScheduleInfoFromNode",
+            "Duration": 548530,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 68
+            },
+            "TimelineLocation": {
+              "Order": 7,
+              "Time": "2026-11-19T07:25:22.311346948+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 68
+            },
+            "TimelineLocation": {
+              "Order": 9,
+              "Time": "2026-11-19T07:25:22.311382229+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "Duration": 35292,
+            "NodeType": "AfterEach"
+          }
+        ]
+      },
+      {
+        "ContainerHierarchyTexts": [
+          "PR6249ExcludeSelectorRemoveHarness"
+        ],
+        "ContainerHierarchyLocations": [
+          {
+            "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+            "LineNumber": 41
+          }
+        ],
+        "ContainerHierarchyLabels": [
+          [
+            "verify-pr-6249"
+          ]
+        ],
+        "ContainerHierarchySemVerConstraints": [
+          []
+        ],
+        "LeafNodeType": "It",
+        "LeafNodeLocation": {
+          "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+          "LineNumber": 89
+        },
+        "LeafNodeLabels": [],
+        "LeafNodeSemVerConstraints": [],
+        "LeafNodeText": "C2: non-excluded node still loses the runtime label",
+        "State": "passed",
+        "StartTime": "2026-11-19T07:25:22.311421321+08:00",
+        "EndTime": "2026-11-19T07:25:22.312431227+08:00",
+        "RunTime": 1009916,
+        "ParallelProcess": 1,
+        "NumAttempts": 1,
+        "MaxFlakeAttempts": 0,
+        "MaxMustPassRepeatedly": 0,
+        "SpecEvents": [
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 49
+            },
+            "TimelineLocation": {
+              "Order": 10,
+              "Time": "2026-11-19T07:25:22.311426661+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 49
+            },
+            "TimelineLocation": {
+              "Order": 12,
+              "Time": "2026-11-19T07:25:22.311838526+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "Duration": 411865,
+            "NodeType": "BeforeEach"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 89
+            },
+            "TimelineLocation": {
+              "Order": 13,
+              "Time": "2026-11-19T07:25:22.311840166+08:00"
+            },
+            "Message": "C2: non-excluded node still loses the runtime label",
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 89
+            },
+            "TimelineLocation": {
+              "Order": 15,
+              "Time": "2026-11-19T07:25:22.312420626+08:00"
+            },
+            "Message": "C2: non-excluded node still loses the runtime label",
+            "Duration": 580460,
+            "NodeType": "It"
+          },
+          {
+            "SpecEventType": "Node",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 68
+            },
+            "TimelineLocation": {
+              "Order": 16,
+              "Time": "2026-11-19T07:25:22.312422977+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "NodeType": "AfterEach"
+          },
+          {
+            "SpecEventType": "Node (End)",
+            "CodeLocation": {
+              "FileName": "/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-verify-codex/pkg/utils/dataset/lifecycle/node_exclude_remove_verify_test.go",
+              "LineNumber": 68
+            },
+            "TimelineLocation": {
+              "Order": 18,
+              "Time": "2026-11-19T07:25:22.312430027+08:00"
+            },
+            "Message": "PR6249ExcludeSelectorRemoveHarness",
+            "Duration": 7060,
+            "NodeType": "AfterEach"
+          }
+        ]
       }
     ]
   }
