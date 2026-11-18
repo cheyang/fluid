@@ -115,3 +115,30 @@ func TestVerifyInvalidQuotaListReturnsError(t *testing.T) {
 		t.Fatalf("error should name the offending element, got: %v", err)
 	}
 }
+
+// F5 (pre-existing, fixed by 305e466f): the SINGLE-VALUE quota path shares F1's
+// root cause - transform() rewrites quota "512Mi" to jindo unit "512m" and it
+// flows through the same SumQuotas call. On base 1321a217d and previous head
+// 22d2d07c the worker memory request was persisted as "512m" (512 milli-bytes).
+func TestVerifySingleValueMiQuotaSum(t *testing.T) {
+	rt := newVerifyRuntime()
+	engine := newVerifyEngine(t, rt)
+	value := &Jindo{}
+
+	err := engine.transformWorkerResources(rt, value, "512m")
+	if err != nil {
+		t.Fatalf("expected no error for single Mi quota, got: %v", err)
+	}
+	if value.Worker.Resources.Requests.Memory != "512Mi" {
+		t.Fatalf("expected worker memory request 512Mi, got %q",
+			value.Worker.Resources.Requests.Memory)
+	}
+	updated, err := engine.getRuntime()
+	if err != nil {
+		t.Fatalf("getRuntime: %v", err)
+	}
+	got := updated.Spec.Worker.Resources.Requests.Memory()
+	if got == nil || got.String() != "512Mi" {
+		t.Fatalf("expected persisted spec.worker.resources.requests.memory=512Mi, got %v", got)
+	}
+}

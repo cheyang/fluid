@@ -76,3 +76,20 @@ func TestVerifyJindoCacheQuotaListMiUnitsSum(t *testing.T) {
 			value.Worker.Resources.Requests[corev1.ResourceMemory])
 	}
 }
+
+// F5 (pre-existing, fixed by 305e466f): single-value Mi quota in jindocache.
+// Up to 22d2d07c the helm request value was "512m" (512 milli-bytes).
+func TestVerifyJindoCacheSingleValueMiQuotaSum(t *testing.T) {
+	rt := newVerifyJindoCacheRuntime()
+	engine := newVerifyJindoCacheEngine(t, rt)
+	value := &Jindo{}
+
+	err := engine.transformWorkerResources(rt, value, "512m")
+	if err != nil {
+		t.Fatalf("expected no error for single Mi quota, got: %v", err)
+	}
+	if value.Worker.Resources.Requests[corev1.ResourceMemory] != "512Mi" {
+		t.Fatalf("expected worker memory request 512Mi, got %q",
+			value.Worker.Resources.Requests[corev1.ResourceMemory])
+	}
+}

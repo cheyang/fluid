@@ -24,10 +24,16 @@ func TestVerifySumQuotasContracts(t *testing.T) {
 		{"invalid element", "10Gi,abc", "", true},
 		{"empty string", "", "", true},
 		{"trailing comma", "10Gi,", "", true},
-		// root-cause demonstrator for F2: jindo unit "m" is parsed by k8s
-		// quantity semantics as MILLI (1/1000), not Mi. Summing "2048m,2048m"
-		// therefore yields 4096m (~4 bytes), not 4096Mi.
-		{"jindo mi units are milli in k8s semantics", "2048m,2048m", "4096m", false},
+		// F1 regression contract: jindo unit "m" means Mi. Up to previous head
+		// 22d2d07c this summed as k8s MILLI-bytes ("4096m", ~4 bytes); the fix in
+		// 305e466f converts a trailing "m" to "Mi" inside SumQuotas.
+		{"jindo mi units sum in Mi", "2048m,2048m", "4Gi", false},
+		{"single jindo mi unit", "512m", "512Mi", false},
+		// Documented semantic choice (recorded in the round-2 ledger): a RAW
+		// milli-denominated element ("500m" is CRD-legal via [numkMGTPE]) is
+		// read as 500Mi, matching how jindo itself reads the same string in the
+		// helm values. Up to 22d2d07c it summed as 500 milli-bytes.
+		{"raw milli element read as Mi (matches jindo semantics)", "500m", "500Mi", false},
 	}
 	for _, tt := range tests {
 		got, err := SumQuotas(tt.in)

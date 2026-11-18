@@ -66,6 +66,15 @@
       "match": [
         "TestVerifyInvalidQuotaListReturnsError"
       ]
+    },
+    {
+      "id": "F5",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifySingleValueMiQuotaSum",
+        "TestVerifyJindoCacheSingleValueMiQuotaSum"
+      ]
     }
   ],
   "liveNote": "L3 skipped per debate policy. On a real cluster, apply a JindoRuntime with tieredstore MEM level path=/dev/shm,/mnt/ram quotaList=10Gi,5Gi: controller must not crash and the worker statefulset memory request must be 15Gi; a Mi-denominated list (2048Mi,2048Mi) must yield 4Gi, not 4096m."
