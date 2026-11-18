@@ -1,0 +1,5 @@
+jindofsx Job missing runtime-secret imagePullSecrets	fail
+jindofsx Job omits imagePullSecrets when none configured	pass
+jindofsx CronJob missing runtime-secret imagePullSecrets	fail
+jindocache Job missing runtime-secret imagePullSecrets	fail
+jindocache CronJob missing runtime-secret imagePullSecrets	fail

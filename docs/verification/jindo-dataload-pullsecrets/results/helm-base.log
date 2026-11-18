@@ -1,0 +1,7 @@
+[helm-render] emitted values files into /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-18/pr-6266/wt-base/docs/verification/jindo-dataload-pullsecrets/results
+[helm-render] FAIL: jindofsx Job carries runtime-secret imagePullSecrets
+[helm-render] PASS: jindofsx Job omits imagePullSecrets when none configured
+[helm-render] FAIL: jindofsx CronJob carries runtime-secret imagePullSecrets
+[helm-render] FAIL: jindocache Job carries runtime-secret imagePullSecrets
+[helm-render] FAIL: jindocache CronJob carries runtime-secret imagePullSecrets
+[helm-render] 4 check(s) FAILED

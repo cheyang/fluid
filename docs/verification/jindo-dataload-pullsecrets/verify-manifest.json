@@ -1,0 +1,42 @@
+{
+  "topic": "jindo-dataload-pullsecrets",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6266",
+  "harnessPaths": [
+    "docs/verification/jindo-dataload-pullsecrets",
+    "pkg/ddc/jindofsx/dataload_pullsecrets_verify_test.go",
+    "pkg/ddc/jindocache/dataload_pullsecrets_verify_test.go",
+    "pkg/utils/posix_paths_verify_test.go",
+    "pkg/utils/validation/mountroot_posix_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "JindoFSX/JindoCache DataLoad pods ignore the JindoRuntime's spec.imagePullSecrets; only the controller IMAGE_PULL_SECRETS env var is used",
+    "reportedComponent": "JuiceFS/Alluxio DataLoad+DataMigrate (issue #6247); PR implements the same mechanism for the Jindo engines as a declared partial",
+    "patchedComponent": "pkg/ddc/jindofsx/load_data.go, pkg/ddc/jindocache/load_data.go",
+    "componentMatch": false,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "base run: TestVerifyJindoFSxRuntimePullSecretsWin got [{env-secret}] want [{runtime-secret}]; base-emitted values carry no imagePullSecrets when env unset. results/unit-base.json, results/helm-base.log",
+    "match": ["TestVerifyJindoFSxRuntimePullSecretsWin", "TestVerifyJindoCacheRuntimePullSecretsWin"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=\"all=-N -l\" -count=1 -json ./pkg/ddc/jindofsx ./pkg/ddc/jindocache ./pkg/utils ./pkg/utils/validation -run 'TestVerify|TestDataLoadImagePullSecrets'"
+    },
+    "integration": {
+      "kind": "script",
+      "cmd": "bash docs/verification/jindo-dataload-pullsecrets/scripts/helm_render_check.sh"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit",
+      "match": ["TestVerifyJindoFSxRuntimePullSecretsWin", "TestVerifyJindoFSxRuntimePullSecretsEnvUnset", "TestVerifyJindoCacheRuntimePullSecretsWin", "TestVerifyJindoCacheRuntimePullSecretsEnvUnset", "TestVerifyJindoFSxEnvFallbackWhenRuntimeEmpty", "TestVerifyJindoCacheEnvFallbackWhenRuntimeEmpty", "TestVerifyJindoFSxNoSecretsAnywhere", "TestDataLoadImagePullSecrets"] },
+    { "id": "F1-HELM", "polarity": "contract", "layer": "integration",
+      "match": ["jindofsx Job carries runtime-secret", "jindofsx CronJob carries runtime-secret", "jindocache Job carries runtime-secret", "jindocache CronJob carries runtime-secret", "jindofsx Job omits imagePullSecrets"] },
+    { "id": "F2", "polarity": "contract", "layer": "unit",
+      "match": ["TestVerifyNormalizeSubPathCharacterization", "TestVerifyUFSPathBuilderCharacterization", "TestVerifyIsValidMountRootCharacterization"] }
+  ],
+  "liveNote": "L3 skipped per debate setup (no KUBECONFIG layer). Residual live signal: create a DataLoad on a JindoRuntime with spec.imagePullSecrets set and confirm the loader pod spec carries them; the values->chart chain is already proven by the integration layer."
+}
