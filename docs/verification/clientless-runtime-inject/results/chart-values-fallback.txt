@@ -1,10 +1,14 @@
-PASS  A-F3 values fallback -- values without a clientless group still get the chart's RuntimeConfigInjector group
+PASS  A-F3 values fallback (values lack the key) -- values without a clientless group still get the chart's RuntimeConfigInjector group
+PASS  A-F3 values fallback under forceReplacePluginsProfile -- force-replacing values that lack the group still gets the chart's group (documented in values.yaml)
 PASS  default render has the clientless group -- chart defaults keep the group from values.yaml
-PASS  default checksum/plugins-profile is the recorded baseline -- default render byte-identical to 268012a5 -> no spurious webhook rollout
-FAIL  A-F5 canary: explicit clientless: [] is overridden by the chart group -- canary of the current truthiness behavior; flips when an explicit empty sticks
-PASS  empty-group opt-out form is respected verbatim -- a 2-key empty map is truthy, so the explicit off switch survives
+PASS  default checksum/plugins-profile is the recorded baseline -- default render byte-identical to 268012a5/41b47141 -> no spurious webhook rollout across the round-5 delta
+PASS  A-F5 round 5: explicit clientless: [] is kept, not replaced -- hasKey keeps the explicit list; the webhook-side consequence is the A-F7 canary below
+PASS  explicit clientless: null coalesces to the chart default group (helm merge) -- helm keeps the chart's default for null/-f overrides before the template runs; the template-level null passthrough is covered by the pluginsProfile: null check
+PASS  explicit clientless: {} coalesces to the chart default group (helm merge) -- an empty map merges with the chart defaults at the inner keys; use the 2-key empty group to switch it off
+PASS  empty-group opt-out form is respected verbatim -- the off switch documented in values.yaml works
 PASS  null pluginsProfile renders null -- same render as 268012a5
 PASS  non-map pluginsProfile renders verbatim -- same render as 268012a5
-PASS  forceReplace also gains the fallback group -- the flag no longer renders the values verbatim; documented in the round-4 ledger
+PASS  A-F7 canary: the rendered profile carries a list-shaped clientless group -- the webhook's yaml.Unmarshal rejects this at startup (findings_claude_r5_test.go); the chart does not guard the spelling
+PASS  clientless rule selects the clientless.fluid.io/inject label -- the objectSelector follows the label rename of commit 9c8d0e9fc
 
-FAILED: A-F5 canary: explicit clientless: [] is overridden by the chart group
+all chart checks green (A-F5 template semantics fixed; A-F7 canary holding)
