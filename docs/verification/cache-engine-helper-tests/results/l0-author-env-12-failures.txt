@@ -1,0 +1,17 @@
+Author's PR body claims: "go test ./pkg/ddc/cache/engine — 406 passed, 12 failed.
+Existing sync/UFS tests require a Kubernetes configuration unavailable in this environment."
+
+Reproduced and attributed on this machine:
+
+- Plain `go test ./pkg/ddc/cache/engine/ -count=1` on PR head c6c73f6b: FAIL — 12 failures,
+  all in ufs_test.go / sync (PrepareUFS / UpdateOnUFSChange specs).
+- Same plain command on merge base dcb76167b: FAIL — the same 12 failures.
+  => PRE-EXISTING on base, not introduced by this PR.
+- With `-gcflags=all=-l` (no FLUID_UNIT_TEST): ok — all 434 specs pass.
+- With `FLUID_UNIT_TEST=true` only (no gcflags): still FAIL.
+  => the differentiator is the inlining flag, not a Kubernetes configuration.
+
+The author's "requires a Kubernetes configuration" diagnosis is incorrect: the failures come
+from running `go test` without the flags the project's Makefile uses. CI runs unit tests via
+`make test`, which sets FLUID_UNIT_TEST=true and LOCAL_FLAGS=-gcflags="all=-N -l"
+(Makefile lines 14/164), so these 12 pass in CI. The PR is not the cause.
