@@ -148,6 +148,41 @@ grep -q "^R3_CANARY_HOLDS" "$RESULTS/r2-r3-render.txt"
 check R3 "canary: CSIDriver + MWC remain fixed-name shared singletons (documented remainder)" $?
 cat "$RESULTS/r2-r3-render.txt" | tee -a "$LOG"
 
+# ---- R4/R5: prefix validation (round-3 head 64d570d fixes the silent-truncation leg of F9)
+P250="$(python3 -c 'print("p"*250)')"
+if helm template t1 "$WORK/head-chart" --namespace fluid-system --set rbac.clusterScopedNamePrefix="$P250" > "$RESULTS/r4-overlong.log" 2>&1; then
+  check R4.overlong "contract (F9 fixed): 250-char prefix rejected at render with clear message" 1
+else
+  grep -q "rbac.clusterScopedNamePrefix is too long" "$RESULTS/r4-overlong.log" \
+    && grep -q "253-character" "$RESULTS/r4-overlong.log"
+  check R4.overlong "contract (F9 fixed): 250-char prefix rejected at render with clear message" $?
+fi
+# boundary: longest cluster RBAC name is vineyardruntime-clusterrolebinding (34 chars)
+P218="$(python3 -c 'print("p"*218)')"
+P219="$(python3 -c 'print("p"*219)')"
+helm template t1 "$WORK/head-chart" --namespace fluid-system --set rbac.clusterScopedNamePrefix="$P218" >/dev/null 2>&1
+ok218=$?
+helm template t1 "$WORK/head-chart" --namespace fluid-system --set rbac.clusterScopedNamePrefix="$P219" >/dev/null 2>&1
+ok219=$?
+if [[ $ok218 -eq 0 && $ok219 -ne 0 ]]; then
+  check R4.boundary "contract: exact boundary - prefix 218 renders (max name 253), prefix 219 rejected" 0
+else
+  check R4.boundary "contract: exact boundary - prefix 218 renders (max name 253), prefix 219 rejected [rc218=$ok218 rc219=$ok219]" 1
+fi
+# R5 canaries (F9 residual legs, still open nit): pathological inputs unhandled
+if helm template t1 "$WORK/head-chart" --namespace fluid-system --set rbac=null > "$RESULTS/r5-null.log" 2>&1; then
+  check R5.null "canary (F9 residual): --set rbac=null dies with opaque nil-pointer error" 1
+else
+  grep -q "nil pointer" "$RESULTS/r5-null.log"
+  check R5.null "canary (F9 residual): --set rbac=null dies with opaque nil-pointer error" $?
+fi
+if helm template t1 "$WORK/head-chart" --namespace fluid-system --set rbac.clusterScopedNamePrefix=foo_bar > "$RESULTS/r5-charset.yaml" 2>&1 \
+   && grep -q "foo_bar-alluxioruntime-controller" "$RESULTS/r5-charset.yaml"; then
+  check R5.charset "canary (F9 residual): invalid-charset prefix foo_bar renders; fails only at API apply" 0
+else
+  check R5.charset "canary (F9 residual): invalid-charset prefix foo_bar renders; fails only at API apply" 1
+fi
+
 # --- start envtest apiserver -------------------------------------------------
 ( cd "$REPO_ROOT" && go build -o "$WORK/envtest-kubeconfig" ./docs/verification/rbac-release-scoped-codex/harness/envtest-kubeconfig ) || { log "FATAL: helper build failed"; exit 2; }
 "$WORK/envtest-kubeconfig" "$WORK/kubeconfig" > "$WORK/envtest.out" 2>&1 &

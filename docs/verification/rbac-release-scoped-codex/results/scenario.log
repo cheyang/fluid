@@ -13,9 +13,9 @@ envtest apiserver up
 Error: uninstall: Release not loaded: fluid-1: release: not found
 Error: uninstall: Release not loaded: fluid-1: release: not found
 release "fluid" uninstalled
-=== K1/K2: second install on HEAD chart (da020a3f11a0f6c67efdfcc489528fe977664772) — documented out-of-scope remainder ===
+=== K1/K2: second install on HEAD chart (64d570d9cefc2a9ce0b0b98d742eedd67a6c6bdc) — documented out-of-scope remainder ===
 NAME                        CREATED AT
-alluxioruntime-controller   2026-11-18T01:29:10Z
+alluxioruntime-controller   2026-11-18T23:50:06Z
 Error: INSTALLATION FAILED: Unable to continue with install: ServiceAccount "alluxioruntime-controller" in namespace "fluid-system" exists and cannot be imported into the current release: invalid ownership metadata; annotation validation error: key "meta.helm.sh/release-name" must equal "fluid-1": current value is "fluid"; annotation validation error: key "meta.helm.sh/release-namespace" must equal "test": current value is "fluid-system"
 Error: uninstall: Release not loaded: fluid-1: release: not found
 Error: INSTALLATION FAILED: Unable to continue with install: CSIDriver "fuse.csi.fluid.io" in namespace "" exists and cannot be imported into the current release: invalid ownership metadata; annotation validation error: key "meta.helm.sh/release-name" must equal "fluid-1": current value is "fluid"; annotation validation error: key "meta.helm.sh/release-namespace" must equal "test": current value is "fluid-system"
@@ -23,28 +23,28 @@ Error: uninstall: Release not loaded: fluid-1: release: not found
 release "fluid" uninstalled
 === C1: two releases with distinct prefixes (trimmed chart: no CSIDriver/MWC) ===
 NAME                               CREATED AT
-team-a-alluxioruntime-controller   2026-11-18T01:29:14Z
+team-a-alluxioruntime-controller   2026-11-18T23:50:10Z
 NAME                               CREATED AT
-team-b-alluxioruntime-controller   2026-11-18T01:29:15Z
+team-b-alluxioruntime-controller   2026-11-18T23:50:11Z
 release "fluid-1" uninstalled
 release "fluid" uninstalled
 === U1: upgrade base -> head with default values (no churn) ===
 NAME                        CREATED AT
-alluxioruntime-controller   2026-11-18T01:29:17Z
+alluxioruntime-controller   2026-11-18T23:50:13Z
 release "fluid" uninstalled
 === U2: opt an existing release into a prefix ===
 Error from server (NotFound): clusterroles.rbac.authorization.k8s.io "alluxioruntime-controller" not found
 NAME                           CREATED AT
-t1-alluxioruntime-controller   2026-11-18T01:29:23Z
+t1-alluxioruntime-controller   2026-11-18T23:50:19Z
 release "fluid" uninstalled
 === U3: failed hooked upgrade leaves hook RBAC; prefix opt-in does not prune it ===
 NAME                 CREATED AT
-fluid-crds-upgrade   2026-11-18T01:29:27Z
+fluid-crds-upgrade   2026-11-18T23:50:23Z
 Error from server (NotFound): clusterroles.rbac.authorization.k8s.io "alluxioruntime-controller" not found
 NAME                           CREATED AT
-t1-alluxioruntime-controller   2026-11-18T01:29:54Z
+t1-alluxioruntime-controller   2026-11-18T23:50:50Z
 NAME                 CREATED AT
-fluid-crds-upgrade   2026-11-18T01:29:27Z
+fluid-crds-upgrade   2026-11-18T23:50:23Z
 NAME                 ROLE                             AGE
 fluid-crds-upgrade   ClusterRole/fluid-crds-upgrade   28s
 clusterrole.rbac.authorization.k8s.io "fluid-crds-upgrade" deleted
@@ -53,10 +53,14 @@ fluid-crds-upgrade   ClusterRole/fluid-crds-upgrade   28s
 clusterrolebinding.rbac.authorization.k8s.io "fluid-crds-upgrade" deleted
 release "fluidup" uninstalled
 
-================ SUMMARY (base=f432bdc87ac35941763b74e8e87683c7a84de5d9 head=da020a3f11a0f6c67efdfcc489528fe977664772) ================
+================ SUMMARY (base=f432bdc87ac35941763b74e8e87683c7a84de5d9 head=64d570d9cefc2a9ce0b0b98d742eedd67a6c6bdc) ================
 PASS  R1  head default render is byte-identical to base (default upgrade = no churn)
 PASS  R2  distinct prefixes render fully disjoint, self-resolving cluster RBAC (24+24)
 PASS  R3  canary: CSIDriver + MWC remain fixed-name shared singletons (documented remainder)
+PASS  R4.overlong  contract (F9 fixed): 250-char prefix rejected at render with clear message
+PASS  R4.boundary  contract: exact boundary - prefix 218 renders (max name 253), prefix 219 rejected
+PASS  R5.null  canary (F9 residual): --set rbac=null dies with opaque nil-pointer error
+PASS  R5.charset  canary (F9 residual): invalid-charset prefix foo_bar renders; fails only at API apply
 PASS  P0.install1  base: first release installs
 PASS  P0.install2  base: second release FAILS with ownership conflict (premise holds)
 PASS  P0b  base with --set namespace=test: second release FAILS on ClusterRole alluxioruntime-controller (matches issue #6134 exactly)
@@ -83,4 +87,4 @@ PASS  U3.upgrade  prefix opt-in upgrade (--no-hooks) of failed release succeeds
 PASS  U3.mainpruned  old-name non-hook ClusterRole pruned by prefix opt-in
 PASS  U3.newexists  prefixed ClusterRole t1-alluxioruntime-controller created
 PASS  U3.canary  canary: orphaned hook ClusterRole fluid-crds-upgrade NOT pruned by prefix opt-in
-pass=29 fail=0
+pass=33 fail=0

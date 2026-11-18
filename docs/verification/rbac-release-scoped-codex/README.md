@@ -2,8 +2,9 @@
 
 - PR: https://github.com/fluid-cloudnative/fluid/pull/6256
 - Base (merge-base): `f432bdc87ac35941763b74e8e87683c7a84de5d9`
-- Head reviewed (round 2): `da020a3f11a0f6c67efdfcc489528fe977664772`
-- Previous head (round 1): `af73f5d6a8f7b918f8b1c07bd47cbdd6cebef563`
+- Head reviewed (round 3): `64d570d9cefc2a9ce0b0b98d742eedd67a6c6bdc`
+- Previous head (round 2): `da020a3f11a0f6c67efdfcc489528fe977664772`
+- Round 1 head: `af73f5d6a8f7b918f8b1c07bd47cbdd6cebef563`
 - Mode: incremental. Production code untouched — harness is additive.
 
 ## What changed between rounds
@@ -68,6 +69,39 @@ Round-1 evidence is preserved under `results/round1-af73f5d/`.
   create the newly named RBAC objects and then prune the old ones" is accurate
   for the 22 non-hook objects but not for the 2 hook objects. Cleanup is a
   manual `kubectl delete clusterrole/clusterrolebinding fluid-crds-upgrade`.
+
+
+## Round-3 delta (da020a3..64d570d): overlong-prefix fail-fast
+
+One commit, `64d570d9c fix(chart): reject overlong cluster RBAC prefixes`:
+`fluid.clusterRBACName` now `fail`s when `prefix-name` exceeds 253 chars
+(was: silent `trunc 253 | trimSuffix "-"`); adds
+`TestClusterScopedRBACRejectsOverlongPrefix`; widens the CI lint step to
+`-run TestClusterScopedRBAC` so both tests run. 33/33 scenario checks pass on
+the new head; the full unit layer passes (including the PR's new test).
+
+| Check | Kind | Result | Evidence |
+|-------|------|--------|----------|
+| R4.overlong | contract | 250-char prefix fails at render with `rbac.clusterScopedNamePrefix is too long ... 253-character` | `results/r4-overlong.log` |
+| R4.boundary | contract | exact boundary: prefix 218 renders (max name `vineyardruntime-clusterrolebinding`=34 → 218+1+34=253), prefix 219 rejected (254) | `results/scenario.log` |
+| R5.null | canary (holds) | `--set rbac=null` still dies with opaque nil-pointer at `_helpers.tpl:178` — residual F9 leg | `results/r5-null.log` |
+| R5.charset | canary (holds) | invalid-charset prefix `foo_bar` still renders (`foo_bar-alluxioruntime-controller`), fails only at API apply — residual leg | `results/r5-charset.yaml` |
+
+Bite check: same scenario against previous head `da020a3` fails exactly
+R4.overlong + R4.boundary (250-char prefix silently rendered 12 ClusterRoles
+onto 9 distinct names) and passes all 31 others
+(`results/round3-bite-da020a3/scenario.log`). The PR's own new test, grafted
+onto `da020a3`, fails with `helm template accepted a prefix that truncates the
+resource suffix`; it passes on head.
+
+### Finding-status changes in round 3
+
+- **F9 (nit) → partially fixed**: the silent-truncation/collision leg (also
+  flagged by Copilot) is fixed and regression-tested; the `rbac=null`
+  nil-pointer and unvalidated-charset legs remain as nit-level error-quality
+  issues (canaries R5.* flip when addressed).
+- All other findings unchanged: 29/29 round-2 checks re-run green on the new
+  head (R1/R2 contracts, K1/K2/R3/U3 canaries, C1/U1/U2 contracts, P0 premise).
 
 ## How to run
 

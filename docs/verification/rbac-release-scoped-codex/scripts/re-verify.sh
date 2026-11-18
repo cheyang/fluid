@@ -57,4 +57,7 @@ FIXED only when they FLIP to fail — then invert them):
        chart; R2 independently covers cross-release disjointness.
   F5   (upgrade churn) fixed by design: R1 byte-identical default render + U1.
   N1   (orphaned hook RBAC on prefix opt-in): canary U3.
+  F9   (prefix validation): silent-truncation leg FIXED at 64d570d — contract
+       R4 (250-char prefix rejected with clear message; exact 218/219 boundary).
+       Residual legs are canaries R5.null / R5.charset (FIXED when they flip).
 MAPPING_EOF
