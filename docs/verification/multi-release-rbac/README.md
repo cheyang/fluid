@@ -4,7 +4,7 @@ Reproducible evidence for the findings raised while reviewing
 https://github.com/fluid-cloudnative/fluid/pull/6256
 ("fix(chart): make cluster-scoped RBAC names release-scoped", fixes #6134).
 
-Harness runs against the **PR head** `af73f5d6a8f7b918f8b1c07bd47cbdd6cebef563`
+Harness runs against the **PR head** `64d570d9cefc2a9ce0b0b98d742eedd67a6c6bdc` (round 3; earlier heads: `af73f5d`, `da020a3`)
 (base `f432bdc87ac35941763b74e8e87683c7a84de5d9`). Production code is untouched
 on this branch — the harness is one new test file
 (`charts/fluid/fluid/clusterscoped_collision_test.go`) plus this directory.
@@ -192,6 +192,37 @@ MWC) persists and must be inverted when multi-release support is completed.
 | G1-r2 | Opt-in prefix produces prefixed, resolvable, cross-release-disjoint cluster RBAC | 1 | **Confirmed** (green on head, red on base) | `results/bite-check-round2/on-base.txt` |
 | F1-r2 (canary) | Even with distinct prefixes a second release still cannot be installed (shared singletons) — the PR's declared scope boundary | 1 + 2 | **Confirmed** — render: exactly `CSIDriver/fuse.csi.fluid.io` + `MutatingWebhookConfiguration/fluid-pod-admission-webhook` remain; install: `INSTALLATION FAILED ... CSIDriver "fuse.csi.fluid.io" ... cannot be imported into the current release` | `results/envtest/B-install2-with-prefix.log` |
 | Upgrade ordering | Opt-in upgrade creates new (prefixed) RBAC before deleting old — "no temporary RBAC permission gap" | 2 | **Confirmed, observed** — audit log: all 22 creates (…49.98s) strictly precede all 22 deletes (…50.06s); upgrade `deployed`; 0 old fixed names left; new binding still binds `ServiceAccount/alluxioruntime-controller` in `fluid-system` | `results/envtest/C-upgrade-rbac-write-order.txt`, `C-upgrade-with-prefix.log`, `C-clusterroles-after.txt`, `C-binding-subjects.json` |
+
+## Round-3 summary of results (head `64d570d` — "reject overlong cluster RBAC prefixes")
+
+The round-3 delta is one commit touching only `_helpers.tpl` (length guard),
+`rbac_test.go` (author regression test), and `project-check.yml` (CI pattern
+`TestClusterScopedRBAC` covers both author tests). It fixes the **silent-truncation
+facet of F9** (the round-2 convergent nit, also Copilot C4607948720):
+
+| ID | Claim | Layer | Verdict | Evidence |
+|----|-------|-------|---------|----------|
+| F9-trunc | An overlong `rbac.clusterScopedNamePrefix` must FAIL the render naming the value + the 253-char DNS limit (was: silent `trunc 253` that collapsed 12 ClusterRoles onto one name) | 1 | **Confirmed fixed** — contract tests green on `64d570d`, red on `da020a3` | `results/bite-check-round3/on-previous-head-da020a3.txt`, `render-and-guard-evidence.txt` |
+| F9-bndry | The 253-char edge is exact: prefix of 218 (longest combined name == 253) renders; 219 fails | 1 | **Confirmed** (no off-by-one) | `TestClusterScopedRBACPrefixBoundaryAtDNSLimit` |
+| F9-null (canary, non-gating) | `rbac=null` still fails rendering with the round-2 nil-pointer error (loud, pathological input) — the residual F9 facet the fix does not address | 1 | **Still present** | `render-and-guard-evidence.txt` |
+| Carry-over | The delta changes no valid-prefix rendering: default AND `t1`-prefixed renders are **byte-identical** to `da020a3` (0-line diff), so all round-2 envtest conclusions (B/C/D install/upgrade mechanics) carry over | 1 | **Confirmed** | `results/bite-check-round3/render-and-guard-evidence.txt` |
+| Guard coverage | The length guard sits inside `fluid.clusterRBACName`, which all 33 call sites (names AND roleRefs) route through | 1 | **Confirmed** | `grep -c fluid.clusterRBACName` over `templates/role/*/rbac*.yaml` + `upgrade/crd-upgrade.yaml` |
+
+Author-side regression test also verified on head:
+`go test ./charts/fluid/fluid -run TestClusterScopedRBAC -count=1` → both tests
+PASS (`TestClusterScopedRBACNamesPreserveDefaultsAndSupportOptInPrefix`,
+`TestClusterScopedRBACRejectsOverlongPrefix`), and the widened CI pattern
+`-run TestClusterScopedRBAC` matches exactly those two tests. Copilot's review
+on `64d570d` independently marks C4607948720 resolved ("Approval recommended,
+no open issues").
+
+**Still open from round 2, untouched by this delta** (chart-only docs, non-blocking):
+F8-values (values.yaml comment overpromises "unique prefix when multiple Fluid
+releases share a cluster" — a second release still fails on the shared CSIDriver),
+F8-hook-orphan (pre-upgrade hook RBAC `fluid-crds-upgrade` never pruned on
+opt-in; PR body's prune claim inaccurate for hooks), F5 (opt-in upgrade note
+lives only in the PR body), and the CI gate (no GitHub Actions workflow has run
+on any head — first-time contributor fork, workflows `action_required`).
 
 ## Continuing after the next round
 
