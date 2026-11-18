@@ -11,6 +11,7 @@ try:
         tail = "".join(fh.readlines()[-8:])
 except Exception:
     tail = ""
-print(json.dumps({"Action": status, "Test": name, "Output": tail[-1500:]}))
+# compact separators: re-verify.sh greps for the exact string '"Action":"pass"'
+print(json.dumps({"Action": status, "Test": name, "Output": tail[-1500:]}, separators=(",", ":")))
 PY
 }
