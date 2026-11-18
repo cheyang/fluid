@@ -33,13 +33,14 @@ Layers run against the code under review:
 | ID | Claim | Layer | Verdict | Evidence |
 |----|-------|-------|---------|----------|
 | P0 | quotaList "10Gi,5Gi" panics the controller on base | 1 | **Confirmed** | `panic: cannot parse '10Gi,5Gi'` in `transformWorkerResources` on base, both engines (`results/premise-base-*.txt`) |
-| F1 | fix sums Gi quota lists and persists the sum | 1 | Confirmed fixed on head | `TestVerifyQuotaListSumNoPanic`, `TestVerifyJindoCacheQuotaListSumNoPanic` PASS on head; worker request = "15Gi", CR spec updated (`results/unit-head.txt`) |
-| F2 | Mi-denominated quota lists are summed as milli-BYTES | 1 | **Confirmed bug on head** | `TestVerifyQuotaListMiUnitsSum`, `TestVerifyJindoCacheQuotaListMiUnitsSum` FAIL on head: got `"4096m"` (≈4 bytes), want `"4Gi"` (`results/unit-head.txt`) |
-| F3 | invalid quota element returns error instead of panic | 1 | Confirmed fixed on head | `TestVerifyInvalidQuotaListReturnsError` PASS (`results/unit-head.txt`) |
+| A1 | fix sums Gi quota lists and persists the sum | 1 | Confirmed fixed on head | `TestVerifyQuotaListSumNoPanic`, `TestVerifyJindoCacheQuotaListSumNoPanic` PASS on head; worker request = "15Gi", CR spec updated (`results/unit-head.txt`) |
+| F1 | Mi-denominated quota lists are summed as milli-BYTES | 1 | **Confirmed bug on head** | `TestVerifyQuotaListMiUnitsSum`, `TestVerifyJindoCacheQuotaListMiUnitsSum` FAIL on head: got `"4096m"` (≈4 bytes), want `"4Gi"` (`results/unit-head.txt`) |
+| A2 | invalid quota element returns error instead of panic | 1 | Confirmed fixed on head | `TestVerifyInvalidQuotaListReturnsError` PASS (`results/unit-head.txt`) |
+| F3 | negative quota elements are silently summed | 1 | Confirmed current behavior (canary) | `TestVerifySumQuotasNegativeCanary` PASS: `SumQuotas("10Gi,-5Gi")` = `"5Gi"` |
 
 ## Per-finding detail
 
-### F2 — Mi quota lists sum to milli-bytes (the one open defect)
+### F1 — Mi quota lists sum to milli-bytes (the one open defect)
 
 `transform()` normalizes each quotaList element from k8s to jindo units: `Gi`→`g`,
 `Mi`→`m` (pkg/ddc/jindofsx/transform.go:99-107, same in jindocache). Before parsing,
@@ -67,7 +68,7 @@ reasons.
 
 ## Proposed fixes (NOT applied to production here)
 
-- **F2**: sum the quotas from the original `quotaList` values (before the jindo-unit
+- **F1**: sum the quotas from the original `quotaList` values (before the jindo-unit
   `Gi→g`/`Mi→m` normalization), or extend the restore step to `m`→`Mi`. Also consider
   rejecting negative elements (the CRD pattern on `QuotaList` explicitly allows a sign).
 

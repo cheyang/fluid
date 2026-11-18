@@ -1,4 +1,4 @@
-2026/11/18 10:16:23 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+2026/11/18 10:22:10 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
 === RUN   TestVerifyQuotaListSumNoPanic
 --- PASS: TestVerifyQuotaListSumNoPanic (1.00s)
 === RUN   TestVerifyQuotaListMiUnitsSum
@@ -7,8 +7,8 @@
 === RUN   TestVerifyInvalidQuotaListReturnsError
 --- PASS: TestVerifyInvalidQuotaListReturnsError (0.00s)
 FAIL
-FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	2.017s
-2026/11/18 10:16:23 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	2.015s
+2026/11/18 10:22:10 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
 === RUN   TestVerifyJindoCacheQuotaListSumNoPanic
 --- PASS: TestVerifyJindoCacheQuotaListSumNoPanic (1.00s)
 === RUN   TestVerifyJindoCacheQuotaListMiUnitsSum
@@ -18,6 +18,8 @@ FAIL
 FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	2.014s
 === RUN   TestVerifySumQuotasContracts
 --- PASS: TestVerifySumQuotasContracts (0.00s)
+=== RUN   TestVerifySumQuotasNegativeCanary
+--- PASS: TestVerifySumQuotasNegativeCanary (0.00s)
 PASS
-ok  	github.com/fluid-cloudnative/fluid/pkg/utils/jindo	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/jindo	0.012s
 FAIL

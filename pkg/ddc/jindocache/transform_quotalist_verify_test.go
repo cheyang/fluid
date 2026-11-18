@@ -3,8 +3,8 @@ Verification harness for PR #6261 (fluid-cloudnative/fluid).
 Reviewer: Codex (reviewer B). Additive only - does not modify production code.
 
   P0 (premise, BASE): jindocache transformWorkerResources panics on "10Gi,5Gi".
-  F1 (contract): jindocache worker memory request for quotaList "10Gi,5Gi" is the sum "15Gi".
-  F2 (contract): Mi-denominated quota list must sum in Mi, not milli-bytes.
+  A1 (contract): jindocache worker memory request for quotaList "10Gi,5Gi" is the sum "15Gi".
+  F1 (contract): Mi-denominated quota list must sum in Mi, not milli-bytes.
 */
 
 package jindocache

@@ -8,12 +8,12 @@ Claims under test (see docs/verification/jindo-quotalist-sum-codex/):
      transformWorkerResources via resource.MustParse("10Gi,5Gi").
      -> On the BASE branch this test PANICS (= premise confirmed).
      -> On the PR head it must PASS (no panic, request == summed quota).
-  F1 (contract): worker memory request for quotaList "10Gi,5Gi" equals the sum "15Gi",
+  A1 (contract): worker memory request for quotaList "10Gi,5Gi" equals the sum "15Gi",
      and the summed value is persisted back to the runtime CR spec.
-  F2 (contract): quotaList with Mi units ("2048Mi,2048Mi" -> jindo units "2048m,2048m")
+  F1 (contract): quotaList with Mi units ("2048Mi,2048Mi" -> jindo units "2048m,2048m")
      must yield a 4096Mi ("4Gi") worker memory request. k8s quantity semantics parse
      "2048m" as 2048 MILLI-bytes, so a correct fix must restore "m"->"Mi" before summing.
-  F3 (contract): an invalid quota element returns an error instead of panicking.
+  A2 (contract): an invalid quota element returns an error instead of panicking.
 */
 
 package jindofsx
@@ -54,7 +54,7 @@ func newVerifyRuntime() *datav1alpha1.JindoRuntime {
 	}
 }
 
-// P0+F1: comma-separated Gi quotaList must not panic and must be summed.
+// P0+A1: comma-separated Gi quotaList must not panic and must be summed.
 func TestVerifyQuotaListSumNoPanic(t *testing.T) {
 	rt := newVerifyRuntime()
 	engine := newVerifyEngine(t, rt)
@@ -82,7 +82,7 @@ func TestVerifyQuotaListSumNoPanic(t *testing.T) {
 	}
 }
 
-// F2: Mi-denominated quota lists must be summed in Mi, not in milli-bytes.
+// F1: Mi-denominated quota lists must be summed in Mi, not in milli-bytes.
 // transform() normalizes quotaList "2048Mi,2048Mi" to jindo units "2048m,2048m";
 // transformWorkerResources restores "g"->"Gi" but not "m"->"Mi".
 func TestVerifyQuotaListMiUnitsSum(t *testing.T) {

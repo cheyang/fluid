@@ -1,0 +1,6 @@
+TestVerifySumQuotasContracts	pass
+TestVerifyQuotaListSumNoPanic	pass
+TestVerifyJindoCacheQuotaListSumNoPanic	pass
+TestVerifyQuotaListMiUnitsSum	fail
+TestVerifyInvalidQuotaListReturnsError	pass
+TestVerifyJindoCacheQuotaListMiUnitsSum	fail

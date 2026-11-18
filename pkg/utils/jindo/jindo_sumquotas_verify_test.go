@@ -46,3 +46,18 @@ func TestVerifySumQuotasContracts(t *testing.T) {
 		}
 	}
 }
+
+// TestVerifySumQuotasNegativeCanary is a BUG-CANARY (polarity: canary): it documents
+// that SumQuotas currently accepts and sums negative quota elements
+// ("10Gi,-5Gi" -> "5Gi"). The QuotaList CRD validation pattern explicitly allows a
+// leading sign, so this input reaches the engine. If a future fix rejects negative
+// quotas, this test FLIPS to fail and must be inverted into a contract test.
+func TestVerifySumQuotasNegativeCanary(t *testing.T) {
+	got, err := SumQuotas("10Gi,-5Gi")
+	if err != nil {
+		t.Fatalf("canary flipped: SumQuotas now rejects negative quotas (err=%v) - invert this test into a contract test", err)
+	}
+	if got.String() != "5Gi" {
+		t.Fatalf("canary flipped: SumQuotas(\"10Gi,-5Gi\") = %q, want 5Gi (documented current behavior)", got.String())
+	}
+}
