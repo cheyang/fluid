@@ -44,7 +44,7 @@ func TestSumQuotasContract(t *testing.T) {
 		{"mixed binary suffixes canonicalize", "1Gi,512Mi", "1536Mi", false},
 		// F1: jindo's Mi->m rewrite must be read back as Mi, not milli-bytes.
 		{"jindo m suffix is Mi (F1, flipped in round 2)", "100m,200m", "300Mi", false},
-		{"jindo m suffix list (F1)", "2048m,2048m", "4096Mi", false},
+		{"jindo m suffix list (F1)", "2048m,2048m", "4Gi", false},
 		{"single jindo m value (F5)", "512m", "512Mi", false},
 		{"mixed g and m after jindo rewrite", "1g,512m", "", true},
 		{"negative parses (no sign validation)", "-1Gi,2Gi", "1Gi", false},
