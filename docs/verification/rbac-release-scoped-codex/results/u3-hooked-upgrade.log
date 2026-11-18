@@ -1,0 +1,4 @@
+Error: UPGRADE FAILED: pre-upgrade hooks failed: 1 error occurred:
+	* timed out waiting for the condition
+
+

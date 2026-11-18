@@ -1,0 +1,7 @@
+RBAC count tenant-a: 24 tenant-b: 24
+RBAC intersection: []
+bindings with unresolved roleRef (tenant-a): []
+unprefixed cluster RBAC under prefix (tenant-a): []
+non-RBAC cluster-scoped still shared: [('CSIDriver', 'fuse.csi.fluid.io'), ('MutatingWebhookConfiguration', 'fluid-pod-admission-webhook')]
+R2_OK
+R3_CANARY_HOLDS

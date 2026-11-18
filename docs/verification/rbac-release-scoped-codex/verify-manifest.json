@@ -3,56 +3,116 @@
   "topic": "rbac-release-scoped-codex",
   "reviewer": "codex",
   "baseSha": "f432bdc87ac35941763b74e8e87683c7a84de5d9",
-  "headSha": "af73f5d6a8f7b918f8b1c07bd47cbdd6cebef563",
-  "previousHeadSha": null,
-  "mode": "initial",
+  "headSha": "da020a3f11a0f6c67efdfcc489528fe977664772",
+  "previousHeadSha": "af73f5d6a8f7b918f8b1c07bd47cbdd6cebef563",
+  "mode": "incremental",
   "premise": {
     "id": "P0",
     "claim": "Installing a second Fluid helm release on the same cluster fails with 'exists and cannot be imported into the current release' ownership conflicts (issue #6134).",
     "runsAgainst": "base",
     "verdict": "Confirmed",
-    "evidence": "results/p0-install2.log (fails on ServiceAccount alluxioruntime-controller, values-default layout) and results/p0b-install2.log (with --set namespace=test, fails on exactly the reported ClusterRole alluxioruntime-controller)."
+    "evidence": "results/p0-install2.log (fails on namespaced ServiceAccount, values-default layout) and results/p0b-install2.log (with --set namespace=test, fails on exactly the reported ClusterRole alluxioruntime-controller). Re-confirmed on base in round 2."
   },
+  "rounds": [
+    {
+      "head": "af73f5d6a8f7b918f8b1c07bd47cbdd6cebef563",
+      "note": "Round 1: unconditional rename of all cluster RBAC via fluid.fullname; claimed 'Fixes #6134'. Blocker F1: CSIDriver + MutatingWebhookConfiguration still fixed-name, second install still fails. Evidence in results/round1-af73f5d/."
+    },
+    {
+      "head": "da020a3f11a0f6c67efdfcc489528fe977664772",
+      "note": "Round 2: PR re-scoped per review option (b): 'Fixes #6134' claim dropped, prefix is opt-in (rbac.clusterScopedNamePrefix, empty default). Harness contract updated additively; round-1 checks reframed as canaries where behavior is now documented limitation."
+    }
+  ],
   "findings": [
     {
       "id": "F1",
-      "title": "Incomplete fix: second release still cannot install (CSIDriver fuse.csi.fluid.io and MutatingWebhookConfiguration fluid-pod-admission-webhook keep fixed cluster-scoped names); 'Fixes #6134' does not hold",
-      "severity": "blocker",
-      "polarity": "contract",
-      "layer": "integration",
-      "tests": ["scripts/scenario.sh: F1a, F1b, F1c, F1.names"],
-      "evidence": "results/f1a-install2.log, results/f1b-install2.log, results/f1c-install2.log, results/scenario.log",
-      "observed": "head chart: second install fails with default values (namespaced SA collision) and with --set namespace=test (CSIDriver fuse.csi.fluid.io ownership conflict)",
-      "expected": "second release installs successfully (the 'Fixes #6134' claim)",
-      "status": "open",
-      "introducedByPR": true
+      "title": "Round-1 blocker: fixed-name CSIDriver + MutatingWebhookConfiguration blocked a second release while the PR claimed 'Fixes #6134'",
+      "severity": "blocker (round 1) -> fixed (round 2, claim dropped / PR re-scoped)",
+      "polarity": "canary (residual behavior) + out-of-band claim check",
+      "layer": "integration + PR metadata",
+      "tests": ["scripts/scenario.sh: K1, K2", "gh pr view 6256 --json closingIssuesReferences / PR body scope statement"],
+      "evidence": "results/k1-install2.log (default second install still fails on namespaced SA), results/k2-install2.log (with distinct prefix still fails on CSIDriver fuse.csi.fluid.io); prepare_github_review problemContext.closesIssues=[] and PR body 'scoped RBAC mitigation for #6134, not complete multi-release support' on head da020a3",
+      "observed": "behavior unchanged and explicitly documented as out of scope; auto-close claim removed",
+      "status": "fixed",
+      "introducedByPR": true,
+      "verification": {"base": "fail", "previous": "fail", "head": "fail", "note": "behavioral contract (second install succeeds) still fails on all three; the BLOCKER was the claim, which is fixed. K1/K2 are canaries: when they flip, multi-release install works."}
     },
     {
       "id": "F2",
-      "title": "Upgrade swaps ClusterRole/ClusterRoleBinding names (delete+create): brief permission-loss window for runtime controllers",
-      "severity": "minor",
+      "title": "Round-1: same release name across namespaces still collided (fluid.fullname ignores namespace)",
+      "severity": "minor -> fixed (round 2)",
       "polarity": "contract",
-      "layer": "integration",
-      "tests": ["scripts/scenario.sh: F2.install, F2.before, F2.upgrade, F2.oldgone, F2.newexists, F2.subjects"],
-      "evidence": "results/f2-upgrade.log, results/f2-binding-subjects.txt, results/scenario.log",
-      "observed": "helm upgrade base->head succeeds; old-name objects deleted, new-name objects created; bindings keep referencing the same ServiceAccounts",
-      "expected": "mechanics confirmed; transient window disclosed by author in PR body",
-      "status": "open",
-      "introducedByPR": true
+      "layer": "render",
+      "tests": ["scripts/scenario.sh: R1, R2"],
+      "evidence": "results/r2-r3-render.txt: RBAC names no longer derive from release name at all; opt-in prefix is documented in values.yaml as needing uniqueness per cluster",
+      "status": "fixed",
+      "introducedByPR": false,
+      "verification": {"base": "fail", "previous": "fail", "head": "pass"}
     },
     {
       "id": "F3",
-      "title": "Chart tests assert template text only; no helm template/render or multi-install e2e coverage; glob misses templates outside role/ and upgrade/",
-      "severity": "minor",
+      "title": "Round-1: tests globbed only templates/role/* and never rendered the chart",
+      "severity": "major (round 1) -> fixed (round 2)",
+      "polarity": "contract",
+      "layer": "unit + render",
+      "tests": ["charts/fluid/fluid/rbac_test.go (PR's own, real helm template)", "scripts/scenario.sh: R2"],
+      "evidence": "results/unit-head-r2.log (pass on head), results/unit-base-bites-r2.log (24 prefix violations on base), results/r2-r3-render.txt",
+      "status": "fixed",
+      "introducedByPR": true,
+      "verification": {"base": "fail", "previous": "fail", "head": "pass"}
+    },
+    {
+      "id": "F5",
+      "title": "Round-1: upgrade deleted+recreated all 24 cluster RBAC objects (transient permission window)",
+      "severity": "minor -> fixed by design (round 2)",
+      "polarity": "contract",
+      "layer": "render + integration",
+      "tests": ["scripts/scenario.sh: R1, U1"],
+      "evidence": "R1: head default render byte-identical to base; U1: base->head upgrade preserves names and subjects (results/u1-upgrade.log, results/u1-subjects.txt)",
+      "status": "fixed",
+      "introducedByPR": true,
+      "verification": {"base": "not-run", "previous": "fail", "head": "pass"}
+    },
+    {
+      "id": "F6",
+      "title": "Round-1: renderFullname re-implemented sprig in Go (drift risk)",
+      "severity": "nit -> fixed (round 2)",
       "polarity": "contract",
       "layer": "unit",
-      "tests": ["charts/fluid/fluid/rbac_test.go (PR's own)", "scripts/scenario.sh (integration equivalent)"],
-      "evidence": "results/unit-head.log (pass on head), results/unit-base-bites.log (38 failures on base)",
+      "tests": ["code inspection: rbac_test.go on head shells out to real helm template; renderFullname gone"],
+      "evidence": "git show da020a3:charts/fluid/fluid/rbac_test.go",
+      "status": "fixed",
+      "introducedByPR": true,
+      "verification": {"base": "not-run", "previous": "not-run", "head": "pass"}
+    },
+    {
+      "id": "F7",
+      "title": "templates/csi/driver.yaml not gated by .Values.csi.enabled (pre-existing)",
+      "severity": "minor",
+      "polarity": "canary",
+      "layer": "render",
+      "tests": ["scripts/scenario.sh: R3 (CSIDriver remains a fixed-name shared singleton)"],
+      "evidence": "results/r2-r3-render.txt; PR body now lists CSIDriver among resources that 'may still conflict'",
+      "status": "open (pre-existing, non-blocking; PR explicitly scopes it out)",
+      "introducedByPR": false,
+      "verification": {"base": "fail", "previous": "fail", "head": "fail"}
+    },
+    {
+      "id": "N1",
+      "title": "Opting into a prefix never prunes pre-upgrade hook RBAC (fluid-crds-upgrade ClusterRole/ClusterRoleBinding) left behind by an earlier failed hooked upgrade; PR body's 'Helm will ... prune the old ones' is inaccurate for hooks",
+      "severity": "minor",
+      "polarity": "canary",
+      "layer": "integration",
+      "tests": ["scripts/scenario.sh: U3"],
+      "evidence": "results/u3-hooked-upgrade.log (timed-out hooked upgrade leaves hook RBAC), results/u3-prefix-upgrade.log + U3.canary (old hook ClusterRole survives the prefix opt-in while non-hook old names are pruned)",
+      "observed": "orphaned fluid-crds-upgrade ClusterRole/ClusterRoleBinding persist after opting into prefix t1",
+      "expected": "old hook RBAC cleaned up, or the limitation documented (helm never prunes hooks; before-hook-creation matches only the new name)",
       "status": "open",
-      "introducedByPR": true
+      "introducedByPR": true,
+      "verification": {"base": "not-run", "previous": "not-run", "head": "fail", "note": "canary asserting the current (orphan) behavior holds on head; flips when fixed"}
     }
   ],
   "prHeadFetch": {"repo": "https://github.com/fluid-cloudnative/fluid.git", "ref": "pull/6256/head"},
-  "liveNote": "Skipped per debate setup (no live cluster). Repo CI rollup at review time: only DCO + SonarCloud (success); kind-e2e/backward-compat workflows did not run on this PR. The backward-compat workflow would cover this upgrade path once triggered.",
+  "liveNote": "Skipped per debate setup (no live cluster). CI on head da020a3: only DCO + SonarCloud ran; Project Check / E2E workflows are 'action_required' (fork PR awaiting maintainer approval) — the PR's own new chart test line in project-check.yml has therefore NOT executed in CI on this head.",
   "reverify": "bash docs/verification/rbac-release-scoped-codex/scripts/re-verify.sh"
 }

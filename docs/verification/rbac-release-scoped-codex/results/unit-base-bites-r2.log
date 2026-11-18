@@ -1,0 +1,28 @@
+--- FAIL: TestClusterScopedRBACNamesPreserveDefaultsAndSupportOptInPrefix (0.07s)
+    rbac_test.go:169: prefixed binding "alluxioruntime-clusterrolebinding" has unprefixed roleRef "alluxioruntime-controller"
+    rbac_test.go:169: prefixed binding "cacheruntime-clusterrolebinding" has unprefixed roleRef "cacheruntime-controller"
+    rbac_test.go:169: prefixed binding "fluid-csi-plugin" has unprefixed roleRef "fluid-csi-plugin"
+    rbac_test.go:169: prefixed binding "dataset-clusterrolebinding" has unprefixed roleRef "dataset-controller"
+    rbac_test.go:169: prefixed binding "efcruntime-clusterrolebinding" has unprefixed roleRef "efcruntime-controller"
+    rbac_test.go:169: prefixed binding "fluidapp-clusterrolebinding" has unprefixed roleRef "fluidapp-controller"
+    rbac_test.go:169: prefixed binding "jindoruntime-clusterrolebinding" has unprefixed roleRef "jindoruntime-controller"
+    rbac_test.go:169: prefixed binding "juicefsruntime-clusterrolebinding" has unprefixed roleRef "juicefsruntime-controller"
+    rbac_test.go:169: prefixed binding "thinruntime-clusterrolebinding" has unprefixed roleRef "thinruntime-controller"
+    rbac_test.go:169: prefixed binding "vineyardruntime-clusterrolebinding" has unprefixed roleRef "vineyardruntime-controller"
+    rbac_test.go:169: prefixed binding "fluid-webhook-clusterrolebinding" has unprefixed roleRef "fluid-webhook"
+    rbac_test.go:169: prefixed binding "fluid-crds-upgrade" has unprefixed roleRef "fluid-crds-upgrade"
+    rbac_test.go:169: ClusterRole "alluxioruntime-controller" is missing opt-in prefix "tenant-a"
+    rbac_test.go:169: ClusterRole "cacheruntime-controller" is missing opt-in prefix "tenant-a"
+    rbac_test.go:169: ClusterRole "fluid-csi-plugin" is missing opt-in prefix "tenant-a"
+    rbac_test.go:169: ClusterRole "dataset-controller" is missing opt-in prefix "tenant-a"
+    rbac_test.go:169: ClusterRole "efcruntime-controller" is missing opt-in prefix "tenant-a"
+    rbac_test.go:169: ClusterRole "fluidapp-controller" is missing opt-in prefix "tenant-a"
+    rbac_test.go:169: ClusterRole "jindoruntime-controller" is missing opt-in prefix "tenant-a"
+    rbac_test.go:169: ClusterRole "juicefsruntime-controller" is missing opt-in prefix "tenant-a"
+    rbac_test.go:169: ClusterRole "thinruntime-controller" is missing opt-in prefix "tenant-a"
+    rbac_test.go:169: ClusterRole "vineyardruntime-controller" is missing opt-in prefix "tenant-a"
+    rbac_test.go:169: ClusterRole "fluid-webhook" is missing opt-in prefix "tenant-a"
+    rbac_test.go:169: ClusterRole "fluid-crds-upgrade" is missing opt-in prefix "tenant-a"
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/charts/fluid/fluid	0.075s
+FAIL
