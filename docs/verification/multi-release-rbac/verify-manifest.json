@@ -2,11 +2,12 @@
   "topic": "multi-release-rbac",
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6256",
   "baseSha": "f432bdc87ac35941763b74e8e87683c7a84de5d9",
-  "headSha": "da020a3f11a0f6c67efdfcc489528fe977664772",
+  "headSha": "64d570d9cefc2a9ce0b0b98d742eedd67a6c6bdc",
   "harnessPaths": [
     "docs/verification/multi-release-rbac",
     "charts/fluid/fluid/clusterscoped_collision_test.go",
-    "charts/fluid/fluid/optin_prefix_test.go"
+    "charts/fluid/fluid/optin_prefix_test.go",
+    "charts/fluid/fluid/prefix_validation_test.go"
   ],
   "premise": {
     "id": "P0",
@@ -61,7 +62,22 @@
       "polarity": "contract",
       "layer": "integration",
       "match": ["TestClusterScopedDefaultRenderMatchesMergeBase"]
+    },
+    {
+      "id": "F9-trunc",
+      "title": "Round-3 (head 64d570d 'reject overlong cluster RBAC prefixes'): an overlong rbac.clusterScopedNamePrefix must FAIL the render with an error naming the value and the 253-char DNS limit (was silent trunc 253 collapsing 12 ClusterRoles onto one name at da020a3)",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestClusterScopedRBACOverlongPrefixRejectedAtRender", "TestClusterScopedRBACPrefixBoundaryAtDNSLimit"]
+    },
+    {
+      "id": "F9-null",
+      "title": "Round-3 residual F9 facet (non-gating): rbac=null still breaks rendering with the round-2 nil-pointer error (loud failure on pathological input); the 64d570d fix does not add a clean validation message for it",
+      "polarity": "canary",
+      "layer": "integration",
+      "match": ["TestClusterScopedRBACNullValueStillFailsLoudly"],
+      "nonGating": true
     }
   ],
-  "liveNote": "L3: results/envtest/ (envtest apiserver, helm 3.16.3) — B: second install with prefix fails on CSIDriver ownership (the #6134 error); C: opt-in upgrade creates all 22 prefixed RBAC objects before deleting the 22 old ones (audit log), subjects unchanged; D: default upgrade performs zero RBAC writes. CI itself has NOT run on this head (first-time contributor, workflows awaiting approval) — Project Check (which runs the author's new test) must go green before merge."
+  "liveNote": "L3: results/envtest/ (envtest apiserver, helm 3.16.3) — B: second install with prefix fails on CSIDriver ownership (the #6134 error); C: opt-in upgrade creates all 22 prefixed RBAC objects before deleting the 22 old ones (audit log), subjects unchanged; D: default upgrade performs zero RBAC writes. Round-3 carry-over: the 64d570d delta (length guard in the prefixed branch only) changes no valid-prefix rendering — default AND t1-prefixed renders are byte-identical to da020a3 (0-line diff, results/bite-check-round3/), so the da020a3 envtest conclusions carry over; only the overlong-prefix path differs (now fails, see F9-trunc). CI itself has STILL not run on any head of this PR (first-time contributor, workflows awaiting approval) — Project Check (which runs the author's new test) must go green before merge."
 }

@@ -1,0 +1,18 @@
+# Round-3 delta evidence (da020a3 -> 64d570d)
+
+## render identity, previous head vs new head (helm 3.16.3)
+default values: 0 diff lines
+prefix t1:      0 diff lines
+
+## overlong prefix (250 chars) on previous head da020a3: silent truncation, 12 ClusterRoles collapse onto one name
+     12   name: pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp-fl
+      5   name: vineyardruntime-controller
+      5   name: fluidapp-controller
+      5   name: dataset-controller
+
+## overlong prefix (250 chars) on new head 64d570d: render fails
+Error: execution error at (fluid/templates/role/webhook/rabc.yaml:42:11): rbac.clusterScopedNamePrefix is too long: combined RBAC name "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp-fluid-webhook" exceeds the Kubernetes 253-character DNS subdomain limit
+
+
+## rbac=null on new head 64d570d: still nil-pointer error (F9 residual, loud)
+Error: template: fluid/templates/role/webhook/rabc.yaml:42:11: executing "fluid/templates/role/webhook/rabc.yaml" at <include "fluid.clusterRBACName" (dict "root" . "name" "fluid-webhook")>: error calling include: template: fluid/templates/_helpers.tpl:178:31: executing "fluid.clusterRBACName" at <.root.Values.rbac.clusterScopedNamePrefix>: nil pointer evaluating interface {}.clusterScopedNamePrefix
