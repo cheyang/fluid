@@ -201,3 +201,18 @@ Repo suite on clean head 2150b49ef: go build ./... clean,
 go test ./pkg/ddc/juicefs/ ok (results/repo-suite-round5-head.txt). CI green
 at head (all 22 checks incl. unittest, kind-e2e, backward-compat; verified
 read-only via gh).
+
+## Round 5b (post-freeze addendum, live head a0baafae0) — observed vs expected
+
+While this round was under review the author pushed `a0baafae0` "docs: say
+that syncing image pull secrets doesn't restart running pods", rewording the
+round-5 sentence to exactly the verified mechanism: templates update on the
+next sync, no pod restart; worker pods pick up secrets as replaced; fuse ds is
+OnDelete and with the default OnRuntimeDeleted clean policy running fuse pods
+keep the old secrets until deleted (en+zh in parity). Re-verify on a0baafae0:
+all 18 unit + 5 integration harness tests pass, including
+TestVerifyPr6245DocsFuseRestartClaim - F-docs-fuse-restart-overstated is FIXED
+at the live head (results/reverify-round5b-livehead-unit.txt,
+reverify-round5b-livehead-integration.txt). CI on a0baafae0 still running at
+review time (8 checks pass, e2e/backward-compat pending; was fully green on
+2150b49ef).

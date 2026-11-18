@@ -1,0 +1,6 @@
+# round-5 re-verify on LIVE head a0baafae0cdcc67ce1ed5b774ac248fc9043ebc1 (post-freeze docs fix), layer=integration
+pass	TestVerifyPr6245DocsFreshness
+pass	TestVerifyPr6245DocsFuseRestartClaim
+pass	TestVerifyPr6245HelmRenderScenarios
+pass	TestVerifyPr6245CRDSchemaCheck
+pass	TestVerifyPr6245APIDocPlacement

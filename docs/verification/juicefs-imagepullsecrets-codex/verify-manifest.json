@@ -3,7 +3,7 @@
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6245",
   "reviewer": "codex",
   "baseSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
-  "headSha": "2150b49ef89d1718ce59279a466c5733ea9f8d53",
+  "headSha": "a0baafae0cdcc67ce1ed5b774ac248fc9043ebc1",
   "harnessPaths": [
     "docs/verification/juicefs-imagepullsecrets-codex",
     "pkg/ddc/juicefs/transform_image_pull_secrets_verify_test.go",
@@ -171,5 +171,6 @@
       "note": "round 5: the docs commit 2150b49ef replaced the stale recreate-claim with 'the fuse pods are restarted' / 'fuse pod \u4f1a\u91cd\u542f', which is inaccurate on the default configuration (OnDelete ds + OnRuntimeDeleted clean policy; see A11-fuse-rollout-is-lazy). RED on head 2150b49ef, GREEN once the sentence describes the lazy/on-replace behavior."
     }
   ],
-  "liveNote": "L3 (skipped per debate policy): on a real cluster, create a JuiceFSRuntime with spec.imagePullSecrets and worker/fuse overrides and inspect the resulting worker StatefulSet / fuse DaemonSet pod specs."
+  "liveNote": "L3 (skipped per debate policy): on a real cluster, create a JuiceFSRuntime with spec.imagePullSecrets and worker/fuse overrides and inspect the resulting worker StatefulSet / fuse DaemonSet pod specs.",
+  "frozenRoundHeadSha": "2150b49ef89d1718ce59279a466c5733ea9f8d53"
 }
