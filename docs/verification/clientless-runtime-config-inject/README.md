@@ -180,7 +180,7 @@ class: the chart has no values.schema.json for pluginsProfile groups. Suggested:
 
 Full-matrix re-verify at 9c8d0e9f: all 16 manifest findings FIXED, exit 0
 (`results/reverify-head-9c8d0e9f-round5.txt`; previous-head control run:
-`results/reverify-prevhead-41b47141-round5-integration.out` — the A-F5 and rename
+`results/reverify-prevhead-41b47141-round5-integration.txt` — the A-F5 and rename
 contracts are RED there, the A-F6/A-F4 justification contracts are GREEN there as
 designed; the unit layer is Harness-update on the old head because the harness now
 references `common.InjectClientless`, which only exists at the new head). CI at 9c8d0e9f:
