@@ -567,6 +567,62 @@ func TestJuicefsSampleDocsSyncClaim(t *testing.T) {
 	}
 }
 
+// TestJuicefsSampleDocsFuseRestartClaim pins the round-6 docs consistency
+// requirement (finding F-docs-fuse-restart-overstated): a secrets change on an
+// existing runtime must NOT be documented as restarting the running fuse pods.
+// Mechanism (all three pillars re-checked at head a0baafae0):
+//   - charts/juicefs/values.yaml ships the fuse DaemonSet updateStrategy.type:
+//     OnDelete, and syncFuseSpec flips any non-OnDelete strategy back to OnDelete
+//     and returns before syncing the template, so a template update never
+//     restarts running pods;
+//   - the fuse generation bump is consumed only by CSI NodeUnstage's lazy clean
+//     (getCleanFuseFunc), under cleanPolicy OnFuseChanged / OnDemand;
+//   - SetupFuseCleanPolicy maps the unset policy to OnRuntimeDeleted, so on the
+//     default configuration running fuse pods keep the old secrets until they
+//     are deleted.
+// Polarity: contract test — RED on 2150b49ef (the round-5 replacement sentence
+// said "the fuse pods are restarted" / "fuse pod 会重启"), GREEN on a0baafae0.
+func TestJuicefsSampleDocsFuseRestartClaim(t *testing.T) {
+	_, thisFile, _, _ := goruntime.Caller(0)
+	repoRoot := filepath.Dir(filepath.Dir(filepath.Dir(filepath.Dir(thisFile))))
+
+	// Anchor the mechanism in the code so a future behavior change makes this
+	// test's premise stale instead of silently pinning a wrong sentence.
+	chartValues, err := os.ReadFile(filepath.Join(repoRoot, "charts", "juicefs", "values.yaml"))
+	require.NoError(t, err)
+	require.True(t, strings.Contains(string(chartValues), "type: OnDelete"),
+		"expected charts/juicefs to ship the fuse DaemonSet OnDelete update strategy; if it does not, this test's premise is stale")
+
+	syncCode, err := os.ReadFile(filepath.Join(repoRoot, "pkg", "ddc", "juicefs", "sync_runtime.go"))
+	require.NoError(t, err)
+	require.True(t, strings.Contains(string(syncCode), "not safe to sync fuse spec"),
+		"expected syncFuseSpec to flip non-OnDelete fuse strategies back to OnDelete and return before the template sync; if it does not, this test's premise is stale")
+
+	baseRuntime, err := os.ReadFile(filepath.Join(repoRoot, "pkg", "ddc", "base", "runtime.go"))
+	require.NoError(t, err)
+	require.True(t, strings.Contains(string(baseRuntime), "Default to set the fuse clean policy to OnRuntimeDeleted"),
+		"expected SetupFuseCleanPolicy to default the unset policy to OnRuntimeDeleted; if it does not, this test's premise is stale")
+
+	en, err := os.ReadFile(filepath.Join(repoRoot, "docs", "en", "samples", "image_pull_secrets.md"))
+	require.NoError(t, err)
+	zh, err := os.ReadFile(filepath.Join(repoRoot, "docs", "zh", "samples", "image_pull_secrets.md"))
+	require.NoError(t, err)
+
+	// The overstated claims must be gone in both languages.
+	assert.NotContains(t, string(en), "the fuse pods are restarted",
+		"docs/en still claims a secrets change restarts the running fuse pods; the fuse DaemonSet is OnDelete and the default clean policy is OnRuntimeDeleted, so no running pod restarts")
+	assert.NotContains(t, string(zh), "fuse pod 会重启",
+		"docs/zh still claims a secrets change restarts the running fuse pods; the fuse DaemonSet is OnDelete and the default clean policy is OnRuntimeDeleted, so no running pod restarts")
+
+	// The corrected sentence must state the actual default behavior.
+	assert.Contains(t, string(en), "OnDelete", "docs/en should name the fuse DaemonSet OnDelete update strategy")
+	assert.Contains(t, string(en), "OnRuntimeDeleted", "docs/en should name the default fuse clean policy")
+	assert.Contains(t, string(en), "until they are deleted", "docs/en should say running fuse pods keep the old secrets until they are deleted")
+	assert.Contains(t, string(zh), "OnDelete", "docs/zh should name the fuse DaemonSet OnDelete update strategy")
+	assert.Contains(t, string(zh), "OnRuntimeDeleted", "docs/zh should name the default fuse clean policy")
+	assert.Contains(t, string(zh), "直到被删除", "docs/zh should say running fuse pods keep the old secrets until they are deleted")
+}
+
 // setupRuntimePortAllocatorForTest isolates the port allocator setup so the
 // sync scenarios do not depend on ginkgo's BeforeEach.
 func setupRuntimePortAllocatorForTest() error {

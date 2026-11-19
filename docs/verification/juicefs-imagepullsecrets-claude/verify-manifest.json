@@ -132,6 +132,16 @@
         "TestJuicefsSyncSecretsRotationThenOverrideRemoval"
       ],
       "firstSeenRound": 4
+    },
+    {
+      "id": "C10-docs-fuse-restart-claim",
+      "polarity": "contract",
+      "layer": "unit",
+      "claim": "docs/{en,zh}/samples/image_pull_secrets.md must not claim a secrets change restarts the running fuse pods (fuse DS is OnDelete, default clean policy OnRuntimeDeleted); they must state the keep-old-secrets-until-deleted default. Round-5 finding F-docs-fuse-restart-overstated; fixed by a0baafae0.",
+      "match": [
+        "TestJuicefsSampleDocsFuseRestartClaim"
+      ],
+      "firstSeenRound": 6
     }
   ],
   "liveNote": "L3 (live cluster) intentionally not run this round: pipeline configured for unit + integration layers only. The chart rendering inside the ginkgo scenarios covers the helm layer without a cluster.",
