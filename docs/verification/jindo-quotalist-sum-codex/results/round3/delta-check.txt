@@ -1,0 +1,15 @@
+# Round 3 @928ea4813 — delta verification (Codex harness)
+
+## re-verify.sh against 928ea4813 (unit+integration)
+F1 contract FIXED (pass=2) | F3/F4 canary STILL-PRESENT (pass=1, expected: finding open by design) | A1 FIXED | A2 FIXED | F5 FIXED
+
+## PR's own new test TestTransformWorkerResourcesQuotaListPositive
+- head 928ea4813: PASS (1.00s) — helm value request 1Gi, persisted runtime request 1Gi
+- grafted onto base 1321a217d: FAIL — panic: cannot parse '512m,512m' (issue mechanism; test bites)
+- grafted onto round-1 head 22d2d07c: FAIL — helm value memory request = "1024m", want 1Gi; persisted = 1024m (would have caught the round-1 Mi regression)
+
+## FLUID_UNIT_TEST=true sweep at 928ea4813
+ok pkg/utils/jindo 0.012s; ok pkg/ddc/jindofsx 16.056s; ok pkg/ddc/jindocache 48.086s
+
+## CI state at 928ea4813 (read-only API)
+check-runs: SonarCloud x2 + DCO success only; actions runs: Project Check / E2E Functionality / E2E Backward Compatibility / CodeQL all action_required; combined status pending, 0 contexts (F10 still open)
