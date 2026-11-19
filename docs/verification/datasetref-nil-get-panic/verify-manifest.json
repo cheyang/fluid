@@ -1,0 +1,36 @@
+{
+  "topic": "datasetref-nil-get-panic",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6272",
+  "harnessPaths": [
+    "docs/verification/datasetref-nil-get-panic",
+    "pkg/utils/dataset_reference_verify_test.go",
+    "pkg/controllers/v1alpha1/dataset/dataset_deletion_ref_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "RemoveNotFoundDatasetRef panics with a nil pointer dereference when looking up a reference dataset fails with a non-NotFound error; reached from reconcileDatasetDeletion, so any transient API server error while resolving a referenced dataset crashes the controller during deletion reconcile.",
+    "reportedComponent": "pkg/utils/dataset_reference.go (called from pkg/controllers/v1alpha1/dataset/dataset_controller.go)",
+    "patchedComponent": "pkg/utils/dataset_reference.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "base: panic at pkg/utils/dataset_reference.go:40 under TestRemoveNotFoundDatasetRefGetError (results/unit-base-panic.txt) and via reconcileDatasetDeletion (results/caller-base-panic.txt); head: same tests pass (results/unit-head.txt, results/caller-head.txt)",
+    "match": ["TestRemoveNotFoundDatasetRefGetError"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/ -run 'TestRemoveNotFoundDatasetRef|TestVerifyRemoveNotFoundDatasetRef' -count=1 -gcflags=\"all=-N -l\" -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/controllers/v1alpha1/dataset/ -count=1 -gcflags=\"all=-N -l\" -ginkgo.focus 'Verify PR6272' -json"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestRemoveNotFoundDatasetRefGetError", "TestVerifyRemoveNotFoundDatasetRefErrorMidLoop"] },
+    { "id": "F2", "polarity": "contract", "layer": "integration", "match": ["TestAPIs"] }
+  ],
+  "liveNote": "Skipped per round policy (no KUBECONFIG layer). The failure mode is a transient API-server 500 on Get, which the client interceptor reproduces deterministically; a live run would only re-confirm RecoverPanic=false crash semantics of controller-runtime v0.17.5."
+}

@@ -1,0 +1,37 @@
+2026/11/20 06:17:57 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Controller Suite - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-20/pr-6272/wt-base/pkg/controllers/v1alpha1/dataset
+====================================================================================================================================================
+Random Seed: [1m1795126677[0m
+
+Will run [1m1[0m of [1m34[0m specs
+[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m
+[38;5;243m------------------------------[0m
+[38;5;13m• [PANICKED] [0.002 seconds][0m
+[0mVerify PR6272 reconcileDatasetDeletion with failing reference Get [38;5;13m[1m[It] should requeue without panic and leave datasetRef and finalizer untouched on a transient Get error[0m
+[38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-20/pr-6272/wt-base/pkg/controllers/v1alpha1/dataset/dataset_deletion_ref_verify_test.go:48[0m
+
+  [38;5;13m[PANICKED] Test Panicked[0m
+  [38;5;13mIn [1m[It][0m[38;5;13m at: [1m/usr/local/go/src/runtime/panic.go:336[0m [38;5;243m@ 11/20/26 06:17:57.595[0m
+
+  [38;5;13mruntime error: invalid memory address or nil pointer dereference[0m
+
+  [38;5;13mFull Stack Trace[0m
+    github.com/fluid-cloudnative/fluid/pkg/utils.RemoveNotFoundDatasetRef({_, _}, {{{0x0, 0x0}, {0x0, 0x0}}, {{0x3e995f5de5e0, 0x19}, {0x0, 0x0}, ...}, ...}, ...)
+    	/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-20/pr-6272/wt-base/pkg/utils/dataset_reference.go:40 +0x51a
+    github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.(*DatasetReconciler).reconcileDatasetDeletion(_, {{0x34bd1f0, 0x3651e80}, {{0x0, 0x0}, 0x0}, {{{0x0, 0x0}, {0x0, 0x0}}, ...}, ...})
+    	/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-20/pr-6272/wt-base/pkg/controllers/v1alpha1/dataset/dataset_controller.go:210 +0x685
+    github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.init.func2.1()
+    	/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-20/pr-6272/wt-base/pkg/controllers/v1alpha1/dataset/dataset_deletion_ref_verify_test.go:93 +0xbd4
+[38;5;243m------------------------------[0m
+[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m
+
+[38;5;9m[1mSummarizing 1 Failure:[0m
+  [38;5;13m[PANICKED!][0m [0mVerify PR6272 reconcileDatasetDeletion with failing reference Get [38;5;13m[1m[It] should requeue without panic and leave datasetRef and finalizer untouched on a transient Get error[0m
+  [38;5;243m/usr/local/go/src/runtime/panic.go:336[0m
+
+[38;5;9m[1mRan 1 of 34 Specs in 0.002 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m0 Passed[0m | [38;5;9m[1m1 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m33 Skipped[0m
+--- FAIL: TestAPIs (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset	0.021s
+FAIL
