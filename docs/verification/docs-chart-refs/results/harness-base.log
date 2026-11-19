@@ -1,0 +1,11 @@
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "fluid" chart repository
+Update Complete. ⎈Happy Helming!⎈
+chart under test: fluid/fluid 1.0.8 (helm v3.16.3+gcfd0749)
+mode: base   repo: /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid @ 6e01dd6b1
+Error: non-absolute URLs should be in form of repo_name/path_to_chart, got: fluid
+  [pass] P0-old-cmd1-fails — bare 'fluid' chart ref is unresolvable from the repo-based flow
+Error: non-absolute URLs should be in form of repo_name/path_to_chart, got: fluid.tgz
+  [pass] P0-old-cmd2-fails — fluid.tgz does not exist in the repo-based flow
+bash: line 1: kubelet-root-dir: No such file or directory
+  [pass] P0-old-cmd3-fails — shell parses <kubelet-root-dir> as an input redirect

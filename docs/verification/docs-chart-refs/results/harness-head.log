@@ -1,0 +1,11 @@
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "fluid" chart repository
+Update Complete. ⎈Happy Helming!⎈
+chart under test: fluid/fluid 1.0.8 (helm v3.16.3+gcfd0749)
+mode: head   repo: /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid @ 6e01dd6b1
+  [pass] T1-mountRoot-renders — mount root override appears in csi daemonset + controllers
+  [pass] T2-fuseRecovery-gate-renders — CSI plugins container args carry the feature gate
+  [pass] T3-kubeletRootDir-renders — csi socket path, registration path and hostPaths follow the custom root
+  [pass] T3b-kubeletCertDir-propagates — a certDir outside rootDir gets its own hostPath
+  [fail] F1-no-stale-chart-refs — stale refs remain: docs/en/userguide/install.md:41:$ helm install fluid fluid/fluid;docs/en/userguide/install.md:50:> For Kubernetes version lower than v1.17(included), please use `helm install --set runtime.criticalFu
+harness complete (mode=head); log: docs/verification/docs-chart-refs/results/harness-head.log

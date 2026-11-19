@@ -1,0 +1,37 @@
+{
+  "topic": "docs-chart-refs",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6271",
+  "harnessPaths": [
+    "docs/verification/docs-chart-refs"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "The three advanced installation examples in the EN/ZH install guides fail when following the guide's own repo-based flow: 'helm install fluid --set runtime.mountRoot=... fluid' and 'helm install ... fluid fluid.tgz' cannot resolve a chart, and '--set csi.kubelet.rootDir=<kubelet-root-dir>' is parsed by the shell as an input redirect",
+    "reportedComponent": "docs/en/userguide/install.md + docs/zh/userguide/install.md, Advanced Configuration examples 1-3",
+    "patchedComponent": "same files, same examples",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "helm template with the base-doc command forms errors out: 'non-absolute URLs should be in form of repo_name/path_to_chart, got: fluid' (x2, for 'fluid' and 'fluid.tgz') and 'bash: kubelet-root-dir: No such file or directory' — results/harness-base.log",
+    "match": [
+      "P0-old-cmd1-fails",
+      "P0-old-cmd2-fails",
+      "P0-old-cmd3-fails"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "shell",
+      "cmd": "bash docs/verification/docs-chart-refs/scripts/run_harness.sh head"
+    }
+  },
+  "findings": [
+    { "id": "T1", "polarity": "contract", "layer": "unit", "match": ["T1-mountRoot-renders"] },
+    { "id": "T2", "polarity": "contract", "layer": "unit", "match": ["T2-fuseRecovery-gate-renders"] },
+    { "id": "T3", "polarity": "contract", "layer": "unit", "match": ["T3-kubeletRootDir-renders"] },
+    { "id": "T3b", "polarity": "contract", "layer": "unit", "match": ["T3b-kubeletCertDir-propagates"] },
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["F1-no-stale-chart-refs"] }
+  ],
+  "liveNote": "L3 not applicable: this is a documentation-only PR; the render layer (helm template against the published chart repo, chart 1.0.8 at time of review) already executes the documented commands end-to-end without a cluster. 'base' mode of run_harness.sh reproduces the premise / serves as the harness-bites check."
+}
