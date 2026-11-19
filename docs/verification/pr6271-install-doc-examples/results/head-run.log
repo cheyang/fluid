@@ -1,0 +1,27 @@
+helm: v3.16.3+gcfd0749
+published charts:
+NAME       	CHART VERSION	APP VERSION  	DESCRIPTION                               
+fluid/fluid	1.0.8        	1.0.8-6533239	A Helm chart to deploy fluid in Kubernetes
+fluid/fluid	1.0.7        	1.0.7-319d40e	A Helm chart to deploy fluid in Kubernetes
+fluid/fluid	1.0.6        	1.0.6-657f498	A Helm chart to deploy fluid in Kubernetes
+fluid/fluid	1.0.5        	1.0.5-7e917c7	A Helm chart to deploy fluid in Kubernetes
+fluid/fluid	1.0.4        	1.0.4-9857af7	A Helm chart to deploy fluid in Kubernetes
+fluid/fluid	1.0.3        	1.0.3-ccdf3a9	A Helm chart to deploy fluid in Kubernetes
+fluid/fluid	1.0.2        	1.0.2-41eefb6	A Helm chart to deploy fluid in Kubernetes
+fluid/fluid	1.0.1        	1.0.1-14eda3b	A Helm chart to deploy fluid in Kubernetes
+fluid/fluid	1.0.0        	1.0.0-31f5433	A Helm chart to deploy fluid in Kubernetes
+fluid/fluid	0.9.3        	0.9.3-e0184cf	A Helm chart to deploy fluid in Kubernetes
+fluid/fluid	0.9.2        	0.9.2-02f70ac	A Helm chart to deploy fluid in Kubernetes
+fluid/fluid	0.9.1        	0.9.1-e79e93b	A Helm chart to deploy fluid in Kubernetes
+fluid/fluid	0.9.0        	0.9.0-37e17c6	A Helm chart to deploy fluid in Kubernetes
+fluid/fluid	0.8.7        	0.8.7-4706d51	A Helm chart to deploy fluid in Kubernetes
+fluid/fluid	0.8.6        	0.8.6-2131f34	A Helm chart to deploy fluid in Kubernetes
+fluid/fluid	0.8.5        	0.8.5-00f609e	A Helm chart to deploy fluid in Kubernetes
+fluid/fluid	0.8.4        	0.8.4-885b5a7	A Helm chart to deploy fluid in Kubernetes
+--- P0a: rc=1
+Error: non-absolute URLs should be in form of repo_name/path_to_chart, got: fluid
+--- P0b: rc=1
+Error: non-absolute URLs should be in form of repo_name/path_to_chart, got: fluid
+--- P0c: rc=1
+bash: line 1: kubelet-root-dir: No such file or directory
+done.

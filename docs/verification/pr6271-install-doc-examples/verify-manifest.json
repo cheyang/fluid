@@ -1,0 +1,35 @@
+{
+  "topic": "pr6271-install-doc-examples",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6271",
+  "harnessPaths": [
+    "docs/verification/pr6271-install-doc-examples"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "the original examples fail to resolve the chart or open the kubelet placeholder as a file (PR body, section III)",
+    "reportedComponent": "docs/en/userguide/install.md + docs/zh/userguide/install.md, 'Advanced Configuration' helm examples",
+    "patchedComponent": "docs/en/userguide/install.md + docs/zh/userguide/install.md",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "integration",
+    "verdict": "confirmed",
+    "evidence": "old examples 1/2 fail with 'non-absolute URLs should be in form of repo_name/path_to_chart, got: fluid'; old example 3's literal paste fails with 'kubelet-root-dir: No such file or directory' (shell redirection). See results/harness-bites-base-run.log",
+    "match": ["P0a", "P0b", "P0c"]
+  },
+  "layers": {
+    "integration": {
+      "kind": "shellscript",
+      "cmd": "bash docs/verification/pr6271-install-doc-examples/scripts/run-doc-example-checks.sh"
+    }
+  },
+  "findings": [
+    { "id": "P0a", "polarity": "contract", "layer": "integration", "match": ["P0a"] },
+    { "id": "P0b", "polarity": "contract", "layer": "integration", "match": ["P0b"] },
+    { "id": "P0c", "polarity": "contract", "layer": "integration", "match": ["P0c"] },
+    { "id": "F1a", "polarity": "contract", "layer": "integration", "match": ["F1a"] },
+    { "id": "F1b", "polarity": "contract", "layer": "integration", "match": ["F1b"] },
+    { "id": "F1c", "polarity": "contract", "layer": "integration", "match": ["F1c"] },
+    { "id": "F2",  "polarity": "contract", "layer": "integration", "match": ["F2"] }
+  ],
+  "liveNote": "No live layer: docs-only PR. `helm template` renders client-side; no cluster needed. Requires network access to https://fluid-cloudnative.github.io/charts (the doc's own prerequisite). Note: the harness renders the LATEST published chart (currently 1.0.8), matching what a doc reader gets; if a future chart renames the values keys, F1x fail and must be re-classified (chart drift vs doc regression)."
+}
