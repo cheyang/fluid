@@ -1,0 +1,24 @@
+re-verify: manifest = docs/verification/pr-6262-webhook-deterministic-mutation/verify-manifest.json
+re-verify: resolving PR head via 'git fetch https://github.com/fluid-cloudnative/fluid.git pull/6262/head' (machine-independent)
+re-verify: current head = 08c111a019c5f840fa076561eee2c2df17db92dc
+re-verify: last-reviewed = 08c111a019c5f840fa076561eee2c2df17db92dc  (review delta = 08c111a019c5f840fa076561eee2c2df17db92dc..08c111a019c5f840fa076561eee2c2df17db92dc)
+re-verify: fixed-ref=08c111a019c5f840fa076561eee2c2df17db92dc  harness-from=verify/pr-6262-deterministic-webhook-mutation-codex
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'integration' (gotest)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+F1     contract  unit         FIXED          pass=1 fail=0 miss=0
+F2     contract  unit         FIXED          pass=1 fail=0 miss=0
+R1     contract  unit         FIXED          pass=4 fail=0 miss=0
+R2     contract  integration  FIXED          pass=3 fail=0 miss=0
+
+Live layer (manual): L3 skipped per debate setup (no KUBECONFIG layer). These are admission-time string/order effects; unit + package suites fully decide them.
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/pr-6262-webhook-deterministic-mutation/results/reverify
+
+Review delta this round: 08c111a019c5f840fa076561eee2c2df17db92dc..08c111a019c5f840fa076561eee2c2df17db92dc
+After reviewing that delta, advance the marker for the next round:
+  echo 08c111a019c5f840fa076561eee2c2df17db92dc > docs/verification/pr-6262-webhook-deterministic-mutation/.last-reviewed && git add docs/verification/pr-6262-webhook-deterministic-mutation/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: all findings fixed.
