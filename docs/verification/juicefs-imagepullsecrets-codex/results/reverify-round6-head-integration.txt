@@ -1,0 +1,25 @@
+{"Time":"2026-11-20T06:33:34.855583044+08:00","Action":"start","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs"}
+{"Time":"2026-11-20T06:33:34.870487705+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Output":"2026/11/20 06:33:34 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes\n"}
+{"Time":"2026-11-20T06:33:34.870822557+08:00","Action":"run","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245DocsFreshness"}
+{"Time":"2026-11-20T06:33:34.870826137+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245DocsFreshness","Output":"=== RUN   TestVerifyPr6245DocsFreshness\n","OutputType":"frame"}
+{"Time":"2026-11-20T06:33:34.875004666+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245DocsFreshness","Output":"--- PASS: TestVerifyPr6245DocsFreshness (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-20T06:33:34.875034207+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245DocsFreshness","Elapsed":0}
+{"Time":"2026-11-20T06:33:34.875050957+08:00","Action":"run","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245DocsFuseRestartClaim"}
+{"Time":"2026-11-20T06:33:34.875052767+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245DocsFuseRestartClaim","Output":"=== RUN   TestVerifyPr6245DocsFuseRestartClaim\n","OutputType":"frame"}
+{"Time":"2026-11-20T06:33:34.878668936+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245DocsFuseRestartClaim","Output":"--- PASS: TestVerifyPr6245DocsFuseRestartClaim (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-20T06:33:34.878691277+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245DocsFuseRestartClaim","Elapsed":0}
+{"Time":"2026-11-20T06:33:34.878697967+08:00","Action":"run","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245HelmRenderScenarios"}
+{"Time":"2026-11-20T06:33:34.878700057+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245HelmRenderScenarios","Output":"=== RUN   TestVerifyPr6245HelmRenderScenarios\n","OutputType":"frame"}
+{"Time":"2026-11-20T06:33:35.623547031+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245HelmRenderScenarios","Output":"--- PASS: TestVerifyPr6245HelmRenderScenarios (0.74s)\n","OutputType":"frame"}
+{"Time":"2026-11-20T06:33:35.623575332+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245HelmRenderScenarios","Elapsed":0.74}
+{"Time":"2026-11-20T06:33:35.623582173+08:00","Action":"run","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245CRDSchemaCheck"}
+{"Time":"2026-11-20T06:33:35.623584323+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245CRDSchemaCheck","Output":"=== RUN   TestVerifyPr6245CRDSchemaCheck\n","OutputType":"frame"}
+{"Time":"2026-11-20T06:33:36.183768901+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245CRDSchemaCheck","Output":"--- PASS: TestVerifyPr6245CRDSchemaCheck (0.56s)\n","OutputType":"frame"}
+{"Time":"2026-11-20T06:33:36.183799192+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245CRDSchemaCheck","Elapsed":0.56}
+{"Time":"2026-11-20T06:33:36.183808112+08:00","Action":"run","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245APIDocPlacement"}
+{"Time":"2026-11-20T06:33:36.183810852+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245APIDocPlacement","Output":"=== RUN   TestVerifyPr6245APIDocPlacement\n","OutputType":"frame"}
+{"Time":"2026-11-20T06:33:36.196829716+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245APIDocPlacement","Output":"--- PASS: TestVerifyPr6245APIDocPlacement (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-11-20T06:33:36.196855447+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Test":"TestVerifyPr6245APIDocPlacement","Elapsed":0.01}
+{"Time":"2026-11-20T06:33:36.196860837+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-11-20T06:33:36.197981767+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Output":"ok  \tgithub.com/fluid-cloudnative/fluid/pkg/ddc/juicefs\t1.342s\n"}
+{"Time":"2026-11-20T06:33:36.198003128+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs","Elapsed":1.342}
