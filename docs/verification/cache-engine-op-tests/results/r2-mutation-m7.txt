@@ -1,0 +1,6 @@
+# M7 (content): volumeName := "mutated" instead of getRuntimeConfigVolumeName() (dataload.go)
+# at head ee7899ca55deea79eadc338053707da97c647005, focus='CacheEngine data operations'
+passed=20 failed=1
+failed specs:
+  writes a DataLoad value file built from the runtime class DataOperationSpecs
+(mutation reverted after the run; production diff empty)

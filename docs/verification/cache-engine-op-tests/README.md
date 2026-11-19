@@ -1,7 +1,8 @@
 # cache-engine-op-tests — verification of PR #6264 (tests-only PR)
 
 PR: https://github.com/fluid-cloudnative/fluid/pull/6264
-Head under review: `ef7ecf5f06fdc67ef950bfe2737e1e509be2bb5b` (base `dcb76167b0143a239addc6bed83ed50b45267631`)
+Head under review: `ee7899ca55deea79eadc338053707da97c647005` (base `dcb76167b0143a239addc6bed83ed50b45267631`)
+Round 2 (incremental): previous head `ef7ecf5f06fdc67ef950bfe2737e1e509be2bb5b` -> delta is one tests-only commit, `ee7899ca5 test(cache): cover the DataLoad value file happy path` (+69/-2).
 
 This PR is **tests-only**: it adds `pkg/ddc/cache/engine/data_operation_test.go` and
 `pkg/ddc/cache/engine/validate_test.go` (233 insertions, no production changes) covering
@@ -77,6 +78,24 @@ touches none of those files), environment-dependent, and green in the PR's CI
 - Ginkgo style, `fake.NewFakeClientWithScheme(CacheEngineTestScheme, ...)`, and the
   file-path `Label(...)` convention all match the package's existing tests; `gofmt` and
   `go vet` are clean.
+
+## Round 2 (incremental, head ee7899ca5)
+
+Delta `ef7ecf5..ee7899ca5` adds the DataLoad happy-path spec, two worker-`RuntimePhaseNone`
+CheckRuntimeReady entries, the error-message assertion in the empty-topology spec, and makes
+`fakeOperation.GetTargetDataset` fail loudly — i.e. it resolves round-1 follow-ups T1/N1/N2/N3.
+
+| ID | Claim | Layer | Verdict | Evidence |
+|----|-------|-------|---------|----------|
+| R2-V1 | Round-1 contracts V1a–V1d still hold at the new head | 1 | Confirmed | `scripts/re-verify.sh` (auto-resolved head ee7899ca5): all FIXED, pass=10/5/5/3→ now 26 specs (results/reverify/) |
+| R2-V2 | The 3 new specs run and pass; full package green | 1 | Confirmed | focused: 26/26 passed (results/r2-head-focused-specs.txt); full suite: 421 passed / 0 failed / 16 skipped under canonical invocation (results/r2-head-full-suite.txt) |
+| R2-V3 | The new happy-path spec bites (closes T1) | 1 | Confirmed | M5 bogus-return mutation (the exact T1 gap), M6 image content, M7 volume name: each flips exactly the new spec red, 20 others stay green; M2 dispatch-swap re-run flips both routing specs + the happy-path spec (results/r2-mutation-*.txt); production tree reverted clean |
+
+Round-1 ledger impact: T1 (missing happy-path test) is **fixed by the PR** — the M5 mutation
+that left all 23 specs green at ef7ecf5 now fails the new spec. N1/N2/N3 are likewise
+implemented in the delta. PRE1 unchanged (pre-existing plain-`go test` failures are an
+invocation artifact; the canonical suite is green). Q1 (issue #6263 wording) remains open —
+it is about issue text, not code.
 
 ## Continuing after the fix (possibly on another machine)
 

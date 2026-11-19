@@ -1,0 +1,8 @@
+# M2 re-run: true dispatch swap — DataLoad case calls generateDataProcessValueFile and vice versa (data_operation.go)
+# at head ee7899ca55deea79eadc338053707da97c647005, focus='CacheEngine data operations'
+passed=18 failed=3
+failed specs:
+  routes DataLoad to the DataLoad value file generator
+  writes a DataLoad value file built from the runtime class DataOperationSpecs
+  routes DataProcess to the DataProcess value file generator
+(mutation reverted after the run; production diff empty)

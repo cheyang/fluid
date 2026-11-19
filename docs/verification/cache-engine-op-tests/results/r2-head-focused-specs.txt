@@ -1,0 +1,32 @@
+# focused PR specs at head ee7899ca55deea79eadc338053707da97c647005
+# invocation: FLUID_UNIT_TEST=true go test ./pkg/ddc/cache/engine/ -count=1 -gcflags=all=-l -args -ginkgo.focus='CacheEngine data operations|validateRuntimeClassTopology'
+     10 skipped  should return error
+     10 skipped  resolves to the same resources on both paths
+     10 skipped  leaves a freshly created workload untouched on sync
+
+  passed  rejects a class without a topology
+  passed  rejects a topology with no components
+  passed  master only
+  passed  worker only
+  passed  client only
+  passed  returns false when the runtime does not exist
+  passed  master-worker, both ready
+  passed  master-worker, worker partially ready
+  passed  master-worker, worker not ready
+  passed  master-worker, master not ready
+  passed  master-worker, master only partially ready
+  passed  master-worker, nothing set up yet
+  passed  master-worker, worker not set up yet
+  passed  master disabled, worker ready
+  passed  master disabled, worker partially ready
+  passed  master disabled, worker not ready
+  passed  master disabled, worker not set up yet
+  passed  DataBackup
+  passed  DataMigrate
+  passed  unknown operation type
+  passed  routes DataLoad to the DataLoad value file generator
+  passed  writes a DataLoad value file built from the runtime class DataOperationSpecs
+  passed  routes DataProcess to the DataProcess value file generator
+  passed  returns the spec with the matching name
+  passed  returns nil when no spec matches
+  passed  returns nil for an empty list

@@ -38,7 +38,9 @@
         "master disabled, worker ready",
         "master disabled, worker partially ready",
         "master disabled, worker not ready",
-        "returns false when the runtime does not exist"
+        "returns false when the runtime does not exist",
+        "master-worker, worker not set up yet",
+        "master disabled, worker not set up yet"
       ]
     },
     {
@@ -50,7 +52,8 @@
         "DataMigrate",
         "unknown operation type",
         "routes DataLoad to the DataLoad value file generator",
-        "routes DataProcess to the DataProcess value file generator"
+        "routes DataProcess to the DataProcess value file generator",
+        "writes a DataLoad value file built from the runtime class DataOperationSpecs"
       ]
     },
     {
