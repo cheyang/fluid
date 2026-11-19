@@ -1,0 +1,21 @@
+--- FAIL: TestVInjectCheckMountReadyScriptNilSkip (0.00s)
+panic: runtime error: invalid memory address or nil pointer dereference [recovered, repanicked]
+[signal SIGSEGV: segmentation violation code=0x1 addr=0x90 pc=0x1688fec]
+
+goroutine 154 [running]:
+testing.tRunner.func1.2({0x29aa530, 0x2bfe200})
+	/usr/local/go/src/testing/testing.go:2123 +0x232
+testing.tRunner.func1()
+	/usr/local/go/src/testing/testing.go:2126 +0x329
+panic({0x29aa530?, 0x2bfe200?})
+	/usr/local/go/src/runtime/panic.go:859 +0x125
+github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse.(*Injector).injectCheckMountReadyScript(0x3622d5d17d48, 0x3622d5d17c00, 0x3622d5d17f20)
+	/home/ecs-user/.pr-debate/homes/claude/wt-6262-r2-claude/pkg/application/inject/fuse/mount_point_script.go:45 +0xec
+github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse.TestVInjectCheckMountReadyScriptNilSkip(0x3622d606a488)
+	/home/ecs-user/.pr-debate/homes/claude/wt-6262-r2-claude/pkg/application/inject/fuse/premise_determinism_test.go:189 +0x479
+testing.tRunner(0x3622d606a488, 0x2afc188)
+	/usr/local/go/src/testing/testing.go:2193 +0xea
+created by testing.(*T).Run in goroutine 1
+	/usr/local/go/src/testing/testing.go:2258 +0x4d4
+FAIL	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse	0.014s
+FAIL

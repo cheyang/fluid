@@ -1,7 +1,7 @@
 # webhook-deterministic-mutation — verification evidence
 
 Reviewer: Claude (Reviewer A, PR-debate pipeline). PR under review:
-https://github.com/fluid-cloudnative/fluid/pull/6262 (head `ac9e3e127e722fa23030e78993ccb9db9d250316`, base `dcb76167b0143a239addc6bed83ed50b45267631`).
+https://github.com/fluid-cloudnative/fluid/pull/6262 (round-1 head `ac9e3e127e722fa23030e78993ccb9db9d250316`, round-2 head `08c111a019c5f840fa076561eee2c2df17db92dc`, base `dcb76167b0143a239addc6bed83ed50b45267631`).
 
 The harness is **additive only** — two new test files, production code untouched
 (`git diff ac9e3e127 -- pkg/` is empty apart from the test files below).
@@ -65,6 +65,26 @@ first (~1/3 of runs), so as a regression guard it is flaky-by-design. The
 assembleMountInfos test in the same PR correctly uses a 50-iteration loop.
 The harness's `TestVInjectCheckMountReadyScriptNamespaceDeterministic` (40
 iterations, fresh fake client each) is the suggested shape; it passes on head.
+
+## Round 2 (head `08c111a01`, reviewed 2026-11-19)
+
+The PR was force-pushed as a single rewritten commit. The delta
+`ac9e3e127..08c111a01` responds to the round-1 findings:
+
+| Round-1 finding | Delta response | Re-verify verdict |
+|---|---|---|
+| F1 (single-invocation namespace test) | test now loops 50 iterations with a fresh fakeClient per iteration and asserts ns-a=1 / ns-m=0 / ns-z=0 | **FIXED** — and the in-PR test itself is now red on base (`results/round2/base-pr-tests-red-on-base.log`, both determinism specs FAIL on base code) |
+| F2 (no-op sorted loops in nodeaffinitywithcache) | all three hunks reverted; file is byte-identical to base (`git diff dcb76167..08c111a01 -- pkg/webhook/plugins/nodeaffinitywithcache/` is empty) | **FIXED** |
+| F3 (no-op sort in mountpropagationinjector) | hunk kept, defensive comment added ("Sort keys defensively so debug log output is deterministic") | **FIXED** (matches the recommended drop-or-comment option) |
+| F4 (order-blind spec name) | spec renamed to "should mutate pod with multiple runtimeInfos" | **FIXED** |
+| F5 (loop-break-to-first-key idiom) | loop now skips nil entries, so the loop form is semantically meaningful | **OBSOLETE** (no change needed) |
+| F6 (nil runtimeInfo deref, pre-existing) | nil guard added: `if ri := runtimeInfos[k]; ri != nil` — first *valid* key wins; all-nil degrades to a clean API error in namespace "" instead of a panic | **FIXED** — new contract test `TestVInjectCheckMountReadyScriptNilSkip` passes on round-2 head and panics on round-1 head (`results/round2/nilskip-panics-on-round1-head.log`) |
+
+Full re-verify at round-2 head: all 5 manifest findings **FIXED** (P0-a/b/c, F1, F6) —
+`results/round2/unit.parsed`. Full-package sweep on the round-2 head: 12 packages all `ok`
+(`results/round2/head-full-package-tests.log`); `go vet` + `gofmt -l` clean
+(`results/round2/head-vet-fmt.log`); 5 sequential repeat runs stable (4/4 `ok` each round).
+Round-2 evidence lives in `results/round2/`.
 
 ## Proposed fixes (NOT applied to production here)
 - **F1**: wrap the new namespace-selection test body in a repeated-invocation

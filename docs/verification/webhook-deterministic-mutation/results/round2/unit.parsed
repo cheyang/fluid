@@ -1,0 +1,4 @@
+TestVAssembleMountInfosDeterministic	pass
+TestVDefaultFileListDeterministic	pass
+TestVInjectCheckMountReadyScriptNamespaceDeterministic	pass
+TestVInjectCheckMountReadyScriptNilSkip	pass

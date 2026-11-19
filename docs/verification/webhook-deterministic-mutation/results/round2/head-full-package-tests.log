@@ -1,0 +1,12 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse	0.024s
+ok  	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse/mutator	0.022s
+ok  	github.com/fluid-cloudnative/fluid/pkg/application/inject/fuse/poststart	0.015s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins	0.017s
+?   	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/api	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/datasetusageinjector	0.018s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/fileprefetcher	0.019s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/fusesidecar	0.015s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/mountpropagationinjector	0.016s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/nodeaffinitywithcache	0.019s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/prefernodeswithoutcache	0.015s
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/requirenodewithfuse	0.015s
