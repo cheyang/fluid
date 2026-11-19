@@ -1,0 +1,36 @@
+{
+  "topic": "setup-helm-5-1-0",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6270",
+  "harnessPaths": [
+    "docs/verification/setup-helm-5-1-0"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: 'Bumps azure/setup-helm from 5.0.1 to 5.1.0' — upstream v5.1.0 exists, carries Undici security fixes (#298/#307/#313), and the pinned SHA in the workflows is the genuine upstream v5.1.0 tag.",
+    "reportedComponent": ".github/workflows (azure/setup-helm action pin)",
+    "patchedComponent": ".github/workflows/kind-e2e.yml + .github/workflows/backward-compatibility-e2e.yml",
+    "componentMatch": true,
+    "runsAgainst": "head",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "git ls-remote https://github.com/azure/setup-helm.git: refs/tags/v5.1.0 == 2f5e7bc67f1f9972ab16657bb795f36d8f04de0e == the pinned SHA in both workflows. See results/L1-check-pin.txt.",
+    "match": ["PIN_TAG_GENUINE"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "script",
+      "cmd": "bash docs/verification/setup-helm-5-1-0/scripts/check-pin.sh <repo>"
+    },
+    "integration": {
+      "kind": "script",
+      "cmd": "bash docs/verification/setup-helm-5-1-0/scripts/helm-compat.sh <repo>"
+    }
+  },
+  "findings": [
+    { "id": "A1", "polarity": "contract", "layer": "unit", "match": ["PIN_IDENTICAL", "PIN_COMMENT_MATCH", "PIN_TAG_GENUINE", "PIN_NO_STRAGGLERS"] },
+    { "id": "A2", "polarity": "contract", "layer": "integration", "match": ["LATEST_RESOLVES", "HELM_v4_3_2_CHECKSUM", "HELM_v4_3_2_TEMPLATE_LOCAL", "HELM_v4_3_2_TEMPLATE_REPO"] },
+    { "id": "A3", "polarity": "contract", "layer": "integration", "match": ["HELM_v4_3_1_CHECKSUM", "HELM_v4_3_1_TEMPLATE_LOCAL", "HELM_v4_3_1_TEMPLATE_REPO"] }
+  ],
+  "liveNote": "L3 (live GHA runner) intentionally skipped per debate round policy; the PR's own green kind-e2e-test / backward-compat-test checks ran the modified workflows on head 3647aeef and serve as the live layer.",
+  "notes": "A2's LATEST_* matches encode helm v4.3.2, the value get.helm.sh/helm-latest-version returned at first run (2026-11-19). 'latest' floats by design; on re-run the script resolves it live and the check id changes (HELM_vX_Y_Z_*). Treat a renamed id as Harness-update and re-map, not as a regression."
+}

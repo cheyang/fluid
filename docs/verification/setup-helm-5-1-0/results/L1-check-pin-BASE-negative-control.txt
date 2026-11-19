@@ -1,0 +1,10 @@
+.github/workflows/kind-e2e.yml -> sha=9bc31f4ebc9c6b171d7bfbaa5d006ae7abdb4310 comment=v5.0.1
+.github/workflows/backward-compatibility-e2e.yml -> sha=9bc31f4ebc9c6b171d7bfbaa5d006ae7abdb4310 comment=v5.0.1
+PIN_IDENTICAL	pass
+PIN_COMMENT_MATCH	pass
+upstream v5.1.0 resolves to: 2f5e7bc67f1f9972ab16657bb795f36d8f04de0e
+PIN_TAG_GENUINE	fail
+PIN_NO_STRAGGLERS	fail
+/tmp/fluid-base-6270/.github/workflows/kind-e2e.yml:azure/setup-helm@9bc31f4ebc9c6b171d7bfbaa5d006ae7abdb4310 # v5.0.1
+/tmp/fluid-base-6270/.github/workflows/backward-compatibility-e2e.yml:azure/setup-helm@9bc31f4ebc9c6b171d7bfbaa5d006ae7abdb4310 # v5.0.1
+base-exit=1

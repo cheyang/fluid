@@ -1,0 +1,10 @@
+helm-latest-version -> v4.3.2
+LATEST_RESOLVES	pass
+HELM_v4_3_2_CHECKSUM	pass
+version.BuildInfo{Version:"v4.3.2", GitCommit:"8346aaa55e7161f7c547212d0a87f01367976727", GitTreeState:"clean", GoVersion:"go1.27.4", KubeClientVersion:"v1.37"}
+HELM_v4_3_2_TEMPLATE_LOCAL	pass
+HELM_v4_3_2_TEMPLATE_REPO	pass
+HELM_v4_3_1_CHECKSUM	pass
+version.BuildInfo{Version:"v4.3.1", GitCommit:"c0d08d0d6d9424d4a14febb5e8a3e51b0dd00dff", GitTreeState:"clean", GoVersion:"go1.27.2", KubeClientVersion:"v1.37"}
+HELM_v4_3_1_TEMPLATE_LOCAL	pass
+HELM_v4_3_1_TEMPLATE_REPO	pass

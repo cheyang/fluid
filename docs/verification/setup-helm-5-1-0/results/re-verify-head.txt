@@ -1,0 +1,27 @@
+re-verify: resolved current PR head 3647aeefa31ad32cc78bc659f4ef4858b9f12046
+re-verify: last-reviewed = 3647aeefa31ad32cc78bc659f4ef4858b9f12046  (incremental review delta = 3647aeefa31ad32cc78bc659f4ef4858b9f12046..3647aeefa31ad32cc78bc659f4ef4858b9f12046)
+PIN_IDENTICAL	pass
+PIN_COMMENT_MATCH	pass
+PIN_TAG_GENUINE	pass
+PIN_NO_STRAGGLERS	pass
+LATEST_RESOLVES	pass
+HELM_v4_3_2_CHECKSUM	pass
+HELM_v4_3_2_TEMPLATE_LOCAL	pass
+HELM_v4_3_2_TEMPLATE_REPO	pass
+HELM_v4_3_1_CHECKSUM	pass
+HELM_v4_3_1_TEMPLATE_LOCAL	pass
+HELM_v4_3_1_TEMPLATE_REPO	pass
+
+================  RE-VERIFY  ================
+ID       POLARITY  CHECK                        VERDICT       
+A1       contract  PIN_IDENTICAL                FIXED         
+A1       contract  PIN_COMMENT_MATCH            FIXED         
+A1       contract  PIN_TAG_GENUINE              FIXED         
+A1       contract  PIN_NO_STRAGGLERS            FIXED         
+A2       contract  LATEST_RESOLVES              FIXED         
+A2       contract  HELM_v4_3_2_CHECKSUM         FIXED         
+A2       contract  HELM_v4_3_2_TEMPLATE_LOCAL   FIXED         
+A2       contract  HELM_v4_3_2_TEMPLATE_REPO    FIXED         
+A3       contract  HELM_v4_3_1_CHECKSUM         FIXED         
+A3       contract  HELM_v4_3_1_TEMPLATE_LOCAL   FIXED         
+A3       contract  HELM_v4_3_1_TEMPLATE_REPO    FIXED         
