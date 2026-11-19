@@ -1,0 +1,10 @@
+{
+  "lock": "docs/verification/fluid-6269-security-alerts/fixtures/mooncake-aiohttp-only.txt",
+  "python": "3.12",
+  "pinnedCount": 17,
+  "errors": [
+    "aiohttp==3.14.4 requires yarl<2.0,>=1.25.1 but lock pins yarl==1.24.5"
+  ],
+  "warnings": [],
+  "depEdgeCount": 20
+}

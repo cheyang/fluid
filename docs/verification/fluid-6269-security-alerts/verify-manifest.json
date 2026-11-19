@@ -1,0 +1,58 @@
+{
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6269",
+  "topic": "fluid-6269-security-alerts",
+  "reviewer": "claude",
+  "round": 1,
+  "headSha": "7ec63f64207653baeec60fb60b1a05ec02aaf4f8",
+  "baseSha": "dcb76167b0143a239addc6bed83ed50b45267631",
+  "premise": {
+    "id": "P0",
+    "claim": "The Security page alerts this PR targets are real and open: 17 open aiohttp Dependabot alerts (82-101, all <=3.14.3 or <3.14.4) in the mooncake e2e lock, Dependabot 102 scikit-learn<1.5.0 (CVE-2024-5206) in the vineyard sample lock, code-scanning 1481/1482 (pythonsecurity:S8707 path traversal) on hack/sdk/post-gen.py, and 14 alerts under sdk/python fixed by submodule bump to fluid-client-python#12.",
+    "runsAgainst": "base",
+    "verdict": "Confirmed",
+    "tests": [
+      {"id": "P0-dep", "layer": "integration", "polarity": "contract", "how": "gh api dependabot/code-scanning alerts listing", "expected": "18 open Dependabot (17 aiohttp + 1 scikit-learn) + 16 open code-scanning (2 post-gen.py + 14 sdk/python)", "observed": "exact match"},
+      {"id": "P0-yarl", "layer": "integration", "polarity": "canary", "how": "check_lock.py on fixtures/mooncake-aiohttp-only.txt (base lock + aiohttp-only bump to 3.14.4, yarl kept 1.24.5 = Dependabot #6212's shape)", "expected": "exit 1: aiohttp==3.14.4 requires yarl<2.0,>=1.25.1 but lock pins yarl==1.24.5", "observed": "exit 1 with exactly that error"},
+      {"id": "P0-sklearn", "layer": "integration", "polarity": "contract", "how": "PyPI metadata: scikit-learn 1.7.2 requires_python >=3.10; 1.8.0/1.9.0 require >=3.11 (vineyard image is python:3.10)", "expected": "1.7.2 is newest series supporting py3.10; >=1.5.0 fixes CVE-2024-5206", "observed": "confirmed"},
+      {"id": "P0-submodule", "layer": "integration", "polarity": "contract", "how": "scripts/check-submodule.sh", "expected": "b06de4e8 is merge of #12, master HEAD, 8 files changed", "observed": "confirmed"}
+    ]
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "title": "No committed test for the post-gen.py allow-list behavior change",
+      "severity": "minor",
+      "status": "open",
+      "origin": "initial-pr",
+      "introducedByPR": true,
+      "firstSeenSha": "7ec63f64207653baeec60fb60b1a05ec02aaf4f8",
+      "evidenceKind": "code-path",
+      "evidence": "PR body states no new tests; hack/sdk/post-gen.py resolve_sdk_path behavior changed from any-in-repo-path acceptance to allow-list, and no test in the repo covers it. Harness on this branch supplies 10 contract tests.",
+      "tests": [
+        {"id": "F1-t", "file": "hack/sdk/post_gen_path_test.py", "layer": "unit", "polarity": "contract", "expected": "10/10 pass on PR head; rejection tests + decoy-dir test fail on base script (bite check recorded in results/post-gen-bite-check-base.txt)"}
+      ]
+    },
+    {
+      "id": "F2",
+      "title": "SDK output path constant duplicated across gen-sdk.sh and post-gen.py",
+      "severity": "nit",
+      "status": "open",
+      "origin": "initial-pr",
+      "introducedByPR": true,
+      "firstSeenSha": "7ec63f64207653baeec60fb60b1a05ec02aaf4f8",
+      "evidenceKind": "code-path",
+      "evidence": "hack/sdk/gen-sdk.sh PYTHON_SDK_OUTPUT_PATH and post-gen.py PYTHON_SDK_DIRS must stay in sync manually; PR notes acknowledge. Failure mode is loud (SystemExit), so risk is low.",
+      "tests": []
+    }
+  ],
+  "lockChecks": [
+    {"id": "L2-mooncake", "file": "test/gha-e2e/mooncake/image/requirements.txt", "python": "3.12", "polarity": "contract", "layer": "integration", "expected": "exit 0: every hash matches a PyPI digest, all pins installable on cp312 manylinux x86_64, all dependency edges satisfied", "observed": "17 pins, 20 edges, 0 errors"},
+    {"id": "L2-vineyard", "file": "samples/vineyard/requirements.txt", "python": "3.10", "polarity": "contract", "layer": "integration", "expected": "exit 0", "observed": "28 pins, 30 edges, 0 errors; sklearn 1.7.2 hash set covers all 31 PyPI files incl. aarch64"}
+  ],
+  "liveNote": "L3 live layer skipped per debate setup (no KUBECONFIG). kind-e2e-test on the PR head already builds the mooncake image from the updated lock with --require-hashes and runs the Mooncake suite (CI green), which is the integration-layer evidence for the aiohttp/yarl bump.",
+  "scripts": {
+    "reverify": "scripts/re-verify.sh",
+    "lockCheck": "scripts/check_lock.py",
+    "submoduleCheck": "scripts/check-submodule.sh"
+  }
+}

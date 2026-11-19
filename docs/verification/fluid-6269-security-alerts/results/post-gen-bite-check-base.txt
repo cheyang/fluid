@@ -1,0 +1,13 @@
+PASS test_accepts_equivalent_spellings
+PASS test_accepts_gen_sdk_sh_invocation
+PASS test_accepts_symlink_to_generated_dir
+PASS test_missing_argument_is_argparse_error
+PASS test_missing_models_file_fails_cleanly
+PASS test_output_byte_identical_to_base_script
+FAIL test_rejects_in_repo_decoy_dir: decoy dir accepted
+FAIL test_rejects_other_in_repo_paths: arg='sdk' stderr='/tmp/postgen-test-c63nd6et/sdk/fluid/models/__init__.py not found, is /tmp/postgen-test-c63nd6et/sdk the generated python SDK?\n'
+FAIL test_rejects_paths_outside_repo: arg='/tmp/postgen-outside-barj1o0z' stderr='--python-sdk-path must be inside /tmp/postgen-test-49zcyb_u, got /tmp/postgen-outside-barj1o0z\n'
+FAIL test_rejects_symlink_escape: stderr='--python-sdk-path must be inside /tmp/postgen-test-xw9al4kp, got sdk/evil\n'
+
+6/10 passed
+bite-check exit=1

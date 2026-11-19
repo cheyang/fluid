@@ -1,0 +1,8 @@
+{
+  "lock": "samples/vineyard/requirements.txt",
+  "python": "3.10",
+  "pinnedCount": 28,
+  "errors": [],
+  "warnings": [],
+  "depEdgeCount": 30
+}

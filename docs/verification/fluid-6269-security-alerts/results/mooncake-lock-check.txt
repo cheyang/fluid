@@ -1,0 +1,8 @@
+{
+  "lock": "test/gha-e2e/mooncake/image/requirements.txt",
+  "python": "3.12",
+  "pinnedCount": 17,
+  "errors": [],
+  "warnings": [],
+  "depEdgeCount": 20
+}

@@ -1,0 +1,12 @@
+PASS test_accepts_equivalent_spellings
+PASS test_accepts_gen_sdk_sh_invocation
+PASS test_accepts_symlink_to_generated_dir
+PASS test_missing_argument_is_argparse_error
+PASS test_missing_models_file_fails_cleanly
+PASS test_output_byte_identical_to_base_script
+PASS test_rejects_in_repo_decoy_dir
+PASS test_rejects_other_in_repo_paths
+PASS test_rejects_paths_outside_repo
+PASS test_rejects_symlink_escape
+
+10/10 passed
