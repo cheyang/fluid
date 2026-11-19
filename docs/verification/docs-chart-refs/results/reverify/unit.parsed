@@ -1,0 +1,5 @@
+T1-mountRoot-renders	pass
+T2-fuseRecovery-gate-renders	pass
+T3-kubeletRootDir-renders	pass
+T3b-kubeletCertDir-propagates	pass
+F1-no-stale-chart-refs	fail
