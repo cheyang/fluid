@@ -1,0 +1,11 @@
+== go test ./pkg/utils/ -run 'TestVerifyRemoveNotFoundDatasetRef|TestRemoveNotFoundDatasetRef' (HEAD 071ef58) ==
+=== RUN   TestVerifyRemoveNotFoundDatasetRefGetErrorIsSafe
+--- PASS: TestVerifyRemoveNotFoundDatasetRefGetErrorIsSafe (0.00s)
+=== RUN   TestVerifyRemoveNotFoundDatasetRefNilClientIsSafe
+--- PASS: TestVerifyRemoveNotFoundDatasetRefNilClientIsSafe (0.00s)
+=== RUN   TestRemoveNotFoundDatasetRef
+--- PASS: TestRemoveNotFoundDatasetRef (0.00s)
+=== RUN   TestRemoveNotFoundDatasetRefGetError
+--- PASS: TestRemoveNotFoundDatasetRefGetError (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	0.015s

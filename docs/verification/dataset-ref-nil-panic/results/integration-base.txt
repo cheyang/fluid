@@ -1,0 +1,169 @@
+== go test ./pkg/controllers/v1alpha1/dataset/ (BASE dcb7616) ==
+2026/11/20 06:18:09 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Controller Suite - /tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset
+========================================================================================
+Random Seed: 1795126689
+
+Will run 34 of 34 specs
+•••••••••••••2026-11-20T06:18:09+08:00	INFO	reconcileDatasetDeletion	process the dataset	{"dataset": "default/del-transient-err", "dataset": {"metadata":{"name":"del-transient-err","namespace":"default","resourceVersion":"999","creationTimestamp":null,"deletionTimestamp":"2026-11-19T22:18:09Z","finalizers":["fluid-dataset-controller-finalizer"]},"spec":{},"status":{"conditions":null,"datasetRef":["default/ref-dataset"]}}}
+2026-11-20T06:18:09+08:00	ERROR	Failed to get reference dataset	{"dataset": "default/del-transient-err", "DatasetDeleteError": "default/ref-dataset", "error": "Internal error occurred: simulated API server error"}
+github.com/fluid-cloudnative/fluid/pkg/utils.RemoveNotFoundDatasetRef
+	/tmp/fluid-6272-base3/pkg/utils/dataset_reference.go:39
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.(*DatasetReconciler).reconcileDatasetDeletion
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_controller.go:210
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.init.func2.1
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_deletion_referror_test.go:85
+github.com/onsi/ginkgo/v2/internal.extractBodyFunction.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/node.go:512
+github.com/onsi/ginkgo/v2/internal.(*Suite).runNode.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/suite.go:922
+
+------------------------------
+• [PANICKED] [0.000 seconds]
+reconcileDatasetDeletion with a transient reference-dataset lookup error [It] requeues without panicking and keeps datasetRef and finalizer
+/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_deletion_referror_test.go:41
+
+  [PANICKED] Test Panicked
+  In [It] at: /usr/local/go/src/runtime/panic.go:336 @ 11/20/26 06:18:09.85
+
+  runtime error: invalid memory address or nil pointer dereference
+
+  Full Stack Trace
+    github.com/fluid-cloudnative/fluid/pkg/utils.RemoveNotFoundDatasetRef({_, _}, {{{0x0, 0x0}, {0x0, 0x0}}, {{0x179e2ac, 0x11}, {0x0, 0x0}, ...}, ...}, ...)
+    	/tmp/fluid-6272-base3/pkg/utils/dataset_reference.go:40 +0x572
+    github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.(*DatasetReconciler).reconcileDatasetDeletion(_, {{0x2bfa7f8, 0x2d91dc0}, {{0x2bfced0, 0x77e934cc480}, 0x0}, {{{0x0, 0x0}, {0x0, 0x0}}, ...}, ...})
+    	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_controller.go:210 +0x2f3
+    github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.init.func2.1()
+    	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_deletion_referror_test.go:85 +0x618
+------------------------------
+•2026-11-20T06:18:09+08:00	INFO	Add finalizer and Requeue	{"dataset": "default/af"}
+•2026-11-20T06:18:09+08:00	DEBUG	reconcileDataset	process the dataset	{"dataset": "default/1invalid", "dataset": {"metadata":{"name":"1invalid","namespace":"default","resourceVersion":"999","creationTimestamp":null},"spec":{},"status":{"conditions":null}}}
+2026-11-20T06:18:09+08:00	ERROR	Failed to create dataset	{"dataset": "default/1invalid", "DatasetCreateError": {"name":"1invalid","namespace":"default"}, "error": "metadata.name: Invalid value: \"1invalid\": a DNS-1035 label must consist of lower case alphanumeric characters or '-', start with an alphabetic character, and end with an alphanumeric character (e.g. 'my-name',  or 'abc-123', regex used for validation is '[a-z]([-a-z0-9]*[a-z0-9])?')"}
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.(*DatasetReconciler).reconcileDataset
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_controller.go:131
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.init.func3.3.1
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_reconciler_test.go:134
+github.com/onsi/ginkgo/v2/internal.extractBodyFunction.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/node.go:512
+github.com/onsi/ginkgo/v2/internal.(*Suite).runNode.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/suite.go:922
+•2026-11-20T06:18:09+08:00	DEBUG	reconcileDataset	process the dataset	{"dataset": "default/no-fin", "dataset": {"metadata":{"name":"no-fin","namespace":"default","resourceVersion":"999","creationTimestamp":null},"spec":{},"status":{"conditions":null}}}
+2026-11-20T06:18:09+08:00	INFO	Add finalizer and Requeue	{"dataset": "default/no-fin"}
+•2026-11-20T06:18:09+08:00	DEBUG	reconcileDataset	process the dataset	{"dataset": "default/none-phase", "dataset": {"metadata":{"name":"none-phase","namespace":"default","resourceVersion":"999","creationTimestamp":null,"finalizers":["fluid-dataset-controller-finalizer"]},"spec":{},"status":{"conditions":null}}}
+2026-11-20T06:18:09+08:00	DEBUG	Update the status of the dataset successfully	{"dataset": "default/none-phase", "phase": "NotBound"}
+•2026-11-20T06:18:09+08:00	DEBUG	reconcileDataset	process the dataset	{"dataset": "default/needs-requeue", "dataset": {"metadata":{"name":"needs-requeue","namespace":"default","resourceVersion":"999","creationTimestamp":null,"finalizers":["fluid-dataset-controller-finalizer"]},"spec":{},"status":{"phase":"NotBound","conditions":null}}}
+•2026-11-20T06:18:09+08:00	DEBUG	reconcileDataset	process the dataset	{"dataset": "default/with-deletion", "dataset": {"metadata":{"name":"with-deletion","namespace":"default","resourceVersion":"999","creationTimestamp":null,"deletionTimestamp":"2026-11-19T22:18:09Z","finalizers":["fluid-dataset-controller-finalizer"]},"spec":{},"status":{"conditions":null}}}
+2026-11-20T06:18:09+08:00	INFO	reconcileDatasetDeletion	process the dataset	{"dataset": "default/with-deletion", "dataset": {"metadata":{"name":"with-deletion","namespace":"default","resourceVersion":"999","creationTimestamp":null,"deletionTimestamp":"2026-11-19T22:18:09Z","finalizers":["fluid-dataset-controller-finalizer"]},"spec":{},"status":{"conditions":null}}}
+2026-11-20T06:18:09+08:00	INFO	Finalizer is removed	{"dataset": "default/with-deletion", "dataset": {"metadata":{"name":"with-deletion","namespace":"default","resourceVersion":"1000","creationTimestamp":null,"deletionTimestamp":"2026-11-19T22:18:09Z"},"spec":{},"status":{"conditions":null}}}
+2026-11-20T06:18:09+08:00	INFO	reconcileDatasetDeletion	delete the dataset successfully	{"dataset": "default/with-deletion", "dataset": {"metadata":{"name":"with-deletion","namespace":"default","resourceVersion":"1000","creationTimestamp":null,"deletionTimestamp":"2026-11-19T22:18:09Z"},"spec":{},"status":{"conditions":null}}}
+•2026-11-20T06:18:09+08:00	DEBUG	reconcileDataset	process the dataset	{"dataset": "default/multi-ref", "dataset": {"metadata":{"name":"multi-ref","namespace":"default","resourceVersion":"999","creationTimestamp":null,"finalizers":["fluid-dataset-controller-finalizer"]},"spec":{"mounts":[{"mountPoint":"dataset://default/ds1","name":"m1"},{"mountPoint":"dataset://default/ds2","name":"m2"}]},"status":{"phase":"NotBound","conditions":null}}}
+2026-11-20T06:18:09+08:00	ERROR	Failed to validate dataset	{"dataset": "default/multi-ref", "ctx": {"name":"multi-ref","namespace":"default"}, "error": "the dataset is not validated, since it has 2 dataset mounts which only expects 1"}
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.(*DatasetReconciler).reconcileDataset
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_controller.go:149
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.init.func3.3.6
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_reconciler_test.go:226
+github.com/onsi/ginkgo/v2/internal.extractBodyFunction.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/node.go:512
+github.com/onsi/ginkgo/v2/internal.(*Suite).runNode.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/suite.go:922
+•2026-11-20T06:18:09+08:00	DEBUG	reconcileDataset	process the dataset	{"dataset": "default/ref-ds", "dataset": {"metadata":{"name":"ref-ds","namespace":"default","resourceVersion":"999","creationTimestamp":null,"finalizers":["fluid-dataset-controller-finalizer"]},"spec":{"mounts":[{"mountPoint":"dataset://default/physical-ds","name":"m1"}]},"status":{"phase":"NotBound","conditions":null}}}
+•2026-11-20T06:18:09+08:00	DEBUG	reconcileDataset	process the dataset	{"dataset": "default/ref-ds-owner", "dataset": {"metadata":{"name":"ref-ds-owner","namespace":"default","uid":"ref-ds-owner-uid","resourceVersion":"999","creationTimestamp":null,"finalizers":["fluid-dataset-controller-finalizer"]},"spec":{"mounts":[{"mountPoint":"dataset://default/physical-ds","name":"m1"}]},"status":{"phase":"NotBound","conditions":null}}}
+•2026-11-20T06:18:09+08:00	DEBUG	reconcileDataset	process the dataset	{"dataset": "default/ref-ds-terminating", "dataset": {"metadata":{"name":"ref-ds-terminating","namespace":"default","uid":"ref-ds-terminating-uid","resourceVersion":"999","creationTimestamp":null,"finalizers":["fluid-dataset-controller-finalizer"]},"spec":{"mounts":[{"mountPoint":"dataset://default/physical-ds","name":"m1"}]},"status":{"phase":"NotBound","conditions":null}}}
+2026-11-20T06:18:09+08:00	ERROR	Failed to create thinRuntime	{"dataset": "default/ref-ds-terminating", "ctx": {"name":"ref-ds-terminating","namespace":"default"}, "error": "the ThinRuntime default/ref-ds-terminating is terminating, wait for it to be deleted before creating a new one for the reference dataset"}
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.(*DatasetReconciler).reconcileDataset
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_controller.go:156
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.init.func3.3.9
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_reconciler_test.go:318
+github.com/onsi/ginkgo/v2/internal.extractBodyFunction.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/node.go:512
+github.com/onsi/ginkgo/v2/internal.(*Suite).runNode.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/suite.go:922
+•2026-11-20T06:18:09+08:00	DEBUG	reconcileDataset	process the dataset	{"dataset": "default/ref-ds-create-err", "dataset": {"metadata":{"name":"ref-ds-create-err","namespace":"default","resourceVersion":"999","creationTimestamp":null,"finalizers":["fluid-dataset-controller-finalizer"]},"spec":{"mounts":[{"mountPoint":"dataset://default/physical-ds","name":"m1"}]},"status":{"phase":"NotBound","conditions":null}}}
+2026-11-20T06:18:09+08:00	ERROR	Failed to create thinRuntime	{"dataset": "default/ref-ds-create-err", "ctx": {"name":"ref-ds-create-err","namespace":"default"}, "error": "injected create error"}
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.(*DatasetReconciler).reconcileDataset
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_controller.go:156
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.init.func3.3.10
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_reconciler_test.go:351
+github.com/onsi/ginkgo/v2/internal.extractBodyFunction.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/node.go:512
+github.com/onsi/ginkgo/v2/internal.(*Suite).runNode.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/suite.go:922
+•2026-11-20T06:18:09+08:00	INFO	reconcileDatasetDeletion	process the dataset	{"dataset": "default/del-clean", "dataset": {"metadata":{"name":"del-clean","namespace":"default","resourceVersion":"999","creationTimestamp":null,"deletionTimestamp":"2026-11-19T22:18:09Z","finalizers":["fluid-dataset-controller-finalizer"]},"spec":{},"status":{"conditions":null}}}
+2026-11-20T06:18:09+08:00	INFO	Finalizer is removed	{"dataset": "default/del-clean", "dataset": {"metadata":{"name":"del-clean","namespace":"default","resourceVersion":"1000","creationTimestamp":null,"deletionTimestamp":"2026-11-19T22:18:09Z"},"spec":{},"status":{"conditions":null}}}
+2026-11-20T06:18:09+08:00	INFO	reconcileDatasetDeletion	delete the dataset successfully	{"dataset": "default/del-clean", "dataset": {"metadata":{"name":"del-clean","namespace":"default","resourceVersion":"1000","creationTimestamp":null,"deletionTimestamp":"2026-11-19T22:18:09Z"},"spec":{},"status":{"conditions":null}}}
+•2026-11-20T06:18:09+08:00	INFO	reconcileDatasetDeletion	process the dataset	{"dataset": "default/del-with-ref", "dataset": {"metadata":{"name":"del-with-ref","namespace":"default","resourceVersion":"999","creationTimestamp":null,"deletionTimestamp":"2026-11-19T22:18:09Z","finalizers":["fluid-dataset-controller-finalizer"]},"spec":{},"status":{"conditions":null,"datasetRef":["default/ref-dataset"]}}}
+2026-11-20T06:18:09+08:00	ERROR	reconcileDatasetDeletion	Failed to delete dataset because there are datasets mounted to it	{"dataset": "default/del-with-ref", "DatasetDeleteError": {"name":"del-with-ref","namespace":"default"}, "MountedDataset": ["default/ref-dataset"], "error": "DatasetRef is not nil"}
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.(*DatasetReconciler).reconcileDatasetDeletion
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_controller.go:231
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.init.func3.4.2
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_reconciler_test.go:401
+github.com/onsi/ginkgo/v2/internal.extractBodyFunction.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/node.go:512
+github.com/onsi/ginkgo/v2/internal.(*Suite).runNode.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/suite.go:922
+•2026-11-20T06:18:09+08:00	INFO	reconcileDatasetDeletion	process the dataset	{"dataset": "default/del-prune-ref", "dataset": {"metadata":{"name":"del-prune-ref","namespace":"default","resourceVersion":"999","creationTimestamp":null,"deletionTimestamp":"2026-11-19T22:18:09Z","finalizers":["fluid-dataset-controller-finalizer"]},"spec":{},"status":{"conditions":null,"datasetRef":["default/ref-alive","default/ref-gone"]}}}
+2026-11-20T06:18:09+08:00	DEBUG	dataset not found, remove it from datasetRef	{"dataset": "default/del-prune-ref", "remove dataset namespacedName": ["default", "ref-gone"]}
+2026-11-20T06:18:09+08:00	INFO	Update dataset datasetRef successfully	{"dataset": "default/del-prune-ref", "Before": ["default/ref-alive", "default/ref-gone"], "After": ["default/ref-alive"]}
+•2026-11-20T06:18:09+08:00	INFO	reconcileDatasetDeletion	process the dataset	{"dataset": "default/del-blocked", "dataset": {"metadata":{"name":"del-blocked","namespace":"default","resourceVersion":"999","creationTimestamp":null,"deletionTimestamp":"2026-11-19T22:18:09Z","finalizers":["fluid-dataset-controller-finalizer"]},"spec":{},"status":{"conditions":null}}}
+2026-11-20T06:18:09+08:00	ERROR	Failed to delete dataset	{"dataset": "default/del-blocked", "DatasetDeleteError": {"name":"del-blocked","namespace":"default"}, "error": "can not delete dataset because Pod using-pod in Namespace default is using it"}
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.(*DatasetReconciler).reconcileDatasetDeletion
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_controller.go:202
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.init.func3.4.4
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_reconciler_test.go:481
+github.com/onsi/ginkgo/v2/internal.extractBodyFunction.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/node.go:512
+github.com/onsi/ginkgo/v2/internal.(*Suite).runNode.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/suite.go:922
+•2026-11-20T06:18:09+08:00	INFO	reconcileDatasetDeletion	process the dataset	{"dataset": "default/del-update-err", "dataset": {"metadata":{"name":"del-update-err","namespace":"default","resourceVersion":"999","creationTimestamp":null,"deletionTimestamp":"2026-11-19T22:18:09Z","finalizers":["fluid-dataset-controller-finalizer"]},"spec":{},"status":{"conditions":null}}}
+2026-11-20T06:18:09+08:00	ERROR	reconcileDatasetDeletion	Failed to remove finalizer	{"dataset": "default/del-update-err", "error": "injected update error"}
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.(*DatasetReconciler).reconcileDatasetDeletion
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_controller.go:243
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.init.func3.4.5
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_reconciler_test.go:505
+github.com/onsi/ginkgo/v2/internal.extractBodyFunction.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/node.go:512
+github.com/onsi/ginkgo/v2/internal.(*Suite).runNode.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/suite.go:922
+•2026-11-20T06:18:09+08:00	INFO	Add finalizer and Requeue	{"dataset": "default/af-err"}
+2026-11-20T06:18:09+08:00	ERROR	Failed to add finalizer	{"dataset": "default/af-err", "StatusUpdateError": {"name":"af-err","namespace":"default"}, "error": "injected update error"}
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.(*DatasetReconciler).addFinalizerAndRequeue
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_controller.go:259
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.init.func3.5.1
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_reconciler_test.go:524
+github.com/onsi/ginkgo/v2/internal.extractBodyFunction.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/node.go:512
+github.com/onsi/ginkgo/v2/internal.(*Suite).runNode.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/suite.go:922
+•2026-11-20T06:18:09+08:00	DEBUG	reconcileDataset	process the dataset	{"dataset": "default/status-err", "dataset": {"metadata":{"name":"status-err","namespace":"default","resourceVersion":"999","creationTimestamp":null,"finalizers":["fluid-dataset-controller-finalizer"]},"spec":{},"status":{"conditions":null}}}
+2026-11-20T06:18:09+08:00	ERROR	Failed to update the dataset	{"dataset": "default/status-err", "StatusUpdateError": {"name":"status-err","namespace":"default"}, "error": "injected status update error"}
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.(*DatasetReconciler).reconcileDataset
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_controller.go:169
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.init.func3.6.1
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_reconciler_test.go:548
+github.com/onsi/ginkgo/v2/internal.extractBodyFunction.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/node.go:512
+github.com/onsi/ginkgo/v2/internal.(*Suite).runNode.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/suite.go:922
+•2026-11-20T06:18:09+08:00	INFO	reconcileDatasetDeletion	process the dataset	{"dataset": "default/del-status-err", "dataset": {"metadata":{"name":"del-status-err","namespace":"default","resourceVersion":"999","creationTimestamp":null,"deletionTimestamp":"2026-11-19T22:18:09Z","finalizers":["fluid-dataset-controller-finalizer"]},"spec":{},"status":{"conditions":null,"datasetRef":["default/ref-gone"]}}}
+2026-11-20T06:18:09+08:00	DEBUG	dataset not found, remove it from datasetRef	{"dataset": "default/del-status-err", "remove dataset namespacedName": ["default", "ref-gone"]}
+2026-11-20T06:18:09+08:00	ERROR	DatasetRef has changed but update failed	{"dataset": "default/del-status-err", "DatasetDeleteError": {"namespace": "default", "name": "del-status-err"}, "error": "injected status update error"}
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.(*DatasetReconciler).reconcileDatasetDeletion
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_controller.go:221
+github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset.init.func3.7.1
+	/tmp/fluid-6272-base3/pkg/controllers/v1alpha1/dataset/dataset_reconciler_test.go:577
+github.com/onsi/ginkgo/v2/internal.extractBodyFunction.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/node.go:512
+github.com/onsi/ginkgo/v2/internal.(*Suite).runNode.func3
+	/tmp/fluid-6272-base3/vendor/github.com/onsi/ginkgo/v2/internal/suite.go:922
+•
+
+Summarizing 1 Failure:
+  [PANICKED!] reconcileDatasetDeletion with a transient reference-dataset lookup error [It] requeues without panicking and keeps datasetRef and finalizer
+  /usr/local/go/src/runtime/panic.go:336
+
+Ran 34 of 34 Specs in 0.010 seconds
+FAIL! -- 33 Passed | 1 Failed | 0 Pending | 0 Skipped
+--- FAIL: TestAPIs (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/controllers/v1alpha1/dataset	0.022s
+FAIL

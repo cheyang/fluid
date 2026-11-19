@@ -1,0 +1,61 @@
+{
+  "topic": "dataset-ref-nil-panic",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6272",
+  "harnessPaths": [
+    "docs/verification/dataset-ref-nil-panic",
+    "pkg/utils/dataset_reference_panic_verify_test.go",
+    "pkg/controllers/v1alpha1/dataset/dataset_deletion_referror_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "RemoveNotFoundDatasetRef panics with a nil pointer dereference when looking up a reference dataset fails with a non-NotFound error (GetDataset returns a nil *Dataset, and the loop-local `dataset` shadows the function's `dataset` argument, so `dataset.Status.DatasetRef` on the error path dereferences nil).",
+    "reportedComponent": "pkg/utils/dataset_reference.go (dataset deletion reconcile path)",
+    "patchedComponent": "pkg/utils/dataset_reference.go — same file, same function",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit+integration",
+    "verdict": "confirmed",
+    "evidence": "Contract tests panic on base dcb7616 at dataset_reference.go:39-40 through both the direct call and the real reconcileDatasetDeletion caller chain; see results/unit-base.txt and results/integration-base.txt.",
+    "match": [
+      "TestVerifyRemoveNotFoundDatasetRefGetErrorIsSafe",
+      "reconcileDatasetDeletion with a transient reference-dataset lookup error"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/ -run 'TestVerifyRemoveNotFoundDatasetRef|TestRemoveNotFoundDatasetRef' -count=1"
+    },
+    "integration": {
+      "kind": "ginkgo",
+      "cmd": "go test ./pkg/controllers/v1alpha1/dataset/ -count=1 -ginkgo.no-color"
+    }
+  },
+  "findings": [
+    {
+      "id": "AC1-ref-safety",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyRemoveNotFoundDatasetRefGetErrorIsSafe"]
+    },
+    {
+      "id": "AC1-nil-client-safety",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyRemoveNotFoundDatasetRefNilClientIsSafe"]
+    },
+    {
+      "id": "AC2-controller-requeue",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["reconcileDatasetDeletion with a transient reference-dataset lookup error"]
+    },
+    {
+      "id": "AC3-existing-paths-unchanged",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestRemoveNotFoundDatasetRef", "TestRemoveNotFoundDatasetRefGetError"]
+    }
+  ],
+  "liveNote": "L3 (live) not run for this round: the debounce instructions skip the live/KUBECONFIG layer. The panic mechanism is deterministic and fully covered by L1/L2."
+}
