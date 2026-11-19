@@ -1,0 +1,29 @@
+re-verify: manifest = docs/verification/jindo-quota-sum/verify-manifest.json
+re-verify: resolving PR head via 'git fetch https://github.com/fluid-cloudnative/fluid.git pull/6261/head' (machine-independent)
+re-verify: current head = 928ea4813c8b0d359e3a87f78cadaef2f862e875
+re-verify: last-reviewed = 928ea4813c8b0d359e3a87f78cadaef2f862e875  (review delta = 928ea4813c8b0d359e3a87f78cadaef2f862e875..928ea4813c8b0d359e3a87f78cadaef2f862e875)
+re-verify: fixed-ref=928ea4813c8b0d359e3a87f78cadaef2f862e875  harness-from=verify/jindo-quotalist-sum-claude
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'integration' (gotest)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+B1     contract  integration  FIXED          pass=2 fail=0 miss=0
+B2     contract  integration  FIXED          pass=3 fail=0 miss=0
+B3     contract  integration  FIXED          pass=2 fail=0 miss=0
+B4     contract  integration  FIXED          pass=1 fail=0 miss=0
+B5     contract  integration  FIXED          pass=1 fail=0 miss=0
+B6     contract  unit         FIXED          pass=1 fail=0 miss=0
+F1     contract  integration  FIXED          pass=3 fail=0 miss=0
+F5     contract  integration  FIXED          pass=1 fail=0 miss=0
+F2     contract  integration  FIXED          pass=1 fail=0 miss=0
+
+Live layer (manual): L3 (skipped this round, no KUBECONFIG): create a JindoRuntime with MEM tier + quotaList '10Gi,5Gi' on a real cluster; expect successful setup with worker memory request 15Gi and no controller panic. Invalid quota: reconcile error event instead of controller crash.
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/jindo-quota-sum/results/reverify
+
+Review delta this round: 928ea4813c8b0d359e3a87f78cadaef2f862e875..928ea4813c8b0d359e3a87f78cadaef2f862e875
+After reviewing that delta, advance the marker for the next round:
+  echo 928ea4813c8b0d359e3a87f78cadaef2f862e875 > docs/verification/jindo-quota-sum/.last-reviewed && git add docs/verification/jindo-quota-sum/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: all findings fixed.
