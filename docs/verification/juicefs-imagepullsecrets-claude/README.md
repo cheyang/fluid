@@ -288,3 +288,42 @@ all non-gating: maintainer decision on an in-repo chart-render test (round-1
 consensus: acceptable to merge without, Alluxio #4242 precedent), the nit about
 surfacing an error while the worker command configmap is missing, and Q2 (fuse
 negative assertion in the author's leaf test).
+
+## Round 6 (delta 2150b49..a0baafae, "docs: say that syncing image pull secrets doesn't restart running pods")
+
+One commit, docs-only (`docs/{en,zh}/samples/image_pull_secrets.md`, one
+sentence each) — the fix for round-5's F-docs-fuse-restart-overstated, now IN
+the frozen reviewed head. The round-5 replacement sentence's "the fuse pods are
+restarted" / "fuse pod 会重启" claim is replaced with the verified mechanism:
+templates update on the next sync, no running pod restarts, fuse DaemonSet is
+`OnDelete`, and under the default `OnRuntimeDeleted` clean policy running fuse
+pods keep the old secrets until they are deleted — zh in faithful parity.
+Correction of this harness's own round-5 record: the round-5 section above said
+"the fuse roll rides the standard generation/clean-policy mechanism" and signed
+off the docs as accurate — that was the miss Codex's round-5 harness caught;
+the mechanism pillars (fuse DS OnDelete in values.yaml; syncFuseSpec flipping
+non-OnDelete back and returning before the template sync; SetupFuseCleanPolicy
+defaulting to OnRuntimeDeleted) were re-checked at a0baafae and the round-5
+wording was wrong on the default configuration.
+
+New this round: **C10-docs-fuse-restart-claim** (contract, unit) —
+`TestJuicefsSampleDocsFuseRestartClaim`. This harness lacked the fuse-restart
+docs contract in round 5 (the gap Codex's harness covered); it is added
+additively now and anchors the mechanism in code (chart values, syncFuseSpec
+flip, SetupFuseCleanPolicy default) so a future behavior change makes the
+test's premise stale instead of silently pinning a wrong sentence.
+
+| claim | verdict | evidence |
+| --- | --- | --- |
+| C10-docs-fuse-restart-claim | **FIXED** — contract RED on previous head 2150b49 (C10 STILL-BROKEN pass=0 fail=1; the overstatement present in both languages) → GREEN on a0baafae; mechanism pillars re-read at head | `results/reverify-round6/previous-head-2150b49e-c10-red.txt`, `results/reverify-round6/unit-head.out` |
+| C1–C9 | **unchanged, green** on a0baafae (re-verify.sh: all 10 findings FIXED, pass counts identical to round 5) | `results/reverify-round6/unit-head.out`, `results/reverify-round6/integration-head.out` |
+| Full repo suite on clean head | `go build ./...` clean; `go test ./pkg/ddc/juicefs/ ./api/...` ok, no red anywhere | `results/reverify-round6/full-package-suite-head.txt` |
+| CI at head | 25/25 checks PASS at a0baafae (build x2, unittest, lint, staticcheck, CodeQL, Analyze(go), SonarCloud x2, DCO, codecov x2, backward-compat x5 and kind-e2e x5 across k8s v1.22.17–v1.33.2); PR OPEN, MERGEABLE — round-5's pending CI gate is resolved | `results/reverify-round6/ci-head.txt` |
+
+The two live-layer notes stand (L3 intentionally not run; pipeline is unit +
+integration only). All round-5 action items: [MUST] CI green on final head —
+done, at the frozen head itself; [SHOULD] re-freeze on a0baafae — done, this
+round reviews exactly that head. Still open, all non-gating and unchanged:
+maintainer decision on the in-repo chart-render test, the Alluxio follow-up
+issue for the #6248 side-note, the surfaced-error nit, and Q2 (fuse negative
+assertion in the author's leaf test).

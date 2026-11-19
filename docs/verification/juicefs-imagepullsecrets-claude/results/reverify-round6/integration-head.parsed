@@ -1,0 +1,182 @@
+should generate value file for data migration without target path	skipped
+should generate value file for data migration with target path	skipped
+should generate value file for parallel data migration with target path	skipped
+secret configured correctly	skipped
+secret without metaurl	skipped
+secret with access key 2	skipped
+with debug options	skipped
+no mount defined	skipped
+non existent secret	skipped
+no metaurl in secret	skipped
+tiered store with quota	skipped
+secret3 with all keys	skipped
+with values	skipped
+empty map	skipped
+should add a new volume	skipped
+should have no volume changed	skipped
+should remove a volume	skipped
+should update a volume	skipped
+should add a new label	skipped
+should have no label changed	skipped
+should remove a label	skipped
+should update a label	skipped
+should add a new annotation	skipped
+should have no annotation changed	skipped
+should remove an annotation	skipped
+should update an annotation	skipped
+should change both resource requests and limits	skipped
+should change resource limits	skipped
+should change resource requests	skipped
+should have no resource changed	skipped
+should add a new env	skipped
+should have no env changed	skipped
+should remove an env	skipped
+should update an env	skipped
+should add a new volume mount	skipped
+should have no volume mount changed	skipped
+should remove a volume mount	skipped
+should update a volume mount	skipped
+should not do anything if runtime has no image or imageTag set	skipped
+should keep image unchanged if runtime.spec.fuse image info is not changed	skipped
+Should detect image changes and require generation update	skipped
+community edition	skipped
+community edition with options	skipped
+enterprise edition	skipped
+enterprise edition with options	skipped
+enterprise edition with bucket2	skipped
+should update runtime status correctly	skipped
+should return error	skipped
+should transform fuse configuration correctly	skipped
+should return worker volume errors	skipped
+should transform tolerations correctly	skipped
+set common labels and annotations	skipped
+set master and workers labels and annotations	skipped
+should allocate ports for community edition	skipped
+test-community	skipped
+test-community-options	skipped
+test-enterprise	skipped
+test-enterprise-options	skipped
+metaurl on the mount	skipped
+metaurl in SharedEncryptOptions	skipped
+metaurl in both	skipped
+metaurl nowhere	skipped
+test-community-1	skipped
+test-community-2	skipped
+test-enterprise-1	skipped
+test-enterprise-2	skipped
+should return correct worker selector	skipped
+should succeed without error	skipped
+should succeed without error	skipped
+should succeed using mocked QueryMetaDataInfoIntoFile	skipped
+should not sync metadata and return no error	skipped
+should setup workers and scale correctly	skipped
+should return true when worker phase is None	skipped
+should return false when worker phase is NotReady	skipped
+should return false when worker phase is PartialReady	skipped
+should return false when worker phase is Ready	skipped
+should skip syncing	skipped
+should sync runtime properly but no changes will be applied	skipped
+should update worker sts's volumes and volume mounts	skipped
+should sync runtime properly and worker sts's spec will be updated	skipped
+should reject the change before updating the worker StatefulSet	skipped
+should sync runtime properly and worker sts's image will be updated	skipped
+should sync runtime properly and worker sts's spec and worker command will be updated	skipped
+should skip syncing	skipped
+should sync runtime properly but no changes will be applied	skipped
+should sync runtime properly and fuse ds's spec will be updated	skipped
+should sync runtime properly and image will be updated	skipped
+should sync runtime properly and fuse ds's spec and fuse command will be updated	skipped
+should add anti-affinity when no affinity exists	skipped
+should add anti-affinity when pod affinity exists but no pod anti-affinity	skipped
+should add anti-affinity when pod anti-affinity exists but no preferred scheduling terms	skipped
+should append anti-affinity when preferred anti-affinity terms already exist	skipped
+version format	skipped
+nightly tag	skipped
+enterprise with token	skipped
+community with metaurl	skipped
+mirror buckets	skipped
+shared mirror buckets	skipped
+should return true when workers and fuse are ready	skipped
+should return false when workers are not ready	skipped
+transforms s1-env-default-only	pass
+transforms s2-runtime-replaces-env-default	pass
+transforms s3-component-overrides-runtime	pass
+transforms s4-worker-only-no-default	pass
+transforms s5-fuse-only-no-default	pass
+should correctly transform volumes for worker	skipped
+should return an error	skipped
+should add the mount and claim template without adding a normal volume	skipped
+should return an error before rendering an invalid worker StatefulSet	skipped
+should return an error that names the unmounted claim template	skipped
+should render every mount and only one claim template	skipped
+should render every mount and only one normal volume	skipped
+should return an error to avoid ambiguous worker volume mounts	skipped
+should correctly transform volumes for fuse	skipped
+should return an error	skipped
+should create hostPath volume and mount	skipped
+should create multiple hostPath volumes and mounts	skipped
+should preserve existing volumes and add non-overlapping cache volumes	skipped
+should handle emptyDir cache configuration	skipped
+should create hostPath volume and mount for fuse	skipped
+should not add cache volumes when existing volume covers cache path	skipped
+should handle emptyDir cache configuration for fuse	skipped
+community edition	skipped
+enterprise edition	skipped
+builds a template engine	skipped
+returns a parse error	skipped
+returns a parse error	skipped
+returns a runtime info error	skipped
+returns a runtime info error for the old runtime2 build scenario	skipped
+returns found	skipped
+returns not found without error	skipped
+community edition	skipped
+enterprise edition	skipped
+mirror bucket	skipped
+should update dataset status with sync result	skipped
+should succeed without error	skipped
+should set runtime to NotReady phase	skipped
+should set runtime to Ready phase	skipped
+should handle external PVC without subpath	skipped
+should handle external PVC with subpath	skipped
+should handle external PVC with root path	skipped
+should set parallel migrate options correctly	skipped
+should use default values when no parallel options are provided	skipped
+should return error for invalid parallel options	skipped
+should generate URL for external storage with full encryption options	skipped
+should generate URL for external storage with subpath	skipped
+should generate URL for external storage with subpath file	skipped
+should generate URL for dataset with subpath	skipped
+should generate URL for dataset without path	skipped
+should generate URL for dataset with subpath file	skipped
+should generate URL for dataset with subpath file and mount point	skipped
+should generate URL for dataset with mount point and no subpath	skipped
+should return error and zero bytes	skipped
+should return zero bytes without error	skipped
+should return error and zero bytes	skipped
+should return correct total bytes	skipped
+should return error and zero file count	skipped
+should return zero file count without error	skipped
+should return error and zero file count	skipped
+should return correct file count	skipped
+should return error and zero used space	skipped
+should return zero used space without error	skipped
+should return error and zero used space	skipped
+should return correct used space	skipped
+less than	skipped
+greater than	skipped
+nightly tag	skipped
+with tiered store	skipped
+should return NotSupported error for DataBackup type	skipped
+should return NotSupported error for unknown operation type	skipped
+should call generateDataMigrateValueFile and return its result	skipped
+should call generateDataLoadValueFile and return its result	skipped
+should call generateDataProcessValueFile and return its result	skipped
+uses the controller default when the runtime sets no secrets	pass
+prefers the runtime and worker secrets	pass
+sets the fuse secrets only when the fuse spec has them	pass
+should return false	skipped
+should return true	skipped
+should return false	skipped
+1Gi quota	skipped
+10Gi quota	skipped
+1Mi quota too small	skipped

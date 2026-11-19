@@ -1,0 +1,22 @@
+Analyze (go)	pass	8m10s	https://github.com/fluid-cloudnative/fluid/actions/runs/44405339227/job/135158944600	
+CodeQL	pass	3s	https://github.com/fluid-cloudnative/fluid/runs/135163704241	
+DCO	pass	0	https://probot.github.io/apps/dco/	
+SonarCloud	pass	4s	https://github.com/fluid-cloudnative/fluid/runs/135159387644	
+SonarCloud Code Analysis	pass	36s	https://sonarcloud.io/dashboard?id=fluid-cloudnative_fluid&pullRequest=6245	
+backward-compat-test (v1.22.17)	pass	13m53s	https://github.com/fluid-cloudnative/fluid/actions/runs/44405338952/job/135158945290	
+backward-compat-test (v1.24.17)	pass	18m20s	https://github.com/fluid-cloudnative/fluid/actions/runs/44405338952/job/135158945319	
+backward-compat-test (v1.28.15)	pass	17m50s	https://github.com/fluid-cloudnative/fluid/actions/runs/44405338952/job/135158945360	
+backward-compat-test (v1.30.13)	pass	16m52s	https://github.com/fluid-cloudnative/fluid/actions/runs/44405338952/job/135158945695	
+backward-compat-test (v1.33.2)	pass	18m14s	https://github.com/fluid-cloudnative/fluid/actions/runs/44405338952/job/135158944774	
+build (ubuntu-24.04-arm)	pass	7m5s	https://github.com/fluid-cloudnative/fluid/actions/runs/44405338949/job/135158944511	
+build (ubuntu-latest)	pass	11m42s	https://github.com/fluid-cloudnative/fluid/actions/runs/44405338949/job/135158943501	
+codecov/patch	pass	1s	https://app.codecov.io/gh/fluid-cloudnative/fluid/pull/6245	
+codecov/project	pass	2s	https://app.codecov.io/gh/fluid-cloudnative/fluid/pull/6245	
+kind-e2e-test (v1.22.17)	pass	33m12s	https://github.com/fluid-cloudnative/fluid/actions/runs/44405339071/job/135158944874	
+kind-e2e-test (v1.24.17)	pass	28m30s	https://github.com/fluid-cloudnative/fluid/actions/runs/44405339071/job/135158944881	
+kind-e2e-test (v1.28.15)	pass	33m22s	https://github.com/fluid-cloudnative/fluid/actions/runs/44405339071/job/135158944942	
+kind-e2e-test (v1.30.13)	pass	31m22s	https://github.com/fluid-cloudnative/fluid/actions/runs/44405339071/job/135158944841	
+kind-e2e-test (v1.33.2)	pass	29m39s	https://github.com/fluid-cloudnative/fluid/actions/runs/44405339071/job/135158944350	
+lint	pass	2m33s	https://github.com/fluid-cloudnative/fluid/actions/runs/44405338949/job/135158944032	
+staticcheck	pass	1m28s	https://github.com/fluid-cloudnative/fluid/actions/runs/44405338949/job/135158944141	
+unittest	pass	7m25s	https://github.com/fluid-cloudnative/fluid/actions/runs/44405338949/job/135158944121	

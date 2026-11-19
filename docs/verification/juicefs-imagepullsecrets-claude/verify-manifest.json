@@ -2,7 +2,7 @@
   "topic": "juicefs-imagepullsecrets",
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6245",
   "reviewer": "claude",
-  "headSha": "be3337dd00b5356cae2571d540f3b27d2c9e9ade",
+  "headSha": "a0baafae0cdcc67ce1ed5b774ac248fc9043ebc1",
   "baseSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
   "harnessPaths": [
     "docs/verification/juicefs-imagepullsecrets-claude",
