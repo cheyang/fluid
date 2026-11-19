@@ -1,0 +1,12 @@
+# CI evidence for PR #6270 head 3647aeefa31ad32cc78bc659f4ef4858b9f12046 (captured 2026-11-19)
+# Both workflows that consume azure/setup-helm ran on the exact PR head and succeeded.
+backward-compat-test (v1.33.2)	SUCCESS	https://github.com/fluid-cloudnative/fluid/actions/runs/44252162051/job/134625192362
+kind-e2e-test (v1.33.2)	SUCCESS	https://github.com/fluid-cloudnative/fluid/actions/runs/44252162103/job/134625193486
+backward-compat-test (v1.30.13)	SUCCESS	https://github.com/fluid-cloudnative/fluid/actions/runs/44252162051/job/134625192367
+kind-e2e-test (v1.30.13)	SUCCESS	https://github.com/fluid-cloudnative/fluid/actions/runs/44252162103/job/134625193345
+backward-compat-test (v1.28.15)	SUCCESS	https://github.com/fluid-cloudnative/fluid/actions/runs/44252162051/job/134625192487
+kind-e2e-test (v1.28.15)	SUCCESS	https://github.com/fluid-cloudnative/fluid/actions/runs/44252162103/job/134625193392
+backward-compat-test (v1.24.17)	SUCCESS	https://github.com/fluid-cloudnative/fluid/actions/runs/44252162051/job/134625192405
+kind-e2e-test (v1.24.17)	SUCCESS	https://github.com/fluid-cloudnative/fluid/actions/runs/44252162103/job/134625193038
+backward-compat-test (v1.22.17)	SUCCESS	https://github.com/fluid-cloudnative/fluid/actions/runs/44252162051/job/134625191972
+kind-e2e-test (v1.22.17)	SUCCESS	https://github.com/fluid-cloudnative/fluid/actions/runs/44252162103/job/134625193306

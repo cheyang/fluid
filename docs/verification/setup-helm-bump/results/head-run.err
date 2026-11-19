@@ -1,0 +1,7 @@
+  [CHECK_ALL_SETUP_HELM_AT_V510] all usages pinned to v5.1.0 sha
+  [CHECK_PINNED_SHA_IS_V510_TAG] tag v5.1.0 -> 2f5e7bc67f1f9972ab16657bb795f36d8f04de0e
+  [CHECK_DELTA_IS_ONLY_ACTION_SHA] diff hunks: +2 -2
+  [CHECK_WORKFLOWS_VALID_YAML] yaml parses, setup-helm step present
+  [CHECK_HELM_VERSION_INPUT_UNPINNED] unpinned version in: .github/workflows/kind-e2e.yml/kind-e2e-test, .github/workflows/backward-compatibility-e2e.yml/backward-compat-test
+  [CHECK_V510_BUILTIN_FALLDOWN_IS_HELM4] stableHelmVersion=v4.3.1 latest-fallback default=true
+RESULT: 6/6 checks passed

@@ -1,0 +1,35 @@
+{
+  "topic": "setup-helm-bump",
+  "reviewer": "claude",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6270",
+  "harnessPaths": [
+    "docs/verification/setup-helm-bump"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: 'chore(deps): bump azure/setup-helm from 5.0.1 to 5.1.0'. The repo's SHA-pinned CI action is a minor version behind; v5.1.0 brings Undici security fixes, checksum verification, fallback download mirrors, and retry of latest-version lookups.",
+    "reportedComponent": ".github/workflows/kind-e2e.yml and .github/workflows/backward-compatibility-e2e.yml (azure/setup-helm steps)",
+    "patchedComponent": "same two files - exactly the two files that use azure/setup-helm",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base both steps pin 9bc31f4e (v5.0.1) while upstream tag v5.1.0 exists (ls-remote) and its changelog carries security fixes; CI-config-only bump, premise carve-out applies. results/base-run.txt vs results/head-run.txt; results/ci-evidence.txt shows both consuming workflows green on the PR head across the full 5-version matrix.",
+    "match": ["CHECK_ALL_SETUP_HELM_AT_V510"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "script",
+      "cmd": "python3 docs/verification/setup-helm-bump/scripts/verify_checks.py"
+    }
+  },
+  "findings": [
+    { "id": "P0", "polarity": "contract", "layer": "unit", "match": ["CHECK_ALL_SETUP_HELM_AT_V510"] },
+    { "id": "P0", "polarity": "contract", "layer": "unit", "match": ["CHECK_PINNED_SHA_IS_V510_TAG"] },
+    { "id": "P0", "polarity": "contract", "layer": "unit", "match": ["CHECK_DELTA_IS_ONLY_ACTION_SHA"] },
+    { "id": "P0", "polarity": "contract", "layer": "unit", "match": ["CHECK_WORKFLOWS_VALID_YAML"] },
+    { "id": "F1", "polarity": "canary", "layer": "unit", "match": ["CHECK_HELM_VERSION_INPUT_UNPINNED"] },
+    { "id": "F2", "polarity": "contract", "layer": "unit", "match": ["CHECK_V510_BUILTIN_FALLDOWN_IS_HELM4"] }
+  ],
+  "liveNote": "L3 not run per round policy (unit+integration only). The real integration evidence is the GitHub Actions runs themselves: kind-e2e-test and backward-compat-test ran on PR head 3647aee with the new action and succeeded for all 5 matrix Kubernetes versions (results/ci-evidence.txt), including the 'helm upgrade --install' of the Fluid chart in .github/scripts/deploy-fluid-to-kind.sh."
+}
