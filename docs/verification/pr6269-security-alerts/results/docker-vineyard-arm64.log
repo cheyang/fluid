@@ -1,0 +1,6 @@
+=== vineyard lock install + sklearn flow [linux/arm64] ===
+sklearn 1.7.2 | numpy 1.26.4 | scipy 1.15.3 | joblib 1.3.2
+flow ok, mse = 7.306978209005173e-31
+No broken requirements found.
+VINEYARD linux/arm64: OK
+exit=0 (success markers present; wrapper shell was reaped before its final echo)

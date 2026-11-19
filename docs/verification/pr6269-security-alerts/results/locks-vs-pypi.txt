@@ -1,0 +1,47 @@
+== test/gha-e2e/mooncake/image/requirements.txt ==
+  ok   aiohappyeyeballs==2.7.1 (1 hashes) [installable on cp312/linux-x86_64]
+  ok   aiohttp==3.14.5 (1 hashes) [installable on cp312/linux-x86_64]
+  ok   aiosignal==1.4.0 (1 hashes) [installable on cp312/linux-x86_64]
+  ok   attrs==26.1.0 (1 hashes) [installable on cp312/linux-x86_64]
+  ok   certifi==2026.10.19 (2 hashes) [installable on cp312/linux-x86_64]
+  ok   charset-normalizer==3.5.1 (1 hashes) [installable on cp312/linux-x86_64]
+  ok   frozenlist==1.8.0 (1 hashes) [installable on cp312/linux-x86_64]
+  ok   idna==3.19 (1 hashes) [installable on cp312/linux-x86_64]
+  ok   mooncake-transfer-engine-non-cuda==0.3.12.post1 (1 hashes) [installable on cp312/linux-x86_64]
+  ok   msgpack==1.2.3 (91 hashes) [installable on cp312/linux-x86_64]
+  ok   multidict==6.9.1 (171 hashes) [installable on cp312/linux-x86_64]
+  ok   nvidia-cuda-runtime-cu12==12.8.90 (1 hashes) [installable on cp312/linux-x86_64]
+  ok   propcache==0.5.2 (1 hashes) [installable on cp312/linux-x86_64]
+  ok   requests==2.34.2 (1 hashes) [installable on cp312/linux-x86_64]
+  ok   typing_extensions==4.16.0 (1 hashes) [installable on cp312/linux-x86_64]
+  ok   urllib3==2.8.0 (2 hashes) [installable on cp312/linux-x86_64]
+  ok   yarl==1.25.1 (1 hashes) [installable on cp312/linux-x86_64]
+== samples/vineyard/requirements.txt ==
+  ok   argcomplete==3.7.2 (2 hashes)
+  ok   certifi==2026.10.23 (2 hashes)
+  ok   charset-normalizer==3.5.2 (172 hashes)
+  ok   click==8.5.1 (2 hashes)
+  ok   etcd-distro==3.5.1 (8 hashes)
+  ok   idna==3.20 (2 hashes)
+  ok   joblib==1.3.2 (2 hashes)
+  ok   lazy-import==0.2.2 (1 hashes)
+  ok   makefun==1.16.0 (2 hashes)
+  ok   numpy==1.26.4 (36 hashes)
+  ok   pandas==2.3.3 (55 hashes)
+  ok   psutil==7.2.2 (21 hashes)
+  ok   pyarrow==25.0.1 (43 hashes)
+  ok   python-dateutil==3.0.0 (2 hashes)
+  ok   pytz==2026.6 (2 hashes)
+  ok   pyyaml==6.0.3 (73 hashes)
+  ok   requests==2.34.2 (2 hashes)
+  ok   scikit-learn==1.7.2 (31 hashes)
+  ok   scipy==1.15.3 (46 hashes)
+  ok   setuptools==84.2.1 (2 hashes)
+  ok   six==1.17.0 (2 hashes)
+  ok   sortedcontainers==2.4.0 (2 hashes)
+  ok   threadpoolctl==3.8.0 (2 hashes)
+  ok   treelib==1.8.0 (2 hashes)
+  ok   tzdata==2026.6 (2 hashes)
+  ok   urllib3==2.8.0 (2 hashes)
+  ok   vineyard==0.24.2 (14 hashes)
+  ok   vineyard-bdist==0.24.2 (2 hashes)

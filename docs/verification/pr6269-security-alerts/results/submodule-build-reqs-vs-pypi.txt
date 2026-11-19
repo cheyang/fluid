@@ -1,0 +1,8 @@
+ok   build 1.6.1 2 hashes
+ok   colorama 0.4.6 2 hashes
+ok   packaging 26.3 2 hashes
+ok   pyproject-hooks 1.3.3 2 hashes
+ok   setuptools 84.2.1 2 hashes
+ok   setuptools-scm 10.3.4 2 hashes
+ok   vcs-versioning 2.6.0 2 hashes
+packages with unknown hashes: 0

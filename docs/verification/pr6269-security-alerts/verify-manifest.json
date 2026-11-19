@@ -1,0 +1,63 @@
+{
+  "topic": "pr6269-security-alerts",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6269",
+  "headSha": "7ec63f64207653baeec60fb60b1a05ec02aaf4f8",
+  "baseSha": "dcb76167b0143a239addc6bed83ed50b45267631",
+  "reviewer": "codex",
+  "harnessPaths": [
+    "docs/verification/pr6269-security-alerts",
+    "hack/sdk/tests/test_post_gen.py",
+    "hack/sdk/post-gen.base.py"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Open security alerts exist on master: Dependabot 82-101 (17 aiohttp advisories) on test/gha-e2e/mooncake/image/requirements.txt, Dependabot 102 (CVE-2024-5206, scikit-learn 1.4.0) on samples/vineyard/requirements.txt, SonarCloud code scanning 1481/1482 (pythonsecurity:S8707 path injection) on hack/sdk/post-gen.py, and 14 alerts (1490-1497, 1502, 1504, 1513-1515, 1551) on sdk/python submodule content.",
+    "reportedComponent": "test/gha-e2e/mooncake lock, samples/vineyard lock, hack/sdk/post-gen.py, sdk/python submodule",
+    "patchedComponent": "same four",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "api",
+    "verdict": "confirmed",
+    "evidence": "gh api code-scanning/alerts/{1481,1482,1490..1497,1502,1504,1513,1514,1515,1551} all state=open on commit dcb76167 (merge base); gh api dependabot/alerts?state=open shows exactly 17 aiohttp alerts on the mooncake lock + alert 102 scikit-learn on the vineyard lock; OSV: aiohttp 3.14.3 has 24 vuln records (17 GHSA), aiohttp 3.14.5 has 0; scikit-learn 1.4.0 has GHSA-jw8x-6495-233v (CVE-2024-5206), 1.7.2 has 0. See results/premise-*.txt",
+    "match": ["premise evidence captured in results/"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "pyunittest",
+      "cmd": "python3 -m unittest discover -s hack/sdk/tests -v"
+    },
+    "integration": {
+      "kind": "shell",
+      "cmd": "python3 docs/verification/pr6269-security-alerts/scripts/check_locks_against_pypi.py && python3 docs/verification/pr6269-security-alerts/scripts/check_submodule_build_reqs.py && bash docs/verification/pr6269-security-alerts/scripts/pip_resolve_in_container.sh"
+    },
+    "docker": {
+      "kind": "shell",
+      "cmd": "bash docs/verification/pr6269-security-alerts/scripts/docker_lock_checks.sh all",
+      "note": "needs docker+qemu-binfmt; skipped when unavailable"
+    }
+  },
+  "findings": [
+    { "id": "V1-postgen-allowlist", "polarity": "contract", "layer": "unit",
+      "match": ["test_accepts_the_generated_sdk_path_spellings", "test_rejects_everything_else",
+                "test_returned_path_is_the_constant_not_user_input", "test_rewrite_inserts_kubernetes_import",
+                "test_rejected_path_exits_nonzero_without_writing", "test_missing_argument_is_argparse_error",
+                "test_head_output_byte_identical_to_base_script"],
+      "claim": "post-gen.py accepts only the generated SDK dir (all spellings) and rejects every other path; rewrite output byte-identical to base for the gen-sdk.sh invocation." },
+    { "id": "V2-mooncake-lock-resolves", "polarity": "contract", "layer": "integration",
+      "match": ["HEAD-LOCK-RESOLVES", "6212-FAILS-AS-EXPECTED", "BASE-LOCK-RESOLVES"],
+      "claim": "head mooncake lock resolves+installs with --require-hashes on the exact base image; the #6212 aiohttp-only variant fails with ResolutionImpossible; base lock resolves (control)." },
+    { "id": "V3-hashes-match-pypi", "polarity": "contract", "layer": "integration",
+      "match": ["check_locks_against_pypi.py", "check_submodule_build_reqs.py"],
+      "claim": "every hash in both changed locks (and the submodule build-requirements.txt) is a real PyPI artifact hash for the pinned version; changed packages keep an installable cp312/linux-x86_64 wheel." },
+    { "id": "V4-vineyard-sklearn-flow", "polarity": "contract", "layer": "docker",
+      "match": ["VINEYARD linux/amd64: OK", "VINEYARD linux/arm64: OK"],
+      "claim": "the vineyard Dockerfile's exact pip command succeeds on the pinned python:3.10 image (amd64+arm64) and the sample's train_test_split -> LinearRegression -> joblib -> mean_squared_error flow runs with pip check clean." },
+    { "id": "V5-mooncake-image-builds", "polarity": "contract", "layer": "docker",
+      "match": ["MOONCAKE: OK"],
+      "claim": "the mooncake e2e image builds from the head Dockerfile and runs with aiohttp 3.14.5 / yarl 1.25.1." },
+    { "id": "V6-submodule-bump", "polarity": "contract", "layer": "integration",
+      "match": ["verify_submodule.sh"],
+      "claim": "sdk/python b06de4e8 is fluid-client-python master HEAD and the merge of PR #12; e089b77..b06de4e8 touches only the claimed 8 files; tree == PR-head tree; pinned action SHAs match their tags." }
+  ],
+  "liveNote": "L3 skipped per debate setup (no KUBECONFIG layer). kind-e2e on the PR head already builds the mooncake image and runs the mooncake suite: all green per gh pr checks."
+}

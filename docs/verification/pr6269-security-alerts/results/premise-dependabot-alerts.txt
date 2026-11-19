@@ -1,0 +1,19 @@
+# open dependabot alerts (pip) at review time
+102 scikit-learn GHSA-jw8x-6495-233v CVE-2024-5206 samples/vineyard/requirements.txt
+101 aiohttp GHSA-jm3w-gw2p-xjfj CVE-2026-128124 test/gha-e2e/mooncake/image/requirements.txt
+100 aiohttp GHSA-28qf-cpwq-vmc2 CVE-2026-128130 test/gha-e2e/mooncake/image/requirements.txt
+99 aiohttp GHSA-pw86-h8fm-j323 CVE-2026-128129 test/gha-e2e/mooncake/image/requirements.txt
+98 aiohttp GHSA-24c4-3p7v-29cm CVE-2026-128127 test/gha-e2e/mooncake/image/requirements.txt
+97 aiohttp GHSA-3rp8-rxj8-mvjw CVE-2026-128128 test/gha-e2e/mooncake/image/requirements.txt
+96 aiohttp GHSA-5pv8-vvhc-h7jv CVE-2026-128125 test/gha-e2e/mooncake/image/requirements.txt
+95 aiohttp GHSA-xgw8-8ccx-rmqh CVE-2026-128126 test/gha-e2e/mooncake/image/requirements.txt
+94 aiohttp GHSA-h4cc-hm5h-fmm9 CVE-2026-128131 test/gha-e2e/mooncake/image/requirements.txt
+93 aiohttp GHSA-5rmc-48h2-hvcm CVE-2026-128132 test/gha-e2e/mooncake/image/requirements.txt
+91 aiohttp GHSA-f9xw-jh8m-3mwq CVE-2026-111748 test/gha-e2e/mooncake/image/requirements.txt
+90 aiohttp GHSA-gx76-c99x-2c96 CVE-2026-111749 test/gha-e2e/mooncake/image/requirements.txt
+89 aiohttp GHSA-6cjc-53gc-5rqm CVE-2026-111065 test/gha-e2e/mooncake/image/requirements.txt
+88 aiohttp GHSA-pqxq-w44r-73xw CVE-2026-111750 test/gha-e2e/mooncake/image/requirements.txt
+87 aiohttp GHSA-9xw5-w5jj-pvcg CVE-2026-111066 test/gha-e2e/mooncake/image/requirements.txt
+84 aiohttp GHSA-5wr8-gcqf-gqf3 CVE-2026-111064 test/gha-e2e/mooncake/image/requirements.txt
+83 aiohttp GHSA-494j-54xm-rwp3 CVE-2026-111063 test/gha-e2e/mooncake/image/requirements.txt
+82 aiohttp GHSA-2g87-pp6c-29x5 CVE-2026-123817 test/gha-e2e/mooncake/image/requirements.txt

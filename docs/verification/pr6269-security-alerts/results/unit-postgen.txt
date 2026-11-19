@@ -1,0 +1,52 @@
+== unit tests vs HEAD script ==
+test_head_output_byte_identical_to_base_script (test_post_gen.CliBehaviorTest.test_head_output_byte_identical_to_base_script) ... ok
+test_missing_argument_is_argparse_error (test_post_gen.CliBehaviorTest.test_missing_argument_is_argparse_error) ... ok
+test_rejected_path_exits_nonzero_without_writing (test_post_gen.CliBehaviorTest.test_rejected_path_exits_nonzero_without_writing) ... ok
+test_rewrite_inserts_kubernetes_import (test_post_gen.CliBehaviorTest.test_rewrite_inserts_kubernetes_import) ... ok
+test_accepts_the_generated_sdk_path_spellings (test_post_gen.ResolveSdkPathTest.test_accepts_the_generated_sdk_path_spellings) ... ok
+test_rejects_everything_else (test_post_gen.ResolveSdkPathTest.test_rejects_everything_else) ... ok
+test_returned_path_is_the_constant_not_user_input (test_post_gen.ResolveSdkPathTest.test_returned_path_is_the_constant_not_user_input) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.085s
+
+OK
+
+== same suite vs BASE script (polarity: reject-matrix must fail = harness bites) ==
+test_head_output_byte_identical_to_base_script (test_post_gen.CliBehaviorTest.test_head_output_byte_identical_to_base_script) ... ok
+test_missing_argument_is_argparse_error (test_post_gen.CliBehaviorTest.test_missing_argument_is_argparse_error) ... ok
+test_rejected_path_exits_nonzero_without_writing (test_post_gen.CliBehaviorTest.test_rejected_path_exits_nonzero_without_writing) ... FAIL
+test_rewrite_inserts_kubernetes_import (test_post_gen.CliBehaviorTest.test_rewrite_inserts_kubernetes_import) ... ok
+test_accepts_the_generated_sdk_path_spellings (test_post_gen.ResolveSdkPathTest.test_accepts_the_generated_sdk_path_spellings) ... ok
+test_rejects_everything_else (test_post_gen.ResolveSdkPathTest.test_rejects_everything_else) ... FAIL
+test_returned_path_is_the_constant_not_user_input (test_post_gen.ResolveSdkPathTest.test_returned_path_is_the_constant_not_user_input) ... ERROR
+
+======================================================================
+ERROR: test_returned_path_is_the_constant_not_user_input (test_post_gen.ResolveSdkPathTest.test_returned_path_is_the_constant_not_user_input)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6269-verify/hack/sdk/tests/test_post_gen.py", line 90, in test_returned_path_is_the_constant_not_user_input
+    self.assertIn(got, self.mod.PYTHON_SDK_DIRS)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'post_gen_under_test' has no attribute 'PYTHON_SDK_DIRS'
+
+======================================================================
+FAIL: test_rejected_path_exits_nonzero_without_writing (test_post_gen.CliBehaviorTest.test_rejected_path_exits_nonzero_without_writing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6269-verify/hack/sdk/tests/test_post_gen.py", line 137, in test_rejected_path_exits_nonzero_without_writing
+    self.assertIn("must be one of", proc.stderr + proc.stdout)
+AssertionError: 'must be one of' not found in '--python-sdk-path must be inside /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6269-verify, got /tmp/tmpowmwuasy\n'
+
+======================================================================
+FAIL: test_rejects_everything_else (test_post_gen.ResolveSdkPathTest.test_rejects_everything_else)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid-wt-pr6269-verify/hack/sdk/tests/test_post_gen.py", line 69, in test_rejects_everything_else
+    with self.assertRaises(SystemExit, msg=spelling):
+AssertionError: SystemExit not raised : sdk
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.083s
+
+FAILED (failures=2, errors=1)

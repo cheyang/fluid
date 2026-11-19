@@ -1,0 +1,16 @@
+1481 state=open rule=pythonsecurity:S8707 hack/sdk/post-gen.py:29 commit=dcb76167
+1482 state=open rule=pythonsecurity:S8707 hack/sdk/post-gen.py:25 commit=dcb76167
+1490 state=open rule=python:S6985 sdk/python/examples/04_integration/pytorch/main.py:222 commit=dcb76167
+1491 state=open rule=python:S6985 sdk/python/examples/04_integration/pytorch/main.py:226 commit=dcb76167
+1492 state=open rule=ipython:S6709 sdk/python/examples/03_dataflow_with_vineyard/vineyard.ipynb:301 commit=dcb76167
+1493 state=open rule=ipython:S6709 sdk/python/examples/03_dataflow_with_vineyard/vineyard-en.ipynb:306 commit=dcb76167
+1494 state=open rule=docker:S7029 sdk/python/examples/02_ml_train_pipeline/Dockerfile:3 commit=dcb76167
+1495 state=open rule=pythonsecurity:S8707 sdk/python/examples/02_ml_train_pipeline/main.py:162 commit=dcb76167
+1496 state=open rule=githubactions:S7637 sdk/python/.github/workflows/release.yml:31 commit=dcb76167
+1497 state=open rule=githubactions:S7637 sdk/python/.github/workflows/release.yml:36 commit=dcb76167
+1502 state=open rule=docker:S6471 sdk/python/examples/02_ml_train_pipeline/Dockerfile:1 commit=dcb76167
+1504 state=open rule=python:S1313 sdk/python/examples/04_integration/pytorch/main.py:82 commit=dcb76167
+1513 state=open rule=githubactions:S8544 sdk/python/.github/workflows/release.yml:24 commit=dcb76167
+1514 state=open rule=githubactions:S8541 sdk/python/.github/workflows/release.yml:25 commit=dcb76167
+1515 state=open rule=githubactions:S8544 sdk/python/.github/workflows/release.yml:25 commit=dcb76167
+1551 state=open rule=githubactions:S8541 sdk/python/.github/workflows/release.yml:24 commit=dcb76167

@@ -1,0 +1,7 @@
+=== mooncake image build (native amd64) ===
+sha256:c9d449beac91f1bdb839f1b358501470f460e785e56604eb90d9d81f3d0f23c6
+=== mooncake: aiohttp imports on the built image ===
+$ sudo docker run --rm fluid-verify-6269-mooncake python3 -c 'import aiohttp, yarl; print(...)'
+aiohttp 3.14.5 | yarl 1.25.1
+MOONCAKE: OK
+exit=0
