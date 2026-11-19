@@ -33,25 +33,42 @@
       "id": "P0-a",
       "polarity": "contract",
       "layer": "unit",
-      "match": ["TestVAssembleMountInfosDeterministic"]
+      "match": [
+        "TestVAssembleMountInfosDeterministic"
+      ]
     },
     {
       "id": "P0-b",
       "polarity": "contract",
       "layer": "unit",
-      "match": ["TestVInjectCheckMountReadyScriptNamespaceDeterministic"]
+      "match": [
+        "TestVInjectCheckMountReadyScriptNamespaceDeterministic"
+      ]
     },
     {
       "id": "P0-c",
       "polarity": "contract",
       "layer": "unit",
-      "match": ["TestVDefaultFileListDeterministic"]
+      "match": [
+        "TestVDefaultFileListDeterministic"
+      ]
     },
     {
       "id": "F1-namespace-test-single-invocation",
       "polarity": "contract",
       "layer": "unit",
-      "match": ["TestVInjectCheckMountReadyScriptNamespaceDeterministic"]
+      "match": [
+        "TestVInjectCheckMountReadyScriptNamespaceDeterministic"
+      ]
+    },
+    {
+      "id": "F6-nil-runtimeinfo-deref",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVInjectCheckMountReadyScriptNilSkip"
+      ],
+      "note": "Round-2 delta added a nil guard; contract test pins the skip-to-first-valid-key semantics. Panics on base and round-1 head; must pass on round-2 head."
     }
   ],
   "liveNote": "L3 skipped per review setup (no KUBECONFIG). Determinism claims are fully decidable at the unit layer; no live signal would add evidence."

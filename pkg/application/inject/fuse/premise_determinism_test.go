@@ -149,3 +149,52 @@ func TestVInjectCheckMountReadyScriptNamespaceDeterministic(t *testing.T) {
 		}
 	}
 }
+
+// TestVInjectCheckMountReadyScriptNilSkip is a CONTRACT test for the nil guard
+// added in PR #6262 round 2 (mount_point_script.go): when the
+// lexicographically-first runtimeInfo key holds a nil value, the injector must
+// skip it and use the first *valid* key's namespace instead of dereferencing nil.
+// On base/round-1 code this panics (nil interface method call); on the round-2
+// head it must create the ConfigMap in ns-m (m-pvc is the first valid key).
+func TestVInjectCheckMountReadyScriptNilSkip(t *testing.T) {
+	riM, err := base.BuildRuntimeInfo("m-pvc", "ns-m", "alluxio")
+	if err != nil {
+		t.Fatalf("BuildRuntimeInfo failed: %v", err)
+	}
+	runtimeInfos := map[string]base.RuntimeInfoInterface{
+		"a-pvc": nil, // nil value at the lexicographically-first key
+		"m-pvc": riM,
+	}
+
+	scheme := runtime.NewScheme()
+	if err := corev1.AddToScheme(scheme); err != nil {
+		t.Fatalf("scheme setup failed: %v", err)
+	}
+	fakeClient := fake.NewClientBuilder().WithScheme(scheme).Build()
+	injector := &Injector{client: fakeClient, log: logr.Discard()}
+
+	podSpecs := &mutator.MutatingPodSpecs{
+		MetaObj: metav1.ObjectMeta{Name: "verify-pod-nil-skip", Namespace: "ns-m"},
+		Volumes: []corev1.Volume{},
+		Containers: []corev1.Container{
+			{
+				Name: "app",
+				VolumeMounts: []corev1.VolumeMount{
+					{Name: "vol-m", MountPath: "/data/m"},
+				},
+			},
+		},
+	}
+
+	if err := injector.injectCheckMountReadyScript(podSpecs, runtimeInfos); err != nil {
+		t.Fatalf("injectCheckMountReadyScript failed on nil-leading map: %v", err)
+	}
+
+	cmList := &corev1.ConfigMapList{}
+	if err := fakeClient.List(context.TODO(), cmList, client.InNamespace("ns-m")); err != nil {
+		t.Fatalf("list configmaps failed: %v", err)
+	}
+	if len(cmList.Items) != 1 {
+		t.Fatalf("expected exactly 1 ConfigMap in ns-m (first valid key m-pvc), got %d", len(cmList.Items))
+	}
+}
