@@ -1,0 +1,3 @@
+# Round 2 (head ee7899ca55deea79eadc338053707da97c647005) — canonical invocation
+# cmd: FLUID_UNIT_TEST=true go test -gcflags=all=-l ./pkg/ddc/cache/engine/
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.190s

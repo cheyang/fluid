@@ -7,15 +7,17 @@
   ],
   "premise": {
     "id": "P0",
-    "claim": "PR body: 'Adds unit tests for the CacheRuntime engine functions that had none, as listed in #6263' — CheckRuntimeReady, GetDataOperationValueFile, findDataOperationSpec, validateRuntimeClassTopology; issue #6263: 'a regression in either one breaks DataLoad and friends without any test going red'",
+    "claim": "PR body: 'Adds unit tests for the CacheRuntime engine functions that had none, as listed in #6263' \u2014 CheckRuntimeReady, GetDataOperationValueFile, findDataOperationSpec, validateRuntimeClassTopology; issue #6263: 'a regression in either one breaks DataLoad and friends without any test going red'",
     "reportedComponent": "pkg/ddc/cache/engine (data_operation.go, validate.go, shutdown.go)",
-    "patchedComponent": "pkg/ddc/cache/engine — test files only (data_operation_test.go, validate_test.go); Shutdown deferred to a follow-up as the issue itself suggests",
+    "patchedComponent": "pkg/ddc/cache/engine \u2014 test files only (data_operation_test.go, validate_test.go); Shutdown deferred to a follow-up as the issue itself suggests",
     "componentMatch": true,
     "runsAgainst": "base",
     "layer": "unit",
     "verdict": "confirmed",
     "evidence": "git grep on merge base dcb76167b0143a239addc6bed83ed50b45267631: zero test references to CheckRuntimeReady/GetDataOperationValueFile/findDataOperationSpec; validateRuntimeClassTopology had only indirect negative coverage (transform_test.go x4, cm_test.go x1, all asserting the 'at least one component' error) and no positive cases. The 23 new specs pass on head (results/l1-pr-new-specs.txt).",
-    "match": ["l1-pr-new-specs.txt"]
+    "match": [
+      "l1-pr-new-specs.txt"
+    ]
   },
   "layers": {
     "unit": {
@@ -33,7 +35,10 @@
       "id": "T1",
       "polarity": "contract",
       "layer": "unit",
-      "match": ["TestDataOperationValueFileHappyPath", "TestDataLoadValueFileNotSupportedWhenSpecMissing"]
+      "match": [
+        "TestDataOperationValueFileHappyPath",
+        "TestDataLoadValueFileNotSupportedWhenSpecMissing"
+      ]
     },
     {
       "id": "PR-SPECS",
@@ -42,23 +47,70 @@
       "match": [
         "returns false when the runtime does not exist",
         "routes DataLoad to the DataLoad value file generator",
+        "writes a DataLoad value file built from the runtime class DataOperationSpecs",
         "routes DataProcess to the DataProcess value file generator",
         "rejects a class without a topology",
-        "returns the spec with the matching name"
+        "returns the spec with the matching name",
+        "master disabled, worker not set up yet"
       ]
     }
   ],
-  "liveNote": "L3 not applicable: tests-only PR, no runtime behavior change to observe on a cluster. For the gap evidence while T1 is open, run scripts/mutation-check-t1.sh (expected: PR specs stay green under the happy-path mutation, harness tests go red).",
+  "liveNote": "L3 not applicable: tests-only PR, no runtime behavior change to observe on a cluster. T1 was fixed by PR commit ee7899ca5 (round 2): the PR now carries its own happy-path spec. Standing guards: scripts/mutation-check-t1.sh (expects PR specs AND harness red under the happy-path mutation; non-zero exit reopens T1) and scripts/mutation-check-round2.sh (M5-M8 bites-check for the round-2 specs).",
   "roundLedger": {
     "reviewer": "claude",
-    "round": "initial",
-    "headSha": "ef7ecf5f06fdc67ef950bfe2737e1e509be2bb5b",
+    "round": 2,
+    "mode": "incremental",
+    "headSha": "ee7899ca55deea79eadc338053707da97c647005",
+    "previousHeadSha": "ef7ecf5f06fdc67ef950bfe2737e1e509be2bb5b",
     "baseSha": "dcb76167b0143a239addc6bed83ed50b45267631",
     "findingsStatus": {
-      "T1": { "status": "open", "origin": "initial-pr", "severity": "minor", "evidenceKind": "differential", "evidence": "results/mutation-t1.txt" },
-      "T2": { "status": "open", "origin": "initial-pr", "severity": "nit", "evidenceKind": "code-path", "evidence": "data_operation.go:41-57 table lacks RuntimePhaseNone rows" },
-      "T3": { "status": "open", "origin": "initial-pr", "severity": "nit", "evidenceKind": "code-path", "evidence": "data_operation_test.go fakeOperation.GetTargetDataset returns (nil, nil)" },
-      "PRE1": { "status": "refuted-as-pr-issue", "origin": "preexisting", "severity": "minor", "evidenceKind": "differential", "evidence": "results/l1-plain-gotest-base.txt == results/l1-plain-gotest-head.txt (same 12 gomonkey failures); canonical invocation green (results/l1-full-suite-make-style.txt)", "introducedByPR": false }
+      "T1": {
+        "status": "fixed",
+        "origin": "preexisting",
+        "severity": "minor",
+        "evidenceKind": "differential",
+        "evidence": "PR commit ee7899ca5 adds 'writes a DataLoad value file built from the runtime class DataOperationSpecs'; mutation M5 (results/mutation-round2-m5.txt) now turns exactly that spec red; scripts/mutation-check-t1.sh exits 0 with both PR specs and harness red",
+        "fixedBy": "ee7899ca55deea79eadc338053707da97c647005"
+      },
+      "N1": {
+        "status": "fixed",
+        "origin": "initial-pr",
+        "severity": "nit",
+        "evidenceKind": "code-path",
+        "evidence": "validate_test.go:39 now asserts MatchError(ContainSubstring(\"at least one component\"))",
+        "fixedBy": "ee7899ca55deea79eadc338053707da97c647005"
+      },
+      "N2": {
+        "status": "fixed",
+        "origin": "initial-pr",
+        "severity": "nit",
+        "evidenceKind": "code-path",
+        "evidence": "data_operation_test.go adds 'master-worker, worker not set up yet' (false, Ready, None, false) and 'master disabled, worker not set up yet' (true, None, None, false); mutation M8 (results/mutation-round2-m8.txt) turns the latter red",
+        "fixedBy": "ee7899ca55deea79eadc338053707da97c647005"
+      },
+      "N3": {
+        "status": "fixed",
+        "origin": "initial-pr",
+        "severity": "nit",
+        "evidenceKind": "code-path",
+        "evidence": "fakeOperation.GetTargetDataset now returns errors.New(\"not implemented\") with a comment stating the stub's contract",
+        "fixedBy": "ee7899ca55deea79eadc338053707da97c647005"
+      },
+      "Q1": {
+        "status": "open",
+        "origin": "unknown",
+        "severity": "minor",
+        "evidenceKind": "code-path",
+        "evidence": "PR body still says 'as listed in #6263'; issue #6263 claim of 'no test anywhere' for validateRuntimeClassTopology remains imprecise (indirect negative coverage existed on base). Non-blocking accuracy note."
+      },
+      "PRE1": {
+        "status": "refuted-as-pr-issue",
+        "origin": "preexisting",
+        "severity": "minor",
+        "evidenceKind": "differential",
+        "evidence": "Re-confirmed at ee7899ca5: plain go test 421 ran / 409 passed / 12 failed \u2014 same 12 ufs_test.go/sync_test.go gomonkey failures as base and round-1 head (results/l2-plain-gotest-head.txt); canonical invocation green 421/0/16 (results/l2-full-suite-make-style.txt)",
+        "introducedByPR": false
+      }
     }
   }
 }

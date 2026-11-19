@@ -1,0 +1,25 @@
+# Round 2 re-verify.sh output (harness verify/cache-engine-unit-tests-claude grafted onto PR head ee7899ca5)
+# cmd: bash docs/verification/cache-engine-unit-tests/scripts/re-verify.sh --layers unit,ginkgo
+
+re-verify: manifest = docs/verification/cache-engine-unit-tests/verify-manifest.json
+re-verify: resolving PR head via 'git fetch https://github.com/fluid-cloudnative/fluid.git pull/6264/head' (machine-independent)
+re-verify: current head = ee7899ca55deea79eadc338053707da97c647005
+re-verify: last-reviewed = ef7ecf5f06fdc67ef950bfe2737e1e509be2bb5b  (review delta = ef7ecf5f06fdc67ef950bfe2737e1e509be2bb5b..ee7899ca55deea79eadc338053707da97c647005)
+re-verify: fixed-ref=ee7899ca55deea79eadc338053707da97c647005  harness-from=verify/cache-engine-unit-tests-claude
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'ginkgo' (ginkgo)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+T1     contract  unit         FIXED          pass=2 fail=0 miss=0
+PR-SPECS contract  ginkgo       FIXED          pass=5 fail=0 miss=0
+
+Live layer (manual): L3 not applicable: tests-only PR, no runtime behavior change to observe on a cluster. For the gap evidence while T1 is open, run scripts/mutation-check-t1.sh (expected: PR specs stay green under the happy-path mutation, harness tests go red).
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/cache-engine-unit-tests/results/reverify
+
+Review delta this round: ef7ecf5f06fdc67ef950bfe2737e1e509be2bb5b..ee7899ca55deea79eadc338053707da97c647005
+After reviewing that delta, advance the marker for the next round:
+  echo ee7899ca55deea79eadc338053707da97c647005 > docs/verification/cache-engine-unit-tests/.last-reviewed && git add docs/verification/cache-engine-unit-tests/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: all findings fixed.

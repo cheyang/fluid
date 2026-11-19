@@ -1,0 +1,6 @@
+# M5: generateDataLoadValueFile returns "mutated-bogus.yaml", nil right after the DataLoad type assertion (the round-1 T1 gap mutation)
+# applied at head ee7899ca55deea79eadc338053707da97c647005, then reverted (git checkout --)
+# cmd: FLUID_UNIT_TEST=true go test -gcflags=all=-l ./pkg/ddc/cache/engine/ -run TestCacheEngine -ginkgo.json-report
+# states: {'passed': 420, 'failed': 1, 'skipped': 16}
+# specs that went RED (1):
+RED: CacheEngine data operations > GetDataOperationValueFile > writes a DataLoad value file built from the runtime class DataOperationSpecs

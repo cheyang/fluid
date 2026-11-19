@@ -1,0 +1,38 @@
+# Round-2 bites-check: bash docs/verification/cache-engine-unit-tests/scripts/mutation-check-round2.sh
+# run at PR head ee7899ca55deea79eadc338053707da97c647005 (harness grafted)
+
+== M5: generateDataLoadValueFile returns mutated-bogus.yaml (happy path) ==
+Ran 421 of 437 Specs in 0.147 seconds
+FAIL! -- 420 Passed | 1 Failed | 0 Pending | 16 Skipped
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.170s
+FAIL
+-- M5 caught (suite went red, as required)
+
+== M6: genDataLoadValue drops the DataOperationSpecs image ==
+Ran 421 of 437 Specs in 0.148 seconds
+FAIL! -- 420 Passed | 1 Failed | 0 Pending | 16 Skipped
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.170s
+FAIL
+-- M6 caught (suite went red, as required)
+
+== M7: getRuntimeConfigDir returns /etc/fluid/mutated ==
+Ran 421 of 437 Specs in 0.145 seconds
+FAIL! -- 419 Passed | 2 Failed | 0 Pending | 16 Skipped
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.169s
+FAIL
+-- M7 caught (suite went red, as required)
+
+== M8: master-disabled worker gate accepts RuntimePhaseNone ==
+Ran 421 of 437 Specs in 0.147 seconds
+FAIL! -- 420 Passed | 1 Failed | 0 Pending | 16 Skipped
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.168s
+FAIL
+-- M8 caught (suite went red, as required)
+
+== production files restored; diff status: ==
+(empty = clean)
+RESULT: every mutation turned the suite red — the round-2 PR specs bite.

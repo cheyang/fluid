@@ -2,16 +2,21 @@
 # mutation-check-t1.sh — reproducible evidence for finding T1 of the PR #6264 review
 # (Reviewer A).
 #
-# T1: the PR's data-operation routing tests only assert the early type-mismatch
-# error of each value-file generator, so a regression in the happy path of
-# generateDataLoadValueFile leaves every new spec green.
+# T1 (round 1, head ef7ecf5f): the PR's data-operation routing tests only
+# asserted the early type-mismatch error of each value-file generator, so a
+# regression in the happy path of generateDataLoadValueFile left every new
+# spec green. Round-1 evidence: results/mutation-t1.txt (section a: PR specs
+# 23/23 green under this mutation).
 #
-# This script temporarily mutates the happy path of generateDataLoadValueFile
-# (returns a bogus file name before doing any work), re-runs
-#   (a) the PR's new specs (focused), and
-#   (b) the reviewer harness tests,
-# and shows (a) still passes while (b) fails. It then RESTORES the production
-# file and refuses to leave the tree dirty.
+# T1 was FIXED in round 2 (head ee7899ca5 "test(cache): cover the DataLoad
+# value file happy path"): the PR now has its own happy-path spec, so under
+# this same mutation the PR's specs must now go RED too. This script is
+# therefore a FORWARD-LOOKING GUARD since round 2: it applies the mutation,
+# runs (a) the PR's specs and (b) the reviewer harness tests, and expects BOTH
+# to fail. If (a) stays green, the PR's happy-path coverage was lost again
+# (T1 reopened) and the script exits non-zero.
+#
+# It then RESTORES the production file and refuses to leave the tree dirty.
 #
 # Usage: bash docs/verification/cache-engine-unit-tests/scripts/mutation-check-t1.sh
 #        (from the repo root, on a clean tree)
@@ -40,10 +45,13 @@ EOF
 echo "== mutation applied to generateDataLoadValueFile happy path =="
 
 echo
-echo "== (a) PR's new specs under mutation (expect: ALL GREEN -> the gap) =="
+echo "== (a) PR's new specs under mutation (since round 2: expect RED -> gap closed) =="
 # -run TestCacheEngine restricts to the Ginkgo suite so plain go tests don't mix in.
+set +e
 go test ./pkg/ddc/cache/engine/ -run TestCacheEngine -ginkgo.focus="CacheEngine data operations|validateRuntimeClassTopology" -v 2>&1 \
-  | sed 's/\x1b\[[0-9;]*m//g' | grep -E "Ran [0-9]+ of|SUCCESS|FAIL|ok "
+  | sed 's/\x1b\[[0-9;]*m//g' | grep -E "Ran [0-9]+ of|SUCCESS|FAIL!|^ok |^FAIL"
+rc_pr=${PIPESTATUS[0]}
+set -e
 
 echo
 echo "== (b) reviewer harness under mutation (expect: FAIL -> harness bites) =="
@@ -64,3 +72,10 @@ echo
 echo "== production file restored; diff status: =="
 git status --short -- "$TARGET"
 echo "(empty = clean)"
+
+# Since round 2 the PR's own happy-path spec must catch this mutation too.
+if [ "$rc_pr" -eq 0 ]; then
+  echo "RESULT: T1 REOPENED — the PR's specs stayed green under the happy-path mutation."
+  exit 1
+fi
+echo "RESULT: T1 closed — both the PR's specs and the harness went red under the mutation."
