@@ -170,8 +170,11 @@ run_layer() {
     # ADDITION for this harness (docs PR): a plain bash harness that prints
     # "<name><TAB>pass|fail" lines on stdout (see scripts/run_harness.sh).
     bash -c "$cmd" >"$out" 2>&1 || true
-    awk -F'\t' '$1!="" && ($2=="pass" || $2=="fail") {print $1"\t"$2}' "$out"
-    if ! grep -qE '^[^\t]+\t(pass|fail)$' "$out"; then echo "__BUILD_OR_NO_TESTS__"; return 0; fi
+    if awk -F'\t' '$2=="pass" || $2=="fail" {found=1} END{exit !found}' "$out"; then
+      awk -F'\t' '$1!="" && ($2=="pass" || $2=="fail") {print $1"\t"$2}' "$out"
+    else
+      echo "__BUILD_OR_NO_TESTS__"
+    fi
   fi
 }
 
