@@ -2,7 +2,46 @@
 
 Reproducible evidence for the findings raised while reviewing
 https://github.com/fluid-cloudnative/fluid/pull/6261
-(round 1 head `22d2d07c7c…`, round 2 head `305e466f49…`, base `1321a217d78ab99c0cb76d2ea334d593a3765509`).
+(round 1 head `22d2d07c7c…`, round 2 head `305e466f49…`, round 3 head `928ea4813c…`, base `1321a217d78ab99c0cb76d2ea334d593a3765509`).
+
+## Round 3 (head 928ea4813) — review-feedback commit: engine test + docs + wording
+
+The PR added one commit, `928ea4813 test(jindo): cover jindofsx quotaList
+request; document m as Mi; fix worker limit wording`. Delta
+`305e466f..928ea4813` (7 files, +48/−5):
+
+- **F2 → fixed**: new `TestTransformWorkerResourcesQuotaListPositive`
+  (pkg/ddc/jindofsx/transform_resources_test.go) asserts the helm value
+  (`512m,512m` → `1Gi`) **and** the persisted runtime request (`1Gi` via
+  `getRuntime()` after the `RetryOnConflict` update) — the engine-level
+  positive-path coverage round 2 asked for. Harness-bites:
+  `results/round3/prtest-bites-round3.txt` — the same test **fails on the
+  pre-fix head 22d2d07** with `helm value memory request = "1024m", want 1Gi`
+  and the persisted `1024m`, i.e. it is a real regression test for the F1
+  class, not a vacuous green. On head: `results/round3/prtest-head-round3.txt`
+  (ok). The manifest now runs it in the integration layer.
+- **F11 → fixed**: the `m`-reads-as-`Mi` semantics is now documented on the
+  `QuotaList` field (api/v1alpha1/common.go) and carried into
+  `openapi_generated.go`, `swagger.json`, and `docs/{en,zh}/dev/api_doc.md`.
+  The tracked CRD yaml (`config/crd/bases/*.yaml`) embeds no field
+  descriptions, so nothing there goes stale.
+- **F8 → fixed**: the worker-limit error now says "worker limits memory"
+  (transform.go:693).
+- No production behavior changed by the delta beyond the error-message word;
+  `pkg/utils/jindo`, `jindofsx`, `jindocache` are otherwise untouched.
+
+`scripts/re-verify.sh` on 928ea4813: **all findings FIXED** (B1–B6, F1, F5,
+F2 — pass on every contract test; raw output `results/reverify/`). Full
+three-package sweep on the head (CI's `FLUID_UNIT_TEST=true` mode):
+`results/round3/head-sweep-round3.txt` — all ok, including the PR's own
+`TestSumQuotas` and the new positive-path test.
+
+Still open (unchanged by this delta): F3 (no e2e for the quotaList reconcile
+path), F4 (negative elements still sum — canary row "10Mi,-5m" → "5Mi" still
+green in `TestSumQuotasContract`), F6 (env-gated master heuristic no-ops for
+lists), F7 (g→Gi restoration still per-engine), F10 (all GitHub Actions
+workflows `action_required` on 928ea4813 — required CI never executed;
+`results/round3/ci-check-runs.txt`).
 
 ## Round 2 (head 305e466f4) — the F1 fix landed
 

@@ -1,7 +1,10 @@
 {
   "topic": "jindo-quota-sum",
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6261",
-  "prHeadFetch": { "remote": "origin", "ref": "pull/6261/head" },
+  "prHeadFetch": {
+    "remote": "origin",
+    "ref": "pull/6261/head"
+  },
   "harnessPaths": [
     "docs/verification/jindo-quota-sum",
     "pkg/utils/jindo/jindo_sum_quotas_verify_test.go",
@@ -19,7 +22,9 @@
     "layer": "integration",
     "verdict": "confirmed",
     "evidence": "results/base-premise.txt: TestPremiseQuotaListMustNotPanic panics at base transform.go:679 with exactly the issue's message",
-    "match": ["TestPremiseQuotaListMustNotPanic"]
+    "match": [
+      "TestPremiseQuotaListMustNotPanic"
+    ]
   },
   "layers": {
     "unit": {
@@ -28,18 +33,91 @@
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "go test ./pkg/ddc/jindofsx/ ./pkg/ddc/jindocache/ -run 'TestPremise|TestVerify|TestTransformWorkerResourcesWithQuotaList' -json"
+      "cmd": "go test ./pkg/ddc/jindofsx/ ./pkg/ddc/jindocache/ -run 'TestPremise|TestVerify|TestTransformWorkerResourcesWithQuotaList|TestTransformWorkerResourcesQuotaListPositive' -json"
     }
   },
   "findings": [
-    { "id": "B1", "polarity": "contract", "layer": "integration", "match": ["TestVerifyQuotaListSummedRequest", "TestVerifyJindoCacheQuotaListSummedRequest"] },
-    { "id": "B2", "polarity": "contract", "layer": "integration", "match": ["TestVerifyInvalidQuotaReturnsError", "TestVerifyJindoCacheInvalidQuotaReturnsError", "TestTransformWorkerResourcesWithQuotaList"] },
-    { "id": "B3", "polarity": "contract", "layer": "integration", "match": ["TestVerifySumExceedsLimitReturnsError", "TestVerifyJindoCacheSumExceedsLimitReturnsError"] },
-    { "id": "B4", "polarity": "contract", "layer": "integration", "match": ["TestVerifySingleQuotaStillWorks"] },
-    { "id": "B5", "polarity": "contract", "layer": "integration", "match": ["TestVerifyQuotaListWithSpaces"] },
-    { "id": "B6", "polarity": "contract", "layer": "unit", "match": ["TestSumQuotasContract"] },
-    { "id": "F1", "polarity": "contract", "layer": "integration", "note": "round-2 ledger id: Mi-denominated quotaList must sum as Mi in both engines (blocker at 22d2d07, fix 305e466)", "match": ["TestVerifyQuotaListMiUnitsSum", "TestVerifyJindoCacheQuotaListMiUnitsSum", "TestVerifyMiUnitsSumExceedsLimitReturnsError"] },
-    { "id": "F5", "polarity": "contract", "layer": "integration", "note": "round-2 ledger id: single-value Mi quota path (pre-existing at base, fixed by 305e466 via shared SumQuotas)", "match": ["TestVerifySingleQuotaMiUnits"] }
+    {
+      "id": "B1",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestVerifyQuotaListSummedRequest",
+        "TestVerifyJindoCacheQuotaListSummedRequest"
+      ]
+    },
+    {
+      "id": "B2",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestVerifyInvalidQuotaReturnsError",
+        "TestVerifyJindoCacheInvalidQuotaReturnsError",
+        "TestTransformWorkerResourcesWithQuotaList"
+      ]
+    },
+    {
+      "id": "B3",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestVerifySumExceedsLimitReturnsError",
+        "TestVerifyJindoCacheSumExceedsLimitReturnsError"
+      ]
+    },
+    {
+      "id": "B4",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestVerifySingleQuotaStillWorks"
+      ]
+    },
+    {
+      "id": "B5",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestVerifyQuotaListWithSpaces"
+      ]
+    },
+    {
+      "id": "B6",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestSumQuotasContract"
+      ]
+    },
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "integration",
+      "note": "round-2 ledger id: Mi-denominated quotaList must sum as Mi in both engines (blocker at 22d2d07, fix 305e466)",
+      "match": [
+        "TestVerifyQuotaListMiUnitsSum",
+        "TestVerifyJindoCacheQuotaListMiUnitsSum",
+        "TestVerifyMiUnitsSumExceedsLimitReturnsError"
+      ]
+    },
+    {
+      "id": "F5",
+      "polarity": "contract",
+      "layer": "integration",
+      "note": "round-2 ledger id: single-value Mi quota path (pre-existing at base, fixed by 305e466 via shared SumQuotas)",
+      "match": [
+        "TestVerifySingleQuotaMiUnits"
+      ]
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "integration",
+      "note": "round-3 ledger id: PR's own engine-level positive-path test (value + persisted runtime) added at 928ea4813; runs in the integration layer so future re-verifies cover it",
+      "match": [
+        "TestTransformWorkerResourcesQuotaListPositive"
+      ]
+    }
   ],
   "liveNote": "L3 (skipped this round, no KUBECONFIG): create a JindoRuntime with MEM tier + quotaList '10Gi,5Gi' on a real cluster; expect successful setup with worker memory request 15Gi and no controller panic. Invalid quota: reconcile error event instead of controller crash."
 }

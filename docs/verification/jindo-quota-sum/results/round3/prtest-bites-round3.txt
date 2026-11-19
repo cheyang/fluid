@@ -1,0 +1,7 @@
+2026/11/20 06:55:54 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+--- FAIL: TestTransformWorkerResourcesQuotaListPositive (1.00s)
+    transform_resources_test.go:61: helm value memory request = "1024m", want 1Gi
+    transform_resources_test.go:68: persisted runtime memory request = 1024m, want 1Gi
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	1.015s
+FAIL

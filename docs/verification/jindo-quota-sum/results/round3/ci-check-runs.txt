@@ -1,0 +1,7 @@
+SonarCloud	success
+SonarCloud Code Analysis	success
+DCO	success
+E2E Functionality Check	action_required
+Project Check	action_required
+E2E Backward Compatibility Check	action_required
+CodeQL	action_required
