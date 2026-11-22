@@ -1,7 +1,25 @@
 # Verification — PR #6245: hierarchical imagePullSecrets for JuiceFSRuntime
 
-Reviewer: Codex (Reviewer B). Round: incremental (round 6).
-Head under review: `a0baafae0cdcc67ce1ed5b774ac248fc9043ebc1` (base `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5`, previous head `2150b49ef89d1718ce59279a466c5733ea9f8d53`).
+Reviewer: Codex (Reviewer B). Round: incremental (round 7).
+Head under review: `e7a93e77593cc08af7fc6a006254f26385d2d88e` (base `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5`, previous head `a0baafae0cdcc67ce1ed5b774ac248fc9043ebc1`).
+
+## Round 7 (head e7a93e775, delta a0baafae0..e7a93e775 = docs-only, 2 files / 1 line each)
+
+The round-7 delta is the author's fix for F-docs-antecedent-ambiguous (round-6
+nit): the closing paragraph's "Changing these fields" (en) / "这些字段" (zh)
+became "Changing the imagePullSecrets fields above" / "上述 imagePullSecrets
+字段", removing the literal-reading contradiction with the master/jobWorker
+inertness disclosure one sentence earlier. New additive contract:
+scripts/docs_antecedent_check.sh via TestVerifyPr6245DocsAntecedentDisambiguated
+- RED on previous head a0baafae0 (both languages; re-verify run:
+F-docs-antecedent-ambiguous STILL-BROKEN, pass=0 fail=1), GREEN on e7a93e775.
+Re-verify on head: all 16 contract findings FIXED; canary F1 STILL-PRESENT as
+designed. Full repo suite (go build ./... + go test ./pkg/ddc/juicefs/
+./api/...) green on the head. Evidence: results/reverify-round7-head-unit.txt,
+results/reverify-round7-head-integration.txt,
+results/reverify-round7-previous-head-a0baafae-integration.txt,
+results/full-package-suite-round7-head.txt.
+
 
 ## Round 6 (head a0baafae0, delta 2150b49ef..a0baafae0 = docs-only, 2 files / 1 line each)
 
