@@ -52,7 +52,7 @@
       "match": [
         "TestVerifyPR6283_DatasetDashO_NoChangeDifferentOrder",
         "TestVerifyPR6283_MetricsOptionIgnored",
-        "identical options never reported changed"
+        "identical_options_never_reported_changed"
       ]
     },
     {
