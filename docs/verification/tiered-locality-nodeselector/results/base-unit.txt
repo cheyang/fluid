@@ -1,0 +1,38 @@
+=== RUN   TestClaudeVerifyHasRepeatedLocalityNodeSelectorFallback
+=== RUN   TestClaudeVerifyHasRepeatedLocalityNodeSelectorFallback/preferred-only_non-locality_affinity_+_locality_nodeSelector
+    tiered_locaity_claude_verify_test.go:170: 
+        	Error Trace:	/tmp/fluid-base-6281/pkg/webhook/plugins/nodeaffinitywithcache/tiered_locaity_claude_verify_test.go:170
+        	Error:      	Not equal: 
+        	            	expected: true
+        	            	actual  : false
+        	Test:       	TestClaudeVerifyHasRepeatedLocalityNodeSelectorFallback/preferred-only_non-locality_affinity_+_locality_nodeSelector
+        	Messages:   	case "preferred-only non-locality affinity + locality nodeSelector" (fails on base (returns false, injection happens)): hasRepeatedLocality = false, want true
+=== RUN   TestClaudeVerifyHasRepeatedLocalityNodeSelectorFallback/empty_node_affinity_+_locality_nodeSelector
+    tiered_locaity_claude_verify_test.go:170: 
+        	Error Trace:	/tmp/fluid-base-6281/pkg/webhook/plugins/nodeaffinitywithcache/tiered_locaity_claude_verify_test.go:170
+        	Error:      	Not equal: 
+        	            	expected: true
+        	            	actual  : false
+        	Test:       	TestClaudeVerifyHasRepeatedLocalityNodeSelectorFallback/empty_node_affinity_+_locality_nodeSelector
+        	Messages:   	case "empty node affinity + locality nodeSelector" (fails on base (returns false, injection happens)): hasRepeatedLocality = false, want true
+=== RUN   TestClaudeVerifyHasRepeatedLocalityNodeSelectorFallback/non-locality_required_affinity_+_locality_nodeSelector
+=== RUN   TestClaudeVerifyHasRepeatedLocalityNodeSelectorFallback/preferred-only_non-locality_affinity_+_non-locality_nodeSelector
+=== RUN   TestClaudeVerifyHasRepeatedLocalityNodeSelectorFallback/nil_node_affinity_+_locality_nodeSelector
+--- FAIL: TestClaudeVerifyHasRepeatedLocalityNodeSelectorFallback (0.00s)
+    --- FAIL: TestClaudeVerifyHasRepeatedLocalityNodeSelectorFallback/preferred-only_non-locality_affinity_+_locality_nodeSelector (0.00s)
+    --- FAIL: TestClaudeVerifyHasRepeatedLocalityNodeSelectorFallback/empty_node_affinity_+_locality_nodeSelector (0.00s)
+    --- PASS: TestClaudeVerifyHasRepeatedLocalityNodeSelectorFallback/non-locality_required_affinity_+_locality_nodeSelector (0.00s)
+    --- PASS: TestClaudeVerifyHasRepeatedLocalityNodeSelectorFallback/preferred-only_non-locality_affinity_+_non-locality_nodeSelector (0.00s)
+    --- PASS: TestClaudeVerifyHasRepeatedLocalityNodeSelectorFallback/nil_node_affinity_+_locality_nodeSelector (0.00s)
+=== RUN   TestClaudeVerifyMutateSkipWhenNodeSelectorHasLocality
+    tiered_locaity_claude_verify_test.go:237: 
+        	Error Trace:	/tmp/fluid-base-6281/pkg/webhook/plugins/nodeaffinitywithcache/tiered_locaity_claude_verify_test.go:237
+        	Error:      	Expected nil, but got: &v1.NodeSelector{NodeSelectorTerms:[]v1.NodeSelectorTerm{v1.NodeSelectorTerm{MatchExpressions:[]v1.NodeSelectorRequirement{v1.NodeSelectorRequirement{Key:"topology.kubernetes.io/rack", Operator:"In", Values:[]string{"rack-a"}}}, MatchFields:[]v1.NodeSelectorRequirement(nil)}}}
+        	Test:       	TestClaudeVerifyMutateSkipWhenNodeSelectorHasLocality
+        	Messages:   	locality affinity must not be injected when the pod pins the locality label via nodeSelector
+--- FAIL: TestClaudeVerifyMutateSkipWhenNodeSelectorHasLocality (0.00s)
+=== RUN   TestClaudeVerifyMutateStillInjectsWithoutLocalityNodeSelector
+--- PASS: TestClaudeVerifyMutateStillInjectsWithoutLocalityNodeSelector (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/nodeaffinitywithcache	0.014s
+FAIL
