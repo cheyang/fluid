@@ -1,0 +1,45 @@
+{
+  "topic": "pr6278-chart-image-tag",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6278",
+  "harnessPaths": [
+    "docs/verification/pr6278-chart-image-tag",
+    "test/verify/pr6278charttag"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "A fresh `helm install` with the current chart pulls tag v1.1.0-dcb76167b, which was never pushed, so every pod stays in ImagePullBackOff (PR body; images published under 8-char tag v1.1.0-dcb76167 instead).",
+    "reportedComponent": "helm chart charts/fluid/fluid (appVersion + values.yaml defaultVersion anchor)",
+    "patchedComponent": "helm chart charts/fluid/fluid (Chart.yaml + values.yaml)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "integration",
+    "verdict": "confirmed",
+    "evidence": "base chart renders 12 fluidcloudnative refs tagged v1.1.0-dcb76167b and Docker Hub returns 404 for all 12; head chart renders v1.1.0-dcb76167 and all 12 return 200. See results/integration-base.out vs results/integration-head.out; git rev-parse evidence in results/abbrev.txt.",
+    "match": ["TestDefaultTaggedImagesExistInRegistry"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./test/verify/pr6278charttag/ -run 'TestChartRendersWithDefaults|TestAppVersionMatchesDefaultTag|TestMakefileUsesAutoAbbrevLength|TestGitShortShaLengthIsNine' -v -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./test/verify/pr6278charttag/ -run 'TestDefaultTaggedImagesExistInRegistry' -v -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": ["TestMakefileUsesAutoAbbrevLength"]
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestDefaultTaggedImagesExistInRegistry"]
+    }
+  ],
+  "liveNote": "L3 skipped per review setup. On a live cluster the base chart symptom is: fresh `helm install` -> all fluid-system pods ImagePullBackOff on fluidcloudnative/*:v1.1.0-dcb76167b."
+}
