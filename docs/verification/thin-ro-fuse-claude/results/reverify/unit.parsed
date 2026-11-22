@@ -1,0 +1,137 @@
+should honor specifications in thinruntime profile	skipped
+should honor specification in thinruntime	skipped
+should default to use host network	skipped
+should use host network when thinruntime specifies host network	skipped
+should use container network when thinruntime specifies container network	skipped
+should follow network mode in profile when thinruntime does not set network mode	skipped
+should honor image and image tag in thinruntime	skipped
+should not change existing image info in values	skipped
+should parse options from runtime and profile correctly	skipped
+should handle empty options correctly	skipped
+should keep the ro option next to the profile and runtime options	skipped
+should not write the runtime options into the profile	skipped
+should not add the ro option	skipped
+should set default lifecycle with umount command	skipped
+should use custom lifecycle from profile	skipped
+should use custom lifecycle from runtime which overrides profile	skipped
+should return error when postStart is set in profile	skipped
+should return error when postStart is set in runtime	skipped
+should correctly parse host volume configuration	skipped
+should handle multiple host volumes	skipped
+should return error for invalid host volume format	skipped
+should return error for non-absolute host path	skipped
+should return error for non-absolute mount path	skipped
+should generate correct config value and storage type	skipped
+should merge shared options and mount options	skipped
+should handle empty mounts and use dataset access modes	skipped
+should set default ReadOnlyMany access mode	skipped
+adds the mounted pvc as a dataset owner reference	skipped
+does not duplicate an existing pvc owner reference	skipped
+returns an error when more than one pvc mount is declared	skipped
+should scale workers to desired replicas	skipped
+should return the correct selector string	skipped
+adds and increments the fuse config annotation on running pods	skipped
+returns nil when no running fuse pod is found	skipped
+returns an error when an existing annotation is not numeric	skipped
+should return no error and update runtime status	skipped
+should return an error	skipped
+skips worker checks and updates the dataset to bound	skipped
+returns the fuse check error	skipped
+should update runtime with NotReady phase	skipped
+should update runtime with Ready phase	skipped
+initializes fuse-only runtime status and strips mount options	skipped
+returns an empty count when no running fuse pod can be found	skipped
+merges mount options with shared and mount encrypt options	skipped
+skips encrypt option extraction when disabled	skipped
+returns an error when an encrypt option duplicates an existing option	skipped
+mount options in annotation	skipped
+mount options in property	skipped
+no mount options configured	skipped
+updates the fuse configmap and nudges fuse pods when dataset mounts change	skipped
+leaves fuse pods untouched when the generated config is unchanged	skipped
+returns nil when the dataset is not found	skipped
+demotes log to V(1) and returns nil when a pvc mount is not yet bound	skipped
+logs an error and returns nil when a pvc mount is in ClaimLost phase	skipped
+logs an error and returns nil when updateFuseConfigOnChange fails with an unexpected error	skipped
+returns an error when the configured fuse config storage is unsupported	skipped
+returns an error when a pvc mount is not yet bound	skipped
+serializes secret-backed mount options when fuse config storage is secret	skipped
+should return true	skipped
+should return false	skipped
+should return ready	skipped
+should return error	skipped
+None phase - should setup	skipped
+Ready phase - should not setup	skipped
+NotReady phase - should not setup	skipped
+should return no error	skipped
+skips storing runtime helm values when runtime config map generation is disabled	skipped
+installs the release when it is not already present	skipped
+returns the install release error	skipped
+returns nil when the engine runtime is nil	skipped
+loads the referenced runtime profile	skipped
+defaults to enabled when runtime is nil or the annotation is invalid	skipped
+disables runtime helm values when the disable annotation is true	skipped
+keeps runtime helm values enabled when the disable annotation is false	skipped
+contract: the rendered fuse container MOUNT_OPTIONS keeps ro when the profile defines fuse options	pass
+contract: runtime fuse options must not be written into the profile's option map	pass
+contract: profile options are merged, they cannot silently drop ro	pass
+contract: no ro is added for a writable dataset with profile options	pass
+should correctly transform fuse resources	skipped
+should correctly transform worker resources	skipped
+should return false for hbase	skipped
+should return false for spark	skipped
+should return false for noautosync	skipped
+should return true for autosync	skipped
+should return no error for hbase	skipped
+should return no error for spark	skipped
+should return no error for hadoop	skipped
+should update dataset status with UfsTotal and FileNum	skipped
+should return no error without updating	skipped
+should return false for changed and no error	skipped
+returns an error when the runtime is nil	skipped
+merges runtime and profile state while enabling worker orchestration	skipped
+defaults placement mode to exclusive when the dataset does not set one	skipped
+should return an error when runtime is nil	skipped
+should return an error when runtime type conversion fails	skipped
+should build a template engine for a normal thin runtime when runtime and profile exist	skipped
+should delegate to the reference dataset branch when profile name is empty	skipped
+should return an error when thin runtime profile lookup fails	skipped
+should return an error when the request runtime has a different name than the stored thin runtime	skipped
+should return an error when runtime info bootstrap cannot fetch the thin runtime	skipped
+should return found true when the thin runtime exists	skipped
+should return found false when the thin runtime does not exist	skipped
+empty profile name means reference dataset runtime	skipped
+non-empty profile name means normal thin runtime	skipped
+initializes fuse-only runtime status and strips mount options from dataset status	skipped
+updates cache affinity and leaves setup duration empty until workers are ready	skipped
+worker phase None and enabled returns true	skipped
+worker phase NotReady returns false	skipped
+worker phase PartialReady returns false	skipped
+worker phase Ready returns false	skipped
+worker not enabled returns false	skipped
+should tear down worker labels after seeding runtime objects required by runtime info	skipped
+should delete the release when the helm release exists	skipped
+should clean orphaned resources when the helm release does not exist	skipped
+should return an error when checking the helm release fails	skipped
+should return an error when deleting an installed release fails	skipped
+should clean fuse artifacts and configmaps	skipped
+should return the destroyWorkers error after the cache retry limit is reached	skipped
+should return the destroyMaster error after workers are torn down successfully	skipped
+should complete shutdown successfully after the cache retry limit is reached	skipped
+returns an error when runtime is nil	skipped
+returns a dataset lookup error when dataset is missing	skipped
+uses profile defaults on the happy path	skipped
+uses runtime image pull secrets and transforms worker fields	skipped
+applies profile defaults and runtime overrides	skipped
+logs but does not return worker volume transformation errors	skipped
+is a no-op for a nil profile	skipped
+copies worker settings from the profile	skipped
+selectively overrides only populated runtime image fields	skipped
+defaults to exclusive mode when dataset placement mode is empty	skipped
+keeps an existing dataset placement mode	skipped
+copies dataset tolerations into values	skipped
+should extract volume info correctly	skipped
+should return ErrPVCNotBound when pvc is not yet bound	skipped
+ClaimLost without VolumeName	skipped
+ClaimLost with VolumeName	skipped
+unexpected phase with VolumeName	skipped
