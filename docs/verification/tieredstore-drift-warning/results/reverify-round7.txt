@@ -1,0 +1,75 @@
+Round 7 re-verify — PR #6219 head 59cd3ab3a3b4e370a74de3bead8edd2135c264a4 (base 253f6bb84f26a906fba301550b5c81ebdd73af35)
+Run: 2026-11-22, re-verify.sh (auto-resolved head from manifest.pr = pull/6219/head, confirmed
+"current head = 59cd3ab3..."), unit layer, harness from verify/tieredstore-drift-warning-claude @ 653177ef7.
+NOTE: re-verify.sh's own cleanup (git checkout -f) reverts its persisted results-dir copy; the
+table below is captured from the live stdout. The fresh raw unit output was saved before the
+cleanup ran (results/unit-head-59cd3ab3.txt, parsed in unit-head-59cd3ab3-parsed.txt) and the
+stale committed results/reverify/unit.parsed (a round-5/6 carry-over naming the retired
+TestVerifyEmptyDirMediumFlipSilent canary) was refreshed to the current 8-line parse.
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+TS1    contract  unit         FIXED          pass=1 fail=0 miss=0   (TestVerifyWorkerDriftWarnsThroughFullSync)
+TS2    canary    unit         STILL-PRESENT  pass=1 fail=0 miss=0   (TestVerifyClientTieredStoreDriftSilent — EXPECTED: client silence is the tracked #6221 gap; flips red when #6221 lands; re-checked OPEN 2026-11-22)
+TS3    contract  unit         FIXED          pass=1 fail=0 miss=0   (TestVerifyEmptyDirMediumFlipDetected, both directions)
+TS4    contract  unit         FIXED          pass=1 fail=0 miss=0   (TestVerifyDriftThrottleAcrossSyncs)
+TS5    contract  unit         FIXED          pass=1 fail=0 miss=0   (TestVerifyDispatchPrecedenceMatchesConfigMap)
+
+P0 premise test: TestPremiseTieredStoreSplitWorker  pass (on head; logs the warning event).
+  Re-run this round against the NEW base 253f6bb8 (grafted): PASS — the silent split of
+  issue #6192 still reproduces on the moved base without the PR; the recorder logged
+  "recorder saw no events during sync: the split is not reported by this revision"
+  (results/premise-base-253f6bb8.txt). The moved base now includes the resource-merge
+  rework (validDesiredResources / mergeResourceRequirements / RuntimeResourcesConflict,
+  plus its own unconditional worker GetPodSpec read and a topology==nil early return);
+  none of it touches cm.go, engine.go, the drift-check region, or the requeue path
+  (git diff a01c038b..253f6bb8 on pkg/controllers/, pkg/utils/crtl_utils.go, pkg/ctrl/watch/
+  is empty).
+
+Full engine package on head 59cd3ab3 + grafted harness, with the repo's gomonkey flags
+(-gcflags="all=-N -l"): SUCCESS — 438 Passed | 0 Failed | 0 Pending | 16 Skipped
+(results/full-pkg-head-59cd3ab3.txt). The 16 skips are the pre-existing
+"Requires real Kubernetes API / mocking" specs in master/client/worker/setup/cm tests,
+none in sync_test.go or the harness files. 438 = 421 bare-base specs + 17 PR/harness specs:
+the bare base (253f6bb8, no PR, no harness) runs 421 of 437 — the PR's own ginkgo drift
+Context (16 It blocks) plus the harness's plain Go tests all pass on the head.
+
+No-flags gomonkey control (the known inlining artifact, re-attributed this round by
+execution, not by carrying round-6's Codex control):
+  head  59cd3ab3: FAIL! -- 426 Passed | 12 Failed | 16 Skipped
+  base  253f6bb8: FAIL! -- 409 Passed | 12 Failed | 16 Skipped
+  Identical 12 specs on both: ufs_test.go x11 + sync_test.go
+  "should get cache states successfully with mocked Execute" — pre-existing, not a PR
+  regression; with the documented flags both runs are green (438/0/16 head; base control
+  passes its 421).
+
+Base movement this round (a01c038b -> 253f6bb8) = #6173-adjacent resource-merge rework in
+pkg/ddc/cache/engine (sync.go desiredComponentResources rewrite + validDesiredResources +
+master podSpec read + topology==nil guard; transform_common.go mergeResourceRequirements;
+new test files data_operation/resources_equivalence/transform_*/validate_test.go), plus
+dependency/vendor churn (klauspost/compress dropped, prometheus/testify/gomega bumps),
+CI/doc/chart bumps, and a new e2e function update_worker_resources_and_verify in
+test/gha-e2e/curvine/test.sh (does not touch verify_tieredstore_drift_warning, which the
+PR still adds unchanged).
+
+PR-content delta round 6 -> round 7: NONE. Per-file PR-diff comparison (merge-base...head,
+both rounds) is content-identical for all 10 PR files — the only differences are hunk
+context offsets and blob indexes. sync.go's PR diff shrank by exactly the hunk the base
+absorbed (the unconditional worker GetPodSpec read, previously the PR's own item-3 change:
+the base now does the same read unconditionally, so the PR no longer carries a delta there);
+the drift-check region (checkWorkerTieredStoreDrift through findVolume) is byte-identical
+to round 6, still called before SyncComponentSpec with the base-read podSpec, dispatch
+order unchanged (ProcessMemory -> HostPath -> EmptyDir, matching cm.go extraction).
+
+Required CI on head 59cd3ab3 (checked 2026-11-22 via gh pr checks; head_sha verified via
+gh api on runs 44884338241/44884338288, executed 2026-11-21): all checks pass — build x2,
+unittest, lint, staticcheck, Analyze(go)/CodeQL, SonarCloud x2, codecov patch+project,
+backward-compat-test v1.22.17-v1.33.2, kind-e2e-test v1.22.17-v1.33.2 (~28-34 min runs).
+All four drift phases confirmed in the kind-e2e v1.22.17 job (136786244507) log:
+  "Found expected RuntimeTieredStoreConflict event: ... Delete and recreate the CacheRuntime to apply changes."
+  "Throttling verified: event count remained 1 across reconcile cycles under persistent drift"
+  "Revert stability verified: event count remained 1 (no new conflict events emitted after drift resolved)"
+  "Cooldown reset verified: fresh drift re-warned immediately without waiting 10m"
+
+Issues re-checked 2026-11-22: #6192 OPEN, #6221 OPEN. PR OPEN, MERGEABLE; reviewDecision
+CHANGES_REQUESTED (the maintainer's round-2-era state, unchanged since).

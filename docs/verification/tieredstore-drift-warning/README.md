@@ -3,6 +3,34 @@
 Reproducible evidence for the findings raised while reviewing
 https://github.com/fluid-cloudnative/fluid/pull/6219.
 
+**Round 7** (head `59cd3ab3a3b4e370a74de3bead8edd2135c264a4`, reviewed 2026-11-22, rebased onto
+base `253f6bb84f26a906fba301550b5c81ebdd73af35` = the resource-merge rework in
+`pkg/ddc/cache/engine` + dependency/vendor churn + CI/doc/chart bumps): the PR content is
+**content-identical** to round 6 for all 10 files — the per-file PR-diff comparison
+(merge-base...head, both rounds) differs only in hunk context offsets and blob indexes. The one
+structural change is that the base **absorbed** the PR's own unconditional worker `GetPodSpec`
+read (the round-1 item-3 change): the base now performs the same read unconditionally (and adds
+`e.validDesiredResources` with a `RuntimeResourcesConflict` warning, a `desiredComponentResources`
+merge rewrite, a master podSpec read, and a `Topology == nil` early return), so the PR's sync.go
+diff shrank by exactly that hunk. The drift-check region (`checkWorkerTieredStoreDrift` through
+`findVolume`) is **byte-identical** to round 6, still invoked before `SyncComponentSpec` with the
+base-read `podSpec`, dispatch order unchanged (ProcessMemory → HostPath → EmptyDir, matching
+`cm.go` extraction). The base movement does not touch `cm.go`, `engine.go`, the drift region, or
+the requeue path (`pkg/controllers/`, `pkg/utils/crtl_utils.go`, `pkg/ctrl/watch/` diffs empty),
+and its new e2e function (`update_worker_resources_and_verify`) does not overlap
+`verify_tieredstore_drift_warning`, which the PR still adds unchanged. All five harness contracts
+re-run green on the new head (TS2 stays the expected client-silence canary for #6221);
+`results/reverify-round7.txt`, `results/unit-head-59cd3ab3.txt`. The premise was re-proven on the
+**new base** `253f6bb8` (PASS — the silent #6192 split still reproduces without the PR;
+`results/premise-base-253f6bb8.txt`). Full engine package on head+harness with the gomonkey
+flags: **438 passed / 0 failed / 16 pre-existing env skips** (421 bare-base specs + 17 PR/harness;
+the no-flags 12-failure gomonkey artifact re-attributed to pre-existing by a bare-base control
+run this round — identical 12 specs on `253f6bb8`). Required CI fully green on 59cd3ab3
+(runs 44884338241/44884338288, executed 2026-11-21, head_sha verified via gh api) with all four
+drift phases log-confirmed in the kind-e2e v1.22.17 job (136786244507). The carried advisory
+TS-REQUEUE-REEMISSION is unchanged (no controller/requeue file in the base movement or the PR).
+#6192 and #6221 both re-checked OPEN 2026-11-22. No new findings this round.
+
 **Round 6** (head `724796907bd7f9124386e321e1b020898b21944a`, reviewed 2026-11-07, rebased onto
 base `a01c038bcc115e46f0fd74faf5e5ca5e9c6aa840` = #6162 dataset-phase restore + #6227 Go 1.26.10
 bump + #6222 codeql bumps + #6232 chart image bump, squashed to a single PR commit): the PR

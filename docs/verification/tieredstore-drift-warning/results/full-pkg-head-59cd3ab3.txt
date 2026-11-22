@@ -1,0 +1,46 @@
+2026/11/22 16:49:03 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+Running Suite: Cache Engine Suite - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-22/pr-6219/wt-6219-r7-head/pkg/ddc/cache/engine
+[cache_engine] 
+==================================================================================================================================================
+Random Seed: 1795337343
+
+Will run 454 of 454 specs
+••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••SS••S•S••SSSS••SS•••••••••••••••••••••••••••SS••S••SS••S••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
+
+Ran 438 of 454 Specs in 0.211 seconds
+SUCCESS! -- 438 Passed | 0 Failed | 0 Pending | 16 Skipped
+--- PASS: TestCacheEngine (0.22s)
+--- PASS: TestCreateConfigMapInRuntimeClassWithCanceledContext (0.00s)
+--- PASS: TestCreateConfigMapInRuntimeClassCreatesMissingConfigMap (0.00s)
+--- PASS: TestCreateRuntimeValueConfigMapCreatesMissingConfigMap (0.00s)
+--- PASS: TestGenerateRuntimeConfigDataWithCanceledContext (0.00s)
+--- PASS: TestSyncRuntimeValueConfigMapWithCanceledContext (0.00s)
+--- PASS: TestSyncRuntimeValueConfigMapSkipsUnchangedData (0.00s)
+--- PASS: TestGenerateRuntimeConfigDataWithMissingComponentTopology (0.00s)
+    --- PASS: TestGenerateRuntimeConfigDataWithMissingComponentTopology/client_topology_undefined (0.00s)
+    --- PASS: TestGenerateRuntimeConfigDataWithMissingComponentTopology/master_topology_undefined (0.00s)
+    --- PASS: TestGenerateRuntimeConfigDataWithMissingComponentTopology/worker_topology_undefined (0.00s)
+--- PASS: TestGenerateRuntimeConfigDataWithoutAnyComponent (0.00s)
+    --- PASS: TestGenerateRuntimeConfigDataWithoutAnyComponent/topology_is_nil (0.00s)
+    --- PASS: TestGenerateRuntimeConfigDataWithoutAnyComponent/topology_declares_no_component (0.00s)
+--- PASS: TestGenerateDataLoadValueFileWithNilTopology (0.00s)
+--- PASS: TestRuntimeShExportsAbsentComponentsUnderNounset (0.00s)
+--- PASS: TestGenerateRuntimeConfigDataIncludesRuntimeSh (0.00s)
+--- PASS: TestGenerateRuntimeShQuotesHostileValues (0.00s)
+--- PASS: TestGenerateRuntimeShIsDeterministic (0.00s)
+--- PASS: TestGenerateRuntimeShWithoutAnyEnabledComponent (0.00s)
+--- PASS: TestGenerateRuntimeShExportsTieredStoreLevels (0.00s)
+--- PASS: TestRuntimeShCoversEveryConfigField (0.00s)
+--- PASS: TestRuntimeShExportsEveryComponentAlike (0.00s)
+    premise_tieredstore_split_test.go:222: recorder saw 1 event(s) during sync: [Warning RuntimeTieredStoreConflict Worker tieredStore cannot be updated in-place after creation: level 0 (processMemory): spec quota 16Gi does not match worker volume tiered-store-level-0-memory sizeLimit 8Gi. Delete and recreate the CacheRuntime to apply changes.]
+--- PASS: TestPremiseTieredStoreSplitWorker (0.00s)
+--- PASS: TestVerifyWorkerDriftWarnsThroughFullSync (0.00s)
+--- PASS: TestVerifyDriftThrottleAcrossSyncs (0.01s)
+--- PASS: TestVerifyClientTieredStoreDriftSilent (0.00s)
+--- PASS: TestVerifyEmptyDirMediumFlipDetected (0.01s)
+    --- PASS: TestVerifyEmptyDirMediumFlipDetected/disk-to-memory (0.00s)
+    --- PASS: TestVerifyEmptyDirMediumFlipDetected/memory-to-disk (0.00s)
+--- PASS: TestVerifyDispatchPrecedenceMatchesConfigMap (0.00s)
+--- PASS: TestCreateVolumeWithClientDisabled (1.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	1.286s

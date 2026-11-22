@@ -1,4 +1,8 @@
 TestPremiseTieredStoreSplitWorker	pass
 TestVerifyWorkerDriftWarnsThroughFullSync	pass
+TestVerifyDriftThrottleAcrossSyncs	pass
 TestVerifyClientTieredStoreDriftSilent	pass
-TestVerifyEmptyDirMediumFlipSilent	pass
+TestVerifyEmptyDirMediumFlipDetected/disk-to-memory	pass
+TestVerifyEmptyDirMediumFlipDetected/memory-to-disk	pass
+TestVerifyEmptyDirMediumFlipDetected	pass
+TestVerifyDispatchPrecedenceMatchesConfigMap	pass
