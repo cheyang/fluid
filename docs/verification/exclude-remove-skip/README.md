@@ -211,3 +211,25 @@ builds the client before the Describe's JustBeforeEach creates the nodes on it.
 CI on head `b1d9294c`: 22/22 checks pass (unittest, staticcheck, lint, build ×2,
 kind-e2e ×5, backward-compat ×5, CodeQL, Analyze, SonarCloud ×2, DCO, codecov ×2);
 PR OPEN / MERGEABLE. Copilot's pass on this head found no open issues.
+
+## Round 5 — head `07ff473a` (test-only: nil-selector spec now drives both nodes)
+
+One new commit, `07ff473a4` ("test(lifecycle): drive both nodes in the nil exclude
+selector spec"), 6+/4− in `node_test.go` only — no production change. It adopts the
+round-4 open cosmetic nit (F-NIT-ADD-SPEC-TITLE-01): the spec "should label every node
+without an exclude selector" previously drove only `excluded-node` despite its title;
+it now loops over both fixture nodes (`excluded-node`, `real-node`) and asserts each
+gains the runtime label.
+
+Checks run this round:
+
+| Check | Result |
+|-------|--------|
+| re-verify.sh (harness grafted on head `07ff473a`) | all 3 contracts FIXED — `results/r5-reverify/` (36/36 specs incl. the 3 harness contracts, SuiteSucceeded) |
+| Pure head, full package suite | 33/33 PASS (unchanged count: the commit modifies an existing spec, adds none) — `results/r5-head-pure/` |
+| Base `5e647359` + PR's own `node_test.go` | the 2 removal excluded-node specs FAIL (premise #6246 still reproduces on the unchanged base); both add-path specs PASS on base (correct polarity: the add guard predates the PR) — `results/r5-base-pr-specs/` (31 pass / 2 fail) |
+| Bites check (nil selector wrongly treated as exclude-all in `isNodeExcluded`) | "should label every node without an exclude selector" FAILS (with 5 other nil-default specs) → the strengthened spec genuinely pins the nil branch; production restored (`git status` clean, `go build` OK) — `results/r5-bites-check/` (27 pass / 6 fail) |
+
+CI on head `07ff473a`: 22/22 checks pass (unittest, staticcheck, lint, build ×2,
+kind-e2e ×5, backward-compat ×5, CodeQL, Analyze, SonarCloud ×2, DCO, codecov ×2);
+PR OPEN / MERGEABLE; base unchanged at `5e647359`.

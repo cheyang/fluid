@@ -22,6 +22,8 @@ should remove the runtime label from a node that isn't excluded	pass
 should leave a node matching the exclude selector untouched	pass
 should remove the runtime label when the exclude selector doesn't match the node	pass
 should only clean up the node that isn't excluded when the workers leave	pass
+should only label the node that doesn't match the exclude selector	pass
+should label every node without an exclude selector	pass
 should calculate correct differences	pass
 should return empty differences	pass
 should return all nodes as differences	pass
