@@ -1,0 +1,34 @@
+{
+  "topic": "juicefs-iscommandchanged-dash-o-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6283",
+  "harnessPaths": [
+    "docs/verification/juicefs-iscommandchanged-dash-o-codex",
+    "pkg/ddc/juicefs/verify_pr6283_iscommandchanged_codex_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "isCommandChanged splits the mount command on the bare substring \"-o\"; when the dataset name (embedded in the mount path) or an option name contains \"-o\", a changed option such as cache-size is never detected (issue #6282).",
+    "reportedComponent": "pkg/ddc/juicefs JuiceFSEngine.isCommandChanged (callers: syncWorkerSpec, updateFuseCmdConfigmapOnChanged)",
+    "patchedComponent": "pkg/ddc/juicefs/sync_runtime.go isCommandChanged",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base 253f6bb the *_ChangeDetected contract tests FAIL (changed=false for cache-size 1024->2048) for dash-o dataset names and dash-o option names, including via the real genFuseMount/genWorkerMount generators for CE+EE; see results/unit-base.log. On head cf975a0 all pass: results/unit-head.log.",
+    "match": ["TestVerifyPR6283_DatasetDashO_ChangeDetected", "TestVerifyPR6283_OptionNameDashO_ChangeDetected", "TestVerifyPR6283_GeneratorRoundTrip"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -gcflags=all=-l ./pkg/ddc/juicefs/ -run 'TestVerifyPR6283' -v -count=1"
+    }
+  },
+  "findings": [
+    { "id": "AC1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6283_DatasetDashO_ChangeDetected", "TestVerifyPR6283_GeneratorRoundTrip"] },
+    { "id": "AC2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6283_OptionNameDashO_ChangeDetected"] },
+    { "id": "AC3", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6283_DatasetDashO_NoChangeDifferentOrder", "TestVerifyPR6283_MetricsOptionIgnored", "identical options never reported changed"] },
+    { "id": "AC4", "polarity": "contract", "layer": "unit", "match": ["TestVerifyPR6283_DatasetDashO_OptionRemoved"] },
+    { "id": "AC5", "polarity": "contract", "layer": "unit", "match": ["TestJuiceFSEngine_isCommandChanged"] }
+  ],
+  "liveNote": "No live layer: the claim is pure command-string parsing; the real generator (genFuseMount/genWorkerMount) is exercised in-process, so a cluster adds nothing."
+}

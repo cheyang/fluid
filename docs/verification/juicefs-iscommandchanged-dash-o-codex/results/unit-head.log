@@ -1,0 +1,27 @@
+2026/11/22 16:32:01 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6283_DatasetDashO_ChangeDetected
+--- PASS: TestVerifyPR6283_DatasetDashO_ChangeDetected (0.00s)
+=== RUN   TestVerifyPR6283_OptionNameDashO_ChangeDetected
+--- PASS: TestVerifyPR6283_OptionNameDashO_ChangeDetected (0.00s)
+=== RUN   TestVerifyPR6283_DatasetDashO_NoChangeDifferentOrder
+--- PASS: TestVerifyPR6283_DatasetDashO_NoChangeDifferentOrder (0.00s)
+=== RUN   TestVerifyPR6283_MetricsOptionIgnored
+--- PASS: TestVerifyPR6283_MetricsOptionIgnored (0.00s)
+=== RUN   TestVerifyPR6283_DatasetDashO_OptionRemoved
+--- PASS: TestVerifyPR6283_DatasetDashO_OptionRemoved (0.00s)
+=== RUN   TestVerifyPR6283_GeneratorRoundTrip
+=== RUN   TestVerifyPR6283_GeneratorRoundTrip/community_fuse_cache-size_change_detected
+=== RUN   TestVerifyPR6283_GeneratorRoundTrip/community_worker_cache-size_change_detected
+=== RUN   TestVerifyPR6283_GeneratorRoundTrip/community_identical_options_never_reported_changed
+=== RUN   TestVerifyPR6283_GeneratorRoundTrip/enterprise_fuse_cache-size_change_detected
+=== RUN   TestVerifyPR6283_GeneratorRoundTrip/enterprise_worker_cache-size_change_detected
+=== RUN   TestVerifyPR6283_GeneratorRoundTrip/enterprise_identical_options_never_reported_changed
+--- PASS: TestVerifyPR6283_GeneratorRoundTrip (0.00s)
+    --- PASS: TestVerifyPR6283_GeneratorRoundTrip/community_fuse_cache-size_change_detected (0.00s)
+    --- PASS: TestVerifyPR6283_GeneratorRoundTrip/community_worker_cache-size_change_detected (0.00s)
+    --- PASS: TestVerifyPR6283_GeneratorRoundTrip/community_identical_options_never_reported_changed (0.00s)
+    --- PASS: TestVerifyPR6283_GeneratorRoundTrip/enterprise_fuse_cache-size_change_detected (0.00s)
+    --- PASS: TestVerifyPR6283_GeneratorRoundTrip/enterprise_worker_cache-size_change_detected (0.00s)
+    --- PASS: TestVerifyPR6283_GeneratorRoundTrip/enterprise_identical_options_never_reported_changed (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	0.016s

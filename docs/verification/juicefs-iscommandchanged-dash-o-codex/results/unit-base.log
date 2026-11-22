@@ -1,0 +1,43 @@
+2026/11/22 16:32:14 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6283_DatasetDashO_ChangeDetected
+    verify_pr6283_iscommandchanged_codex_test.go:38: dataset name contains -o: cache-size 1024->2048 must be detected as changed, got changed=false (crt="exec /bin/mount.juicefs my-vol /runtime-mnt/juicefs/default/demo-output/juicefs-fuse -o cache-dir=/dev/shm,cache-size=1024,metrics=0.0.0.0:9567" latest="exec /bin/mount.juicefs my-vol /runtime-mnt/juicefs/default/demo-output/juicefs-fuse -o cache-dir=/dev/shm,cache-size=2048,metrics=0.0.0.0:9567")
+--- FAIL: TestVerifyPR6283_DatasetDashO_ChangeDetected (0.00s)
+=== RUN   TestVerifyPR6283_OptionNameDashO_ChangeDetected
+    verify_pr6283_iscommandchanged_codex_test.go:50: option name contains -o: cache-size 1024->2048 must be detected as changed, got changed=false (crt="exec /bin/mount.juicefs my-vol /runtime-mnt/juicefs/default/demo/juicefs-fuse -o cache-partial-only,cache-size=1024" latest="exec /bin/mount.juicefs my-vol /runtime-mnt/juicefs/default/demo/juicefs-fuse -o cache-partial-only,cache-size=2048")
+--- FAIL: TestVerifyPR6283_OptionNameDashO_ChangeDetected (0.00s)
+=== RUN   TestVerifyPR6283_DatasetDashO_NoChangeDifferentOrder
+--- PASS: TestVerifyPR6283_DatasetDashO_NoChangeDifferentOrder (0.00s)
+=== RUN   TestVerifyPR6283_MetricsOptionIgnored
+--- PASS: TestVerifyPR6283_MetricsOptionIgnored (0.00s)
+=== RUN   TestVerifyPR6283_DatasetDashO_OptionRemoved
+    verify_pr6283_iscommandchanged_codex_test.go:86: removing the cache-dir option must be detected as changed (crt="exec /bin/mount.juicefs my-vol /runtime-mnt/juicefs/default/demo-output/juicefs-fuse -o cache-dir=/dev/shm,cache-size=1024" latest="exec /bin/mount.juicefs my-vol /runtime-mnt/juicefs/default/demo-output/juicefs-fuse -o cache-size=1024")
+--- FAIL: TestVerifyPR6283_DatasetDashO_OptionRemoved (0.00s)
+=== RUN   TestVerifyPR6283_GeneratorRoundTrip
+=== RUN   TestVerifyPR6283_GeneratorRoundTrip/community_fuse_cache-size_change_detected
+    verify_pr6283_iscommandchanged_codex_test.go:143: real genFuseMount (community): cache-size 1024->2048 must be detected.
+         crt: exec /bin/mount.juicefs my-vol /runtime-mnt/juicefs/default/demo-output/juicefs-fuse -o cache-size=1024,cache-dir=/dev/shm,metrics=0.0.0.0:9567
+         new: exec /bin/mount.juicefs my-vol /runtime-mnt/juicefs/default/demo-output/juicefs-fuse -o metrics=0.0.0.0:9567,cache-size=2048,cache-dir=/dev/shm
+=== RUN   TestVerifyPR6283_GeneratorRoundTrip/community_worker_cache-size_change_detected
+    verify_pr6283_iscommandchanged_codex_test.go:154: real genWorkerMount (community): cache-size 1024->2048 must be detected.
+         crt: exec /bin/mount.juicefs my-vol /runtime-mnt/juicefs/default/demo-output/juicefs-fuse -o cache-size=1024,cache-dir=/dev/shm,metrics=0.0.0.0:9567
+         new: exec /bin/mount.juicefs my-vol /runtime-mnt/juicefs/default/demo-output/juicefs-fuse -o cache-size=2048,cache-dir=/dev/shm,metrics=0.0.0.0:9567
+=== RUN   TestVerifyPR6283_GeneratorRoundTrip/community_identical_options_never_reported_changed
+=== RUN   TestVerifyPR6283_GeneratorRoundTrip/enterprise_fuse_cache-size_change_detected
+    verify_pr6283_iscommandchanged_codex_test.go:143: real genFuseMount (enterprise): cache-size 1024->2048 must be detected.
+         crt: exec /sbin/mount.juicefs my-vol /runtime-mnt/juicefs/default/demo-output/juicefs-fuse -o cache-size=1024,cache-dir=/dev/shm,foreground,no-update,cache-group=default-demo-output,no-sharing
+         new: exec /sbin/mount.juicefs my-vol /runtime-mnt/juicefs/default/demo-output/juicefs-fuse -o cache-group=default-demo-output,no-sharing,cache-size=2048,cache-dir=/dev/shm,foreground,no-update
+=== RUN   TestVerifyPR6283_GeneratorRoundTrip/enterprise_worker_cache-size_change_detected
+    verify_pr6283_iscommandchanged_codex_test.go:154: real genWorkerMount (enterprise): cache-size 1024->2048 must be detected.
+         crt: exec /sbin/mount.juicefs my-vol /runtime-mnt/juicefs/default/demo-output/juicefs-fuse -o cache-size=1024,cache-dir=/dev/shm,foreground,no-update,cache-group=default-demo-output
+         new: exec /sbin/mount.juicefs my-vol /runtime-mnt/juicefs/default/demo-output/juicefs-fuse -o no-update,cache-group=default-demo-output,cache-size=2048,cache-dir=/dev/shm,foreground
+=== RUN   TestVerifyPR6283_GeneratorRoundTrip/enterprise_identical_options_never_reported_changed
+--- FAIL: TestVerifyPR6283_GeneratorRoundTrip (0.00s)
+    --- FAIL: TestVerifyPR6283_GeneratorRoundTrip/community_fuse_cache-size_change_detected (0.00s)
+    --- FAIL: TestVerifyPR6283_GeneratorRoundTrip/community_worker_cache-size_change_detected (0.00s)
+    --- PASS: TestVerifyPR6283_GeneratorRoundTrip/community_identical_options_never_reported_changed (0.00s)
+    --- FAIL: TestVerifyPR6283_GeneratorRoundTrip/enterprise_fuse_cache-size_change_detected (0.00s)
+    --- FAIL: TestVerifyPR6283_GeneratorRoundTrip/enterprise_worker_cache-size_change_detected (0.00s)
+    --- PASS: TestVerifyPR6283_GeneratorRoundTrip/enterprise_identical_options_never_reported_changed (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	0.018s
+FAIL
