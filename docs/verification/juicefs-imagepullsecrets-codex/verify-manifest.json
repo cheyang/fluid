@@ -3,7 +3,7 @@
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6245",
   "reviewer": "codex",
   "baseSha": "ff99142f9ec5c32a0c9166de023cb8936f0e5ae5",
-  "headSha": "a0baafae0cdcc67ce1ed5b774ac248fc9043ebc1",
+  "headSha": "e7a93e77593cc08af7fc6a006254f26385d2d88e",
   "harnessPaths": [
     "docs/verification/juicefs-imagepullsecrets-codex",
     "pkg/ddc/juicefs/transform_image_pull_secrets_verify_test.go",
@@ -31,7 +31,7 @@
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "go test ./pkg/ddc/juicefs/ -run 'TestVerifyPr6245(HelmRenderScenarios|CRDSchemaCheck|APIDocPlacement|DocsFreshness|DocsFuseRestartClaim)' -count=1 -json"
+      "cmd": "go test ./pkg/ddc/juicefs/ -run 'TestVerifyPr6245(HelmRenderScenarios|CRDSchemaCheck|APIDocPlacement|DocsFreshness|DocsFuseRestartClaim|DocsAntecedentDisambiguated)' -count=1 -json"
     }
   },
   "findings": [
@@ -168,7 +168,15 @@
       "match": [
         "TestVerifyPr6245DocsFuseRestartClaim"
       ],
-      "note": "round 5: the docs commit 2150b49ef replaced the stale recreate-claim with 'the fuse pods are restarted' / 'fuse pod \u4f1a\u91cd\u542f', which is inaccurate on the default configuration (OnDelete ds + OnRuntimeDeleted clean policy; see A11-fuse-rollout-is-lazy). RED on head 2150b49ef, GREEN once the sentence describes the lazy/on-replace behavior."
+      "note": "round 5: the docs commit 2150b49ef replaced the stale recreate-claim with 'the fuse pods are restarted' / 'fuse pod 会重启', which is inaccurate on the default configuration (OnDelete ds + OnRuntimeDeleted clean policy; see A11-fuse-rollout-is-lazy). RED on head 2150b49ef, GREEN once the sentence describes the lazy/on-replace behavior."
+    },
+    {
+      "id": "F-docs-antecedent-ambiguous",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestVerifyPr6245DocsAntecedentDisambiguated"
+      ]
     }
   ],
   "liveNote": "L3 (skipped per debate policy): on a real cluster, create a JuiceFSRuntime with spec.imagePullSecrets and worker/fuse overrides and inspect the resulting worker StatefulSet / fuse DaemonSet pod specs.",

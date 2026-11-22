@@ -629,3 +629,24 @@ func TestVerifyPr6245DocsFuseRestartClaim(t *testing.T) {
 		t.Fatalf("docs_fuse_restart_claim_check.sh failed: %v\n%s", err, out)
 	}
 }
+
+// TestVerifyPr6245DocsAntecedentDisambiguated is the contract test for
+// F-docs-antecedent-ambiguous (round 6): the sample-docs closing paragraph
+// declares spec.master.imagePullSecrets and spec.jobWorker.imagePullSecrets
+// inert, so the next sentence must not use the bare demonstrative "these
+// fields" (en) / "这些字段" (zh) - its nearest antecedent is the inert
+// master/jobWorker pair, which the sync path never consumes (desired
+// worker/fuse secrets derive from spec.imagePullSecrets + worker/fuse
+// overrides + the controller env default only). RED on heads 2150b49ef and
+// a0baafae0 (bare demonstrative in both languages); GREEN once the referent
+// is disambiguated ("the imagePullSecrets fields above" / "上述
+// imagePullSecrets 字段"), as in round-7 head e7a93e775.
+func TestVerifyPr6245DocsAntecedentDisambiguated(t *testing.T) {
+	root := pr6245RepoRoot(t)
+	script := filepath.Join(root, "docs/verification/juicefs-imagepullsecrets-codex/scripts/docs_antecedent_check.sh")
+	cmd := exec.Command("bash", script, root)
+	cmd.Dir = root
+	if out, err := cmd.CombinedOutput(); err != nil {
+		t.Fatalf("docs_antecedent_check.sh failed: %v\n%s", err, out)
+	}
+}
