@@ -1,0 +1,31 @@
+re-verify: manifest = docs/verification/juicefs-imagepullsecrets-claude/verify-manifest.json
+re-verify: resolving PR head via 'git fetch https://github.com/fluid-cloudnative/fluid.git pull/6245/head' (machine-independent)
+re-verify: current head = e7a93e77593cc08af7fc6a006254f26385d2d88e
+re-verify: last-reviewed = a0baafae0cdcc67ce1ed5b774ac248fc9043ebc1  (review delta = a0baafae0cdcc67ce1ed5b774ac248fc9043ebc1..e7a93e77593cc08af7fc6a006254f26385d2d88e)
+re-verify: fixed-ref=e7a93e77593cc08af7fc6a006254f26385d2d88e  harness-from=verify/juicefs-imagepullsecrets-claude
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'integration' (ginkgo)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+C1-hierarchical-precedence-controller contract  integration  FIXED          pass=7 fail=0 miss=0
+C2-chart-render-fallback contract  integration  FIXED          pass=5 fail=0 miss=0
+C3-env-default-back-compat contract  integration  FIXED          pass=1 fail=0 miss=0
+C4-apidoc-row-placement contract  unit         FIXED          pass=1 fail=0 miss=0
+C5-sync-propagation contract  unit         FIXED          pass=1 fail=0 miss=0
+C6-sample-docs-sync-claim contract  unit         FIXED          pass=1 fail=0 miss=0
+C7-desync-missing-script-cm-recovery contract  unit         FIXED          pass=1 fail=0 miss=0
+C8-desync-strategy-flip-catches-up contract  unit         FIXED          pass=1 fail=0 miss=0
+C9-desync-rotation-then-override-removal contract  unit         FIXED          pass=1 fail=0 miss=0
+C10-docs-fuse-restart-claim contract  unit         FIXED          pass=1 fail=0 miss=0
+C11-docs-antecedent-claim contract  unit         FIXED          pass=1 fail=0 miss=0
+
+Live layer (manual): L3 (live cluster) intentionally not run this round: pipeline configured for unit + integration layers only. The chart rendering inside the ginkgo scenarios covers the helm layer without a cluster.
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/juicefs-imagepullsecrets-claude/results/reverify
+
+Review delta this round: a0baafae0cdcc67ce1ed5b774ac248fc9043ebc1..e7a93e77593cc08af7fc6a006254f26385d2d88e
+After reviewing that delta, advance the marker for the next round:
+  echo e7a93e77593cc08af7fc6a006254f26385d2d88e > docs/verification/juicefs-imagepullsecrets-claude/.last-reviewed && git add docs/verification/juicefs-imagepullsecrets-claude/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: all findings fixed.

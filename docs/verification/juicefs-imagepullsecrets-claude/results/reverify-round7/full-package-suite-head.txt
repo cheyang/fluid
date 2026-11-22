@@ -1,0 +1,5 @@
+== go build ./... (head e7a93e775) ==
+BUILD-OK
+== go test ./pkg/ddc/juicefs/ ./api/... ==
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/juicefs	12.161s
+ok  	github.com/fluid-cloudnative/fluid/api/v1alpha1	0.011s

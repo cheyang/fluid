@@ -327,3 +327,39 @@ round reviews exactly that head. Still open, all non-gating and unchanged:
 maintainer decision on the in-repo chart-render test, the Alluxio follow-up
 issue for the #6248 side-note, the surfaced-error nit, and Q2 (fuse negative
 assertion in the author's leaf test).
+
+## Round 7 (delta a0baafae..e7a93e7, "docs: clarify which imagePullSecrets fields the sync note refers to")
+
+One commit, docs-only (`docs/{en,zh}/samples/image_pull_secrets.md`, one phrase
+each) — the fix for round-6's F-docs-antecedent-ambiguous, the only new finding
+of round 6 (a clarity nit, consensus). The closing paragraph's "Changing these
+fields" / "修改已有 runtime 的这些字段" — whose nearest antecedent was the
+master/jobWorker pair declared inert one sentence earlier — now reads
+"Changing the imagePullSecrets fields above" / "修改已有 runtime 的上述
+imagePullSecrets 字段", pointing at the spec/worker/fuse fields (and the YAML
+example ~15 lines up). Everything else in both closing paragraphs is
+byte-identical; the diffstat is exactly these two lines, so no other contract's
+subject changed.
+
+New this round: **C11-docs-antecedent-claim** (contract, unit) —
+`TestJuicefsSampleDocsAntecedentClaim`, added additively because round 6
+recorded the antecedent nit as reasoning-only (no harness test); per round
+policy a missing harness is never proof of a fix. It anchors the premise in
+code (sync_runtime.go still syncs imagePullSecrets and still has no
+Master/JobWorker secrets reference, so the disclosure the sentence must not
+contradict is real), then asserts the ambiguous phrasing is gone and the
+clarified phrasing present in both languages.
+
+| claim | verdict | evidence |
+| --- | --- | --- |
+| C11-docs-antecedent-claim | **FIXED** — contract RED on previous head a0baafae (fail for exactly the round-6 reason: "Changing these fields"/"这些字段" present, clarified wording missing in both languages) → GREEN on e7a93e7 | `results/reverify-round7/previous-head-a0baafae-c11-red.txt`, `results/reverify-round7/unit.out` |
+| C1–C10 | **unchanged, green** on e7a93e7 (re-verify.sh: all 11 findings FIXED; C5/C6/C7/C8/C9/C10 pass counts identical to round 6) | `results/reverify-round7/unit.out`, `results/reverify-round7/integration.out` |
+| Full repo suite on clean head | `go build ./...` clean; `go test ./pkg/ddc/juicefs/ ./api/...` ok, no red anywhere | `results/reverify-round7/full-package-suite-head.txt` |
+| CI at head | 22/22 checks SUCCESS at e7a93e7 (build x2, unittest, lint, staticcheck, CodeQL, Analyze(go), SonarCloud x2, DCO, codecov x2, backward-compat x5 and kind-e2e x5 across k8s v1.22.17–v1.33.2); PR OPEN, MERGEABLE — the head move re-triggered CI (as round 6's gate note required) and it completed green (count per the round-6 ledger correction: the rollup has 22 checks; round 6's README "25/25" line above is the already-corrected tally slip) | `results/reverify-round7/ci-head.txt` |
+
+The live-layer notes stand (L3 intentionally not run; pipeline is unit +
+integration only). Round-6 next-round items: the [NIT] antecedent rewording is
+done and verified differentially inside this round's frozen head; the two
+[SHOULD]s (in-repo chart-render test decision, Alluxio follow-up issue before
+`fixes #6248` auto-closes) and the remaining optional nits are unchanged and
+non-gating.
