@@ -1,0 +1,212 @@
+2026/11/22 14:03:59 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestThinEngine_CreateVolume
+--- PASS: TestThinEngine_CreateVolume (1.00s)
+=== RUN   TestThinEngine_createFusePersistentVolume
+--- PASS: TestThinEngine_createFusePersistentVolume (1.00s)
+=== RUN   TestThinEngine_createFusePersistentVolumeClaim
+--- PASS: TestThinEngine_createFusePersistentVolumeClaim (0.00s)
+=== RUN   TestThinEngine_generateDataProcessValueFile
+=== RUN   TestThinEngine_generateDataProcessValueFile/TestNotOfTypeDataProcess
+=== RUN   TestThinEngine_generateDataProcessValueFile/TestTargetDatasetNotFound
+=== RUN   TestThinEngine_generateDataProcessValueFile/TestGenerateDataProcessValueFile
+--- PASS: TestThinEngine_generateDataProcessValueFile (0.00s)
+    --- PASS: TestThinEngine_generateDataProcessValueFile/TestNotOfTypeDataProcess (0.00s)
+    --- PASS: TestThinEngine_generateDataProcessValueFile/TestTargetDatasetNotFound (0.00s)
+    --- PASS: TestThinEngine_generateDataProcessValueFile/TestGenerateDataProcessValueFile (0.00s)
+=== RUN   TestUpdateDatasetStatus
+--- PASS: TestUpdateDatasetStatus (0.00s)
+=== RUN   TestBindToDataset
+--- PASS: TestBindToDataset (0.00s)
+=== RUN   TestThinEngine_DeleteVolume
+--- PASS: TestThinEngine_DeleteVolume (10.00s)
+=== RUN   TestThinEngine_deleteFusePersistentVolume
+--- PASS: TestThinEngine_deleteFusePersistentVolume (0.00s)
+=== RUN   TestThinEngine_deleteFusePersistentVolumeClaim
+--- PASS: TestThinEngine_deleteFusePersistentVolumeClaim (0.00s)
+=== RUN   TestSyncReplicas
+--- PASS: TestSyncReplicas (0.00s)
+=== RUN   TestThinEngine_getRuntimeInfo
+--- PASS: TestThinEngine_getRuntimeInfo (0.00s)
+=== RUN   TestThinEngine_CheckAndUpdateRuntimeStatus
+
+  Test CheckAndUpdateRuntimeStatus 
+    CheckAndUpdateRuntimeStatus success 
+
+
+0 total assertions
+
+--- PASS: TestThinEngine_CheckAndUpdateRuntimeStatus (0.00s)
+=== RUN   TestThin
+Running Suite: Thin Suite - /home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-22/pr-6274/wt-pr6274-base/pkg/ddc/thin
+=================================================================================================================================
+Random Seed: [1m1795327439[0m
+
+Will run [1m4[0m of [1m134[0m specs
+[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.001 seconds][0m
+[0mThinEngine fuse option verification harness (PR #6274, issue #6273) [38;5;9m[1m[It] contract: the rendered fuse container MOUNT_OPTIONS keeps ro when the profile defines fuse options[0m [38;5;204m[pkg.ddc.thin.transform_fuse_options_verify_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-22/pr-6274/wt-pr6274-base/pkg/ddc/thin/transform_fuse_options_verify_test.go:76[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: option1=value1,option2=value2,option3=value3
+  to match regular expression
+      <string>: (^|,)ro(,|$)[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-22/pr-6274/wt-pr6274-base/pkg/ddc/thin/transform_fuse_options_verify_test.go:89[0m [38;5;243m@ 11/22/26 14:04:11.54[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mThinEngine fuse option verification harness (PR #6274, issue #6273) [38;5;9m[1m[It] contract: runtime fuse options must not be written into the profile's option map[0m [38;5;204m[pkg.ddc.thin.transform_fuse_options_verify_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-22/pr-6274/wt-pr6274-base/pkg/ddc/thin/transform_fuse_options_verify_test.go:95[0m
+
+  [38;5;9m[FAILED] Expected
+      <map[string]string | len:3>: {"option3": "value3", "option1": "value1", "option2": "value2"}
+  to equal
+      <map[string]string | len:2>: {"option1": "value1", "option2": "value2"}[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-22/pr-6274/wt-pr6274-base/pkg/ddc/thin/transform_fuse_options_verify_test.go:98[0m [38;5;243m@ 11/22/26 14:04:11.54[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mThinEngine fuse option verification harness (PR #6274, issue #6273) [38;5;9m[1m[It] contract: profile options are merged, they cannot silently drop ro[0m [38;5;204m[pkg.ddc.thin.transform_fuse_options_verify_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-22/pr-6274/wt-pr6274-base/pkg/ddc/thin/transform_fuse_options_verify_test.go:104[0m
+
+  [38;5;9m[FAILED] Expected
+      <string>: option1=value1,option2=value2,option3=value3
+  to match regular expression
+      <string>: (^|,)ro(,|$)[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-22/pr-6274/wt-pr6274-base/pkg/ddc/thin/transform_fuse_options_verify_test.go:107[0m [38;5;243m@ 11/22/26 14:04:11.54[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m
+
+[38;5;9m[1mSummarizing 3 Failures:[0m
+  [38;5;9m[FAIL][0m [0mThinEngine fuse option verification harness (PR #6274, issue #6273) [38;5;9m[1m[It] contract: the rendered fuse container MOUNT_OPTIONS keeps ro when the profile defines fuse options[0m [38;5;204m[pkg.ddc.thin.transform_fuse_options_verify_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-22/pr-6274/wt-pr6274-base/pkg/ddc/thin/transform_fuse_options_verify_test.go:89[0m
+  [38;5;9m[FAIL][0m [0mThinEngine fuse option verification harness (PR #6274, issue #6273) [38;5;9m[1m[It] contract: runtime fuse options must not be written into the profile's option map[0m [38;5;204m[pkg.ddc.thin.transform_fuse_options_verify_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-22/pr-6274/wt-pr6274-base/pkg/ddc/thin/transform_fuse_options_verify_test.go:98[0m
+  [38;5;9m[FAIL][0m [0mThinEngine fuse option verification harness (PR #6274, issue #6273) [38;5;9m[1m[It] contract: profile options are merged, they cannot silently drop ro[0m [38;5;204m[pkg.ddc.thin.transform_fuse_options_verify_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/runs/fluid-cloudnative-fluid/2026-11-22/pr-6274/wt-pr6274-base/pkg/ddc/thin/transform_fuse_options_verify_test.go:107[0m
+
+[38;5;9m[1mRan 4 of 134 Specs in 0.003 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m1 Passed[0m | [38;5;9m[1m3 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m130 Skipped[0m
+--- FAIL: TestThin (0.00s)
+=== RUN   TestThinEngine_transfromSecretsForPersistentVolumeClaimMounts
+=== RUN   TestThinEngine_transfromSecretsForPersistentVolumeClaimMounts/testing_transformSecretsForpersistentVolumeClaimMounts_with_CopyNodePublishSecretIfNotExists_policy
+=== RUN   TestThinEngine_transfromSecretsForPersistentVolumeClaimMounts/testing_transformSecretsForpersistentVolumeClaimMounts_with_MountNodePublishSecretIfExists_policy
+=== RUN   TestThinEngine_transfromSecretsForPersistentVolumeClaimMounts/testing_transformSecretsForpersistentVolumeClaimMounts_with_NotMountNodePublishSecret_policy
+--- PASS: TestThinEngine_transfromSecretsForPersistentVolumeClaimMounts (0.00s)
+    --- PASS: TestThinEngine_transfromSecretsForPersistentVolumeClaimMounts/testing_transformSecretsForpersistentVolumeClaimMounts_with_CopyNodePublishSecretIfNotExists_policy (0.00s)
+    --- PASS: TestThinEngine_transfromSecretsForPersistentVolumeClaimMounts/testing_transformSecretsForpersistentVolumeClaimMounts_with_MountNodePublishSecretIfExists_policy (0.00s)
+    --- PASS: TestThinEngine_transfromSecretsForPersistentVolumeClaimMounts/testing_transformSecretsForpersistentVolumeClaimMounts_with_NotMountNodePublishSecret_policy (0.00s)
+=== RUN   TestThinEngine_transformFuseVolumes
+=== RUN   TestThinEngine_transformFuseVolumes/test-normal
+=== RUN   TestThinEngine_transformFuseVolumes/test-err
+=== RUN   TestThinEngine_transformFuseVolumes/test-2
+--- PASS: TestThinEngine_transformFuseVolumes (0.00s)
+    --- PASS: TestThinEngine_transformFuseVolumes/test-normal (0.00s)
+    --- PASS: TestThinEngine_transformFuseVolumes/test-err (0.00s)
+    --- PASS: TestThinEngine_transformFuseVolumes/test-2 (0.00s)
+=== RUN   TestThinEngine_transformWorkerVolumes
+=== RUN   TestThinEngine_transformWorkerVolumes/test-normal
+=== RUN   TestThinEngine_transformWorkerVolumes/test-err
+=== RUN   TestThinEngine_transformWorkerVolumes/test-2
+--- PASS: TestThinEngine_transformWorkerVolumes (0.00s)
+    --- PASS: TestThinEngine_transformWorkerVolumes/test-normal (0.00s)
+    --- PASS: TestThinEngine_transformWorkerVolumes/test-err (0.00s)
+    --- PASS: TestThinEngine_transformWorkerVolumes/test-2 (0.00s)
+=== RUN   TestTotalStorageBytes
+=== RUN   TestTotalStorageBytes/test
+--- PASS: TestTotalStorageBytes (0.00s)
+    --- PASS: TestTotalStorageBytes/test (0.00s)
+=== RUN   TestTotalFileNums
+=== RUN   TestTotalFileNums/test
+--- PASS: TestTotalFileNums (0.00s)
+    --- PASS: TestTotalFileNums/test (0.00s)
+=== RUN   TestThinEngine_FreeStorageBytes
+=== RUN   TestThinEngine_FreeStorageBytes/test
+--- PASS: TestThinEngine_FreeStorageBytes (0.00s)
+    --- PASS: TestThinEngine_FreeStorageBytes/test (0.00s)
+=== RUN   TestThinEngine_PrepareUFS
+=== RUN   TestThinEngine_PrepareUFS/test
+--- PASS: TestThinEngine_PrepareUFS (0.00s)
+    --- PASS: TestThinEngine_PrepareUFS/test (0.00s)
+=== RUN   TestThinEngine_ShouldCheckUFS
+=== RUN   TestThinEngine_ShouldCheckUFS/test
+--- PASS: TestThinEngine_ShouldCheckUFS (0.00s)
+    --- PASS: TestThinEngine_ShouldCheckUFS/test (0.00s)
+=== RUN   TestThinEngine_ShouldUpdateUFS
+=== RUN   TestThinEngine_ShouldUpdateUFS/test
+--- PASS: TestThinEngine_ShouldUpdateUFS (0.00s)
+    --- PASS: TestThinEngine_ShouldUpdateUFS/test (0.00s)
+=== RUN   TestThinEngine_UpdateOnUFSChange
+=== RUN   TestThinEngine_UpdateOnUFSChange/test
+--- PASS: TestThinEngine_UpdateOnUFSChange (0.00s)
+    --- PASS: TestThinEngine_UpdateOnUFSChange/test (0.00s)
+=== RUN   TestThinEngine_UsedStorageBytes
+=== RUN   TestThinEngine_UsedStorageBytes/test
+--- PASS: TestThinEngine_UsedStorageBytes (0.00s)
+    --- PASS: TestThinEngine_UsedStorageBytes/test (0.00s)
+=== RUN   TestThinEngine_updateFuseConfigOnChange
+--- PASS: TestThinEngine_updateFuseConfigOnChange (0.00s)
+=== RUN   TestThinEngine_getRuntime
+=== RUN   TestThinEngine_getRuntime/test
+--- PASS: TestThinEngine_getRuntime (0.00s)
+    --- PASS: TestThinEngine_getRuntime/test (0.00s)
+=== RUN   TestThinEngine_getFuseDaemonsetName
+=== RUN   TestThinEngine_getFuseDaemonsetName/test
+--- PASS: TestThinEngine_getFuseDaemonsetName (0.00s)
+    --- PASS: TestThinEngine_getFuseDaemonsetName/test (0.00s)
+=== RUN   TestThinEngine_getDaemonset
+=== RUN   TestThinEngine_getDaemonset/test
+--- PASS: TestThinEngine_getDaemonset (0.00s)
+    --- PASS: TestThinEngine_getDaemonset/test (0.00s)
+=== RUN   TestThinEngine_getMountPoint
+=== RUN   TestThinEngine_getMountPoint/test
+--- PASS: TestThinEngine_getMountPoint (0.00s)
+    --- PASS: TestThinEngine_getMountPoint/test (0.00s)
+=== RUN   Test_getMountRoot
+=== RUN   Test_getMountRoot/test
+--- PASS: Test_getMountRoot (0.00s)
+    --- PASS: Test_getMountRoot/test (0.00s)
+=== RUN   TestValidateDuplicateDatasetMounts
+=== RUN   TestValidateDuplicateDatasetMounts/nil_dataset
+=== RUN   TestValidateDuplicateDatasetMounts/empty_mounts
+=== RUN   TestValidateDuplicateDatasetMounts/single_mount
+=== RUN   TestValidateDuplicateDatasetMounts/multiple_mounts_with_unique_names_and_paths
+=== RUN   TestValidateDuplicateDatasetMounts/duplicate_mount_names
+=== RUN   TestValidateDuplicateDatasetMounts/duplicate_mount_paths
+=== RUN   TestValidateDuplicateDatasetMounts/empty_path_defaults_to_name_based_path
+=== RUN   TestValidateDuplicateDatasetMounts/empty_paths_with_same_names_create_duplicates
+=== RUN   TestValidateDuplicateDatasetMounts/explicit_path_conflicts_with_default_name_path
+--- PASS: TestValidateDuplicateDatasetMounts (0.00s)
+    --- PASS: TestValidateDuplicateDatasetMounts/nil_dataset (0.00s)
+    --- PASS: TestValidateDuplicateDatasetMounts/empty_mounts (0.00s)
+    --- PASS: TestValidateDuplicateDatasetMounts/single_mount (0.00s)
+    --- PASS: TestValidateDuplicateDatasetMounts/multiple_mounts_with_unique_names_and_paths (0.00s)
+    --- PASS: TestValidateDuplicateDatasetMounts/duplicate_mount_names (0.00s)
+    --- PASS: TestValidateDuplicateDatasetMounts/duplicate_mount_paths (0.00s)
+    --- PASS: TestValidateDuplicateDatasetMounts/empty_path_defaults_to_name_based_path (0.00s)
+    --- PASS: TestValidateDuplicateDatasetMounts/empty_paths_with_same_names_create_duplicates (0.00s)
+    --- PASS: TestValidateDuplicateDatasetMounts/explicit_path_conflicts_with_default_name_path (0.00s)
+=== RUN   TestThinEngineValidate
+=== RUN   TestThinEngineValidate/valid_dataset
+=== RUN   TestThinEngineValidate/dataset_with_duplicate_mount_names
+=== RUN   TestThinEngineValidate/dataset_with_duplicate_mount_paths
+--- PASS: TestThinEngineValidate (0.00s)
+    --- PASS: TestThinEngineValidate/valid_dataset (0.00s)
+    --- PASS: TestThinEngineValidate/dataset_with_duplicate_mount_names (0.00s)
+    --- PASS: TestThinEngineValidate/dataset_with_duplicate_mount_paths (0.00s)
+=== RUN   TestThinEngineValidateWithRuntimeInfoError
+--- PASS: TestThinEngineValidateWithRuntimeInfoError (0.00s)
+=== RUN   TestThinEngine_wrapMountedPersistentVolumeClaim
+=== RUN   TestThinEngine_wrapMountedPersistentVolumeClaim/wrap_native_pvc
+=== RUN   TestThinEngine_wrapMountedPersistentVolumeClaim/wrap_native_pvc_with_existed_label
+--- PASS: TestThinEngine_wrapMountedPersistentVolumeClaim (0.00s)
+    --- PASS: TestThinEngine_wrapMountedPersistentVolumeClaim/wrap_native_pvc (0.00s)
+    --- PASS: TestThinEngine_wrapMountedPersistentVolumeClaim/wrap_native_pvc_with_existed_label (0.00s)
+=== RUN   TestThinEngine_unwrapMountedPersistentVolumeClaims
+=== RUN   TestThinEngine_unwrapMountedPersistentVolumeClaims/unwrap_native_pvc
+=== RUN   TestThinEngine_unwrapMountedPersistentVolumeClaims/unwrap_native_pvc_without_label
+--- PASS: TestThinEngine_unwrapMountedPersistentVolumeClaims (0.00s)
+    --- PASS: TestThinEngine_unwrapMountedPersistentVolumeClaims/unwrap_native_pvc (0.00s)
+    --- PASS: TestThinEngine_unwrapMountedPersistentVolumeClaims/unwrap_native_pvc_without_label (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	12.031s
+FAIL

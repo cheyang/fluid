@@ -1,0 +1,59 @@
+{
+  "topic": "thin-ro-fuse",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6274",
+  "harnessPaths": [
+    "docs/verification/thin-ro-fuse-claude",
+    "pkg/ddc/thin/transform_fuse_options_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "ThinEngine.parseFuseOptions drops the \"ro\" fuse option when the ThinRuntimeProfile defines fuse options, so a read-only dataset is mounted read-write, and the runtime options are written into the profile's own Spec.Fuse.Options map (issue #6273)",
+    "reportedComponent": "pkg/ddc/thin/transform_fuse.go (ThinEngine.parseFuseOptions)",
+    "patchedComponent": "pkg/ddc/thin/transform_fuse.go (ThinEngine.parseFuseOptions)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Harness grafted onto merge-base 896d21e: 3 contract specs FAIL (ro missing from MOUNT_OPTIONS, profile map mutated) while the writable-dataset guard passes — see results/base-harness-repro.txt (1 Passed | 3 Failed)",
+    "match": [
+      "contract: the rendered fuse container MOUNT_OPTIONS keeps ro when the profile defines fuse options",
+      "contract: runtime fuse options must not be written into the profile's option map",
+      "contract: profile options are merged, they cannot silently drop ro"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "ginkgo",
+      "cmd": "go test -gcflags=all=-l -count=1 -timeout 300s ./pkg/ddc/thin/ -ginkgo.focus 'fuse option verification harness' -ginkgo.json-report=$GINKGO_REPORT",
+      "report": "$GINKGO_REPORT"
+    }
+  },
+  "findings": [
+    {
+      "id": "ro-drop-mount-options",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "contract: the rendered fuse container MOUNT_OPTIONS keeps ro when the profile defines fuse options",
+        "contract: profile options are merged, they cannot silently drop ro"
+      ]
+    },
+    {
+      "id": "profile-map-aliasing",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "contract: runtime fuse options must not be written into the profile's option map"
+      ]
+    },
+    {
+      "id": "writable-no-ro-guard",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "contract: no ro is added for a writable dataset with profile options"
+      ]
+    }
+  ],
+  "liveNote": "L3 not run for this round (per round policy: unit + integration layers only). If a live check is wanted later: create a ThinRuntime with a ReadOnlyMany (or unset accessModes) Dataset and a ThinRuntimeProfile with fuse options, then confirm the fuse container's MOUNT_OPTIONS env contains ro."
+}
