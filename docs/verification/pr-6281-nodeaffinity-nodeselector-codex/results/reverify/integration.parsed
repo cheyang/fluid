@@ -1,0 +1,2 @@
+TestVerifyPR6281MutateSkipsInjectionWhenPodNodeSelectorHasLocality	pass
+TestVerifyPR6281MutateStillInjectsWhenPodHasNoLocality	pass
