@@ -1,7 +1,8 @@
 # jindo-quotalist-sum-codex — bug verification
 
 Reproducible evidence for the findings raised while reviewing
-https://github.com/fluid-cloudnative/fluid/pull/6261 (round-3 head 928ea4813c8b0d359e3a87f78cadaef2f862e875,
+https://github.com/fluid-cloudnative/fluid/pull/6261 (round-4 head 72d7d98cae66aec4c8d84f137fe3932984c84c4c,
+round-3 head 928ea4813c8b0d359e3a87f78cadaef2f862e875,
 round-2 head 305e466f49d7aee3431aab3ee9deb531fb23087e, round-1 head 22d2d07c7c275a3baff2def3d24526ae8b74b380,
 base 1321a217d78ab99c0cb76d2ea334d593a3765509).
 Reviewer: Codex (reviewer B).
@@ -31,6 +32,39 @@ Layers run against the code under review:
 | Evidence | On base, the F1 tests panic with the issue's exact message: `results/premise-base-jindofsx.txt`, `results/premise-base-jindocache.txt` |
 
 ## Summary of results
+
+### Round 4 (head 72d7d98c, delta 928ea481..72d7d98)
+
+Round-4 delta is a single docs commit (`72d7d98ca docs(jindo): recommend 512Mi for
+quotaList API input`) — the F13 fix: the `QuotaList` field doc now recommends binary
+units (`512Mi`) for API input and describes a lowercase `m` as Jindo's internal
+notation for Mi, regenerated consistently into `api/v1alpha1/openapi_generated.go`,
+`api/v1alpha1/swagger.json`, and both `api_doc.md` copies. No Go code changed.
+
+Re-verified with `re-verify.sh 72d7d98cae66aec4c8d84f137fe3932984c84c4c`
+(`results/round4/reverify-round4.txt`, raw: `results/round4/unit.out`,
+`results/round4/integration.out`):
+
+| ID | Claim | Layer | base 1321a217d | r3 928ea481 | head 72d7d98c | Evidence |
+|----|-------|-------|----------------|-------------|---------------|----------|
+| A1 | fix sums Gi quota lists and persists the sum | 1 | panic | pass | **pass** | `results/round4/reverify-round4.txt` |
+| A2 | invalid quota element returns error instead of panic | 1 | panic | pass | **pass** | same |
+| F1 | Mi-denominated quota lists must sum in Mi | 1 | panic | pass | **pass** | same |
+| F5 | single-value Mi quota must yield an Mi request | 1 | FAIL | pass | **pass** | same |
+| F3/F4 | negative quota elements are silently summed | 1 | same | same | STILL-PRESENT (canary passes; finding open by design) | `TestVerifySumQuotasNegativeCanary` |
+| F13 | QuotaList doc must recommend 512Mi and call m Jindo-internal | doc-check | n/a (line absent) | FAIL (old sentence in all 5 copies) | **FIXED (pass)** | `results/round4/doc-check-head.txt` vs `doc-check-prev-head-928ea481.txt` (bites) |
+
+Delta-specific checks:
+
+- New pin `scripts/verify-quotalist-doc.sh` (F13): PASS at 72d7d98 on all five doc
+  copies; FAILS at 928ea481 on all five (stale "is read as Mi (not milli)" sentence
+  detected) — differential demonstrated.
+- `FLUID_UNIT_TEST=true go test -count=1 ./pkg/utils/jindo/ ./pkg/ddc/jindofsx/
+  ./pkg/ddc/jindocache/` all `ok` at 72d7d98 (`results/round4/head-sweep-round4.txt`),
+  including the PR's own `TestTransformWorkerResourcesQuotaListPositive`.
+- CI unchanged: all Actions workflows `action_required` on 72d7d98 (fork approval
+  still pending); rollup = DCO + SonarCloud only (F10 still open; details in
+  `results/round4/reverify-round4.txt`).
 
 ### Round 3 (head 928ea481, delta 305e466f..928ea481)
 

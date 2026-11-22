@@ -1,0 +1,17 @@
+FAIL  api/v1alpha1/common.go: missing the binary-unit recommendation
+FAIL  api/v1alpha1/common.go: missing the 'Jindo's internal notation' description
+FAIL  api/v1alpha1/openapi_generated.go: missing the binary-unit recommendation
+FAIL  api/v1alpha1/openapi_generated.go: missing the 'Jindo's internal notation' description
+FAIL  api/v1alpha1/swagger.json: missing the binary-unit recommendation
+FAIL  api/v1alpha1/swagger.json: missing the 'Jindo's internal notation' description
+FAIL  docs/en/dev/api_doc.md: missing the binary-unit recommendation
+FAIL  docs/en/dev/api_doc.md: missing the 'Jindo's internal notation' description
+FAIL  docs/zh/dev/api_doc.md: missing the binary-unit recommendation
+FAIL  docs/zh/dev/api_doc.md: missing the 'Jindo's internal notation' description
+FAIL  stale round-3 sentence ('is read as Mi (not milli)') still present:
+api/v1alpha1/common.go
+api/v1alpha1/openapi_generated.go
+api/v1alpha1/swagger.json
+docs/en/dev/api_doc.md
+docs/zh/dev/api_doc.md
+RESULT: QuotaList doc contract VIOLATED.

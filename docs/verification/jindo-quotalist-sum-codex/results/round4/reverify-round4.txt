@@ -1,0 +1,28 @@
+Round 4 re-verify — head 72d7d98cae66aec4c8d84f137fe3932984c84c4c (delta 928ea481..72d7d98 = docs-only F13 fix)
+Ran: bash docs/verification/jindo-quotalist-sum-codex/scripts/re-verify.sh 72d7d98cae66aec4c8d84f137fe3932984c84c4c
+(unit layer = TestVerify* on the three touched packages; integration layer = full package suites)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+F1     contract  unit         FIXED          pass=2 fail=0 miss=0   (TestVerifyQuotaListMiUnitsSum, TestVerifyJindoCacheQuotaListMiUnitsSum)
+F3     canary    unit         STILL-PRESENT  pass=1 fail=0 miss=0   (TestVerifySumQuotasNegativeCanary; = ledger F4, negative quotas still silently summed — open by design)
+A1     contract  unit         FIXED          pass=2 fail=0 miss=0   (TestVerifyQuotaListSumNoPanic x2 engines; = AC2)
+A2     contract  unit         FIXED          pass=1 fail=0 miss=0   (TestVerifyInvalidQuotaListReturnsError; = AC3)
+F5     contract  unit         FIXED          pass=2 fail=0 miss=0   (TestVerifySingleValueMiQuotaSum x2 engines)
+
+Also observed in the integration-layer raw output (integration.out):
+- PR's own TestTransformWorkerResourcesQuotaListPositive: PASS at 72d7d98.
+- Only failure in the full bare-go-test run: TestDestroyWorker (pkg/ddc/jindofsx) — the known
+  environment artifact that reproduces identically on base 1321a217 (F9, refuted; CI runs with
+  FLUID_UNIT_TEST=true, under which the sweep is green — see head-sweep-round4.txt).
+
+Doc-fix pin (F13) — scripts/verify-quotalist-doc.sh:
+- at 72d7d98: PASS on all 5 copies (binary-unit recommendation present, m described as Jindo's
+  internal notation, stale round-3 sentence absent) — doc-check-head.txt
+- at 928ea481 (previous head): FAIL on all 5 copies — doc-check-prev-head-928ea481.txt (bites)
+
+CI on 72d7d98 (gh api, read-only, 2026-11-22):
+- check-runs: SonarCloud, SonarCloud Code Analysis, DCO — all success.
+- actions/runs?head_sha=72d7d98...: Project Check, E2E Functionality Check,
+  E2E Backward Compatibility Check, CodeQL — all conclusion=action_required (fork approval
+  still pending). Combined commit status: pending, contexts=0. => F10 still open, unchanged.

@@ -1,0 +1,12 @@
+PASS  api/v1alpha1/common.go: recommends binary units (512Mi) for API input
+PASS  api/v1alpha1/common.go: describes lowercase m as Jindo's internal notation for Mi
+PASS  api/v1alpha1/openapi_generated.go: recommends binary units (512Mi) for API input
+PASS  api/v1alpha1/openapi_generated.go: describes lowercase m as Jindo's internal notation for Mi
+PASS  api/v1alpha1/swagger.json: recommends binary units (512Mi) for API input
+PASS  api/v1alpha1/swagger.json: describes lowercase m as Jindo's internal notation for Mi
+PASS  docs/en/dev/api_doc.md: recommends binary units (512Mi) for API input
+PASS  docs/en/dev/api_doc.md: describes lowercase m as Jindo's internal notation for Mi
+PASS  docs/zh/dev/api_doc.md: recommends binary units (512Mi) for API input
+PASS  docs/zh/dev/api_doc.md: describes lowercase m as Jindo's internal notation for Mi
+PASS  stale round-3 sentence absent from all copies
+RESULT: QuotaList doc contract holds.
