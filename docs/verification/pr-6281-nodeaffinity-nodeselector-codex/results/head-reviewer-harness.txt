@@ -1,0 +1,16 @@
+=== RUN   TestVerifyPR6281HasRepeatedLocalityNodeSelector
+=== RUN   TestVerifyPR6281HasRepeatedLocalityNodeSelector/preferred-only_affinity_on_unrelated_label_+_locality_nodeSelector
+=== RUN   TestVerifyPR6281HasRepeatedLocalityNodeSelector/empty_node_affinity_+_locality_nodeSelector
+=== RUN   TestVerifyPR6281HasRepeatedLocalityNodeSelector/preferred-only_affinity_on_unrelated_label,_no_locality_anywhere
+=== RUN   TestVerifyPR6281HasRepeatedLocalityNodeSelector/no_affinity_+_locality_nodeSelector
+--- PASS: TestVerifyPR6281HasRepeatedLocalityNodeSelector (0.00s)
+    --- PASS: TestVerifyPR6281HasRepeatedLocalityNodeSelector/preferred-only_affinity_on_unrelated_label_+_locality_nodeSelector (0.00s)
+    --- PASS: TestVerifyPR6281HasRepeatedLocalityNodeSelector/empty_node_affinity_+_locality_nodeSelector (0.00s)
+    --- PASS: TestVerifyPR6281HasRepeatedLocalityNodeSelector/preferred-only_affinity_on_unrelated_label,_no_locality_anywhere (0.00s)
+    --- PASS: TestVerifyPR6281HasRepeatedLocalityNodeSelector/no_affinity_+_locality_nodeSelector (0.00s)
+=== RUN   TestVerifyPR6281MutateSkipsInjectionWhenPodNodeSelectorHasLocality
+--- PASS: TestVerifyPR6281MutateSkipsInjectionWhenPodNodeSelectorHasLocality (0.00s)
+=== RUN   TestVerifyPR6281MutateStillInjectsWhenPodHasNoLocality
+--- PASS: TestVerifyPR6281MutateStillInjectsWhenPodHasNoLocality (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/nodeaffinitywithcache	0.012s

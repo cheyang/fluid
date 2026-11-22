@@ -1,0 +1,34 @@
+=== RUN   TestVerifyPR6281HasRepeatedLocalityNodeSelector
+=== RUN   TestVerifyPR6281HasRepeatedLocalityNodeSelector/preferred-only_affinity_on_unrelated_label_+_locality_nodeSelector
+    zz_pr6281_reviewer_verify_test.go:163: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/wt-pr6281-base/pkg/webhook/plugins/nodeaffinitywithcache/zz_pr6281_reviewer_verify_test.go:163
+        	Error:      	Not equal: 
+        	            	expected: true
+        	            	actual  : false
+        	Test:       	TestVerifyPR6281HasRepeatedLocalityNodeSelector/preferred-only_affinity_on_unrelated_label_+_locality_nodeSelector
+=== RUN   TestVerifyPR6281HasRepeatedLocalityNodeSelector/empty_node_affinity_+_locality_nodeSelector
+    zz_pr6281_reviewer_verify_test.go:163: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/wt-pr6281-base/pkg/webhook/plugins/nodeaffinitywithcache/zz_pr6281_reviewer_verify_test.go:163
+        	Error:      	Not equal: 
+        	            	expected: true
+        	            	actual  : false
+        	Test:       	TestVerifyPR6281HasRepeatedLocalityNodeSelector/empty_node_affinity_+_locality_nodeSelector
+=== RUN   TestVerifyPR6281HasRepeatedLocalityNodeSelector/preferred-only_affinity_on_unrelated_label,_no_locality_anywhere
+=== RUN   TestVerifyPR6281HasRepeatedLocalityNodeSelector/no_affinity_+_locality_nodeSelector
+--- FAIL: TestVerifyPR6281HasRepeatedLocalityNodeSelector (0.00s)
+    --- FAIL: TestVerifyPR6281HasRepeatedLocalityNodeSelector/preferred-only_affinity_on_unrelated_label_+_locality_nodeSelector (0.00s)
+    --- FAIL: TestVerifyPR6281HasRepeatedLocalityNodeSelector/empty_node_affinity_+_locality_nodeSelector (0.00s)
+    --- PASS: TestVerifyPR6281HasRepeatedLocalityNodeSelector/preferred-only_affinity_on_unrelated_label,_no_locality_anywhere (0.00s)
+    --- PASS: TestVerifyPR6281HasRepeatedLocalityNodeSelector/no_affinity_+_locality_nodeSelector (0.00s)
+=== RUN   TestVerifyPR6281MutateSkipsInjectionWhenPodNodeSelectorHasLocality
+    zz_pr6281_reviewer_verify_test.go:220: 
+        	Error Trace:	/home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/wt-pr6281-base/pkg/webhook/plugins/nodeaffinitywithcache/zz_pr6281_reviewer_verify_test.go:220
+        	Error:      	Expected nil, but got: &v1.NodeSelector{NodeSelectorTerms:[]v1.NodeSelectorTerm{v1.NodeSelectorTerm{MatchExpressions:[]v1.NodeSelectorRequirement{v1.NodeSelectorRequirement{Key:"topology.kubernetes.io/rack", Operator:"In", Values:[]string{"rack-a"}}}, MatchFields:[]v1.NodeSelectorRequirement(nil)}}}
+        	Test:       	TestVerifyPR6281MutateSkipsInjectionWhenPodNodeSelectorHasLocality
+        	Messages:   	webhook must not inject a required locality affinity on top of the pod's own nodeSelector
+--- FAIL: TestVerifyPR6281MutateSkipsInjectionWhenPodNodeSelectorHasLocality (0.00s)
+=== RUN   TestVerifyPR6281MutateStillInjectsWhenPodHasNoLocality
+--- PASS: TestVerifyPR6281MutateStillInjectsWhenPodHasNoLocality (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/nodeaffinitywithcache	0.013s
+FAIL

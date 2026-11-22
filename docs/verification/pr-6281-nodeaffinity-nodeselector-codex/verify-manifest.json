@@ -1,0 +1,47 @@
+{
+  "topic": "pr-6281-nodeaffinity-nodeselector-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6281",
+  "harnessPaths": [
+    "docs/verification/pr-6281-nodeaffinity-nodeselector-codex",
+    "pkg/webhook/plugins/nodeaffinitywithcache/zz_pr6281_reviewer_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "When a pod has a nodeAffinity with no required terms (e.g. only a preferred term on another label), hasRepeatedLocality returns false before checking spec.nodeSelector, so NodeAffinityWithCache injects the tiered locality affinity on top of the pod's own locality nodeSelector; with the required policy that yields two contradicting requirements (rack-b from nodeSelector, rack-a injected) and the pod stays Pending. (issue #6280)",
+    "reportedComponent": "pkg/webhook/plugins/nodeaffinitywithcache (TieredLocality.hasRepeatedLocality)",
+    "patchedComponent": "pkg/webhook/plugins/nodeaffinitywithcache/tiered_locaity.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "integration",
+    "verdict": "confirmed",
+    "evidence": "On base 253f6bb the contract tests FAIL (pod gets RequiredDuringSchedulingIgnoredDuringExecution {topology.kubernetes.io/rack In [rack-a]} injected on top of nodeSelector {rack: rack-b}); on head e6d2213 they PASS. See results/base-reviewer-harness.txt, results/base-new-tests.txt, results/head-reviewer-harness.txt.",
+    "match": ["TestVerifyPR6281MutateSkipsInjectionWhenPodNodeSelectorHasLocality", "TestVerifyPR6281HasRepeatedLocalityNodeSelector"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/webhook/plugins/nodeaffinitywithcache/ -run 'TestVerifyPR6281HasRepeatedLocality' -count=1 -v"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/webhook/plugins/nodeaffinitywithcache/ -run 'TestVerifyPR6281Mutate' -count=1 -v"
+    }
+  },
+  "findings": [
+    {
+      "id": "B1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyPR6281HasRepeatedLocalityNodeSelector"],
+      "claim": "hasRepeatedLocality must fall through to the spec.nodeSelector check when the pod's nodeAffinity has no required terms (preferred-only or empty)."
+    },
+    {
+      "id": "B2",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestVerifyPR6281MutateSkipsInjectionWhenPodNodeSelectorHasLocality"],
+      "claim": "Mutate must not inject a required locality affinity (and must keep the pod's own affinity/nodeSelector untouched) when the pod already pins a tiered locality label via spec.nodeSelector, even if the pod has a preferred-only node affinity."
+    }
+  ],
+  "liveNote": "L3 intentionally skipped for this review (debate pipeline runs unit + integration only). The change is a pure admission-time decision in one webhook plugin; the fake-client Mutate tests cover the injected-pod shape. A live check, if ever needed: create a Dataset+AlluxioRuntime with cache affinity rack=rack-a, then a pod labeled fluid.io/dataset.<name>.sched=required with nodeSelector {topology.kubernetes.io/rack: rack-b} and a preferred affinity on another label; the mutated pod must have no requiredDuringSchedulingIgnoredDuringExecution injected."
+}

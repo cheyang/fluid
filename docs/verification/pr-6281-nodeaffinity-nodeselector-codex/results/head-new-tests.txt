@@ -1,0 +1,18 @@
+=== RUN   TestTieredLocalitySkipMutateWhenPodNodeSelectorHasLocality
+--- PASS: TestTieredLocalitySkipMutateWhenPodNodeSelectorHasLocality (0.00s)
+=== RUN   TestHasRepeatedLocality
+=== RUN   TestHasRepeatedLocality/empty_affinity_and_selector
+=== RUN   TestHasRepeatedLocality/affinity_and_empty_selector,_has_same_label
+=== RUN   TestHasRepeatedLocality/node_selector_with_same_label
+=== RUN   TestHasRepeatedLocality/preferred-only_affinity_on_another_label_and_node_selector_with_same_label
+=== RUN   TestHasRepeatedLocality/empty_node_affinity_and_node_selector_with_same_label
+=== RUN   TestHasRepeatedLocality/node_selector_without_same_label
+--- PASS: TestHasRepeatedLocality (0.00s)
+    --- PASS: TestHasRepeatedLocality/empty_affinity_and_selector (0.00s)
+    --- PASS: TestHasRepeatedLocality/affinity_and_empty_selector,_has_same_label (0.00s)
+    --- PASS: TestHasRepeatedLocality/node_selector_with_same_label (0.00s)
+    --- PASS: TestHasRepeatedLocality/preferred-only_affinity_on_another_label_and_node_selector_with_same_label (0.00s)
+    --- PASS: TestHasRepeatedLocality/empty_node_affinity_and_node_selector_with_same_label (0.00s)
+    --- PASS: TestHasRepeatedLocality/node_selector_without_same_label (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/nodeaffinitywithcache	0.012s
