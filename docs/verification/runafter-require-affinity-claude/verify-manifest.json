@@ -1,0 +1,58 @@
+{
+  "topic": "runafter-require-affinity-claude",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6276",
+  "harnessPaths": [
+    "docs/verification/runafter-require-affinity-claude",
+    "pkg/utils/affinity_harness_test.go",
+    "pkg/dataflow/affinity_harness_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #6275: \"InjectNodeSelectorRequirements loops with `for _, nodeSelectorTerm := range ...NodeSelectorTerms` and appends to the loop variable, which is a copy, so the new requirements are thrown away. It only works when the operation has no required node affinity at all. If a DataLoad, DataMigrate or DataProcess already sets spec.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution, the requirement that runAfter.affinityStrategy (policy: Require ...) asks for is never added to its pod.\"",
+    "reportedComponent": "pkg/utils/affinity.go InjectNodeSelectorRequirements, reached via pkg/dataflow InjectAffinityByRunAfterOp",
+    "patchedComponent": "pkg/utils/affinity.go InjectNodeSelectorRequirements",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Contract tests fail on base 896d21e and pass on head add9a8fa: results/base-unit-integration.txt (3 FAIL) vs results/head-unit-integration.txt (all PASS).",
+    "match": ["TestHarnessInjectAppendsToEveryExistingTerm", "TestHarnessRequirePolicyWithExistingOwnAffinity"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/utils/ -run 'TestHarness' -json -count=1"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/dataflow/ -run 'TestHarnessRequirePolicyWithExistingOwnAffinity' -json -count=1"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1-require-appended-to-every-term",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestHarnessInjectAppendsToEveryExistingTerm"]
+    },
+    {
+      "id": "F2-require-injected-via-entry-point",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestHarnessRequirePolicyWithExistingOwnAffinity"]
+    },
+    {
+      "id": "F3-empty-non-nil-terms",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestHarnessInjectEmptyNonNilTermsCreatesTerm"]
+    },
+    {
+      "id": "F4-previously-working-paths-unchanged",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestHarnessInjectNilTermsUnchangedBehavior", "TestHarnessInjectNoRequirementsIsNoop"]
+    }
+  ],
+  "liveNote": "L3 (live cluster) not run per round policy: unit + integration layers only. If run later, the observable signal is: a DataLoad with its own required node affinity + runAfter policy Require produces a Job whose nodeSelectorTerms each contain the preceding operation's node label."
+}

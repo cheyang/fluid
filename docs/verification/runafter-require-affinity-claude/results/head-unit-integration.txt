@@ -1,0 +1,14 @@
+=== RUN   TestHarnessInjectAppendsToEveryExistingTerm
+--- PASS: TestHarnessInjectAppendsToEveryExistingTerm (0.00s)
+=== RUN   TestHarnessInjectEmptyNonNilTermsCreatesTerm
+--- PASS: TestHarnessInjectEmptyNonNilTermsCreatesTerm (0.00s)
+=== RUN   TestHarnessInjectNilTermsUnchangedBehavior
+--- PASS: TestHarnessInjectNilTermsUnchangedBehavior (0.00s)
+=== RUN   TestHarnessInjectNoRequirementsIsNoop
+--- PASS: TestHarnessInjectNoRequirementsIsNoop (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	(cached)
+=== RUN   TestHarnessRequirePolicyWithExistingOwnAffinity
+--- PASS: TestHarnessRequirePolicyWithExistingOwnAffinity (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataflow	(cached)
