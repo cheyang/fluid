@@ -20,7 +20,7 @@
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "go test -gcflags=all=-l ./pkg/ddc/thin/ -run 'TestVerify' -v"
+      "cmd": "go test -gcflags=all=-l ./pkg/ddc/thin/ -run 'TestVerify' -json"
     }
   },
   "findings": [
