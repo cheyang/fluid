@@ -1,0 +1,30 @@
+{
+  "topic": "chart-tag-dcb76167",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6278",
+  "harnessPaths": [
+    "docs/verification/chart-tag-dcb76167"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "A fresh `helm install` with the current chart pulls a tag that was never pushed (v1.1.0-dcb76167b) and every pod stays in ImagePullBackOff.",
+    "reportedComponent": "charts/fluid/fluid default image tag (values.yaml version anchor + Chart.yaml appVersion)",
+    "patchedComponent": "same two files",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "chart-render-registry",
+    "verdict": "confirmed",
+    "evidence": "base render: all 12 fluid images tagged v1.1.0-dcb76167b, Docker Hub tag API returns 404 for every one; see results/base.json",
+    "match": ["check_chart_images.py --ref <base>"]
+  },
+  "layers": {
+    "chart-render-registry": {
+      "kind": "script",
+      "cmd": "python3 docs/verification/chart-tag-dcb76167/scripts/check_chart_images.py --repo <repo> --ref <sha> --tag-fragment dcb76167 --out results/<name>.json"
+    }
+  },
+  "findings": [
+    { "id": "P0", "polarity": "contract", "layer": "chart-render-registry", "match": ["check_chart_images.py --ref 253f6bb84f26a906fba301550b5c81ebdd73af35"] },
+    { "id": "AC1-tag-resolves", "polarity": "contract", "layer": "chart-render-registry", "match": ["check_chart_images.py --ref 46759c29228a1fc0f9e3557ad342307efea6a77b"] }
+  ],
+  "liveNote": "No live layer needed: the failure mode (ImagePullBackOff) is fully decided by rendered image references + registry tag existence, both of which are deterministic. A kind cluster would only re-demonstrate the same 404."
+}

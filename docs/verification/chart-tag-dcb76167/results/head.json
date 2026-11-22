@@ -1,0 +1,19 @@
+{
+  "46759c29228a1fc0f9e3557ad342307efea6a77b": {
+    "images": {
+      "fluidcloudnative/alluxioruntime-controller:v1.1.0-dcb76167": 200,
+      "fluidcloudnative/application-controller:v1.1.0-dcb76167": 200,
+      "fluidcloudnative/cacheruntime-controller:v1.1.0-dcb76167": 200,
+      "fluidcloudnative/dataset-controller:v1.1.0-dcb76167": 200,
+      "fluidcloudnative/efcruntime-controller:v1.1.0-dcb76167": 200,
+      "fluidcloudnative/fluid-crd-upgrader:v1.1.0-dcb76167": 200,
+      "fluidcloudnative/fluid-csi:v1.1.0-dcb76167": 200,
+      "fluidcloudnative/fluid-webhook:v1.1.0-dcb76167": 200,
+      "fluidcloudnative/jindoruntime-controller:v1.1.0-dcb76167": 200,
+      "fluidcloudnative/juicefsruntime-controller:v1.1.0-dcb76167": 200,
+      "fluidcloudnative/thinruntime-controller:v1.1.0-dcb76167": 200,
+      "fluidcloudnative/vineyardruntime-controller:v1.1.0-dcb76167": 200
+    },
+    "sha": "46759c29228a1fc0f9e3557ad342307efea6a77b"
+  }
+}

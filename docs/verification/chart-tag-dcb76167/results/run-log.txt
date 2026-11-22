@@ -1,0 +1,36 @@
+# PR 6278 verification run — 2026-11-22T07:26:00Z
+# harness: check_chart_images.py (helm render + Docker Hub tags API)
+
+## BASE 253f6bb84f26a906fba301550b5c81ebdd73af35 (premise P0)
+== ref 253f6bb84f26a906fba301550b5c81ebdd73af35 (sha 253f6bb84f26a906fba301550b5c81ebdd73af35) ==
+  [BAD] fluidcloudnative/alluxioruntime-controller:v1.1.0-dcb76167b  registry=404
+  [BAD] fluidcloudnative/application-controller:v1.1.0-dcb76167b     registry=404
+  [BAD] fluidcloudnative/cacheruntime-controller:v1.1.0-dcb76167b    registry=404
+  [BAD] fluidcloudnative/dataset-controller:v1.1.0-dcb76167b         registry=404
+  [BAD] fluidcloudnative/efcruntime-controller:v1.1.0-dcb76167b      registry=404
+  [BAD] fluidcloudnative/fluid-crd-upgrader:v1.1.0-dcb76167b         registry=404
+  [BAD] fluidcloudnative/fluid-csi:v1.1.0-dcb76167b                  registry=404
+  [BAD] fluidcloudnative/fluid-webhook:v1.1.0-dcb76167b              registry=404
+  [BAD] fluidcloudnative/jindoruntime-controller:v1.1.0-dcb76167b    registry=404
+  [BAD] fluidcloudnative/juicefsruntime-controller:v1.1.0-dcb76167b  registry=404
+  [BAD] fluidcloudnative/thinruntime-controller:v1.1.0-dcb76167b     registry=404
+  [BAD] fluidcloudnative/vineyardruntime-controller:v1.1.0-dcb76167b registry=404
+VERDICT: FAIL - at least one referenced image tag is not on the registry
+EXIT=1
+
+## HEAD 46759c29228a1fc0f9e3557ad342307efea6a77b (fix)
+== ref 46759c29228a1fc0f9e3557ad342307efea6a77b (sha 46759c29228a1fc0f9e3557ad342307efea6a77b) ==
+  [OK ] fluidcloudnative/alluxioruntime-controller:v1.1.0-dcb76167   registry=200
+  [OK ] fluidcloudnative/application-controller:v1.1.0-dcb76167      registry=200
+  [OK ] fluidcloudnative/cacheruntime-controller:v1.1.0-dcb76167     registry=200
+  [OK ] fluidcloudnative/dataset-controller:v1.1.0-dcb76167          registry=200
+  [OK ] fluidcloudnative/efcruntime-controller:v1.1.0-dcb76167       registry=200
+  [OK ] fluidcloudnative/fluid-crd-upgrader:v1.1.0-dcb76167          registry=200
+  [OK ] fluidcloudnative/fluid-csi:v1.1.0-dcb76167                   registry=200
+  [OK ] fluidcloudnative/fluid-webhook:v1.1.0-dcb76167               registry=200
+  [OK ] fluidcloudnative/jindoruntime-controller:v1.1.0-dcb76167     registry=200
+  [OK ] fluidcloudnative/juicefsruntime-controller:v1.1.0-dcb76167   registry=200
+  [OK ] fluidcloudnative/thinruntime-controller:v1.1.0-dcb76167      registry=200
+  [OK ] fluidcloudnative/vineyardruntime-controller:v1.1.0-dcb76167  registry=200
+VERDICT: PASS - every referenced fluid image tag exists on the registry
+EXIT=0
