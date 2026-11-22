@@ -1,0 +1,33 @@
+{
+  "topic": "thin-fuse-ro-profile-options",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6274",
+  "harnessPaths": [
+    "docs/verification/thin-fuse-ro-profile-options",
+    "pkg/ddc/thin/transform_fuse_ro_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "ThinEngine.parseFuseOptions starts with `ro` when the dataset is ReadOnlyMany (the default when accessModes is empty), then does `options = profile.Spec.Fuse.Options` when the ThinRuntimeProfile has any fuse options. That replaces the map, so `ro` is lost and the fuse container's MOUNT_OPTIONS has no `ro`: a read-only dataset is mounted read-write. The assignment also makes `options` the profile's own map, so the runtime options that are copied in afterwards are written into the profile object.",
+    "reportedComponent": "pkg/ddc/thin (ThinEngine.parseFuseOptions / transform_fuse.go)",
+    "patchedComponent": "pkg/ddc/thin/transform_fuse.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base 896d21e: TestVerifyRoKeptWhenProfileDefinesOptions FAIL (MOUNT_OPTIONS=\"profile-opt1=p1,profile-opt2=p2,runtime-opt=r1\", no ro) and TestVerifyProfileOptionsMapNotMutated FAIL (profile map gained runtime-opt); the PR's own two new ginkgo specs grafted onto base also FAIL. See results/base-unit-harness.txt and results/base-pr-ginkgo-grafted.txt.",
+    "match": ["TestVerifyRoKeptWhenProfileDefinesOptions", "TestVerifyProfileOptionsMapNotMutated"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -gcflags=all=-l ./pkg/ddc/thin/ -run 'TestVerify' -v"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyRoKeptWhenProfileDefinesOptions"] },
+    { "id": "F2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyProfileOptionsMapNotMutated"] },
+    { "id": "F3", "polarity": "contract", "layer": "unit", "match": ["TestVerifyNoRoForWritableDataset"] },
+    { "id": "F4", "polarity": "contract", "layer": "unit", "match": ["TestVerifyRoAndRwCoexistWhenProfileSetsRw"] }
+  ],
+  "liveNote": "L3 skipped per debate setup (no KUBECONFIG). The user-visible signal would be: fuse pod env MOUNT_OPTIONS contains 'ro' for a ReadOnlyMany dataset whose ThinRuntimeProfile defines fuse options, and the mount rejects writes."
+}

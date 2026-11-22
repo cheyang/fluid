@@ -1,0 +1,15 @@
+2026/11/22 14:03:33 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyRoKeptWhenProfileDefinesOptions
+    transform_fuse_ro_verify_test.go:54: MOUNT_OPTIONS = "ro,profile-opt1=p1,profile-opt2=p2,runtime-opt=r1"
+--- PASS: TestVerifyRoKeptWhenProfileDefinesOptions (0.00s)
+=== RUN   TestVerifyProfileOptionsMapNotMutated
+--- PASS: TestVerifyProfileOptionsMapNotMutated (0.00s)
+=== RUN   TestVerifyNoRoForWritableDataset
+    transform_fuse_ro_verify_test.go:94: MOUNT_OPTIONS = "profile-opt1=p1"
+--- PASS: TestVerifyNoRoForWritableDataset (0.00s)
+=== RUN   TestVerifyRoAndRwCoexistWhenProfileSetsRw
+    transform_fuse_ro_verify_test.go:118: MOUNT_OPTIONS = "ro,rw"
+--- PASS: TestVerifyRoAndRwCoexistWhenProfileSetsRw (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	(cached)
+exit=0

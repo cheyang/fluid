@@ -1,0 +1,4 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin	12.048s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin/operations	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/thin/referencedataset	(cached)
+exit=0
