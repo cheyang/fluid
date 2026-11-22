@@ -2,7 +2,7 @@
 
 Reviewer: Codex (Reviewer B). PR: https://github.com/fluid-cloudnative/fluid/pull/6249
 Fixes: https://github.com/fluid-cloudnative/fluid/issues/6246
-Base: `5e6473599f78263a49e521854d80f918a1a10bb0` (round 3 rebase; rounds 1-2: `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5`) — Head reviewed: `b1d9294cc8f2398e7d09187783f849d1dfc057fa` (round 4; round 3: `964c8ef2230a4eb18ec5c440884f40097eac2079`, round 2: `eb313c44a08c63f0eb482e8a6c09330927e8246a`, round 1: `145a2c1334643913f827e0755e01d92b336ea7cd`)
+Base: `5e6473599f78263a49e521854d80f918a1a10bb0` (round 3 rebase; rounds 1-2: `ff99142f9ec5c32a0c9166de023cb8936f0e5ae5`) — Head reviewed: `07ff473a41006de5c688580e40ada8edadd0d544` (round 5; round 4: `b1d9294cc8f2398e7d09187783f849d1dfc057fa`; round 3: `964c8ef2230a4eb18ec5c440884f40097eac2079`, round 2: `eb313c44a08c63f0eb482e8a6c09330927e8246a`, round 1: `145a2c1334643913f827e0755e01d92b336ea7cd`)
 
 ## Premise verdict (P0): CONFIRMED
 
@@ -151,3 +151,31 @@ spec in the PR's own test file (verified by the bites run, matching the author's
 (codex-pr6249-no-e2e-exclude-selector) is unchanged — still nothing under test/ or
 integration/ references the selector env. CI on b1d9294cc: 22/22 SUCCESS (incl. kind-e2e
 and backward-compat x5), PR open, mergeable.
+
+## Round 5 — incremental review of b1d9294cc..07ff473a4 (2026-11-22)
+
+One commit, test-only: `07ff473a4 test(lifecycle): drive both nodes in the nil exclude
+selector spec` rewrites the body of `should label every node without an exclude selector`
+(node_test.go:821) to loop over both fixture nodes (`excluded-node`, `real-node`), driving
+addScheduleInfoToNode on each and asserting each gains the runtime label (+6/-4, no
+production change). This adopts the round-4 nit F-NIT-ADD-SPEC-TITLE-01 by driving both
+nodes — the title now matches the spec's scope. `git diff b1d9294cc..07ff473a4 --
+pkg/utils/dataset/lifecycle/node.go pkg/ctrl/worker.go charts/fluid/fluid/values.yaml`
+is empty, so the round-3/4 production-code trace carries verbatim.
+
+| check | result | evidence |
+|-------|--------|----------|
+| re-verify.sh (C1/C2 grafted onto 07ff473a4) | F-fix FIXED (pass=2 fail=0 miss=0) | results/reverify/unit.out, results/reverify/ginkgo-report.json |
+| full pkg/utils/dataset/lifecycle suite on pure head | 33/33 pass (spec count unchanged; the delta rewrites one spec body) | results/round5-head-full-package.txt |
+| polarity + premise on base: base 5e6473599 + head node_test.go | 2 removal-guard specs FAIL with the exact #6246 symptom (excluded node reduced to {type: virtual-kubelet}); the round-5 nil-selector spec PASSes (correct: nil-selector labeling predates this PR via #5285); 4 Passed \| 2 Failed in the focused run | results/round5-base-pr-own-specs.txt |
+| bites: head node.go minus the isNodeExcluded call in addScheduleInfoToNode | `should only label the node that doesn't match the exclude selector` FAILS; the round-5 nil-selector spec PASSes; tree reverted clean, `go build ./pkg/ctrl/... ./pkg/utils/dataset/...` OK | results/round5-add-guard-bites.txt |
+
+F-NIT-ADD-SPEC-TITLE-01 is fixed by this delta (verified by execution: the spec body now
+drives both nodes; green on head; correct green polarity on base). The author's comment
+2026-11-19T06:35:52Z ("thx, the nil selector spec drives both nodes now in 07ff473")
+matches the diff. Residual cosmetic note from the nit (the fixture node is still named
+`excluded-node` in a nil-selector spec) is unchanged and stays trivial. The pre-existing
+e2e-coverage gap (codex-pr6249-no-e2e-exclude-selector) is unchanged — the delta touches
+no test/ or integration/ path. CI on 07ff473a4: 22/22 pass (gh pr checks), PR open,
+mergeable; no maintainer activity after 2026-11-18T23:41:43Z redefines the confirmed
+stale-label semantic.

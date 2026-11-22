@@ -1,0 +1,3 @@
+# round5: full pkg/utils/dataset/lifecycle suite on pure head 07ff473a41006de5c688580e40ada8edadd0d544
+# cmd: FLUID_UNIT_TEST=true go test ./pkg/utils/dataset/lifecycle/ -count=1 -run TestLifecycle -args -ginkgo.succinct
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.025s

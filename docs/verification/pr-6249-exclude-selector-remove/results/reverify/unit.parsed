@@ -1,3 +1,5 @@
+C1: excluded node keeps all labels after removeScheduleInfoFromNode	pass
+C2: non-excluded node still loses the runtime label	pass
 should add exclusive labels to node	skipped
 should add share mode labels to node	skipped
 should add capacity labels to node	skipped
@@ -31,5 +33,3 @@ should successfully add or remove schedule info on proper nodes	skipped
 Should not return error and nodeExcludeSelector should be nil	skipped
 Should parse the selector correctly	skipped
 Should return error	skipped
-C1: excluded node keeps all labels after removeScheduleInfoFromNode	pass
-C2: non-excluded node still loses the runtime label	pass

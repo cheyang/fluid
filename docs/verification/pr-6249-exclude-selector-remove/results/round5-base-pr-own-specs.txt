@@ -1,0 +1,52 @@
+# round5: base 5e6473599f78263a49e521854d80f918a1a10bb0 + HEAD(07ff473a) node_test.go (polarity + premise)
+# expected: 2 removal-guard specs FAIL (bug reproduces on base); add-path specs PASS incl. the round-5 nil-selector spec now driving both nodes (behavior predates PR via #5285)
+# cmd: FLUID_UNIT_TEST=true go test ./pkg/utils/dataset/lifecycle/ -count=1 -run TestLifecycle -args -ginkgo.focus='addScheduleInfoToNode|removeScheduleInfoFromNode|workers leave' -ginkgo.succinct
+2026/11/22 15:08:05 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+[1795331285] [1mLifecycle Suite[0m - 6/33 specs [38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.000 seconds][0m
+[0mDataset Lifecycle Node Tests [38;5;243mTest removeScheduleInfoFromNode() [38;5;9m[1m[It] should leave a node matching the exclude selector untouched[0m [38;5;204m[pkg.utils.dataset.lifecycle.node_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-base3/pkg/utils/dataset/lifecycle/node_test.go:737[0m
+
+  [38;5;9m[FAILED] Expected
+      <map[string]string | len:1>: {
+          "type": "virtual-kubelet",
+      }
+  to equal
+      <map[string]string | len:2>: {
+          "fluid.io/s-alluxio-fluid-hbase": "true",
+          "type": "virtual-kubelet",
+      }[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-base3/pkg/utils/dataset/lifecycle/node_test.go:744[0m [38;5;243m@ 11/22/26 15:08:05.779[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m
+[38;5;243m------------------------------[0m
+[38;5;9m• [FAILED] [0.001 seconds][0m
+[0mDataset Lifecycle Node Tests [38;5;243mTest removeScheduleInfoFromNode() [38;5;9m[1m[It] should only clean up the node that isn't excluded when the workers leave[0m [38;5;204m[pkg.utils.dataset.lifecycle.node_test.go][0m
+[38;5;243m/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-base3/pkg/utils/dataset/lifecycle/node_test.go:757[0m
+
+  [38;5;9m[FAILED] Expected
+      <map[string]string | len:1>: {
+          "type": "virtual-kubelet",
+      }
+  to equal
+      <map[string]string | len:2>: {
+          "fluid.io/s-alluxio-fluid-hbase": "true",
+          "type": "virtual-kubelet",
+      }[0m
+  [38;5;9mIn [1m[It][0m[38;5;9m at: [1m/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-base3/pkg/utils/dataset/lifecycle/node_test.go:777[0m [38;5;243m@ 11/22/26 15:08:05.78[0m
+[38;5;243m------------------------------[0m
+[38;5;10m•[0m[38;5;10m•[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m[38;5;14mS[0m
+
+[38;5;9m[1mSummarizing 2 Failures:[0m
+  [38;5;9m[FAIL][0m [0mDataset Lifecycle Node Tests [38;5;243mTest removeScheduleInfoFromNode() [38;5;9m[1m[It] should leave a node matching the exclude selector untouched[0m [38;5;204m[pkg.utils.dataset.lifecycle.node_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-base3/pkg/utils/dataset/lifecycle/node_test.go:744[0m
+  [38;5;9m[FAIL][0m [0mDataset Lifecycle Node Tests [38;5;243mTest removeScheduleInfoFromNode() [38;5;9m[1m[It] should only clean up the node that isn't excluded when the workers leave[0m [38;5;204m[pkg.utils.dataset.lifecycle.node_test.go][0m
+  [38;5;243m/home/ecs-user/.pr-debate/homes/codex/wt/pr6249-base3/pkg/utils/dataset/lifecycle/node_test.go:777[0m
+
+[38;5;9m[1mRan 6 of 33 Specs in 0.004 seconds[0m
+[38;5;9m[1mFAIL![0m -- [38;5;10m[1m4 Passed[0m | [38;5;9m[1m2 Failed[0m | [38;5;11m[1m0 Pending[0m | [38;5;14m[1m27 Skipped[0m
+--- FAIL: TestLifecycle (0.01s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils/dataset/lifecycle	0.017s
+FAIL
