@@ -1,0 +1,4 @@
+TestVerifyRoKeptWhenProfileDefinesOptions	pass
+TestVerifyProfileOptionsMapNotMutated	pass
+TestVerifyNoRoForWritableDataset	pass
+TestVerifyRoAndRwCoexistWhenProfileSetsRw	pass
