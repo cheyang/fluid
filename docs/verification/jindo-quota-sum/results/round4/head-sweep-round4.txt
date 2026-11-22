@@ -1,0 +1,3 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils/jindo	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	(cached)
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	(cached)

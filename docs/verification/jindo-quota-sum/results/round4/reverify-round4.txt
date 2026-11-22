@@ -1,0 +1,36 @@
+re-verify: manifest = docs/verification/jindo-quota-sum/verify-manifest.json
+re-verify: last-reviewed = 928ea4813c8b0d359e3a87f78cadaef2f862e875  (review delta = 928ea4813c8b0d359e3a87f78cadaef2f862e875..72d7d98cae66aec4c8d84f137fe3932984c84c4c)
+re-verify: fixed-ref=72d7d98cae66aec4c8d84f137fe3932984c84c4c  harness-from=verify/jindo-quotalist-sum-claude
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'integration' (gotest)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+B1     contract  integration  FIXED          pass=2 fail=0 miss=0
+B2     contract  integration  FIXED          pass=3 fail=0 miss=0
+B3     contract  integration  FIXED          pass=2 fail=0 miss=0
+B4     contract  integration  FIXED          pass=1 fail=0 miss=0
+B5     contract  integration  FIXED          pass=1 fail=0 miss=0
+B6     contract  unit         FIXED          pass=1 fail=0 miss=0
+F1     contract  integration  FIXED          pass=3 fail=0 miss=0
+F5     contract  integration  FIXED          pass=1 fail=0 miss=0
+F2     contract  integration  FIXED          pass=1 fail=0 miss=0
+
+Live layer (manual): L3 (skipped this round, no KUBECONFIG): create a JindoRuntime with MEM tier + quotaList '10Gi,5Gi' on a real cluster; expect successful setup with worker memory request 15Gi and no controller panic. Invalid quota: reconcile error event instead of controller crash.
+
+RESULT: all findings fixed.
+
+Round-4 notes (Reviewer A, Claude):
+- Review delta 928ea481..72d7d98 is ONE commit, 72d7d98 "docs(jindo): recommend
+  512Mi for quotaList API input" — doc-only (5 files, +5/-5): the QuotaList doc
+  line rewritten to "Use binary units such as \"512Mi\" for API input. For Jindo
+  runtimes, a lowercase \"m\" suffix is Jindo's internal notation for Mi, not a
+  valid size for an emptyDir volume." and regenerated into openapi_generated.go,
+  swagger.json, docs/{en,zh}/dev/api_doc.md. No Go behavior changed; the
+  re-verify sweep above confirms every contract still passes on this head.
+- F13 → FIXED: results/round4/f13-doc-consistency.txt (old sentence 0 stale
+  occurrences; new sentence present in exactly the 5 expected files).
+- Full three-package sweep (CI's FLUID_UNIT_TEST=true mode): results/round4/
+  head-sweep-round4.txt — all ok.
+- F10 still open: results/round4/ci-check-runs-round4.txt — all four Actions
+  workflows remain action_required on 72d7d98ca; rollup = DCO + SonarCloud only.

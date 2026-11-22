@@ -2,7 +2,36 @@
 
 Reproducible evidence for the findings raised while reviewing
 https://github.com/fluid-cloudnative/fluid/pull/6261
-(round 1 head `22d2d07c7c…`, round 2 head `305e466f49…`, round 3 head `928ea4813c…`, base `1321a217d78ab99c0cb76d2ea334d593a3765509`).
+(round 1 head `22d2d07c7c…`, round 2 head `305e466f49…`, round 3 head `928ea4813c…`, round 4 head `72d7d98ca…`, base `1321a217d78ab99c0cb76d2ea334d593a3765509`).
+
+## Round 4 (head 72d7d98ca) — doc-only commit: F13 resolution
+
+The PR added one commit, `72d7d98 docs(jindo): recommend 512Mi for quotaList
+API input`. Delta `928ea4813..72d7d98` (5 files, +5/−5), **no Go behavior
+change**:
+
+- **F13 → fixed**: the `QuotaList` doc line now reads "Use binary units such as
+  \"512Mi\" for API input. For Jindo runtimes, a lowercase \"m\" suffix is
+  Jindo's internal notation for Mi, not a valid size for an emptyDir volume." —
+  exactly the round-3 ask (recommend `512Mi`, present `m` as internal
+  notation, warn on the emptyDir path). Regenerated consistently into
+  `openapi_generated.go`, `swagger.json`, `docs/{en,zh}/dev/api_doc.md`;
+  zero stale occurrences of the old sentence
+  (`results/round4/f13-doc-consistency.txt`).
+
+`scripts/re-verify.sh` on 72d7d98: **all findings FIXED** (B1–B6, F1, F5, F2)
+— `results/round4/reverify-round4.txt`. Full three-package sweep
+(`FLUID_UNIT_TEST=true`, CI's mode): `results/round4/head-sweep-round4.txt` —
+all ok, including the PR's own `TestSumQuotas` and
+`TestTransformWorkerResourcesQuotaListPositive`.
+
+Still open (unchanged by this doc-only delta): F3 (no e2e for the quotaList
+reconcile path), F4 (negative elements still sum — canary row "10Mi,-5m" →
+"5Mi" still green in `TestSumQuotasContract`), F6 (env-gated master heuristic
+no-ops for lists), F7 (g→Gi restoration still per-engine), F12 (fixture/input
+mismatch in the positive-path test), F10 (all GitHub Actions workflows
+`action_required` on 72d7d98ca — required CI still never executed;
+`results/round4/ci-check-runs-round4.txt`).
 
 ## Round 3 (head 928ea4813) — review-feedback commit: engine test + docs + wording
 

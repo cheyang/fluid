@@ -1,0 +1,18 @@
+== old sentence ('"512m" means 512Mi') anywhere outside vendor: ==
+0
+
+== new sentence occurrences (expect 5: common.go, openapi_generated.go, swagger.json, docs/en, docs/zh): ==
+docs/zh/dev/api_doc.md
+docs/en/dev/api_doc.md
+api/v1alpha1/swagger.json
+api/v1alpha1/common.go
+api/v1alpha1/openapi_generated.go
+
+== new doc line at head, api/v1alpha1/common.go:70-72: ==
+	// For example, with Path defined with "/mnt/cache1,/mnt/cache2" and QuotaList set to "100Gi, 50Gi",
+	// then we get 100GiB cache storage under "/mnt/cache1" and 50GiB under "/mnt/cache2".
+	// Also note that num of quotas must be consistent with the num of paths defined in Path.
+	// Use binary units such as "512Mi" for API input. For Jindo runtimes, a lowercase "m" suffix is Jindo's internal notation for Mi, not a valid size for an emptyDir volume.
+	// +optional
+	// +kubebuilder:validation:Pattern:="^((\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+)))),)+((\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?)$"
+	QuotaList string `json:"quotaList,omitempty"`
