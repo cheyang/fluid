@@ -43,6 +43,14 @@
       "match": [
         "TestClaudeVerifyMutateStillInjectsWithoutLocalityNodeSelector"
       ]
+    },
+    {
+      "id": "C3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestClaudeVerifyMutateSkipPreferredPolicyWithLocalityNodeSelector"
+      ]
     }
   ],
   "liveNote": "L3 not run (no cluster layer for this PR, per debate setup): the webhook mutation is fully exercised at unit level with the fake client; a live cluster would only add admission-path plumbing not touched by this PR."

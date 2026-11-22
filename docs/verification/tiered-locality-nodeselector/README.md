@@ -40,6 +40,7 @@ whether the problem exists today.
 | P0 | Premise: locality affinity injected on top of a locality nodeSelector when nodeAffinity has no required terms | 1 | **Confirmed on base; fixed on head** | `results/base-unit.txt` (red) vs `results/head-unit.txt` (green) |
 | C1 | `hasRepeatedLocality` must fall through to the nodeSelector check when nodeAffinity has no required terms (preferred-only or empty), and `Mutate` must not inject in that case | 1 | **Confirmed, fixed by PR** | contract tests red on base, green on head |
 | C2 | Fix must not over-skip: pods *without* a locality nodeSelector must still get the required locality affinity injected | 1 | **Confirmed — no regression** | `TestClaudeVerifyMutateStillInjectsWithoutLocalityNodeSelector` green on both base and head; whole `pkg/webhook/...` tree green on head (`results/head-webhook-pkg.txt`) |
+| C3 | Preferred-policy pod (no `sched` label) with locality nodeSelector + preferred-only affinity: no locality affinity of either strength injected; user's own preferred term and nodeSelector kept | 1 | **Confirmed — behavior change pinned (base: 3 preferred terms injected; head: only the pod's own 1)** | `results/base-unit.txt` (red) vs `results/head-unit.txt` (green) |
 
 ## Harness-bites check
 
@@ -77,7 +78,8 @@ injected on base (fluid.io/node + zone + user's own term = 3 terms); on head it 
 nothing but its own term (1). This is the documented contract and matches what already
 happened on base for the same pod *without* any nodeAffinity, so it is a consistency
 fix, not a regression — but the PR's tests only cover the `sched: required` variant.
-Throwaway A/B run (not committed): base `preferred=3`, head `preferred=1`.
+Pinned as contract test C3 (`TestClaudeVerifyMutateSkipPreferredPolicyWithLocalityNodeSelector`):
+red on base, green on head.
 
 ## Proposed fixes (NOT applied to production here)
 

@@ -305,3 +305,69 @@ required:
 		},
 	}, pod.Spec.Affinity.NodeAffinity.RequiredDuringSchedulingIgnoredDuringExecution.NodeSelectorTerms)
 }
+
+// TestClaudeVerifyMutateSkipPreferredPolicyWithLocalityNodeSelector pins the
+// OTHER pod shape whose behavior this PR changes: a preferred-policy pod (no
+// `fluid.io/dataset.<name>.sched` label) that pins a locality label via
+// nodeSelector and has only a preferred node affinity on an unrelated label.
+// Per the documented contract the webhook must not inject locality affinity
+// here either — on base this pod wrongly received the preferred tiers
+// (fluid.io/node + zone) on top of its own term; the PR head skips injection.
+func TestClaudeVerifyMutateSkipPreferredPolicyWithLocalityNodeSelector(t *testing.T) {
+	alluxioRuntime := newCacheAlluxioRuntime()
+	cl := fake.NewFakeClientWithScheme(testScheme, alluxioRuntime)
+
+	runtimeInfo, err := base.BuildRuntimeInfo(alluxioRuntime.Name, alluxioRuntime.Namespace, "alluxio")
+	require.NoError(t, err)
+	runtimeInfo.SetFuseNodeSelector(map[string]string{})
+
+	plugin, err := NewPlugin(cl, `
+preferred:
+- name: fluid.io/node
+  weight: 100
+- name: topology.kubernetes.io/zone
+  weight: 50
+required:
+- topology.kubernetes.io/zone
+`)
+	require.NoError(t, err)
+
+	pod := &corev1.Pod{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      "test",
+			Namespace: "test",
+		},
+		Spec: corev1.PodSpec{
+			NodeSelector: map[string]string{
+				"topology.kubernetes.io/zone": "zone-b",
+			},
+			Affinity: &corev1.Affinity{
+				NodeAffinity: &corev1.NodeAffinity{
+					PreferredDuringSchedulingIgnoredDuringExecution: []corev1.PreferredSchedulingTerm{
+						{
+							Weight: 1,
+							Preference: corev1.NodeSelectorTerm{
+								MatchExpressions: []corev1.NodeSelectorRequirement{
+									{Key: "disktype", Operator: corev1.NodeSelectorOpIn, Values: []string{"ssd"}},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+
+	_, err = plugin.Mutate(pod, map[string]base.RuntimeInfoInterface{
+		alluxioRuntime.Name: runtimeInfo,
+	})
+	require.NoError(t, err)
+
+	// No locality affinity of either strength may be injected; only the pod's
+	// own preferred term remains, and the user's nodeSelector is kept.
+	assert.Nil(t, pod.Spec.Affinity.NodeAffinity.RequiredDuringSchedulingIgnoredDuringExecution,
+		"no required locality affinity may be injected when the pod pins the locality label via nodeSelector")
+	assert.Len(t, pod.Spec.Affinity.NodeAffinity.PreferredDuringSchedulingIgnoredDuringExecution, 1,
+		"no preferred locality affinity may be injected; only the pod's own term remains")
+	assert.Equal(t, map[string]string{"topology.kubernetes.io/zone": "zone-b"}, pod.Spec.NodeSelector)
+}

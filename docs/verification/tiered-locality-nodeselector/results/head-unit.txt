@@ -14,5 +14,7 @@
 --- PASS: TestClaudeVerifyMutateSkipWhenNodeSelectorHasLocality (0.00s)
 === RUN   TestClaudeVerifyMutateStillInjectsWithoutLocalityNodeSelector
 --- PASS: TestClaudeVerifyMutateStillInjectsWithoutLocalityNodeSelector (0.00s)
+=== RUN   TestClaudeVerifyMutateSkipPreferredPolicyWithLocalityNodeSelector
+--- PASS: TestClaudeVerifyMutateSkipPreferredPolicyWithLocalityNodeSelector (0.00s)
 PASS
 ok  	github.com/fluid-cloudnative/fluid/pkg/webhook/plugins/nodeaffinitywithcache	(cached)
