@@ -1,0 +1,32 @@
+{
+  "topic": "alluxio-masterpodname-parse",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6284",
+  "harnessPaths": [
+    "docs/verification/alluxio-masterpodname-parse",
+    "pkg/ddc/alluxio/operations/masterpodname_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "AlluxioFileUtils.MasterPodName() parses `alluxio fsadmin report` output: it reads str[1] after checking len(str) < 1, and data[2] after checking len(data) < 2. When the command succeeds but its output does not have the master address on the second line (empty output, a single line, or `Master Address:` without a value), the function panics with `index out of range` instead of returning the error it was written to return.",
+    "reportedComponent": "pkg/ddc/alluxio/operations (AlluxioFileUtils.MasterPodName), called from pkg/ddc/alluxio/backup_data.go generateDataBackupValueFile",
+    "patchedComponent": "pkg/ddc/alluxio/operations/base.go MasterPodName",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base 253f6bb8 the contract test panics: `index out of range [1] with length 1` at base.go:487 (str[1] on empty/single-line stdout) and, in a focused run, `index out of range [2] with length 2` at base.go:492 (data[2] on a two-field second line). See results/base-premise-p0-panic.txt.",
+    "match": ["TestVerifyMasterPodNameMalformedOutputReturnsError"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -gcflags=all=-l ./pkg/ddc/alluxio/operations/ -run 'TestVerifyMasterPodName' -v"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyMasterPodNameMalformedOutputReturnsError"] },
+    { "id": "F2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyMasterPodNameWellFormedStillParses", "TestVerifyMasterPodNameExecErrorPropagates"] },
+    { "id": "F3", "polarity": "canary",   "layer": "unit", "match": ["TestVerifyMasterPodNameLenientParsingObservation"] }
+  ],
+  "liveNote": "L3 not applicable: the changed function is pure output parsing behind a mocked exec; no cluster-dependent behavior. The only caller is generateDataBackupValueFile (pkg/ddc/alluxio/backup_data.go:57), which propagates the returned error to the DataBackup reconcile."
+}

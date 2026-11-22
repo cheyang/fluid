@@ -1,0 +1,21 @@
+=== RUN   TestVerifyMasterPodNameMalformedOutputReturnsError
+--- FAIL: TestVerifyMasterPodNameMalformedOutputReturnsError (0.00s)
+panic: runtime error: index out of range [2] with length 2 [recovered, repanicked]
+
+goroutine 125 [running]:
+testing.tRunner.func1.2({0x23ded10, 0x1fa06c3ec2e8})
+	/usr/local/go/src/testing/testing.go:2123 +0x23e
+testing.tRunner.func1()
+	/usr/local/go/src/testing/testing.go:2126 +0x3ef
+panic({0x23ded10?, 0x1fa06c3ec2e8?})
+	/usr/local/go/src/runtime/panic.go:859 +0x136
+github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations.AlluxioFileUtils.MasterPodName({{0x0, 0x0}, {0x0, 0x0}, {0x0, 0x0}, {{0x2458b48, 0x253fae0}, 0x0}})
+	/tmp/fluid-wt-base-6284/pkg/ddc/alluxio/operations/base.go:492 +0x465
+github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations.TestVerifyMasterPodNameMalformedOutputReturnsError(0x1fa06c0e06c8)
+	/tmp/fluid-wt-base-6284/pkg/ddc/alluxio/operations/masterpodname_verify_test.go:60 +0x473
+testing.tRunner(0x1fa06c0e06c8, 0x245ea10)
+	/usr/local/go/src/testing/testing.go:2193 +0xea
+created by testing.(*T).Run in goroutine 1
+	/usr/local/go/src/testing/testing.go:2258 +0x4ab
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	0.017s
+FAIL
