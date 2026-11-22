@@ -1,0 +1,22 @@
+== base=253f6bb84f26a906fba301550b5c81ebdd73af35 + PR test cases; expect panic: index out of range ==
+--- FAIL: TestAlluxioFileUtils_MasterPodName (0.00s)
+panic: runtime error: index out of range [1] with length 1 [recovered, repanicked]
+
+goroutine 119 [running]:
+testing.tRunner.func1.2({0x30370d0, 0x373db6bbc6a8})
+	/usr/local/go/src/testing/testing.go:2123 +0x4ae
+testing.tRunner.func1()
+	/usr/local/go/src/testing/testing.go:2126 +0x56d
+panic({0x30370d0?, 0x373db6bbc6a8?})
+	/usr/local/go/src/runtime/panic.go:859 +0x136
+github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations.AlluxioFileUtils.MasterPodName({{0x0, 0x0}, {0x0, 0x0}, {0x0, 0x0}, {{0x30b1018, 0x3197aa0}, 0x0}})
+	/tmp/fluid-p0-6284.RmVhmF/pkg/ddc/alluxio/operations/base.go:487 +0x8ea
+github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations.TestAlluxioFileUtils_MasterPodName(0x373db7529b08)
+	/tmp/fluid-p0-6284.RmVhmF/pkg/ddc/alluxio/operations/base_test.go:812 +0xc9d
+testing.tRunner(0x373db7529b08, 0x30b6e80)
+	/usr/local/go/src/testing/testing.go:2193 +0x18e
+created by testing.(*T).Run in goroutine 1
+	/usr/local/go/src/testing/testing.go:2258 +0x9bf
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	0.021s
+FAIL
+PREMISE CONFIRMED: tests fail on base (exit 1) — the panic MasterPodName() causes exists without the patch.

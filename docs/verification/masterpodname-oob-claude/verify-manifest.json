@@ -1,0 +1,46 @@
+{
+  "topic": "masterpodname-oob",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6284",
+  "harnessPaths": [
+    "docs/verification/masterpodname-oob-claude"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "When the command succeeds but its output does not have the master address on the second line (empty output, a single line, or `Master Address:` without a value), the function panics with `index out of range` instead of returning the error it was written to return.",
+    "reportedComponent": "pkg/ddc/alluxio/operations/base.go AlluxioFileUtils.MasterPodName (called from pkg/ddc/alluxio/backup_data.go generateDataBackupValueFile for HA runtimes, Spec.Replicas > 1)",
+    "patchedComponent": "pkg/ddc/alluxio/operations/base.go MasterPodName guards",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "base 253f6bb + PR test cases -> panic 'index out of range [1] with length 1' at base.go:487; two-field second line -> 'index out of range [2] with length 2' at data[2]; see results/premise-base-panic.txt and results/premise-base-panic-data2.txt",
+    "match": ["scripts/premise-check.sh", "TestAlluxioFileUtils_MasterPodName"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -count=1 -gcflags=\"all=-N -l\" ./pkg/ddc/alluxio/operations/ -run 'TestAlluxioFileUtils_MasterPodName' -v"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "status": "fixed",
+      "origin": "preexisting",
+      "firstSeenSha": "253f6bb84f26a906fba301550b5c81ebdd73af35",
+      "introducedByPR": false,
+      "evidenceKind": "differential",
+      "polarity": "contract",
+      "layer": "unit",
+      "claim": "Under malformed-but-successful `alluxio fsadmin report` stdout, MasterPodName must return an error, not panic. Base: panics (index out of range [1]/[2]). Head 2796b35: returns error for all four malformed cases.",
+      "match": ["TestAlluxioFileUtils_MasterPodName"],
+      "verification": {
+        "base": "fail",
+        "previous": "not-run",
+        "head": "pass"
+      },
+      "evidence": "results/premise-base-panic.txt (base panic), results/head-unit-pass.txt (head green)"
+    }
+  ],
+  "liveNote": "L3 not run (debate setup: unit + integration layers only). No integration layer needed: the finding is pure parsing logic; gomonkey unit layer decides it exactly. Live signal if ever wanted: run a DataBackup against an HA Alluxio runtime whose fsadmin report emits malformed output and check the controller reconciles with an error instead of panicking."
+}

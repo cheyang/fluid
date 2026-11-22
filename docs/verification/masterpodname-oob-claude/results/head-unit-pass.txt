@@ -1,0 +1,4 @@
+=== RUN   TestAlluxioFileUtils_MasterPodName
+--- PASS: TestAlluxioFileUtils_MasterPodName (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	0.018s
