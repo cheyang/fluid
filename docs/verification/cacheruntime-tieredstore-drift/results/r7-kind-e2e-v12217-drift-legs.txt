@@ -1,0 +1,4 @@
+2026-11-21T08:40:32.3158356Z >>> Found expected RuntimeTieredStoreConflict event: Worker tieredStore cannot be updated in-place after creation: level 0 (emptyDir): spec quota 2Gi does not match worker volume tiered-store-level-0-index-0 sizeLimit 1Gi. Delete and recreate the CacheRuntime to apply changes.
+2026-11-21T08:40:42.4865478Z >>> Throttling verified: event count remained 1 across reconcile cycles under persistent drift
+2026-11-21T08:40:52.6334059Z >>> Revert stability verified: event count remained 1 (no new conflict events emitted after drift resolved)
+2026-11-21T08:40:52.7854306Z >>> Cooldown reset verified: fresh drift re-warned immediately without waiting 10m

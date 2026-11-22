@@ -1,0 +1,10 @@
+2026/11/22 16:59:35 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6219UserPrefixVolumeReachesWorkerPod
+--- PASS: TestVerifyPR6219UserPrefixVolumeReachesWorkerPod (0.00s)
+=== RUN   TestVerifyPR6219UserPrefixVolumeSteadyStateNoWarning
+--- PASS: TestVerifyPR6219UserPrefixVolumeSteadyStateNoWarning (0.00s)
+=== RUN   TestVerifyPR6219OrphanedGeneratedVolumeStillDetected
+--- PASS: TestVerifyPR6219OrphanedGeneratedVolumeStillDetected (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.026s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.056s

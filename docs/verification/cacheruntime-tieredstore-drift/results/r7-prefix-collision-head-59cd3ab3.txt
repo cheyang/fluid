@@ -1,0 +1,11 @@
+2026/11/22 16:59:20 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6219UserPrefixVolumeReachesWorkerPod
+--- PASS: TestVerifyPR6219UserPrefixVolumeReachesWorkerPod (0.00s)
+=== RUN   TestVerifyPR6219UserPrefixVolumeSteadyStateNoWarning
+    verify_pr6219_r7_contracts_test.go:120: steady state with a user-supplied prefix volume must not warn, got: Warning RuntimeTieredStoreConflict Worker tieredStore cannot be updated in-place after creation: worker pod volume tiered-store-level-config is not declared in spec tieredStore. Delete and recreate the CacheRuntime to apply changes.
+--- FAIL: TestVerifyPR6219UserPrefixVolumeSteadyStateNoWarning (0.00s)
+=== RUN   TestVerifyPR6219OrphanedGeneratedVolumeStillDetected
+--- PASS: TestVerifyPR6219OrphanedGeneratedVolumeStillDetected (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.025s
+FAIL
