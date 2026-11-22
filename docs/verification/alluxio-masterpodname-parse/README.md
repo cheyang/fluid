@@ -62,9 +62,13 @@ git checkout verify/alluxio-masterpodname-parse-codex
 bash docs/verification/alluxio-masterpodname-parse/scripts/re-verify.sh   # resolves current PR head from manifest.pr
 ```
 
-Polarity for future rounds: F1/F2 are contract tests (must stay green);
-F3 is a canary documenting pre-existing lenient parsing — if parsing is ever
-tightened it flips to red and should be inverted, not "fixed".
+Polarity for future rounds: F1/F2 are contract tests (must stay green;
+`re-verify.sh` reports them FIXED when passing). F3 is a canary documenting
+pre-existing lenient parsing that this PR was NOT asked to change —
+`STILL-PRESENT` is the healthy state for F3 and keeps the script's exit code
+non-zero by design; it only becomes actionable if it FLIPS (parsing
+tightened), in which case invert it. Round-1 baseline on head 2796b352:
+F1 FIXED, F2 FIXED, F3 STILL-PRESENT.
 
 ## Results
 
