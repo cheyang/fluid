@@ -623,6 +623,60 @@ func TestJuicefsSampleDocsFuseRestartClaim(t *testing.T) {
 	assert.Contains(t, string(zh), "直到被删除", "docs/zh should say running fuse pods keep the old secrets until they are deleted")
 }
 
+// TestJuicefsSampleDocsAntecedentClaim pins the round-7 docs consistency
+// requirement (finding F-docs-antecedent-ambiguous, round-6 consensus nit):
+// the sample-docs closing paragraph declares spec.master.imagePullSecrets and
+// spec.jobWorker.imagePullSecrets inert, so the next sentence must not say
+// "Changing these fields" / "修改已有 runtime 的这些字段" — the nearest
+// antecedent would be the inert master/jobWorker pair, contradicting the
+// disclosure. The sync derives the worker/fuse desired secrets only from
+// spec.imagePullSecrets, the worker/fuse component overrides and the env
+// default (sync_runtime.go has no Master/JobWorker secrets reference), so the
+// sentence must name its referent: "the imagePullSecrets fields above" /
+// "上述 imagePullSecrets 字段", pointing at the spec/worker/fuse fields (and
+// the YAML example ~15 lines up).
+// Polarity: contract test — RED on a0baafae0 (ambiguous antecedent present),
+// GREEN on e7a93e775 (the round-7 delta is this one-word fix, both languages).
+func TestJuicefsSampleDocsAntecedentClaim(t *testing.T) {
+	_, thisFile, _, _ := goruntime.Caller(0)
+	repoRoot := filepath.Dir(filepath.Dir(filepath.Dir(filepath.Dir(thisFile))))
+
+	// Anchor the mechanism in the code so a future behavior change makes this
+	// test's premise stale instead of silently pinning a wrong sentence: the
+	// sync path must still derive secrets without consulting Master/JobWorker.
+	syncCode, err := os.ReadFile(filepath.Join(repoRoot, "pkg", "ddc", "juicefs", "sync_runtime.go"))
+	require.NoError(t, err)
+	require.True(t, strings.Contains(string(syncCode), "image pull secrets changed"),
+		"expected the sync path to sync imagePullSecrets; if it does not, this test's premise is stale")
+	assert.NotContains(t, string(syncCode), "Master.ImagePullSecrets",
+		"if the sync starts consuming spec.master.imagePullSecrets the docs disclosure (and this test) must be revisited")
+	assert.NotContains(t, string(syncCode), "JobWorker.ImagePullSecrets",
+		"if the sync starts consuming spec.jobWorker.imagePullSecrets the docs disclosure (and this test) must be revisited")
+
+	en, err := os.ReadFile(filepath.Join(repoRoot, "docs", "en", "samples", "image_pull_secrets.md"))
+	require.NoError(t, err)
+	zh, err := os.ReadFile(filepath.Join(repoRoot, "docs", "zh", "samples", "image_pull_secrets.md"))
+	require.NoError(t, err)
+
+	// The inertness disclosure the sentence must not contradict must still be there.
+	assert.Contains(t, string(en), "have no effect for now",
+		"docs/en should still disclose that master/jobWorker imagePullSecrets are inert")
+	assert.Contains(t, string(zh), "目前不生效",
+		"docs/zh should still disclose that master/jobWorker imagePullSecrets are inert")
+
+	// The ambiguous antecedent must be gone in both languages.
+	assert.NotContains(t, string(en), "Changing these fields",
+		"docs/en: 'Changing these fields' reads as referring to the master/jobWorker fields declared inert one sentence earlier; name the referent instead")
+	assert.NotContains(t, string(zh), "修改已有 runtime 的这些字段",
+		"docs/zh: '这些字段' reads as referring to the master/jobWorker fields declared inert one sentence earlier; name the referent instead")
+
+	// The clarified sentence must name its referent.
+	assert.Contains(t, string(en), "Changing the imagePullSecrets fields above",
+		"docs/en should say 'Changing the imagePullSecrets fields above' so the referent is the spec/worker/fuse fields documented above")
+	assert.Contains(t, string(zh), "上述 imagePullSecrets 字段",
+		"docs/zh should say '上述 imagePullSecrets 字段' so the referent is the spec/worker/fuse fields documented above")
+}
+
 // setupRuntimePortAllocatorForTest isolates the port allocator setup so the
 // sync scenarios do not depend on ginkgo's BeforeEach.
 func setupRuntimePortAllocatorForTest() error {
