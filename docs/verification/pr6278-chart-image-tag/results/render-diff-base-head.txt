@@ -1,0 +1,52 @@
+1972c1972
+<         image: fluidcloudnative/fluid-csi:v1.1.0-dcb76167b
+---
+>         image: fluidcloudnative/fluid-csi:v1.1.0-dcb76167
+2088c2088
+<       - image: fluidcloudnative/alluxioruntime-controller:v1.1.0-dcb76167b
+---
+>       - image: fluidcloudnative/alluxioruntime-controller:v1.1.0-dcb76167
+2168c2168
+<       - image: fluidcloudnative/cacheruntime-controller:v1.1.0-dcb76167b
+---
+>       - image: fluidcloudnative/cacheruntime-controller:v1.1.0-dcb76167
+2238c2238
+<       - image: fluidcloudnative/dataset-controller:v1.1.0-dcb76167b
+---
+>       - image: fluidcloudnative/dataset-controller:v1.1.0-dcb76167
+2309c2309
+<       - image: fluidcloudnative/efcruntime-controller:v1.1.0-dcb76167b
+---
+>       - image: fluidcloudnative/efcruntime-controller:v1.1.0-dcb76167
+2384c2384
+<       - image: fluidcloudnative/application-controller:v1.1.0-dcb76167b
+---
+>       - image: fluidcloudnative/application-controller:v1.1.0-dcb76167
+2440c2440
+<       - image: fluidcloudnative/jindoruntime-controller:v1.1.0-dcb76167b
+---
+>       - image: fluidcloudnative/jindoruntime-controller:v1.1.0-dcb76167
+2524c2524
+<       - image: fluidcloudnative/juicefsruntime-controller:v1.1.0-dcb76167b
+---
+>       - image: fluidcloudnative/juicefsruntime-controller:v1.1.0-dcb76167
+2596c2596
+<       - image: fluidcloudnative/thinruntime-controller:v1.1.0-dcb76167b
+---
+>       - image: fluidcloudnative/thinruntime-controller:v1.1.0-dcb76167
+2665c2665
+<       - image: fluidcloudnative/vineyardruntime-controller:v1.1.0-dcb76167b
+---
+>       - image: fluidcloudnative/vineyardruntime-controller:v1.1.0-dcb76167
+2736c2736
+<       - image: fluidcloudnative/fluid-webhook:v1.1.0-dcb76167b
+---
+>       - image: fluidcloudnative/fluid-webhook:v1.1.0-dcb76167
+2887c2887
+<   name: fluid-crds-upgrade-110-dcb76167b
+---
+>   name: fluid-crds-upgrade-110-dcb76167
+2901c2901
+<           image: fluidcloudnative/fluid-crd-upgrader:v1.1.0-dcb76167b
+---
+>           image: fluidcloudnative/fluid-crd-upgrader:v1.1.0-dcb76167

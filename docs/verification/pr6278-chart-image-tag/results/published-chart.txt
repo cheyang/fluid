@@ -1,0 +1,11 @@
+# published chart parity (fluid-cloudnative/charts, master, fetched 2026-11-22T07:33:30Z)
+## charts/fluid/Chart.yaml (published) — version/appVersion:
+version: 1.1.0-alpha.13
+appVersion: 1.1.0-dcb76167
+## charts/fluid/values.yaml (published) — defaultVersion anchor:
+version: &defaultVersion v1.1.0-dcb76167
+## this PR head:
+  Chart.yaml: appVersion: 1.1.0-dcb76167
+  values.yaml: version: &defaultVersion v1.1.0-dcb76167
+## charts repo PR #122:
+  title: Add helm-chart-fluid-1.1.0-alpha.13 (merged 2026-11-20T02:01:54Z, appVersion 1.1.0-dcb76167)

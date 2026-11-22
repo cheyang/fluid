@@ -1,0 +1,13 @@
+# git abbreviation mechanism evidence (repo: fluid-cloudnative/fluid full clone, 2026-11-22T07:32:41Z)
+git rev-parse --short dcb76167   => dcb76167b
+git rev-parse --short=8 dcb76167 => dcb76167
+objects with 8-char prefix dcb76167 (disambiguate): 1 -> dcb76167b0143a239addc6bed83ed50b45267631
+core.abbrev: unset
+count: 4885
+in-pack: 72455
+Makefile:7: GIT_SHA := $(shell git rev-parse --short HEAD || echo "HEAD")
+precedent tags on Docker Hub (dataset-controller):
+  v1.1.0-91a58c1d9 -> 200
+  v1.1.0-91a58c1d -> 404
+  v1.1.0-95138fc7 -> 200
+  v1.1.0-676f47a -> 200

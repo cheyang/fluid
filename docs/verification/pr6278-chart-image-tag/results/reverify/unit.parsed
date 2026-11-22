@@ -1,0 +1,4 @@
+TestChartRendersWithDefaults	pass
+TestAppVersionMatchesDefaultTag	pass
+TestMakefileUsesAutoAbbrevLength	pass
+TestGitShortShaLengthIsNine	pass

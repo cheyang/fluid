@@ -1,0 +1,18 @@
+# Harness-bites check: same harness grafted onto BASE 253f6bb84f26a906fba301550b5c81ebdd73af35
+# Command: bash docs/verification/pr6278-chart-image-tag/scripts/re-verify.sh \
+#   253f6bb84f26a906fba301550b5c81ebdd73af35 \
+#   --manifest docs/verification/pr6278-chart-image-tag/verify-manifest.json
+# Date: 2026-11-22T07:32Z
+#
+# ================  RE-VERIFY (against BASE)  ================
+# ID     POLARITY  LAYER        VERDICT        DETAIL
+# F1     canary    unit         STILL-PRESENT  pass=1 fail=0 miss=0
+# F2     contract  integration  STILL-BROKEN   pass=0 fail=1 miss=0
+#
+# => F2's contract test FAILS on the base chart (12 x 404 for tag v1.1.0-dcb76167b;
+#    see integration-base.json) and PASSES on the PR head (integration-head.json):
+#    the harness detects exactly the bug this PR fixes.
+# => F1's canary passes on both base and head: the auto-abbrev risk pre-exists this PR.
+#
+# Same harness against HEAD 46759c29228a1fc0f9e3557ad342307efea6a77b: all tests pass
+# (unit-head.json, integration-head.json).

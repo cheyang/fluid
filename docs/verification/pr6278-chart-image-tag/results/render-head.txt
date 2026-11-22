@@ -1,0 +1,13 @@
+          image: fluidcloudnative/fluid-crd-upgrader:v1.1.0-dcb76167
+        image: fluidcloudnative/csi-node-driver-registrar:v2.14.0
+        image: fluidcloudnative/fluid-csi:v1.1.0-dcb76167
+      - image: fluidcloudnative/alluxioruntime-controller:v1.1.0-dcb76167
+      - image: fluidcloudnative/application-controller:v1.1.0-dcb76167
+      - image: fluidcloudnative/cacheruntime-controller:v1.1.0-dcb76167
+      - image: fluidcloudnative/dataset-controller:v1.1.0-dcb76167
+      - image: fluidcloudnative/efcruntime-controller:v1.1.0-dcb76167
+      - image: fluidcloudnative/fluid-webhook:v1.1.0-dcb76167
+      - image: fluidcloudnative/jindoruntime-controller:v1.1.0-dcb76167
+      - image: fluidcloudnative/juicefsruntime-controller:v1.1.0-dcb76167
+      - image: fluidcloudnative/thinruntime-controller:v1.1.0-dcb76167
+      - image: fluidcloudnative/vineyardruntime-controller:v1.1.0-dcb76167
