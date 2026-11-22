@@ -1,0 +1,37 @@
+{
+  "topic": "pr6283-juicefs-cmd-options",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6283",
+  "harnessPaths": [
+    "docs/verification/pr6283-juicefs-cmd-options",
+    "pkg/ddc/juicefs/is_command_changed_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "issue #6282: \"a dataset such as demo-output splits the command in the wrong place ... a changed option such as cache-size is never seen: the mount script ConfigMap is not updated and the worker StatefulSet template does not get its restart annotation\"",
+    "reportedComponent": "pkg/ddc/juicefs/sync_runtime.go JuiceFSEngine.isCommandChanged (called from syncWorkerSpec and updateFuseCmdConfigmapOnChanged)",
+    "patchedComponent": "pkg/ddc/juicefs/sync_runtime.go JuiceFSEngine.isCommandChanged",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "TestVerifyP0_GenFuseMount_DatasetNameContainsDashO FAILS on merge-base 253f6bb8 (real genFuseMount generator, dataset demo-output, cache-size 1024->2048 not detected) and PASSES on PR head cf975a08; see results/unit-base.out and results/unit-head.out",
+    "match": ["TestVerifyP0_GenFuseMount_DatasetNameContainsDashO"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/juicefs/ -run 'TestVerifyP0|TestVerifyV1|TestVerifyV2' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/juicefs/ -run 'TestVerifyV3' -json"
+    }
+  },
+  "findings": [
+    { "id": "P0", "polarity": "contract", "layer": "unit", "match": ["TestVerifyP0_GenFuseMount_DatasetNameContainsDashO"] },
+    { "id": "V1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyV1_OptionNameContainsDashO"] },
+    { "id": "V2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyV2_ReorderedOptionsStayUnchanged"] },
+    { "id": "V3", "polarity": "contract", "layer": "integration", "match": ["TestVerifyV3_SyncWorkerSpec_UpdatesScriptConfigmap"] }
+  ],
+  "liveNote": "L3 (live cluster) not required for this round: the decision contract (option change detected -> script ConfigMap rewritten -> sts restart annotation) is fully decidable at L1/L2 per the debate setup (unit + integration only). If run later: create a JuiceFSRuntime with a dataset whose name contains '-o', bump spec.tieredStore cache quota, and check the <runtime>-worker-script ConfigMap mount line changes and the worker sts gets kubectl.kubernetes.io/restartedAt."
+}
