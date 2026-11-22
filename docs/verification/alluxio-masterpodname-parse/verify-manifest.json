@@ -15,18 +15,42 @@
     "layer": "unit",
     "verdict": "confirmed",
     "evidence": "On base 253f6bb8 the contract test panics: `index out of range [1] with length 1` at base.go:487 (str[1] on empty/single-line stdout) and, in a focused run, `index out of range [2] with length 2` at base.go:492 (data[2] on a two-field second line). See results/base-premise-p0-panic.txt.",
-    "match": ["TestVerifyMasterPodNameMalformedOutputReturnsError"]
+    "match": [
+      "TestVerifyMasterPodNameMalformedOutputReturnsError"
+    ]
   },
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "go test -gcflags=all=-l ./pkg/ddc/alluxio/operations/ -run 'TestVerifyMasterPodName' -v"
+      "cmd": "go test -gcflags=all=-l ./pkg/ddc/alluxio/operations/ -run 'TestVerifyMasterPodName' -json"
     }
   },
   "findings": [
-    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyMasterPodNameMalformedOutputReturnsError"] },
-    { "id": "F2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyMasterPodNameWellFormedStillParses", "TestVerifyMasterPodNameExecErrorPropagates"] },
-    { "id": "F3", "polarity": "canary",   "layer": "unit", "match": ["TestVerifyMasterPodNameLenientParsingObservation"] }
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyMasterPodNameMalformedOutputReturnsError"
+      ]
+    },
+    {
+      "id": "F2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyMasterPodNameWellFormedStillParses",
+        "TestVerifyMasterPodNameExecErrorPropagates"
+      ]
+    },
+    {
+      "id": "F3",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": [
+        "TestVerifyMasterPodNameLenientParsingObservation"
+      ]
+    }
   ],
   "liveNote": "L3 not applicable: the changed function is pure output parsing behind a mocked exec; no cluster-dependent behavior. The only caller is generateDataBackupValueFile (pkg/ddc/alluxio/backup_data.go:57), which propagates the returned error to the DataBackup reconcile."
 }
