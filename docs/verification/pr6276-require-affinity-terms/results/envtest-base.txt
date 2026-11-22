@@ -1,0 +1,6 @@
+=== RUN   TestVerifyInjectedAffinityAPIValidation
+    affinity_envtest_test.go:101: persisted pod lost the injected requirement: [{MatchExpressions:[{Key:node.kubernetes.io/instance-type Operator:In Values:[GPU]}] MatchFields:[]}]
+--- FAIL: TestVerifyInjectedAffinityAPIValidation (1.96s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	1.974s
+FAIL

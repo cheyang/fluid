@@ -1,0 +1,38 @@
+{
+  "topic": "pr6276-require-affinity-terms",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6276",
+  "harnessPaths": [
+    "docs/verification/pr6276-require-affinity-terms",
+    "pkg/utils/affinity_verify_test.go",
+    "pkg/utils/affinity_envtest_test.go",
+    "pkg/dataflow/affinity_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "InjectNodeSelectorRequirements loops with `for _, nodeSelectorTerm := range ...NodeSelectorTerms` and appends to the loop variable (a copy), so when a data operation already has requiredDuringSchedulingIgnoredDuringExecution terms, the requirement from runAfter.affinityStrategy policy=Require is silently dropped.",
+    "reportedComponent": "pkg/utils/affinity.go InjectNodeSelectorRequirements, via pkg/dataflow InjectAffinityByRunAfterOp (DataLoad/DataMigrate/DataProcess)",
+    "patchedComponent": "pkg/utils/affinity.go InjectNodeSelectorRequirements",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Contract tests fail on base 896d21e exactly as claimed (requirement dropped for existing terms and for empty non-nil terms); pass on head add9a8fa. See results/unit-base.txt, results/dataflow-base.txt.",
+    "match": ["TestVerifyInjectRequirementsIntoEveryExistingTerm", "TestVerifyInjectRequirementsEmptyNonNilTerms", "TestVerifyInjectAffinityByRunAfterOpRequireMergesExistingTerms"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test -gcflags=all=-l ./pkg/utils/ ./pkg/dataflow/ -run 'TestVerifyInject' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "if [ -z \"$KUBEBUILDER_ASSETS\" ]; then for d in /home/ecs-user/envtest-assets/k8s/*-linux-amd64 /home/ecs-user/.local/share/kubebuilder-envtest/k8s/*-linux-amd64; do [ -x \"$d/kube-apiserver\" ] && export KUBEBUILDER_ASSETS=\"$d\" && break; done; fi; if [ -z \"$KUBEBUILDER_ASSETS\" ]; then echo '{\"Action\":\"skip\",\"Test\":\"TestVerifyInjectedAffinityAPIValidation\"}'; else go test -gcflags=all=-l ./pkg/utils/ -run 'TestVerifyInjectedAffinityAPIValidation' -json; fi"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyInjectRequirementsIntoEveryExistingTerm", "TestVerifyInjectRequirementsWithSpareCapacity", "TestVerifyInjectAffinityByRunAfterOpRequireMergesExistingTerms"] },
+    { "id": "F2", "polarity": "contract", "layer": "unit", "match": ["TestVerifyInjectRequirementsEmptyNonNilTerms", "TestVerifyInjectAffinityByRunAfterOpRequireEmptyTerms"] },
+    { "id": "F3", "polarity": "contract", "layer": "integration", "match": ["TestVerifyInjectedAffinityAPIValidation"] }
+  ],
+  "liveNote": "L3 skipped per debate setup (no live cluster). The full chain is covered by the fake-client dataflow test and by envtest API validation."
+}

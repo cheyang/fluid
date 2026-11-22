@@ -1,0 +1,12 @@
+=== RUN   TestVerifyInjectAffinityByRunAfterOpRequireMergesExistingTerms
+    affinity_verify_test.go:102: term 0: expected preceding op hostname requirement injected once, got 0 (term=[{Key:node.kubernetes.io/instance-type Operator:In Values:[GPU]}])
+    affinity_verify_test.go:105: term 0: expected original + injected expressions, got 1
+    affinity_verify_test.go:102: term 1: expected preceding op hostname requirement injected once, got 0 (term=[{Key:topology.kubernetes.io/zone Operator:In Values:[zone-a]}])
+    affinity_verify_test.go:105: term 1: expected original + injected expressions, got 1
+--- FAIL: TestVerifyInjectAffinityByRunAfterOpRequireMergesExistingTerms (0.00s)
+=== RUN   TestVerifyInjectAffinityByRunAfterOpRequireEmptyTerms
+    affinity_verify_test.go:130: expected 1 synthesized term, got 0
+--- FAIL: TestVerifyInjectAffinityByRunAfterOpRequireEmptyTerms (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/dataflow	0.019s
+FAIL

@@ -1,0 +1,5 @@
+=== RUN   TestVerifyInjectedAffinityAPIValidation
+    affinity_envtest_test.go:118: empty-terms pod rejected as expected: Pod "empty-terms-affinity" is invalid: spec.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms: Required value: must have at least one node selector term
+--- PASS: TestVerifyInjectedAffinityAPIValidation (1.87s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/utils	1.883s

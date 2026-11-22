@@ -1,0 +1,19 @@
+=== RUN   TestVerifyInjectRequirementsIntoEveryExistingTerm
+    affinity_verify_test.go:66: term 0: expected hostname requirement to be present once, got 0 (term=[{Key:disktype Operator:In Values:[ssd]}])
+    affinity_verify_test.go:69: term 0: expected 2 match expressions (original + injected), got 1
+    affinity_verify_test.go:66: term 1: expected hostname requirement to be present once, got 0 (term=[{Key:disktype Operator:In Values:[nvme]}])
+    affinity_verify_test.go:69: term 1: expected 2 match expressions (original + injected), got 1
+--- FAIL: TestVerifyInjectRequirementsIntoEveryExistingTerm (0.00s)
+=== RUN   TestVerifyInjectRequirementsWithSpareCapacity
+    affinity_verify_test.go:84: expected 2 match expressions after injection with spare capacity, got 1
+--- FAIL: TestVerifyInjectRequirementsWithSpareCapacity (0.00s)
+=== RUN   TestVerifyInjectRequirementsEmptyNonNilTerms
+    affinity_verify_test.go:109: expected 1 synthesized term, got 0
+--- FAIL: TestVerifyInjectRequirementsEmptyNonNilTerms (0.00s)
+=== RUN   TestVerifyInjectRequirementsNilAffinity
+--- PASS: TestVerifyInjectRequirementsNilAffinity (0.00s)
+=== RUN   TestVerifyInjectRequirementsEmptyInput
+--- PASS: TestVerifyInjectRequirementsEmptyInput (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	0.015s
+FAIL

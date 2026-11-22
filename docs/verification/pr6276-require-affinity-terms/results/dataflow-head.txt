@@ -1,0 +1,6 @@
+=== RUN   TestVerifyInjectAffinityByRunAfterOpRequireMergesExistingTerms
+--- PASS: TestVerifyInjectAffinityByRunAfterOpRequireMergesExistingTerms (0.00s)
+=== RUN   TestVerifyInjectAffinityByRunAfterOpRequireEmptyTerms
+--- PASS: TestVerifyInjectAffinityByRunAfterOpRequireEmptyTerms (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/dataflow	(cached)
