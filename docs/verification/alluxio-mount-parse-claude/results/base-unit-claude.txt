@@ -1,0 +1,24 @@
+=== RUN   TestClaudeVerify_MountTableParsingSkipsShortLines
+--- FAIL: TestClaudeVerify_MountTableParsingSkipsShortLines (0.00s)
+panic: runtime error: index out of range [2] with length 0 [recovered, repanicked]
+
+goroutine 132 [running]:
+testing.tRunner.func1.2({0x23f32d0, 0x2bdb32a3a318})
+	/usr/local/go/src/testing/testing.go:2123 +0x23e
+testing.tRunner.func1()
+	/usr/local/go/src/testing/testing.go:2126 +0x3ef
+panic({0x23f32d0?, 0x2bdb32a3a318?})
+	/usr/local/go/src/runtime/panic.go:859 +0x136
+github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations.AlluxioFileUtils.IsMounted({{0x0, 0x0}, {0x0, 0x0}, {0x0, 0x0}, {{0x246d108, 0x2554ac0}, 0x0}}, {0x13b92a8, ...})
+	/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid-base-verify/pkg/ddc/alluxio/operations/base.go:323 +0x488
+github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations.TestClaudeVerify_MountTableParsingSkipsShortLines.func1({{0x13c1311, 0xc}, {0x14ae6f0, 0x0}, {0x13b92a8, 0x6}, 0x0, {0x0, 0x0, 0x0}}, ...)
+	/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid-base-verify/pkg/ddc/alluxio/operations/base_shortline_verify_claude_test.go:108 +0x17a
+github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations.TestClaudeVerify_MountTableParsingSkipsShortLines(0x2bdb32cc3208)
+	/home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid-base-verify/pkg/ddc/alluxio/operations/base_shortline_verify_claude_test.go:123 +0x25b
+testing.tRunner(0x2bdb32cc3208, 0x2472fa8)
+	/usr/local/go/src/testing/testing.go:2193 +0xea
+created by testing.(*T).Run in goroutine 1
+	/usr/local/go/src/testing/testing.go:2258 +0x4ab
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	0.019s
+FAIL
+EXIT=1

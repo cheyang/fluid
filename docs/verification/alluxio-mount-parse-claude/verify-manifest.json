@@ -1,0 +1,57 @@
+{
+  "topic": "alluxio-mount-parse-claude",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6285",
+  "harnessPaths": [
+    "docs/verification/alluxio-mount-parse-claude",
+    "pkg/ddc/alluxio/operations/base_shortline_verify_claude_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "IsMounted and GetMountedAlluxioPaths read fields[2] of every line of the `alluxio fs mount` output without checking how many fields the line has. An empty output, or a line with fewer than three fields such as a blank line, makes them panic with `index out of range [2]`.",
+    "reportedComponent": "pkg/ddc/alluxio/operations/base.go IsMounted / GetMountedAlluxioPaths",
+    "patchedComponent": "pkg/ddc/alluxio/operations/base.go IsMounted / GetMountedAlluxioPaths",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Panic 'index out of range [2] with length 0' at base.go:323 (IsMounted) and base.go:356 (GetMountedAlluxioPaths) on merge base 253f6bb8; see results/base-unit-claude.txt and results/base-getmountedalluxiopaths-claude.txt",
+    "match": ["TestClaudeVerify_MountTableParsingSkipsShortLines"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=all=-l -count=1 -run 'TestClaudeVerify' ./pkg/ddc/alluxio/operations/"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=all=-l -count=1 ./pkg/ddc/alluxio/..."
+    }
+  },
+  "findings": [
+    {
+      "id": "alluxio-mount-parse-panic",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestClaudeVerify_MountTableParsingSkipsShortLines", "TestClaudeVerify_IsMountedStopsAtFirstMatch"],
+      "status": "fixed",
+      "origin": "preexisting",
+      "introducedByPR": false,
+      "firstSeenSha": "253f6bb84f26a906fba301550b5c81ebdd73af35",
+      "evidenceKind": "differential",
+      "evidence": "Contract test panics on merge base (base.go:323 / base.go:356, index out of range [2]) and passes on PR head 2a7f2322; full pkg/ddc/alluxio/... suite ok on head (results/head-full-alluxio-pkg.txt)"
+    },
+    {
+      "id": "alluxio-gmap-silent-skip",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestClaudeVerify_MountTableParsingSkipsShortLines"],
+      "status": "open",
+      "origin": "preexisting",
+      "introducedByPR": false,
+      "firstSeenSha": "253f6bb84f26a906fba301550b5c81ebdd73af35",
+      "evidenceKind": "code-path",
+      "evidence": "GetMountedAlluxioPaths (base.go:353-366) has no log statement at all, so a malformed mount table is silently reduced; optional logging improvement only, non-blocking"
+    }
+  ],
+  "liveNote": "L3 live layer skipped per this round's policy (unit + integration only, no KUBECONFIG)."
+}
