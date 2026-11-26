@@ -62,9 +62,10 @@ ALL_FIXED=1
 for pair in "C1:pin-bump,go-version-input" "C2:tag-identity"; do
   id="${pair%%:*}"; matches="${pair#*:}"
   pass=0; fail=0; miss=0
+  TAB="$(printf '\t')"
   IFS=','; for m in $matches; do
-    if grep -qE "^$m\tpass" "$OUT"; then pass=$((pass+1));
-    elif grep -qE "^$m\tfail" "$OUT"; then fail=$((fail+1));
+    if grep -qF "${m}${TAB}pass" "$OUT"; then pass=$((pass+1));
+    elif grep -qF "${m}${TAB}fail" "$OUT"; then fail=$((fail+1));
     else miss=$((miss+1)); fi
   done; unset IFS
   if [ "$fail" -eq 0 ] && [ "$miss" -eq 0 ]; then verdict="FIXED"; else verdict="STILL-BROKEN"; ALL_FIXED=0; fi
