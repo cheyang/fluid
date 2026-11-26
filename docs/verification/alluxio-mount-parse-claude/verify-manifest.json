@@ -15,16 +15,18 @@
     "layer": "unit",
     "verdict": "confirmed",
     "evidence": "Panic 'index out of range [2] with length 0' at base.go:323 (IsMounted) and base.go:356 (GetMountedAlluxioPaths) on merge base 253f6bb8; see results/base-unit-claude.txt and results/base-getmountedalluxiopaths-claude.txt",
-    "match": ["TestClaudeVerify_MountTableParsingSkipsShortLines"]
+    "match": [
+      "TestClaudeVerify_MountTableParsingSkipsShortLines"
+    ]
   },
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=all=-l -count=1 -run 'TestClaudeVerify' ./pkg/ddc/alluxio/operations/"
+      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=all=-l -count=1 -json -run 'TestClaudeVerify' ./pkg/ddc/alluxio/operations/"
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=all=-l -count=1 ./pkg/ddc/alluxio/..."
+      "cmd": "FLUID_UNIT_TEST=true go test -gcflags=all=-l -count=1 -json ./pkg/ddc/alluxio/..."
     }
   },
   "findings": [
@@ -32,7 +34,10 @@
       "id": "alluxio-mount-parse-panic",
       "polarity": "contract",
       "layer": "unit",
-      "match": ["TestClaudeVerify_MountTableParsingSkipsShortLines", "TestClaudeVerify_IsMountedStopsAtFirstMatch"],
+      "match": [
+        "TestClaudeVerify_MountTableParsingSkipsShortLines",
+        "TestClaudeVerify_IsMountedStopsAtFirstMatch"
+      ],
       "status": "fixed",
       "origin": "preexisting",
       "introducedByPR": false,
@@ -44,7 +49,9 @@
       "id": "alluxio-gmap-silent-skip",
       "polarity": "contract",
       "layer": "unit",
-      "match": ["TestClaudeVerify_MountTableParsingSkipsShortLines"],
+      "match": [
+        "TestClaudeVerify_MountTableParsingSkipsShortLines"
+      ],
       "status": "open",
       "origin": "preexisting",
       "introducedByPR": false,
