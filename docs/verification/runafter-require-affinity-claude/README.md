@@ -68,3 +68,30 @@ shape changed (renamed symbol / moved file).
 - Kickoff prompt for a fresh agent: "Checkout verify/runafter-require-affinity-claude in
   cheyang/fluid, run docs/verification/runafter-require-affinity-claude/scripts/re-verify.sh
   and report per-finding Fixed/Still-broken/Partial."
+
+## Round 2 — 2026-11-27 — head `ff3923ce3a27f5a53b4c60c46822d96122f1fd46`
+
+Delta `add9a8fa..ff3923c` is a single comment-only commit ("docs: describe how affinity
+requirements are injected"): no code or test changes. Re-verify output
+(`results/reverify/`, captured this round):
+
+| Finding | Layer | Verdict |
+| --- | --- | --- |
+| F1 requirement appended to every existing term | unit | FIXED (pass) |
+| F2 requirement injected via `InjectAffinityByRunAfterOp` | integration | FIXED (pass) |
+| F3 empty-but-non-nil terms get a new term | unit | FIXED (pass) |
+| F4 previously-working paths unchanged | unit | FIXED (2 pass) |
+
+Additional checks this round:
+- Author's PR tests on head: `TestInjectNodeSelectorTermsToAffinity`,
+  `TestInjectAffinityByRunAfterOp` — both ok.
+- Full sweep `go test ./pkg/utils/ ./pkg/dataflow/`: dataflow ok; utils has one
+  failure, `TestCheckMountPointBroken` — **fails identically on base 896d21e**
+  (differential run recorded in `results/reverify/mountpoint-env-fail-on-base.txt`),
+  so it is environmental, not attributable to the PR. Note it now also fails in this
+  reviewer's environment (it passed here in round 1), matching Codex's round-1
+  observation — machine/environment dependent.
+- New comments verified accurate against code: `GenerateNodeAffinity` constructs
+  exactly one `NodeSelectorTerm`, so the dataflow comment's claim is correct; the
+  `InjectNodeSelectorRequirements` doc now matches the append semantics and documents
+  the in-place-mutation contract.

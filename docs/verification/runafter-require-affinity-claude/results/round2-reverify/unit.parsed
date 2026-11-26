@@ -1,0 +1,4 @@
+TestHarnessInjectAppendsToEveryExistingTerm	pass
+TestHarnessInjectEmptyNonNilTermsCreatesTerm	pass
+TestHarnessInjectNilTermsUnchangedBehavior	pass
+TestHarnessInjectNoRequirementsIsNoop	pass

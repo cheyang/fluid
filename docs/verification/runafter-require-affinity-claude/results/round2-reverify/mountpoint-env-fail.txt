@@ -1,0 +1,18 @@
+TestCheckMountPointBroken — environmental failure attribution (round 2, 2026-11-27)
+
+go test ./pkg/utils/ -run TestCheckMountPointBroken -count=1
+
+== PR head tree (branch verify/runafter-require-affinity-claude, code = add9a8fa; also
+   fails identically on the full suite run against ff3923c, see README round 2) ==
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	0.012s
+FAIL
+
+== base 896d21e945e6513ef4dd0e452ea9ec154acb0414 (differential control) ==
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/utils	0.013s
+FAIL
+
+Fails identically on base => not attributable to this PR. Matches Codex's round-1
+observation; note it passed in this reviewer's environment in round 1 and fails now —
+machine/environment dependent (mount-point probing behavior).
