@@ -1,0 +1,2 @@
+TestVerifyPR6285_IsMountedShortLines	pass
+TestVerifyPR6285_GetMountedAlluxioPathsShortLines	pass
