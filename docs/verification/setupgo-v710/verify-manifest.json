@@ -1,0 +1,44 @@
+{
+  "topic": "setupgo-v710",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6291",
+  "reviewer": "claude",
+  "harnessPaths": [
+    "docs/verification/setupgo-v710"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: 'Bumps actions/setup-go from 7.0.0 to 7.1.0' — the repo's workflow pins for actions/setup-go are on 7.0.0 and 7.1.0 (dependency/security updates: js-yaml 3.15.2, undici 6.29.1, handlebars 4.7.10, plus enhancements) is the current release.",
+    "reportedComponent": ".github/workflows/* (actions/setup-go pins)",
+    "patchedComponent": ".github/workflows/backward-compatibility-e2e.yml, kind-e2e.yml, project-check.yml (6 setup-go steps)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On merge-base b8ff60e all 6 setup-go usages pin b7ad1dad... # v7.0.0 (see results/base-premise.out; b7ad1dad == refs/tags/v7.0.0 per git ls-remote), and v7.1.0 is the latest v7 tag upstream.",
+    "match": ["pin-bump"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "script",
+      "cmd": "python3 docs/verification/setupgo-v710/scripts/check_setupgo_pins.py",
+      "report": "docs/verification/setupgo-v710/results/"
+    }
+  },
+  "findings": [
+    {
+      "id": "C1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["pin-bump", "go-version-input"],
+      "note": "Bump is complete and behavior-preserving: every actions/setup-go usage pins d8cbb804... (v7.1.0) with the go-version input unchanged."
+    },
+    {
+      "id": "C2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["tag-identity"],
+      "note": "The pinned SHA resolves to the genuine actions/setup-go v7.1.0 tag (git ls-remote)."
+    }
+  ],
+  "liveNote": "No L3/live layer: CI itself is the live proof — all three touched workflows (Project Check, E2E Backward Compatibility Check, E2E Functionality Check) plus CodeQL/CircleCI ran green on the PR head 9c9216c; see results/ci-rollup.txt."
+}
