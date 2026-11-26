@@ -1,0 +1,5 @@
+T1_PinIsFullSHA	pass
+T2_PinsConsistent	pass
+T3_PinMatchesClaimedTag	pass
+T4_WorkflowsParse	pass
+C1_StaleVersionComment	pass

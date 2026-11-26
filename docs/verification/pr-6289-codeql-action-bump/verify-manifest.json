@@ -1,0 +1,73 @@
+{
+  "topic": "pr-6289-codeql-action-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6289",
+  "reviewer": "codex",
+  "headSha": "bb4e3096ec1ddab2df5ff9afbb57c2a665203d8c",
+  "baseSha": "b8ff60e309c341b58a9e26b085b76e6067e6bb60",
+  "harnessPaths": [
+    "docs/verification/pr-6289-codeql-action-bump"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: codeql-action init/analyze/upload-sarif 4.39.3 -> 4.39.4 (upstream patch release exists and is what the PR pins)",
+    "reportedComponent": ".github/workflows (CI only)",
+    "patchedComponent": ".github/workflows/codeql-analysis.yml, .github/workflows/sonarcloud.yaml",
+    "componentMatch": true,
+    "runsAgainst": "upstream-tags",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "git ls-remote github/codeql-action: refs/tags/v4.39.4^{} = 1bd86f2fdb4b86187fa4059f16f31a3202acc9ea (the pinned sha); v4.39.3^{} = 33d7b85da1a04171e211befe2c739303b9a4c066 (the replaced sha). See results/unit-layer-head.txt T3.",
+    "match": [
+      "T3_PinMatchesClaimedTag"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "shell",
+      "cmd": "bash docs/verification/pr-6289-codeql-action-bump/scripts/verify-pins.sh"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": [
+        "C1_StaleVersionComment"
+      ]
+    },
+    {
+      "id": "G1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "T1_PinIsFullSHA"
+      ]
+    },
+    {
+      "id": "G2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "T2_PinsConsistent"
+      ]
+    },
+    {
+      "id": "G3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "T3_PinMatchesClaimedTag"
+      ]
+    },
+    {
+      "id": "G4",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "T4_WorkflowsParse"
+      ]
+    }
+  ],
+  "liveNote": "No live layer: change is CI-workflow-only; the real check is the PR's own CodeQL/SonarCloud workflow runs, which passed (gh pr checks 6289, 2026-11-27)."
+}
