@@ -1,0 +1,42 @@
+PASS: A1 bash -n custom-entrypoint.sh
+PASS: A bash -n test.sh
+PASS: A sh -n rendered rw_job script (dash-compatible)
+Starting worker: master=svc-mooncake-demo-master.default.svc.cluster.local:50051, segment_size=1GB, host=mooncake-demo-worker-0.svc-mooncake-demo-worker.default.svc.cluster.local
+MOONCAKE_CLIENT_ARGS:
+  --host=mooncake-demo-worker-0.svc-mooncake-demo-worker.default.svc.cluster.local
+  --port=50052
+  --global_segment_size=1GB
+  --master_server_address=svc-mooncake-demo-master.default.svc.cluster.local:50051
+  --metadata_server=http://svc-mooncake-demo-master.default.svc.cluster.local:8080/metadata
+  --protocol=tcp
+  --enable_http_server=true
+  --http_port=9300
+PASS: B worker entrypoint: runtime.sh drives master/metadata/host/segment args
+/tmp/verify-6286/test/gha-e2e/mooncake/image/custom-entrypoint.sh: line 30: FLUID_RUNTIME_CONFIG_PATH: missing runtime config path
+PASS: C worker entrypoint: unset FLUID_RUNTIME_CONFIG_PATH aborts immediately
+Starting worker: master=svc-mooncake-demo-master.default.svc.cluster.local:50051, segment_size=1GB, host=mooncake-demo-worker-0.svc-mooncake-demo-worker.default.svc.cluster.local
+MOONCAKE_CLIENT_ARGS:
+  --host=mooncake-demo-worker-0.svc-mooncake-demo-worker.default.svc.cluster.local
+  --port=50052
+  --global_segment_size=1GB
+  --master_server_address=svc-mooncake-demo-master.default.svc.cluster.local:50051
+  --metadata_server=http://svc-mooncake-demo-master.default.svc.cluster.local:8080/metadata
+  --protocol=tcp
+  --enable_http_server=true
+  --http_port=9300
+PASS: D worker entrypoint: config path containing spaces loads fine
+/tmp/verify-6286/test/gha-e2e/mooncake/image/custom-entrypoint.sh: line 31: /tmp/verify-6286/docs/verification/mooncake-clientless-e2e/scripts/../results/cfg-missing-sh/runtime.sh: No such file or directory
+PASS: E worker entrypoint: missing runtime.sh aborts (set -e), message: /tmp/verify-6286/test/gha-e2e/mooncake/image/custom-entrypoint.sh: line 31: /tmp/verify-6286/docs/verification/mooncake-clientless-e2e/scripts/../results/cfg-missing-sh/runtime.sh: No such file or directory
+PASS: F1 injection check passes for the webhook-shaped injected pod
+PASS: F2 filter rejects a writable config mount
+PASS: F3 filter rejects a wrong env var name
+PASS: F4 filter rejects env pointing at runtime.json
+PASS: F5 filter rejects a pod with no config volume
+PASS: F6 filter rejects an empty pod list (no succeeded pod)
+>>> Verified the webhook rejected the missing dataset mooncake-missing
+PASS: G1 rejection check passes on the real denial shape (webhook + dataset name)
+>>> test "mooncake cache runtime (client-less topology) e2e" failed: expected admission to reject the missing dataset mooncake-missing
+PASS: G2 rejection check panics when admission ALLOWS the missing dataset (today's master / CI failure)
+>>> test "mooncake cache runtime (client-less topology) e2e" failed: unexpected admission error for mooncake-missing: Error from server: failed calling webhook: connection refused
+PASS: G3 rejection check panics on an unrelated webhook error
+----- shell harness: 16 passed, 0 failed -----

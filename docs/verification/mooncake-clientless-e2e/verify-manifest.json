@@ -1,0 +1,73 @@
+{
+  "topic": "mooncake-clientless-e2e",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6286",
+  "baseSha": "07efc760bca95a4d3f1204f29c5722f1dae5bee0",
+  "headSha": "74d77d9b02d006504ed1ce14264a9c07ef8fb6df",
+  "harnessPaths": [
+    "docs/verification/mooncake-clientless-e2e",
+    "pkg/ddc/cache/engine/zz_codex_verify_runtime_sh_contract_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "#6197 adds runtime config injection for client-less cache runtimes 'with unit tests and a manual run on kind, but no e2e coverage' (issue #6251); this PR adds the missing Mooncake e2e.",
+    "reportedComponent": "test/gha-e2e/mooncake/ e2e + clientless.fluid.io pod webhook (#6197)",
+    "patchedComponent": "test/gha-e2e/mooncake/ (Dockerfile, custom-entrypoint.sh, rw_job.yaml, test.sh)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "Tests-only PR (scope carve-out). Coverage gap is real: no other e2e exercises clientless injection. The contracts the new assertions rely on exist on base (runtime.sh generator in pkg/ddc/cache/engine/cm.go — proven by TestRuntimeShContractForMooncakeE2E) and in the still-OPEN PR #6197 (webhook clientless.fluid.io, env FLUID_RUNTIME_CONFIG_PATH_<DS>). The same dependency makes the PR's own CI red until #6197 merges (see F1).",
+    "match": ["TestRuntimeShContractForMooncakeE2E"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/cache/engine/ -run 'TestRuntimeShContractForMooncakeE2E' -count=1 -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./docs/verification/mooncake-clientless-e2e/gowrap/ -run 'TestShellHarness' -count=1 -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "title": "Sequencing: the new e2e fails until the unmerged #6197 webhook lands (all 5 CI kind-e2e jobs red on 74d77d9b)",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestShellHarness/G2_"],
+      "note": "G2 reproduces the CI failure mechanism with a stub kubectl: when admission ALLOWS the missing dataset (today's master, no clientless webhook), check_missing_dataset_rejected panics exactly as CI run 45047215477 shows. The finding's resolution is process-level (merge after #6197); this case guards that the detection keeps working."
+    },
+    {
+      "id": "F2",
+      "title": "The e2e hardcodes #6197's still-unstable contract surface (label, webhook name, env suffix, ConfigMap name, denial text)",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestShellHarness/F1_", "TestShellHarness/G1_"],
+      "note": "F1/G1 pin the injected-pod shape and the denial message against #6197's runtime_config_injector.go (head b9315aca4). If #6197 changes before merge these fixtures must be updated (Harness-update)."
+    },
+    {
+      "id": "F5",
+      "title": "Worker entrypoint dropped the explicit file-existence check for the config path",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestShellHarness/E_"],
+      "note": "E documents observed behavior: a missing runtime.sh aborts via set -e with bash's bare source error. Acceptable but less clear than the old explicit check."
+    },
+    {
+      "id": "V-entrypoint",
+      "title": "Positive guard: worker branch derives identical addresses/quota from runtime.sh as the old jq/runtime.json path",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestShellHarness/B_", "TestShellHarness/C_", "TestShellHarness/D_"]
+    },
+    {
+      "id": "V-filter",
+      "title": "Positive guard: the injection jq filter accepts only the fully-injected pod",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestShellHarness/F2_", "TestShellHarness/F3_", "TestShellHarness/F4_", "TestShellHarness/F5_", "TestShellHarness/F6_"]
+    }
+  ],
+  "liveNote": "L3 (skipped per debate setup): on a kind cluster with the #6197 chart deployed, run bash test/gha-e2e/mooncake/test.sh; expect the missing-dataset dry-run to be denied and the rw job to pass with the injected runtime.sh."
+}
