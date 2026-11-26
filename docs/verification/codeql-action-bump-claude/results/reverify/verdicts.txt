@@ -1,0 +1,2 @@
+F1-stale-version-comments	contract	unit	STILL-BROKEN(non-gating)	pass=0 fail=1
+F2-upload-sarif-not-exercised-on-pr	canary	unit	STILL-PRESENT(non-gating)	pass=1 fail=0

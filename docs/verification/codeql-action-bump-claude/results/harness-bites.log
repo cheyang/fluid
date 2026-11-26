@@ -1,0 +1,13 @@
+# harness-bites: proposed fix (refresh comments to # v4.39.4) applied to working tree
+SUMMARY 9 checks, 0 failed: none
+CHECK P0-premise-base-pin pass base pins resolve to ['v4.39.3'] (claim: from v4.39.3)
+CHECK P0-premise-head-pin pass head pins resolve to ['v4.39.4'] (claim: to v4.39.4)
+CHECK A1-pin-official-tag pass all pinned SHAs resolve to official github/codeql-action tags
+CHECK A1-pin-consistency pass codeql-action steps use 1 distinct SHA(s): ['1bd86f2fdb4b86187fa4059f16f31a3202acc9ea']
+CHECK A2-workflow-yaml-parse pass .github/workflows/codeql-analysis.yml: parsed
+CHECK A2-workflow-yaml-parse pass .github/workflows/sonarcloud.yaml: parsed
+CHECK F1-version-comment-accuracy pass all trailing version comments match the pinned tag
+CHECK F1-base-preexistence pass stale comments also present on base (3 lines) -> pre-existing
+CHECK F2-upload-sarif-pr-coverage pass sonarcloud.yaml triggers=push,schedule -> upload-sarif NOT exercised by PR CI (first run post-merge)
+exit=0
+# fix reverted; production diff clean: 0 modified files

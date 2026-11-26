@@ -1,0 +1,36 @@
+# CI evidence for PR #6289 head bb4e3096ec1ddab2df5ff9afbb57c2a665203d8c (captured 2026-11-26T22:39:09Z)
+
+## Workflow runs on the head commit (gh run list --commit <sha>)
+Copilot	dynamic	success
+PR Quota Limit	pull_request	success
+E2E Functionality Check	pull_request	success
+CodeQL	pull_request	success
+Project Check	pull_request	success
+E2E Backward Compatibility Check	pull_request	success
+
+## Check runs (gh api commits/<sha>/check-runs)
+Analyze (go)	success	github-actions
+backward-compat-test (v1.22.17)	success	github-actions
+backward-compat-test (v1.24.17)	success	github-actions
+backward-compat-test (v1.28.15)	success	github-actions
+backward-compat-test (v1.30.13)	success	github-actions
+backward-compat-test (v1.33.2)	success	github-actions
+build (ubuntu-24.04-arm)	success	github-actions
+build (ubuntu-latest)	success	github-actions
+check-pr-quota	success	github-actions
+CodeQL	success	github-advanced-security
+copilot-pull-request-reviewer	success	github-actions
+DCO	success	dco
+kind-e2e-test (v1.22.17)	success	github-actions
+kind-e2e-test (v1.24.17)	success	github-actions
+kind-e2e-test (v1.28.15)	success	github-actions
+kind-e2e-test (v1.30.13)	success	github-actions
+kind-e2e-test (v1.33.2)	success	github-actions
+lint	success	github-actions
+SonarCloud Code Analysis	success	sonarqubecloud
+SonarCloud	success	github-advanced-security
+staticcheck	success	github-actions
+unittest	success	github-actions
+
+Note: 'CodeQL' (pull_request event) exercises init@1bd86f2 + analyze@1bd86f2 on this PR.
+The 'Sonarcloud Scan' workflow (sonarcloud.yaml, upload-sarif@1bd86f2) has schedule+push triggers only and did NOT run on this PR.

@@ -1,0 +1,68 @@
+{
+  "topic": "codeql-action-bump-claude",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6289",
+  "baseSha": "b8ff60e309c341b58a9e26b085b76e6067e6bb60",
+  "harnessPaths": [
+    "docs/verification/codeql-action-bump-claude"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: \"Bumps the codeql-action group with 3 updates: github/codeql-action/init, analyze and upload-sarif\" from 4.39.3 to 4.39.4 (bundle 2.27.5).",
+    "reportedComponent": ".github/workflows/codeql-analysis.yml, .github/workflows/sonarcloud.yaml",
+    "patchedComponent": ".github/workflows/codeql-analysis.yml, .github/workflows/sonarcloud.yaml",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "base pins 33d7b85da1a04171e211befe2c739303b9a4c066 = peeled tag v4.39.3; head pins 1bd86f2fdb4b86187fa4059f16f31a3202acc9ea = peeled tag v4.39.4 of github/codeql-action (git ls-remote); see results/unit-head.log and results/tag-map.cache.json",
+    "match": ["P0-premise-base-pin", "P0-premise-head-pin"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "custom",
+      "cmd": "python3 -I docs/verification/codeql-action-bump-claude/scripts/check_actions_pins.py --repo . --ref <fixed-ref> --base-ref b8ff60e309c341b58a9e26b085b76e6067e6bb60"
+    },
+    "integration": {
+      "kind": "external-ci",
+      "cmd": "not runnable locally: the CodeQL workflow (pull_request trigger) exercised init@1bd86f2 and analyze@1bd86f2 on the PR head and passed; captured as evidence in results/ci-evidence.txt (gh run list / gh api check-runs on head sha bb4e3096ec1ddab2df5ff9afbb57c2a665203d8c)"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1-stale-version-comments",
+      "polarity": "contract",
+      "layer": "unit",
+      "gating": false,
+      "severity": "nit",
+      "match": ["F1-version-comment-accuracy"],
+      "notes": "Trailing # v3.29.5 / # v2.22.11 comments on the bumped uses lines do not state the pinned version (v4.39.4). Pre-existing on base (F1-base-preexistence check); dependabot only refreshes a trailing comment that matches the old version, so they stay stale until manually corrected to # v4.39.4. Harness-bites verified: with comments refreshed the check goes green (results/harness-bites.log)."
+    },
+    {
+      "id": "F2-upload-sarif-not-exercised-on-pr",
+      "polarity": "canary",
+      "layer": "unit",
+      "gating": false,
+      "severity": "minor",
+      "match": ["F2-upload-sarif-pr-coverage"],
+      "notes": "sonarcloud.yaml triggers are push+schedule only, so upload-sarif@1bd86f2 first executes post-merge; PR CI cannot catch a broken upload-sarif pin. Canary passes while that is true; if PR coverage is ever added, the canary flips and must be inverted."
+    }
+  ],
+  "acceptance": [
+    {
+      "id": "A1-pin-identity",
+      "contract": "Every github/codeql-action/*@<sha> step at head resolves to an official release tag of github/codeql-action, and all steps share one SHA equal to the tag the PR claims (v4.39.4).",
+      "checks": ["A1-pin-official-tag", "A1-pin-consistency", "P0-premise-head-pin"]
+    },
+    {
+      "id": "A2-workflows-valid",
+      "contract": "The two touched workflow files parse as YAML and their action inputs are unchanged by the diff.",
+      "checks": ["A2-workflow-yaml-parse"]
+    },
+    {
+      "id": "A3-comment-accuracy",
+      "contract": "Trailing version comments on pinned uses lines state the version the SHA resolves to.",
+      "checks": ["F1-version-comment-accuracy"]
+    }
+  ],
+  "liveNote": "L3 not applicable: no runtime/cluster behavior in this PR. The real integration signal is the GitHub-hosted CodeQL workflow run on the PR head (pull_request event), captured in results/ci-evidence.txt."
+}
