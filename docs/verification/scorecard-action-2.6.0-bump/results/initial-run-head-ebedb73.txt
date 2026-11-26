@@ -1,0 +1,7 @@
+verify-bump: ref=HEAD pinned=23f22cd43608bae7a1f1fa2603d7314dee9538a5 comment=v2.6.0 with=[exclude_checks,exclude_paths,publish_results,results_file,results_format]
+CHECK pin-integrity   PASS v2.6.0 -> 23f22cd43608bae7a1f1fa2603d7314dee9538a5 (matches upstream tag)
+CHECK inputs-compat   PASS all workflow inputs declared at v2.5.0 remain declared at v2.6.0
+CHECK image-available PASS ghcr.io/ossf/scorecard-action:v2.6.0 manifest HTTP 200
+CHECK dead-inputs     INFO with: keys not declared by action.yaml at v2.6.0 (silently ignored): exclude_checks exclude_paths
+---
+verify-bump: ALL GATING CHECKS PASSED (ref=HEAD)

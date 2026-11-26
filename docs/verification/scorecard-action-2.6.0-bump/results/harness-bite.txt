@@ -1,0 +1,10 @@
+# harness-bites check: same harness, workflow pinned to the OLD v2.5.0 sha while the comment claims v2.6.0
+# expected: pin-integrity FAIL, exit 1
+verify-bump: ref=tmp-harness-bite pinned=fa7117db83c52d787ae5a89f350999701505d78e comment=v2.6.0 with=[exclude_checks,exclude_paths,publish_results,results_file,results_format]
+CHECK pin-integrity   FAIL workflow pins fa7117db83c52d787ae5a89f350999701505d78e but v2.6.0 peels to 23f22cd43608bae7a1f1fa2603d7314dee9538a5
+CHECK inputs-compat   PASS all workflow inputs declared at v2.5.0 remain declared at v2.6.0
+CHECK image-available PASS ghcr.io/ossf/scorecard-action:v2.6.0 manifest HTTP 200
+CHECK dead-inputs     INFO with: keys not declared by action.yaml at v2.6.0 (silently ignored): exclude_checks exclude_paths
+---
+verify-bump: 1 GATING CHECK(S) FAILED (ref=tmp-harness-bite)
+exit=1

@@ -1,0 +1,45 @@
+{
+  "topic": "scorecard-action-2.6.0-bump",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6290",
+  "reviewedHead": "ebedb73a3187209fe3e961c56b8f137d326f1c52",
+  "base": "b8ff60e309c341b58a9e26b085b76e6067e6bb60",
+  "harnessPaths": [
+    "docs/verification/scorecard-action-2.6.0-bump"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Bumps ossf/scorecard-action from 2.5.0 to 2.6.0 (Dependabot): the pinned SHA in .github/workflows/sonarcloud.yaml is the genuine v2.6.0 release commit and the workflow's usage remains compatible.",
+    "reportedComponent": ".github/workflows/sonarcloud.yaml (Scorecards analysis job)",
+    "patchedComponent": ".github/workflows/sonarcloud.yaml",
+    "componentMatch": true,
+    "runsAgainst": "head",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "results/initial-run-head-ebedb73.txt — pin-integrity PASS (23f22cd... == peeled v2.6.0 tag), inputs-compat PASS, image-available PASS",
+    "match": ["pin-integrity"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "script",
+      "cmd": "bash docs/verification/scorecard-action-2.6.0-bump/scripts/verify-bump.sh <ref>"
+    }
+  },
+  "findings": [
+    {
+      "id": "P0",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["pin-integrity", "inputs-compat", "image-available"],
+      "note": "Premise of the bump: pin must equal the peeled upstream tag; no workflow input may be dropped by the new action version; the docker image must exist."
+    },
+    {
+      "id": "F1",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": ["dead-inputs"],
+      "note": "PRE-EXISTING on base, non-gating. exclude_checks/exclude_paths are not declared or read by any scorecard-action release; silently ignored. Canary flips when the workflow drops them or the action starts honoring them."
+    }
+  ],
+  "liveNote": "L3 skipped per debate setup (no KUBECONFIG layer). The workflow has no pull_request trigger; post-merge, watch the first run of 'Sonarcloud Scan' on master (or the weekly Saturday schedule) for a green Scorecards analysis job.",
+  "reVerify": "bash docs/verification/scorecard-action-2.6.0-bump/scripts/re-verify.sh   # resolves current PR head from manifest.pr"
+}

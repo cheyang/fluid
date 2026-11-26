@@ -1,0 +1,49 @@
+# Upstream investigation evidence (2026-11-27, reviewer: codex)
+
+## Tag <-> commit integrity (git ls-remote https://github.com/ossf/scorecard-action.git)
+46dc3187a971a9febf3aeb7f94ccde489f7bb46a  refs/tags/v2.5.0
+fa7117db83c52d787ae5a89f350999701505d78e  refs/tags/v2.5.0^{}   <- old pin in workflow (matches)
+56eaeac26fc540dfface1f07f79b9426f1956b4d  refs/tags/v2.6.0
+23f22cd43608bae7a1f1fa2603d7314dee9538a5  refs/tags/v2.6.0^{}   <- new pin in PR (matches)
+
+## action.yaml diff v2.5.0 -> v2.6.0 (ADDITIVE ONLY)
++  fail_on_publish_error:            (new optional input, default false)
++    description: "INPUT: Fail the step when the Scorecard API rejects published results. ..."
++outputs:
++  results_published / publication_status   (new outputs)
+ runs:
+   using: "docker"
+-  image: "docker://ghcr.io/ossf/scorecard-action:v2.5.0"
++  image: "docker://ghcr.io/ossf/scorecard-action:v2.6.0"
+=> No input removed or renamed. Workflow uses results_file, results_format,
+   publish_results (all still declared); fail_on_publish_error default false
+   preserves old warn-only publish behavior.
+
+## Inputs actually read by the action binary at v2.6.0
+(git grep -h "INPUT_" 23f22cd -- options/*.go | sort -u)
+INPUT_FAIL_ON_PUBLISH_ERROR, INPUT_FILE_MODE, INPUT_INTERNAL_DEFAULT_TOKEN,
+INPUT_INTERNAL_PUBLISH_BASE_URL, INPUT_PUBLISH_RESULTS, INPUT_REPO_TOKEN,
+INPUT_RESULTS_FILE, INPUT_RESULTS_FORMAT
+=> exclude_checks / exclude_paths are NOT read anywhere (also not declared in
+   action.yaml at v2.5.0 OR v2.6.0; git grep over the full tree at both commits:
+   no matches). They are dead config in fluid's workflow — PRE-EXISTING on base.
+
+## publish_results refactor (upstream commit c0591f8, PR #1731)
+- PublishResults bool  ->  PublishResults bool `env:"INPUT_PUBLISH_RESULTS"`
++ tests: public repo + publish_results=true => publishes (same as before);
+  private repo never publishes. Behavior-preserving for fluid (public repo).
+
+## Scorecard v5.7.0 "Action Required" items vs this workflow
+- scorecard exits 1 again on scan/write failure (v5.4.0-v5.6.0 exited 0):
+  stricter, but only surfaces genuine failures -> acceptable.
+- `scorecard serve` listen/CORS change: not used by the action workflow.
+- scorecard-attestor removed: not used.
+- GitLab token scoping: not applicable.
+- Score changes (immutable releases now count for Signed-Releases and
+  Pinned-Dependencies): changes reported scores only, cannot fail the job.
+
+## Workflow trigger coverage
+on: schedule (weekly Sat) + push [master, release-*]. NO pull_request trigger
+=> this workflow is NOT exercised by PR CI; the green statusCheckRollup on the
+   PR comes from other workflows. First real run of the bumped action happens
+   on the next push to master or the weekly schedule.
