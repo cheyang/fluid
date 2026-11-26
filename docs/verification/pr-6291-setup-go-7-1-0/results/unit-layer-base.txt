@@ -1,0 +1,7 @@
+T1_PinIsFullSHA	pass
+T2_PinsConsistent	pass
+T3_PinMatchesClaimedTag	fail
+T4_WorkflowsParse	pass
+T5_VersionCommentAccurate	fail
+T6_UpstreamContractAdditive	pass
+T7_OldPinFullyReplaced	fail

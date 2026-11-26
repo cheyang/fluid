@@ -1,0 +1,38 @@
+{
+  "topic": "pr-6291-setup-go-7-1-0",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6291",
+  "reviewer": "codex",
+  "headSha": "9c9216c48e3c8204e7c3b520520cbfe906ad2332",
+  "baseSha": "b8ff60e309c341b58a9e26b085b76e6067e6bb60",
+  "harnessPaths": [
+    "docs/verification/pr-6291-setup-go-7-1-0"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: bump actions/setup-go 7.0.0 -> 7.1.0; upstream release exists, is what the PR pins, and changes nothing these workflows consume",
+    "reportedComponent": ".github/workflows (CI only)",
+    "patchedComponent": ".github/workflows/backward-compatibility-e2e.yml, .github/workflows/kind-e2e.yml, .github/workflows/project-check.yml",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "base pins v7.0.0 at all 6 sites (results/premise-base-pins.txt); git ls-remote maps v7.0.0->b7ad1dad... and v7.1.0->d8cbb8045d7f43706b9177cceb36c1f91a6644d5 (results/ls-remote-tags.txt); action.yml diff between the pins is additive-only (results/action-yml-diff.txt).",
+    "match": ["T3_PinMatchesClaimedTag"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "shell",
+      "cmd": "bash docs/verification/pr-6291-setup-go-7-1-0/scripts/verify-pins.sh"
+    }
+  },
+  "findings": [
+    { "id": "V1", "polarity": "contract", "layer": "unit", "match": ["T1_PinIsFullSHA"] },
+    { "id": "V2", "polarity": "contract", "layer": "unit", "match": ["T2_PinsConsistent"] },
+    { "id": "V3", "polarity": "contract", "layer": "unit", "match": ["T3_PinMatchesClaimedTag"] },
+    { "id": "V4", "polarity": "contract", "layer": "unit", "match": ["T4_WorkflowsParse"] },
+    { "id": "V5", "polarity": "contract", "layer": "unit", "match": ["T5_VersionCommentAccurate"] },
+    { "id": "V6", "polarity": "contract", "layer": "unit", "match": ["T6_UpstreamContractAdditive"] },
+    { "id": "V7", "polarity": "contract", "layer": "unit", "match": ["T7_OldPinFullyReplaced"] }
+  ],
+  "liveNote": "L3 skipped by debate policy (CI-only change). Integration evidence instead: gh pr checks on the reviewed head, all 22 checks pass incl. every job of the 3 modified pull_request-triggered workflows (results/pr-checks-head.txt)."
+}

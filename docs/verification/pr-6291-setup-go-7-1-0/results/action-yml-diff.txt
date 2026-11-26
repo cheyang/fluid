@@ -1,0 +1,37 @@
+# upstream action.yml diff v7.0.0 pin -> v7.1.0 pin (fetched from the two pinned commits via gh api, 2026-11-27)
+--- /tmp/setupgo-diff-6291/v700.yml	2026-11-27 07:16:44.053985866 +0800
++++ /tmp/setupgo-diff-6291/v710.yml	2026-11-27 07:16:44.473999702 +0800
+@@ -3,7 +3,7 @@
+ author: 'GitHub'
+ inputs:
+   go-version:
+-    description: 'The Go version to download (if necessary) and use. Supports semver spec and ranges. Be sure to enclose this option in single quotation marks.'
++    description: 'The Go version to download (if necessary) and use. Supports native Go versions (e.g. go1.21.5), semver specs and ranges. Be sure to enclose this option in single quotation marks.'
+   go-version-file:
+     description: 'Path to the go.mod, go.work, .go-version, or .tool-versions file.'
+   check-latest:
+@@ -26,6 +26,24 @@
+     description: 'The installed Go version. Useful when given a version range as input.'
+   cache-hit:
+     description: 'A boolean value to indicate if a cache was hit'
++  GOPATH:
++    description: 'The value of `go env GOPATH`.'
++  GOBIN:
++    description: 'The value of `go env GOBIN`.'
++  go-bin-path:
++    description: 'The base Go binary directory: the `GOBIN` value, otherwise `bin` under the first `GOPATH` entry when `GOBIN` is empty.'
++  GOROOT:
++    description: 'The value of `go env GOROOT`.'
++  GOCACHE:
++    description: 'The value of `go env GOCACHE`, the build cache directory.'
++  GOMODCACHE:
++    description: 'The value of `go env GOMODCACHE`, the module cache directory.'
++  GOOS:
++    description: 'The value of `go env GOOS`, the target OS in Go notation (linux, darwin, windows).'
++  GOARCH:
++    description: 'The value of `go env GOARCH`, the target architecture in Go notation (amd64, arm64).'
++  GOTOOLDIR:
++    description: 'The value of `go env GOTOOLDIR`, the directory holding the toolchain binaries.'
+ runs:
+   using: 'node24'
+   main: 'dist/setup/index.js'

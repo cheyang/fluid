@@ -1,0 +1,7 @@
+# premise control: base b8ff60e pins actions/setup-go v7.0.0
+.github/workflows/project-check.yml:21:        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+.github/workflows/project-check.yml:40:        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+.github/workflows/project-check.yml:99:      uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+.github/workflows/project-check.yml:123:      uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+.github/workflows/kind-e2e.yml:43:        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+.github/workflows/backward-compatibility-e2e.yml:40:        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
