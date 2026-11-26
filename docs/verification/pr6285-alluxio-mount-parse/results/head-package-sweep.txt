@@ -1,0 +1,2 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	10.117s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	0.020s

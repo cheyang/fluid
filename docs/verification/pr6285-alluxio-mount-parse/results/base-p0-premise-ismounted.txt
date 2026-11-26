@@ -1,0 +1,21 @@
+=== RUN   TestVerifyPR6285_IsMountedShortLines
+--- FAIL: TestVerifyPR6285_IsMountedShortLines (0.00s)
+panic: runtime error: index out of range [2] with length 0 [recovered, repanicked]
+
+goroutine 112 [running]:
+testing.tRunner.func1.2({0x3038970, 0x352094a666d8})
+	/usr/local/go/src/testing/testing.go:2123 +0x4ae
+testing.tRunner.func1()
+	/usr/local/go/src/testing/testing.go:2126 +0x56d
+panic({0x3038970?, 0x352094a666d8?})
+	/usr/local/go/src/runtime/panic.go:859 +0x136
+github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations.AlluxioFileUtils.IsMounted({{0x0, 0x0}, {0x0, 0x0}, {0x0, 0x0}, {{0x30b28b8, 0x3199dc0}, 0x0}}, {0x1fe72f7, ...})
+	/tmp/fluid-wt-pr6285-base/pkg/ddc/alluxio/operations/base.go:323 +0x7e8
+github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations.TestVerifyPR6285_IsMountedShortLines(0x352094d15208)
+	/tmp/fluid-wt-pr6285-base/pkg/ddc/alluxio/operations/verify_pr6285_mountparse_test.go:115 +0x226
+testing.tRunner(0x352094d15208, 0x30b8778)
+	/usr/local/go/src/testing/testing.go:2193 +0x18e
+created by testing.(*T).Run in goroutine 1
+	/usr/local/go/src/testing/testing.go:2258 +0x9bf
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio/operations	0.018s
+FAIL
