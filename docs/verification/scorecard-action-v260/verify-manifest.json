@@ -1,0 +1,41 @@
+{
+  "topic": "scorecard-action-v260",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6290",
+  "harnessPaths": [
+    "docs/verification/scorecard-action-v260"
+  ],
+  "_premise_note": "P0 for a dependency bump: the claimed problem is 'the pinned action is outdated; v2.6.0 exists'. Verified on base: base pins v2.5.0, and v2.6.0 exists and is consumable (tag -> commit -> ghcr image -> declared inputs).",
+  "premise": {
+    "id": "P0",
+    "claim": "Dependabot: 'Bumps ossf/scorecard-action from 2.5.0 to 2.6.0' — the new release exists and is consumable through the SHA-pinned workflow style used in .github/workflows/sonarcloud.yaml.",
+    "reportedComponent": "CI scorecard analysis step (.github/workflows/sonarcloud.yaml)",
+    "patchedComponent": "same file, one line (the pinned SHA + version comment)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "base pins fa7117db83c... (= v2.5.0 tag commit); v2.6.0 tag dereferences to 23f22cd43608... which equals the PR's new pin, and ghcr.io/ossf/scorecard-action:v2.6.0 is published with linux/amd64 — see results/differential-upstream.txt",
+    "match": ["PinMatchesTag", "ImageManifestAvailable"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/scorecard-action-v260/scripts/run-checks.sh"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1-exclude-inputs-dead",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": ["ExcludeInputsIgnored"]
+    },
+    {
+      "id": "F2-publish-activation",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["PublishResultsEffective"]
+    }
+  ],
+  "liveNote": "L3 (skipped per round policy; no live/KUBECONFIG layer): after merge, watch the first push-triggered run of the 'Sonarcloud Scan' workflow on master — the Scorecard step should succeed AND (new in v2.6.0) actually publish results to api.scorecard.dev (check the new step summary / results_published output). Publish rejections stay warnings unless fail_on_publish_error is set."
+}

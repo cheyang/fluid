@@ -1,0 +1,5 @@
+=== harness-bites check (2026-11-27): each test proven able to fail ===
+bite1 tampered pin -> FAIL PinMatchesTag (and PublishResultsEffective fails, pin unreachable)
+bite2 exclude keys removed (F1 fix simulated) -> ExcludeInputsIgnored flips to FAIL
+bite3 publish_results: false (opt-out simulated) -> PublishResultsEffective FAIL
+production code untouched: git diff empty, only untracked docs/verification/ added

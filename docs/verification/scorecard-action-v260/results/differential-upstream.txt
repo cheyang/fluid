@@ -1,0 +1,35 @@
+=== differential evidence: v2.5.0 vs v2.6.0 (captured 2026-11-27) ===
+
+--- action.yaml input diff (v2.5.0 -> v2.6.0) ---
+44a45,49
+>   fail_on_publish_error:
+>     description: "INPUT: Fail the step when the Scorecard API rejects published results. Network errors, 408, 429 and 5xx responses are retried and only produce a warning."
+>     required: false
+>     default: false
+> 
+54a60,66
+> outputs:
+>   results_published:
+>     description: "Whether the results were published to the Scorecard API: true or false"
+> 
+>   publication_status:
+>     description: "HTTP status code of the final publish attempt, `error` if no response was received, or `skipped` if publishing was not attempted"
+> 
+61c73
+<   image: "docker://ghcr.io/ossf/scorecard-action:v2.5.0"
+---
+>   image: "docker://ghcr.io/ossf/scorecard-action:v2.6.0"
+
+--- options.go publish_results wiring ---
+v2.5.0:
+82:	PublishResults bool
+v2.6.0:
+82:	PublishResults bool `env:"INPUT_PUBLISH_RESULTS"`
+
+--- tag dereference ---
+v2.5.0 tag 46dc3187a971... -> commit fa7117db83c52d787ae5a89f350999701505d78e (old pin in workflow)
+v2.6.0 tag 56eaeac26fc5... -> commit 23f22cd43608bae7a1f1fa2603d7314dee9538a5 (new pin in PR)
+
+--- image ---
+ghcr.io/ossf/scorecard-action:v2.5.0 -> docker manifest v2, digest sha256:1e1481c65fc2407d3fd6ab18a23c741eb4d1c0d9359ebafc4b3ab13aa61d8627
+ghcr.io/ossf/scorecard-action:v2.6.0 -> OCI index, digest sha256:7f092e5a4a363af001cca6cdb04f111e212173ba602336104394e7febc2c6e48, includes linux/amd64
