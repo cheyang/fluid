@@ -1,0 +1,70 @@
+{
+  "topic": "mooncake-clientless-inject",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6286",
+  "harnessPaths": [
+    "docs/verification/mooncake-clientless-inject"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #6251: #6197 adds the clientless runtime config injection with unit tests and a manual run on kind, but no e2e coverage; the e2e was deferred until the Mooncake e2e from #6175 was merged.",
+    "reportedComponent": "test/gha-e2e/mooncake (e2e coverage for the clientless injection webhook)",
+    "patchedComponent": "test/gha-e2e/mooncake (test.sh, rw_job.yaml, image/Dockerfile, image/custom-entrypoint.sh)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "merge-base 07efc760 has zero mentions of clientless.fluid.io in the mooncake e2e; results/l1-details.txt T_premise__no_clientless_coverage_on_base",
+    "match": ["T_premise__no_clientless_coverage_on_base"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "bash docs/verification/mooncake-clientless-inject/scripts/run_l1.sh"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "T_rejection_grep__denial_message_matched",
+        "T_rejection_grep__fires_when_webhook_absent"
+      ]
+    },
+    {
+      "id": "C1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "T_rw_job_script__yaml_parses",
+        "T_rw_job_script__sources_runtime_sh",
+        "T_rw_job_script__fails_fast_without_injection"
+      ]
+    },
+    {
+      "id": "C2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "T_worker_entrypoint__sources_runtime_sh",
+        "T_worker_entrypoint__missing_path_fails",
+        "T_worker_entrypoint__path_with_spaces"
+      ]
+    },
+    {
+      "id": "C3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "T_injection_jq__injected_pod_passes",
+        "T_injection_jq__bare_pod_fails",
+        "T_injection_jq__volume_without_env_fails",
+        "T_injection_jq__wrong_env_value_fails",
+        "T_injection_jq__mount_not_readonly_fails",
+        "T_injection_jq__empty_pod_list_fails"
+      ]
+    }
+  ],
+  "liveNote": "L3 (live layer, NOT run this round): on a kind cluster with #6197's webhook deployed, `bash test/gha-e2e/mooncake/test.sh` must pass end to end, including check_missing_dataset_rejected and check_runtime_config_injection. Observable signals: kubectl run --dry-run=server is rejected with 'admission webhook \"clientless.fluid.io\" denied the request' containing '\"mooncake-missing\" not found', and the completed rw pod carries volume fluid-runtime-config-mooncake-demo mounted read-only at /etc/fluid/config/mooncake-demo plus env FLUID_RUNTIME_CONFIG_PATH_MOONCAKE_DEMO=/etc/fluid/config/mooncake-demo/runtime.sh. The author reports this passing on kind/Kubernetes v1.33.2 with #6197's 9c8d0e9f applied; re-run after #6197 merges."
+}
