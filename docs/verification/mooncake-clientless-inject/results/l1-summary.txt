@@ -1,0 +1,1 @@
+l1-summary: pass=19 fail=0 (details: /home/ecs-user/.pr-debate/homes/claude/repos/fluid-cloudnative/fluid/docs/verification/mooncake-clientless-inject/scripts/../results/l1-details.txt)

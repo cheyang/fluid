@@ -20,5 +20,7 @@ while IFS=$'\t' read -r name status; do
 done <<< "$RAW"
 
 printf '{"Action":"skip","Package":"(root)"}\n' >/dev/null
-echo "l1-summary: pass=$pass fail=$fail (details: $RESULTS_DIR/l1-details.txt)" >&2
+# NOTE: keep stdout pure go-test JSONL — re-verify.sh redirects stderr into the same
+# capture file, so any human-readable line here would break its jq parser.
+echo "l1-summary: pass=$pass fail=$fail (details: $RESULTS_DIR/l1-details.txt)" > "$RESULTS_DIR/l1-summary.txt"
 [ "$fail" -eq 0 ]
