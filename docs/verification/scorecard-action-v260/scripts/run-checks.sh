@@ -48,7 +48,8 @@ PIN="$(printf '%s' "$PIN_LINE" | grep -oE '@[0-9a-f]{40}' | tr -d '@')"
 TAG="$(printf '%s' "$PIN_LINE" | grep -oE '# v[0-9]+\.[0-9]+\.[0-9]+' | tr -d '# ')"
 [ -n "$PIN" ] || fail "could not parse pinned SHA from: $PIN_LINE"
 [ -n "$TAG" ] || fail "could not parse version comment from: $PIN_LINE"
-echo "# pin=$PIN tag=$TAG" >&2
+# NOTE: no stderr output in the success path — re-verify.sh merges stderr into
+# the go-test-json stream (2>&1) and non-JSON lines break its parser.
 
 # --- 1. PinMatchesTag (contract) ---------------------------------------------
 # Dereference the (annotated) tag to its commit via the GitHub API.
