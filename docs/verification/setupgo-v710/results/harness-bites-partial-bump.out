@@ -1,0 +1,8 @@
+  MISMATCH .github/workflows/kind-e2e.yml:43 pins b7ad1dad31e06c5925ef5d2fc7ad053ef454303e (expected d8cbb8045d7f43706b9177cceb36c1f91a6644d5)
+  MISMATCH .github/workflows/kind-e2e.yml:43 comment 'v7.0.0' (expected 'v7.1.0')
+pin-bump	fail	6 usage(s) in 3 file(s) all pin d8cbb8045d7f43706b9177cceb36c1f91a6644d5 (v7.1.0)
+go-version-input	pass	6 setup-go step(s) keep go-version: ${{ env.GO_VERSION }}
+---
+pin-bump           FAIL  6 usage(s) in 3 file(s) all pin d8cbb8045d7f43706b9177cceb36c1f91a6644d5 (v7.1.0)
+go-version-input   PASS  6 setup-go step(s) keep go-version: ${{ env.GO_VERSION }}
+CONTRACT RESULT: FAIL (1 check(s) failed)

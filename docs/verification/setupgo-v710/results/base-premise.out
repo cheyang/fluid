@@ -1,0 +1,20 @@
+  MISMATCH .github/workflows/backward-compatibility-e2e.yml:40 pins b7ad1dad31e06c5925ef5d2fc7ad053ef454303e (expected d8cbb8045d7f43706b9177cceb36c1f91a6644d5)
+  MISMATCH .github/workflows/backward-compatibility-e2e.yml:40 comment 'v7.0.0' (expected 'v7.1.0')
+  MISMATCH .github/workflows/kind-e2e.yml:43 pins b7ad1dad31e06c5925ef5d2fc7ad053ef454303e (expected d8cbb8045d7f43706b9177cceb36c1f91a6644d5)
+  MISMATCH .github/workflows/kind-e2e.yml:43 comment 'v7.0.0' (expected 'v7.1.0')
+  MISMATCH .github/workflows/project-check.yml:21 pins b7ad1dad31e06c5925ef5d2fc7ad053ef454303e (expected d8cbb8045d7f43706b9177cceb36c1f91a6644d5)
+  MISMATCH .github/workflows/project-check.yml:21 comment 'v7.0.0' (expected 'v7.1.0')
+  MISMATCH .github/workflows/project-check.yml:40 pins b7ad1dad31e06c5925ef5d2fc7ad053ef454303e (expected d8cbb8045d7f43706b9177cceb36c1f91a6644d5)
+  MISMATCH .github/workflows/project-check.yml:40 comment 'v7.0.0' (expected 'v7.1.0')
+  MISMATCH .github/workflows/project-check.yml:99 pins b7ad1dad31e06c5925ef5d2fc7ad053ef454303e (expected d8cbb8045d7f43706b9177cceb36c1f91a6644d5)
+  MISMATCH .github/workflows/project-check.yml:99 comment 'v7.0.0' (expected 'v7.1.0')
+  MISMATCH .github/workflows/project-check.yml:123 pins b7ad1dad31e06c5925ef5d2fc7ad053ef454303e (expected d8cbb8045d7f43706b9177cceb36c1f91a6644d5)
+  MISMATCH .github/workflows/project-check.yml:123 comment 'v7.0.0' (expected 'v7.1.0')
+pin-bump	fail	6 usage(s) in 3 file(s) all pin d8cbb8045d7f43706b9177cceb36c1f91a6644d5 (v7.1.0)
+go-version-input	pass	6 setup-go step(s) keep go-version: ${{ env.GO_VERSION }}
+tag-identity	pass	refs/tags/v7.1.0 -> d8cbb8045d7f43706b9177cceb36c1f91a6644d5 (expected d8cbb8045d7f43706b9177cceb36c1f91a6644d5)
+---
+pin-bump           FAIL  6 usage(s) in 3 file(s) all pin d8cbb8045d7f43706b9177cceb36c1f91a6644d5 (v7.1.0)
+go-version-input   PASS  6 setup-go step(s) keep go-version: ${{ env.GO_VERSION }}
+tag-identity       PASS  refs/tags/v7.1.0 -> d8cbb8045d7f43706b9177cceb36c1f91a6644d5 (expected d8cbb8045d7f43706b9177cceb36c1f91a6644d5)
+CONTRACT RESULT: FAIL (1 check(s) failed)

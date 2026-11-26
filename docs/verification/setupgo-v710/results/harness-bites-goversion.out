@@ -1,0 +1,10 @@
+  .github/workflows/project-check.yml job staticcheck: go-version='1.26' (expected '${{ env.GO_VERSION }}')
+  .github/workflows/project-check.yml job lint: go-version='1.26' (expected '${{ env.GO_VERSION }}')
+  .github/workflows/project-check.yml job build: go-version='1.26' (expected '${{ env.GO_VERSION }}')
+  .github/workflows/project-check.yml job unittest: go-version='1.26' (expected '${{ env.GO_VERSION }}')
+pin-bump	pass	6 usage(s) in 3 file(s) all pin d8cbb8045d7f43706b9177cceb36c1f91a6644d5 (v7.1.0)
+go-version-input	fail	6 setup-go step(s) keep go-version: ${{ env.GO_VERSION }}
+---
+pin-bump           PASS  6 usage(s) in 3 file(s) all pin d8cbb8045d7f43706b9177cceb36c1f91a6644d5 (v7.1.0)
+go-version-input   FAIL  6 setup-go step(s) keep go-version: ${{ env.GO_VERSION }}
+CONTRACT RESULT: FAIL (1 check(s) failed)
