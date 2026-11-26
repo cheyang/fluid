@@ -1,0 +1,8 @@
+pin-bump	pass	6 usage(s) in 3 file(s) all pin d8cbb8045d7f43706b9177cceb36c1f91a6644d5 (v7.1.0)
+go-version-input	pass	6 setup-go step(s) keep go-version: ${{ env.GO_VERSION }}
+tag-identity	pass	refs/tags/v7.1.0 -> d8cbb8045d7f43706b9177cceb36c1f91a6644d5 (expected d8cbb8045d7f43706b9177cceb36c1f91a6644d5)
+---
+pin-bump           PASS  6 usage(s) in 3 file(s) all pin d8cbb8045d7f43706b9177cceb36c1f91a6644d5 (v7.1.0)
+go-version-input   PASS  6 setup-go step(s) keep go-version: ${{ env.GO_VERSION }}
+tag-identity       PASS  refs/tags/v7.1.0 -> d8cbb8045d7f43706b9177cceb36c1f91a6644d5 (expected d8cbb8045d7f43706b9177cceb36c1f91a6644d5)
+CONTRACT RESULT: PASS (all checks green)
