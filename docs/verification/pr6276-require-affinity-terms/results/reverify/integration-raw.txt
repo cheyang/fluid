@@ -1,0 +1,9 @@
+{"Time":"2026-11-27T07:34:36.352440497+08:00","Action":"start","Package":"github.com/fluid-cloudnative/fluid/pkg/utils"}
+{"Time":"2026-11-27T07:34:36.367865866+08:00","Action":"run","Package":"github.com/fluid-cloudnative/fluid/pkg/utils","Test":"TestVerifyInjectedAffinityAPIValidation"}
+{"Time":"2026-11-27T07:34:36.367915468+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/utils","Test":"TestVerifyInjectedAffinityAPIValidation","Output":"=== RUN   TestVerifyInjectedAffinityAPIValidation\n","OutputType":"frame"}
+{"Time":"2026-11-27T07:34:38.620982749+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/utils","Test":"TestVerifyInjectedAffinityAPIValidation","Output":"    affinity_envtest_test.go:118: empty-terms pod rejected as expected: Pod \"empty-terms-affinity\" is invalid: spec.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms: Required value: must have at least one node selector term\n"}
+{"Time":"2026-11-27T07:34:38.639138095+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/utils","Test":"TestVerifyInjectedAffinityAPIValidation","Output":"--- PASS: TestVerifyInjectedAffinityAPIValidation (2.27s)\n","OutputType":"frame"}
+{"Time":"2026-11-27T07:34:38.639154576+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/utils","Test":"TestVerifyInjectedAffinityAPIValidation","Elapsed":2.27}
+{"Time":"2026-11-27T07:34:38.639169166+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/utils","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-11-27T07:34:38.640492283+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/utils","Output":"ok  \tgithub.com/fluid-cloudnative/fluid/pkg/utils\t2.288s\n"}
+{"Time":"2026-11-27T07:34:38.64124806+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/utils","Elapsed":2.289}

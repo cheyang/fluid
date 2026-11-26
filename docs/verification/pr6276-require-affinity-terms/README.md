@@ -84,3 +84,35 @@ Fresh machine: clone https://github.com/cheyang/fluid.git, checkout
 `re-verify.sh`). If the PR changes the function shape (rename/signature), adjust
 the harness (Harness-update) — the contract to preserve is: requirement lands in
 every existing term; empty/nil terms synthesize a single term.
+
+## Round 2 (2026-11-27) — head ff3923ce3 (delta add9a8fa..ff3923ce, docs-only)
+
+The new head adds one commit (`ff3923ce3 docs: describe how affinity
+requirements are injected`) that changes only comments:
+
+- `pkg/utils/affinity.go`: the stale doc comment ("injects(not append) a node
+  selector term ...") is rewritten to describe the fixed semantics — append to
+  every existing term, synthesize one term when none exist, and "A non-nil
+  affinity is modified in place and returned; a nil affinity gets a new one".
+  Verified accurate against the code at ff3923ce.
+- `pkg/dataflow/affinity.go` (both `[0]` read sites, injectPreferredAffinity
+  and injectRequiredAffinity): the "currently, only has one element." comment
+  now names the producer contract — GenerateNodeAffinity builds exactly one
+  term from the node the operation ran on. Verified: GenerateNodeAffinity at
+  head still constructs a single-element NodeSelectorTerms
+  (pkg/dataflow/helper.go:36-44); grep confirms no stale phrasing remains.
+
+This closes previous-round findings F1 (single-term assumption now documented),
+F2 (stale doc comment rewritten), F4 (in-place aliasing now explicit). F3 (no
+e2e for dataflow affinity) remains open: re-grepped on ff3923ce, still zero
+AffinityStrategy/runAfter references under test/ and integration/.
+
+Re-verify this round: `re-verify.sh` against auto-discovered head ff3923ce —
+F1/F2/F3 harness contracts all FIXED (unit pass=3, dataflow pass=2, envtest
+integration pass=1); raw output in results/reverify/. Full
+`go test ./pkg/utils/ ./pkg/dataflow/` suites also green on ff3923ce
+(pkg/utils 112s ok, pkg/dataflow ok). One environmental note: the pre-existing
+`TestNewPprofServer` binds the hardcoded 127.0.0.1:6060 and panics when a
+concurrent test process on this shared machine holds the port — unrelated to
+the PR (reproduces with any concurrent `go test ./pkg/utils/`); re-run with the
+port free passes.
