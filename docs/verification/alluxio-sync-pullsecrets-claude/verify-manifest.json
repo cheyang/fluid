@@ -1,0 +1,33 @@
+{
+  "topic": "alluxio-sync-pullsecrets",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6288",
+  "harnessPaths": [
+    "docs/verification/alluxio-sync-pullsecrets-claude",
+    "pkg/ddc/alluxio/sync_runtime_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Sync imagePullSecrets changes on existing AlluxioRuntimes to the master/worker StatefulSets and fuse DaemonSet ... its SyncRuntime is a no-op, so changing them after creation does nothing until the runtime is recreated (issue #6277, OPEN)",
+    "reportedComponent": "pkg/ddc/alluxio (AlluxioRuntime engine SyncRuntime)",
+    "patchedComponent": "pkg/ddc/alluxio/sync_runtime.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base 07bdbcd86, TestV01/TestV02 keep the workloads' pod template at the initial secret after spec change (see results/base-premise-TestV0.out); on head 8903e33eb the same contract tests pass (results/head-verify-tests.out)",
+    "match": ["TestV01_SyncRuntime_PropagatesSecretChanges"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/alluxio/ -run '^TestV0|^TestAlluxioEngine_SyncRuntime$' -json"
+    }
+  },
+  "findings": [
+    { "id": "AC-1", "polarity": "contract", "layer": "unit", "match": ["TestV01_SyncRuntime_PropagatesSecretChanges", "TestAlluxioEngine_SyncRuntime"] },
+    { "id": "AC-2", "polarity": "contract", "layer": "unit", "match": ["TestV02_SyncRuntime_CreationParity"] },
+    { "id": "AC-3", "polarity": "contract", "layer": "unit", "match": ["TestV01_SyncRuntime_PropagatesSecretChanges"] },
+    { "id": "F2", "polarity": "contract", "layer": "unit", "match": ["TestV03_SyncRuntime_MissingWorkloadSurfacesError"] }
+  ],
+  "liveNote": "L3 (not run this round, live layer skipped per instructions): deploy an AlluxioRuntime, update spec.imagePullSecrets, confirm kubectl get sts/<r>-master -o jsonpath='{.spec.template.spec.imagePullSecrets}' picks up the new secret without pod restarts (updateStrategy is OnDelete), and that fluid controller logs no sync errors."
+}

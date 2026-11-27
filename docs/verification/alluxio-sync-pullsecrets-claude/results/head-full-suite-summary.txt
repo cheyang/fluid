@@ -1,0 +1,6 @@
+== head (8903e33eb): full pkg/ddc/alluxio suite (FLUID_UNIT_TEST=true)
+149/150 Ginkgo specs pass; 1 pre-existing failure (metadata_test.go:233 'should successfully sync metadata and update dataset status' -> GetMetadataInfoFailed)
+== base (07bdbcd86): same command, same result 149/150, same single failure
+=> failure attributable to local environment/pre-existing, NOT to this PR.
+
+== go vet ./pkg/ddc/alluxio on head: clean
