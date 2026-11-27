@@ -1,0 +1,6 @@
+ref=b8ff60e309c341b58a9e26b085b76e6067e6bb60 layer=unit
+CHECK	statefulset-api-removed	fail	StatefulSet manifests with k8s-1.16-removed apiVersions: ['docs/zh/samples/data_toleration.md (apiVersion apps/v1beta1)']
+CHECK	en-zh-codeblock-parity	fail	docs/en/samples/data_toleration.md absent at ref
+CHECK	toc-entry-valid	fail	en TOC entry=False, file exists=False, en order ok=False, zh order ok=True
+CHECK	no-stray-taint-line	fail	stray taint lines: ['line 29: kubectl taint nodes node1 key=value:NoSchedule']
+SUMMARY	4 checks, 4 failed

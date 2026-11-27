@@ -1,0 +1,38 @@
+{
+  "topic": "dataset-toleration-docs",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6300",
+  "harnessPaths": [
+    "docs/verification/dataset-toleration-docs-claude"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "PR body: 'docs/zh/samples/data_toleration.md ... has no English version, and English readers can't find the feature'; the sample app used 'apiVersion: apps/v1beta1' for a StatefulSet so 'kubectl create -f app.yaml fails with no matches for kind \"StatefulSet\" in version \"apps/v1beta1\"'; 'a stray line kubectl taint nodes node1 key=value:NoSchedule sat between two steps, outside any code block'",
+    "reportedComponent": "docs (sample documentation for Dataset.spec.tolerations)",
+    "patchedComponent": "docs/en/samples/data_toleration.md (new), docs/en/TOC.md, docs/zh/samples/data_toleration.md",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "results/base-unit.txt: en page absent at base, TOC entry absent, zh page line 29 has the bare 'kubectl taint nodes node1 key=value:NoSchedule', and zh app.yaml uses apps/v1beta1 for kind StatefulSet. The runtime 'no matches for kind' error is documented Kubernetes behavior (StatefulSet apps/v1beta1 removed in 1.16; the page's own sample output shows a v1.16.9 cluster), so the static finding is sufficient; the live kubectl layer was not run (out of scope for this review round).",
+    "match": ["en-zh-codeblock-parity", "toc-entry-valid", "no-stray-taint-line", "statefulset-api-removed"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "doccheck",
+      "cmd": "python3 docs/verification/dataset-toleration-docs-claude/scripts/check_docs.py <ref> --repo . --layer unit"
+    },
+    "integration": {
+      "kind": "doccheck",
+      "cmd": "python3 docs/verification/dataset-toleration-docs-claude/scripts/check_docs.py <ref> --repo . --layer integration"
+    }
+  },
+  "findings": [
+    { "id": "doc-removed-apiversion", "polarity": "contract", "layer": "unit", "match": ["statefulset-api-removed"] },
+    { "id": "doc-en-page-parity", "polarity": "contract", "layer": "unit", "match": ["en-zh-codeblock-parity"] },
+    { "id": "doc-toc-entry", "polarity": "contract", "layer": "unit", "match": ["toc-entry-valid"] },
+    { "id": "doc-stray-taint-line", "polarity": "contract", "layer": "unit", "match": ["no-stray-taint-line"] },
+    { "id": "doc-manifest-validity", "polarity": "contract", "layer": "integration", "match": ["manifests-parse", "statefulset-selector", "dataset-toleration-shape"] },
+    { "id": "doc-api-currency", "polarity": "contract", "layer": "integration", "match": ["api-fields-current"] }
+  ],
+  "liveNote": "L3 (live kubectl apply of the sample manifests against a k8s >=1.16 cluster) was deliberately not run for this review round; the static removed-apiVersion check plus the documented 1.16 API removal establish the premise. If run later, expect 'no matches for kind StatefulSet in version apps/v1beta1' on the BASE doc and successful creation on the HEAD doc."
+}

@@ -1,0 +1,6 @@
+ref=b8ff60e309c341b58a9e26b085b76e6067e6bb60 layer=integration
+CHECK	manifests-parse	fail	docs/en/samples/data_toleration.md absent at ref
+CHECK	statefulset-selector	fail	docs/en/samples/data_toleration.md absent at ref
+CHECK	dataset-toleration-shape	fail	docs/en/samples/data_toleration.md absent at ref
+CHECK	api-fields-current	pass	DatasetSpec.tolerations / AlluxioRuntime replicas+tieredstore present in API types at ref: True
+SUMMARY	4 checks, 3 failed

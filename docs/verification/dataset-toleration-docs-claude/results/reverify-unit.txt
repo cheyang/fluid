@@ -1,0 +1,6 @@
+ref=81f467b58d15796a5dc87b2641f8fe4899df81bd layer=unit
+CHECK	statefulset-api-removed	pass	StatefulSet manifests with k8s-1.16-removed apiVersions: none
+CHECK	en-zh-codeblock-parity	pass	13 vs 13 blocks, identical=True
+CHECK	toc-entry-valid	pass	en TOC entry=True, file exists=True, en order ok=True, zh order ok=True
+CHECK	no-stray-taint-line	pass	stray taint lines: none
+SUMMARY	4 checks, 0 failed

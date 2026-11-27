@@ -1,0 +1,6 @@
+ref=81f467b58d15796a5dc87b2641f8fe4899df81bd layer=integration
+CHECK	manifests-parse	pass	3 manifests parsed, 0 parse errors
+CHECK	statefulset-selector	pass	StatefulSet count=1, all apps/v1 with non-empty spec.selector.matchLabels=True
+CHECK	dataset-toleration-shape	pass	tolerations entries=1, all match corev1 Toleration(Equal=>value)=True
+CHECK	api-fields-current	pass	DatasetSpec.tolerations / AlluxioRuntime replicas+tieredstore present in API types at ref: True
+SUMMARY	4 checks, 0 failed
