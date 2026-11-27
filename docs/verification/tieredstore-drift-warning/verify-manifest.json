@@ -34,9 +34,6 @@
       "layer": "unit",
       "match": [
         "TestVerifyWorkerDriftWarnsThroughFullSync"
-      ],
-      "tests": [
-        "TestVerifyWorkerDriftWarnsThroughFullSync"
       ]
     },
     {
@@ -44,9 +41,6 @@
       "polarity": "canary",
       "layer": "unit",
       "match": [
-        "TestVerifyClientTieredStoreDriftSilent"
-      ],
-      "tests": [
         "TestVerifyClientTieredStoreDriftSilent"
       ]
     },
@@ -56,9 +50,6 @@
       "layer": "unit",
       "match": [
         "TestVerifyEmptyDirMediumFlipDetected"
-      ],
-      "tests": [
-        "TestVerifyEmptyDirMediumFlipDetected"
       ]
     },
     {
@@ -66,9 +57,6 @@
       "polarity": "contract",
       "layer": "unit",
       "match": [
-        "TestVerifyDriftThrottleAcrossSyncs"
-      ],
-      "tests": [
         "TestVerifyConditionTransitionOnlyEvents"
       ],
       "note": "Round-8 rewrite: transition-only emission + restart persistence supersedes the removed interval throttle (design change in head d19969af)."
@@ -78,51 +66,48 @@
       "polarity": "contract",
       "layer": "unit",
       "match": [
-        "TestVerifyDispatchPrecedenceMatchesConfigMap"
-      ],
-      "note": "Round-8 rewrite: multi-medium edits are now rejected as RuntimeTieredStoreInvalid instead of dispatched by medium precedence.",
-      "tests": [
         "TestVerifyMultiMediumEditReportedNotSilent"
-      ]
+      ],
+      "note": "Round-8 rewrite: multi-medium edits are now rejected as RuntimeTieredStoreInvalid instead of dispatched by medium precedence."
     },
     {
       "id": "TS6",
-      "tests": [
+      "polarity": "contract",
+      "layer": "unit",
+      "note": "Round-7 blocker TS-ORPHAN-PREFIX-COLLISION regression contract (regex fix at head d19969af).",
+      "match": [
         "TestVerifyUserPrefixVolumeSteadyStateNoWarning",
         "TestVerifyClassTemplatePrefixVolumeNoWarning",
         "TestVerifyIsGeneratedTieredStoreVolumeName"
-      ],
-      "polarity": "contract",
-      "layer": "unit",
-      "note": "Round-7 blocker TS-ORPHAN-PREFIX-COLLISION regression contract (regex fix at head d19969af)."
+      ]
     },
     {
       "id": "TS7",
-      "tests": [
-        "TestVerifyQuantityRoundTripAndHostPathUnsetNoDrift"
-      ],
       "polarity": "contract",
       "layer": "unit",
-      "note": ""
+      "note": "",
+      "match": [
+        "TestVerifyQuantityRoundTripAndHostPathUnsetNoDrift"
+      ]
     },
     {
       "id": "TS8",
-      "tests": [
-        "TestVerifyInvalidSpecConditionAndGuidance"
-      ],
       "polarity": "contract",
       "layer": "unit",
-      "note": ""
+      "note": "",
+      "match": [
+        "TestVerifyInvalidSpecConditionAndGuidance"
+      ]
     },
     {
       "id": "TS9",
-      "tests": [
-        "TestVerifyUnconfiguredTieredStoreNoCondition",
-        "TestVerifyDriftCheckNilPodSpec"
-      ],
       "polarity": "contract",
       "layer": "unit",
-      "note": ""
+      "note": "",
+      "match": [
+        "TestVerifyUnconfiguredTieredStoreNoCondition",
+        "TestVerifyDriftCheckNilPodSpec"
+      ]
     }
   ],
   "liveNote": "L3 (skipped per round policy: unit + integration only): live kind-e2e on head d19969af run 45839312644 log-confirms the drift leg: TieredStoreSynced=False after patch, RuntimeTieredStoreConflict event with message 'worker pod volume tiered-store-level-0-index-0 differs from spec tieredStore', recovery to True after restore."
