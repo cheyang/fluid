@@ -129,3 +129,42 @@ contract tests; no canaries), run the harness-bites check against the base if th
 head changed, and report an observed-vs-expected table. Do not run any live-layer
 or cluster actions.
 ```
+
+## Round 3 (2026-11-27) — head `5d4117057` (force-push, history rewritten to one commit)
+
+The PR was force-pushed: `08c111a01` → `5d4117057`. The rewrite **reverts the round-2
+namespace-pick fix and deletes its guards**:
+
+- `pkg/application/inject/fuse/mount_point_script.go:43-47` is back to
+  `for _, v := range runtimeInfos { namespace = v.GetNamespace(); break }` —
+  unordered iteration and unguarded nil deref, byte-identical to base `dcb76167`
+  (the only remaining change in that file is the `assembleMountInfos` `OrderedKeys`
+  hunk).
+- The in-PR 50-iteration namespace-determinism spec (round-2's F1 fix, proven to bite
+  on base by both reviewers) was **deleted** from `mount_point_script_test.go`.
+- The "should mutate pod with multiple runtimeInfos" spec was deleted from
+  `mount_propagation_injector_test.go`.
+
+New in this round (verified fixed): `utils.OrderedKeys` for sidecar `VolumeMounts` and
+`ExtraEnvs` in `buildFilePrefetcherSidecarContainer`, `utils.OrderedKeys` in
+`datasetusageinjector`, PVC name in the mountpropagation nil-RuntimeInfo error.
+New harness contract test `TestVFilePrefetcherSidecarOrderDeterministic` (F7) pins the
+sidecar ordering; it is red on base (`results/round3/base-unit-bite.out`:
+`VolumeMounts order non-deterministic or unsorted: got [vol-z vol-a vol-m …]`) and green
+on head.
+
+### Round-3 re-verify table (all contract polarity)
+
+| ID | Test | base `dcb76167` | prev head `08c111a01` | head `5d4117057` | Verdict |
+|----|------|------------------|------------------------|-------------------|---------|
+| P0-a | TestVAssembleMountInfosDeterministic | fail | pass | **pass** | Fixed |
+| P0-b | TestVInjectCheckMountReadyScriptNamespaceDeterministic | fail | **pass** | **fail** (`map[ns-a:4 ns-m:8 ns-z:28]`) | **REGRESSED — revision-regression** |
+| P0-c | TestVDefaultFileListDeterministic | fail | pass | **pass** | Fixed |
+| F1 | TestVInjectCheckMountReadyScriptNamespaceDeterministic | fail | **pass** | **fail** | **REGRESSED** (in-PR 50-iteration spec also deleted) |
+| F6 | TestVInjectCheckMountReadyScriptNilSkip | fail (SIGSEGV) | **pass** | **fail (SIGSEGV at mount_point_script.go:45)** | **REGRESSED** (pre-existing defect; round-2 bonus fix dropped) |
+| F7 | TestVFilePrefetcherSidecarOrderDeterministic | fail | n/a (new) | **pass** | Fixed |
+
+Raw evidence: `results/round3/head-unit.out`, `results/round3/base-unit-bite.out`,
+`results/round3/prev-head-08c111a-unit.out`, `results/round3/head-full-package-tests.log`
+(the PR's own suite is green at head — the guarding tests were deleted, so nothing fails).
+Head suite/vet/gofmt clean; CI all-22 checks green at `5d4117057`.
