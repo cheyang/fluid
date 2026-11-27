@@ -1,0 +1,7 @@
+=== RUN   TestZZLeakProbe
+    zz_leak_probe_test.go:36: goroutines before=3 after=4
+    zz_leak_probe_test.go:38: GOROUTINE LEAK CONFIRMED: before=3 after=4 (blocked on duplicate send; deferred SafeClose never ran)
+--- FAIL: TestZZLeakProbe (0.10s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	0.113s
+FAIL

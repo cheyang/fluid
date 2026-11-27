@@ -1,0 +1,11 @@
+=== RUN   TestVerifySyncMetadataSingleSendNoLeak
+    metadata_dup_send_verify_test.go:84: unexpected second value sent on MetadataSyncDoneCh
+--- FAIL: TestVerifySyncMetadataSingleSendNoLeak (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	0.013s
+=== RUN   TestVerifySyncMetadataSingleSendNoLeak
+    metadata_dup_send_verify_test.go:84: unexpected second value sent on MetadataSyncDoneCh
+--- FAIL: TestVerifySyncMetadataSingleSendNoLeak (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	0.013s
+FAIL

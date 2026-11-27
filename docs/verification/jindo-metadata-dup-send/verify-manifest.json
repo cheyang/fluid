@@ -1,0 +1,36 @@
+{
+  "topic": "jindo-metadata-dup-send",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6298",
+  "harnessPaths": [
+    "docs/verification/jindo-metadata-dup-send",
+    "pkg/ddc/jindocache/metadata_dup_send_verify_test.go",
+    "pkg/ddc/jindofsx/metadata_dup_send_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Issue #6297: 'the second send blocked the goroutine forever on every metadata sync completion (leaking a goroutine and skipping defer base.SafeClose(resultChan))' — duplicate unguarded resultChan <- result after base.SafeSend in syncMetadataInternal()",
+    "reportedComponent": "pkg/ddc/jindocache/metadata.go and pkg/ddc/jindofsx/metadata.go syncMetadataInternal()",
+    "patchedComponent": "same two files (duplicate send removed)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base b8ff60e the harness contract test FAILS in both engines (a second value is observable on MetadataSyncDoneCh), and a one-off probe consuming exactly one result shows goroutines 3->4 (one leaked goroutine per sync; deferred SafeClose never runs). See results/base-premise-p0.log and results/base-goroutine-leak-probe.log.",
+    "match": ["TestVerifySyncMetadataSingleSendNoLeak"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "FLUID_UNIT_TEST=true go test -race -count=1 -run 'TestVerifySyncMetadataSingleSendNoLeak|TestSyncMetadataInternal' -v ./pkg/ddc/jindocache/ ./pkg/ddc/jindofsx/"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "FLUID_UNIT_TEST=true go test -race -count=1 ./pkg/utils/testutil/... ./pkg/ddc/jindocache/... ./pkg/ddc/jindofsx/..."
+    }
+  },
+  "findings": [
+    { "id": "PR6298-F1", "polarity": "contract", "layer": "unit", "match": ["TestVerifySyncMetadataSingleSendNoLeak"] },
+    { "id": "PR6298-F1", "polarity": "contract", "layer": "unit", "match": ["TestSyncMetadataInternal"] }
+  ],
+  "liveNote": "L3 (live cluster) not run this round per debate setup: unit + integration layers only, no KUBECONFIG. The claim is fully decidable at unit layer (goroutine/channel logic)."
+}

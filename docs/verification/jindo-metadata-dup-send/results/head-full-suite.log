@@ -1,0 +1,5 @@
+?   	github.com/fluid-cloudnative/fluid/pkg/utils/testutil	[no test files]
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	48.322s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache/operations	31.054s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	16.263s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx/operations	31.047s

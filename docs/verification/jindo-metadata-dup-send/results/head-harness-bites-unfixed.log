@@ -1,0 +1,7 @@
+--- FAIL: TestVerifySyncMetadataSingleSendNoLeak (0.00s)
+    metadata_dup_send_verify_test.go:84: unexpected second value sent on MetadataSyncDoneCh
+--- FAIL: TestSyncMetadataInternal (0.00s)
+    metadata_test.go:355: unexpected second value sent to metadata sync channel
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	0.017s
+FAIL
