@@ -21,11 +21,11 @@
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "FLUID_UNIT_TEST=true go test -race -count=1 -run 'TestVerifySyncMetadataSingleSendNoLeak|TestSyncMetadataInternal' -v ./pkg/ddc/jindocache/ ./pkg/ddc/jindofsx/"
+      "cmd": "FLUID_UNIT_TEST=true go test -race -count=1 -run 'TestVerifySyncMetadataSingleSendNoLeak|TestSyncMetadataInternal' -json ./pkg/ddc/jindocache/ ./pkg/ddc/jindofsx/"
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "FLUID_UNIT_TEST=true go test -race -count=1 ./pkg/utils/testutil/... ./pkg/ddc/jindocache/... ./pkg/ddc/jindofsx/..."
+      "cmd": "FLUID_UNIT_TEST=true go test -race -count=1 -json ./pkg/utils/testutil/... ./pkg/ddc/jindocache/... ./pkg/ddc/jindofsx/..."
     }
   },
   "findings": [
