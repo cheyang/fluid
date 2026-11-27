@@ -3,36 +3,33 @@
   "pr": "https://github.com/fluid-cloudnative/fluid/pull/6219",
   "harnessPaths": [
     "docs/verification/cacheruntime-tieredstore-drift",
-    "pkg/ddc/cache/engine/verify_pr6219_premise_test.go",
-    "pkg/ddc/cache/engine/verify_pr6219_findings_test.go",
-    "pkg/ddc/cache/engine/verify_pr6219_envtest_test.go",
-    "pkg/ddc/cache/engine/verify_pr6219_r2_contracts_test.go",
-    "pkg/ddc/cache/engine/verify_pr6219_r3_contracts_test.go",
-    "pkg/ddc/cache/engine/verify_pr6219_r7_contracts_test.go"
+    "pkg/ddc/cache/engine/verify_pr6219_r8_premise_test.go",
+    "pkg/ddc/cache/engine/verify_pr6219_r8_contracts_test.go",
+    "pkg/ddc/cache/engine/verify_pr6219_r8_envtest_test.go"
   ],
   "premise": {
     "id": "P0",
-    "claim": "Changing spec.worker.tieredStore on an existing CacheRuntime updates the runtime ConfigMap but not the worker Pod. The quota ends up recorded as two different values, and no event, condition or log line says so. (issue #6192)",
+    "claim": "Changing spec.worker.tieredStore on an existing CacheRuntime updates the runtime ConfigMap but not the worker Pod. The quota ends up recorded as two different values, and no event, condition or log line says so. (issue #6192, OPEN, re-checked 2026-11-27)",
     "reportedComponent": "CacheRuntime controller (pkg/ddc/cache/engine)",
-    "patchedComponent": "pkg/ddc/cache/engine (sync.go, engine.go) + docs",
+    "patchedComponent": "pkg/ddc/cache/engine (sync.go, status.go, util.go, setup.go) + api/v1alpha1/status.go + pkg/common/constants.go + docs",
     "componentMatch": true,
     "runsAgainst": "base",
     "layer": "unit",
     "verdict": "confirmed",
-    "evidence": "results/base-premise-unit.txt: on base 86e3adf3 the ConfigMap quota follows the edited spec (16Gi) while the worker ASTS volume keeps 8Gi and zero events are emitted; the canary flips on head 58afa3a9 with the expected RuntimeTieredStoreConflict warning.",
+    "evidence": "results/r8-premise-base-b8ff60e3.txt: on the round-8 base b8ff60e3 the ConfigMap quota follows the edited spec (16Gi) while the worker ASTS volume keeps 8Gi, with 0 events and no tieredStore condition (TestVerifyPR6219R8Premise_SilentOnBase PASS on base). On head d19969af the same canary flips: full Sync emits 'Warning RuntimeTieredStoreConflict Worker tieredStore cannot be updated in-place after creation: worker pod volume tiered-store-level-0-memory differs from spec tieredStore. Delete and recreate the CacheRuntime to apply changes.' and persists TieredStoreSynced=False (results/r8-unit-head-d19969af.txt). Round-7 base 253f6bb8 verdict carried: confirmed (results/base-premise-unit.txt).",
     "match": [
-      "TestVerifyPR6219Premise_ConfigMapFollowsSpecPodDoesNot",
-      "TestVerifyPR6219Premise_SilentOnBase"
+      "TestVerifyPR6219R8Premise_ConfigMapFollowsSpecPodDoesNot",
+      "TestVerifyPR6219R8Premise_SilentOnBase"
     ]
   },
   "layers": {
     "unit": {
       "kind": "gotest",
-      "cmd": "go test -count=1 ./pkg/ddc/cache/engine -run 'TestVerifyPR6219' -json"
+      "cmd": "go test -count=1 ./pkg/ddc/cache/engine -run 'TestVerifyPR6219R8' -json"
     },
     "integration": {
       "kind": "gotest",
-      "cmd": "go test -count=1 ./pkg/ddc/cache/engine -run 'TestVerifyPR6219Envtest' -json"
+      "cmd": "go test -count=1 ./pkg/ddc/cache/engine -run 'TestVerifyPR6219R8Envtest' -json"
     }
   },
   "findings": [
@@ -40,78 +37,115 @@
       "id": "P0-silent",
       "polarity": "canary",
       "layer": "unit",
-      "match": [
-        "TestVerifyPR6219Premise_SilentOnBase"
-      ]
+      "match": ["TestVerifyPR6219R8Premise_SilentOnBase"],
+      "note": "Flips red on head = the drift is no longer silent (fix working). Passes on base (premise reproduction)."
+    },
+    {
+      "id": "P0-split",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyPR6219R8Premise_ConfigMapFollowsSpecPodDoesNot"],
+      "note": "Both trees: ConfigMap follows the edited spec while the pod volume keeps the creation-time size; the PR warns instead of patching volumes, and #6299 (OPEN) tracks the ConfigMap side."
     },
     {
       "id": "FIX-worker-drift-event",
       "polarity": "contract",
       "layer": "unit",
-      "match": [
-        "TestVerifyPR6219Fix_DriftEmitsWarningOnHead"
-      ]
+      "match": ["TestVerifyPR6219R8DriftConflictThroughSync"]
     },
     {
       "id": "FIX-worker-drift-event-envtest",
       "polarity": "contract",
       "layer": "integration",
-      "match": [
-        "TestVerifyPR6219Envtest_DriftRoundTrip"
-      ]
+      "match": ["TestVerifyPR6219R8Envtest_ConditionLifecycleAcrossRestart"]
     },
     {
       "id": "F1",
       "polarity": "contract",
       "layer": "unit",
-      "match": [
-        "TestVerifyPR6219RemediationGuidanceRecreateCacheRuntime",
-        "TestVerifyPR6219DocsGuidanceAndScope"
-      ]
+      "match": ["TestVerifyPR6219R8DriftConflictThroughSync", "TestVerifyPR6219R8DocsGuidanceAndScope"],
+      "note": "TS-REMEDIATION-GUIDANCE-WEDGE: genuine drift keeps 'Delete and recreate the CacheRuntime to apply changes.'; invalid specs must NOT advise recreate (covered by TS-DISPATCH-PRECEDENCE tests)."
     },
     {
       "id": "F2",
       "polarity": "contract",
       "layer": "unit",
-      "match": [
-        "TestVerifyPR6219MediumDriftNowDetected"
-      ]
+      "match": ["TestVerifyPR6219R8MediumFlipDetected"]
     },
     {
       "id": "F3",
       "polarity": "contract",
       "layer": "unit",
-      "match": [
-        "TestVerifyPR6219DocsGuidanceAndScope"
-      ]
+      "match": ["TestVerifyPR6219R8DocsGuidanceAndScope"],
+      "note": "TS-DOC-CLIENT-SCOPE: docs stay worker-scoped; client-side silence tracked in #6221 (OPEN, re-checked 2026-11-27)."
+    },
+    {
+      "id": "TS-CLIENT-SILENCE-CANARY",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": ["TestVerifyPR6219R8ClientTieredStoreEditSilent"],
+      "note": "Tripwire for the #6221 deferral: STILL-PRESENT (passing) is the expected state until client-side drift detection lands; a flip means the deferral ended and the docs/tests must be revisited."
     },
     {
       "id": "TS-DISPATCH-PRECEDENCE",
       "polarity": "contract",
       "layer": "unit",
-      "match": [
-        "TestVerifyPR6219DispatchMatchesConfigMapExtraction"
-      ]
+      "match": ["TestVerifyPR6219R8InvalidSpecNoRecreateAdvice"],
+      "note": "Contract restated in round 8: a multi-medium level is now a transform error surfaced as RuntimeTieredStoreInvalid (never a precedence race against pod volumes). The rounds 2-3 order-matching form is archived in attic/."
     },
     {
       "id": "R3-HOSTPATH-STEADY",
       "polarity": "contract",
       "layer": "unit",
-      "match": [
-        "TestVerifyPR6219HostPathSteadyStateNoWarning"
-      ]
+      "match": ["TestVerifyPR6219R8HostPathUnsetNormalization"]
     },
     {
       "id": "TS-ORPHAN-PREFIX-COLLISION",
       "polarity": "contract",
       "layer": "unit",
       "match": [
-        "TestVerifyPR6219UserPrefixVolumeSteadyStateNoWarning",
-        "TestVerifyPR6219UserPrefixVolumeReachesWorkerPod",
-        "TestVerifyPR6219OrphanedGeneratedVolumeStillDetected"
-      ]
+        "TestVerifyPR6219R8GeneratedNameRegex",
+        "TestVerifyPR6219R8TransformGeneratesOnlyRegexNames",
+        "TestVerifyPR6219R8UserPrefixVolumeReachesWorkerPod",
+        "TestVerifyPR6219R8UserPrefixVolumeSteadyStateNoWarning",
+        "TestVerifyPR6219R8OrphanedGeneratedVolumeStillDetected"
+      ],
+      "note": "Round-7 blocker, fixed in round 8 by matching the exact generated shape (tiered-store-level-<N>-index-<M> / -memory) via isGeneratedTieredStoreVolumeName; user/class volumes sharing the bare prefix are ignored, genuine generated-shape orphans are still flagged, and the transform-name invariant guards the want/got filter asymmetry."
+    },
+    {
+      "id": "TS-REQUEUE-REEMISSION",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyPR6219R8EventDedupAcrossEngineRestart", "TestVerifyPR6219R8MessageChangeReemitsAndRevertClears"],
+      "note": "Carried rounds 2-7 advisory, resolved by design in round 8: the persistent TieredStoreSynced condition is the durable record (survives event TTL and controller restarts, needs no requeue), and events are transition-only. Envtest proves restart-proof dedup against a real API server."
+    },
+    {
+      "id": "TS-WORKER-DISABLE-STALE-CONDITION",
+      "polarity": "canary",
+      "layer": "unit",
+      "match": ["TestVerifyPR6219R8WorkerDisabledLeavesStaleCondition"],
+      "note": "NEW in round 8 (minor): a persisted TieredStoreSynced=False is never re-evaluated once spec.worker.disabled=true skips the worker branch, so a stale conflict alarm (with recreate advice) outlives the worker. Canary passes while stale; flips when the disabled path clears or marks the condition Unknown."
+    },
+    {
+      "id": "TS-CONFIGMAP-ONLY-FIELDS",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyPR6219R8ConfigMapOnlyFieldsSilent"],
+      "note": "Docs claim hostPath.quotas/high/low edits are ConfigMap-only and never warn."
+    },
+    {
+      "id": "TS-QUANTITY-ROUNDTRIP",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyPR6219R8QuantityFormatNoFalsePositive"],
+      "note": "equality.Semantic compares quantities by value: 1Gi vs 1073741824 must not drift."
+    },
+    {
+      "id": "TS-TIEREDSTORE-OMISSION",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestVerifyPR6219R8NoTieredStoreNoCondition"]
     }
   ],
-  "liveNote": "L3 (skipped per debate setup): on a real cluster, edit spec.worker.tieredStore on an existing CacheRuntime and confirm `kubectl get events --field-selector reason=RuntimeTieredStoreConflict` shows the warning, re-emitted at >=10min intervals while drift persists. Note: verify_pr6219_envtest_test.go needs envtest binaries (KUBEBUILDER_ASSETS or ~/.local/share/kubebuilder-envtest) and self-skips without them.",
-  "polarityNotes": "P0-silent is the premise canary: PASSES on base (premise reproduced) and FAILS on the fixed head (fix works); keep as differential record. Round 2 (head b56db670): F1/F2/F3 were re-polarized from canaries to CONTRACTS because the fixes landed as text/comparison/docs changes the round-1 canaries could not observe: F1 pins the remediation wording (event message + en/zh docs must say 'delete and recreate the CacheRuntime', never 'recreate the worker'), F2 pins medium-only detection, F3 pins the docs' worker-only scope. Retired round-1 canaries (still in the tree, intentionally NOT in findings): TestVerifyPR6219MediumOnlyEditInvisibleToDriftCheck (FLIPPED red on b56db670 = blind spot closed, superseded by the F2 contract), TestVerifyPR6219RemediationDeleteWorkerWorkloadDoesNotHeal (stays green: pins the pre-existing no-self-heal behavior, now unreferenced by any guidance), TestVerifyPR6219ClientTieredStoreEditSilent (stays green: pins pre-existing client silence, detection deferred to issue #6221). The PR's own ginkgo suite requires -gcflags='all=-N -l' (gomonkey); without it 35 specs fail on base and head alike (pre-existing). Round 3 (head 6809f62f): TS-DISPATCH-PRECEDENCE (round-2 question, Copilot C4368713436) is FIXED by the dispatch-order flip in checkWorkerTieredStoreDrift (HostPath now precedes EmptyDir, matching cm.go extractTieredStoreLevels); pinned by contract TestVerifyPR6219DispatchMatchesConfigMapExtraction \u2014 bite-checked by restoring the round-2 order, which silences the warning on a both-fields level ('expected a RuntimeTieredStoreConflict warning event, got events: []'). R3-HOSTPATH-STEADY is a new no-false-positive guard for hostPath levels under the hostPath-first dispatch (creation rejects multi-medium levels, so hostPath volumes at steady state must never warn). Round 4 (head 133accac): rebase-only delta onto 96a3765e (base absorbed the kind-e2e runner pin via #6225); all ten PR files byte-identical to 6809f62f. re-verify.sh on 133accac: RESULT all findings fixed (8/8: P0 canary flipped, all contracts green incl. envtest integration). No polarity changes; retired canaries still behave as documented (medium-blindspot canary red, no-self-heal and client-silence canaries green). Round 7 (head 59cd3ab3, base moved to 253f6bb8 via #6177 resource-merge restructure + deps): TS-ORPHAN-PREFIX-COLLISION is a NEW open contract, RED on this head \u2014 the orphan check in checkWorkerTieredStoreDrift treats any pod volume with the tiered-store-level- prefix as engine-generated, so a user/class-template volume sharing the prefix (reachable via spec.volumes + worker volumeMounts, or the CacheRuntimeClass template) produces a recurring steady-state false-positive warning whose recreate-the-CacheRuntime guidance cannot resolve it. Reachability and the guard (orphaned generated-shape volume still detected) PASS on head. Bite-check: narrowing the match to the generated shape (level-<N>-index-<M> / -memory) flips the finding contract green and keeps the guard + the PR's 16 drift specs green (results/r7-bite-check-fixed.txt). All round-1..6 findings re-verified FIXED on 59cd3ab3 (8/8, results/r7-reverify-59cd3ab3); premise re-confirmed on bare base 253f6bb8 (results/r7-premise-base-253f6bb8.txt)."
+  "liveNote": "L3 (skipped per debate setup): the PR's own kind-e2e leg (test/gha-e2e/curvine/test.sh verify_tieredstore_drift_warning) patches spec.worker.tieredStore 1Gi->2Gi on a live cluster, waits on condition=TieredStoreSynced=False, asserts the RuntimeTieredStoreConflict Warning event, restores 1Gi and waits on True. Green on all five k8s versions on head d19969af (CI run 45839312644)."
 }

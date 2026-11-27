@@ -1,7 +1,7 @@
 # Verification — PR #6219 (CacheRuntime tieredStore drift warning)
 
-Reviewer: codex (Reviewer B in the pr-debate pipeline). Round: initial.
-Head under review: `58afa3a9651bef192bf5457bb552aed3656d95dc` (base `86e3adf35a7c26875e818edad3e01dfac15f0290`).
+Reviewer: codex (Reviewer B in the pr-debate pipeline). Rounds: 1-8 (see round sections below; latest is round 8).
+Head under review (round 8): `d19969af2897cb768942fd6a45b650187324f5a0` (base `b8ff60e309c341b58a9e26b085b76e6067e6bb60`). Round-1 head was `58afa3a9651bef192bf5457bb552aed3656d95dc`.
 Harness branch: `verify/cacheruntime-tieredstore-drift-codex`. Production code untouched — the branch adds only test files and this directory.
 
 ## Premise (P0) — verdict: CONFIRMED
@@ -201,3 +201,25 @@ Raw logs: `results/r7-prefix-collision-head-59cd3ab3.txt` (red on head), `result
 | premise P0 on new base | confirmed | **re-confirmed on bare `253f6bb8`** (silent split still reproduces; #6177 does not touch volumes) | `results/r7-premise-base-253f6bb8.txt` |
 
 PR's own suites on head: full ginkgo engine package green — **438 passed / 0 failed / 16 skipped** (345 prior + base-absorbed specs from #6177/#6264/#5771 etc.) (`results/r7-full-package-head-59cd3ab3.txt`). Required CI on 59cd3ab3 fully green (22/22; kind-e2e run 44884338241 executed 2026-11-21, ~27-34 min x5 versions; v1.22.17 job 136786244507 log-confirms all four drift phases — `results/r7-kind-e2e-v12217-drift-legs.txt`; head_sha verified via gh api). Linked issues re-checked 2026-11-22: #6192 OPEN, #6221 OPEN.
+
+## Round 8 — head `d19969af2897cb768942fd6a45b650187324f5a0` (2026-11-27)
+
+Force-pushed **design change** onto the moved base (`253f6bb8` → `b8ff60e3`; the material base additions are **#6242** CacheRuntimeClass snapshot binding, which landed the `ResourcesSynced` condition machinery this PR now extends, plus #6254/#6287/#6278). The PR replaced the rounds 1-7 in-memory throttled warning with:
+
+- a persistent `TieredStoreSynced` status condition (`api/v1alpha1/status.go`) written through `checkAndUpdateRuntimeStatus` / `updateRuntimeConditions` (`status.go`, `sync.go`), emitting Warning events only on transition to `False` or on reason/message change (`applyRuntimeConditions` → `recordConditionEvents`);
+- the round-7 blocker fix: orphan detection now matches the exact engine-generated name shape via `isGeneratedTieredStoreVolumeName` (`^tiered-store-level-<N>-index-<M>$` / `-memory`, util.go), so user/class volumes sharing the bare prefix are ignored;
+- an `RuntimeTieredStoreInvalid` reason for specs `TransformRuntimeTieredStore` rejects (multi-medium levels, multiple processMemory levels), with fix-the-spec advice and never recreate advice;
+- detection rendered through `TransformRuntimeTieredStore` + whole-volume `equality.Semantic.DeepEqual` with nil-vs-HostPathUnset normalization (sync.go `checkWorkerTieredStoreDrift`), replacing the hand-rolled per-field compares;
+- engine.go/engine_test.go are no longer touched (throttle state gone); docs rewritten for the condition model, now also documenting the reserved generated-name shape; e2e simplified to condition waits + event assertion (throttle/cooldown legs gone with the throttle).
+
+Harness: the rounds 1-7 test files no longer compile against the new shape (Harness-update, not a regression signal) — archived verbatim under `attic/` and replaced additively by `verify_pr6219_r8_{premise,contracts,envtest}_test.go`. The premise file compiles on both trees; the contracts/envtest files are head-only.
+
+| id | round-7 state | round-8 verdict | evidence |
+| --- | --- | --- | --- |
+| P0 premise | confirmed | **re-confirmed on base `b8ff60e3`** (ConfigMap 16Gi vs pod 8Gi, 0 events/conditions; canary flips on head with the exact conflict event) | `results/r8-premise-base-b8ff60e3.txt`, `results/r8-unit-head-d19969af.txt` |
+| TS-ORPHAN-PREFIX-COLLISION | **open blocker** | **FIXED** — regex table (3 positive / 12 negative shapes), transform-name invariant, steady-state user-prefix volume stays True with 0 events through the real creation path, orphaned `tiered-store-level-9-index-0` still flagged | `results/r8-unit-head-d19969af.txt` |
+| TS-REQUEUE-REEMISSION | open advisory | **resolved by design** — persistent condition is the durable record (survives event TTL, no requeue needed); dedup proven across reconciles AND a fresh engine instance (restart), at both layers | `results/r8-unit-head-d19969af.txt`, `results/r8-envtest-head-d19969af.txt` |
+| F1/F2/F3, TS-DISPATCH-PRECEDENCE, R3-HOSTPATH-STEADY | fixed | still fixed in the new shape (recreate guidance only on genuine conflict; medium flip both directions; docs worker-scoped, #6221 OPEN re-checked 2026-11-27; multi-medium now Invalid; nil-vs-HostPathUnset normalized) | `results/r8-unit-head-d19969af.txt` |
+| TS-WORKER-DISABLE-STALE-CONDITION | — | **NEW open minor (canary)** — persisted `TieredStoreSynced=False` is never re-evaluated once `spec.worker.disabled=true` skips the worker branch; the stale alarm (with recreate advice) outlives the worker | `TestVerifyPR6219R8WorkerDisabledLeavesStaleCondition` (passes while stale) |
+
+PR's own suites on head: full engine ginkgo package green — **480 passed / 0 failed / 16 pre-existing env skips** (`results/r8-full-package-head-d19969af.txt`; the only `--- FAIL` in that run is this harness's intentionally-flipping premise canary). Required CI on d19969af: 22/22 green incl. kind-e2e x5 (run 45839312644) with the simplified condition-wait legs. Envtest (real API server + shipped CRDs): condition type accepted by the CRD schema, exactly one transition event, restart-proof dedup, revert recovery (`results/r8-envtest-head-d19969af.txt`).

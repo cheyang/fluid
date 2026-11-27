@@ -1,0 +1,5 @@
+2026/11/27 11:53:09 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6219R8Envtest_ConditionLifecycleAcrossRestart
+--- PASS: TestVerifyPR6219R8Envtest_ConditionLifecycleAcrossRestart (6.21s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	6.226s

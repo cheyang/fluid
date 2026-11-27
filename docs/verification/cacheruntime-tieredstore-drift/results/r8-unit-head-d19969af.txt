@@ -1,0 +1,57 @@
+2026/11/27 11:53:02 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyPR6219R8GeneratedNameRegex
+--- PASS: TestVerifyPR6219R8GeneratedNameRegex (0.00s)
+=== RUN   TestVerifyPR6219R8TransformGeneratesOnlyRegexNames
+--- PASS: TestVerifyPR6219R8TransformGeneratesOnlyRegexNames (0.00s)
+=== RUN   TestVerifyPR6219R8UserPrefixVolumeReachesWorkerPod
+--- PASS: TestVerifyPR6219R8UserPrefixVolumeReachesWorkerPod (0.00s)
+=== RUN   TestVerifyPR6219R8UserPrefixVolumeSteadyStateNoWarning
+--- PASS: TestVerifyPR6219R8UserPrefixVolumeSteadyStateNoWarning (0.00s)
+=== RUN   TestVerifyPR6219R8OrphanedGeneratedVolumeStillDetected
+--- PASS: TestVerifyPR6219R8OrphanedGeneratedVolumeStillDetected (0.00s)
+=== RUN   TestVerifyPR6219R8DriftConflictThroughSync
+--- PASS: TestVerifyPR6219R8DriftConflictThroughSync (0.00s)
+=== RUN   TestVerifyPR6219R8MediumFlipDetected
+=== RUN   TestVerifyPR6219R8MediumFlipDetected/disk_to_Memory
+=== RUN   TestVerifyPR6219R8MediumFlipDetected/Memory_to_disk
+--- PASS: TestVerifyPR6219R8MediumFlipDetected (0.00s)
+    --- PASS: TestVerifyPR6219R8MediumFlipDetected/disk_to_Memory (0.00s)
+    --- PASS: TestVerifyPR6219R8MediumFlipDetected/Memory_to_disk (0.00s)
+=== RUN   TestVerifyPR6219R8QuantityFormatNoFalsePositive
+--- PASS: TestVerifyPR6219R8QuantityFormatNoFalsePositive (0.00s)
+=== RUN   TestVerifyPR6219R8HostPathUnsetNormalization
+--- PASS: TestVerifyPR6219R8HostPathUnsetNormalization (0.00s)
+=== RUN   TestVerifyPR6219R8ConfigMapOnlyFieldsSilent
+--- PASS: TestVerifyPR6219R8ConfigMapOnlyFieldsSilent (0.00s)
+=== RUN   TestVerifyPR6219R8InvalidSpecNoRecreateAdvice
+=== RUN   TestVerifyPR6219R8InvalidSpecNoRecreateAdvice/multiple_media_on_one_level
+=== RUN   TestVerifyPR6219R8InvalidSpecNoRecreateAdvice/multiple_processMemory_levels
+--- PASS: TestVerifyPR6219R8InvalidSpecNoRecreateAdvice (0.00s)
+    --- PASS: TestVerifyPR6219R8InvalidSpecNoRecreateAdvice/multiple_media_on_one_level (0.00s)
+    --- PASS: TestVerifyPR6219R8InvalidSpecNoRecreateAdvice/multiple_processMemory_levels (0.00s)
+=== RUN   TestVerifyPR6219R8EventDedupAcrossEngineRestart
+--- PASS: TestVerifyPR6219R8EventDedupAcrossEngineRestart (0.00s)
+=== RUN   TestVerifyPR6219R8MessageChangeReemitsAndRevertClears
+--- PASS: TestVerifyPR6219R8MessageChangeReemitsAndRevertClears (0.00s)
+=== RUN   TestVerifyPR6219R8NoTieredStoreNoCondition
+--- PASS: TestVerifyPR6219R8NoTieredStoreNoCondition (0.00s)
+=== RUN   TestVerifyPR6219R8ClientTieredStoreEditSilent
+--- PASS: TestVerifyPR6219R8ClientTieredStoreEditSilent (0.00s)
+=== RUN   TestVerifyPR6219R8WorkerDisabledLeavesStaleCondition
+    verify_pr6219_r8_contracts_test.go:842: STALE CONDITION (canary): worker disabled but TieredStoreSynced stays False/RuntimeTieredStoreConflict: Worker tieredStore cannot be updated in-place after creation: worker pod volume tiered-store-level-0-memory differs from spec tieredStore. Delete and recreate the CacheRuntime to apply changes.
+--- PASS: TestVerifyPR6219R8WorkerDisabledLeavesStaleCondition (0.00s)
+=== RUN   TestVerifyPR6219R8DocsGuidanceAndScope
+--- PASS: TestVerifyPR6219R8DocsGuidanceAndScope (0.00s)
+=== RUN   TestVerifyPR6219R8Envtest_ConditionLifecycleAcrossRestart
+W1127 11:53:08.730116 2987571 reflector.go:462] sigs.k8s.io/controller-runtime/pkg/cache/internal/informers.go:105: watch of *v1alpha1.CacheRuntimeClass ended with: an error on the server ("unable to decode an event from the watch stream: context canceled") has prevented the request from succeeding
+W1127 11:53:08.730126 2987571 reflector.go:462] sigs.k8s.io/controller-runtime/pkg/cache/internal/informers.go:105: watch of *v1.Pod ended with: an error on the server ("unable to decode an event from the watch stream: context canceled") has prevented the request from succeeding
+--- PASS: TestVerifyPR6219R8Envtest_ConditionLifecycleAcrossRestart (6.68s)
+=== RUN   TestVerifyPR6219R8Premise_ConfigMapFollowsSpecPodDoesNot
+--- PASS: TestVerifyPR6219R8Premise_ConfigMapFollowsSpecPodDoesNot (0.00s)
+=== RUN   TestVerifyPR6219R8Premise_SilentOnBase
+[premise-canary] observed event: Warning RuntimeTieredStoreConflict Worker tieredStore cannot be updated in-place after creation: worker pod volume tiered-store-level-0-memory differs from spec tieredStore. Delete and recreate the CacheRuntime to apply changes.
+    verify_pr6219_r8_premise_test.go:368: CANARY FLIPPED (this is the fix working on head): unexpected tieredStore event: Warning RuntimeTieredStoreConflict Worker tieredStore cannot be updated in-place after creation: worker pod volume tiered-store-level-0-memory differs from spec tieredStore. Delete and recreate the CacheRuntime to apply changes.
+--- FAIL: TestVerifyPR6219R8Premise_SilentOnBase (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	6.721s
+FAIL
