@@ -55,6 +55,15 @@
       "note": "INVARIANCE probe: passes on BOTH base and head because datasetNames order only feeds utils.ContainsString membership checks. Pass = claim 'no observable effect' holds. Cross-check: results/base-pr-mountpropagation-test.txt shows the PR's own new spec passing against BASE plugin code (order-blind test)."
     },
     {
+      "id": "F6",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyNamespacePickSkipsNilRuntimeInfo"
+      ],
+      "note": "Pre-existing latent nil-deref in injectCheckMountReadyScript's namespace pick (unreachable in-tree; sibling plugins guard nil). Fixed as a bonus at 08c111a, RE-EXPOSED at 5d4117057 when the rewrite reverted the pick loop to the unguarded base form. Contract: no panic on a nil entry. Fails (recovered panic) on base dcb76167 and head 5d4117057; passed on previous head 08c111a."
+    },
+    {
       "id": "R1",
       "polarity": "contract",
       "layer": "unit",
@@ -64,7 +73,7 @@
         "TestVerifySidecarContainerDeterministic",
         "TestVerifyDefaultFileListDeterministic"
       ],
-      "note": "Regression contracts for the real fixes in mount_point_script.go and file_prefetcher.go. Fail on base, pass on head."
+      "note": "Regression contracts for the real fixes in mount_point_script.go and file_prefetcher.go: all four fail on base and pass on a fully-fixed head. At head 5d4117057 the author REVERTED the namespace-pick determinism fix (back to base's unguarded random map iteration), so TestVerifyNamespaceSelectionDeterministic fails on base dcb76167 and head 5d4117057 but passed on previous head 08c111a; the other three contracts pass on both heads."
     },
     {
       "id": "R2",
@@ -91,6 +100,17 @@
         "results/round2-f1-test-bites-base.txt",
         "results/round2-f1-test-green-head.txt",
         "results/round2-head-full-suite.txt"
+      ]
+    },
+    {
+      "round": 3,
+      "head": "5d4117057cf04d8ae455c41d71d188130cf02a97",
+      "previousHead": "08c111a019c5f840fa076561eee2c2df17db92dc",
+      "reverify": "PARTIAL: F1/F2 invariance probes pass; R1 3/4 pass - TestVerifyNamespaceSelectionDeterministic FAILS (namespace pick reverted to base's random map iteration); F6 nil-guard contract FAILS (guard reverted); R2 PR suites green",
+      "notes": "force-push rewrite narrowed scope: dropped namespace-pick determinism fix + nil-skip guard + 50-iteration namespace test + mountpropagationinjector multi-runtimeInfos effect spec; kept assembleMountInfos/fileprefetcher sorts, mountpropagationinjector defensive sort + named-nil error, added datasetusageinjector slices.Sort->utils.OrderedKeys cleanup. Master advanced dcb76167->b8ff60e3 without touching these packages.",
+      "results": [
+        "results/reverify/",
+        "results/reverify-round3/"
       ]
     }
   ]

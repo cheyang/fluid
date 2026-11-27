@@ -3,11 +3,11 @@ Verification harness for PR #6262 review (Reviewer B / Codex).
 Additive test file only — no production code changes.
 
 Polarity notes:
-- TestVerifyAssembleMountInfosDeterministic: CONTRACT. Fails on base dcb7616
-  (unsorted map iteration -> random join order), passes on the PR head.
-- TestVerifyNamespaceSelectionDeterministic: CONTRACT. Fails on base (the
-  "first map entry" pick lands in a random namespace across invocations),
-  passes on the PR head (lexicographically first key wins every time).
+  - TestVerifyAssembleMountInfosDeterministic: CONTRACT. Fails on base dcb7616
+    (unsorted map iteration -> random join order), passes on the PR head.
+  - TestVerifyNamespaceSelectionDeterministic: CONTRACT. Fails on base (the
+    "first map entry" pick lands in a random namespace across invocations),
+    passes on the PR head (lexicographically first key wins every time).
 */
 package fuse
 
@@ -103,4 +103,39 @@ func TestVerifyNamespaceSelectionDeterministic(t *testing.T) {
 		t.Fatalf("namespace selection was non-deterministic over %d runs: got %v, want exactly {ns-a}",
 			iterations, chosenNamespaces)
 	}
+}
+
+// CONTRACT (pre-existing F6, re-exposed at head 5d4117057): a nil runtimeInfo
+// map entry must not panic the injector. Sibling plugins guard nil values; the
+// round-2 head (08c111a) nil-skipped in the namespace pick; the round-3 rewrite
+// reverted the pick loop to the unguarded base form. On base and on 5d4117057
+// this test FAILS (recovered nil-pointer panic); it passes only when a nil
+// guard is (re-)introduced. The nil state is not producible via in-tree callers
+// (round-1 negative analysis stands), so this documents a latent defensive gap,
+// not an active bug. recover() turns the panic into a clean test failure so the
+// rest of the package suite still runs.
+func TestVerifyNamespacePickSkipsNilRuntimeInfo(t *testing.T) {
+	scheme := runtime.NewScheme()
+	if err := corev1.AddToScheme(scheme); err != nil {
+		t.Fatal(err)
+	}
+	fakeClient := fake.NewClientBuilder().WithScheme(scheme).Build()
+	inj := &Injector{client: fakeClient, log: logr.Discard()}
+
+	// Single nil entry: unguarded code dereferences it on the first (only)
+	// iteration, so the panic is deterministic rather than map-order dependent.
+	infos := map[string]base.RuntimeInfoInterface{"only-pvc": nil}
+	podSpecs := &mutator.MutatingPodSpecs{
+		MetaObj:    metav1.ObjectMeta{Name: "test-pod"},
+		Volumes:    []corev1.Volume{},
+		Containers: []corev1.Container{},
+	}
+
+	defer func() {
+		if r := recover(); r != nil {
+			t.Fatalf("injectCheckMountReadyScript panicked on a nil runtimeInfo entry (nil guard absent): %v", r)
+		}
+	}()
+	// Any non-panic outcome (nil error or client error) satisfies the contract.
+	_ = inj.injectCheckMountReadyScript(podSpecs, infos)
 }
