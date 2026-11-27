@@ -1,0 +1,37 @@
+{
+  "topic": "pr-6300-en-data-toleration",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6300",
+  "harnessPaths": [
+    "docs/verification/pr-6300-en-data-toleration"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "docs/zh/samples/data_toleration.md (数据容忍污点调度) has no English version; its sample StatefulSet uses apiVersion apps/v1beta1, removed in Kubernetes 1.16; a stray line 'kubectl taint nodes node1 key=value:NoSchedule' sits outside any code block.",
+    "reportedComponent": "docs (samples/data_toleration.md, zh + en TOC)",
+    "patchedComponent": "docs (samples/data_toleration.md, zh + en TOC)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "At base b8ff60e3: docs/en/samples/data_toleration.md does not exist; docs/en/TOC.md has 0 data_toleration links; zh page line 120 has apps/v1beta1 and line 29 has the stray taint line. All 5 harness tests FAIL on base (results/unit-base.out) and PASS on head (results/unit-head.out).",
+    "match": ["TestEnglishTOCListsPage", "TestNoRemovedKubernetesAPIs"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./docs/verification/pr-6300-en-data-toleration/ -run 'Test(CodeBlocksMatchChineseSource|EnglishTOCListsPage|DocManifestsParseAgainstRealAPITypes|NoRemovedKubernetesAPIs)' -v -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./docs/verification/pr-6300-en-data-toleration/ -run 'TestDocsMergeIncludesPage' -v -json"
+    }
+  },
+  "findings": [
+    { "id": "A1", "polarity": "contract", "layer": "unit", "match": ["TestCodeBlocksMatchChineseSource"] },
+    { "id": "A2", "polarity": "contract", "layer": "unit", "match": ["TestEnglishTOCListsPage"] },
+    { "id": "A3", "polarity": "contract", "layer": "unit", "match": ["TestDocManifestsParseAgainstRealAPITypes"] },
+    { "id": "A4", "polarity": "contract", "layer": "unit", "match": ["TestNoRemovedKubernetesAPIs"] },
+    { "id": "A5", "polarity": "contract", "layer": "integration", "match": ["TestDocsMergeIncludesPage"] }
+  ],
+  "liveNote": "Docs-only PR; no live layer. A human spot-check of the rendered page on the docs site is sufficient."
+}
