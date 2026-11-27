@@ -1,0 +1,23 @@
+re-verify: manifest = docs/verification/pr-6262-webhook-deterministic-mutation/verify-manifest.json
+re-verify: last-reviewed = 08c111a019c5f840fa076561eee2c2df17db92dc  (review delta = 08c111a019c5f840fa076561eee2c2df17db92dc..dcb76167b0143a239addc6bed83ed50b45267631)
+re-verify: fixed-ref=dcb76167b0143a239addc6bed83ed50b45267631  harness-from=verify/pr-6262-deterministic-webhook-mutation-codex
+re-verify: running layer 'unit' (gotest)
+re-verify: running layer 'integration' (gotest)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+F1     contract  unit         FIXED          pass=1 fail=0 miss=0
+F2     contract  unit         FIXED          pass=1 fail=0 miss=0
+F6     contract  unit         STILL-BROKEN   pass=0 fail=1 miss=0
+R1     contract  unit         STILL-BROKEN   pass=0 fail=4 miss=0
+R2     contract  integration  FIXED          pass=3 fail=0 miss=0
+
+Live layer (manual): L3 skipped per debate setup (no KUBECONFIG layer). These are admission-time string/order effects; unit + package suites fully decide them.
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/pr-6262-webhook-deterministic-mutation/results/reverify
+
+Review delta this round: 08c111a019c5f840fa076561eee2c2df17db92dc..dcb76167b0143a239addc6bed83ed50b45267631
+After reviewing that delta, advance the marker for the next round:
+  echo dcb76167b0143a239addc6bed83ed50b45267631 > docs/verification/pr-6262-webhook-deterministic-mutation/.last-reviewed && git add docs/verification/pr-6262-webhook-deterministic-mutation/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: not all findings fixed.
