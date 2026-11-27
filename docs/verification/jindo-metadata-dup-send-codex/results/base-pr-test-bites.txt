@@ -1,0 +1,11 @@
+=== RUN   TestSyncMetadataInternal
+    metadata_test.go:355: unexpected second value sent to metadata sync channel
+--- FAIL: TestSyncMetadataInternal (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	0.015s
+=== RUN   TestSyncMetadataInternal
+    metadata_test.go:355: unexpected second value sent to metadata sync channel
+--- FAIL: TestSyncMetadataInternal (0.00s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	0.013s
+FAIL

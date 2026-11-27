@@ -1,0 +1,2 @@
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindocache	1.056s
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	1.054s

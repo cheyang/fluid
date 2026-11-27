@@ -1,0 +1,10 @@
+2026/11/27 12:28:19 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyMetadataSyncDuplicateSend
+    metadata_dup_send_verify_test.go:90: duplicate send: received an unexpected second value base.MetadataSyncResult{Done:true, StartTime:time.Date(2026, time.November, 27, 12, 28, 19, 702195690, time.Local), UfsTotal:"", FileNum:"", Err:error(nil)}; in production this send has no receiver and blocks the goroutine forever
+--- FAIL: TestVerifyMetadataSyncDuplicateSend (0.00s)
+=== RUN   TestVerifyMetadataSyncGoroutineLeak
+    metadata_dup_send_verify_test.go:115: goroutine leaked: before=3, after=4 (sender goroutine blocked on duplicate send)
+--- FAIL: TestVerifyMetadataSyncGoroutineLeak (3.02s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/jindofsx	3.032s
+FAIL

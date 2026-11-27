@@ -1,0 +1,35 @@
+{
+  "topic": "jindo-metadata-dup-send-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6298",
+  "harnessPaths": [
+    "docs/verification/jindo-metadata-dup-send-codex",
+    "pkg/ddc/jindocache/metadata_dup_send_verify_test.go",
+    "pkg/ddc/jindofsx/metadata_dup_send_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "syncMetadataInternal() in jindocache/jindofsx sends twice on the unbuffered MetadataSyncDoneCh (base.SafeSend followed by a bare `resultChan <- result`); the receiver reads at most once, so the goroutine blocks forever on every completed sync (goroutine leak, deferred SafeClose never runs) and can panic with 'send on closed channel'",
+    "reportedComponent": "pkg/ddc/jindocache/metadata.go, pkg/ddc/jindofsx/metadata.go (syncMetadataInternal)",
+    "patchedComponent": "pkg/ddc/jindocache/metadata.go, pkg/ddc/jindofsx/metadata.go (syncMetadataInternal)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On base b8ff60e: TestVerifyMetadataSyncDuplicateSend observed a duplicate second value, TestVerifyMetadataSyncGoroutineLeak observed goroutine count 3->4 never returning (both engines). Panic sub-claim NOT reachable: no code path closes MetadataSyncDoneCh for these engines except the goroutine's own deferred SafeClose. See results/base-jindocache-repro.txt, results/base-jindofsx-repro.txt.",
+    "match": ["TestVerifyMetadataSyncDuplicateSend", "TestVerifyMetadataSyncGoroutineLeak"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/jindocache/ ./pkg/ddc/jindofsx/ -run 'TestVerifyMetadataSync|TestSyncMetadataInternal' -count=1 -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/jindocache/... ./pkg/ddc/jindofsx/... ./pkg/ddc/base/... -count=1 -json"
+    }
+  },
+  "findings": [
+    { "id": "B1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyMetadataSyncDuplicateSend", "TestVerifyMetadataSyncGoroutineLeak", "TestSyncMetadataInternal"] }
+  ],
+  "liveNote": "L3 skipped (review policy: unit + integration only). The changed code path is fully exercised by the unit layer with a fake client; a live run would only re-observe goroutine count stability in a long-running controller."
+}
