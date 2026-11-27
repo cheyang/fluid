@@ -97,3 +97,58 @@ harness F1 = ledger `F2-nodeaffinity-noop-sorted-loops`, harness F2 = ledger
 Regression status of the fixes themselves (R1/R2): unchanged — all contract
 tests still pass on the new head; 5 sequential repeat runs of the touched
 packages stable; `go vet` and `gofmt -l` clean.
+
+## Round 3 — head `5d4117057` (force-push rewrite; review delta `08c111a..5d4117057`)
+
+The PR was force-pushed as a single rewritten commit with a **narrower scope**.
+Kept: `assembleMountInfos` sort, all three fileprefetcher sorts,
+mountpropagationinjector defensive sort (now also naming the nil PVC in the
+error), plus a new datasetusageinjector `slices.Sort` → `utils.OrderedKeys`
+cleanup (semantically identical: `OrderedKeys` = collect keys + `slices.Sort`,
+non-nil empty slice for empty maps). **Dropped**: the `injectCheckMountReadyScript`
+namespace-pick determinism fix AND its nil-skip guard (file region byte-identical
+to base again), the 50-iteration namespace-determinism spec, and the
+mountpropagationinjector multi-runtimeInfos effect spec.
+
+Re-verification (`scripts/re-verify.sh`, unit+integration layers; results in
+`results/reverify/`, consoles in `results/reverify-round3*.txt`):
+
+| Contract | base `dcb76167` | previous `08c111a` | head `5d4117057` | Verdict |
+|----------|-----------------|--------------------|------------------|---------|
+| TestVerifyAssembleMountInfosDeterministic (R1) | fail | pass | pass | fix intact |
+| TestVerifySidecarContainerDeterministic (R1) | fail | pass | pass | fix intact |
+| TestVerifyDefaultFileListDeterministic (R1) | fail | pass | pass | fix intact |
+| TestVerifyNamespaceSelectionDeterministic (R1) | fail | pass | **fail** | **revision regression — fix reverted** |
+| TestVerifyNamespacePickSkipsNilRuntimeInfo (F6, new this round) | fail (panic) | pass | **fail (panic)** | **nil guard reverted — pre-existing gap re-exposed** |
+| F1/F2 invariance probes (nodeaffinity / mountpropagation) | pass | pass | pass | unchanged |
+| R2 — PR's own suites (fuse, fileprefetcher, mountpropagation) | pass | pass | pass | green everywhere |
+
+Head failure lines (results/reverify/unit.out):
+- `namespace selection was non-deterministic over 30 runs: got map[ns-a:true ns-m:true ns-z:true], want exactly {ns-a}`
+- `injectCheckMountReadyScript panicked on a nil runtimeInfo entry (nil guard absent): runtime error: invalid memory address or nil pointer dereference`
+
+**Reachability of the reverted namespace pick**: both in-tree producers of the
+`runtimeInfos` map (`pkg/webhook/handler/mutating/mutating_handler.go:144`,
+`pkg/webhook/plugins/fusesidecar/fuse_sidecar.go:79`) call
+`CollectRuntimeInfosFromPVCs(..., pod.Namespace, ...)` with a single namespace,
+and `base.GetRuntimeInfo` echoes the passed namespace — so every map value
+shares the pod's namespace and the random pick cannot produce divergent
+outcomes in-tree (latent only). If a future/third-party caller ever passes
+mixed-namespace runtimeInfos, the CM is ensured in the picked namespace while
+the injected `ConfigMapVolumeSource` resolves in the POD's namespace →
+FailedMount, pod stuck — flakily. The nil entry is likewise unreachable
+in-tree (round-1 negative analysis stands). So the revert is a dropped
+**hardening**, not a user-facing regression vs base — but it is a revision
+regression against the round-2 accepted contracts, and the PR body was
+rewritten so it no longer claims this site.
+
+Ledger mapping this round: harness R1-namespace fail ⇒ new finding
+`F7-namespace-pick-fix-reverted`; harness F6 fail ⇒ ledger
+`F6-nil-runtimeinfo-deref` re-opened (status open, still pre-existing/
+introducedByPR=false); deleted mountpropagationinjector effect spec ⇒ new
+finding `F8-mountpropagation-effect-spec-removed` (coverage, net-zero vs base).
+
+Harness fix this round: `re-verify.sh` now persists results AFTER the exit-trap
+checkout restore; previously the persist ran before the restore and tracked
+`results/reverify/*.parsed` files were reverted to their committed content
+(the gitignored `*.out` files survived, which masked the bug).
