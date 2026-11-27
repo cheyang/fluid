@@ -1,0 +1,5 @@
+FAIL P0a-zh-yaml-parses                     yaml error: while scanning for the next token | found character '\t' that cannot start any token |   in "<unicode string>", line 24,
+FAIL P0b-oyaml-single-line                  command is split across lines (intact=False split=True)
+PASS P0-premise-confirmed-on-base           both zh defects reproduce on base -> premise confirmed
+
+SUMMARY: 1/3 checks passed

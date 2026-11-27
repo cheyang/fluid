@@ -1,0 +1,44 @@
+{
+  "topic": "pr6296-en-samples-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6296",
+  "baseSha": "b8ff60e309c341b58a9e26b085b76e6067e6bb60",
+  "headSha": "1adbd79a1447236efa2b107d186fd4fbd857250b",
+  "reviewer": "codex",
+  "harnessPaths": [
+    "docs/verification/pr6296-en-samples-codex"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "docs/zh/samples/other_volumes.md has (a) a tab-indented spec.master.volumeMounts line that makes `kubectl create -f dataset.yaml` fail YAML parsing, and (b) `kubectl get secret fluid-secret -oyaml` split over two lines; docs/en lacks both sample pages.",
+    "reportedComponent": "docs (samples)",
+    "patchedComponent": "docs (samples)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "base run: P0a yaml error 'found character \\t that cannot start any token' at line 24; P0b command split. See results/base-premise.txt",
+    "match": ["P0a-zh-yaml-parses", "P0b-oyaml-single-line", "P0-premise-confirmed-on-base"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "script",
+      "cmd": "python3 docs/verification/pr6296-en-samples-codex/scripts/check_docs.py --ref <head>",
+      "premiseCmd": "python3 docs/verification/pr6296-en-samples-codex/scripts/check_docs.py --ref <base> --expect-premise-fail"
+    }
+  },
+  "findings": [
+    { "id": "P0a", "polarity": "contract", "layer": "unit", "match": ["P0a-zh-yaml-parses"],
+      "note": "tab indentation in zh dataset.yaml sample; FAILS on base (reproduction), PASS on head (fixed)" },
+    { "id": "P0b", "polarity": "contract", "layer": "unit", "match": ["P0b-oyaml-single-line"],
+      "note": "kubectl get secret -oyaml split over two lines; FAILS on base, PASS on head" },
+    { "id": "C1", "polarity": "contract", "layer": "unit", "match": ["C1-codeblocks-other_volumes", "C1-codeblocks-hdfs_configuration"],
+      "note": "en pages' code blocks byte-identical to the (fixed) zh pages" },
+    { "id": "C2", "polarity": "contract", "layer": "unit", "match": ["C2-en-yaml-structure"],
+      "note": "en dataset.yaml parses; volumeMounts/volumes correctly nested" },
+    { "id": "C3", "polarity": "contract", "layer": "unit", "match": ["C3-links-other_volumes.md", "C3-links-hdfs_configuration.md"],
+      "note": "relative links in new en pages resolve" },
+    { "id": "C4", "polarity": "contract", "layer": "unit", "match": ["C4-api-fields"],
+      "note": "doc-referenced API fields exist: hadoopConfig, spec.volumes, master.volumeMounts, /hdfs-config" }
+  ],
+  "liveNote": "Docs-only PR; no live layer. L2 integration with kubectl is unnecessary: the verified property is YAML/parse correctness of the samples, fully covered by the deterministic layer."
+}

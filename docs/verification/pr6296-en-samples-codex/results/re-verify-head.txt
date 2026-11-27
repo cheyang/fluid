@@ -1,0 +1,27 @@
+== re-verify PR #6296 head=1adbd79a1447236efa2b107d186fd4fbd857250b base=b8ff60e309c341b58a9e26b085b76e6067e6bb60 ==
+-- premise control on base --
+FAIL P0a-zh-yaml-parses                     yaml error: while scanning for the next token | found character '\t' that cannot start any token |   in "<unicode string>", line 24,
+FAIL P0b-oyaml-single-line                  command is split across lines (intact=False split=True)
+PASS P0-premise-confirmed-on-base           both zh defects reproduce on base -> premise confirmed
+
+SUMMARY: 1/3 checks passed
+-- contract suite on head --
+PASS P0a-zh-yaml-parses                     zh dataset.yaml parses as YAML
+PASS P0b-oyaml-single-line                  command intact on one line
+PASS C1-codeblocks-other_volumes            4 zh blocks vs 4 en blocks
+PASS C1-codeblocks-hdfs_configuration       6 zh blocks vs 6 en blocks
+PASS C2-en-yaml-structure                   dataset+runtime parse; volumeMounts/volumes nested correctly
+PASS C3-links-other_volumes.md              relative links: []; unresolved: none
+PASS C3-links-hdfs_configuration.md         relative links: ['../userguide/install.md']; unresolved: none
+PASS C4-api-fields                          hadoopConfig=True volumes=True volumeMounts=True /hdfs-config=True
+
+SUMMARY: 8/8 checks passed
+-- per-finding verdicts --
+P0a: Fixed
+P0b: Fixed
+C1: Fixed
+C2: Fixed
+C3: Fixed
+C4: Fixed
+-- incremental review range: 1adbd79a1447236efa2b107d186fd4fbd857250b..1adbd79a1447236efa2b107d186fd4fbd857250b --
+advance marker: echo 1adbd79a1447236efa2b107d186fd4fbd857250b > /home/ecs-user/.pr-debate/homes/codex/repos/fluid-cloudnative/fluid/docs/verification/pr6296-en-samples-codex/.last-reviewed

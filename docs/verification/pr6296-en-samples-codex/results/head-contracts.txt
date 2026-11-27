@@ -1,0 +1,10 @@
+PASS P0a-zh-yaml-parses                     zh dataset.yaml parses as YAML
+PASS P0b-oyaml-single-line                  command intact on one line
+PASS C1-codeblocks-other_volumes            4 zh blocks vs 4 en blocks
+PASS C1-codeblocks-hdfs_configuration       6 zh blocks vs 6 en blocks
+PASS C2-en-yaml-structure                   dataset+runtime parse; volumeMounts/volumes nested correctly
+PASS C3-links-other_volumes.md              relative links: []; unresolved: none
+PASS C3-links-hdfs_configuration.md         relative links: ['../userguide/install.md']; unresolved: none
+PASS C4-api-fields                          hadoopConfig=True volumes=True volumeMounts=True /hdfs-config=True
+
+SUMMARY: 8/8 checks passed
