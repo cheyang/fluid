@@ -1,0 +1,47 @@
+{
+  "topic": "docs-broken-links-claude",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6294",
+  "prHeadFetch": { "remote": "origin", "ref": "pull/6294/head" },
+  "harnessPaths": [
+    "docs/verification/docs-broken-links-claude"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "PR body: \"Fixes 14 relative links in docs/ that point at files that don't exist\"",
+    "reportedComponent": "docs/ markdown relative links as rendered by GitHub (target resolves against the containing file's directory in the repo)",
+    "patchedComponent": "docs/{en,zh} markdown files — exactly the same class; component matches",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "scripts/check_links.py on merge-base b8ff60e3 reports 16 broken relative links in docs/; 14 of them are in the 8 files this PR touches (results/base-touched-files-broken.txt), the other 2 are the pre-existing samples/hdfs links the PR intentionally leaves (documented in the PR body).",
+    "match": ["scripts/check_links.py"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "script",
+      "cmd": "python3 -I docs/verification/docs-broken-links-claude/scripts/check_links.py <tree-root>",
+      "report": "stdout; one line per broken link, plus 'checked=N broken=M'"
+    }
+  },
+  "findings": [
+    {
+      "id": "L1",
+      "polarity": "contract",
+      "layer": "unit",
+      "claim": "Under the GitHub file-relative resolution model, every relative link in the 8 PR-touched files resolves to an existing file. Broken count in those files must be 0.",
+      "touchedFiles": [
+        "docs/en/core-concepts/introduction.md",
+        "docs/en/samples/vineyard/accelerate_kubeflow_pipelines.md",
+        "docs/en/userguide/overview.md",
+        "docs/zh/core-concepts/introduction.md",
+        "docs/zh/samples/application_controller.md",
+        "docs/zh/samples/fuse_recover.md",
+        "docs/zh/samples/vineyard/accelerate_kubeflow_pipelines.md",
+        "docs/zh/userguide/overview.md"
+      ],
+      "match": ["scripts/check_links.py filtered to touchedFiles"]
+    }
+  ],
+  "liveNote": "No live layer needed: the claim is pure file-path resolution, fully decided by the deterministic layer. The docs are not built into a site from this repo (no mkdocs/docusaurus config present); the website lives in the separate fluid-cloudnative/docs-fluid repository."
+}

@@ -1,0 +1,3 @@
+docs/en/samples/accelerate_data_accessing_by_hdfs.md:176	../../../samples/hdfs	-> samples/hdfs
+docs/zh/samples/accelerate_data_accessing_by_hdfs.md:180	../../../samples/hdfs	-> samples/hdfs
+checked=298 broken=2
