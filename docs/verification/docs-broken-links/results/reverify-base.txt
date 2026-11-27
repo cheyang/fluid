@@ -1,0 +1,11 @@
+re-verify: manifest = /home/ecs-user/.pr-debate/homes/codex/worktrees/pr-6294-verify/docs/verification/docs-broken-links/verify-manifest.json (harness src = 79596f7b5dd8f029308774e5ca3616941788344f)
+re-verify: last-reviewed = b164b838fb76c51ca9fc7ee7927185b847a10b43
+re-verify: incremental delta to review: git log --oneline b164b838fb76c51ca9fc7ee7927185b847a10b43..b8ff60e309c341b58a9e26b085b76e6067e6bb60
+re-verify: advance marker after the round: git rev-parse b8ff60e309c341b58a9e26b085b76e6067e6bb60 > /home/ecs-user/.pr-debate/homes/codex/worktrees/pr-6294-verify/docs/verification/docs-broken-links/.last-reviewed
+
+================  RE-VERIFY  ================
+ID                       POLARITY  VERDICT        DETAIL
+P0-fixes                 contract  STILL-BROKEN   pass=0 fail=14 miss=0
+G1-no-new-broken-links   contract  STILL-BROKEN   pass=0 fail=1 miss=0
+F1                       canary    STILL-PRESENT  pass=1 fail=0 miss=0
+base exit=1

@@ -27,6 +27,7 @@ git rev-parse --git-dir >/dev/null 2>&1 || { echo "re-verify: not a git repo" >&
 HARNESS_SRC="$(git rev-parse HEAD)"
 if [ -z "$MANIFEST" ]; then
   MANIFEST="$(ls docs/verification/*/verify-manifest.json 2>/dev/null | head -1 || true)"
+  [ -n "$MANIFEST" ] || MANIFEST="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/verify-manifest.json"
 fi
 [ -f "$MANIFEST" ] || { echo "re-verify: manifest not found" >&2; exit 2; }
 echo "re-verify: manifest = $MANIFEST (harness src = $HARNESS_SRC)"
