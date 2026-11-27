@@ -1,0 +1,4 @@
+TestPR6295EnglishPageRegisteredInTOC	pass
+TestPR6295CodeBlocksMatchChineseSource	pass
+TestPR6295MetadataSyncFieldPathMatchesAPI	pass
+TestPR6295RelativeLinksResolve	pass
