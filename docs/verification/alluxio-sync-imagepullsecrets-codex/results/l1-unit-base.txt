@@ -1,0 +1,7 @@
+2026/11/27 08:18:44 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyCodexPR6288DefaultConfigStaysNoOp
+--- PASS: TestVerifyCodexPR6288DefaultConfigStaysNoOp (0.00s)
+=== RUN   TestVerifyCodexPR6288APIServerServesNilForOmittedSecrets
+--- PASS: TestVerifyCodexPR6288APIServerServesNilForOmittedSecrets (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	0.013s
