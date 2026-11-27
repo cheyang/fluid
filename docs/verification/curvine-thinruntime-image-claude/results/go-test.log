@@ -1,0 +1,9 @@
+{"Time":"2026-11-27T09:10:30.498903499+08:00","Action":"start","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin"}
+{"Time":"2026-11-27T09:10:30.511019541+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Output":"2026/11/27 09:10:30 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes\n"}
+{"Time":"2026-11-27T09:10:30.51128679+08:00","Action":"run","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Test":"TestCurvineAddonProfilePropagation"}
+{"Time":"2026-11-27T09:10:30.51129201+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Test":"TestCurvineAddonProfilePropagation","Output":"=== RUN   TestCurvineAddonProfilePropagation\n","OutputType":"frame"}
+{"Time":"2026-11-27T09:10:30.511786678+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Test":"TestCurvineAddonProfilePropagation","Output":"--- PASS: TestCurvineAddonProfilePropagation (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-27T09:10:30.511789768+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Test":"TestCurvineAddonProfilePropagation","Elapsed":0}
+{"Time":"2026-11-27T09:10:30.511798778+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-11-27T09:10:30.512727722+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Output":"ok  \tgithub.com/fluid-cloudnative/fluid/pkg/ddc/thin\t0.014s\n"}
+{"Time":"2026-11-27T09:10:30.512768593+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Elapsed":0.014}

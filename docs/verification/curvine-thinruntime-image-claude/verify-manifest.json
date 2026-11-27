@@ -1,0 +1,36 @@
+{
+  "topic": "curvine-thinruntime-image",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6293",
+  "prHeadFetch": { "remote": "origin", "ref": "pull/6293/head" },
+  "harnessPaths": [
+    "docs/verification/curvine-thinruntime-image-claude",
+    "pkg/ddc/thin/addons_curvine_profile_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "The Curvine ThinRuntime addon points at an image that can't be pulled (fluid-cloudnative/curvine-thinruntime:v1.0.0, 404 on Docker Hub) and at build instructions removed upstream (curvine-docker/fluid/thin-runtime/build-image.sh, fluid-config-parse.py).",
+    "reportedComponent": "addons/curvine (Curvine ThinRuntime addon docs + example manifest)",
+    "patchedComponent": "addons/curvine (5 files: runtime-profile.yaml, en/zh readme, en/zh dev-guide)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "17/17 PASS in scripts/premise-check.sh: dockerhub 404, upstream build assets 404, ghcr.io/curvineio/curvine public w/ latest + release tags, both upstream Dockerfiles ship /fluid-entrypoint.sh + /app/curvine/config-parse.py, deploy/entrypoint.sh dispatches fluid-thin-runtime; see results/premise-check.log",
+    "match": ["scripts/premise-check.sh"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/thin/ -run 'TestCurvineAddonProfilePropagation' -count=1 -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "curvine-profile-propagation",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestCurvineAddonProfilePropagation"]
+    }
+  ],
+  "liveNote": "L3 (real cluster: apply the profile, create Dataset+ThinRuntime, expect a running FUSE pod using ghcr.io/curvineio/curvine with command /entrypoint.sh args fluid-thin-runtime) was skipped per debate round policy — no live/KUBECONFIG layer. Extra manual layers recorded as evidence but not wired into re-verify: scripts/validate-manifest.py (CRD-schema check of all 5 embedded profiles), scripts/premise-check.sh (external registry/upstream facts)."
+}

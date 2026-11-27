@@ -1,0 +1,17 @@
+PASS  dockerhub fluid-cloudnative/curvine-thinruntime is 404 (old image unpullable)
+PASS  upstream thin-runtime/build-image.sh removed (404)
+PASS  upstream thin-runtime README removed (404)
+PASS  ghcr.io/curvineio/curvine is public
+PASS  latest tag exists
+PASS  release tag v0.6.0-alpha exists
+PASS  upstream file exists: curvine-docker/deploy/Dockerfile_rocky9
+PASS  upstream file exists: curvine-docker/deploy/Dockerfile_ubuntu24
+PASS  upstream file exists: curvine-docker/deploy/entrypoint.sh
+PASS  upstream file exists: curvine-docker/fluid/entrypoint.sh
+PASS  Dockerfile_rocky9 copies fluid/entrypoint.sh to /fluid-entrypoint.sh
+PASS  Dockerfile_rocky9 copies config-parse.py to /app/curvine/
+PASS  Dockerfile_ubuntu24 copies fluid/entrypoint.sh to /fluid-entrypoint.sh
+PASS  Dockerfile_ubuntu24 copies config-parse.py to /app/curvine/
+PASS  deploy/entrypoint.sh execs /fluid-entrypoint.sh for fluid-thin-runtime
+PASS  upstream example uses ghcr.io/curvineio/curvine
+PASS  upstream example uses command /entrypoint.sh + args fluid-thin-runtime

@@ -1,0 +1,7 @@
+validated 5 profile doc(s):
+  - ./addons/curvine/runtime-profile.yaml
+  - ./addons/curvine/readme.md[profile#0]
+  - ./addons/curvine/readme-zh_CN.md[profile#0]
+  - ./addons/curvine/dev-guide/curvine.md[profile#0]
+  - ./addons/curvine/dev-guide/curvine-zh_CN.md[profile#0]
+PASS: manifest and embedded profiles match the CRD schema and carry the required image/command/args
