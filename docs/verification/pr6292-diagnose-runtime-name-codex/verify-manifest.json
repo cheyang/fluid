@@ -1,0 +1,45 @@
+{
+  "topic": "pr6292-diagnose-runtime-name-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6292",
+  "harnessPaths": [
+    "docs/verification/pr6292-diagnose-runtime-name-codex",
+    "test/verification/pr6292"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "kubectl_resource in tools/diagnose-fluid-{alluxio,curvine,jindo,juicefs}.sh describes the runtime with ${name}, a variable these scripts never set; with ${name} empty, kubectl describes every runtime of that kind in the namespace, and the archive's <kind>runtime-<name>.yaml holds all of them instead of the runtime passed with -r.",
+    "reportedComponent": "tools/diagnose-fluid-*.sh (kubectl_resource)",
+    "patchedComponent": "tools/diagnose-fluid-*.sh (kubectl_resource)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit+integration",
+    "verdict": "confirmed",
+    "evidence": "On base b8ff60e both layers fail: unit run shows `kubectl describe alluxioruntime --namespace ns1` with no name argument; envtest run shows <kind>runtime-demo.yaml also describing the unrelated runtime \"decoy\". See results/unit-base.json and results/integration-base.json.",
+    "match": ["TestDescribeRuntimeUsesRequestedName_Stub", "TestDescribeRuntimeAgainstEnvtest"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./test/verification/pr6292/ -run 'TestDescribeRuntimeUsesRequestedName_Stub' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "KUBEBUILDER_ASSETS=\"${KUBEBUILDER_ASSETS:-$(setup-envtest use 1.31.0 -p path 2>/dev/null)}\" go test ./test/verification/pr6292/ -run 'TestDescribeRuntimeAgainstEnvtest' -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["TestDescribeRuntimeUsesRequestedName_Stub"]
+    },
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": ["TestDescribeRuntimeAgainstEnvtest"]
+    }
+  ],
+  "liveNote": "L3 skipped per debate-round policy (no KUBECONFIG layer). The scripts are leaf diagnostic tools; the envtest layer already exercises real kubectl against a real API server with the shipped CRDs."
+}
