@@ -1,0 +1,8 @@
+{"Action":"run","Test":"TestCodeBlockParityEnZh"}
+{"Action":"pass","Test":"TestCodeBlockParityEnZh","Output":["all 8 code blocks identical (trailing whitespace ignored)"]}
+{"Action":"run","Test":"TestRelativeLinksResolve"}
+{"Action":"pass","Test":"TestRelativeLinksResolve","Output":["all 1 relative link(s) resolve: ../userguide/install.md"]}
+{"Action":"run","Test":"TestTOCEntryPresent"}
+{"Action":"pass","Test":"TestTOCEntryPresent","Output":["TOC lists samples/metadata_sync.md under Advanced Configuration; target exists"]}
+{"Action":"run","Test":"TestAPIFieldMatchesDoc"}
+{"Action":"pass","Test":"TestAPIFieldMatchesDoc","Output":["api/v1alpha1/common.go defines RuntimeManagement.MetadataSyncPolicy and MetadataSyncPolicy.AutoSync (*bool)"]}

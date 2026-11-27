@@ -41,7 +41,7 @@ already uses, and it appears in the doc only as a WebUFS mountPoint example.
 
 ## Harness-bites check
 
-`results/harness-bites.out` — each of the four checks was run against a deliberately
+`results/harness-bites.txt` — each of the four checks was run against a deliberately
 mutated copy of the doc tree (changed code block, broken link, removed TOC entry,
 renamed API field); each mutation made exactly its check fail. The harness discriminates.
 

@@ -1,0 +1,12 @@
+harness-bites: each check must FAIL on a deliberately mutated copy of the doc tree
+
+== bite 1: quota changed in en code block ==
+  FAIL: TestCodeBlockParityEnZh
+== bite 2: relative link broken ==
+  FAIL: TestRelativeLinksResolve
+== bite 3: TOC entry removed ==
+  FAIL: TestTOCEntryPresent
+== bite 4: API field renamed (AutoSync -> Removed) ==
+  FAIL: TestAPIFieldMatchesDoc
+
+all four bites fired -> harness discriminates
