@@ -1,0 +1,14 @@
+Start collecting, runtime-name=demo, runtime-namespace=ns1
+tar: Removing leading `/' from member names
+/tmp/diagnose_fluid_1795740462/
+/tmp/diagnose_fluid_1795740462/pvc-demo.yaml
+/tmp/diagnose_fluid_1795740462/pv-demo.yaml
+/tmp/diagnose_fluid_1795740462/juicefsruntime-demo.yaml
+/tmp/diagnose_fluid_1795740462/dataset-demo.yaml
+/tmp/diagnose_fluid_1795740462/pods-fluid-system/
+/tmp/diagnose_fluid_1795740462/pods-ns1/
+/tmp/diagnose_fluid_1795740462/pods-ns1.log
+/tmp/diagnose_fluid_1795740462/pods-fluid-system.log
+/tmp/diagnose_fluid_1795740462/helm-demo.yaml
+/tmp/diagnose_fluid_1795740462/helm-fluid.yaml
+please get /tmp/tmp.kzngOrAYQW/out-juicefs.tar.gz for diagnostics

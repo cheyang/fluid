@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# helm stub for the diagnose-script harness.
+set -u
+printf 'helm: %s\n' "$*" >>"${STUB_LOG:?STUB_LOG must be exported}"
+printf 'stub-helm: %s\n' "$*"
+exit 0

@@ -1,0 +1,18 @@
+PASS: AC2 bash -n diagnose-fluid-alluxio.sh
+PASS: AC2 bash -n diagnose-fluid-curvine.sh
+PASS: AC2 bash -n diagnose-fluid-jindo.sh
+PASS: AC2 bash -n diagnose-fluid-juicefs.sh
+FAIL: AC3 no unset ${name} expansion left under tools/
+FAIL: F1 alluxioruntime describe carries runtime name 'demo' (log: kubectl: describe alluxioruntime --namespace ns1;)
+FAIL: F1 alluxioruntime describe is still called without a resource name
+FAIL: F1 archive contains alluxioruntime-demo.yaml from the named describe (got: '/tmp/tmp.3zC5KMrZ2j/extract-alluxio/tmp/diagnose_fluid_1795740435/alluxioruntime-demo.yaml')
+FAIL: F1 cacheruntime describe carries runtime name 'demo' (log: kubectl: describe cacheruntime --namespace ns1;)
+FAIL: F1 cacheruntime describe is still called without a resource name
+FAIL: F1 archive contains cacheruntime-demo.yaml from the named describe (got: '/tmp/tmp.3zC5KMrZ2j/extract-curvine/tmp/diagnose_fluid_1795740436/cacheruntime-demo.yaml')
+FAIL: F1 jindoruntime describe carries runtime name 'demo' (log: kubectl: describe jindoruntime --namespace ns1;)
+FAIL: F1 jindoruntime describe is still called without a resource name
+FAIL: F1 archive contains jindoruntime-demo.yaml from the named describe (got: '/tmp/tmp.3zC5KMrZ2j/extract-jindo/tmp/diagnose_fluid_1795740437/jindoruntime-demo.yaml')
+FAIL: F1 juicefsruntime describe carries runtime name 'demo' (log: kubectl: describe juicefsruntime --namespace ns1;)
+FAIL: F1 juicefsruntime describe is still called without a resource name
+FAIL: F1 archive contains juicefsruntime-demo.yaml from the named describe (got: '/tmp/tmp.3zC5KMrZ2j/extract-juicefs/tmp/diagnose_fluid_1795740438/juicefsruntime-demo.yaml')
+harness result: FAILURES (13 failure(s))

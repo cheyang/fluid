@@ -1,0 +1,35 @@
+{
+  "topic": "diagnose-runtime-name",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6292",
+  "harnessPaths": [
+    "docs/verification/diagnose-runtime-name-claude"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "kubectl_resource in tools/diagnose-fluid-{alluxio,curvine,jindo,juicefs}.sh describes the runtime with ${name}, a variable these scripts never set; with ${name} empty, kubectl describes every runtime of that kind in the namespace, and the archive's <kind>runtime-<name>.yaml holds all of them instead of the runtime passed with -r.",
+    "reportedComponent": "tools/diagnose-fluid-*.sh kubectl_resource()",
+    "patchedComponent": "tools/diagnose-fluid-*.sh kubectl_resource() (all four scripts)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "results/base-run.txt: 13 contract failures on base b8ff60e3 — stub log shows `kubectl: describe alluxioruntime --namespace ns1` with no resource name; results/head-run.txt: ALL-PASS on head 073407aa5.",
+    "match": ["F1"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "bash",
+      "cmd": "bash docs/verification/diagnose-runtime-name-claude/scripts/run_harness.sh <repo-checkout-dir> <results-dir>"
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": ["F1 "],
+      "claim": "under `collect -r demo -n ns1`, each diagnose script's `kubectl describe <kind>runtime --namespace ns1` call must carry `demo` as the resource name; on base it carries none (empty ${name})."
+    }
+  ],
+  "liveNote": "L3 (live cluster) skipped per round policy. The PATH-stubbed kubectl proves the exact argv; kubectl's documented behavior for `describe TYPE` with no name is to describe every object of that type in the namespace — the reported symptom."
+}

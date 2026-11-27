@@ -1,0 +1,14 @@
+Start collecting, runtime-name=demo, runtime-namespace=ns1
+tar: Removing leading `/' from member names
+/tmp/diagnose_fluid_1795740567/
+/tmp/diagnose_fluid_1795740567/pvc-demo.yaml
+/tmp/diagnose_fluid_1795740567/pv-demo.yaml
+/tmp/diagnose_fluid_1795740567/jindoruntime-demo.yaml
+/tmp/diagnose_fluid_1795740567/dataset-demo.yaml
+/tmp/diagnose_fluid_1795740567/pods-fluid-system/
+/tmp/diagnose_fluid_1795740567/pods-ns1/
+/tmp/diagnose_fluid_1795740567/pods-ns1.log
+/tmp/diagnose_fluid_1795740567/pods-fluid-system.log
+/tmp/diagnose_fluid_1795740567/helm-demo.yaml
+/tmp/diagnose_fluid_1795740567/helm-fluid.yaml
+please get /tmp/tmp.WEVsO6rGq3/out-jindo.tar.gz for diagnostics

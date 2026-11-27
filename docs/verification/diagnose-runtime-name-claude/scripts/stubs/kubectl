@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# kubectl stub for the diagnose-script harness.
+# Records every invocation (args joined with spaces) to $STUB_LOG and emits a
+# marker on stdout so redirected output files carry the exact argv that ran.
+# "get po" prints only a header line so the scripts' awk|grep pipeline yields
+# no pods and no logs/cp calls follow.
+set -u
+printf 'kubectl: %s\n' "$*" >>"${STUB_LOG:?STUB_LOG must be exported}"
+
+case "$1" in
+  describe)
+    printf 'stub-describe: %s\n' "$*"
+    ;;
+  get)
+    printf 'NAME READY STATUS RESTARTS AGE\n'
+    ;;
+  *)
+    : # logs / cp are never reached: the stub returns no pods
+    ;;
+esac
+exit 0

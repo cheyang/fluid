@@ -1,0 +1,18 @@
+PASS: AC2 bash -n diagnose-fluid-alluxio.sh
+PASS: AC2 bash -n diagnose-fluid-curvine.sh
+PASS: AC2 bash -n diagnose-fluid-jindo.sh
+PASS: AC2 bash -n diagnose-fluid-juicefs.sh
+PASS: AC3 no unset ${name} expansion left under tools/
+PASS: F1 alluxioruntime describe carries runtime name 'demo'
+PASS: F1 alluxioruntime describe is never called without a resource name
+PASS: F1 archive contains alluxioruntime-demo.yaml from the named describe
+PASS: F1 cacheruntime describe carries runtime name 'demo'
+PASS: F1 cacheruntime describe is never called without a resource name
+PASS: F1 archive contains cacheruntime-demo.yaml from the named describe
+PASS: F1 jindoruntime describe carries runtime name 'demo'
+PASS: F1 jindoruntime describe is never called without a resource name
+PASS: F1 archive contains jindoruntime-demo.yaml from the named describe
+PASS: F1 juicefsruntime describe carries runtime name 'demo'
+PASS: F1 juicefsruntime describe is never called without a resource name
+PASS: F1 archive contains juicefsruntime-demo.yaml from the named describe
+harness result: ALL-PASS (0 failure(s))
