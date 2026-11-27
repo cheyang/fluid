@@ -104,3 +104,71 @@ func volumeForPVC(name, claim string) corev1.Volume {
 		},
 	}
 }
+
+// TestVFilePrefetcherSidecarOrderDeterministic is a CONTRACT test for the round-3
+// delta of PR #6262 (head 5d4117057): buildFilePrefetcherSidecarContainer must
+// assemble VolumeMounts (before the status volume) and ExtraEnvs (after the three
+// built-in envs) in key-sorted order, stable across repeated invocations.
+// On the base branch (dcb76167) both loops ranged the maps unordered, so this
+// test FAILS there; on the PR head it PASSES.
+func TestVFilePrefetcherSidecarOrderDeterministic(t *testing.T) {
+	prefetcher := &FilePrefetcher{log: logr.Discard()}
+
+	config := filePrefetcherConfig{
+		Image:            "verify-image:v1",
+		GlobPaths:        "/data/vol-a/**;/data/vol-m/**;/data/vol-z/**",
+		TimeoutSeconds:   30,
+		VolumeMountPaths: map[string]string{"vol-z": "/data/vol-z", "vol-a": "/data/vol-a", "vol-m": "/data/vol-m"},
+		ExtraEnvs:        map[string]string{"ENV_Z": "val_z", "ENV_A": "val_a", "ENV_M": "val_m"},
+	}
+
+	wantMountNames := []string{"vol-a", "vol-m", "vol-z", filePrefetcherStatusVolumeName}
+	wantEnv := []corev1.EnvVar{
+		{Name: envKeyFilePrefetcherFileList, Value: config.GlobPaths},
+		{Name: envKeyFilePrefetcherAsyncPrefetch, Value: "false"},
+		{Name: envKeyFilePrefetcherTimeoutSeconds, Value: "30"},
+		{Name: "ENV_A", Value: "val_a"},
+		{Name: "ENV_M", Value: "val_m"},
+		{Name: "ENV_Z", Value: "val_z"},
+	}
+
+	const iterations = 50
+	for i := 0; i < iterations; i++ {
+		containerSpec, _ := prefetcher.buildFilePrefetcherSidecarContainer(config)
+
+		gotMounts := make([]string, 0, len(containerSpec.VolumeMounts))
+		for _, vm := range containerSpec.VolumeMounts {
+			gotMounts = append(gotMounts, vm.Name)
+		}
+		if !slicesEqual(gotMounts, wantMountNames) {
+			t.Fatalf("iteration %d: VolumeMounts order non-deterministic or unsorted: got %v, want %v", i, gotMounts, wantMountNames)
+		}
+		if !envsEqual(containerSpec.Env, wantEnv) {
+			t.Fatalf("iteration %d: Env order non-deterministic or unsorted: got %v, want %v", i, containerSpec.Env, wantEnv)
+		}
+	}
+}
+
+func slicesEqual(a, b []string) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+	return true
+}
+
+func envsEqual(a, b []corev1.EnvVar) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+	return true
+}
