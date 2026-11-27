@@ -1,0 +1,28 @@
+re-verify: manifest = docs/verification/tieredstore-drift-warning/verify-manifest.json
+re-verify: resolving PR head via 'git fetch https://github.com/fluid-cloudnative/fluid.git pull/6219/head' (machine-independent)
+re-verify: current head = d19969af2897cb768942fd6a45b650187324f5a0
+re-verify: last-reviewed = 59cd3ab3a3b4e370a74de3bead8edd2135c264a4  (review delta = 59cd3ab3a3b4e370a74de3bead8edd2135c264a4..d19969af2897cb768942fd6a45b650187324f5a0)
+re-verify: fixed-ref=d19969af2897cb768942fd6a45b650187324f5a0  harness-from=6194a63f666ef377aa6328d0b2490a1fa4523d9c
+re-verify: running layer 'unit' (gotest)
+
+================  RE-VERIFY  ================
+ID     POLARITY  LAYER        VERDICT        DETAIL
+TS1    contract  unit         FIXED          pass=1 fail=0 miss=0
+TS2    canary    unit         STILL-PRESENT  pass=1 fail=0 miss=0
+TS3    contract  unit         FIXED          pass=1 fail=0 miss=0
+TS4    contract  unit         FIXED          pass=1 fail=0 miss=0
+TS5    contract  unit         FIXED          pass=1 fail=0 miss=0
+TS6    contract  unit         FIXED          pass=3 fail=0 miss=0
+TS7    contract  unit         FIXED          pass=1 fail=0 miss=0
+TS8    contract  unit         FIXED          pass=1 fail=0 miss=0
+TS9    contract  unit         FIXED          pass=2 fail=0 miss=0
+
+Live layer (manual): L3 (skipped per round policy: unit + integration only): live kind-e2e on head d19969af run 45839312644 log-confirms the drift leg: TieredStoreSynced=False after patch, RuntimeTieredStoreConflict event with message 'worker pod volume tiered-store-level-0-index-0 differs from spec tieredStore', recovery to True after restore.
+
+Reminder: a "canary" finding is FIXED only when it FLIPS to fail; then invert its
+assertion (or promote the new behavior to a contract test). Raw output: docs/verification/tieredstore-drift-warning/results/reverify
+
+Review delta this round: 59cd3ab3a3b4e370a74de3bead8edd2135c264a4..d19969af2897cb768942fd6a45b650187324f5a0
+After reviewing that delta, advance the marker for the next round:
+  echo d19969af2897cb768942fd6a45b650187324f5a0 > docs/verification/tieredstore-drift-warning/.last-reviewed && git add docs/verification/tieredstore-drift-warning/.last-reviewed && git commit -m "review: advance last-reviewed"
+RESULT: not all findings fixed.

@@ -1,0 +1,42 @@
+2026/11/27 11:30:23 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestPremiseTieredStoreSplitWorker
+    premise_tieredstore_split_test.go:224: recorder saw no events during sync: the split is not reported by this revision
+--- PASS: TestPremiseTieredStoreSplitWorker (0.00s)
+=== RUN   TestVerifyWorkerDriftWarnsThroughFullSync
+--- PASS: TestVerifyWorkerDriftWarnsThroughFullSync (0.00s)
+=== RUN   TestVerifyConditionTransitionOnlyEvents
+--- PASS: TestVerifyConditionTransitionOnlyEvents (0.00s)
+=== RUN   TestVerifyClientTieredStoreDriftSilent
+--- PASS: TestVerifyClientTieredStoreDriftSilent (0.00s)
+=== RUN   TestVerifyEmptyDirMediumFlipDetected
+=== RUN   TestVerifyEmptyDirMediumFlipDetected/disk-to-memory
+=== RUN   TestVerifyEmptyDirMediumFlipDetected/memory-to-disk
+--- PASS: TestVerifyEmptyDirMediumFlipDetected (0.00s)
+    --- PASS: TestVerifyEmptyDirMediumFlipDetected/disk-to-memory (0.00s)
+    --- PASS: TestVerifyEmptyDirMediumFlipDetected/memory-to-disk (0.00s)
+=== RUN   TestVerifyMultiMediumEditReportedNotSilent
+--- PASS: TestVerifyMultiMediumEditReportedNotSilent (0.00s)
+=== RUN   TestVerifyUserPrefixVolumeSteadyStateNoWarning
+--- PASS: TestVerifyUserPrefixVolumeSteadyStateNoWarning (0.00s)
+=== RUN   TestVerifyQuantityRoundTripAndHostPathUnsetNoDrift
+=== RUN   TestVerifyQuantityRoundTripAndHostPathUnsetNoDrift/quantity-format
+=== RUN   TestVerifyQuantityRoundTripAndHostPathUnsetNoDrift/hostpath-type-unset
+--- PASS: TestVerifyQuantityRoundTripAndHostPathUnsetNoDrift (0.00s)
+    --- PASS: TestVerifyQuantityRoundTripAndHostPathUnsetNoDrift/quantity-format (0.00s)
+    --- PASS: TestVerifyQuantityRoundTripAndHostPathUnsetNoDrift/hostpath-type-unset (0.00s)
+=== RUN   TestVerifyInvalidSpecConditionAndGuidance
+=== RUN   TestVerifyInvalidSpecConditionAndGuidance/multi-medium
+=== RUN   TestVerifyInvalidSpecConditionAndGuidance/multi-processMemory
+--- PASS: TestVerifyInvalidSpecConditionAndGuidance (0.00s)
+    --- PASS: TestVerifyInvalidSpecConditionAndGuidance/multi-medium (0.00s)
+    --- PASS: TestVerifyInvalidSpecConditionAndGuidance/multi-processMemory (0.00s)
+=== RUN   TestVerifyUnconfiguredTieredStoreNoCondition
+--- PASS: TestVerifyUnconfiguredTieredStoreNoCondition (0.00s)
+=== RUN   TestVerifyDriftCheckNilPodSpec
+--- PASS: TestVerifyDriftCheckNilPodSpec (0.00s)
+=== RUN   TestVerifyIsGeneratedTieredStoreVolumeName
+--- PASS: TestVerifyIsGeneratedTieredStoreVolumeName (0.00s)
+=== RUN   TestVerifyClassTemplatePrefixVolumeNoWarning
+--- PASS: TestVerifyClassTemplatePrefixVolumeNoWarning (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/cache/engine	0.036s

@@ -3,6 +3,54 @@
 Reproducible evidence for the findings raised while reviewing
 https://github.com/fluid-cloudnative/fluid/pull/6219.
 
+**Round 8** (head `d19969af2897cb768942fd6a45b650187324f5a0`, reviewed 2026-11-27, single
+squashed commit rebased onto base `b8ff60e309c341b58a9e26b085b76e6067e6bb60` = #6242
+CacheRuntimeClass snapshot binding + #6254/#6267/#6278/#6287 fixes and vendor churn): the author
+**rewrote the feature** around the round-7 blocker's fix. The orphan match is now
+`isGeneratedTieredStoreVolumeName` (regex `^tiered-store-level-\d+-(index-\d+|memory)$`, util.go)
+— the exact bite-checked fix shape round 7 proposed — closing **TS-ORPHAN-PREFIX-COLLISION**.
+The whole warning machinery was replaced: the in-memory 10-minute throttle
+(`tieredStoreWarningInterval`/`timeOfLastTieredStoreWarning`, engine.go) is **gone**; the durable
+signal is now the persisted `TieredStoreSynced` condition on `CacheRuntime.Status.Conditions`
+(api/v1alpha1/status.go, engine status.go) with **transition-only** Warning events
+(`RuntimeTieredStoreConflict` for drift, new `RuntimeTieredStoreInvalid` for invalid specs, with
+"Fix spec.worker.tieredStore" guidance instead of the destructive recreate advice), and drift
+detection renders expected volumes through `TransformRuntimeTieredStore` itself and compares with
+`equality.Semantic.DeepEqual` (nil vs HostPathUnset normalized) — no parallel volume-derivation
+logic. The e2e leg was rewritten to `kubectl wait --for=condition=TieredStoreSynced=False/True`.
+That also implements the TS-REQUEUE-REEMISSION advisory's suggested remedy (persistent status
+condition), closing it as resolved-by-design. Harness consequences: the round-1..7 contracts
+targeting the removed throttle/dispatch mechanics were **rewritten** (TS4 → transition-only
+emission + controller-restart condition persistence; TS5 → multi-medium edits rejected as
+`RuntimeTieredStoreInvalid` rather than dispatched by precedence), and new contracts were added
+(TS6 prefix-collision regression incl. the class-template injection path, TS7 quantity
+round-trip + HostPathUnset normalization, TS8 invalid-spec guidance, TS9 unconfigured silence).
+Re-verify on the head: 8/9 contracts FIXED, TS2 canary STILL-PRESENT as expected (#6221 OPEN,
+re-checked 2026-11-27) — `results/reverify-round8.txt`. Bite-check: restoring the round-7
+prefix-only orphan match flips TS6's two prefix contracts red (`results/bite-check-round8.txt` §1).
+Premise re-proven on the **new base** `b8ff60e3` (the silent #6192 split still reproduces without
+the PR; `results/premise-base-b8ff60e3.txt`). Full engine package on head+harness with the gomonkey
+flags: **480 passed / 0 failed / 16 pre-existing env skips**; bare-base control green; the PR's
+documented `-race` command green on `./pkg/ddc/cache/... ./pkg/common/...`. Required CI fully
+green on d19969af (all 22 checks, run 45839312644/45839312933, executed 2026-11-26) with the
+drift leg log-confirmed in the kind-e2e v1.22.17 job (139976452547): condition False + event +
+recovery to True. #6299 (creation-time ConfigMap levels) OPEN, referenced by the PR body as the
+acknowledged follow-up.
+
+### Round 8 summary of results
+
+| ID | Claim | Layer | Polarity | Verdict | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| TS1 | Worker tieredStore quota drift emits a `RuntimeTieredStoreConflict` Warning **and sets `TieredStoreSynced=False`** through the full `engine.Sync` entry point, remediation text "Delete and recreate the CacheRuntime" | 1 | contract | **FIXED / working** (PASS on head) | `results/unit-head-d19969af.txt`, `results/reverify-round8.txt` |
+| TS2 | `spec.client.tieredStore` drift stays silent — documented scope decision tracked in #6221 (still OPEN, re-checked 2026-11-27); the canary flips red when #6221 lands | 1 | canary | **STILL-PRESENT** (PASS = gap present, as documented) | `results/unit-head-d19969af.txt` |
+| TS3 | emptyDir `medium` flips (disk `""` ↔ `Memory`) detected in both directions | 1 | contract | **FIXED** (PASS on head) | `results/unit-head-d19969af.txt` |
+| TS4 | **Rewritten for the condition architecture:** transition-only emission (1 event per drift change, 0 on repeat reconciles), condition survives a controller restart (fresh `CacheEngine`) with no event flood, immediate re-warn on fresh drift | 1 | contract | **FIXED / working** (PASS on head) | `results/unit-head-d19969af.txt` |
+| TS5 | **Rewritten:** a level carrying both `hostPath` and `emptyDir` (no CRD one-of validation) is reported, not silent — now as `RuntimeTieredStoreInvalid` ("Fix spec.worker.tieredStore"); the ConfigMap ground truth (hostPath precedence) is still asserted | 1 | contract | **FIXED** (PASS on head) | `results/unit-head-d19969af.txt` |
+| TS6 | **New (round-7 blocker regression):** user/class-template volumes sharing the `tiered-store-level-` prefix produce no warning and no `TieredStoreSynced=False`; genuinely orphaned generated-shape volumes still warn; the regex is pinned directly | 1 | contract | **FIXED** (PASS on head; RED with the round-7 prefix-only match restored) | `results/unit-head-d19969af.txt`, `results/bite-check-round8.txt` §1 |
+| TS7 | **New:** equal quantities in round-tripped formats (`1Gi` vs `1073741824`) and `HostPath.Type` nil vs `HostPathUnset` compare equal — no steady-state false positives | 1 | contract | **FIXED** (PASS on head) | `results/unit-head-d19969af.txt` |
+| TS8 | **New:** invalid specs (multi-medium level, multiple `processMemory` levels) set `TieredStoreSynced=False` reason `RuntimeTieredStoreInvalid` with fix-the-spec guidance (never "Delete and recreate") and emit one Warning | 1 | contract | **FIXED** (PASS on head) | `results/unit-head-d19969af.txt` |
+| TS9 | **New:** runtimes that never configured tieredStore gain no condition and emit no events; nil podSpec short-circuits | 1 | contract | **FIXED** (PASS on head) | `results/unit-head-d19969af.txt` |
+
 **Round 7** (head `59cd3ab3a3b4e370a74de3bead8edd2135c264a4`, reviewed 2026-11-22, rebased onto
 base `253f6bb84f26a906fba301550b5c81ebdd73af35` = the resource-merge rework in
 `pkg/ddc/cache/engine` + dependency/vendor churn + CI/doc/chart bumps): the PR content is

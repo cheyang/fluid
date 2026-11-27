@@ -1,0 +1,46 @@
+Bite-check, round 8 (harness vs head d19969af, worktree /tmp/r8-verify)
+=======================================================================
+
+§1 TS6 bites on the round-7 blocker's fix
+-----------------------------------------
+Temporarily restored the round-7 buggy orphan match in util.go
+(isGeneratedTieredStoreVolumeName -> strings.HasPrefix(name,
+tieredStoreVolumeNamePrefix), i.e. the exact code shape that produced
+TS-ORPHAN-PREFIX-COLLISION) and re-ran the affected contracts:
+
+  --- FAIL: TestVerifyUserPrefixVolumeSteadyStateNoWarning   (flipped red)
+  --- FAIL: TestVerifyClassTemplatePrefixVolumeNoWarning     (flipped red)
+  TestVerifyQuantityRoundTripAndHostPathUnsetNoDrift          (still green,
+      correctly - it does not depend on the regex)
+
+With the shipped regex restored both contracts are green (see
+reverify-round8.txt TS6 pass=3). The fix and only the fix flips them.
+Production code restored afterwards: `git diff d19969af -- pkg/ddc/cache/engine/util.go`
+is empty; the only working-tree changes are the additive harness test files.
+
+§2 TS8 fixture honesty
+----------------------
+The first run of TestVerifyInvalidSpecConditionAndGuidance/multi-processMemory
+failed with reason RuntimeTieredStoreConflict: the mutation appended ONE
+processMemory level to an existing emptyDir level, which is a VALID spec
+(one processMemory + one emptyDir), so Conflict ("volume
+tiered-store-level-1-memory expected by spec tieredStore not found in worker
+pod") is the correct verdict for that input. The subtest was fixed to build a
+genuinely invalid spec (level 0 replaced with processMemory + level 1
+processMemory) and then passed with RuntimeTieredStoreInvalid. Recorded so the
+distinction is not re-litigated: one processMemory level alongside emptyDir
+levels is legal; two processMemory levels are not.
+
+§3 Full-package polarity control
+-------------------------------
+Bare base b8ff60e3 without the harness: go test -gcflags="all=-N -l"
+./pkg/ddc/cache/engine -> ok (green). Head d19969af with the harness grafted:
+480 passed / 0 failed / 16 pre-existing env skips. The no-flags 12-failure
+gomonkey artifact (ufs_test.go ginkgo specs + one sync_test ReportSummary spec)
+reproduces identically without -gcflags on the head and is the known pre-existing
+base artifact carried since round 6.
+
+§4 PR's documented verify command
+---------------------------------
+go test -race -count=1 -gcflags="all=-N -l" ./pkg/ddc/cache/... ./pkg/common/...
+-> all 4 packages ok, with the harness grafted on the head.
