@@ -21,12 +21,12 @@ import (
 	"encoding/json"
 	"strings"
 	"testing"
-	"time"
 
 	workloadv1alpha1 "github.com/fluid-cloudnative/advanced-statefulset/api/workload/v1alpha1"
 	datav1alpha1 "github.com/fluid-cloudnative/fluid/api/v1alpha1"
 	"github.com/fluid-cloudnative/fluid/pkg/common"
 	cruntime "github.com/fluid-cloudnative/fluid/pkg/runtime"
+	"github.com/fluid-cloudnative/fluid/pkg/utils"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
@@ -262,6 +262,15 @@ func TestVerifyWorkerDriftWarnsThroughFullSync(t *testing.T) {
 	if !found {
 		t.Fatalf("expected a %s Warning event from full Sync, got %v", common.RuntimeTieredStoreConflict, events)
 	}
+	// Round-8 architecture: the durable signal is the TieredStoreSynced
+	// condition, persisted on the CacheRuntime status.
+	cond := h.tieredStoreCondition(t)
+	if cond == nil || cond.Status != corev1.ConditionFalse {
+		t.Fatalf("TieredStoreSynced condition after drift = %+v, want False", cond)
+	}
+	if cond.Reason != common.RuntimeTieredStoreConflict {
+		t.Fatalf("TieredStoreSynced reason after drift = %q, want %q", cond.Reason, common.RuntimeTieredStoreConflict)
+	}
 	// The remediation text must point at the remedy that actually converges:
 	// round 1 verified that deleting the worker workload wedges sync (NotFound
 	// every reconcile) while recreating the CacheRuntime converges, so the event
@@ -273,14 +282,17 @@ func TestVerifyWorkerDriftWarnsThroughFullSync(t *testing.T) {
 	}
 }
 
-// TestVerifyDriftThrottleAcrossSyncs is a CONTRACT test for the throttle the
-// controller relies on: while worker tieredStore drift persists, consecutive
-// Sync calls on the same engine (what GetOrCreateEngine's per-runtime engine
-// cache gives the real Reconcile loop) must emit exactly one
-// RuntimeTieredStoreConflict event; the event must re-appear once the interval
-// expires; and the cooldown must reset when the drift is resolved so a fresh
-// drift warns immediately.
-func TestVerifyDriftThrottleAcrossSyncs(t *testing.T) {
+// TestVerifyConditionTransitionOnlyEvents is a CONTRACT test for round-8's
+// architecture (head d19969af): the round-1..7 in-memory throttle was replaced
+// by the persisted TieredStoreSynced condition with transition-only Warning
+// events. The property the old throttle protected — no event flood while drift
+// persists — must still hold, and the new design must add what the throttle
+// could not give: persistence across a controller restart (the TS-REQUEUE
+// advisory's remedy) and immediate re-warning on a fresh drift (no cooldown to
+// wait out). Supersedes TestVerifyDriftThrottleAcrossSyncs, whose
+// bounded-interval re-emission contract was removed by design together with
+// tieredStoreWarningInterval (the condition now carries the signal).
+func TestVerifyConditionTransitionOnlyEvents(t *testing.T) {
 	h := newTieredStoreDriftHarness(t, []datav1alpha1.RuntimeTieredStoreLevel{
 		{ProcessMemory: &datav1alpha1.ProcessMemoryMediumSource{Quota: resource.MustParse("8Gi")}},
 	}, nil)
@@ -300,27 +312,38 @@ func TestVerifyDriftThrottleAcrossSyncs(t *testing.T) {
 		return n
 	}
 
-	// Three consecutive syncs while the drift persists: exactly one event.
+	// Three consecutive syncs while the drift persists: exactly one event
+	// (transition-only emission, no interval re-emission, no flood).
 	for i := 0; i < 3; i++ {
 		if err := h.engine.Sync(h.ctx); err != nil {
 			t.Fatalf("Sync #%d: %v", i, err)
 		}
 	}
 	if got := countDriftEvents(); got != 1 {
-		t.Fatalf("got %d drift events across 3 consecutive Sync calls, want 1 (throttled)", got)
+		t.Fatalf("got %d drift events across 3 consecutive Sync calls, want 1 (transition-only)", got)
 	}
 
-	// After the interval expires the warning is re-emitted.
-	h.engine.timeOfLastTieredStoreWarning = time.Now().Add(-defaultTieredStoreWarningInterval - time.Minute)
-	if err := h.engine.Sync(h.ctx); err != nil {
-		t.Fatalf("Sync after interval: %v", err)
+	// The condition, not the event, is the durable signal: a restarted
+	// controller (fresh CacheEngine over the same objects) must not re-emit
+	// the warning for an unchanged drift, and the False condition must survive.
+	restarted := &CacheEngine{
+		name:      h.engine.name,
+		namespace: h.engine.namespace,
+		Client:    h.engine.Client,
+		Recorder:  h.recorder,
+		Log:       h.engine.Log,
 	}
-	if got := countDriftEvents(); got != 1 {
-		t.Fatalf("got %d drift events after the interval expired, want 1 (re-emitted)", got)
+	if err := restarted.Sync(h.ctx); err != nil {
+		t.Fatalf("Sync after restart: %v", err)
+	}
+	if got := countDriftEvents(); got != 0 {
+		t.Fatalf("got %d drift events after controller restart with unchanged drift, want 0", got)
+	}
+	if cond := h.tieredStoreCondition(t); cond == nil || cond.Status != corev1.ConditionFalse {
+		t.Fatalf("TieredStoreSynced condition after restart = %+v, want False (persisted in status)", cond)
 	}
 
-	// Resolving the drift resets the cooldown: the next fresh drift warns
-	// immediately instead of waiting out the interval.
+	// Resolving the drift flips the condition back to True with no event.
 	h.editRuntime(t, func(spec *datav1alpha1.CacheRuntimeSpec) {
 		spec.Worker.TieredStore.Levels[0].ProcessMemory.Quota = resource.MustParse("8Gi")
 	})
@@ -330,6 +353,10 @@ func TestVerifyDriftThrottleAcrossSyncs(t *testing.T) {
 	if got := countDriftEvents(); got != 0 {
 		t.Fatalf("got %d drift events after resolving the drift, want 0", got)
 	}
+	if cond := h.tieredStoreCondition(t); cond == nil || cond.Status != corev1.ConditionTrue {
+		t.Fatalf("TieredStoreSynced condition after resolve = %+v, want True", cond)
+	}
+	// A fresh drift right after resolution warns immediately (no cooldown).
 	h.editRuntime(t, func(spec *datav1alpha1.CacheRuntimeSpec) {
 		spec.Worker.TieredStore.Levels[0].ProcessMemory.Quota = resource.MustParse("16Gi")
 	})
@@ -337,8 +364,20 @@ func TestVerifyDriftThrottleAcrossSyncs(t *testing.T) {
 		t.Fatalf("Sync re-drift: %v", err)
 	}
 	if got := countDriftEvents(); got != 1 {
-		t.Fatalf("got %d drift events for a fresh drift right after resolution, want 1 (cooldown was reset)", got)
+		t.Fatalf("got %d drift events for a fresh drift right after resolution, want 1 (immediate)", got)
 	}
+}
+
+// tieredStoreCondition reads the TieredStoreSynced condition from the stored
+// CacheRuntime's status (the durable signal this architecture relies on).
+func (h *tieredStoreDriftHarness) tieredStoreCondition(t *testing.T) *datav1alpha1.RuntimeCondition {
+	t.Helper()
+	rt, err := h.engine.getRuntime()
+	if err != nil {
+		t.Fatalf("getRuntime: %v", err)
+	}
+	_, cond := utils.GetRuntimeCondition(rt.Status.Conditions, datav1alpha1.RuntimeTieredStoreSynced)
+	return cond
 }
 
 // TestVerifyClientTieredStoreDriftSilent is a BUG-CANARY pinned to follow-up
@@ -447,15 +486,18 @@ func TestVerifyEmptyDirMediumFlipDetected(t *testing.T) {
 	t.Run("memory-to-disk", func(t *testing.T) { drive(t, corev1.StorageMediumMemory, corev1.StorageMedium("")) })
 }
 
-// TestVerifyDispatchPrecedenceMatchesConfigMap is a CONTRACT test for the
-// round-3 precedence fix (ledger TS-DISPATCH-PRECEDENCE, Copilot C4368713436):
-// the CRD has no one-of validation on a tieredStore level, so a level can carry
-// both hostPath and emptyDir. extractTieredStoreLevels (cm.go) reports such a
-// level as hostPath (HostPath is checked before EmptyDir), so the drift check
-// must dispatch the same way — otherwise a both-fields edit is validated
-// against the stale emptyDir volume and the real split (spec now demands a
-// hostPath volume the pod does not have) stays silent.
-func TestVerifyDispatchPrecedenceMatchesConfigMap(t *testing.T) {
+// TestVerifyMultiMediumEditReportedNotSilent is a CONTRACT test superseding
+// TestVerifyDispatchPrecedenceMatchesConfigMap (round-3 ledger
+// TS-DISPATCH-PRECEDENCE, Copilot C4368713436). The CRD has no one-of
+// validation on a tieredStore level, so a level can carry both hostPath and
+// emptyDir; the ConfigMap reports such a level as hostPath (extractTieredStoreLevels
+// precedence). Round <=7 reconciled the drift check's dispatch with that
+// precedence; head d19969af instead renders the expected pod through
+// TransformRuntimeTieredStore, which REJECTS multi-medium levels — so the edit
+// must surface as TieredStoreSynced=False with reason RuntimeTieredStoreInvalid
+// and "fix the spec" guidance. The old failure mode (silence for the split
+// class) must remain impossible: any both-fields edit is reported.
+func TestVerifyMultiMediumEditReportedNotSilent(t *testing.T) {
 	h := newTieredStoreDriftHarness(t, []datav1alpha1.RuntimeTieredStoreLevel{
 		{EmptyDir: &datav1alpha1.EmptyDirMediumSource{Quota: resource.MustParse("2Gi"), Medium: corev1.StorageMediumMemory}},
 	}, nil)
@@ -467,8 +509,9 @@ func TestVerifyDispatchPrecedenceMatchesConfigMap(t *testing.T) {
 	}
 
 	// Edit the level so it carries BOTH hostPath and emptyDir. The emptyDir
-	// fields are left exactly as created, so an emptyDir-first drift dispatch
-	// would find no drift at all — this is the silence the fix removes.
+	// fields are left exactly as created, so any comparison against the stale
+	// emptyDir volume alone would find no drift — this is the silence the
+	// contract forbids.
 	h.editRuntime(t, func(spec *datav1alpha1.CacheRuntimeSpec) {
 		spec.Worker.TieredStore.Levels[0].HostPath = &datav1alpha1.HostPathMediumSource{
 			Paths:  []string{"/mnt/cache"},
@@ -481,10 +524,8 @@ func TestVerifyDispatchPrecedenceMatchesConfigMap(t *testing.T) {
 		t.Fatalf("Sync: %v", err)
 	}
 
-	// Ground truth the drift check must match: the regenerated ConfigMap
-	// reports the level as hostPath (MediumType HDD, hostPath-shaped mount
-	// path). If the ConfigMap precedence ever changes, this premise changes
-	// and the contract must be revisited, not silently kept.
+	// The split itself still exists on the PR head (documented follow-up
+	// #6299): the regenerated ConfigMap reports the level as hostPath.
 	cm := &corev1.ConfigMap{}
 	if err := h.engine.Client.Get(h.ctx.Context, types.NamespacedName{Name: "fluid-runtime-config-test-runtime", Namespace: "default"}, cm); err != nil {
 		t.Fatalf("get configmap: %v", err)
@@ -506,28 +547,26 @@ func TestVerifyDispatchPrecedenceMatchesConfigMap(t *testing.T) {
 	if medium, _ := level["mediumType"].(string); medium != string(common.HDD) {
 		t.Fatalf("config mediumType for both-fields level = %q, want %q (hostPath precedence in extractTieredStoreLevels)", medium, common.HDD)
 	}
-	if mp, _ := level["mountPaths"].([]interface{}); len(mp) != 1 {
-		t.Fatalf("config mountPaths for both-fields level = %v, want the single hostPath path", mp)
-	} else if s, _ := mp[0].(string); s != GetHostPathTieredStoreMountPath(0, 0) {
-		t.Fatalf("config mountPath[0] = %q, want %q (hostPath), raw: %s", s, GetHostPathTieredStoreMountPath(0, 0), raw)
-	}
 
-	// Contract: the drift warning validates the hostPath volume the ConfigMap
-	// now reports, not the stale emptyDir values.
+	// Contract: the both-fields edit is reported, not silent.
+	cond := h.tieredStoreCondition(t)
+	if cond == nil || cond.Status != corev1.ConditionFalse {
+		t.Fatalf("TieredStoreSynced condition for both-fields edit = %+v, want False", cond)
+	}
+	if cond.Reason != common.RuntimeTieredStoreInvalid {
+		t.Fatalf("condition reason for both-fields edit = %q, want %q (TransformRuntimeTieredStore rejects multi-medium levels)", cond.Reason, common.RuntimeTieredStoreInvalid)
+	}
+	if !strings.Contains(cond.Message, "Fix spec.worker.tieredStore") {
+		t.Fatalf("condition message should direct at fixing the spec: %q", cond.Message)
+	}
 	events := h.drainEvents()
-	var driftEvent string
+	found := false
 	for _, e := range events {
-		if strings.Contains(e, common.RuntimeTieredStoreConflict) && strings.Contains(e, corev1.EventTypeWarning) {
-			driftEvent = e
+		if strings.Contains(e, common.RuntimeTieredStoreInvalid) && strings.Contains(e, corev1.EventTypeWarning) {
+			found = true
 		}
 	}
-	if driftEvent == "" {
-		t.Fatalf("both-fields level edit was not reported, got %v", events)
-	}
-	if !strings.Contains(driftEvent, "hostPath") || !strings.Contains(driftEvent, getTieredStoreVolumeName(0, 0)) {
-		t.Fatalf("drift event does not validate the hostPath volume: %q", driftEvent)
-	}
-	if strings.Contains(driftEvent, "spec medium") {
-		t.Fatalf("drift event dispatched to the emptyDir branch instead of hostPath: %q", driftEvent)
+	if !found {
+		t.Fatalf("both-fields level edit was not reported by event, got %v", events)
 	}
 }

@@ -171,10 +171,10 @@ func TestPremiseTieredStoreSplitWorker(t *testing.T) {
 	if err != nil {
 		t.Fatalf("getRuntime (sync): %v", err)
 	}
-	if err := engine.syncRuntimeValueConfigMap(ctx, syncRuntime); err != nil {
+	if err := engine.syncRuntimeValueConfigMap(ctx, syncRuntime, runtimeClass); err != nil {
 		t.Fatalf("syncRuntimeValueConfigMap: %v", err)
 	}
-	if err := engine.syncRuntimeSpec(ctx, syncRuntime, runtimeClass); err != nil {
+	if _, err := engine.syncRuntimeSpec(ctx, syncRuntime, runtimeClass); err != nil {
 		t.Fatalf("syncRuntimeSpec: %v", err)
 	}
 
