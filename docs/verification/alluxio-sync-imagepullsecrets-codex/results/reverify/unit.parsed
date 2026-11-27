@@ -1,0 +1,4 @@
+TestVerifyCodexPR6288DefaultConfigStaysNoOp	fail
+TestVerifyCodexPR6288EmptyStateIdempotentAfterRemoval	fail
+TestVerifyCodexPR6288ConfiguredSecretsSync	pass
+TestVerifyCodexPR6288APIServerServesNilForOmittedSecrets	pass
