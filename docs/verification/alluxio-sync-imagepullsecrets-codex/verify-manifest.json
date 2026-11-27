@@ -1,0 +1,37 @@
+{
+  "topic": "alluxio-sync-imagepullsecrets-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6288",
+  "harnessPaths": [
+    "docs/verification/alluxio-sync-imagepullsecrets-codex",
+    "pkg/ddc/alluxio/sync_runtime_codex_verify_test.go",
+    "pkg/ddc/alluxio/sync_runtime_codex_verify_envtest_test.go",
+    "pkg/ddc/base/sync_shortcircuit_codex_verify_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "Sync imagePullSecrets changes on existing AlluxioRuntimes to the master/worker StatefulSets and fuse DaemonSet. Alluxio has supported runtime and per-component imagePullSecrets since #4242, but its SyncRuntime is a no-op, so changing them after creation does nothing until the runtime is recreated.",
+    "reportedComponent": "AlluxioRuntime engine SyncRuntime (pkg/ddc/alluxio)",
+    "patchedComponent": "pkg/ddc/alluxio/sync_runtime.go",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "On merge-base 07bdbcd86 the AlluxioEngine.SyncRuntime body is a bare `return` (no-op), so post-creation spec.imagePullSecrets changes never reach the master/worker StatefulSets or fuse DaemonSet. See results/p0-base-syncruntime.txt",
+    "match": []
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "FLUID_UNIT_TEST=true go test ./pkg/ddc/alluxio/ -run 'TestVerifyCodexPR6288(DefaultConfigStaysNoOp|EmptyStateIdempotentAfterRemoval|ConfiguredSecretsSync|APIServerServesNilForOmittedSecrets)$' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "KUBEBUILDER_ASSETS=\"${KUBEBUILDER_ASSETS:-$(ls -d \"$HOME\"/.local/share/kubebuilder-envtest/k8s/* 2>/dev/null | sort -V | tail -1)}\" FLUID_UNIT_TEST=true go test ./pkg/ddc/alluxio/ -run 'TestVerifyCodexPR6288SyncRuntimeAgainstRealAPIServer$' -json"
+    }
+  },
+  "findings": [
+    { "id": "F1", "polarity": "contract", "layer": "unit", "match": ["TestVerifyCodexPR6288DefaultConfigStaysNoOp", "TestVerifyCodexPR6288EmptyStateIdempotentAfterRemoval"] },
+    { "id": "F1", "polarity": "contract", "layer": "integration", "match": ["TestVerifyCodexPR6288SyncRuntimeAgainstRealAPIServer"] }
+  ],
+  "liveNote": "L3 skipped per round policy (no KUBECONFIG layer). On a real cluster the observable signal: for an AlluxioRuntime with no imagePullSecrets configured (and IMAGE_PULL_SECRETS unset), the runtime controller issues a no-op master/worker STS + fuse DS update on every reconcile (default requeue 90s) and never reaches CheckRuntimeHealthy/CheckAndUpdateRuntimeStatus/UpdateCacheOfDataset/ShouldSyncDatasetMounts, so dataset status and mount sync go stale."
+}

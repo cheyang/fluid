@@ -1,0 +1,7 @@
+2026/11/27 08:10:30 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyCodexPR6288SyncShortCircuitsWhenSyncRuntimeChanged
+--- PASS: TestVerifyCodexPR6288SyncShortCircuitsWhenSyncRuntimeChanged (0.00s)
+=== RUN   TestVerifyCodexPR6288SyncContinuesWhenSyncRuntimeUnchanged
+--- PASS: TestVerifyCodexPR6288SyncContinuesWhenSyncRuntimeUnchanged (0.00s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/pkg/ddc/base	0.012s

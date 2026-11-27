@@ -1,0 +1,9 @@
+2026/11/27 08:11:36 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes
+=== RUN   TestVerifyCodexPR6288SyncRuntimeAgainstRealAPIServer
+    sync_runtime_codex_verify_envtest_test.go:126: call 1: SyncRuntime() changed = true, want false (nothing to sync: no secrets configured, workloads carry none)
+    sync_runtime_codex_verify_envtest_test.go:126: call 2: SyncRuntime() changed = true, want false (nothing to sync: no secrets configured, workloads carry none)
+    sync_runtime_codex_verify_envtest_test.go:126: call 3: SyncRuntime() changed = true, want false (nothing to sync: no secrets configured, workloads carry none)
+--- FAIL: TestVerifyCodexPR6288SyncRuntimeAgainstRealAPIServer (4.88s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/pkg/ddc/alluxio	4.894s
+FAIL
