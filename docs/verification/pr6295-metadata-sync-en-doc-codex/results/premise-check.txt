@@ -1,0 +1,15 @@
+P0 premise check (runs against BASE b8ff60e309c341b58a9e26b085b76e6067e6bb60):
+
+1) docs/en/samples/metadata_sync.md exists on base?
+fatal: path 'docs/en/samples/metadata_sync.md' exists on disk, but not in 'b8ff60e309c341b58a9e26b085b76e6067e6bb60'
+-> absent on base (exit 128)
+
+2) base docs/en files mentioning metadataSyncPolicy/autoSync:
+  docs/en/dev/api_doc.md
+  docs/en/samples/juicefs_runtime.md
+
+3) nature of those hits:
+  - docs/en/dev/api_doc.md: generated API reference (field listing only, no how-to)
+  - docs/en/samples/juicefs_runtime.md: JuiceFS setup guide with autoSync:false inside a YAML snippet; no metadata-sync-policy walkthrough for Alluxio
+
+Conclusion: on base there is no English sample documenting spec.management.metadataSyncPolicy.autoSync; the PR's stated docs gap is real. VERDICT: confirmed.

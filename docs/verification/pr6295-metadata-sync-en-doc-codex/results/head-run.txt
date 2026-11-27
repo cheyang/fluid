@@ -1,0 +1,14 @@
+=== RUN   TestPR6295EnglishPageRegisteredInTOC
+--- PASS: TestPR6295EnglishPageRegisteredInTOC (0.00s)
+=== RUN   TestPR6295CodeBlocksMatchChineseSource
+    verify_pr6295_docs_test.go:225: block 6 differs only in trailing whitespace (tolerated)
+--- PASS: TestPR6295CodeBlocksMatchChineseSource (0.00s)
+=== RUN   TestPR6295MetadataSyncFieldPathMatchesAPI
+--- PASS: TestPR6295MetadataSyncFieldPathMatchesAPI (0.00s)
+=== RUN   TestPR6295RelativeLinksResolve
+--- PASS: TestPR6295RelativeLinksResolve (0.00s)
+=== RUN   TestPR6295DocsBuildIncludesNewPage
+--- PASS: TestPR6295DocsBuildIncludesNewPage (0.03s)
+PASS
+ok  	github.com/fluid-cloudnative/fluid/docs/verification/pr6295-metadata-sync-en-doc-codex/gotest	(cached)
+exit=0

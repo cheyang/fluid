@@ -1,0 +1,23 @@
+=== RUN   TestPR6295EnglishPageRegisteredInTOC
+    verify_pr6295_docs_test.go:137: en Dataset subsection order = [Creation Operation Security], want [Creation Operation Security Advanced Configuration]
+    verify_pr6295_docs_test.go:142: zh/en Dataset subsection count differs: zh=[创建 操作 安全 高级配置] en=[Creation Operation Security]
+    verify_pr6295_docs_test.go:156: docs/en/TOC.md Dataset>Advanced Configuration links = [], want samples/metadata_sync.md among them
+    verify_pr6295_docs_test.go:169: TOC target docs/en/samples/metadata_sync.md missing: stat /tmp/pr6295-base2-TsRLJc/docs/en/samples/metadata_sync.md: no such file or directory
+--- FAIL: TestPR6295EnglishPageRegisteredInTOC (0.00s)
+=== RUN   TestPR6295CodeBlocksMatchChineseSource
+    verify_pr6295_docs_test.go:216: read docs/en/samples/metadata_sync.md: open /tmp/pr6295-base2-TsRLJc/docs/en/samples/metadata_sync.md: no such file or directory
+--- FAIL: TestPR6295CodeBlocksMatchChineseSource (0.00s)
+=== RUN   TestPR6295MetadataSyncFieldPathMatchesAPI
+    verify_pr6295_docs_test.go:257: read docs/en/samples/metadata_sync.md: open /tmp/pr6295-base2-TsRLJc/docs/en/samples/metadata_sync.md: no such file or directory
+--- FAIL: TestPR6295MetadataSyncFieldPathMatchesAPI (0.00s)
+=== RUN   TestPR6295RelativeLinksResolve
+    verify_pr6295_docs_test.go:279: read docs/en/samples/metadata_sync.md: open /tmp/pr6295-base2-TsRLJc/docs/en/samples/metadata_sync.md: no such file or directory
+--- FAIL: TestPR6295RelativeLinksResolve (0.00s)
+=== RUN   TestPR6295DocsBuildIncludesNewPage
+    verify_pr6295_docs_test.go:358: merged en/doc.md does not contain the new page heading at the expected level (###)
+    verify_pr6295_docs_test.go:361: merged en/doc.md does not contain the new page body
+--- FAIL: TestPR6295DocsBuildIncludesNewPage (0.03s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/docs/verification/pr6295-metadata-sync-en-doc-codex/gotest	0.030s
+FAIL
+GO-TEST-EXIT=1

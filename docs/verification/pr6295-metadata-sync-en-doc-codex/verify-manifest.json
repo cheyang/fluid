@@ -1,0 +1,79 @@
+{
+  "topic": "pr6295-metadata-sync-en-doc-codex",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6295",
+  "harnessPaths": [
+    "docs/verification/pr6295-metadata-sync-en-doc-codex"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "docs/zh/samples/metadata_sync.md has no English version, so English readers can't find how to turn off spec.management.metadataSyncPolicy.autoSync. This adds docs/en/samples/metadata_sync.md as a translation and lists it in docs/en/TOC.md, under Dataset, as the Chinese TOC does.",
+    "reportedComponent": "docs/en (English documentation set)",
+    "patchedComponent": "docs/en/samples/metadata_sync.md + docs/en/TOC.md",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "script",
+    "verdict": "confirmed",
+    "evidence": "scripts/premise-check.sh: on base b8ff60e the file docs/en/samples/metadata_sync.md does not exist; the only base docs/en hits for metadataSyncPolicy/autoSync are the generated api_doc.md field listing and a JuiceFS-only YAML snippet, neither of which documents the Alluxio metadata-sync policy. See results/premise-check.txt.",
+    "match": [
+      "premise-check.sh"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./docs/verification/pr6295-metadata-sync-en-doc-codex/gotest/ -run 'TestPR6295(EnglishPageRegisteredInTOC|CodeBlocksMatchChineseSource|MetadataSyncFieldPathMatchesAPI|RelativeLinksResolve)' -json"
+    },
+    "integration": {
+      "kind": "gotest",
+      "cmd": "go test ./docs/verification/pr6295-metadata-sync-en-doc-codex/gotest/ -run 'TestPR6295DocsBuildIncludesNewPage' -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "A1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestPR6295EnglishPageRegisteredInTOC"
+      ],
+      "note": "Acceptance contract: docs/en/samples/metadata_sync.md is registered in docs/en/TOC.md under Dataset -> Advanced Configuration, mirroring the zh TOC (数据集使用 -> 高级配置) at the same ordinal position, and the target file exists."
+    },
+    {
+      "id": "A2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestPR6295CodeBlocksMatchChineseSource"
+      ],
+      "note": "Acceptance contract (the PR's own 'how to verify'): every fenced code block in the English page matches the Chinese source page exactly, modulo trailing whitespace (zh block 6 has one trailing space; en drops it - tolerated)."
+    },
+    {
+      "id": "A3",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestPR6295MetadataSyncFieldPathMatchesAPI"
+      ],
+      "note": "Acceptance contract: the documented field path spec.management.metadataSyncPolicy.autoSync and the kubectl patch path /spec/management/metadataSyncPolicy/autoSync match the Go JSON tags (alluxioruntime_types.go management -> common.go metadataSyncPolicy -> autoSync), and MetadataSyncPolicy.AutoSyncEnabled() keeps default-on semantics."
+    },
+    {
+      "id": "A4",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestPR6295RelativeLinksResolve"
+      ],
+      "note": "Acceptance contract: every relative link in the new page (e.g. ../userguide/install.md) resolves to an existing file."
+    },
+    {
+      "id": "A5",
+      "polarity": "contract",
+      "layer": "integration",
+      "match": [
+        "TestPR6295DocsBuildIncludesNewPage"
+      ],
+      "note": "Acceptance contract: the repo's real docs build script docs/scripts/mergeByTOC.py includes the new page in the generated en/doc.md, with the H1 re-leveled to ### (TOC level 3). Runs in a temp copy; needs python3."
+    }
+  ],
+  "liveNote": "L3 (live) not applicable: docs-only PR, and round policy skips the KUBECONFIG layer. The integration layer (A5) needs python3 on PATH. P0 is script-based (scripts/premise-check.sh) and not driven by re-verify.sh; run it manually with the base sha. External-link spot check on 2026-11-27: docs.alluxio.io WEB/OSS en pages return HTTP 200; mirrors.tuna.tsinghua.edu.cn returns 403 to datacenter IPs but is the same URL used by ~8 existing en docs (repo convention, not introduced here)."
+}
