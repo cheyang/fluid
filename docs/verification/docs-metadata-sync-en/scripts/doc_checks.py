@@ -31,7 +31,7 @@ def emit(action, test, output=None):
     obj = {"Action": action, "Test": test}
     if output is not None:
         obj["Output"] = [output]
-    sys.stdout.write(json.dumps(obj) + "\n")
+    sys.stdout.write(json.dumps(obj, separators=(",", ":")) + "\n")
 
 
 def report(test, ok, detail):
