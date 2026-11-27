@@ -1,0 +1,10 @@
+TestAlluxioEngine_SyncRuntime	pass
+TestV01_SyncRuntime_PropagatesSecretChanges	pass
+TestV02_SyncRuntime_CreationParity/common-only	pass
+TestV02_SyncRuntime_CreationParity/component-only	pass
+TestV02_SyncRuntime_CreationParity/mixed	pass
+TestV02_SyncRuntime_CreationParity/env-only	pass
+TestV02_SyncRuntime_CreationParity/env-and-common	pass
+TestV02_SyncRuntime_CreationParity/empty	pass
+TestV02_SyncRuntime_CreationParity	pass
+TestV03_SyncRuntime_MissingWorkloadSurfacesError	pass
