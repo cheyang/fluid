@@ -1,0 +1,18 @@
+=== RUN   TestCodeBlocksMatchChineseSource
+    data_toleration_verify_test.go:67: read docs/en/samples/data_toleration.md: open /tmp/pr6300-base/docs/en/samples/data_toleration.md: no such file or directory
+--- FAIL: TestCodeBlocksMatchChineseSource (0.00s)
+=== RUN   TestEnglishTOCListsPage
+    data_toleration_verify_test.go:89: docs/en/TOC.md does not link to samples/data_toleration.md
+--- FAIL: TestEnglishTOCListsPage (0.00s)
+=== RUN   TestDocManifestsParseAgainstRealAPITypes
+    data_toleration_verify_test.go:111: read docs/en/samples/data_toleration.md: open /tmp/pr6300-base/docs/en/samples/data_toleration.md: no such file or directory
+--- FAIL: TestDocManifestsParseAgainstRealAPITypes (0.00s)
+=== RUN   TestNoRemovedKubernetesAPIs
+    data_toleration_verify_test.go:172: read docs/en/samples/data_toleration.md: open /tmp/pr6300-base/docs/en/samples/data_toleration.md: no such file or directory
+--- FAIL: TestNoRemovedKubernetesAPIs (0.00s)
+=== RUN   TestDocsMergeIncludesPage
+    data_toleration_verify_test.go:207: merged English doc.md does not contain the new data toleration page
+--- FAIL: TestDocsMergeIncludesPage (0.03s)
+FAIL
+FAIL	github.com/fluid-cloudnative/fluid/docs/verification/pr-6300-en-data-toleration	0.040s
+FAIL
