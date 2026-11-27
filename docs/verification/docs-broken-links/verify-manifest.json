@@ -1,0 +1,34 @@
+{
+  "topic": "docs-broken-links",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6294",
+  "headSha": "b164b838fb76c51ca9fc7ee7927185b847a10b43",
+  "baseSha": "b8ff60e309c341b58a9e26b085b76e6067e6bb60",
+  "harnessPaths": [
+    "docs/verification/docs-broken-links"
+  ],
+  "_harness_note": "Docs-only PR: the 'unit' layer is a deterministic filesystem link-resolution script (scripts/run_contracts.sh emits name<TAB>pass|fail). No Go/envtest layer exists because no compiled code changes. Live layer skipped per debate setup.",
+  "premise": {
+    "id": "P0",
+    "claim": "14 relative links in docs/ point at files that don't exist (PR body, section I)",
+    "reportedComponent": "docs/ markdown pages",
+    "patchedComponent": "docs/ markdown pages",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "check_doc_links.py on base b8ff60e reports exactly the 14 claimed broken links (plus 2 disclosed samples/hdfs links and 4 regex-cell false positives in generated api_doc.md); see results/scan-base.txt and results/contracts-base.txt (Fix01..Fix14 all fail on base).",
+    "match": ["Fix01", "Fix02", "Fix03", "Fix04", "Fix05", "Fix06", "Fix07", "Fix08", "Fix09", "Fix10", "Fix11", "Fix12", "Fix13", "Fix14"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "script",
+      "cmd": "bash docs/verification/docs-broken-links/scripts/run_contracts.sh ."
+    }
+  },
+  "findings": [
+    { "id": "P0-fixes",  "polarity": "contract", "layer": "unit", "match": ["Fix01", "Fix02", "Fix03", "Fix04", "Fix05", "Fix06", "Fix07", "Fix08", "Fix09", "Fix10", "Fix11", "Fix12", "Fix13", "Fix14"], "note": "Each of the 14 fixed links resolves from its source page." },
+    { "id": "G1-no-new-broken-links", "polarity": "contract", "layer": "unit", "match": ["NoNewBrokenLinks"], "note": "Guard: the PR must not introduce any new broken relative link (known-remaining: 2x samples/hdfs; scanner artifacts: 4x api_doc.md regex cells)." },
+    { "id": "F1", "polarity": "canary", "layer": "unit", "match": ["HdfsLinksStillBroken"], "note": "Pre-existing, author-disclosed: docs/{en,zh}/samples/accelerate_data_accessing_by_hdfs.md link ../../../samples/hdfs, removed by #5126. Flips when someone fixes/removes those links." }
+  ],
+  "liveNote": "L3 not applicable (docs-only change; no runtime behavior)."
+}

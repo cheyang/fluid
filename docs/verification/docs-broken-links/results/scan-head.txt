@@ -1,0 +1,9 @@
+docs/en/dev/api_doc.md:1386: \+\|-
+docs/en/dev/api_doc.md:1386: \+\|-
+docs/en/samples/accelerate_data_accessing_by_hdfs.md:176: ../../../samples/hdfs
+docs/zh/dev/api_doc.md:1386: \+\|-
+docs/zh/dev/api_doc.md:1386: \+\|-
+docs/zh/samples/accelerate_data_accessing_by_hdfs.md:180: ../../../samples/hdfs
+---
+TOTAL relative links checked: 302
+BROKEN: 6

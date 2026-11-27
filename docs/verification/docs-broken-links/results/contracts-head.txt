@@ -1,0 +1,16 @@
+Fix01_EnCoreConcepts_TocEn	pass
+Fix02_EnCoreConcepts_TocZh	pass
+Fix03_ZhCoreConcepts_TocEn	pass
+Fix04_ZhCoreConcepts_TocZh	pass
+Fix05_EnUserguide_TocEn	pass
+Fix06_EnUserguide_TocZh	pass
+Fix07_ZhUserguide_TocEn	pass
+Fix08_ZhUserguide_TocZh	pass
+Fix09_EnVineyard_PreprocessPy	pass
+Fix10_EnVineyard_InstallMd	pass
+Fix11_ZhVineyard_PreprocessPy	pass
+Fix12_ZhVineyard_InstallMd	pass
+Fix13_ZhAppController_Juicefs	pass
+Fix14_ZhFuseRecover_Juicefs	pass
+NoNewBrokenLinks	pass
+HdfsLinksStillBroken	pass
