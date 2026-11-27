@@ -1,0 +1,34 @@
+== 1. Old image fluid-cloudnative/curvine-thinruntime on Docker Hub ==
+hub.docker.com/v2/repositories/fluid-cloudnative/curvine-thinruntime -> HTTP 404
+PASS: old image is absent from Docker Hub (premise holds: example cannot be pulled)
+== 2. New image ghcr.io/curvineio/curvine tag list ==
+{"name":"curvineio/curvine","tags":["permission-test-1764743242","latest","permission-test-1764754592","permission-test-1764754612","v0.1.0","latest-arm64","latest-amd64","v0.2.0-arm64","v0.2.0-amd64","v0.2.0","v0.2.0-alpha-arm64","v0.2.0-alpha-amd64","v0.2.0-alpha","v0.2.1-alpha-arm64","v0.2.1-alpha-amd64","v0.2.1-alpha","v0.2.2-alpha-arm64","v0.2.2-alpha-amd64","v0.2.2-alpha","v0.2.3-alpha-arm64","v0.2.3-alpha-amd64","v0.2.3-alpha","v0.3.0-alpha-arm64","v0.3.0-alpha-amd64","v0.3.0-alpha","v0.3.1-alpha-arm64","v0.3.1-alpha-amd64","v0.3.1-alpha","v0.3.2-alpha-arm64","v0.3.2-alpha-amd64","v0.3.2-alpha","v0.3.4-alpha-amd64","v0.3.4-alpha-arm64","v0.3.4-alpha","v0.3.5-alpha-arm64","v0.3.5-alpha-amd64","v0.3.5-alpha","v0.3.6-alpha-arm64","v0.3.6-alpha-amd64","v0.3.6-alpha","v0.4.0-alpha-arm64","v0.4.0-alpha-amd64","v0.4.0-alpha","v0.4.1-arm64","v0.4.1-amd64","v0.4.1","v0.5.0-alpha-arm64","v0.5.0-alpha-amd64","v0.5.0-alpha","v0.5.1-alpha-arm64","v0.5.1-alpha-amd64","v0.5.1-alpha","v0.5.2-alpha-arm64","v0.5.2-alpha-amd64","v0.5.2-alpha","v0.5.3-alpha-arm64","v0.5.3-alpha-amd64","v0.5.3-alpha","v0.5.4-alpha-arm64","v0.5.4-alpha-amd64","v0.5.4-alpha","v0.6.0-alpha-arm64","v0.6.0-alpha-amd6
+PASS: ghcr.io/curvineio/curvine exists and publishes the 'latest' tag used by the PR
+== 3. Curvine repo: removed thin-runtime build assets ==
+"name": "curvine-thinruntime.yaml"
+PASS: build-image.sh gone from curvine-docker/fluid/thin-runtime (premise holds)
+PASS: curvine-thinruntime.yaml (the example the PR now links) exists upstream
+== 4. Curvine runtime image contains the Fluid integration ==
+199:COPY curvine-docker/fluid/entrypoint.sh /fluid-entrypoint.sh
+201:COPY curvine-docker/fluid/config-parse.py /app/curvine/config-parse.py
+209:    && chmod +x /app/curvine/generate_config.py /app/curvine/config-parse.py /app/curvine/mountUfs.sh /app/curvine/reportSummary.sh \
+210:    && chmod +x /fluid-entrypoint.sh \
+PASS: Dockerfile_rocky9 installs /fluid-entrypoint.sh
+PASS: Dockerfile_rocky9 installs /app/curvine/config-parse.py
+== 5. /entrypoint.sh hands off to /fluid-entrypoint.sh for fluid-thin-runtime ==
+27:    fluid-thin-runtime)
+45:  exec /fluid-entrypoint.sh "$@"
+PASS: entrypoint.sh execs /fluid-entrypoint.sh in fluid mode
+== 6. Curvine's own example uses the same command/args the PR adds ==
+8:    image: ghcr.io/curvineio/curvine
+9:    imageTag: latest
+12:    - /entrypoint.sh
+14:    - fluid-thin-runtime
+PASS: upstream example uses ghcr.io/curvineio/curvine
+PASS: upstream example sets command: [/entrypoint.sh]
+PASS: upstream example sets args: [fluid-thin-runtime]
+== 7. Curvine root Makefile has the docker-build target the dev guide now references ==
+112:docker-build:
+PASS: make docker-build exists in Curvine repo root
+
+PREMISE P0: CONFIRMED — every external claim in the PR body re-checked true

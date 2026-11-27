@@ -1,0 +1,13 @@
+{"Time":"2026-11-27T09:11:58.92383531+08:00","Action":"start","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin"}
+{"Time":"2026-11-27T09:11:58.923931213+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Output":"2026/11/27 09:10:42 nodeExcludeSelector is empty, no node would be excluded when syncing schedule info of runtimes\n"}
+{"Time":"2026-11-27T09:11:58.923939743+08:00","Action":"run","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Test":"TestVerifyPR6293CurvineAddonProfileParses"}
+{"Time":"2026-11-27T09:11:58.923941443+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Test":"TestVerifyPR6293CurvineAddonProfileParses","Output":"=== RUN   TestVerifyPR6293CurvineAddonProfileParses\n","OutputType":"frame"}
+{"Time":"2026-11-27T09:11:58.923946004+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Test":"TestVerifyPR6293CurvineAddonProfileParses","Output":"--- PASS: TestVerifyPR6293CurvineAddonProfileParses (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-27T09:11:58.923947994+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Test":"TestVerifyPR6293CurvineAddonProfileParses","Elapsed":0}
+{"Time":"2026-11-27T09:11:58.923952354+08:00","Action":"run","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Test":"TestVerifyPR6293CurvineProfileFlowsIntoFuseValue"}
+{"Time":"2026-11-27T09:11:58.923953804+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Test":"TestVerifyPR6293CurvineProfileFlowsIntoFuseValue","Output":"=== RUN   TestVerifyPR6293CurvineProfileFlowsIntoFuseValue\n","OutputType":"frame"}
+{"Time":"2026-11-27T09:11:58.923956614+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Test":"TestVerifyPR6293CurvineProfileFlowsIntoFuseValue","Output":"--- PASS: TestVerifyPR6293CurvineProfileFlowsIntoFuseValue (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-27T09:11:58.923958354+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Test":"TestVerifyPR6293CurvineProfileFlowsIntoFuseValue","Elapsed":0}
+{"Time":"2026-11-27T09:11:58.923960594+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-11-27T09:11:58.923962364+08:00","Action":"output","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Output":"ok  \tgithub.com/fluid-cloudnative/fluid/pkg/ddc/thin\t(cached)\n"}
+{"Time":"2026-11-27T09:11:58.923965715+08:00","Action":"pass","Package":"github.com/fluid-cloudnative/fluid/pkg/ddc/thin","Elapsed":0}

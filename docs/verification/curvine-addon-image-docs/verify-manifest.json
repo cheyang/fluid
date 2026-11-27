@@ -1,0 +1,49 @@
+{
+  "topic": "curvine-addon-image-docs",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6293",
+  "harnessPaths": [
+    "docs/verification/curvine-addon-image-docs",
+    "pkg/ddc/thin/verify_pr6293_curvine_profile_test.go"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "The Curvine ThinRuntime addon points at an image and build files that no longer exist: fluid-cloudnative/curvine-thinruntime:v1.0.0 can't be pulled, and CurvineIO/curvine#571 removed build-image.sh and fluid-config-parse.py. Since CurvineIO/curvine#1078 the Fluid scripts ship in ghcr.io/curvineio/curvine.",
+    "reportedComponent": "addons/curvine (ThinRuntime addon docs + example profile)",
+    "patchedComponent": "addons/curvine (runtime-profile.yaml, readmes, dev guides)",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "script",
+    "verdict": "confirmed",
+    "evidence": "scripts/premise-check.sh: Docker Hub old image -> HTTP 404; ghcr.io/curvineio/curvine has 'latest' + release tags; upstream thin-runtime dir contains only curvine-thinruntime.yaml; Dockerfile_rocky9 installs /fluid-entrypoint.sh and /app/curvine/config-parse.py; entrypoint.sh execs /fluid-entrypoint.sh for fluid-thin-runtime; upstream example matches the PR's command/args; make docker-build exists. See results/premise-check.txt.",
+    "match": [
+      "premise-check.sh"
+    ]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "go test ./pkg/ddc/thin/ -run 'TestVerifyPR6293' -json"
+    }
+  },
+  "findings": [
+    {
+      "id": "A1",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6293CurvineAddonProfileParses"
+      ],
+      "note": "Acceptance contract: the shipped addons/curvine/runtime-profile.yaml parses as a valid ThinRuntimeProfile with image ghcr.io/curvineio/curvine, tag latest, command [/entrypoint.sh], args [fluid-thin-runtime]."
+    },
+    {
+      "id": "A2",
+      "polarity": "contract",
+      "layer": "unit",
+      "match": [
+        "TestVerifyPR6293CurvineProfileFlowsIntoFuseValue"
+      ],
+      "note": "Acceptance contract: ThinEngine.transformFuse honors the profile's fuse image/imageTag/imagePullPolicy/command/args (the mechanism the example relies on)."
+    }
+  ],
+  "liveNote": "L3 skipped by round policy (no KUBECONFIG layer). Two script-based checks are NOT driven by re-verify.sh and must be run manually: scripts/premise-check.sh (P0 premise, needs network) and scripts/chart-render-check.sh (A3: charts/thin renders profile command/args into the fuse DaemonSet; needs helm)."
+}

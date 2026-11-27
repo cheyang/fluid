@@ -1,0 +1,6 @@
+PASS: fuse image is ghcr.io/curvineio/curvine:latest
+PASS: fuse imagePullPolicy is IfNotPresent
+PASS: fuse container gets command from profile
+PASS: fuse container command is /entrypoint.sh
+PASS: fuse container args is fluid-thin-runtime
+ALL CHART CHECKS PASSED
