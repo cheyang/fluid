@@ -1,0 +1,18 @@
+== PR: https://github.com/fluid-cloudnative/fluid/pull/6296
+== head: 1adbd79a1447236efa2b107d186fd4fbd857250b
+== incremental delta: 1adbd79a1447236efa2b107d186fd4fbd857250b..1adbd79a1447236efa2b107d186fd4fbd857250b
+
+== L1 harness at head ==
+INFO: docs/en/samples/hdfs_configuration.md block 3 uses bare `...` placeholder lines (not paste-able YAML) — carried over from the zh page
+INFO: docs/zh/samples/hdfs_configuration.md block 3 uses bare `...` placeholder lines (not paste-able YAML) — carried over from the zh page
+PASS: all doc checks green at 1adbd79a1447236efa2b107d186fd4fbd857250b
+harness: PASS at head
+
+== premise probe at base (b8ff60e309c341b58a9e26b085b76e6067e6bb60) ==
+INFO: docs/zh/samples/hdfs_configuration.md block 3 uses bare `...` placeholder lines (not paste-able YAML) — carried over from the zh page
+FAIL: 2 issue(s)
+ - docs/zh/samples/other_volumes.md block 2: YAML parse error: while scanning for the next token
+ - docs/zh/samples/other_volumes.md: `kubectl get secret ... -oyaml` is split over two lines
+premise: zh defects still present at this merge-base (expected for the original base b8ff60e)
+
+VERDICT: all contract checks pass at head (D1-D5 green).

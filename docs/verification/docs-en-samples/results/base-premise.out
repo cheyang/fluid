@@ -1,0 +1,4 @@
+INFO: docs/zh/samples/hdfs_configuration.md block 3 uses bare `...` placeholder lines (not paste-able YAML) — carried over from the zh page
+FAIL: 2 issue(s)
+ - docs/zh/samples/other_volumes.md block 2: YAML parse error: while scanning for the next token
+ - docs/zh/samples/other_volumes.md: `kubectl get secret ... -oyaml` is split over two lines

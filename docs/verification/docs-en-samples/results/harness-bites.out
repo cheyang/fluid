@@ -1,0 +1,108 @@
+INFO: docs/en/samples/hdfs_configuration.md block 3 uses bare `...` placeholder lines (not paste-able YAML) — carried over from the zh page
+INFO: docs/zh/samples/hdfs_configuration.md block 3 uses bare `...` placeholder lines (not paste-able YAML) — carried over from the zh page
+FAIL: 4 issue(s)
+ - docs/zh/samples/other_volumes.md block 2: YAML parse error: while scanning for the next token
+ - docs/zh/samples/other_volumes.md: `kubectl get secret ... -oyaml` is split over two lines
+ - docs/en/samples/other_volumes.md vs docs/zh/samples/other_volumes.md: code block 1 differs
+--- en ---
+kubectl get secret fluid-secret -oyaml
+apiVersion: v1
+data:
+  password: dGVzdA==
+  username: dGVzdA==
+kind: Secret
+metadata:
+  creationTimestamp: "2022-05-13T07:49:00Z"
+  name: fluid-secret
+  namespace: default
+  resourceVersion: "1059299"
+  uid: 92e310f0-b1df-4c9c-9d58-51497eb6c89a
+type: Opaque
+
+--- zh ---
+kubectl get secret fluid-secret -oy
+aml
+apiVersion: v1
+data:
+  password: dGVzdA==
+  username: dGVzdA==
+kind: Secret
+metadata:
+  creationTimestamp: "2022-05-13T07:49:00Z"
+  name: fluid-secret
+  namespace: default
+  resourceVersion: "1059299"
+  uid: 92e310f0-b1df-4c9c-9d58-51497eb6c89a
+type: Opaque
+
+ - docs/en/samples/other_volumes.md vs docs/zh/samples/other_volumes.md: code block 2 differs
+--- en ---
+cat << EOF > dataset.yaml
+apiVersion: data.fluid.io/v1alpha1
+kind: Dataset
+metadata:
+  name: hbase
+spec:
+  mounts:
+    - mountPoint: https://mirrors.bit.edu.cn/apache/hbase/stable/
+      name: hbase
+---
+apiVersion: data.fluid.io/v1alpha1
+kind: AlluxioRuntime
+metadata:
+  name: hbase
+spec:
+  replicas: 1
+  tieredstore:
+    levels:
+      - mediumtype: MEM
+        path: /dev/shm
+        quota: 2Gi
+        high: "0.95"
+        low: "0.7"
+  master:
+    volumeMounts:
+      - name: secret-volume
+        readOnly: true
+        mountPath: "/etc/secret-volume"
+  volumes:
+    - name: secret-volume
+      secret:
+        secretName: fluid-secret
+EOF
+
+--- zh ---
+cat << EOF > dataset.yaml
+apiVersion: data.fluid.io/v1alpha1
+kind: Dataset
+metadata:
+  name: hbase
+spec:
+  mounts:
+    - mountPoint: https://mirrors.bit.edu.cn/apache/hbase/stable/
+      name: hbase
+---
+apiVersion: data.fluid.io/v1alpha1
+kind: AlluxioRuntime
+metadata:
+  name: hbase
+spec:
+  replicas: 1
+  tieredstore:
+    levels:
+      - mediumtype: MEM
+        path: /dev/shm
+        quota: 2Gi
+        high: "0.95"
+        low: "0.7"
+  master:
+	volumeMounts:
+      - name: secret-volume
+        readOnly: true
+        mountPath: "/etc/secret-volume"
+  volumes:
+    - name: secret-volume
+      secret:
+        secretName: fluid-secret
+EOF
+

@@ -1,0 +1,39 @@
+{
+  "topic": "docs-en-samples",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6296",
+  "harnessPaths": [
+    "docs/verification/docs-en-samples"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "docs/zh/samples/other_volumes.md: 'spec.master.volumeMounts was indented with a tab. YAML forbids tabs for indentation, so kubectl create -f dataset.yaml failed on that manifest.' and 'kubectl get secret fluid-secret -oyaml was split over two lines (-oy / aml).'",
+    "reportedComponent": "docs/zh/samples/other_volumes.md (sample manifests)",
+    "patchedComponent": "docs/zh/samples/other_volumes.md + new docs/en/samples/*.md translations",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "check_docs.py at base sha b8ff60e: 'YAML parse error: while scanning for the next token' on the dataset.yaml heredoc (tab at line 57: '  \\tvolumeMounts:') plus the split -oy/aml command; see results/base-premise.out",
+    "match": ["check_docs.py"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "script",
+      "cmd": "python3 docs/verification/docs-en-samples/scripts/check_docs.py --repo . --ref <head-sha>",
+      "baseProbeCmd": "python3 docs/verification/docs-en-samples/scripts/check_docs.py --repo . --ref <base-sha> --en docs/zh/samples/other_volumes.md --en2 docs/zh/samples/hdfs_configuration.md"
+    },
+    "integration": {
+      "kind": "none",
+      "cmd": "not applicable: docs-only PR, no controller/runtime code path changed"
+    }
+  },
+  "findings": [
+    { "id": "D1", "polarity": "contract", "layer": "unit", "match": ["check_yaml_heredocs"], "note": "dataset.yaml heredoc must parse as valid YAML (tab removed) in zh and en other_volumes pages" },
+    { "id": "D2", "polarity": "contract", "layer": "unit", "match": ["check_single_line_command"], "note": "kubectl get secret ... -oyaml must be one line in both languages" },
+    { "id": "D3", "polarity": "contract", "layer": "unit", "match": ["code-block parity"], "note": "en/zh fenced code blocks must be byte-identical (translation adds prose only)" },
+    { "id": "D4", "polarity": "contract", "layer": "unit", "match": ["check_relative_links"], "note": "relative md links in new en pages must resolve at the head ref" },
+    { "id": "D5", "polarity": "contract", "layer": "unit", "match": ["symbol existence"], "note": "documented fields (hadoopConfig, volumes, master volumeMounts, /hdfs-config) must exist in api/v1alpha1 and pkg/ddc/alluxio/const.go" },
+    { "id": "N1", "polarity": "canary", "layer": "unit", "match": ["INFO: bare `...` placeholder"], "note": "hdfs_configuration runtime.yaml snippet uses bare `...` placeholder lines -> not paste-able YAML; carried over verbatim from zh. Canary: if the snippet is ever made valid (e.g. '# ...' comments), this INFO disappears" }
+  ],
+  "liveNote": "No live layer: docs-only PR; no controller, CRD or runtime code is touched."
+}
