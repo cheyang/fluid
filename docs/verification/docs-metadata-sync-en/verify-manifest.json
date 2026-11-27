@@ -1,0 +1,32 @@
+{
+  "topic": "docs-metadata-sync-en",
+  "pr": "https://github.com/fluid-cloudnative/fluid/pull/6295",
+  "harnessPaths": [
+    "docs/verification/docs-metadata-sync-en"
+  ],
+  "premise": {
+    "id": "P0",
+    "claim": "docs/zh/samples/metadata_sync.md (配置元信息同步策略) has no English version, so English readers can't find how to turn off spec.management.metadataSyncPolicy.autoSync",
+    "reportedComponent": "docs/en/samples (English documentation set)",
+    "patchedComponent": "docs/en/samples/metadata_sync.md + docs/en/TOC.md",
+    "componentMatch": true,
+    "runsAgainst": "base",
+    "layer": "unit",
+    "verdict": "confirmed",
+    "evidence": "docs/en/samples/metadata_sync.md absent and docs/en/TOC.md lacks any metadata_sync entry at merge-base b8ff60e309c341b58a9e26b085b76e6067e6bb60 (see results/premise-base.txt)",
+    "match": ["TestTOCEntryPresent"]
+  },
+  "layers": {
+    "unit": {
+      "kind": "gotest",
+      "cmd": "python3 docs/verification/docs-metadata-sync-en/scripts/doc_checks.py --repo-root ."
+    }
+  },
+  "findings": [
+    { "id": "D1", "polarity": "contract", "layer": "unit", "match": ["TestCodeBlockParityEnZh"] },
+    { "id": "D2", "polarity": "contract", "layer": "unit", "match": ["TestRelativeLinksResolve"] },
+    { "id": "D3", "polarity": "contract", "layer": "unit", "match": ["TestTOCEntryPresent"] },
+    { "id": "D4", "polarity": "contract", "layer": "unit", "match": ["TestAPIFieldMatchesDoc"] }
+  ],
+  "liveNote": "L3 not needed for this docs-only PR per round policy; external Alluxio/mirror URLs were curl-checked manually during review (all 200 except the tuna mirror which returns 403 to bots but is the same URL already used by docs/en/samples/accelerate_data_accessing.md)."
+}

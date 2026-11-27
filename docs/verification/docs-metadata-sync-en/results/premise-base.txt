@@ -1,0 +1,4 @@
+P0 premise check (runsAgainst: base b8ff60e309c341b58a9e26b085b76e6067e6bb60)
+- git show b8ff60e:docs/en/samples/metadata_sync.md -> exit nonzero (file absent)
+- git show b8ff60e:docs/en/TOC.md | grep -c metadata_sync -> 0 (no TOC entry)
+verdict: confirmed — the English page does not exist on the base branch.
