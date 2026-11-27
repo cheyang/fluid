@@ -1,0 +1,5 @@
+TestDescribeRuntimeAgainstEnvtest/alluxio	pass
+TestDescribeRuntimeAgainstEnvtest/curvine	pass
+TestDescribeRuntimeAgainstEnvtest/jindo	pass
+TestDescribeRuntimeAgainstEnvtest/juicefs	pass
+TestDescribeRuntimeAgainstEnvtest	pass

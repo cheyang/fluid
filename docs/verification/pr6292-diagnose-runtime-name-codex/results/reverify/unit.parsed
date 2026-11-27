@@ -1,0 +1,5 @@
+TestDescribeRuntimeUsesRequestedName_Stub/alluxio	pass
+TestDescribeRuntimeUsesRequestedName_Stub/curvine	pass
+TestDescribeRuntimeUsesRequestedName_Stub/jindo	pass
+TestDescribeRuntimeUsesRequestedName_Stub/juicefs	pass
+TestDescribeRuntimeUsesRequestedName_Stub	pass
